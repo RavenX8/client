@@ -1,0 +1,18 @@
+fn find_skin_modifier mynode =
+(
+	for obj in mynode.modifiers
+		where classof obj == Skin
+			do return obj
+	return undefined
+)
+
+fn get_skin_bone_names myskin = 
+(
+	max modify mode
+	num_bones = skinOps.getNumberBones myskin
+	nameflag_index = 0
+	bone_names = for bone_index = 1 to num_bones collect skinOps.getBoneName myskin bone_index nameflag_index
+)
+
+sk = find_skin_modifier $
+get_skin_bone_names sk

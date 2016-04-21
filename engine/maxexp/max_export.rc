@@ -1,0 +1,236 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 187, 100
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "어바웃 대화상자"
+FONT 10, "System", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,43,79,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,95,79,50,14
+    LTEXT           "znzin exporter ver 1.0",IDC_STATIC,61,34,87,21
+END
+
+IDD_MOTION_EXPORT_OPTION DIALOGEX 0, 0, 137, 124
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "znzin motion export options"
+FONT 10, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Type",IDC_STATIC,5,4,65,64
+    CONTROL         "Biped(Bone)",IDC_TYPE_BIPED,"Button",BS_AUTORADIOBUTTON,11,16,52,8
+    CONTROL         "Camera",IDC_TYPE_CAMERA,"Button",BS_AUTORADIOBUTTON,11,29,52,8
+    CONTROL         "Morph",IDC_TYPE_MORPH,"Button",BS_AUTORADIOBUTTON,11,42,52,8
+    CONTROL         "Ascii output",IDC_ASCIIOUTPUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,75,7,56,14
+    DEFPUSHBUTTON   "OK",IDOK,81,86,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,81,104,50,14
+    CONTROL         "Object",IDC_TYPE_OBJECT,"Button",BS_AUTORADIOBUTTON,11,55,52,8
+    GROUPBOX        "Object anim",IDC_STATIC,5,71,66,47
+    CONTROL         "Position",IDC_ANIM_POSITION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,80,57,11
+    CONTROL         "Rotation",IDC_ANIM_ROTATION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,92,57,11
+    CONTROL         "Scale",IDC_ANIM_SCALE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,104,57,11
+END
+
+IDD_MODEL_EXPORT_OPTION DIALOGEX 0, 0, 179, 61
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "znzin model export options"
+FONT 10, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,101,8,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,101,27,50,14
+    CONTROL         "ascii output",IDC_ASCIIOUTPUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,20,68,14
+END
+
+IDD_CAMERA_EXPORT_OPTION DIALOGEX 0, 0, 158, 93
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "znzin camera export options"
+FONT 9, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,35,67,50,13
+    PUSHBUTTON      "Cancel",IDCANCEL,95,67,50,13
+    CONTROL         "ASCII output",IDC_ASCIIOUTPUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,49,22,65,13
+END
+
+IDD_MESH_EXPORT_OPTION DIALOGEX 0, 0, 181, 73
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "znzin mesh export options"
+FONT 10, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,119,34,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,119,51,50,14
+    CONTROL         "Text output",IDC_ASCIIOUTPUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,52,68,14
+    CONTROL         "모퍼용 메시",IDC_NOT_SHARE_VERTEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,19,81,15
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_MOTION_EXPORT_OPTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 131
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 118
+    END
+
+    IDD_MODEL_EXPORT_OPTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 20
+        RIGHTMARGIN, 151
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 53
+    END
+
+    IDD_CAMERA_EXPORT_OPTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 11
+        RIGHTMARGIN, 145
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 80
+    END
+
+    IDD_MESH_EXPORT_OPTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 15
+        RIGHTMARGIN, 169
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 65
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_ZHOLOGO             BITMAP                  "zhologo.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_LIBDESCRIPTION      "znzin exporter"
+    IDS_LONGDESC            "znExporter v.1.0"
+    IDS_SHORTDESC           "znExporter"
+    IDS_COPYRIGHT           "Copyright (c) 2002, 2003 트리거 소프트"
+    IDS_PROGRESS_MSG        "Progressing..."
+    IDS_CATEGORY            "STANDARD"
+    IDS_CLASSNAME_MODEL     "Znzin Model"
+    IDS_CLASSNAME_MOTION    "Znzin Motion"
+    IDS_CLASSNAME_CAMERA    "Znzin Camera"
+    IDS_EXT_MODEL           "zmd"
+    IDS_EXT_MOTION          "zmo"
+    IDS_EXT_CAMERA          "zca"
+    IDS_AUTHORNAME          "최지호"
+    IDS_CLASSNAME_MESH      "Znzin Mesh"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_EXT_MESH            "zms"
+    IDS_SHORTDESC_MESH      "znzin 익스포트: 메시"
+    IDS_SHORTDESC_MODEL     "znzin 익스포트: 모델"
+    IDS_SHORTDESC_MOTION    "znzin 익스포트: 모션"
+    IDS_SHORTDESC_CAMERA    "znzin 익스포트: 카메라"
+    IDS_LONGDESC_MESH       "znzin 메시 익스포터입니다"
+    IDS_LONGDESC_MODEL      "znzin 모델 익스포터입니다"
+    IDS_LONGDESC_MOTION     "znzin 모션 익스포터입니다"
+    IDS_LONGDESC_CAMERA     "znzin 카메라 익스포터입니다"
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
