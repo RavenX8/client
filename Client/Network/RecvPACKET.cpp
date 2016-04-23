@@ -4146,28 +4146,28 @@ void CRecvPACKET::Recv_gsv_SERVER_DATA()
 			memcpy( &Data, m_pRecvPacket->m_gsv_SERVER_DATA.m_pDATA, sizeof( EconomyData ));
 
 
-			sprintf( g_MsgBuf,"기준인구수:%d", Data.m_nTown_POP_BASE );
+			sprintf( g_MsgBuf,"Based on population:%d", Data.m_nTown_POP_BASE );
 			g_itMGR.AppendChatMsg(g_MsgBuf, g_dwYELLOW );
 
-			sprintf( g_MsgBuf,"기준 발전도:%d", Data.m_nTown_DEV_BASE );
+			sprintf( g_MsgBuf,"Also based on the development:%d", Data.m_nTown_DEV_BASE );
 			g_itMGR.AppendChatMsg(g_MsgBuf, g_dwYELLOW );
 
 			for( int i = 1; i < MAX_PRICE_TYPE; ++i )
 			{
-				sprintf( g_MsgBuf,"아이템별 소비량(%d):%d", i,Data.m_nTown_CONSUM[i] );
+				sprintf( g_MsgBuf,"Consumption per item(%d):%d", i,Data.m_nTown_CONSUM[i] );
 				g_itMGR.AppendChatMsg(g_MsgBuf, g_dwYELLOW );
 			}
 
-			sprintf( g_MsgBuf,"마을 발전도:%d", Data.m_nTownDEV );
+			sprintf( g_MsgBuf,"The village also developed:%d", Data.m_nTownDEV );
 			g_itMGR.AppendChatMsg(g_MsgBuf, g_dwYELLOW );
 
-			sprintf( g_MsgBuf,"마을 인구:%d", Data.m_iTownPOP );
+			sprintf( g_MsgBuf,"Village Population:%d", Data.m_iTownPOP );
 			g_itMGR.AppendChatMsg(g_MsgBuf, g_dwYELLOW );
 
 
 			for( int i = 1; i < MAX_PRICE_TYPE; ++i )
 			{
-				sprintf( g_MsgBuf,"아이템별 보유량(%d):%d", i,Data.m_iTownITEM[i] );
+				sprintf( g_MsgBuf,"Item-specific reserves(%d):%d", i,Data.m_iTownITEM[i] );
 				g_itMGR.AppendChatMsg(g_MsgBuf, g_dwYELLOW );
 			}
 
