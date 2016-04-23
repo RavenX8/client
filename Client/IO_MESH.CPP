@@ -11,10 +11,6 @@ bool CMeshLIST::Load_FILE (tagFileDATA<HNODE> *pHNODE)
 
 	pHNODE->m_DATA = ::loadMesh(szName, pHNODE->m_FileName.Get() );
 
-	if ( pHNODE->m_DATA == NULL ) {
-		int kkkk = 0;
-	}
-
 	return ( pHNODE->m_DATA != NULL );
 }
 void CMeshLIST::Free_FILE (tagFileDATA<HNODE> *pHNODE)

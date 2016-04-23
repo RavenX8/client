@@ -175,7 +175,7 @@ CGAMEDATA::CGAMEDATA ()
 	m_bJustObjectLoadMode	= false;
 
 #ifdef _DEBUG
-	m_bObserverCameraMode	= false;; /// 디버깅용 업져버 카메라..
+	m_bObserverCameraMode	= false; /// 디버깅용 업져버 카메라..
 #endif
 
 	m_iReceivedAvatarEXP	= 0;

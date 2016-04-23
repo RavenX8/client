@@ -123,7 +123,10 @@ public  :
 		m_BBMax[0] = m_BBMax[1] = m_BBMax[2] = 0.0f;
 
 		m_iCylinderRadius = 0;
-	    
+		
+		m_iCylinderX = 0;
+		m_iCylinderY = 0;
+	    m_nPartCNT = 0;
 	}
 
 	~CMODEL ()		{	this->Free ();													}

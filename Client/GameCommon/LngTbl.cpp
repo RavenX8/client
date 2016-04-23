@@ -177,7 +177,7 @@ bool AStringTable::Load (const char *szFileName)
 
 			if(m_pFS->Seek ( lDataPOS, FILE_POS_SET) == true)
 			{
-				m_pData = (WCHAR *)new char[ lReadSize ];
+				m_pData = (WCHAR *)(new char[ lReadSize ]);
 				if(m_pData)
 				{
 					m_pFS->Read ((void *)m_pData, sizeof (char) * lReadSize);
@@ -283,7 +283,7 @@ int AStringTable::FindEmptyRow (void)
 
 CLtbManager::CLtbManager ()
 {
-	m_LngType	= LANGUAGE_KOR;
+	m_LngType	= LANGUAGE_USA;
 	m_pAI		= NULL;
 	m_pQuest	= NULL;
 	m_pEvent	= NULL;

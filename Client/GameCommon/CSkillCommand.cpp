@@ -256,7 +256,7 @@ bool CBasicCommand::Execute()
 				int iItemType = g_pAVATAR->m_Inventory.m_ItemRIDE[ 0 ].GetTYPE();
 				int iItemNo   = g_pAVATAR->m_Inventory.m_ItemRIDE[ 0 ].GetItemNO();
 
-				if( CCountry::GetSingleton().IsApplyNewVersion() )
+//				if( CCountry::GetSingleton().IsApplyNewVersion() )
 				{
 					switch( ZONE_RIDING_REFUSE_FLAG( g_pTerrain->GetZoneNO() ) )
 					{

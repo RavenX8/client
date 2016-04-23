@@ -230,7 +230,7 @@ CpC::~CpC ()
 }
 void CpC::Default ()
 {
-	m_pCRANDOM->Init( 4379238 );
+	m_pCRANDOM->Init( 0x0042D266 );
 
 	short nT, nI;
 	for (nT=0; nT<=RANDOM_TABLE_COUNT; nT++) {

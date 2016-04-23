@@ -1124,10 +1124,8 @@ void IT_MGR::AppendChatMsg( const char* pszMsg, int iType ,DWORD forceapply_colo
 			dwColor = c_dwChatColorNotice;
 
 		iFilterType = CChatDLG::FILTER_SYSTEM;
-#ifdef FRAROSE
 		pChatDlg->AppendMsg2( pszMsg, dwColor, iFilterType );
 		return;
-#endif
 		break;
 	case CHAT_TYPE_SYSTEM:
 		if( forceapply_color )
@@ -1136,10 +1134,8 @@ void IT_MGR::AppendChatMsg( const char* pszMsg, int iType ,DWORD forceapply_colo
 			dwColor = c_dwChatColorSystem;
 
 		iFilterType = CChatDLG::FILTER_SYSTEM;
-#ifdef FRAROSE
 		pChatDlg->AppendMsg2( pszMsg, dwColor, iFilterType );
 		return;
-#endif
 		break;
 	case CHAT_TYPE_QUEST:
 		if( forceapply_color )
@@ -1148,10 +1144,8 @@ void IT_MGR::AppendChatMsg( const char* pszMsg, int iType ,DWORD forceapply_colo
 			dwColor = c_dwChatColorQuest;
 		
 		iFilterType = CChatDLG::FILTER_SYSTEM;
-#ifdef FRAROSE
 		pChatDlg->AppendMsg2( pszMsg, dwColor, iFilterType );
 		return;
-#endif
 		break;
 	case CHAT_TYPE_QUESTREWARD:
 		if( forceapply_color )
@@ -1160,10 +1154,8 @@ void IT_MGR::AppendChatMsg( const char* pszMsg, int iType ,DWORD forceapply_colo
 			dwColor = c_dwChatColorQuestReward;
 
 		iFilterType = CChatDLG::FILTER_SYSTEM;
-#ifdef FRAROSE
 		pChatDlg->AppendMsg2( pszMsg, dwColor, iFilterType );
 		return;
-#endif
 		break;
 	case CHAT_TYPE_TRADE:
 		if( forceapply_color )

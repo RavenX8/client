@@ -156,7 +156,7 @@ int CGameStateWarp::Leave( int iNextStateID )
 
 
 	///카트, 캐슬기어 이용불가 지역에 카트, 캐슬기어 탑승하고 입장시 강제로 내리게 한다.
-	if( CCountry::GetSingleton().IsApplyNewVersion() && g_pAVATAR->GetPetMode() >= 0 )
+	if( g_pAVATAR->GetPetMode() >= 0 )
 	{
 		int iItemType = g_pAVATAR->m_Inventory.m_ItemRIDE[ 0 ].GetTYPE();
 		int iItemNo   = g_pAVATAR->m_Inventory.m_ItemRIDE[ 0 ].GetItemNO();

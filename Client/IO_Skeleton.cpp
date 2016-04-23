@@ -49,12 +49,10 @@ bool CSKELETON::Load (char *szSTBFile)
 }
 void CSKELETON::Free ()
 {
-	short nI;
-
 	CFileLIST< HNODE >::Free ();
 
 	if ( m_ppDATA ) {
-		for (nI=0; nI<m_nDataCNT; nI++)
+		for (short nI=0; nI<m_nDataCNT; nI++)
 			SAFE_DELETE_ARRAY( m_ppDATA[ nI ] );
 
 		SAFE_DELETE_ARRAY( m_ppDATA );

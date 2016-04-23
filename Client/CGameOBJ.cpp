@@ -18,6 +18,7 @@ CGameOBJ::CGameOBJ ()
 	m_nIndex = 0;
 
 	m_iSpecialUserData = 0;
+	m_pListNODE = NULL;
 }
 CGameOBJ::~CGameOBJ ()
 {

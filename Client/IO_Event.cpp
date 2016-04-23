@@ -15,7 +15,6 @@ CEventLIST::CEventLIST () : CFileLIST< CEvent* >("EVT")
 bool CEventLIST::Load_FILE (tagFileDATA< CEvent* > *pDATA)
 {
 	if ( pDATA->m_DATA ) {
-		int kkkk = 0;
 		return false;
 	}
 
@@ -70,7 +69,7 @@ bool CEventLIST::Run_EVENT( int iOwnerObjIDX, char *szQuestFILE, short nEventIDX
 		
 		pEvent->SetEventDlgType( iEventDlgType );
 
-		pEvent->m_iOwnerObjIDX = iOwnerObjIDX;			 
+		pEvent->m_iOwnerObjIDX = iOwnerObjIDX;
 		bool bReturn = pEvent->Start( nEventIDX );
 
 		// if ( !bReturn )	this->Del_EVENT( HashKEY );

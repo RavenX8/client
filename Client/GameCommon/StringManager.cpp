@@ -111,7 +111,7 @@ int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX *lpelfe,
 //------------------------------------------------------------------------------------------
 CStringManager::CStringManager(void)
 {
-	m_iLanguageType	= LANGUAGE_KOR;
+	m_iLanguageType	= LANGUAGE_USA;
 	m_strNull = "";
 
 }

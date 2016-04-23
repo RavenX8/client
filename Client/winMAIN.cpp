@@ -18,7 +18,6 @@
 //*-------------------------------------------------------------------------------------------------------------------*
 
 #include "stdafx.h"
-#define AROSE
 
 #include "CApplication.h"
 #include "Game.h"
@@ -37,14 +36,13 @@
 #include "Country.h"
 //#include "nProtect/nProtect.h"
 
-#include "MiniDumper.h"
-
-MiniDumper g_MiniDump;
-
 ///#include "Util/JDebugNew.h"
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+#include "MiniDumper.h"
+
+//MiniDumper g_MiniDump;
 
 
 
@@ -165,6 +163,16 @@ bool IsDuplicateApp (void)
 //-------------------------------------------------------------------------------------------------
 int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
+#ifdef _DEBUG
+	// This will check for memory leaks.  They will show up in your
+	// output window along with the line number.  Replace the 
+	// -1 argument in the second call with the allocation number
+	// and then trace back through the call stack to find the leak.
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetBreakAlloc(-1L);
+#endif
+	MiniDumper g_MiniDump;
+
 #ifdef _USE_BG
 	SetExceptionReport();
 #endif
@@ -332,22 +340,11 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 	g_pCApp->Destroy ();
 	g_pNet->Destroy ();
 
-	//-------------------------------------------------------------------------------
-	///2004/3/26/nAvy:Release 구성에서 Debug Mode(F5로실행)로 실행시 로그인 화면에서 취소하면
-	///Error난다. 이유 모름 , 하지만 그냥 실행시에는 (bat파일로 혹은 ctrl+f5) Error가 안난다.
-	//-------------------------------------------------------------------------------		
-	g_pCRange->Destroy ();	
-
-	/*if( g_hUnicows )
-	{
-	FreeLibrary( g_hUnicows );
-	g_hUnicows = NULL;
-	}*/
-
-	//CCheckHack::GetSingleton().Release();
-
-	/*if( m_nProtectSys.IsGetUse() && m_nProtectSys.IsGameExit() )
-	MessageBox( NULL, m_nProtectSys.GetHacking_Msg(),"GameGuard Error",MB_OK );*/
+		//-------------------------------------------------------------------------------
+		///2004/3/26/nAvy:Release 구성에서 Debug Mode(F5로실행)로 실행시 로그인 화면에서 취소하면
+		///Error난다. 이유 모름 , 하지만 그냥 실행시에는 (bat파일로 혹은 ctrl+f5) Error가 안난다.
+		//-------------------------------------------------------------------------------		
+		g_pCRange->Destroy ();
 
 	return 0;
 }

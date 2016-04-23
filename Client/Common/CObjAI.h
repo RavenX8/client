@@ -158,7 +158,7 @@ protected :
 	virtual bool		Skill_START (CObjCHAR *pTarget)=0{ *(int*)0 = 10; };
 	virtual bool		Casting_START( CObjCHAR* pTarget )=0{ *(int*)0 = 10; };
 	virtual void		Casting_END ()=0{ *(int*)0 = 10; };
-	virtual void		MoveStart (){ *(int*)0 = 10; };
+	virtual void		MoveStart ()=0{ *(int*)0 = 10; };
 
 	virtual bool		ToggleRunMODE ( float fAdjRate )				{	return true;	}
 	virtual bool		ToggleSitMODE ()				{	return true;	}

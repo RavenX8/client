@@ -541,8 +541,8 @@ bool CGame::Load_BasicDATA2()
 	g_SkillList.LoadSkillTable	( "3DData\\STB\\LIST_SKILL.STB" );
 
 	///NEW VERSION 용 데이타 로딩
-	if( CCountry::GetSingleton().IsApplyNewVersion() )
-		Load_NewVersionData();
+// 	if( CCountry::GetSingleton().IsApplyNewVersion() )
+// 		Load_NewVersionData();
 
 	/// NPC 테이블
 	g_TblNPC.Load2				( "3DDATA\\STB\\LIST_NPC.STB",		true, false );

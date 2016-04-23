@@ -69,7 +69,7 @@ bool CCountry::IsApplyNewVersion()
 	//}
 
 	//return false;
-	return true;
+	return false;
 }
 
 //*-----------------------------------------------------------------------------------------/

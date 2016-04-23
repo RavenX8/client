@@ -21,6 +21,7 @@ private:
 
 	int							m_iJob;
 	int							m_iLevel;
+	short						m_nZoneNO;
 	DWORD						m_dwDeleteRemainSEC;
 
 	/// Model nodes..
@@ -154,11 +155,13 @@ public:
 
 	void SetJob( int iJob ){ m_iJob = iJob; }
 	void SetLevel( int iLevel ){ m_iLevel = iLevel; }
+	void SetZone( short iZone ){ m_nZoneNO = iZone; }
 	void SetDeleteRemainSEC( DWORD dwRemainSEC ){ m_dwDeleteRemainSEC = dwRemainSEC; }
 	bool IsPlatinum();
 	void SetPlatinum(bool platinum);
 	int  GetJob(){ return m_iJob; }
 	int  GetLevel(){ return m_iLevel; }
+	int  GetZone(){ return m_nZoneNO; }
 	DWORD GetDeleteRemainSEC(){ return m_dwDeleteRemainSEC; }
 
 	bool	IsFemale(){ return m_bIsFemale?true:false; }

@@ -635,11 +635,10 @@ enum t_AbilityINDEX {
 	AT_PSV_IMMUNITY,
 	AT_AFTER_PASSIVE_SKILL_2ND,
 
-#ifdef FRAROSE
-	AT_EXP_BOOST				= 106,
-	AT_DROP_BOOST				= 107,
-	AT_EXP_NONE					= 108,
-#endif
+	
+	AT_EXP_BOOST				= 106,// Raven
+	AT_DROP_BOOST				= 107,// Raven
+	AT_EXP_NONE					= 108,// Raven
 	AT_MAX
 } ;
 

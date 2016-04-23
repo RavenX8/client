@@ -79,7 +79,7 @@ int CGameStateSelectAvatar::Enter( int iPrevStateID )
 	g_EUILobby.CreateAvataListDlg();
 
 	//박지호::아로아 데이터 초기화 
-	if(CCountry::GetSingleton().IsApplyNewVersion())
+//	if(CCountry::GetSingleton().IsApplyNewVersion())
 		goddessMgr.Release();
 
 	return 0;

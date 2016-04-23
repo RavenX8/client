@@ -293,6 +293,7 @@ CFixedPART::CFixedPART ()
 	m_Scale = D3DXVECTOR3( 1,1,1 );
 
 	m_nRangeSet = 0;
+	m_nUseLightMap = 0;
 }
 
 /// @bug collision level 성정 이상하다..

@@ -648,11 +648,7 @@ CSkillManager::~CSkillManager()
 
 	for( int i = 0; i < MAX_QUICK_COMMAND; i++ )
 	{
-		if( g_QuickCommandPool[ i ] != NULL )
-		{
-			delete g_QuickCommandPool[ i ];
-			g_QuickCommandPool[ i ] = NULL;
-		}
+		SAFE_DELETE(g_QuickCommandPool[ i ])
 	}
 }
 

@@ -14,11 +14,6 @@
 
 ////005. 5. 23 박 지호
 //#include "../nProtect/NProtect.h"
-#ifdef RUSH_ROSE
-	#define PACKET_SEED 0x45AFFCD
-#else
-	#define PACKET_SEED 0x6648495
-#endif
 
 CNetwork *g_pNet;
 
@@ -129,7 +124,7 @@ void CNetwork::Proc_WorldPacket ()
 								bAllInONE = true;
 								break;
 							case NS_CON_TO_LSV :	// 로긴 서버에 접속했다.
-								//pSocket->mF_Init( 0 );
+								pSocket->mF_Init( 0 );
 								Send_cli_HEADER( CLI_ACCEPT_REQ ,true );
 								break;
 						}
@@ -532,9 +527,10 @@ void CNetwork::Proc_ZonePacket ()
 				Recv_gsv_SET_MONEYnINV ();
 				break;
 
-			case GSV_REWARD_ITEM  :		/// 퀘스트 보상에 의해 아이템이 변경
+			case GSV_REWARD_ITEM  :
 			{
 				Recv_gsv_REWARD_ITEM();
+				// Missing break is intentional.
 			}
 
 			case GSV_SET_INV_ONLY :

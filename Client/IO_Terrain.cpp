@@ -365,10 +365,6 @@ short CQuadPatchManager::ViewCullingFunc2(D3DVECTOR *min,D3DVECTOR *max)
 
 bool CQuadPatchManager::IntersectRayOnOff(aabbBox* box)
 {
-    float vMin[3], vMax[3];
-     
-	vMin[0] = box->x[0]; vMin[1] = box->y[0]; vMin[2] =box->z[0];
-    vMax[0] = box->x[1]; vMax[1] = box->y[1]; vMax[2] =box->z[1];
 
 	return false;//::intersectRayAABB(vMin, vMax, m_RayPosition[0], m_RayPosition[1], m_RayPosition[2], m_RayDirection[0], m_RayDirection[1], m_RayDirection[2]); 
 }
@@ -596,6 +592,13 @@ CMAP_PATCH::CMAP_PATCH ()
 {	
 	m_pMAP = NULL;
 	m_PreDrawingType=-1;
+	m_nPatchXFromMAP = 0;
+	m_nPatchYFromMAP = 0;
+	//m_aabb = 0;
+	ZeroMemory(&m_aabb, sizeof(aabbBox));
+	m_DrawingType = 0;
+	ExPatchEnable = FALSE;
+	ObjectOnOff = FALSE;
 	InitMember();
 }
 
@@ -1142,6 +1145,11 @@ CMAP::CMAP ()
 	// 추가된 코드 by zho
 	m_nXPatchCnt = 0;
 	m_nYPatchCnt = 0;
+	//m_fPatchHeightMN = 0;
+	//m_fQuadPatchHeightMN = 0;
+	ZeroMemory(&m_fPatchHeightMN, sizeof(m_fPatchHeightMN));
+	ZeroMemory(&m_fQuadPatchHeightMN, sizeof(m_fQuadPatchHeightMN));
+
 
 	ZeroMemory( m_PATCH, sizeof( m_PATCH ) );
 }
@@ -1432,7 +1440,7 @@ void CMAP::ReadOceanINFO ( CFileSystem* pFileSystem, long lOffset)
 							fW, fH,
 							(int)(fW/fSize), 
 							(int)(fH/fSize),
-							g_DATA.Get_OceanMAT(),									// material
+							g_DATA.Get_OceanMAT(),						// material
 							g_GameDATA.m_hLight );						// light
 		if ( hOceanBlock ) 
 		{
@@ -2497,7 +2505,7 @@ bool CTERRAIN::LoadZONE(short nZoneNO,bool bPlayBGM )
 
 	if( bPlayBGM )
 	{
-		if( CMusicMgr::GetSingleton().bIsReady() )
+		if( CMusicMgr::GetSingleton().bIsReady() && g_ClientStorage.GetBgmVolumeIndex() )
 		{
 			///CBGMManager::GetSingleton().EndTransition();
 
@@ -3200,7 +3208,7 @@ bool CTERRAIN::AddOneMap(short nCenterMapXIDX,short nCenterMapYIDX,WORD wUpdateI
 ///
 bool CTERRAIN::AddMAP (short nCenterMapXIDX, short nCenterMapYIDX, WORD wUpdateFLAG, bool bAllUpdate, bool bImmediateLoad )
 {
-	short nI, nZoneMapXIDX, nZoneMapYIDX;
+	short nI;
 	CMAP *pMAP;
 	char *szMapFile;
 
@@ -3242,7 +3250,7 @@ bool CTERRAIN::AddMAP (short nCenterMapXIDX, short nCenterMapYIDX, WORD wUpdateF
 	}else
 	/// 다이렉트 로딩
 	{	
-
+		short nZoneMapXIDX, nZoneMapYIDX;
 		for (nI=0; s_AddSecIdx[ wUpdateFLAG ][ nI ]>=0; nI++) {
 			nZoneMapXIDX = nCenterMapXIDX + s_SecAdjPos[ s_AddSecIdx[ wUpdateFLAG ][ nI ] ].m_nX;
 			nZoneMapYIDX = nCenterMapYIDX + s_SecAdjPos[ s_AddSecIdx[ wUpdateFLAG ][ nI ] ].m_nY;
@@ -3366,8 +3374,8 @@ void CTERRAIN::SetCenterPosition (float fWorldX, float fWorldY)
 	short nZonePatchX, nZonePatchY;
 
 	//										4						250
-	int iWorldX=(int)fWorldX;
-	int iWorldY=(int)fWorldY;
+	//int iWorldX=(int)fWorldX;
+	//int iWorldY=(int)fWorldY;
 	nZonePatchX = (short) (fWorldX / (GRID_COUNT_PER_PATCH_AXIS * nGRID_SIZE ) );
 	nZonePatchY = (short) (fWorldY / (GRID_COUNT_PER_PATCH_AXIS * nGRID_SIZE ) );
 	nZoneMapX   = nZonePatchX / PATCH_COUNT_PER_MAP_AXIS;
@@ -3567,8 +3575,8 @@ void CTERRAIN::Update_VisiblePatch( short nMappingX, short nMappingY )
 ///
 CMAP_PATCH*	CTERRAIN::GetPatchFromWorld( float fWorldX, float fWorldY )
 {
-	int iWorldX=(int)fWorldX;
-	int iWorldY=(int)fWorldY;
+	//int iWorldX=(int)fWorldX;
+	//int iWorldY=(int)fWorldY;
 	int iZonePatchX = (short) (fWorldX / (GRID_COUNT_PER_PATCH_AXIS * nGRID_SIZE ) );
 	int iZonePatchY = (short) (fWorldY / (GRID_COUNT_PER_PATCH_AXIS * nGRID_SIZE ) );
 	int iZoneMapX   = iZonePatchX / PATCH_COUNT_PER_MAP_AXIS;

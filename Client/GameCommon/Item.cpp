@@ -1603,7 +1603,7 @@ void CItem::AddItemPatAddAbility( tagITEM& sItem, CInfo& Info )
 	}
 }
 
-#ifdef FRAROSE
+#ifdef NEWRARETYPE
 int CItem::GetItemRareType( int type, int no )
 {
 	switch( type )

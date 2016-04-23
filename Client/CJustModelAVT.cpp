@@ -7,7 +7,7 @@ CJustModelAVT::CJustModelAVT(void)
 {
 	m_btRace				= 0;
 	m_bIsFemale				= 0;
-
+	m_nZoneNO				= 7;
 	m_hNodeMODEL			= NULL;
 
 	for( int i = 0; i < MAX_BODY_PART; i++ )
@@ -47,7 +47,7 @@ void CJustModelAVT::SwitchState( int iID )
 //-------------------------------------------------------------------------------------------------
 bool CJustModelAVT::LoadModelNODE ( const char *szName)
 {
-	HNODE hSkel  = g_DATA.Get_SKELETON( m_bIsFemale );
+	HNODE hSkel  = g_DATA.Get_SKELETON( (m_bIsFemale==1? true : false) );
 	if ( hSkel == NULL ) 
 	{
 		LogString (LOG_NORMAL, "failed creat char.. SKEL == NULL !! \n");
@@ -122,8 +122,8 @@ void CJustModelAVT::Init( int iPartsArray[ MAX_BODY_PART ] )
 void CJustModelAVT::SetRace( BYTE btRace )
 {
 	m_btRace		= btRace;
-	m_bIsFemale		= btRace & 0x01;	
-	m_CharMODEL.Set_SEX( m_bIsFemale );
+	m_bIsFemale		= btRace & 0x01;
+	m_CharMODEL.Set_SEX( (m_bIsFemale==1? true : false) );
 }
 
 bool CJustModelAVT::SetPart( int iPartType, int iPartIDX )
@@ -213,7 +213,7 @@ bool CJustModelAVT::UpdateModel()
 	{
 		nItemIDX = m_nPartItemIDX[ nI ];		
 		
-		this->m_CharMODEL.SetPartMODEL( nI, nItemIDX );		
+		this->m_CharMODEL.SetPartMODEL( nI, nItemIDX );
 	}
 
 
@@ -295,7 +295,7 @@ void CJustModelAVT::SetPosition( float x, float y, float z )
 
 bool CJustModelAVT::SetMotion( int iMotionIDX ,int iRepeatCount )
 {
-	tagMOTION *pMOTION = g_MotionFILE.IDX_GetMOTION( iMotionIDX, m_bIsFemale );
+	tagMOTION *pMOTION = g_MotionFILE.IDX_GetMOTION( iMotionIDX, (m_bIsFemale==1 ? true : false) );
 	if ( !pMOTION ) 
 	{
 		return false;	

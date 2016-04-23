@@ -101,7 +101,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="颇老 汗荤"
+				Description="Copying Libs"
 				CommandLine="xcopy $(OutDir)\$(ProjectName).lib $(SolutionDir)\lib\$(PlatformName)\$(ConfigurationName) /s /Y"
 			/>
 		</Configuration>
@@ -118,7 +118,7 @@
 				Name="VCPreBuildEventTool"
 				Description="Increasing Build Count"
 				CommandLine="cd $(SolutionDir)\engine\include&#x0D;&#x0A;$(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua&#x0D;&#x0A;"
-				ExcludedFromBuild="false"
+				ExcludedFromBuild="true"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1501,10 +1501,11 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
-							Description="zz_script_lua.inc 颇老 积己"
+							Description="zz_script_lua.inc"
 							CommandLine="cd $(SolutionDir)\engine\include\&#x0D;&#x0A;$(SolutionDir)\3rdParty\bin\lua5.exe $(InputPath)&#x0D;&#x0A;"
 							AdditionalDependencies="$(SolutionDir)\engine\include\zz_interface.h"
 							Outputs="$(SolutionDir)\engine\include\zz_script_lua.inc"

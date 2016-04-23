@@ -11,6 +11,12 @@ tagMORPHER::tagMORPHER ()
 	m_HashMESH = NULL;
 	m_HashANI = NULL;
 	m_HashMAT = NULL;
+	m_nAlphaTest = NULL;
+	m_nZTest = NULL;
+	m_nZWrite = NULL;
+	m_nSrcBlend = NULL;
+	m_nDestBlend = NULL;
+	m_nBlendOP = NULL;
 }
 tagMORPHER::~tagMORPHER ()
 {
@@ -28,6 +34,8 @@ tagMORPHER::~tagMORPHER ()
 //-------------------------------------------------------------------------------------------------
 CMorpherDATA::CMorpherDATA ()
 {
+	m_pMorpher = NULL;
+	m_nDataCNT = NULL;
 }
 CMorpherDATA::~CMorpherDATA ()
 {

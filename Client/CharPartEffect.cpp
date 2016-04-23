@@ -3,6 +3,7 @@
 
 CCharPartEffect::CCharPartEffect(void)
 {
+	m_ppEFFECT = 0;
 }
 
 CCharPartEffect::~CCharPartEffect(void)

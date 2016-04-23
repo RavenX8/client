@@ -135,6 +135,7 @@ void CEffectDATA::Free (void)
 {
 	SAFE_DELETE_ARRAY( m_pParticle );
 	SAFE_DELETE_ARRAY( m_pMeshAni );
+	m_Name.Del();
 }
 
 bool CEffectDATA::Load (char *szFileName)

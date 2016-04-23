@@ -1775,8 +1775,10 @@ BYTE CUserDATA::Skill_LEARN( short nSkillSLOT, short nSkillIDX, bool bSubPOINT )
 	BYTE btReturn = 0;
 
 	// 스킬 포인트 소모 - 습득시에도 소모되도록 수정, 2004. 3. 16
-	if ( bSubPOINT ) 
+	if ( bSubPOINT ){
 		this->SetCur_SkillPOINT( this->GetCur_SkillPOINT() - SKILL_NEED_LEVELUPPOINT(nSkillIDX) );
+		this->SetCur_MONEY( this->GetCur_MONEY() - SKILL_LEVELUP_NEED_ZULY(nSkillIDX) * 100 );
+	}
 
 	short nBeforeSkill = this->m_Skills.m_nSkillINDEX[ nSkillSLOT ];
 	this->m_Skills.m_nSkillINDEX[ nSkillSLOT ] = nSkillIDX;		// 스킬 습득 !!!

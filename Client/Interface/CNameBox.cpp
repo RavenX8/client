@@ -352,20 +352,8 @@ void CNameBox::DrawAvatarName( float x, float y, float z, CObjCHAR* pCharOBJ, bo
 	DWORD dwColor = g_dwWHITE;
 	
 	const char* pName = pCharOBJ->Get_NAME();
-	int pLevel = pCharOBJ->Get_LEVEL();
-#if defined(RUSH_ROSE)
-	if(pLevel >= 220)
-		dwColor = g_dwVioletName;
-	else if(pLevel >= 210)
-		dwColor = g_dwRedName;
-	else if(pLevel >= 200)
-		dwColor = g_dwOrangeName;
-#else defined(FRAROSE)
-	if(pLevel == 255)
-		dwColor = 0xFFF7FF00;
-	else if(pLevel >= 200)
-		dwColor = 0xFFFF8400;
-#endif
+//	int pLevel = pCharOBJ->Get_LEVEL();
+
 	if( g_GameDATA.m_iPvPState  )/// PVP 모드라면..
 	{
 		if( CUserInputState::IsEnemy( (CObjAVT*)pCharOBJ ) )/// 내가 아닌 아바타라면 팀판별..
@@ -374,30 +362,24 @@ void CNameBox::DrawAvatarName( float x, float y, float z, CObjCHAR* pCharOBJ, bo
 
 	if( pName && strlen( pName ) > 3 )
 	{
-		if( pName[ 0 ] == '[' && pName[ 1 ] == 'G' && pName[ 2 ] == 'M' && pName[3 ] == ']' )
+		if( pName[ 0 ] == '[' && pName[ 1 ] == 'G' && pName[ 2 ] == 'M' && pName[3 ] == ']' ) // [GM]
 		{
 			dwColor = g_dwBLUE;
 		}
 
-		if( pName[ 0 ] == '[' && pName[ 1 ] == 'T' && pName[ 2 ] == 'M' && pName[3 ] == ']' )
+		if( pName[ 0 ] == '[' && pName[ 1 ] == 'T' && pName[ 2 ] == 'M' && pName[3 ] == ']' ) // [TM]
 		{
 			dwColor = g_dwBLUE;
 		}
-#ifdef FRAROSE	
-		if( pName[ 0 ] == '[' && pName[ 1 ] == 'D' && pName[ 2 ] == 'E' && pName[ 3 ] == 'V' && pName[ 4 ] == ']' )
+		if( pName[ 0 ] == '[' && pName[ 1 ] == 'D' && pName[ 2 ] == 'E' && pName[ 3 ] == 'V' && pName[ 4 ] == ']' ) // [DEV]
 		{
 			dwColor = g_dwPINK;
 		}
 
-		if( pName[ 0 ] == '[' && pName[ 1 ] == 'E' && pName[ 2 ] == 'V' && pName[ 3 ] == 'E' && pName[ 4 ] == 'N' && pName[ 5 ] == 'T' && pName[ 6 ] == ']' )
+		if( pName[ 0 ] == '[' && pName[ 1 ] == 'E' && pName[ 2 ] == 'V' && pName[ 3 ] == 'E' && pName[ 4 ] == 'N' && pName[ 5 ] == 'T' && pName[ 6 ] == ']' ) // [EVENT]
 		{
 			dwColor = g_dwGREEN;
 		}
-		if( pName[ 0 ] == '[' && pName[ 1 ] == 'C' && pName[ 2 ] == 'H' && pName[ 3 ] == 'A' && pName[ 4 ] == 'M' && pName[ 5 ] == 'P' && pName[ 6 ] == 'I' && pName[ 7 ] == 'O' && pName[ 8 ] == 'N' && pName[ 9 ] == ']')
-		{
-			dwColor = 0xFFBB001C;
-		}
-#endif
 	}
 
 
