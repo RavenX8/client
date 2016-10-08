@@ -717,7 +717,7 @@ void CNetwork::Proc ()
 	CshoClientSOCK *pSocket = &this->m_ZoneSOCKET;
 	while( m_ZoneSOCKET.Peek_Packet( m_pRecvPacket, true ) ) 
 	{
-		// LogString (LOG_DEBUG, "Packet_Proc:: Type: 0x%x, Size: %d \n", m_pRecvPacket->m_HEADER.m_wType, m_pRecvPacket->m_HEADER.m_nSize );
+		LogString (LOG_DEBUG, "Packet_Proc:: Type: 0x%x, Size: %d \n", m_pRecvPacket->m_HEADER.m_wType, m_pRecvPacket->m_HEADER.m_nSize );
 		switch( m_pRecvPacket->m_HEADER.m_wType ) {
 			case SOCKET_NETWORK_STATUS :
 			{
@@ -768,7 +768,7 @@ void CNetwork::Proc ()
 
 					CLiveCheck::GetSingleton().ResetTime();
 				} else {
-					// TODO:: error
+					// TODO:: error					
 					this->DisconnectFromServer ();
 					return;
 				}

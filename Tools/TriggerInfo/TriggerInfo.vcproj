@@ -144,7 +144,7 @@
 				AdditionalDependencies="winmm.lib d3d9.lib wininet.lib Version.lib dxguid.lib"
 				OutputFile="$(OutDir)/TriggerInfo.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\3rdParty\lib&quot;;&quot;$(DXSDK_DIR)\lib\x86&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\3rdParty\lib&quot;;&quot;$(DXSDK_DIR)\lib\x86&quot;;&quot;$(SolutionDir)\3rdParty\dx90csdk\Lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"

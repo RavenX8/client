@@ -271,8 +271,8 @@ int CGame::Init()
 	::activateLog (true);
 
 #ifdef	_DEBUG
-	CLOG::SetLogMODE ( LOG_NORMAL,	LOG_SCR );
-	CLOG::SetLogMODE ( LOG_NORMAL,	LOG_DBGOUT );
+	CLOG::SetLogMODE ( LOG_DEBUG,	LOG_SCR );
+	CLOG::SetLogMODE ( LOG_DEBUG,	LOG_DBGOUT );
 #else
 	CLOG::SetLogMODE ( 0,			LOG_SCR );
 	CLOG::SetLogMODE ( 0,			LOG_DBGOUT );

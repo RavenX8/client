@@ -5114,8 +5114,8 @@ void CObjAVT::Set_RareITEM_Glow(void)
 //	  return;
 
 	//대만과 필리핀에 적용됩니다. 수정 2005.6.20 nAvy
-// 	if( !CCountry::GetSingleton().IsApplyNewVersion() )
-// 		return;
+ 	if( !CCountry::GetSingleton().IsApplyNewVersion() )
+ 		return;
 
 	CInventory	m_Inventory;				
 	short		m_iType = 0;

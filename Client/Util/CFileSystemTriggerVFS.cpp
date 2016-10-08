@@ -251,7 +251,7 @@ int CFileSystemTriggerVFS::ReadPascalString( char* lpBuf, int iBufferLength )
 
 	if( iLength > iBufferLength )
 	{
-		assert( 0 && "Input buffer is not enough to fill data that readed from file( Pascal string )" );
+//		assert( 0 && "Input buffer is not enough to fill data that readed from file( Pascal string )" );
 		return 0;
 	}
 
