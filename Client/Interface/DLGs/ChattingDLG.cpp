@@ -851,7 +851,9 @@ int CChatDLG::GetActiveScrollBar()
 
 void CChatDLG::AppendMsg2sys( const char* pszMsg, DWORD dwColor , int iFilterType )
 {
+#ifndef _DEBUG
 	AppendMsg2ListBox( IDD_LISTBOX_TOP, IDD_SCROLLBAR_TOP, pszMsg, dwColor );
+#endif
 }
 
 void CChatDLG::AppendMsg2All( const char* pszMsg, DWORD dwColor , int iFilterType )
