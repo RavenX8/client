@@ -48,7 +48,7 @@ class CChangeVisibility;
 class CObjCHAR_Collision;
 class CObjFIXED;
 class CClanMarkUserDefined;
-//¹ÚÁöÈ£ 
+//ë°•ì§€í˜¸ 
 class CObjCART;
 class CObjAVT;
 ///
@@ -67,27 +67,27 @@ protected:
 
 
 	CChangeVisibility*			m_pChangeVisibility;
-	bool						m_bStopDead;			/// Stop »óÅÂ·Î »ç¸Á..( Áï Á×´Â ¸ğ¼ÇÀ¸·ÎÀÇ ÀüÈ¯ÀÌ ¾ø´Ù. )
+	bool						m_bStopDead;			/// Stop ìƒíƒœë¡œ ì‚¬ë§..( ì¦‰ ì£½ëŠ” ëª¨ì…˜ìœ¼ë¡œì˜ ì „í™˜ì´ ì—†ë‹¤. )
     
 
 public:
-	float						m_fHeightOfGround;		// ±âº» ÁöÇü¿¡¼­ Ä³¸¯ÅÍ Áß½ÉÁ¡ ³ôÀÌ( »ó´ë ³ôÀÌ )
-	bool						m_bDead;				/// ¼­¹ö·ÎºÎÅÍ Dead damage ¸¦ ¹Ş¾Ò´Â°¡?
-	/// ¼³Á¤»óÀÇ °íµµ( ºñÇàÀ¯´ÖÀÇ °íµµ )
+	float						m_fHeightOfGround;		// ê¸°ë³¸ ì§€í˜•ì—ì„œ ìºë¦­í„° ì¤‘ì‹¬ì  ë†’ì´( ìƒëŒ€ ë†’ì´ )
+	bool						m_bDead;				/// ì„œë²„ë¡œë¶€í„° Dead damage ë¥¼ ë°›ì•˜ëŠ”ê°€?
+	/// ì„¤ì •ìƒì˜ ê³ ë„( ë¹„í–‰ìœ ë‹›ì˜ ê³ ë„ )
 	float						m_fAltitude;
 
 protected :
-	CObjCHAR_Collision			* m_pCollision; // Ãæµ¹ Á¤º¸
-	float						m_fStature;				// ½ÅÀå(Å°)
+	CObjCHAR_Collision			* m_pCollision; // ì¶©ëŒ ì •ë³´
+	float						m_fStature;				// ì‹ ì¥(í‚¤)
 	float						m_fScale;
-	HNODE						m_hNodeGround; // ¹â°í ÀÖ´Â ¿ÀºêÁ§Æ®ÀÇ ¿£Áø ÇÚµé
+	HNODE						m_hNodeGround; // ë°Ÿê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ì˜ ì—”ì§„ í•¸ë“¤
 
-	bool						m_bUseResetPosZ; // Z°ªÀ» »õ·Î °»½ÅÇÒ Áö ¿©ºÎ.
-	float 						m_fResetPosZ; // »õ·Î °»½ÅÇÒ Z°ª. ´ÙÀ½ ³ôÀÌ °è»ê ¶§, ÀÌ °ªÀ¸·Î °»½ÅµÇ¾î¾ß ÇÑ´Ù.
-	float						m_fModelSPEED; // ¸ğµ¨ ÀÌµ¿ ¼Óµµ.
+	bool						m_bUseResetPosZ; // Zê°’ì„ ìƒˆë¡œ ê°±ì‹ í•  ì§€ ì—¬ë¶€.
+	float 						m_fResetPosZ; // ìƒˆë¡œ ê°±ì‹ í•  Zê°’. ë‹¤ìŒ ë†’ì´ ê³„ì‚° ë•Œ, ì´ ê°’ìœ¼ë¡œ ê°±ì‹ ë˜ì–´ì•¼ í•œë‹¤.
+	float						m_fModelSPEED; // ëª¨ë¸ ì´ë™ ì†ë„.
 
-	/// ÆÀÁ¤º¸..
-	int							m_iTeamInfo;			// ÆÀ Á¤º¸
+	/// íŒ€ì •ë³´..
+	int							m_iTeamInfo;			// íŒ€ ì •ë³´
 
 
 	void						Add_EFFECT(CMODEL<CCharPART> *pCharPART, short nPartIDX, short nPointIDX, t_HASHKEY HashEffectFILE, bool bLinkNODE=true );
@@ -104,7 +104,7 @@ protected:
 
 	CEffect						**m_ppBoneEFFECT;
 	short						m_nEffectPointCNT[ MAX_BODY_PART ];
-	CEffect						**m_pppEFFECT[ MAX_BODY_PART ];	// ±âº» È¿°ú.
+	CEffect						**m_pppEFFECT[ MAX_BODY_PART ];	// ê¸°ë³¸ íš¨ê³¼.
 
 	int							m_iLastDummyIDX;
 
@@ -116,7 +116,7 @@ protected:
 		HNODE					*m_phPartVIS[ MAX_BODY_PART ];
 		struct 
 		{
-			// ¼ø¼­´Â t_CharPART¿¡ µû¶ó¼­...
+			// ìˆœì„œëŠ” t_CharPARTì— ë”°ë¼ì„œ...
 			HNODE				*m_phFaceVIS;
 			HNODE				*m_phHairVIS;
 			HNODE				*m_phHelmetVIS;
@@ -147,9 +147,9 @@ protected:
 
 	union 
 	{
-		short					m_nCharIdx;		// NPC, MOB ¹øÈ£
-		bool					m_bIsFemale;	// ¾Æ¹ÙÅ¸: ³²ÀÚ0, ¿©ÀÚ 1
-		BYTE					m_btRace;		// Á¾Á·...
+		short					m_nCharIdx;		// NPC, MOB ë²ˆí˜¸
+		bool					m_bIsFemale;	// ì•„ë°”íƒ€: ë‚¨ì0, ì—¬ì 1
+		BYTE					m_btRace;		// ì¢…ì¡±...
 	} ;
 
 	
@@ -158,9 +158,9 @@ protected:
 	void						ActionEVENT (int iActionIDX);
 	
 	
-	DWORD						m_dwLastRecoveryUpdateTime;	///HP¿Í MP°¡ ÀÚµ¿ È¸º¹µÇ¾îÁø ÀÌÀü ½Ã°£	
-	DWORD						m_dwFrameElapsedTime;		/// ÀÌÀü Ã³¸®¿¡¼­.. Èå¸¥½Ã°£..
-	DWORD						m_dwElapsedTime;			/// ÀÌÀü Ã³¸®¿¡¼­.. Èå¸¥½Ã°£..
+	DWORD						m_dwLastRecoveryUpdateTime;	///HPì™€ MPê°€ ìë™ íšŒë³µë˜ì–´ì§„ ì´ì „ ì‹œê°„	
+	DWORD						m_dwFrameElapsedTime;		/// ì´ì „ ì²˜ë¦¬ì—ì„œ.. íë¥¸ì‹œê°„..
+	DWORD						m_dwElapsedTime;			/// ì´ì „ ì²˜ë¦¬ì—ì„œ.. íë¥¸ì‹œê°„..
 
 public:
 	void						ClearTimer();
@@ -183,10 +183,10 @@ private:
 
 	void						FireEffectBullet( CObjCHAR *pTarget, int iBulletIDX, bool bDummy, int iSkillIDX );
 
-	/// 44,64,75, 45,65,75 Ã³¸®..
+	/// 44,64,75, 45,65,75 ì²˜ë¦¬..
 	void						ShowCastingEffect( int iActionIDX );
 	void						ActionSkillCastingFrame( int iCastingOrder );
-	/// ¿¬Å¸°ø°İ È¿°ú( ´õ¹Ì.. )
+	/// ì—°íƒ€ê³µê²© íš¨ê³¼( ë”ë¯¸.. )
 	void						RepeatedlyHitEffect( int iHitOrder );
 
 
@@ -200,20 +200,20 @@ public:
 	void						Adjust_HEIGHT (void);
 	void						ResetCUR_POS( D3DXVECTOR3& Pos );
 
-	/// @brief ¼­¹ö¿¡¼­ ¹ŞÀº ³ôÀÌ°ªÀ¸·Î ´ÙÀ½¹ø Adjust_Height()¿¡¼­ °»½ÅµÇ´Â ³ôÀÌ°ª ¼³Á¤.
-	/// @param bUseResetPosZ °»½Å ³ôÀÌ°ªÀ» »ç¿ëÇÒÁö ¿©ºÎ. ³ôÀÌ°ªÀ» ¼³Á¤ÇÒ ¶§¿¡´Â true, ÃÊ±âÈ­ÇÒ ¶§¿¡´Â false¸¦ ÀÔ·ÂÇÑ´Ù.
-	/// @param fPosZ »õ·Î °»½ÅµÉ ³ôÀÌ°ª.
+	/// @brief ì„œë²„ì—ì„œ ë°›ì€ ë†’ì´ê°’ìœ¼ë¡œ ë‹¤ìŒë²ˆ Adjust_Height()ì—ì„œ ê°±ì‹ ë˜ëŠ” ë†’ì´ê°’ ì„¤ì •.
+	/// @param bUseResetPosZ ê°±ì‹  ë†’ì´ê°’ì„ ì‚¬ìš©í• ì§€ ì—¬ë¶€. ë†’ì´ê°’ì„ ì„¤ì •í•  ë•Œì—ëŠ” true, ì´ˆê¸°í™”í•  ë•Œì—ëŠ” falseë¥¼ ì…ë ¥í•œë‹¤.
+	/// @param fPosZ ìƒˆë¡œ ê°±ì‹ ë  ë†’ì´ê°’.
 	/// @see GetResetPosZ()
 	void						SetResetPosZ( bool bUseResetPosZ, float fPosZ )
 	{
-		if (m_bUseResetPosZ = bUseResetPosZ) { // = ¿ÀÅ¸¾Æ´Ô.
+		if (m_bUseResetPosZ = bUseResetPosZ) { // = ì˜¤íƒ€ì•„ë‹˜.
 			m_fResetPosZ = fPosZ;
 		}
 	}
 
-	/// @brief ¼­¹ö¿¡¼­ ¹ŞÀº ³ôÀÌ°ªÀÌ ÀÖ´ÂÁöÀÇ ¿©ºÎ ¹× ±× ³ôÀÌ°ªÀ» ¾ò´Â´Ù.
-	/// @param fResetPosZ »õ·Î º¯°æÇÒ ³ôÀÌ °ª
-	/// @return À¯È¿ÇÏ´Ù¸é true, À¯È¿ÇÏÁö ¾Ê´Ù¸é false ¸¦ ¸®ÅÏ
+	/// @brief ì„œë²„ì—ì„œ ë°›ì€ ë†’ì´ê°’ì´ ìˆëŠ”ì§€ì˜ ì—¬ë¶€ ë° ê·¸ ë†’ì´ê°’ì„ ì–»ëŠ”ë‹¤.
+	/// @param fResetPosZ ìƒˆë¡œ ë³€ê²½í•  ë†’ì´ ê°’
+	/// @return ìœ íš¨í•˜ë‹¤ë©´ true, ìœ íš¨í•˜ì§€ ì•Šë‹¤ë©´ false ë¥¼ ë¦¬í„´
 	/// @see SetResetPosZ()
 	bool						GetResetPosZ( float& fResetPosZ )
 	{
@@ -239,7 +239,7 @@ public:
 	void						DeletePARTS (bool bDelEFFECT=true);
 
 	bool						CreateCHAR (char *szName, CCharMODEL *pMODEL, short nCharPartCNT, const D3DVECTOR &Position);
-	void						DeleteCHAR (void);				// avatar, mob »èÁ¦
+	void						DeleteCHAR (void);				// avatar, mob ì‚­ì œ
 
 
 	void						SetTeamInfo( int iTeamInfo ){ m_iTeamInfo = iTeamInfo; }
@@ -269,7 +269,7 @@ public:
 	/*override*/ void			SetEffectedSkillFlag( bool bResult );
 	/*override*/ bool			bCanActionActiveSkill();
 	/*override*/ void			SetStartSkill( bool bResult ){ m_bCanStartSkill = bResult; }
-	/*override*/ bool			bCanStartSkill(){ return m_bCanStartSkill; }					/// ¼­¹ö·Î ºÎÅÍ Ä³½ºÆÃ ½ºÅ¸Æ® ÆĞÅ¶À» ¹Ş¾Ò´Â°¡?
+	/*override*/ bool			bCanStartSkill(){ return m_bCanStartSkill; }					/// ì„œë²„ë¡œ ë¶€í„° ìºìŠ¤íŒ… ìŠ¤íƒ€íŠ¸ íŒ¨í‚·ì„ ë°›ì•˜ëŠ”ê°€?
 
 	/*override*/ virtual int	Get_MaxHP ()					   {   return 1;			}
 	/*override*/ virtual int	Get_MaxMP ()                       {   return 1;			}
@@ -321,18 +321,18 @@ public:
 
 
 
-	/// ¸ğµ¨À» Å¸°Ù À§Ä¡¸¦ ¹Ù¶óº¸µµ·Ï È¸Àü.
+	/// ëª¨ë¸ì„ íƒ€ê²Ÿ ìœ„ì¹˜ë¥¼ ë°”ë¼ë³´ë„ë¡ íšŒì „.
 	/*override*/void			Set_ModelDIR (t_POSITION &PosToView, bool bImmediate = false );
 	/*override*/void			Set_ModelDIR ( float fAngleDegree, bool bImmediate = false );
 
 
-	/// ¸ğµ¨ÀÇ ÀÌµ¿ ¼Óµµ¸¦ º¯°æÇÑ´Ù.
+	/// ëª¨ë¸ì˜ ì´ë™ ì†ë„ë¥¼ ë³€ê²½í•œë‹¤.
 	/*override*/void			Set_ModelSPEED (float fMoveSpeed)
 	{
 		m_fModelSPEED = fMoveSpeed;
 		::setModelMoveVelocity( m_hNodeMODEL, m_fModelSPEED );
 	}
-	/// ¸ğµ¨ÀÇ ÀÌµ¿ ¼Óµµ¸¦ ¾ò¾î¿Â´Ù.
+	/// ëª¨ë¸ì˜ ì´ë™ ì†ë„ë¥¼ ì–»ì–´ì˜¨ë‹¤.
 	/*override*/float			Get_ModelSPEED ()
 	{
 		return m_fModelSPEED;
@@ -341,8 +341,8 @@ public:
 
 	
 	/*
-	°¢ °èÃş°£ÀÇ ¿ÀºêÁ§Æ® Å¸ÀÔµéÀº Get_WalkSPEED(), GetOri_RunSPEED() ÀÇ ±¸ÇöÀ» ÅëÇØ¼­ ÀÌµ¿¼Óµµ¸¦ ±¸ÇÑ´Ù.!!
-	°á±¹ Get_WalkSPEED(), GetOri_RunSPEED() ÀÇ »ó¼Ó±¸Çö¿¡ ½Å°æ½á¶ó..
+	ê° ê³„ì¸µê°„ì˜ ì˜¤ë¸Œì íŠ¸ íƒ€ì…ë“¤ì€ Get_WalkSPEED(), GetOri_RunSPEED() ì˜ êµ¬í˜„ì„ í†µí•´ì„œ ì´ë™ì†ë„ë¥¼ êµ¬í•œë‹¤.!!
+	ê²°êµ­ Get_WalkSPEED(), GetOri_RunSPEED() ì˜ ìƒì†êµ¬í˜„ì— ì‹ ê²½ì¨ë¼..
 	*/
 	/*override*/ virtual float			Get_MoveSPEED ();
 				 virtual float			Get_DefaultSPEED ();
@@ -350,10 +350,10 @@ public:
 	/*override*/ virtual short			Get_nAttackSPEED ();
 	/*override*/ virtual float			Get_fAttackSPEED ();
 
-	/*override*/ DWORD			GetIngDurationStateFLAG(){ return m_EndurancePack.GetStateFlag(); }; /// ÇöÀç Áö¼Ó »óÅÂ ÇÃ·¹±×°ªÀ» ¾ò´Â´Ù.
-	/*override*/ short			GetIngDurationStateSKILL( eING_TYPE eTYPE ){ return 0; };	/// ÇöÀç Áö¼Ó »óÅÂ¿¡ Àû¿ëµÈ ½ºÅ³¹øÈ£
+	/*override*/ DWORD			GetIngDurationStateFLAG(){ return m_EndurancePack.GetStateFlag(); }; /// í˜„ì¬ ì§€ì† ìƒíƒœ í”Œë ˆê·¸ê°’ì„ ì–»ëŠ”ë‹¤.
+	/*override*/ short			GetIngDurationStateSKILL( eING_TYPE eTYPE ){ return 0; };	/// í˜„ì¬ ì§€ì† ìƒíƒœì— ì ìš©ëœ ìŠ¤í‚¬ë²ˆí˜¸
 
-	/// RECOVER_STATE_CHECK_TIME °£°İÀ¸·Î Get_RecoverHP¿¡¼­ ±¸ÇÑ HP, Get_ReocverMP¿¡¼­ ±¸ÇÑ MP¸¦ ´õÇØ ÁØ´Ù.
+	/// RECOVER_STATE_CHECK_TIME ê°„ê²©ìœ¼ë¡œ Get_RecoverHPì—ì„œ êµ¬í•œ HP, Get_ReocverMPì—ì„œ êµ¬í•œ MPë¥¼ ë”í•´ ì¤€ë‹¤.
 	/*override*/ virtual void	RecoverHP( short nRecoverMODE );	
 	/*override*/ virtual void	RecoverMP( short nRecoverMODE );	
 
@@ -383,9 +383,9 @@ public:
 	/// < Inherited from CAI_OBJ virtual functions
 	/// <
 	
-	/*override*/int				Get_TeamNO ()						{	return m_iTeamInfo;}	/// ¼­¹ö¿¡¼­ ¹ŞÀº ÆÀ¹øÈ£
-	/*override*/BYTE			Is_DAY()							{	return g_DayNNightProc.IsDay();}			/// Á¸ ½Ã°£À» Ã¼Å© Àú³á½Ã°£º¸´Ù ÀÛÀº°¡?
-	/*override*/int				Get_ZoneTIME()							{	return g_DayNNightProc.GetZoneTime();}			/// Á¸ ½Ã°£À» Ã¼Å© Àú³á½Ã°£º¸´Ù ÀÛÀº°¡?
+	/*override*/int				Get_TeamNO ()						{	return m_iTeamInfo;}	/// ì„œë²„ì—ì„œ ë°›ì€ íŒ€ë²ˆí˜¸
+	/*override*/BYTE			Is_DAY()							{	return g_DayNNightProc.IsDay();}			/// ì¡´ ì‹œê°„ì„ ì²´í¬ ì €ë…ì‹œê°„ë³´ë‹¤ ì‘ì€ê°€?
+	/*override*/int				Get_ZoneTIME()							{	return g_DayNNightProc.GetZoneTime();}			/// ì¡´ ì‹œê°„ì„ ì²´í¬ ì €ë…ì‹œê°„ë³´ë‹¤ ì‘ì€ê°€?
 	
 
 	/*override*/float			Get_CurXPOS ()						{	return m_PosCUR.x;	}
@@ -412,13 +412,13 @@ public:
 
 
 
-	/// ¸ğµç ³»ºÎÀÇ ¸®½ºÆ® Á¤¸®
+	/// ëª¨ë“  ë‚´ë¶€ì˜ ë¦¬ìŠ¤íŠ¸ ì •ë¦¬
 	void							ClearAllEntityList();
 
 
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// ¿ÜºÎ¿¡¼­ ºÙ¿©Áø ÀÌÆåÆ®µé..
+	/// ì™¸ë¶€ì—ì„œ ë¶™ì—¬ì§„ ì´í™íŠ¸ë“¤..
 	classDLLIST< CEffect* >				m_ExternalEffectLIST;
 
 	classDLLIST< CEffect* >				m_WeatherEffectLIST;
@@ -429,7 +429,7 @@ public:
 	void								ClearExternalEffect();
 
 
-	/// ³¯¾¾
+	/// ë‚ ì”¨
 	void								AddWeatherEffect( CEffect* pEffect );
 	void								DeleteWeatherEffect();
 
@@ -438,7 +438,7 @@ public:
 
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// Skill result effect µî·Ï¸®½ºÆ®
+	/// Skill result effect ë“±ë¡ë¦¬ìŠ¤íŠ¸
 private:
 
 	struct stEFFECT_OF_SKILL
@@ -446,9 +446,9 @@ private:
 		DWORD				m_dwCreateTime;
 		int					iSkillIDX;
 		bool				bDamageOfSkill;
-		int					iCasterINT;						/// ½ÃÀüÀÚÀÇ INT °è»ê½Ä¿¡ ÇÊ¿ä
+		int					iCasterINT;						/// ì‹œì „ìì˜ INT ê³„ì‚°ì‹ì— í•„ìš”
 
-		gsv_DAMAGE_OF_SKILL	EffectOfSkill;					/// damage_of_skill ÀÌ effect_of_skill À» »ó¼Ó¹Ş¾ÒÀ¸¹Ç·Î ÆíÀÌ¸¦ À§ÇØ¼­
+		gsv_DAMAGE_OF_SKILL	EffectOfSkill;					/// damage_of_skill ì´ effect_of_skill ì„ ìƒì†ë°›ì•˜ìœ¼ë¯€ë¡œ í¸ì´ë¥¼ ìœ„í•´ì„œ
 	};
 
 	std::vector< stEFFECT_OF_SKILL >	m_EffectedSkillList;	
@@ -475,7 +475,7 @@ public:
 
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// Damage µî·Ï¸®½ºÆ®
+	/// Damage ë“±ë¡ë¦¬ìŠ¤íŠ¸
 private:
 	struct stAPPLY_DAMAGE
 	{
@@ -493,23 +493,23 @@ public:
 	uniDAMAGE							PopCurrentAttackerDamage( int iAttacker );
 	uniDAMAGE							PopTotalDamageFromList( int& iMaxDamage );	
 
-	/// ¸ğµç µ¥ÀÌÁö Ã³¸®( Á×°Å³ª.. ¹¹ ±×·± »óÈ²¿¡¼­.. Á¤¸® )
+	/// ëª¨ë“  ë°ì´ì§€ ì²˜ë¦¬( ì£½ê±°ë‚˜.. ë­ ê·¸ëŸ° ìƒí™©ì—ì„œ.. ì •ë¦¬ )
 	void								ClearAllDamage();
 
-	/// ½Ã°£Á¦ÇÑ Ã³¸®
+	/// ì‹œê°„ì œí•œ ì²˜ë¦¬
 	void								ProcDamageTimeOut();
 
-	/// Å¸°İÄ¡ ¹Ù·Î Ç¥½Ã
+	/// íƒ€ê²©ì¹˜ ë°”ë¡œ í‘œì‹œ
 	void								CreateImmediateDigitEffect(  WORD wDamage  );
 
-	/// Damage_of_Skill => ÀÏ¹İ µ¥¹ÌÁö·Î ÀüÈ¯ÀúÀå..
+	/// Damage_of_Skill => ì¼ë°˜ ë°ë¯¸ì§€ë¡œ ì „í™˜ì €ì¥..
 	void								ConvertDamageOfSkillToDamage( gsv_DAMAGE_OF_SKILL stDamageOfSkill );
 	/////////////////////////////////////////////////////////////////////////////////
 
 
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// ÇÊµå¾ÆÀÌÅÛ µå¶ø µî·Ï¸®½ºÆ®( È¤½Ã ÇÑ¹ø¿¡ ¿©·¯°³ ¶³¾î¶ß¸±Áö ¸ô¶ó¼­ º¤ÅÍ·Î¼­ )
+	/// í•„ë“œì•„ì´í…œ ë“œë ë“±ë¡ë¦¬ìŠ¤íŠ¸( í˜¹ì‹œ í•œë²ˆì— ì—¬ëŸ¬ê°œ ë–¨ì–´ëœ¨ë¦´ì§€ ëª°ë¼ì„œ ë²¡í„°ë¡œì„œ )
 private:
 	std::vector< tag_DROPITEM >			m_FieldItemList;
 
@@ -521,9 +521,9 @@ public:
 
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// Áö¼Ó¼º Entity µî·Ï
+	/// ì§€ì†ì„± Entity ë“±ë¡
 public:
-	CEndurancePack						m_EndurancePack;				/// ÃÊ±âÈ­ ¸®½ºÆ® ÀÌ¿ë ²À..
+	CEndurancePack						m_EndurancePack;				/// ì´ˆê¸°í™” ë¦¬ìŠ¤íŠ¸ ì´ìš© ê¼­..
 
 public:	
 	bool								AddEnduranceEntity( int iEntityIDX, int iStatusSTBNO, int iEnduranceTime, int iEntityType )
@@ -541,7 +541,7 @@ public:
 		return pEntity->GetStateSTBNO();
 	}		
 	
-	/// À¯¸®»óÅÂ ÇØÁö, ºÒ¸®»óÅÂ ÇØÁö µî..
+	/// ìœ ë¦¬ìƒíƒœ í•´ì§€, ë¶ˆë¦¬ìƒíƒœ í•´ì§€ ë“±..
 	int									ProcFlushStateSkill( int iStateTableIndex ){ return m_EndurancePack.ProcFlushStateSkill( iStateTableIndex ); }
 	/////////////////////////////////////////////////////////////////////////////////
 
@@ -549,11 +549,11 @@ public:
 
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// ¸÷ ¼ÒÈ¯ °ü·Ã
-	/// ¾×¼Ç ÇÁ·¹ÀÓ¿¡ ¸ÂÃß°¡ À§ÇØ ÀúÀåÇØ µĞ´Ù.
+	/// ëª¹ ì†Œí™˜ ê´€ë ¨
+	/// ì•¡ì…˜ í”„ë ˆì„ì— ë§ì¶”ê°€ ìœ„í•´ ì €ì¥í•´ ë‘”ë‹¤.
 private:
 	gsv_MOB_CHAR						m_SummonMob;
-	bool								m_bHaveSummonedMob;				/// ¼ÒÈ¯ÇØ¾ßµÉ ¸÷ÀÌ ÀÖ´Â°¡?
+	bool								m_bHaveSummonedMob;				/// ì†Œí™˜í•´ì•¼ë  ëª¹ì´ ìˆëŠ”ê°€?
 
 public:
 	void								SetSummonMobInfo( gsv_MOB_CHAR& MobInfo );
@@ -571,7 +571,7 @@ public:
 
 	CObjCommandManager			m_CommandQueue;
 
-	/// ÇöÀç ¸í·ÉÀ» Àû¿ëÇÒ¼ö ÀÖ´Â°¡?
+	/// í˜„ì¬ ëª…ë ¹ì„ ì ìš©í• ìˆ˜ ìˆëŠ”ê°€?
 	/*override*/virtual bool	CanApplyCommand();
 	void						ProcQueuedCommand();
 
@@ -647,41 +647,41 @@ public:
 	virtual short				GetOri_RunSPEED()=0{ *(int*)0 = 10; };
 
 
-	/// ¾Æ¹ÙÅ¸ÀÇ °æ¿ì ÇöÀç ¼Ò¸ğÁßÀÎ ÃÑ¾Ë¿¡ ¿µÇâÀ» ¹Ş´Â´Ù.
+	/// ì•„ë°”íƒ€ì˜ ê²½ìš° í˜„ì¬ ì†Œëª¨ì¤‘ì¸ ì´ì•Œì— ì˜í–¥ì„ ë°›ëŠ”ë‹¤.
 	virtual int					Get_BulletNO ();
 
-	/// Æ¯Á¤ ÁÂÇ¥·Î ÀÌµ¿ÇÏ¿© ³ôÀÌ º¸Á¤. ³ôÀÌ´Â ÇöÀç ÁÂÇ¥ À§¿¡ ³õÀÎ ¿ÀºêÁ§Æ® Áß °¡Àå ³ôÀº À§Ä¡
+	/// íŠ¹ì • ì¢Œí‘œë¡œ ì´ë™í•˜ì—¬ ë†’ì´ ë³´ì •. ë†’ì´ëŠ” í˜„ì¬ ì¢Œí‘œ ìœ„ì— ë†“ì¸ ì˜¤ë¸Œì íŠ¸ ì¤‘ ê°€ì¥ ë†’ì€ ìœ„ì¹˜
 	virtual void				DropFromSky ( float fX, float fY );
 
-	virtual int					Get_INT(){ return 0; }						/// !!!Cal Å¬·¡½º¿¡¼­ CObjCHAR ÀÇ ¸É¹ö·Î Á¢±ÙÇÏ´ÂºÎºĞÀÌ ÀÖ¾î ÀÌ°Í¸¸..
+	virtual int					Get_INT(){ return 0; }						/// !!!Cal í´ë˜ìŠ¤ì—ì„œ CObjCHAR ì˜ ë§´ë²„ë¡œ ì ‘ê·¼í•˜ëŠ”ë¶€ë¶„ì´ ìˆì–´ ì´ê²ƒë§Œ..
 
 
-	/// Áö¼ÓÇüÀÇ º¯°æ¼öÄ¡ Àû¿ëÀ» À§ÇØ¼­ ÇöÀç Àû¿ëµÇ¾îÀÖ´Â ´É·Â¼öÄ¡( ÆĞ½Ãºê ½ºÅ³ Æ÷ÇÔ )
+	/// ì§€ì†í˜•ì˜ ë³€ê²½ìˆ˜ì¹˜ ì ìš©ì„ ìœ„í•´ì„œ í˜„ì¬ ì ìš©ë˜ì–´ìˆëŠ” ëŠ¥ë ¥ìˆ˜ì¹˜( íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ í¬í•¨ )
 	virtual int					Get_DefaultAbilityValue( int iType ){ return 1; };
 
 
 
 	///
-	/// ·çÇÁ¸¦ µ¹¸®´Â »óÅÂÀÇ °æ¿ì¶óµµ ÀÌ ÇÃ·¡±×ÀÇ »óÅÂ¿¡µû¶ó ¸ğ¼Ç ¸®¼Â( STOP, MOVE... )
+	/// ë£¨í”„ë¥¼ ëŒë¦¬ëŠ” ìƒíƒœì˜ ê²½ìš°ë¼ë„ ì´ í”Œë˜ê·¸ì˜ ìƒíƒœì—ë”°ë¼ ëª¨ì…˜ ë¦¬ì…‹( STOP, MOVE... )
 	///
 	virtual void				SetUpdateMotionFlag( bool bUpdate ){}
 	virtual bool				GetUpdateMotionFlag(){return false;} 
 
 
 	///
-	/// ³»°¡ ´©±º°¡¿¡°Ô ¸µÅ©°¡ µÇ¾ú´Â°¡?
+	/// ë‚´ê°€ ëˆ„êµ°ê°€ì—ê²Œ ë§í¬ê°€ ë˜ì—ˆëŠ”ê°€?
 	///
 	virtual bool				IsChild(){ return false; }
 
 
 	//----------------------------------------------------------------------------------------------------	
-	/// @brief °¢ ¿ÀºêÁ§Æ® Å¸ÀÔ¸¶´Ù Ãß°¡ Ã³¸®»çÇ×µéÀÌ Á¶±İ¾¿ ÀÖ´Ù.
+	/// @brief ê° ì˜¤ë¸Œì íŠ¸ íƒ€ì…ë§ˆë‹¤ ì¶”ê°€ ì²˜ë¦¬ì‚¬í•­ë“¤ì´ ì¡°ê¸ˆì”© ìˆë‹¤.
 	//----------------------------------------------------------------------------------------------------
 	virtual int					Proc (void);
 
 
 	//----------------------------------------------------------------------------------------------------	
-	/// @brief Ä³¸¯ÅÍ À§¿¡ ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+	/// @brief ìºë¦­í„° ìœ„ì— ì´í™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
 	//----------------------------------------------------------------------------------------------------
 	virtual void				ShowEffectOnCharByIndex( int iEffectIDX, int iSoundIDX = 0, bool bWeatherEffect = false );
 	virtual void				ShowEffectOnCharByHash( int iHash, int iSoundIDX = 0, bool bWeatherEffect = false ); 
@@ -693,7 +693,7 @@ public:
 
 	
 
-	/// ¸ğµ¨À» Å¸°Ù À§Ä¡¸¦ ¹Ù¶óº¸µµ·Ï È¸Àü.	
+	/// ëª¨ë¸ì„ íƒ€ê²Ÿ ìœ„ì¹˜ë¥¼ ë°”ë¼ë³´ë„ë¡ íšŒì „.	
 	void						Add_ModelDIR( float fAngleDegree );
 	
 	D3DXVECTOR3					Get_GotoPOSITION ()					{	return m_PosGOTO;	}
@@ -729,7 +729,7 @@ public:
 	float						Get_SCALE(){ return m_fScale; }
 
 	void						Rotate (D3DXQUATERNION &Rotate)				{	::setQuaternion( m_hNodeMODEL, Rotate.w, Rotate.x, Rotate.y, Rotate.z );			}
-	/// NPCÀÇ °æ¿ì STB¿¡ °­Á¦·Î ³ôÀÌ°¡ µé¾î°¡ ÀÖÀ¸¸é ±× ³ôÀÌ¸¦ »ç¿ëÇÑ´Ù.
+	/// NPCì˜ ê²½ìš° STBì— ê°•ì œë¡œ ë†’ì´ê°€ ë“¤ì–´ê°€ ìˆìœ¼ë©´ ê·¸ ë†’ì´ë¥¼ ì‚¬ìš©í•œë‹¤.
 	virtual void				GetScreenPOS ( D3DVECTOR &PosSCR);
 
 	bool						LinkEffectToPOINT( CEffect *pEffect, short nPartIDX, short nPointIDX);
@@ -752,7 +752,7 @@ public:
 
 
 	void						SetCollisionGroundNode ( HNODE hNodeGroundIn ) { m_hNodeGround = hNodeGroundIn; }
-	HNODE						GetCollisionGroundNode () { return m_hNodeGround; } // ¹Ù´Ú¿¡ À§Ä¡ÇÑ ¿ÀºêÁ§Æ®ÀÇ ¿£Áø ÇÚµéÀ» ¸®ÅÏÇÔ. ÁöÇüÀÌ³ª, ¹° µîÀº Á¦¿ÜµÈ´Ù. ¾øÀ¸¸é 0.
+	HNODE						GetCollisionGroundNode () { return m_hNodeGround; } // ë°”ë‹¥ì— ìœ„ì¹˜í•œ ì˜¤ë¸Œì íŠ¸ì˜ ì—”ì§„ í•¸ë“¤ì„ ë¦¬í„´í•¨. ì§€í˜•ì´ë‚˜, ë¬¼ ë“±ì€ ì œì™¸ëœë‹¤. ì—†ìœ¼ë©´ 0.
 
 public:
 	tagDAMAGE					m_DeadDAMAGE;
@@ -761,13 +761,13 @@ public:
 
 
 	//----------------------------------------------------------------------------------------------------
-	/// @brief Æ¯Á¤ ¾×¼Ç Áß°£¿¡ Àåºñ¸¦ ±³Ã¼ÇßÀ»½Ã( Æ¯È÷ ¹«±â ) ¹Ù²ï Àåºñ¿¡ ¸Â´Â ¸ğ¼ÇÀ¸·Î ±³Ã¼
+	/// @brief íŠ¹ì • ì•¡ì…˜ ì¤‘ê°„ì— ì¥ë¹„ë¥¼ êµì²´í–ˆì„ì‹œ( íŠ¹íˆ ë¬´ê¸° ) ë°”ë€ ì¥ë¹„ì— ë§ëŠ” ëª¨ì…˜ìœ¼ë¡œ êµì²´
 	//----------------------------------------------------------------------------------------------------
 	void						UpdateMotionByChangingEquip();
 
 
 	//----------------------------------------------------------------------------------------------------
-	/// @brief ³»°¡ ÆÖÀÏ °æ¿ìÀÇ ¹«±â¹ß»ç
+	/// @brief ë‚´ê°€ íŒ»ì¼ ê²½ìš°ì˜ ë¬´ê¸°ë°œì‚¬
 	//----------------------------------------------------------------------------------------------------
 	void						FireBulletWithPetWeapon( CObjCHAR* pTarget );
 
@@ -781,7 +781,7 @@ public:
 
 
 	//----------------------------------------------------------------------------------------------------
-	/// @brief Å¬¸¯ÇÒ¼ö ÀÖ´Â °´Ã¼ÀÎ°¡?
+	/// @brief í´ë¦­í• ìˆ˜ ìˆëŠ” ê°ì²´ì¸ê°€?
 	//----------------------------------------------------------------------------------------------------
 	virtual bool				CanClickable(){ return true; }
 
@@ -812,11 +812,11 @@ public:
 	CClanMarkUserDefined*	GetUserDefinedClanMark(){ return m_ClanMarkUserDefined; }
 	void					SetUserDefinedClanMark( CClanMarkUserDefined* pUserDefinedClanMark );//{ m_ClanMarkUserDefined = pUserDefinedClanMark; }
 
-	/// ¼­¹ö¿ÍÀÇ HP/MP Â÷ÀÌ¸¦ º¸Á¤ÇÏ±â À§ÇÑ º¯¼ö/ÇÔ¼ö
+	/// ì„œë²„ì™€ì˜ HP/MP ì°¨ì´ë¥¼ ë³´ì •í•˜ê¸° ìœ„í•œ ë³€ìˆ˜/í•¨ìˆ˜
 protected:
 	int						m_ReviseHP;
 	int						m_ReviseMP;
-	int						m_AruaAddMoveSpeed;		/// ¾Æ·ç¾Æ ¿©½Å»óÅÂ ÀÏ°æ¿ì Áõ°¡µÇ´Â ÀÌµ¿¼Óµµ
+	int						m_AruaAddMoveSpeed;		/// ì•„ë£¨ì•„ ì—¬ì‹ ìƒíƒœ ì¼ê²½ìš° ì¦ê°€ë˜ëŠ” ì´ë™ì†ë„
 
 public:
 	void					SetReviseHP( int hp );
@@ -829,28 +829,28 @@ public:
 	{	::setVisibilityRecursive(GetZMODEL(),FALSE); 	}
 	
 //-----------------------------------------------------------------------------------
-	//Á¶¼ºÇö
+	//ì¡°ì„±í˜„
 	 bool            m_bDisguise;
 
 
 //------------------------------------------------------------------------------------	
-	//¹ÚÁöÈ£
-	//Ä«Æ® º¯¼öµé...
-	CObjCART*			m_pObjCART;					//Ä«Æ® Å¬·¡¼­ 
-	CObjCHAR*			m_pRideUser;				//2ÀÎ½Â ÇÃ·¹ÀÌ¾î 
+	//ë°•ì§€í˜¸
+	//ì¹´íŠ¸ ë³€ìˆ˜ë“¤...
+	CObjCART*			m_pObjCART;					//ì¹´íŠ¸ í´ë˜ì„œ 
+	CObjCHAR*			m_pRideUser;				//2ì¸ìŠ¹ í”Œë ˆì´ì–´ 
 
 	int					m_iPetType;
-	short				m_skCartIDX;				//Ä«Æ® ½ºÅ³ ÀÌÆåÆ® (ÇöÀç »ç¿ë¹«)
-	WORD				m_iRideIDX;					//2ÀÎ½Â À¯Àú ÀÎµ¦½º 
+	short				m_skCartIDX;				//ì¹´íŠ¸ ìŠ¤í‚¬ ì´í™íŠ¸ (í˜„ì¬ ì‚¬ìš©ë¬´)
+	WORD				m_iRideIDX;					//2ì¸ìŠ¹ ìœ ì € ì¸ë±ìŠ¤ 
 	
-	float				m_saveSpeed;				//½ºÇÇÆ® ÀúÀå º¯¼ö 
+	float				m_saveSpeed;				//ìŠ¤í”¼íŠ¸ ì €ì¥ ë³€ìˆ˜ 
 
 	BOOL				m_bUseCartSkill;				
-	BOOL				m_IsRideUser;				//2ÀÎ½Â Å¾½ÂÀ¯¹« 
+	BOOL				m_IsRideUser;				//2ì¸ìŠ¹ íƒ‘ìŠ¹ìœ ë¬´ 
 
-	//¾Æ·Î¾Æ ¿©½Å»óÅÂ 
-	BOOL				m_IsAroa;					//¾Æ·Î¾Æ ¼³Á¤ À¯¹« 
-	BOOL				m_IsCartVA;					//Ä«Æ® ¹ÙÀÌºê·¹ÀÌ¼Ç (Èçµé±â)
+	//ì•„ë¡œì•„ ì—¬ì‹ ìƒíƒœ 
+	BOOL				m_IsAroa;					//ì•„ë¡œì•„ ì„¤ì • ìœ ë¬´ 
+	BOOL				m_IsCartVA;					//ì¹´íŠ¸ ë°”ì´ë¸Œë ˆì´ì…˜ (í”ë“¤ê¸°)
 
 	void ChangeHittedEffect(CObjCHAR* pObj,BOOL bA,int& hitIDX);
 	void SetNewCommandAfterSkill_PET(int iSkillNO);
@@ -873,15 +873,15 @@ public:
 	BOOL&		GetUseCartSkill(void)	
 	{	return	m_bUseCartSkill;						}
 
-	//³»°¡ »ó´ëÀÇ Ä«Æ®¿¡ Å¾½Â Çß´ÂÁö Ã¼Å©(TRUE: Å¾½Â, FALSE: ¾Æ´Ô)
+	//ë‚´ê°€ ìƒëŒ€ì˜ ì¹´íŠ¸ì— íƒ‘ìŠ¹ í–ˆëŠ”ì§€ ì²´í¬(TRUE: íƒ‘ìŠ¹, FALSE: ì•„ë‹˜)
 	BOOL&		IsRideUser(void)
 	{	return m_IsRideUser;							}
 
-	//³ªÀÇ Ä«Æ®¿¡ »ó´ë¹æÀ» Å¾½Â ½ÃÄ×´ÂÁö Ã¼Å©(0: ¾Æ´Ô, ¼ıÀÚ: Å¾½Â ½ÃÅ´)
+	//ë‚˜ì˜ ì¹´íŠ¸ì— ìƒëŒ€ë°©ì„ íƒ‘ìŠ¹ ì‹œì¼°ëŠ”ì§€ ì²´í¬(0: ì•„ë‹˜, ìˆ«ì: íƒ‘ìŠ¹ ì‹œí‚´)
 	WORD		GetRideUserIndex(void)
 	{	return m_iRideIDX;								}
 
-	//¾Æ·Î¾Æ ¿©½Å »óÅÂ¼³Á¤ ÇÔ¼ö 
+	//ì•„ë¡œì•„ ì—¬ì‹  ìƒíƒœì„¤ì • í•¨ìˆ˜ 
 	BOOL&			SetAroaState(void)
 	{	return m_IsAroa;								}
 	
@@ -892,7 +892,7 @@ public:
 	{	return m_saveSpeed;								}
 //------------------------------------------------------------------------------------
 
-	/// ÃÖÁ¾Áø : ¾Æ·ç¾Æ ¿©½Å »óÅÂÀÏ°æ¿ìÀÇ Ãß°¡ ´É·ÂÄ¡ °è»ê ÇÔ¼ö
+	/// ìµœì¢…ì§„ : ì•„ë£¨ì•„ ì—¬ì‹  ìƒíƒœì¼ê²½ìš°ì˜ ì¶”ê°€ ëŠ¥ë ¥ì¹˜ ê³„ì‚° í•¨ìˆ˜
 	virtual		void Calc_AruaAddAbility();
 } ;
 
@@ -945,7 +945,7 @@ public :
 	/*override*/virtual int			Get_HIT ()							{	return NPC_HIT	( m_nCharIdx );				}	
 	/*override*/virtual int			Get_CHARM ()						{	return 0;		}
 	/*override*/virtual int			Get_AVOID ()						{	return NPC_AVOID( m_nCharIdx );				}
-	/*override*/virtual int			Get_SENSE ()						{	return Get_LEVEL();							}	// LEVEL·Î ´ëÃ¼ !
+	/*override*/virtual int			Get_SENSE ()						{	return Get_LEVEL();							}	// LEVELë¡œ ëŒ€ì²´ !
 	/*override*/virtual int			Get_GiveEXP ()						{	return NPC_GIVE_EXP( m_nCharIdx );			}
 	/*override*/virtual void		Add_EXP (short nExp)				{	;	/* nop */	}
 	/*override*/virtual int			Get_CRITICAL()						{	return (int)(this->Get_LEVEL() * 0.8 );		}
@@ -971,8 +971,8 @@ public :
 		return  MOB_ANI_DIE;				
 	}
 	/*override*/int				GetANI_Hit()						{	return MOB_ANI_HIT;		}
-	/*override*/int				GetANI_Casting()					{   return m_iMobAniSkill;	}		/// Ä³½ºÆÃµ¿ÀÛ
-	/*override*/int				GetANI_CastingRepeat()				{   return m_iMobAniSkill;	}		/// ·çÇÁµ¿ÀÛÀº Ä³½ºÆÃµ¿ÀÛÀ¸·Î »ç¿ë..
+	/*override*/int				GetANI_Casting()					{   return m_iMobAniSkill;	}		/// ìºìŠ¤íŒ…ë™ì‘
+	/*override*/int				GetANI_CastingRepeat()				{   return m_iMobAniSkill;	}		/// ë£¨í”„ë™ì‘ì€ ìºìŠ¤íŒ…ë™ì‘ìœ¼ë¡œ ì‚¬ìš©..
 	/*override*/int				GetANI_Skill()						{	return m_iMobAniSkill + 1;	}
 
 	/*override*/int				Get_MP ()							{	return 32767;			}
@@ -981,10 +981,10 @@ public :
 	/*override*/ virtual void	RecoverHPnMP( short nRecoverMODE )	{};	
 
 
-	/// ÃÖ´ë »ı¸í·Â	
+	/// ìµœëŒ€ ìƒëª…ë ¥	
 	void						Set_MaxHP( int iMaxHP )				{ m_iMaxHP = iMaxHP; }
 	/*override*/int				Get_MaxHP()							{	return m_iMaxHP;			}
-	/// ÃÖ´ë ¸¶³ª
+	/// ìµœëŒ€ ë§ˆë‚˜
 	/*override*/int				Get_MaxMP()							{	return 100;								}
 
 
@@ -1053,10 +1053,10 @@ public :
 	/*override*/ short			GetOri_ATKSPEED ()					{	return NPC_ATK_SPEED( m_nCharIdx );			}
 
 
-	/// Áö¼ÓÇüÀÇ º¯°æ¼öÄ¡ Àû¿ëÀ» À§ÇØ¼­ ÇöÀç Àû¿ëµÇ¾îÀÖ´Â ´É·Â¼öÄ¡( ÆĞ½Ãºê ½ºÅ³ Æ÷ÇÔ )
+	/// ì§€ì†í˜•ì˜ ë³€ê²½ìˆ˜ì¹˜ ì ìš©ì„ ìœ„í•´ì„œ í˜„ì¬ ì ìš©ë˜ì–´ìˆëŠ” ëŠ¥ë ¥ìˆ˜ì¹˜( íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ í¬í•¨ )
 	virtual int					Get_DefaultAbilityValue( int iType );
 
-	/// NPCÀÇ °æ¿ì STB¿¡ °­Á¦·Î ³ôÀÌ°¡ µé¾î°¡ ÀÖÀ¸¸é ±× ³ôÀÌ¸¦ »ç¿ëÇÑ´Ù.
+	/// NPCì˜ ê²½ìš° STBì— ê°•ì œë¡œ ë†’ì´ê°€ ë“¤ì–´ê°€ ìˆìœ¼ë©´ ê·¸ ë†’ì´ë¥¼ ì‚¬ìš©í•œë‹¤.
 	virtual void				GetScreenPOS ( D3DVECTOR &PosSCR);
 
 	/// <
@@ -1071,7 +1071,7 @@ public :
 
 
 	//------------------------------------------------------------------------------------------------
-	/// ¸ó½ºÅÍ Á¤Áö½Ã »ç¿îµå Ãâ·Â..
+	/// ëª¬ìŠ¤í„° ì •ì§€ì‹œ ì‚¬ìš´ë“œ ì¶œë ¥..
 	//------------------------------------------------------------------------------------------------
 	void	PlayStopSound();
 
@@ -1111,9 +1111,9 @@ public :
 
 
 	//-------------------------------------------------------------------------------------------------
-	// 05.05.19 icarus:: ¿Í¿ì ½ºÅ¸ÀÏÀÇ NPC Äù½ºÆ® ³ëÃâ ÀÛ¾÷...
+	// 05.05.19 icarus:: ì™€ìš° ìŠ¤íƒ€ì¼ì˜ NPC í€˜ìŠ¤íŠ¸ ë…¸ì¶œ ì‘ì—…...
 public :
-	// ¼­¹ö¿¡¼­ npc Ãß°¡ ÆĞÅ¶À» ¹Ş°í »ı¼º½Ã ±âº»°ª -1, 
+	// ì„œë²„ì—ì„œ npc ì¶”ê°€ íŒ¨í‚·ì„ ë°›ê³  ìƒì„±ì‹œ ê¸°ë³¸ê°’ -1, 
 	short			m_nQuestSignal;
 //	int				Proc (void);
 
@@ -1131,15 +1131,15 @@ class CObjAVT : public CObjCHAR
 protected:
 	CCharMODEL		m_CharMODEL;
 
-	/// Ä³¸¯ÅÍ Ç¥Á¤
+	/// ìºë¦­í„° í‘œì •
 	int				m_iExpression;
 
-	/// Ä³¸¯ÅÍ ÆÄÃ÷
+	/// ìºë¦­í„° íŒŒì¸ 
 	union {
 		tagPartITEM	m_sPartItemIDX[ MAX_BODY_PART ];
 		// short	m_nPartItemIDX[ MAX_BODY_PART ];
 		struct {
-			// ¼ø¼­´Â t_CharPART¿¡ µû¶ó¼­...
+			// ìˆœì„œëŠ” t_CharPARTì— ë”°ë¼ì„œ...
 			tagPartITEM m_sFaceIDX;			//short m_nFaceIDX;
 			tagPartITEM m_sHairIDX;			//short m_nHairIDX;
 			tagPartITEM m_sHelmetIDX;		//short m_nHelmetIDX;
@@ -1169,21 +1169,21 @@ protected:
 	short					m_nAtkAniSPEED;
 
 
-	/// ±³È¯ÇÒ ¹«±â°¡ ¼¼ÆÃµÇ¸é.. ¸ğ¼ÇÀÌ ³¡³­ÈÄ¿¡ ¹Ù²Û´Ù..
+	/// êµí™˜í•  ë¬´ê¸°ê°€ ì„¸íŒ…ë˜ë©´.. ëª¨ì…˜ì´ ëë‚œí›„ì— ë°”ê¾¼ë‹¤..
 	int						m_iDoChangeWeaponR;
 	int						m_iDoChangeWeaponL;
 	bool					m_bUpdateMotion;	
 
-	/// ÇöÀç »ç¿ëÁßÀÎ ÃÑ¾Ë µ¥ÀÌÅÍ..
+	/// í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ ì´ì•Œ ë°ì´í„°..
 	tagShotDATA				m_ShotData[MAX_SHOT_TYPE];
 	int						m_iCon;
 	int						m_iRecoverHP;
 	int						m_iRecoverMP;
 
-	///¾ÆÀÌÅÛ ¼ÒÁö ¹«°ÔºñÀ²: 
+	///ì•„ì´í…œ ì†Œì§€ ë¬´ê²Œë¹„ìœ¨: 
 	BYTE					m_btWeightRate;
 
-	/// ½ºÅ×¹Ì³ª			
+	/// ìŠ¤í…Œë¯¸ë‚˜			
 	short					m_nStamina;
 
 	
@@ -1202,24 +1202,24 @@ public:
 
 public :
 	
-	/// Ä³¸¯ÅÍ Ç¥Á¤
+	/// ìºë¦­í„° í‘œì •
 	void					SetCharExpression( int iFaceNo ){ m_iExpression = iFaceNo; }
 	int						GetCharExpression(){ return m_iExpression; }
 
-	/// ±³È¯ÇÒ ¹«±â°¡ ¼¼ÆÃµÇ¸é.. ¸ğ¼ÇÀÌ ³¡³­ÈÄ¿¡ ¹Ù²Û´Ù..
+	/// êµí™˜í•  ë¬´ê¸°ê°€ ì„¸íŒ…ë˜ë©´.. ëª¨ì…˜ì´ ëë‚œí›„ì— ë°”ê¾¼ë‹¤..
 	void					SetChangeWeaponR( int iWeaponNO ){ m_iDoChangeWeaponR = iWeaponNO;}
 	void					SetChangeWeaponL( int iWeaponNO ){ m_iDoChangeWeaponL = iWeaponNO;}
 	int						GetChangeWeaponR( ){ return m_iDoChangeWeaponR;}
 	int						GetChangeWeaponL( ){ return m_iDoChangeWeaponL;}
 
 
-	/// Àåºñ ±³Ã¼½Ã Àåºñ¿¡ °É·ÁÀÖ´ø ¼Ó¼º ÇØÁ¦..
+	/// ì¥ë¹„ êµì²´ì‹œ ì¥ë¹„ì— ê±¸ë ¤ìˆë˜ ì†ì„± í•´ì œ..
 	void					ClearRWeaponSkillEffect();
 	void					ClearLWeaponSkillEffect();
 
 
 	///
-	/// ·çÇÁ¸¦ µ¹¸®´Â »óÅÂÀÇ °æ¿ì¶óµµ ÀÌ ÇÃ·¡±×ÀÇ »óÅÂ¿¡µû¶ó ¸ğ¼Ç ¸®¼Â( STOP, MOVE... )
+	/// ë£¨í”„ë¥¼ ëŒë¦¬ëŠ” ìƒíƒœì˜ ê²½ìš°ë¼ë„ ì´ í”Œë˜ê·¸ì˜ ìƒíƒœì—ë”°ë¼ ëª¨ì…˜ ë¦¬ì…‹( STOP, MOVE... )
 	///
 	void						SetUpdateMotionFlag( bool bUpdate ){ m_bUpdateMotion = bUpdate; }
 	bool						GetUpdateMotionFlag(){ return m_bUpdateMotion; } 
@@ -1298,9 +1298,9 @@ public :
 	/// < Inherited from CObjAI virtual functions
 	/// <
 
-	/*override*/virtual int		Get_CON()				{	return m_iCon;	}	// À¯ÀúÀÏ °æ¿ì return pAVATAR->GetCur_CON();
-	/*override*/virtual int		GetAdd_RecoverHP()		{	return m_iRecoverHP;	}	// À¯ÀúÀÏ °æ¿ì return pAVATAR->m_btRecoverHP;
-	/*override*/virtual int		GetAdd_RecoverMP()		{	return m_iRecoverMP;	}	// À¯ÀúÀÏ °æ¿ì return pAVATAR->m_btRecoverHP;
+	/*override*/virtual int		Get_CON()				{	return m_iCon;	}	// ìœ ì €ì¼ ê²½ìš° return pAVATAR->GetCur_CON();
+	/*override*/virtual int		GetAdd_RecoverHP()		{	return m_iRecoverHP;	}	// ìœ ì €ì¼ ê²½ìš° return pAVATAR->m_btRecoverHP;
+	/*override*/virtual int		GetAdd_RecoverMP()		{	return m_iRecoverMP;	}	// ìœ ì €ì¼ ê²½ìš° return pAVATAR->m_btRecoverHP;
 
 	/*override*/virtual short	GetPsv_ATKSPEED(float fCurSpeed, short nRightWeaponItemNo)		{	return m_nPsvAtkSPEED;				}
 	/*override*/int				Def_AttackRange()		{	return WEAPON_ATTACK_RANGE( 0 );							}
@@ -1375,16 +1375,16 @@ public:
 	/*override*/ virtual int	Get_BulletNO ();
 
 	
-	/// Áö¼ÓÇüÀÇ º¯°æ¼öÄ¡ Àû¿ëÀ» À§ÇØ¼­ ÇöÀç Àû¿ëµÇ¾îÀÖ´Â ´É·Â¼öÄ¡( ÆĞ½Ãºê ½ºÅ³ Æ÷ÇÔ )
+	/// ì§€ì†í˜•ì˜ ë³€ê²½ìˆ˜ì¹˜ ì ìš©ì„ ìœ„í•´ì„œ í˜„ì¬ ì ìš©ë˜ì–´ìˆëŠ” ëŠ¥ë ¥ìˆ˜ì¹˜( íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ í¬í•¨ )
 	/*override*/ virtual int	Get_DefaultAbilityValue( int iType );
 
 	///
-	/// ³»°¡ ´©±º°¡¿¡°Ô ¸µÅ©°¡ µÇ¾ú´Â°¡?
+	/// ë‚´ê°€ ëˆ„êµ°ê°€ì—ê²Œ ë§í¬ê°€ ë˜ì—ˆëŠ”ê°€?
 	///
 	/*override*/ virtual bool	IsChild(){ return ( ( m_pObjCART == NULL )? false:true ); }
 
 	//----------------------------------------------------------------------------------------------------
-	/// CObjCHAR ÀÌ ÇÏ´ÂÀÏ¸»°í Ãß°¡ÀûÀ¸·Î Á» ÇÒÀÏÀÌ ÀÖ´Ù.
+	/// CObjCHAR ì´ í•˜ëŠ”ì¼ë§ê³  ì¶”ê°€ì ìœ¼ë¡œ ì¢€ í• ì¼ì´ ìˆë‹¤.
 	//----------------------------------------------------------------------------------------------------
 	/*override*/int							Proc ();
 		
@@ -1399,7 +1399,7 @@ public:
 	void						SetPsv_AtkSPEED(short nPsvAtkSpeed)	{	m_nPsvAtkSPEED = nPsvAtkSpeed;	}
 	
 	
-	/// ÃÖ´ë »ı¸í·Â	
+	/// ìµœëŒ€ ìƒëª…ë ¥	
 	void						Set_MaxHP( int iMaxHP )			{ m_iMaxHP = iMaxHP; }
 
 	
@@ -1420,7 +1420,13 @@ public:
 	}
 	void						SetPartITEM(short nPartIdx, short nItemNo);
 	void						SetAvataName (char *szName)						{	m_Name = szName;							}
-	void						SetAllPARTS (tagPartITEM *pPartItemIDX)			{	::CopyMemory( m_sPartItemIDX, pPartItemIDX, sizeof(tagPartITEM)*MAX_BODY_PART);			}
+	void						SetAllPARTS (tagPartITEM *pPartItemIDX)			{	
+		//::CopyMemory( m_sPartItemIDX, pPartItemIDX, sizeof(tagPartITEM)*MAX_BODY_PART);
+		for(int i = 0; i < MAX_BODY_PART; ++i) {
+			short nItemType = CInventory::GetBodyPartToItemType(i);
+			if(nItemType != MAX_BODY_PART) m_sPartItemIDX[i] = pPartItemIDX[nItemType];
+		}		
+	}
 	void						SetAllPetPARTS (tagPartITEM *pPetPartItemIDX)	{	::CopyMemory( m_sPetPartItemIDX, pPetPartItemIDX, sizeof(tagPartITEM)*MAX_RIDING_PART);	}
 
 	void						SetAvtLevel( int iLevel ){ m_iLevel = iLevel; }
@@ -1429,14 +1435,14 @@ public:
 
 
 	//----------------------------------------------------------------------------------------------------		
-	/// @brief Àç¹Ö, Àç·Ã°ü·Ã ÀÌÆåÆ®..
+	/// @brief ì¬ë°, ì¬ë ¨ê´€ë ¨ ì´í™íŠ¸..
 	//----------------------------------------------------------------------------------------------------
 	void						CreateGemmingEffect();
 	void						DeleteGemmingEffect();
 
 
 //--------------------------------------------------------------------------------------------------------
-	//2005. 06.15 ¹Ú ÁöÈ£ 
+	//2005. 06.15 ë°• ì§€í˜¸ 
 	void						Set_RareITEM_Glow(void);
 
 	void						CreateGradeEffect();
@@ -1447,9 +1453,9 @@ public:
 
 
 	//----------------------------------------------------------------------------------------------------	
-	/// ÇöÀç ÁÂÇ¥(m_PosCUR.x, m_PosCUR.y)ÀÇ ³ôÀÌ¸¦ ¸®ÅÏ
-	/// @pReachable µµ´Ş °¡´ÉÇÑ À§Ä¡ÀÎÁöÀÇ ¿©ºÎ. ÀÌÀü ÇÁ·¹ÀÓÀÇ À§Ä¡·ÎºÎÅÍ µµ´Ş°¡´ÉÇÏÁö ¾Ê´Ù¸é, false °ªÀÌ ¼¼ÆÃµÊ.
-	/// @return ³ôÀÌ°ª. µµ´Ş ºÒ°¡´ÉÇÑ À§Ä¡¶ó¸é, °¡Àå ³ôÀº ¿ÀºêÁ§Æ®ÀÇ À§Ä¡¸¦ ¸®ÅÏ.
+	/// í˜„ì¬ ì¢Œí‘œ(m_PosCUR.x, m_PosCUR.y)ì˜ ë†’ì´ë¥¼ ë¦¬í„´
+	/// @pReachable ë„ë‹¬ ê°€ëŠ¥í•œ ìœ„ì¹˜ì¸ì§€ì˜ ì—¬ë¶€. ì´ì „ í”„ë ˆì„ì˜ ìœ„ì¹˜ë¡œë¶€í„° ë„ë‹¬ê°€ëŠ¥í•˜ì§€ ì•Šë‹¤ë©´, false ê°’ì´ ì„¸íŒ…ë¨.
+	/// @return ë†’ì´ê°’. ë„ë‹¬ ë¶ˆê°€ëŠ¥í•œ ìœ„ì¹˜ë¼ë©´, ê°€ì¥ ë†’ì€ ì˜¤ë¸Œì íŠ¸ì˜ ìœ„ì¹˜ë¥¼ ë¦¬í„´.
 	//----------------------------------------------------------------------------------------------------
 	float						GetHeight (bool * pReachable = NULL);
 
@@ -1457,7 +1463,7 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	///
-	/// °³ÀÎ»óÁ¡ °ü·Ã µ¥ÀÌÅÍ
+	/// ê°œì¸ìƒì  ê´€ë ¨ ë°ì´í„°
 	///
 	//////////////////////////////////////////////////////////////////////////////////////////
 private:
@@ -1475,19 +1481,19 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	///
-	/// ÆÖ ½Ã½ºÅÛ °ü·Ã µ¥ÀÌÅÍ..
+	/// íŒ» ì‹œìŠ¤í…œ ê´€ë ¨ ë°ì´í„°..
 	///
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 public:
 
 	friend CObjCART;
-	/// ÆÖ ÆÄÃ÷..
-	/// ¹°·Ğ.. CObjPET ³»ºÎ¿¡ ÀÌ µ¥ÀÌÅÍµéÀº Á¸ÀçÇÑ´Ù.. ¿©±â¼­ÀÏ´Ü ÆíÀÇ¸¦ À§ÇØ °ü¸®ÇØÁØ´Ù.
+	/// íŒ» íŒŒì¸ ..
+	/// ë¬¼ë¡ .. CObjPET ë‚´ë¶€ì— ì´ ë°ì´í„°ë“¤ì€ ì¡´ì¬í•œë‹¤.. ì—¬ê¸°ì„œì¼ë‹¨ í¸ì˜ë¥¼ ìœ„í•´ ê´€ë¦¬í•´ì¤€ë‹¤.
 
 
 
-//¹ÚÁöÈ£::Ä«Æ®ÆÄÃ÷ ¼öÁ¤ 
+//ë°•ì§€í˜¸::ì¹´íŠ¸íŒŒì¸  ìˆ˜ì • 
 #if defined(_GBC)
 	union 
 	{
@@ -1495,7 +1501,7 @@ public:
 		tagPartITEM		m_sPetPartItemIDX[ MAX_RIDING_PART ];
 		struct 
 		{
-			// ¼ø¼­´Â t_CharPART¿¡ µû¶ó¼­...
+			// ìˆœì„œëŠ” t_CharPARTì— ë”°ë¼ì„œ...
 			tagPartITEM	m_sEngineIDX;	// short			m_nEngineIDX;
 			tagPartITEM	m_sBodyIDX;		// short			m_nBodyIDX;
 			tagPartITEM	m_sLegIDX;		// short			m_nLegIDX;
@@ -1510,7 +1516,7 @@ public:
 		tagPartITEM		m_sPetPartItemIDX[ MAX_RIDING_PART ];
 		struct 
 		{
-			// ¼ø¼­´Â t_CharPART¿¡ µû¶ó¼­...
+			// ìˆœì„œëŠ” t_CharPARTì— ë”°ë¼ì„œ...
 			tagPartITEM	m_sEngineIDX;	// short			m_nEngineIDX;
 			tagPartITEM	m_sBodyIDX;		// short			m_nBodyIDX;
 			tagPartITEM	m_sLegIDX;		// short			m_nLegIDX;
@@ -1544,14 +1550,14 @@ public:
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	//----------------------------------------------------------------------------------------------------	
-	/// @brief ÆÖ¸ğµå »óÅÂÀÏ¶§´Â ÆÖÀÇ ÁÂÇ¥¸¦ ¸®ÅÏÇÏ°í, ÀÏ¹İÀûÀÏ¶§´Â ³» ÁÂÇ¥¸¦ ¸®ÅÏÇÔ
+	/// @brief íŒ»ëª¨ë“œ ìƒíƒœì¼ë•ŒëŠ” íŒ»ì˜ ì¢Œí‘œë¥¼ ë¦¬í„´í•˜ê³ , ì¼ë°˜ì ì¼ë•ŒëŠ” ë‚´ ì¢Œí‘œë¥¼ ë¦¬í„´í•¨
 	//----------------------------------------------------------------------------------------------------
 	const D3DVECTOR&		GetWorldPos();
 
 
 
 	//----------------------------------------------------------------------------------------------------	
-	/// @brief ¸ğµ¨¿¡ µî·ÏµÈ renderUnit¿ÜÀÇ°Íµé¿¡ ´ëÇÑ Ãæµ¹ÆÇÁ¤.. (¾Æ¹ÙÅ¸ÀÏ°æ¿ì¸¸)
+	/// @brief ëª¨ë¸ì— ë“±ë¡ëœ renderUnitì™¸ì˜ê²ƒë“¤ì— ëŒ€í•œ ì¶©ëŒíŒì •.. (ì•„ë°”íƒ€ì¼ê²½ìš°ë§Œ)
 	//----------------------------------------------------------------------------------------------------
 	bool					IsIntersectAccessory( float &fCurDistance );
 
@@ -1561,7 +1567,7 @@ public:
 
 
 	//--------------------------------------------------------------------------------------
-	/// ¾Æ¹ÙÅ¸ÀÇ ½ºÆä¼ÈÇÑ »óÅÂ
+	/// ì•„ë°”íƒ€ì˜ ìŠ¤í˜ì…œí•œ ìƒíƒœ
 	//--------------------------------------------------------------------------------------
 private:
 	DWORD					m_dwSubFLAG;
@@ -1571,7 +1577,7 @@ public:
 	void					ChangeSpecialState( DWORD dwSubFLAG );
 
 	//----------------------------------------------------------------------------------------------------
-	/// @brief Å¬¸¯ÇÒ¼ö ÀÖ´Â °´Ã¼ÀÎ°¡?
+	/// @brief í´ë¦­í• ìˆ˜ ìˆëŠ” ê°ì²´ì¸ê°€?
 	//----------------------------------------------------------------------------------------------------
 	virtual bool			CanClickable();
 	
@@ -1584,9 +1590,9 @@ public:
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////	
-// 2005. 6. 20	¹Ú ÁöÈ£ 
+// 2005. 6. 20	ë°• ì§€í˜¸ 
 //
-// ¿©½Å¼ÒÈ¯ ¿¬Ãâ Å¬·¡½º 
+// ì—¬ì‹ ì†Œí™˜ ì—°ì¶œ í´ë˜ìŠ¤ 
 ///////////////////////////////////////////////////////////////////////////////////////////	
 
 using namespace std;
@@ -1603,15 +1609,15 @@ typedef enum
 typedef struct _tagGODDESSSTR 
 {
 
-	BOOL		bEnable;		//GOD SetUp »óÅÂ 
-	GOD_STATE	god_State;	 	//GOD Çàµ¿»óÅÂ
+	BOOL		bEnable;		//GOD SetUp ìƒíƒœ 
+	GOD_STATE	god_State;	 	//GOD í–‰ë™ìƒíƒœ
 								
 	HNODE		hGoddess;
 	HNODE		hSprite;
 
-	WORD		idxMaster;		//¿¬°áµÉ Ä³¸¯ÅÍ ¿ÀºêÁ§Æ® 
-	DWORD		sTick,eTick;	//Ãâ·Â¿¡ °üÇÑ Æ½
-	D3DXVECTOR3	cpos;			//Ãâ·ÂµÉ À§Ä¡ 
+	WORD		idxMaster;		//ì—°ê²°ë  ìºë¦­í„° ì˜¤ë¸Œì íŠ¸ 
+	DWORD		sTick,eTick;	//ì¶œë ¥ì— ê´€í•œ í‹±
+	D3DXVECTOR3	cpos;			//ì¶œë ¥ë  ìœ„ì¹˜ 
 
 	CObjMOB		*pGODModel;
 	CObjMOB		*pSprModel;
@@ -1619,9 +1625,9 @@ typedef struct _tagGODDESSSTR
 	CEffect*	pEffect[2];
 	HNODE		hParticle[2];
 
-	float		frame;			//ÇÁ·¹ÀÓ
+	float		frame;			//í”„ë ˆì„
 
-	float		fviewGODD;		//ºñÁöºí	
+	float		fviewGODD;		//ë¹„ì§€ë¸”	
 	float		fviewSpr;		
 	
 
@@ -1667,7 +1673,7 @@ class CGoddessMgr
 	DWORD		m_Count;			
 	map<WORD,GODDESSSTR>	m_list;
 
-	DWORD		m_dwAvata;				//¾Æ¹ÙÅ¸ ÀÚ½ÅÀÇ On/Off
+	DWORD		m_dwAvata;				//ì•„ë°”íƒ€ ìì‹ ì˜ On/Off
 	BOOL		m_IsAvata;
 
 public:
