@@ -4,6 +4,9 @@
 
 # Ignore generated files from the build
 *.inc
+*.bak
+*.db
+3rd[Pp]arty/
 
 # User-specific files
 *.suo
