@@ -2027,14 +2027,14 @@ struct wsv_PARTY_USER : public t_PACKETHEADER {
 struct tag_PARTY_MEMBER {	// 존 서버에서 전송됨
 	DWORD	m_dwUserTAG;
 	WORD	m_wObjectIDX;
-	short	m_nMaxHP;
-	short	m_nHP;
+	DWORD	m_nMaxHP;
+	DWORD	m_nHP;
 	DWORD	m_dwStatusFALG;
 
 	short	m_nCON;						// BYTE	m_btCON; //최대 스텟 범위가 300으로 증가됨 2004. 7. 21
 
-	BYTE	m_btRecoverHP;				// item_recover_hp + passive_recover_hp
-	BYTE	m_btRecoverMP;				// item_recover_mp + passive_recover_mp
+	WORD	m_btRecoverHP;				// item_recover_hp + passive_recover_hp
+	WORD	m_btRecoverMP;				// item_recover_mp + passive_recover_mp
 
 	short	m_nSTAMINA;
 
