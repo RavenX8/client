@@ -197,9 +197,44 @@ short CInventory::GetBodyPartToItemType( short nEquipSlot )
 		case BODY_PART_WEAPON_L:
 			nBodyPartIDX = ITEM_TYPE_SUBWPN;
 			break;
-		
 		case BODY_PART_KNAPSACK:
 			nBodyPartIDX = ITEM_TYPE_KNAPSACK;
+			break;
+	}
+
+	return nBodyPartIDX;
+
+}
+
+short CInventory::GetBodyPartToEquipSlot( short nBodyPart )
+{
+
+	short nBodyPartIDX = MAX_EQUIP_IDX;
+	switch( nBodyPart )
+	{		
+		case BODY_PART_GOGGLE:
+			nBodyPartIDX = EQUIP_IDX_FACE_ITEM;
+			break;
+		case BODY_PART_HELMET:
+			nBodyPartIDX = EQUIP_IDX_HELMET;
+			break;
+		case BODY_PART_ARMOR:
+			nBodyPartIDX = EQUIP_IDX_ARMOR;
+			break;
+		case BODY_PART_KNAPSACK:
+			nBodyPartIDX = EQUIP_IDX_KNAPSACK;
+			break;
+		case BODY_PART_GAUNTLET:
+			nBodyPartIDX = EQUIP_IDX_GAUNTLET;
+			break;
+		case BODY_PART_BOOTS:
+			nBodyPartIDX = EQUIP_IDX_BOOTS;
+			break;
+		case BODY_PART_WEAPON_R:
+			nBodyPartIDX = EQUIP_IDX_WEAPON_R;	
+			break;
+		case BODY_PART_WEAPON_L:
+			nBodyPartIDX = EQUIP_IDX_WEAPON_L;
 			break;
 	}
 

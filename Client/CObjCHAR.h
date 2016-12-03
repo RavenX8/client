@@ -1420,11 +1420,14 @@ public:
 	}
 	void						SetPartITEM(short nPartIdx, short nItemNo);
 	void						SetAvataName (char *szName)						{	m_Name = szName;							}
-	void						SetAllPARTS (tagPartITEM *pPartItemIDX)			{	
-		//::CopyMemory( m_sPartItemIDX, pPartItemIDX, sizeof(tagPartITEM)*MAX_BODY_PART);
-		for(int i = 0; i < MAX_BODY_PART; ++i) {
-			short nItemType = CInventory::GetBodyPartToItemType(i);
-			if(nItemType != MAX_BODY_PART) m_sPartItemIDX[i] = pPartItemIDX[nItemType];
+	void						SetAllPARTS (tagPartITEM *pPartItemIDX)			{
+		::ZeroMemory(m_sPartItemIDX, sizeof(tagPartITEM)*MAX_BODY_PART);
+		m_sPartItemIDX[BODY_PART_FACE] = pPartItemIDX[0];
+		m_sPartItemIDX[BODY_PART_HAIR] = pPartItemIDX[1];
+		short nEquipSlot = 0;
+		for(int i = 2; i < MAX_BODY_PART; ++i) {
+			nEquipSlot = CInventory::GetBodyPartToEquipSlot(i)+1;
+			if(nEquipSlot != MAX_EQUIP_IDX) m_sPartItemIDX[i] = pPartItemIDX[nEquipSlot];
 		}		
 	}
 	void						SetAllPetPARTS (tagPartITEM *pPetPartItemIDX)	{	::CopyMemory( m_sPetPartItemIDX, pPetPartItemIDX, sizeof(tagPartITEM)*MAX_RIDING_PART);	}

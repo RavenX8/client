@@ -45,6 +45,7 @@ public :
 	void Clear ();
 
 	static short GetBodyPartToItemType( short nEquipSlot );
+	static short GetBodyPartToEquipSlot( short nBodyPart );
 	static short GetBodyPartByEquipSlot( short nEquipSlot );
 
 	bool IDX_GetITEM (short nIndexNO, tagITEM &OutITEM);
