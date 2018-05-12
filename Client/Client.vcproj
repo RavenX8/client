@@ -48,7 +48,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OmitFramePointers="false"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)\3rdParty\include&quot;;&quot;$(SolutionDir)\3rdParty\include\lua401&quot;;&quot;$(SolutionDir)\3rdParty\dx90csdk\Include&quot;;.\;.\interface;&quot;$(SolutionDir)\LIB_Util&quot;;&quot;$(SolutionDir)\TGameCtrl&quot;;&quot;$(SolutionDir)\engine\include&quot;;&quot;$(SolutionDir)\tools\TriggerVFS\include&quot;;&quot;$(SolutionDir)\tools\TriggerInfo\src&quot;;&quot;$(SolutionDir)\Common&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\3rdParty\include&quot;;&quot;$(SolutionDir)\3rdParty\include\lua401&quot;;&quot;$(SolutionDir)\3rdParty\dx90csdk\Include&quot;;.\;.\interface;.\GameCommon;&quot;$(SolutionDir)\LIB_Util&quot;;&quot;$(SolutionDir)\TGameCtrl&quot;;&quot;$(SolutionDir)\engine\include&quot;;&quot;$(SolutionDir)\tools\TriggerVFS\include&quot;;&quot;$(SolutionDir)\tools\TriggerInfo\src&quot;;&quot;$(SolutionDir)\Common&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -150,7 +150,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\interface;&quot;$(SolutionDir)\engine\include&quot;;&quot;$(SolutionDir)\3rdParty\include&quot;;&quot;$(SolutionDir)\TGameCtrl&quot;;&quot;$(SolutionDir)\tools\TriggerVFS\include&quot;;&quot;$(SolutionDir)\tools\TriggerInfo\src&quot;;&quot;$(SolutionDir)\3rdParty\include\lua401&quot;;&quot;$(SolutionDir)\Common&quot;;&quot;$(SolutionDir)\3rdParty\dx90csdk\Include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\3rdParty\include&quot;;&quot;$(SolutionDir)\3rdParty\include\lua401&quot;;&quot;$(SolutionDir)\3rdParty\dx90csdk\Include&quot;;.\;.\interface;.\GameCommon;&quot;$(SolutionDir)\LIB_Util&quot;;&quot;$(SolutionDir)\Common&quot;;&quot;$(SolutionDir)\TGameCtrl&quot;;&quot;$(SolutionDir)\engine\include&quot;;&quot;$(SolutionDir)\tools\TriggerVFS\include&quot;;&quot;$(SolutionDir)\tools\TriggerInfo\src&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="2"
