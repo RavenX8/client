@@ -78,7 +78,7 @@
 
 
 #include "ResourceMgr.h"
-#include "TIme.h"
+#include "TTIme.h"
 
 #include "util/ijl.h"	
 #pragma comment (lib, "util/ijl15.lib")

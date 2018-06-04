@@ -212,7 +212,7 @@ bool zz_manager::kill (zz_node * node)
 	assert(node);
 
 	if (!children.empty()) { // replace _current to the first child
-        _current = *(children.begin());
+		_current = *(children.begin());
 	}
 
 	zz_node * parent_node = node->get_parent();

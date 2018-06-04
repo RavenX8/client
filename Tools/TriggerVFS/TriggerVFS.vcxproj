@@ -1,16 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="FraRose_Debug|Win32">
-      <Configuration>FraRose_Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="FraRose_Release|Win32">
-      <Configuration>FraRose_Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
@@ -24,51 +16,29 @@
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
-    <Import Project="..\..\AZGStudioProjectSettings.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
-    <Import Project="..\..\AZGStudioProjectSettings.props" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
-    <Import Project="..\..\AZGStudioProjectSettings.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
-    <Import Project="..\..\AZGStudioProjectSettings.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+    <_ProjectFileVersion>14.0.25431.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
@@ -77,15 +47,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)/bin/$(Platform)/$(Configuration)/$(SolutionName)\</OutDir>
     <IntDir>$(SolutionDir)/objs/$(Platform)/$(Configuration)/$(ProjectName)\</IntDir>
-    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Release|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Debug|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,7 +65,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Importing Borland Import Libraries.... end copying to RAW</Message>
-      <Command>implib $(ROSE_ROOT)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
+      <Command>implib $(SolutionDir)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
 xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y
 </Command>
     </PostBuildEvent>
@@ -125,49 +86,9 @@ xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration
     </Link>
     <PostBuildEvent>
       <Message>Importing Borland Import Libraries....</Message>
-      <Command>implib $(ROSE_ROOT)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
+      <Command>implib $(SolutionDir)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
 xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\
 </Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Release|Win32'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>./src/lib;$(SolutionDir)\3rdParty\dx90csdk\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;TRIGGERVFS_EXPORTS;__DLL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <DebugInformationFormat />
-    </ClCompile>
-    <Link>
-      <OutputFile>$(OutDir)TriggerVFS.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
-      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-    </Link>
-    <PostBuildEvent>
-      <Message>Importing Borland Import Libraries.... end copying to RAW</Message>
-      <Command>implib $(ROSE_ROOT)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
-xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='FraRose_Debug|Win32'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>./src/lib;$(SolutionDir)\3rdParty\dx90csdk\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;TRIGGERVFS_EXPORTS;__DLL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <DebugInformationFormat />
-    </ClCompile>
-    <Link>
-      <OutputFile>$(OutDir)d_TriggerVFS.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
-      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
-    </Link>
-    <PostBuildEvent>
-      <Message>Importing Borland Import Libraries.... end copying to RAW</Message>
-      <Command>implib $(SolutionDir)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -190,17 +111,17 @@ xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration
     <ClCompile Include="src\VFS_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ErrorEtc.h" />
-    <ClInclude Include="src\libFile.h" />
-    <ClInclude Include="src\stdafx.h" />
-    <ClInclude Include="src\VFS.h" />
+    <ClInclude Include="..\..\Client\Util\classHASH.h" />
+    <ClInclude Include="include\TriggerVFS.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="src\BlankInfo.h" />
     <ClInclude Include="src\classCRC.h" />
-    <ClInclude Include="..\..\Client\Util\classHASH.h" />
+    <ClInclude Include="src\ErrorEtc.h" />
     <ClInclude Include="src\libCrc.h" />
+    <ClInclude Include="src\libFile.h" />
     <ClInclude Include="src\libString.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="include\TriggerVFS.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\VFS.h" />
     <ClInclude Include="src\VFS_Manager.h" />
   </ItemGroup>
   <ItemGroup>

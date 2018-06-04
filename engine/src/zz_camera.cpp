@@ -204,7 +204,7 @@ void zz_camera::set_aspect_ratio (float aspect_ratio_from)
 {
 	aspect_ratio_ = aspect_ratio_from;
 	//assert(perspective_);
-	if (perspective_) {;
+	if (perspective_) {
 		projection_matrix_._11 = projection_matrix_._22 / aspect_ratio_from;
 	}
 }
@@ -472,23 +472,9 @@ void zz_camera::get_ray (vec2 screen_pos, vec3& origin, vec3& direction)
 	
 	// _11 = 2*n/(r - l), _22 = 2*n/(t - b)
 	
-	if(!znzin->screen_sfx.get_widescreen_mode())
-	{
-		v.x = (2.0f * screen_pos.x/znzin->view->get_width() - 1.0f) / projection_matrix_._11;
-		v.y = (1.0f - 2.0f * screen_pos.y/znzin->view->get_height()) / projection_matrix_._22;
-	}
-	else
-	{
-	    zz_viewport view_port;
-		znzin->screen_sfx.get_widescreen_viewport(view_port);
-		int screen_x,screen_y;
+	v.x = (2.0f * screen_pos.x/znzin->view->get_width() - 1.0f) / projection_matrix_._11;
+	v.y = (1.0f - 2.0f * screen_pos.y/znzin->view->get_height()) / projection_matrix_._22;
 
-		screen_x = screen_pos.x-view_port.x;
-		screen_y = screen_pos.y-view_port.y;
-
-		v.x = (2.0f * screen_x/view_port.width - 1.0f) / projection_matrix_._11;
-		v.y = (1.0f - 2.0f * screen_y/view_port.height) / projection_matrix_._22;	 
-	}
 #ifdef	ZZ_ZRANGE_D3D
 	v.z = -1.0f; // we use right-handed modelview, but d3d use left-handed projection
 #else
@@ -698,42 +684,12 @@ void zz_camera::world2screen (const vec3& world_pos, vec3& screen_pos)
 	screen_pos.set(screen3.x, screen3.y, screen3.z);
 	// screen_pos = ([-1, 1], [-1, 1])
 	
-	
-	if(!znzin->screen_sfx.get_widescreen_mode())
-	{
-		float width, height;
-		width = (float)znzin->get_rs()->buffer_width;
-		height = (float)znzin->get_rs()->buffer_height;
-		screen_pos.x = (.5f*screen_pos.x + .5f)*(width - 1);
-		screen_pos.y = (.5f*screen_pos.y + .5f)*(height - 1);
-		screen_pos.y = (height - 1 - screen_pos.y);
-	}
-	else
- 	{
-       zz_viewport view_port;
-	   float screen_x,screen_y;
-	   znzin->screen_sfx.get_widescreen_viewport(view_port);
-       	   
-	   screen_x=.5f*screen_pos.x + .5f;
-       screen_y=.5f*screen_pos.y + .5f;
-
-	   if(screen_x<0.0f || screen_x>1.0f)
-			screen_x=10000;
-	   else
-	   {
-			screen_pos.x =screen_x*(view_port.width - 1)+view_port.x;
-	   }
-	   
-	   if(screen_y<0.0f || screen_y>1.0f)
-			screen_y=10000;
-	   else
-	   {
-			screen_pos.y = screen_y*(view_port.height - 1);
-			screen_pos.y = (view_port.height - 1 - screen_pos.y)+view_port.y;  
-	   }
-	   
- 
-	}
+	float width, height;
+	width = (float)znzin->get_rs()->buffer_width;
+	height = (float)znzin->get_rs()->buffer_height;
+	screen_pos.x = (.5f*screen_pos.x + .5f)*(width - 1);
+	screen_pos.y = (.5f*screen_pos.y + .5f)*(height - 1);
+	screen_pos.y = (height - 1 - screen_pos.y);
 }
 
 float zz_camera::get_far_plane (void)

@@ -18,7 +18,7 @@
 #include "TRadioBox.h"
 #include "TRadioButton.h"
 #include "TCheckBox.h"
-#include "TIme.h"
+#include "TTIme.h"
 #include "TControlMgr.h"
 #include "TEditBox.h"
 

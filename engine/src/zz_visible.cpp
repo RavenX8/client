@@ -223,7 +223,7 @@ void zz_visible::invalidate_transform ()
 {
 	invalidate_transform_downward();
 	invalidate_minmax_upward();
-    invalidate_tm_minmax();              //test 12-8
+	invalidate_tm_minmax();              //test 12-8
 }
 
 void zz_visible::get_modelviewTM (mat4& modelview_matrix)
@@ -321,7 +321,7 @@ void zz_visible::render (bool recursive)
 
 void zz_visible::apply_lod (zz_mesh * mesh, zz_material * mat)
 {
-#if (1)
+#if (0)
 	zz_assert(mesh);
 	zz_assert(mat);
 
@@ -558,7 +558,7 @@ void zz_visible::render_runit_ex (unsigned int runit_index)
 	mesh->set_clip_face(clip_face);
 	
 	r->render(mesh, mat, light);
-    r->draw_axis(30.0f);
+	r->draw_axis(30.0f);
 }
 
 void zz_visible::clear_runit (void)
@@ -661,7 +661,7 @@ void zz_visible::build_mesh_minmax (vec3& mesh_min_out, vec3& mesh_max_out)
 	// for all meshes
 	for (unsigned int i = 0; i < num_runits; ++i) {
 		mesh = runits[i].mesh;
-        mesh_min = mesh->get_min();
+		mesh_min = mesh->get_min();
 		mesh_max = mesh->get_max();
 		
 		if (i == 0) { // set initial min/max as the first mesh's
@@ -688,7 +688,7 @@ void zz_visible::update_bvolume_sub (const vec3& pos_world_in, const quat& quat_
 
 void zz_visible::get_local_center (vec3& local_center_out, const vec3& mesh_min, const vec3& mesh_max)
 {
-    local_center_out = .5f * (mesh_max + mesh_min);
+	local_center_out = .5f * (mesh_max + mesh_min);
 }
 
 // create new bounding volume and reset bv by default local_center:
@@ -1216,7 +1216,7 @@ void zz_visible::rotate_by_axis_facing_camera (const vec3& cam_pos_world, int ro
 		mult(cam_pos, parent->get_world_inverseTM(), cam_pos_world);
 	}
 	else { // do not have parent visible node
-        cam_pos = cam_pos_world;
+		cam_pos = cam_pos_world;
 	}
 
 	direction_axis = cam_pos;
@@ -1356,7 +1356,7 @@ bool zz_visible::test_intersection_sphere (const zz_bounding_sphere& sphere)
 
 bool zz_visible::test_intersection_sphere_level (
 	const zz_bounding_sphere& sphere_target,
-    zz_collision_level collision_level_in)
+	zz_collision_level collision_level_in)
 {
 	if (collision_level_in == ZZ_CL_NONE) {
 		// use visible default collision leves
@@ -1497,7 +1497,7 @@ public:
 void zz_visible::set_visibility_recursive (float visibility_in)
 {
 	set_visibility(visibility_in);
-    
+	
 	if( visibility_in > 0.0001f)
 		set_forced_visibility(false);
 	else
@@ -1514,9 +1514,9 @@ void zz_visible::set_visibility_recursive (float visibility_in)
 
 void zz_visible::set_lighting_recursive (zz_light* light )
 {
-    for (unsigned int i = 0; i < num_runits; ++i) {
+	for (unsigned int i = 0; i < num_runits; ++i) {
 			set_light(i,light);	
-    }
+	}
 
 	if (children.empty()) return;
 
@@ -1530,7 +1530,7 @@ void zz_visible::set_lighting_recursive (zz_light* light )
 void zz_visible::set_shadow_onoff_recursive (bool onoff)
 {
 	set_shadow_onoff(onoff);
-    
+	
 	if (children.empty()) return;
 
 	for (child_it it = children.begin(), it_end = children.end(); it != it_end; ++it)
@@ -1640,7 +1640,7 @@ void zz_visible::scene_refresh ()
 {
 	assert(scene);
 	if (inscene) { // object should be in scene
-        if (_onode) { // actually  in scene
+		if (_onode) { // actually  in scene
 			if (get_root() == parent_node) {
 				scene->refresh(this);
 			}
@@ -1658,7 +1658,7 @@ void zz_visible::scene_refresh ()
 		}
 	}
 	else { // should be not in scene
-        if (_onode) { // if actually in scene
+		if (_onode) { // if actually in scene
 			scene->remove(this);
 		}
 	}

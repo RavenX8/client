@@ -241,22 +241,19 @@ public:
 	child_type& get_children () { return this->children; }
 
 	// Get index-th child node : it is too slow. recommend not to use this
-    zz_node * get_child_by_index (int index_of_child_to_find);
+	zz_node * get_child_by_index (int index_of_child_to_find);
 
 	// Traverse all sub-nodes and print the information(name and hierarchy)
-    void traverse_node ();
+	void traverse_node ();
 
 	// dump ancestors and descendants names
 	void dump_hierarchy ();
 
 	// Get the highest root node, if not, returns null.
 	// same as get_manger except return type
-	zz_node * get_root () const
+	inline zz_node * get_root () const
 	{
-		if (is_valid(node_system)) {
-			return node_system->root;
-		}
-		return NULL;
+		return is_valid(node_system) ? node_system->root : nullptr;
 	}
 
 	// Get the parent node, if not, returns null.

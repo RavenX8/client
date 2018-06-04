@@ -42,7 +42,7 @@ bool CSFXWideScreen::Init()
 	///
 	/// 엔진의 뷰포트 변환기능으로 와이드 스크린효과..
 	///
-	PlayWideScreen( 9.0f / 16.0f );
+//	PlayWideScreen( 9.0f / 16.0f );
 
 	return true;
 }
@@ -58,7 +58,7 @@ void CSFXWideScreen::Release()
 	///
 	/// 엔진의 뷰포트 변환기능으로 와이드 스크린효과..
 	///
-	StopWideScreen();
+//	StopWideScreen();
 }
 
 void CSFXWideScreen::Update()

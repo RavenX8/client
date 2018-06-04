@@ -19,8 +19,6 @@
 #ifdef WIN32
 #include <windows.h>
 #include <d3dx9math.h>
-#include <d3d9.h>
-#include <d3dx9.h>
 
 typedef RECT ZZ_RECT;
 typedef D3DVECTOR ZZ_VECTOR;
@@ -46,9 +44,9 @@ typedef struct _ZZ_RECT {
 
 // same as DIRECTX D3DVECTOR and vec3 in zz_algebra.h
 typedef struct _ZZ_VECTOR {
-    float x;
-    float y;
-    float z;
+	float x;
+	float y;
+	float z;
 } ZZ_VECTOR;
 
 // same as D3DCOLOR
@@ -238,6 +236,9 @@ void useShadowmap ( int bUse );
 /// @bUse : 0(사용안함), 1(사용함)
 ZZ_SCRIPT
 void useGlow ( int bUse );
+
+ZZ_SCRIPT
+void useSSAO ( int bUse );
 
 /// 전화면 글로우효과를 사용할지 여부
 /// @bUse : 0(사용안함), 1(사용함)
@@ -1043,7 +1044,7 @@ int lookAt (
 			HNODE hCamera,
 			float eyeX, float eyeY, float eyeZ,
 			float centerX, float centerY, float centerZ,
-            float upX, float upY, float upZ );
+			float upX, float upY, float upZ );
 
 ZZ_SCRIPT
 int setCameraPerspective ( HNODE hCamera, float fFovY, float fAspectRatio, float fNear, float fFar );
@@ -1267,13 +1268,13 @@ int rotateByVectorAbsoluteScript ( HNODE hVisible,
 /// 회전시키는 회전을 적용한다.
 /// 예)
 /*
-    HNODE model = getBone(findNode("00300_0", 0);
-    FLOAT pos[3];
+	HNODE model = getBone(findNode("00300_0", 0);
+	FLOAT pos[3];
 	FLOAT axis[] = {1, 0, 0};
 	getPosition( model, pos )
-    
+	
 	// 화살의 나가는 방향(1, 0, 0)을 모델의 중심을 가리키도록 회전시킴
-    rotateByVectorRelative( sword[1], axis, pos );
+	rotateByVectorRelative( sword[1], axis, pos );
 */
 ZZ_DLL
 int rotateByVectorRelative ( HNODE hVisible,
@@ -2200,9 +2201,9 @@ HNODE getUserData ( HNODE hVisible );
 // @return = 기울기값. 0.0(평지)-1.0(90도 경사)
 /*
 ex)
-    if (getModelVelocity( model ) > 0.1) then
-        applySliding( model, 0.3, 0.7, 20, 2000.0 )
-    end
+	if (getModelVelocity( model ) > 0.1) then
+		applySliding( model, 0.3, 0.7, 20, 2000.0 )
+	end
 */
 ZZ_DLL
 float getSliding ( HNODE hVisible, float fMin, float fMax, float fNeighborDistance, float fVelocity, float vSliding[3] );
@@ -2590,18 +2591,18 @@ int endSprite ( void );
 /// @Color 텍스쳐에 곱해질 색상. D3DCOLOR와 호환됨.
 ZZ_DLL
 int drawSprite ( HNODE hTexture, 
-    const ZZ_RECT * pSrcRect,
-    const ZZ_VECTOR *pCenter,
-    const ZZ_VECTOR *pPosition,
-    const ZZ_COLOR Color
+	const ZZ_RECT * pSrcRect,
+	const ZZ_VECTOR *pCenter,
+	const ZZ_VECTOR *pPosition,
+	const ZZ_COLOR Color
 );
 
 ZZ_DLL
 int drawSpriteCover ( HNODE hTexture, 
-    const ZZ_RECT * pSrcRect,
-    const ZZ_VECTOR *pCenter,
-    const ZZ_VECTOR *pPosition,
-    const ZZ_COLOR OriginColor,
+	const ZZ_RECT * pSrcRect,
+	const ZZ_VECTOR *pCenter,
+	const ZZ_VECTOR *pPosition,
+	const ZZ_COLOR OriginColor,
 	const ZZ_COLOR CoverColor,
 	float value
 );
@@ -2609,18 +2610,18 @@ int drawSpriteCover ( HNODE hTexture,
 ZZ_DLL
 int getSpriteTextureColor(HNODE hTexture,  
 	int iMouseX, int iMouseY,
-    const ZZ_RECT * pSrcRect,
-    const ZZ_VECTOR *pCenter,
-    const ZZ_VECTOR *pPosition,
-    D3DXCOLOR *color
+	const ZZ_RECT * pSrcRect,
+	const ZZ_VECTOR *pCenter,
+	const ZZ_VECTOR *pPosition,
+	D3DXCOLOR *color
 );
 
 ZZ_DLL
 int inputSpriteSFX ( HNODE hTexture, 
-    const ZZ_RECT * pSrcRect,
-    const ZZ_VECTOR *pCenter,
-    const ZZ_VECTOR *pPosition,
-    const ZZ_COLOR color, 
+	const ZZ_RECT * pSrcRect,
+	const ZZ_VECTOR *pCenter,
+	const ZZ_VECTOR *pPosition,
+	const ZZ_COLOR color, 
 	float fade_time1,
 	float fade_time2,
 	float max_time
@@ -3098,12 +3099,6 @@ ZZ_DLL
 int drawAABB ( float vMin[3], float vMax[3], ZZ_COLOR Color );
 
 ZZ_DLL
-void ScreenFadeInStart(float fade_in_t,float fade_m_t,float fade_out_t,int color_r,int color_g,int color_b); 
-
-ZZ_DLL
-void ScreenTransition(int state,float time);
-
-ZZ_DLL
 void ObserverCameraTransform(int mouse_xx,int mouse_yy);
 
 ZZ_DLL
@@ -3133,18 +3128,6 @@ bool GetObserverCameraOnOff();
 
 ZZ_DLL
 void SetOceanSFXOnOff(bool onoff);
-
-ZZ_DLL
-void StopScreenFadeInOut();
-
-ZZ_DLL
-void PlayWideScreen(float screen_ratio);
-
-ZZ_DLL
-void PlayWideScreenEx(int x,int y ,int width,int height);
-
-ZZ_DLL
-void StopWideScreen();
 
 ZZ_DLL
 void UserObserverCamera(int bUse);

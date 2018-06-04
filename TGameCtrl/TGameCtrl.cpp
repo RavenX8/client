@@ -5,7 +5,7 @@
 #include "TGameCtrl.h"
 #include "TControlMgr.h"
 #include "ResourceMgr.h"
-#include "TIme.h"
+#include "TTIme.h"
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  ul_reason_for_call, 
                        LPVOID lpReserved

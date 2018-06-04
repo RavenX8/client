@@ -144,7 +144,7 @@
 #include <string.h>
 #include "zz_mem.h"
 #include "zz_vfs.h"
-#include "zz_vfs_zip.h"
+//#include "zz_vfs_zip.h"
 #include "zz_vfs_local.h"
 #include "zz_vfs_pkg.h"
 #include "zz_log.h"
@@ -182,7 +182,7 @@ uint32 zz_vfs::read(uint32 size)
 	return read_count;
 }
 
-zz_vfs::zz_vfs_protocol zz_vfs::parse_protocol_ (const char * filename /* in */, char * &real_filename /* out */)
+zz_vfs::zz_vfs_protocol zz_vfs::parse_protocol_ (const char * filename /* in */, const char * &real_filename /* out */)
 {
 	const char ftp_string[] = FTP_STRING;
 	const char http_string[] = HTTP_STRING;
@@ -190,7 +190,7 @@ zz_vfs::zz_vfs_protocol zz_vfs::parse_protocol_ (const char * filename /* in */,
 	const char local_string[] = LOCAL_STRING;
 
 	// ftp
-	if (real_filename = const_cast<char*>( strstr(filename, ftp_string) )) {
+	if (real_filename = strstr(filename, ftp_string)) {
 		// reset filename
 		// "ftp://zho.pe.kr/haha.txt" -> "zho.pe.kr/haha.txt"
 		real_filename += strlen(ftp_string);
@@ -199,13 +199,13 @@ zz_vfs::zz_vfs_protocol zz_vfs::parse_protocol_ (const char * filename /* in */,
 	}
 	
 	// http
-	if (real_filename = const_cast<char*>( strstr(filename, http_string) ) ) {
+	if (real_filename = strstr(filename, http_string)) {
 		real_filename += strlen(http_string);
 		return ZZ_VFS_HTTP;
 	}
 
 	// zip
-	if (real_filename = const_cast<char*>( strstr(filename, zip_string)) ) {
+	if (real_filename = strstr(filename, zip_string)) {
 		// reset filename
 		// "zip://haha.zip/haha.txt" -> "haha.zip/haha.txt"
 		real_filename += strlen(zip_string);
@@ -213,7 +213,7 @@ zz_vfs::zz_vfs_protocol zz_vfs::parse_protocol_ (const char * filename /* in */,
 	}
 
 	// local
-	if (real_filename = const_cast<char*>( strstr(filename, local_string)) ) {
+	if (real_filename = strstr(filename, local_string)) {
 		// reset filename
 		// "file://haha.zip/haha.txt" -> "haha.zip/haha.txt"
 		real_filename += strlen(local_string);

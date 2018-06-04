@@ -11,7 +11,7 @@
 
 #include "../GameData/CGameDataCreateAvatar.h"
 
-#include "TIme.h"
+#include "TTIme.h"
 CGameStateCreateAvatar::CGameStateCreateAvatar( int iID )
 { 
 	m_iStateID = iID; 

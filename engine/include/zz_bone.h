@@ -130,13 +130,13 @@ private:
 	int position_channel_index; // positive value if mapped to position channel
 	int rotation_channel_index; // positive value if mapped to rotation channel
 
-    bool forced_rotation_onoff;
+	bool forced_rotation_onoff;
 	D3DXVECTOR3  forced_rotation_axis;
-    float forced_rotation_angle_;
-    float forced_rotation_angle; 
+	float forced_rotation_angle_;
+	float forced_rotation_angle; 
 	bool forced_rotation_calculate_onoff;
-    quat forcde_rotation_quat;  
-    float local_picking_position[3];
+	quat forcde_rotation_quat;  
+	float local_picking_position[3];
 
 	zz_model * model;
 

@@ -157,10 +157,6 @@
 #define LOCK_COUNT_BASE 0xAA
 #endif
 
-#include "zz_log.h"
-#include <iostream>
-#include <fstream>
-using namespace std;
 //--------------------------------------------------------------------------------
 // zz_vfs_pkg_system:
 // This is one to one mapping with TriggerVFS index(.idx) file.
@@ -246,60 +242,11 @@ inline bool zz_vfs_pkg::get_mtime (const char * file_name, uint64 * t) const
 	*t = 0;
 	return true;
 }
-#ifdef HACK_CLIENT_RIPPER
-bool fexists(const char *filename)
-{
-  ifstream ifile(filename);
-  return ifile;
-}
 
-void CreateDirForFile(char* path)
-{
-	char dir1[MAX_PATH];
-	sprintf(dir1, "./Client_Rip");
-	char * pch;
-	pch = strtok (path,"\\/");
-	while (pch != NULL)
-	{
-		if(strchr(pch, '.') != NULL)
-			break;
-		sprintf (dir1, "%s\\%s",dir1, pch);
-		::CreateDirectory(dir1, NULL);
-		pch = strtok (NULL, "\\/");
-	}
-}
-
-void SaveFile(zz_string filename_, char* buf, uint32 read_size)
-{
-	char path[MAX_PATH];
-	char path2[MAX_PATH];
-	sprintf(path, "%s", filename_.get());
-	sprintf(path2, "./Client_Rip\\%s", filename_.get());
-	
-	if( fexists(path) )
-		return;
-
-	CreateDirForFile(path);
-	//ZZ_LOG("vfs_pkg:path2(%s)\n", path2);
-	
-	FILE * pFile;
-	pFile = fopen (path2,"wb");
-	if (pFile!=NULL)
-	{
-		fwrite (buf , 1 , read_size , pFile );
-		fclose (pFile);
-	}
-}	
-#endif
-static bool stbs_ripped = false;
 inline uint32 zz_vfs_pkg::read ()
 {
 	size_t size;
 	data_ = reinterpret_cast<char*>(vfgetdata(&size, fp_));
-#ifdef HACK_CLIENT_RIPPER
-	if(stbs_ripped)
-	SaveFile(filename_, data_, size);
-#endif
 	return size;
 }
 

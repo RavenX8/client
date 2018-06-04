@@ -53,8 +53,6 @@
 #include "zz_channel_position.h"
 #include "zz_profiler.h"
 
-ZZ_IMPLEMENT_DYNCREATE(zz_channel_position, zz_channel)
-
 zz_channel_position::zz_channel_position(void) : zz_channel(ZZ_INTERP_CATMULLROM),
 positions(0),
 num_positions(0)
@@ -141,6 +139,7 @@ void zz_channel_position::get_by_time (zz_time time, int fps, void * data_pointe
 			//ZZ_LOG("channel_position: start_frame = %d\n", start_frame);
 			break;
 	}
+	
 	update(*pos_data, new_pos, false);
 }
 

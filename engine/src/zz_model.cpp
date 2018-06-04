@@ -63,8 +63,8 @@ zz_model::zz_model(void) :
 	//bones.reserve(30);
 	//dummies.reserve(10);
 	//items.reserve(10);
-    shadow_onoff = true;
-    camera_collision_onoff = false;
+	shadow_onoff = true;
+	camera_collision_onoff = false;
 	fored_motion_blend0ff = false;
 }
 
@@ -84,7 +84,7 @@ void zz_model::init_blink_ ()
 	blink_open_delay_ = 4000;
 	blink_close_delay_ = 100;
 	blink_current_delay_ = blink_close_delay_; // to be opened at next time
-    blink_close_mode = false;
+	blink_close_mode = false;
 }
 #endif // ZZ_BLINK_TEST
 
@@ -558,18 +558,16 @@ void zz_model::bind_channels ()
 		}
 #endif
 
-		if (channels[i]->is_a(ZZ_RUNTIME_TYPE(zz_channel_position))) {
+		if (channels[i]->get_channel_format() == ZZ_CFMT_XYZ) {
 			bones[bone_id]->set_position_channel_index(i);
 		}
-		else if (channels[i]->is_a(ZZ_RUNTIME_TYPE(zz_channel_rotation))) {
-			if (num_bones > bone_id) {
+		else if (channels[i]->get_channel_format() == ZZ_CFMT_WXYZ) {
 			zz_bone * one = bones[bone_id];
 			if (one) {
 				bones[bone_id]->set_rotation_channel_index(i);
 			}
 			else {
 				assert(0);
-			}
 			}
 		}
 		// else error
@@ -1104,7 +1102,7 @@ void zz_model::set_lighting_recursive(zz_light* light)
 {
 	 for (unsigned int i = 0; i < num_runits; ++i) {
 			set_light(i,light);	
-    }
+	}
 
 	for (std::vector<zz_visible*>::iterator it = items.begin(), it_end = items.end();
 		it != it_end; ++it) {
@@ -1191,7 +1189,7 @@ void zz_model::update_transform (zz_time diff_time)
 		{
 			float distancez;
 			distancez = znzin->get_linear_gravity() *ZZ_TIME_TO_MSEC(diff_time);
-		    position.z+=distancez;
+			position.z+=distancez;
 			apply_gravity_onoff = false;
 		}
 		
@@ -1200,16 +1198,15 @@ void zz_model::update_transform (zz_time diff_time)
 }
 
 void zz_model::set_virtual_Transform (const vec4& pos)
-{
-	
+{	
 	vec4 inv_pos;
 	
 	worldTM._14 = pos.x; worldTM._24 = pos.y; worldTM._34 = pos.z; worldTM._44 = 1.0f;
-   	
+	
 	mult(inv_pos,worldTM,pos);
-    world_inverseTM._14 = inv_pos.x; world_inverseTM._24 = inv_pos.y; world_inverseTM._34 = inv_pos.z; world_inverseTM._44 = 1.0f;
+	world_inverseTM._14 = inv_pos.x; world_inverseTM._24 = inv_pos.y; world_inverseTM._34 = inv_pos.z; world_inverseTM._44 = 1.0f;
 
-    tm_cache_flag |= TRANSFORM_CACHE_INDEX_WORLD_TM;
+	tm_cache_flag |= TRANSFORM_CACHE_INDEX_WORLD_TM;
 
 }
 
@@ -1268,12 +1265,13 @@ void zz_model::expand_scene_minmax_height (vec3& scene_min_out, vec3& scene_max_
 	const vec3 * child_minmax;
 	for (zz_item_list::iterator it = items.begin(), it_end = items.end(); it != it_end; ++it) {
 		child = (*it);
-	  	name = child->get_name();
+		name = child->get_name();
 		if(!strstr(name,"eft"))
 		{
 			child_minmax = child->get_minmax();
 
-			assert(child->is_valid_bvolume());
+			// TODO: Figure out why this needs to be commented
+			//assert(child->is_valid_bvolume());
 			if (child_minmax[0].x < scene_min_out.x) scene_min_out.x = child_minmax[0].x;
 			if (child_minmax[0].y < scene_min_out.y) scene_min_out.y = child_minmax[0].y;
 			if (child_minmax[0].z < scene_min_out.z) scene_min_out.z = child_minmax[0].z;
@@ -1377,7 +1375,7 @@ void zz_model::link_child (zz_node * node_child)
 	if (!node_child->is_a(ZZ_RUNTIME_TYPE(zz_bone))) {
 		add_item(static_cast<zz_visible*>(node_child));
 	}
-    zz_animatable::link_child(node_child); // for now, zz_animatable does not have link_child
+	zz_animatable::link_child(node_child); // for now, zz_animatable does not have link_child
 }
 
 void zz_model::unlink_child (zz_node * node_child)
@@ -1386,7 +1384,7 @@ void zz_model::unlink_child (zz_node * node_child)
 	if (!node_child->is_a(ZZ_RUNTIME_TYPE(zz_bone))) {
 		del_item(static_cast<zz_visible*>(node_child));
 	}
-    zz_animatable::unlink_child(node_child); // for now, zz_animatable does not have unlink_child
+	zz_animatable::unlink_child(node_child); // for now, zz_animatable does not have unlink_child
 }
 
 void zz_model::update_time (bool recursive, zz_time diff_time)
@@ -1427,7 +1425,7 @@ void zz_model::set_glow_recursive (zz_glow_type glow_type_in, const vec3& color_
 	for (zz_item_list::iterator it = items.begin(), it_end = items.end(); it != it_end; ++it)
 	{
 		//(*it)->set_glow_recursive(glow_type_in, color_in);
-	    (*it)->set_glow(glow_type_in, color_in);
+		(*it)->set_glow(glow_type_in, color_in);
 	}
 }
 

@@ -25,7 +25,7 @@
 
 
 #include "../CSkyDOME.H"
-#include "TIme.h"
+#include "TTIme.h"
 #include "SystemProcScript.h"
 
 CGameStateSelectSvr::CGameStateSelectSvr( int iID )

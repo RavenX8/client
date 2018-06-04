@@ -173,7 +173,7 @@ bool CObjectMANAGER::Set_EmptySlot (short nSlotNO, WORD wServerObjectIndex, CGam
 
 			case OBJ_EVENTOBJECT:				
 				CObjFixedEvent* pEventObj = (CObjFixedEvent*)pObject;
-				m_EventObjectList.insert( std::make_pair< int, CObjFixedEvent* >( pEventObj->GetUniqueEventID(), pEventObj ) );
+				m_EventObjectList.insert( std::make_pair< int, CObjFixedEvent* >( pEventObj->GetUniqueEventID(), std::move(pEventObj) ) );
 				break;
 		}
 	

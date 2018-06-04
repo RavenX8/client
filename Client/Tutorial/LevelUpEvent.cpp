@@ -21,7 +21,7 @@ bool CLevelUpEvent::Init()
 	/// Make event table from stb that loaded above.
 	for( int i = 1; i < m_TblLevelEvent.m_nDataCnt; i++ )
 	{
-		m_LevelUpEventTbl.insert( std::make_pair< int, int >( m_TblLevelEvent.m_ppDATA[ i ][ 0 ], m_TblLevelEvent.m_ppDATA[ i ][ 1 ] ) );
+		m_LevelUpEventTbl.insert( std::make_pair< int, int >( std::move(m_TblLevelEvent.m_ppDATA[ i ][ 0 ]), std::move(m_TblLevelEvent.m_ppDATA[ i ][ 1 ]) ) );
 	}
 
 	return true;

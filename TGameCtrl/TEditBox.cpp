@@ -4,7 +4,7 @@
 #include "ITFont.h"
 #include "TControlMgr.h"
 #include "crtdbg.h"
-#include "TIme.h"
+#include "TTIme.h"
 
 #include <algorithm>
 

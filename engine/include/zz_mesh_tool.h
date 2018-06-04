@@ -121,7 +121,6 @@ public:
 	static bool load_mesh_8 ( const char * file_name, zz_mesh * mesh, bool text_mode = false );
 	static bool load_mesh (const char * file_name, zz_mesh * mesh, bool text_mode = false);
 	static bool save_mesh (const char * file_name, zz_mesh * mesh, bool text_mode = false);
-	static bool export_mesh_xml (const char* filename, zz_mesh* mesh);
 	
 	static bool load_mesh_minmax (const char * file_name, zz_mesh * mesh, bool text_mode = false);
 

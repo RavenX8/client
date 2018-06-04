@@ -16,12 +16,10 @@
 #include "zz_vfs.h"
 #include "zz_renderer.h"
 #include "zz_mesh.h"
-#include "nvtristrip.h"
 
-#ifndef _DEBUG
-	#pragma comment (lib, "nvtristrip.lib")
-#else
-	#pragma comment (lib, "NvTriStrip_d.lib")
+#ifdef __NV_TRI_STRIP
+#	include "nvtristrip.h"
+#	pragma comment (lib, "nvtristrip.lib")
 #endif
 
 ZZ_IMPLEMENT_DYNCREATE(zz_mesh, zz_node)
@@ -54,7 +52,7 @@ zz_mesh::zz_mesh(bool create_buffer_in) :
 	num_uvs[0] = num_uvs[1] = num_uvs[2] = num_uvs[3] = 0;
 	alpha = 1.0f;
 	
-    if (create_buffer_in) {
+	if (create_buffer_in) {
 		if (!vbuf_res)
 			vbuf_res = zz_new zz_vertex_buffer;
 		if (!ibuf_res)
@@ -435,6 +433,10 @@ void zz_mesh::update_index_buffer ()
 // use this at off-line(tool interface)
 bool zz_mesh::generate_strip ()
 {
+#ifndef __NV_TRI_STRIP
+	ZZ_LOG("mesh:generate_strip() failed. library not built with nvtristrip\n");
+	return false;
+#else
 	if (num_indices != num_faces*3) { // already striped?
 		ZZ_LOG("mesh:generate_strip() failed. already striped\n");
 		return false;
@@ -447,7 +449,7 @@ bool zz_mesh::generate_strip ()
 	}
 	
 	if (num_matids > 0) { // if use material id, do not generate strip
-        index_type = TYPE_LIST;
+		index_type = TYPE_LIST;
 		ZZ_LOG("mesh:generate_strip() failed. mesh has material ids\n");
 		return false;
 	}
@@ -482,6 +484,7 @@ bool zz_mesh::generate_strip ()
 	delete [] prim_group;
 
 	return ret;
+#endif
 }
 
 void zz_mesh::dump_indices ()

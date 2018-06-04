@@ -21,7 +21,7 @@
 #include "../CSkyDOME.H"
 //#include "../nProtect/nProtect.h"
 #include "../Misc/GameUtil.h"
-#include "TIme.h"
+#include "TTIme.h"
 #include "SystemProcScript.h"
 
 

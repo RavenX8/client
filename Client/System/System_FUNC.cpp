@@ -465,7 +465,7 @@ int SC_ChangeState ( int iNewState )
 
 int SC_ScreenFadeInStart ( float fade_in_t,float fade_m_t,float fade_out_t,int color_r,int color_g,int color_b )
 {
-	ScreenFadeInStart( fade_in_t, fade_m_t, fade_out_t, color_r, color_g, color_b );
+//	ScreenFadeInStart( fade_in_t, fade_m_t, fade_out_t, color_r, color_g, color_b );
 
 	return 1;
 }

@@ -399,7 +399,7 @@ void zz_particle_event_sequence::CreateNewParticle( vec3 m_vPartSysPos )
 
 		// get inverse world matrix
 		mat3 inv_world = world_part->rot_world.transpose();
-        // set gravity in particle's local coordsys
+		// set gravity in particle's local coordsys
 		mult(world_part->gravity_local, inv_world, gravity);
 	}
 	else {
@@ -407,10 +407,10 @@ void zz_particle_event_sequence::CreateNewParticle( vec3 m_vPartSysPos )
 	}
 
 	// process any initial events
-	std::vector<zz_particle_event *>::iterator i;
-	for ( i = m_Events.begin(); i != m_Events.end() && !(*i)->GetActualTime(); i++) 
+	int i = 0;
+	for( ; i != m_Events.size() && !m_Events[i]->GetActualTime(); i++) 
 	{
-		(*i)->DoItToIt(*part);
+		m_Events[i]->DoItToIt(*part);
 	}
 	part->m_CurEvent = i;
 	m_iTotalParticleLives++;
@@ -419,20 +419,17 @@ void zz_particle_event_sequence::CreateNewParticle( vec3 m_vPartSysPos )
 void zz_particle_event_sequence::RunEvents( zz_particle &part )
 {
 	// apply any other events to this particle
-	std::vector<zz_particle_event *>::iterator i;
-	for (i = part.m_CurEvent; 
-		i != m_Events.end() && (*i)->GetActualTime() <= part.m_fEventTimer; i++) 
+	int i = part.m_CurEvent;
+	for( ; i != m_Events.size() && m_Events[i]->GetActualTime() <= part.m_fEventTimer; i++) 
 	{
 		float oldeventtimer = part.m_fEventTimer;
-		(*i)->DoItToIt(part);
+		m_Events[i]->DoItToIt(part);
 
 		if (part.m_fEventTimer != oldeventtimer) 
 		{
 			// event timer has changed, we need to recalc m_CurEvent.
-			std::vector<zz_particle_event *>::iterator RecalcIter;
-			for (RecalcIter = m_Events.begin(); 
-				RecalcIter != m_Events.end() && (*RecalcIter)->GetActualTime() < part.m_fEventTimer; 
-				RecalcIter++);
+			int RecalcIter = 0;
+			for( ; RecalcIter != m_Events.size() && m_Events[i]->GetActualTime() < part.m_fEventTimer; RecalcIter++);
 
 			// set our main iterator to the recalculated iterator
 			// the -1 just compensates for the i++ in the main for loop
@@ -482,7 +479,7 @@ bool zz_particle_event_sequence::update (zz_time diff_time, vec3 m_vPartSysPos )
 				}
 				else 
 				{
-                    // apply gravity to this particle.
+					// apply gravity to this particle.
 					part.m_vDir += fTimeDelta * m_vGravity.get_random_num_in_range();
 					
 					// run all the particle's events
@@ -642,7 +639,7 @@ bool zz_particle_event_sequence::Render( LPDIRECT3DVERTEXBUFFER9 pVB, int iVBSiz
 	vec2 texture_size((float)this->GetTextureSizeWidth(), (float)this->GetTextureSizeHeight());
 	mat3 rot;
 	float co, si, x, y;
-    float x2, y2;
+	float x2, y2;
 
 	bool rotate_particle = false;
 

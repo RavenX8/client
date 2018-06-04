@@ -102,7 +102,7 @@ protected:
 	// last frame's position in world coordinates
 	// updated in update()
 	vec3 prev_position_world;
-    quat prev_rotation_world;
+	quat prev_rotation_world;
 
 	// basic render unit
 	unsigned int num_runits; 
@@ -166,7 +166,7 @@ protected:
 	float visibility; // if zero, this object does not need to be rendered.
 	float seethru; // see-thru factor by camera. default is 1.0f. update every frame by scene
 	bool infrustum; // whether this node is in view-frustum or not
-    bool shadow_onoff;
+	bool shadow_onoff;
 	
 	
 	int draw_priority; // alpha transparency sorting priority. default is 0
@@ -235,7 +235,7 @@ protected:
 	// protected member functions
 	void render_children (bool recursive = true);
 	virtual void render_runit (unsigned int runit_index = 0);
-    void render_runit_ex (unsigned int runit_index = 0);
+	void render_runit_ex (unsigned int runit_index = 0);
 
 	// axis : 0(x), 1(y), 2(z)
 	void rotate_by_axis_facing_camera (const vec3& cam_pos_world, int rotation_axis_index, int directing_axis_index);
@@ -253,7 +253,7 @@ protected:
 
 	bool delayed_load; // load texture (or something) delayed. default is true
 
-    bool forced_visibility_mode;
+	bool forced_visibility_mode;
 
 protected:
 	zz_clip_face clip_face; // 0 : does not care, 1 : clip face first, 2 : clip face last, 3 : whether clip face or not. for eye-blinking, befault is false
@@ -427,7 +427,7 @@ public:
 	virtual void update_transform (zz_time diff_time) {}
 
 	virtual void set_visibility_recursive (float visibility_in);
-    
+	
 	virtual void set_lighting_recursive (zz_light* light ); 
 	
 	void set_shadow_onoff_recursive(bool onoff);
@@ -758,7 +758,7 @@ public:
 	// eg. release temporal memory used only during rendering
 	virtual void after_render (); // called after render
 
-    void set_forced_visibility (bool true_or_false)
+	void set_forced_visibility (bool true_or_false)
 	{
 		forced_visibility_mode = true_or_false;
 	}

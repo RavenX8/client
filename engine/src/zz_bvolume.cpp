@@ -263,105 +263,105 @@ bool intersect (const zz_bounding_aabb& A, const zz_bounding_aabb& B)
 
 bool intersect (const zz_bounding_aabb& bounding_box, const vec3& origin, const vec3& direction)
 {
-    float fWdU[3], fAWdU[3], fDdU[3], fADdU[3], fAWxDdU[3], fRhs;
+	float fWdU[3], fAWdU[3], fDdU[3], fADdU[3], fAWxDdU[3], fRhs;
 	vec3 kDiff; 
 	 
-    kDiff = origin - bounding_box.center;
+	kDiff = origin - bounding_box.center;
 
-    fWdU[0] = direction.x;
-    fAWdU[0] = FABS(fWdU[0]);
-    fDdU[0] = kDiff.x;
-    fADdU[0] = FABS(fDdU[0]);
-    if ( fADdU[0] > bounding_box.half_length.x && fDdU[0]*fWdU[0] >= 0.0f )
-        return false;
+	fWdU[0] = direction.x;
+	fAWdU[0] = FABS(fWdU[0]);
+	fDdU[0] = kDiff.x;
+	fADdU[0] = FABS(fDdU[0]);
+	if ( fADdU[0] > bounding_box.half_length.x && fDdU[0]*fWdU[0] >= 0.0f )
+		return false;
 
-    fWdU[1] = direction.y;
-    fAWdU[1] = FABS(fWdU[1]);
-    fDdU[1] = kDiff.y;
-    fADdU[1] = FABS(fDdU[1]);
-    if ( fADdU[1] > bounding_box.half_length.y && fDdU[1]*fWdU[1] >= 0.0f )
-        return false;
+	fWdU[1] = direction.y;
+	fAWdU[1] = FABS(fWdU[1]);
+	fDdU[1] = kDiff.y;
+	fADdU[1] = FABS(fDdU[1]);
+	if ( fADdU[1] > bounding_box.half_length.y && fDdU[1]*fWdU[1] >= 0.0f )
+		return false;
 
-    fWdU[2] = direction.z;
-    fAWdU[2] = FABS(fWdU[2]);
-    fDdU[2] = kDiff.z;
-    fADdU[2] = FABS(fDdU[2]);
-    if ( fADdU[2] > bounding_box.half_length.z && fDdU[2]*fWdU[2] >= 0.0f )
-        return false;
+	fWdU[2] = direction.z;
+	fAWdU[2] = FABS(fWdU[2]);
+	fDdU[2] = kDiff.z;
+	fADdU[2] = FABS(fDdU[2]);
+	if ( fADdU[2] > bounding_box.half_length.z && fDdU[2]*fWdU[2] >= 0.0f )
+		return false;
 
-    vec3 kWxD;
+	vec3 kWxD;
 	cross(kWxD, direction, kDiff);
 
-    fAWxDdU[0] = FABS(kWxD.x);
-    fRhs = bounding_box.half_length.y*fAWdU[2] + bounding_box.half_length.z*fAWdU[1];
-    if ( fAWxDdU[0] > fRhs )
-        return false;
+	fAWxDdU[0] = FABS(kWxD.x);
+	fRhs = bounding_box.half_length.y*fAWdU[2] + bounding_box.half_length.z*fAWdU[1];
+	if ( fAWxDdU[0] > fRhs )
+		return false;
 
-    fAWxDdU[1] = FABS(kWxD.y);
-    fRhs = bounding_box.half_length.x*fAWdU[2] + bounding_box.half_length.z*fAWdU[0];
-    if ( fAWxDdU[1] > fRhs )
-        return false;
+	fAWxDdU[1] = FABS(kWxD.y);
+	fRhs = bounding_box.half_length.x*fAWdU[2] + bounding_box.half_length.z*fAWdU[0];
+	if ( fAWxDdU[1] > fRhs )
+		return false;
 
-    fAWxDdU[2] = FABS(kWxD.z);
-    fRhs = bounding_box.half_length.x*fAWdU[1] + bounding_box.half_length.y*fAWdU[0];
-    if ( fAWxDdU[2] > fRhs )
-        return false;
+	fAWxDdU[2] = FABS(kWxD.z);
+	fRhs = bounding_box.half_length.x*fAWdU[1] + bounding_box.half_length.y*fAWdU[0];
+	if ( fAWxDdU[2] > fRhs )
+		return false;
 
-    return true;
+	return true;
 }
 
 bool intersect_aabbbox(const vec3& min, const vec3& max, const vec3& origin, const vec3& direction)
 {
-    float fWdU[3], fAWdU[3], fDdU[3], fADdU[3], fAWxDdU[3], fRhs;
+	float fWdU[3], fAWdU[3], fDdU[3], fADdU[3], fAWxDdU[3], fRhs;
 	vec3 kDiff; 
 	vec3 center;
 	vec3 length;
 
-    center = 0.5f * (min + max);
+	center = 0.5f * (min + max);
 	length = max-center;
 
 	kDiff = origin - center;
 
-    fWdU[0] = direction.x;
-    fAWdU[0] = FABS(fWdU[0]);
-    fDdU[0] = kDiff.x;
-    fADdU[0] = FABS(fDdU[0]);
-    if ( fADdU[0] > length.x && fDdU[0]*fWdU[0] >= 0.0f )
-        return false;
+	fWdU[0] = direction.x;
+	fAWdU[0] = FABS(fWdU[0]);
+	fDdU[0] = kDiff.x;
+	fADdU[0] = FABS(fDdU[0]);
+	if ( fADdU[0] > length.x && fDdU[0]*fWdU[0] >= 0.0f )
+		return false;
 
-    fWdU[1] = direction.y;
-    fAWdU[1] = FABS(fWdU[1]);
-    fDdU[1] = kDiff.y;
-    fADdU[1] = FABS(fDdU[1]);
-    if ( fADdU[1] > length.y && fDdU[1]*fWdU[1] >= 0.0f )
-        return false;
+	fWdU[1] = direction.y;
+	fAWdU[1] = FABS(fWdU[1]);
+	fDdU[1] = kDiff.y;
+	fADdU[1] = FABS(fDdU[1]);
+	if ( fADdU[1] > length.y && fDdU[1]*fWdU[1] >= 0.0f )
+		return false;
 
-    fWdU[2] = direction.z;
-    fAWdU[2] = FABS(fWdU[2]);
-    fDdU[2] = kDiff.z;
-    fADdU[2] = FABS(fDdU[2]);
-    if ( fADdU[2] > length.z && fDdU[2]*fWdU[2] >= 0.0f )
-        return false;
+	fWdU[2] = direction.z;
+	fAWdU[2] = FABS(fWdU[2]);
+	fDdU[2] = kDiff.z;
+	fADdU[2] = FABS(fDdU[2]);
+	if ( fADdU[2] > length.z && fDdU[2]*fWdU[2] >= 0.0f )
+		return false;
 
-    vec3 kWxD;
+	vec3 kWxD;
 	cross(kWxD, direction, kDiff);
 
-    fAWxDdU[0] = FABS(kWxD.x);
-    fRhs = length.y*fAWdU[2] + length.z*fAWdU[1];
-    if ( fAWxDdU[0] > fRhs )
-        return false;
+	fAWxDdU[0] = FABS(kWxD.x);
+	fRhs = length.y*fAWdU[2] + length.z*fAWdU[1];
+	if ( fAWxDdU[0] > fRhs )
+		return false;
 
-    fAWxDdU[1] = FABS(kWxD.y);
-    fRhs = length.x*fAWdU[2] + length.z*fAWdU[0];
-    if ( fAWxDdU[1] > fRhs )
-        return false;
+	fAWxDdU[1] = FABS(kWxD.y);
+	fRhs = length.x*fAWdU[2] + length.z*fAWdU[0];
+	if ( fAWxDdU[1] > fRhs )
+		return false;
 
-    fAWxDdU[2] = FABS(kWxD.z);
-    fRhs = length.x*fAWdU[1] + length.y*fAWdU[0];
-    if ( fAWxDdU[2] > fRhs )
-        return false;
+	fAWxDdU[2] = FABS(kWxD.z);
+	fRhs = length.x*fAWdU[1] + length.y*fAWdU[0];
+	if ( fAWxDdU[2] > fRhs )
+		return false;
 
-    return true;
+	return true;
 }
 
 
@@ -830,50 +830,50 @@ bool intersect (const zz_bounding_obb& A, const zz_bounding_obb& B)
 // bool Mgc::TestIntersection (const Ray3& rkRay, const Box3& rkBox)
 bool intersect (const zz_bounding_obb& bounding_box, const vec3& origin, const vec3& direction)
 {
-    float fWdU[3], fAWdU[3], fDdU[3], fADdU[3], fAWxDdU[3], fRhs;
+	float fWdU[3], fAWdU[3], fDdU[3], fADdU[3], fAWxDdU[3], fRhs;
 
 	vec3 kDiff = origin - bounding_box.center;
 
-    fWdU[0] = dot(direction, bounding_box.rotation.col(0));
-    fAWdU[0] = FABS(fWdU[0]);
-    fDdU[0] = dot(kDiff, bounding_box.rotation.col(0));
-    fADdU[0] = FABS(fDdU[0]);
-    if ( fADdU[0] > bounding_box.half_length.x && fDdU[0]*fWdU[0] >= 0.0f )
-        return false;
+	fWdU[0] = dot(direction, bounding_box.rotation.col(0));
+	fAWdU[0] = FABS(fWdU[0]);
+	fDdU[0] = dot(kDiff, bounding_box.rotation.col(0));
+	fADdU[0] = FABS(fDdU[0]);
+	if ( fADdU[0] > bounding_box.half_length.x && fDdU[0]*fWdU[0] >= 0.0f )
+		return false;
 
-    fWdU[1] = dot(direction, bounding_box.rotation.col(1));
-    fAWdU[1] = FABS(fWdU[1]);
-    fDdU[1] = dot(kDiff, bounding_box.rotation.col(1));
-    fADdU[1] = FABS(fDdU[1]);
-    if ( fADdU[1] > bounding_box.half_length.y && fDdU[1]*fWdU[1] >= 0.0f )
-        return false;
+	fWdU[1] = dot(direction, bounding_box.rotation.col(1));
+	fAWdU[1] = FABS(fWdU[1]);
+	fDdU[1] = dot(kDiff, bounding_box.rotation.col(1));
+	fADdU[1] = FABS(fDdU[1]);
+	if ( fADdU[1] > bounding_box.half_length.y && fDdU[1]*fWdU[1] >= 0.0f )
+		return false;
 
-    fWdU[2] = dot(direction, bounding_box.rotation.col(2));
-    fAWdU[2] = FABS(fWdU[2]);
-    fDdU[2] = dot(kDiff, bounding_box.rotation.col(2));
-    fADdU[2] = FABS(fDdU[2]);
-    if ( fADdU[2] > bounding_box.half_length.z && fDdU[2]*fWdU[2] >= 0.0f )
-        return false;
+	fWdU[2] = dot(direction, bounding_box.rotation.col(2));
+	fAWdU[2] = FABS(fWdU[2]);
+	fDdU[2] = dot(kDiff, bounding_box.rotation.col(2));
+	fADdU[2] = FABS(fDdU[2]);
+	if ( fADdU[2] > bounding_box.half_length.z && fDdU[2]*fWdU[2] >= 0.0f )
+		return false;
 
-    vec3 kWxD;
+	vec3 kWxD;
 	cross(kWxD, direction, kDiff);
 
-    fAWxDdU[0] = FABS(dot(kWxD, bounding_box.rotation.col(0)));
-    fRhs = bounding_box.half_length.y*fAWdU[2] + bounding_box.half_length.z*fAWdU[1];
-    if ( fAWxDdU[0] > fRhs )
-        return false;
+	fAWxDdU[0] = FABS(dot(kWxD, bounding_box.rotation.col(0)));
+	fRhs = bounding_box.half_length.y*fAWdU[2] + bounding_box.half_length.z*fAWdU[1];
+	if ( fAWxDdU[0] > fRhs )
+		return false;
 
-    fAWxDdU[1] = FABS(dot(kWxD, bounding_box.rotation.col(1)));
-    fRhs = bounding_box.half_length.x*fAWdU[2] + bounding_box.half_length.z*fAWdU[0];
-    if ( fAWxDdU[1] > fRhs )
-        return false;
+	fAWxDdU[1] = FABS(dot(kWxD, bounding_box.rotation.col(1)));
+	fRhs = bounding_box.half_length.x*fAWdU[2] + bounding_box.half_length.z*fAWdU[0];
+	if ( fAWxDdU[1] > fRhs )
+		return false;
 
-    fAWxDdU[2] = FABS(dot(kWxD, bounding_box.rotation.col(2)));
-    fRhs = bounding_box.half_length.x*fAWdU[1] + bounding_box.half_length.y*fAWdU[0];
-    if ( fAWxDdU[2] > fRhs )
-        return false;
+	fAWxDdU[2] = FABS(dot(kWxD, bounding_box.rotation.col(2)));
+	fRhs = bounding_box.half_length.x*fAWdU[1] + bounding_box.half_length.y*fAWdU[0];
+	if ( fAWxDdU[2] > fRhs )
+		return false;
 
-    return true;
+	return true;
 }
 
 
@@ -1065,236 +1065,236 @@ float distance_square_tri_point (const vec3& rkPoint,
 	vec3 edge0, edge1;
 	edge0 = tri1 - tri0;
 	edge1 = tri2 - tri0;
-    vec3 kDiff = tri0 - rkPoint;
-    float fA00 = edge0.sq_norm();
-    float fA01 = dot(edge0, edge1);
-    float fA11 = edge1.sq_norm();
-    float fB0 = dot(kDiff, edge0);
-    float fB1 = dot(kDiff, edge1);
-    float fC = kDiff.sq_norm();
-    float fDet = FABS(fA00*fA11-fA01*fA01);
-    float fS = fA01*fB1-fA11*fB0;
-    float fT = fA01*fB0-fA00*fB1;
-    float fSqrDist;
+	vec3 kDiff = tri0 - rkPoint;
+	float fA00 = edge0.sq_norm();
+	float fA01 = dot(edge0, edge1);
+	float fA11 = edge1.sq_norm();
+	float fB0 = dot(kDiff, edge0);
+	float fB1 = dot(kDiff, edge1);
+	float fC = kDiff.sq_norm();
+	float fDet = FABS(fA00*fA11-fA01*fA01);
+	float fS = fA01*fB1-fA11*fB0;
+	float fT = fA01*fB0-fA00*fB1;
+	float fSqrDist;
 
-    if ( fS + fT <= fDet )
-    {
-        if ( fS < (float)0.0 )
-        {
-            if ( fT < (float)0.0 )  // region 4
-            {
-                if ( fB0 < (float)0.0 )
-                {
-                    fT = (float)0.0;
-                    if ( -fB0 >= fA00 )
-                    {
-                        fS = (float)1.0;
-                        fSqrDist = fA00+((float)2.0)*fB0+fC;
-                    }
-                    else
-                    {
-                        fS = -fB0/fA00;
-                        fSqrDist = fB0*fS+fC;
-                    }
-                }
-                else
-                {
-                    fS = (float)0.0;
-                    if ( fB1 >= (float)0.0 )
-                    {
-                        fT = (float)0.0;
-                        fSqrDist = fC;
-                    }
-                    else if ( -fB1 >= fA11 )
-                    {
-                        fT = (float)1.0;
-                        fSqrDist = fA11+((float)2.0)*fB1+fC;
-                    }
-                    else
-                    {
-                        fT = -fB1/fA11;
-                        fSqrDist = fB1*fT+fC;
-                    }
-                }
-            }
-            else  // region 3
-            {
-                fS = (float)0.0;
-                if ( fB1 >= (float)0.0 )
-                {
-                    fT = (float)0.0;
-                    fSqrDist = fC;
-                }
-                else if ( -fB1 >= fA11 )
-                {
-                    fT = (float)1.0;
-                    fSqrDist = fA11+((float)2.0)*fB1+fC;
-                }
-                else
-                {
-                    fT = -fB1/fA11;
-                    fSqrDist = fB1*fT+fC;
-                }
-            }
-        }
-        else if ( fT < (float)0.0 )  // region 5
-        {
-            fT = (float)0.0;
-            if ( fB0 >= (float)0.0 )
-            {
-                fS = (float)0.0;
-                fSqrDist = fC;
-            }
-            else if ( -fB0 >= fA00 )
-            {
-                fS = (float)1.0;
-                fSqrDist = fA00+((float)2.0)*fB0+fC;
-            }
-            else
-            {
-                fS = -fB0/fA00;
-                fSqrDist = fB0*fS+fC;
-            }
-        }
-        else  // region 0
-        {
-            // minimum at interior point
-            float fInvDet = ((float)1.0)/fDet;
-            fS *= fInvDet;
-            fT *= fInvDet;
-            fSqrDist = fS*(fA00*fS+fA01*fT+((float)2.0)*fB0) +
-                fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
-        }
-    }
-    else
-    {
-        float fTmp0, fTmp1, fNumer, fDenom;
+	if ( fS + fT <= fDet )
+	{
+		if ( fS < (float)0.0 )
+		{
+			if ( fT < (float)0.0 )  // region 4
+			{
+				if ( fB0 < (float)0.0 )
+				{
+					fT = (float)0.0;
+					if ( -fB0 >= fA00 )
+					{
+						fS = (float)1.0;
+						fSqrDist = fA00+((float)2.0)*fB0+fC;
+					}
+					else
+					{
+						fS = -fB0/fA00;
+						fSqrDist = fB0*fS+fC;
+					}
+				}
+				else
+				{
+					fS = (float)0.0;
+					if ( fB1 >= (float)0.0 )
+					{
+						fT = (float)0.0;
+						fSqrDist = fC;
+					}
+					else if ( -fB1 >= fA11 )
+					{
+						fT = (float)1.0;
+						fSqrDist = fA11+((float)2.0)*fB1+fC;
+					}
+					else
+					{
+						fT = -fB1/fA11;
+						fSqrDist = fB1*fT+fC;
+					}
+				}
+			}
+			else  // region 3
+			{
+				fS = (float)0.0;
+				if ( fB1 >= (float)0.0 )
+				{
+					fT = (float)0.0;
+					fSqrDist = fC;
+				}
+				else if ( -fB1 >= fA11 )
+				{
+					fT = (float)1.0;
+					fSqrDist = fA11+((float)2.0)*fB1+fC;
+				}
+				else
+				{
+					fT = -fB1/fA11;
+					fSqrDist = fB1*fT+fC;
+				}
+			}
+		}
+		else if ( fT < (float)0.0 )  // region 5
+		{
+			fT = (float)0.0;
+			if ( fB0 >= (float)0.0 )
+			{
+				fS = (float)0.0;
+				fSqrDist = fC;
+			}
+			else if ( -fB0 >= fA00 )
+			{
+				fS = (float)1.0;
+				fSqrDist = fA00+((float)2.0)*fB0+fC;
+			}
+			else
+			{
+				fS = -fB0/fA00;
+				fSqrDist = fB0*fS+fC;
+			}
+		}
+		else  // region 0
+		{
+			// minimum at interior point
+			float fInvDet = ((float)1.0)/fDet;
+			fS *= fInvDet;
+			fT *= fInvDet;
+			fSqrDist = fS*(fA00*fS+fA01*fT+((float)2.0)*fB0) +
+				fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
+		}
+	}
+	else
+	{
+		float fTmp0, fTmp1, fNumer, fDenom;
 
-        if ( fS < (float)0.0 )  // region 2
-        {
-            fTmp0 = fA01 + fB0;
-            fTmp1 = fA11 + fB1;
-            if ( fTmp1 > fTmp0 )
-            {
-                fNumer = fTmp1 - fTmp0;
-                fDenom = fA00-2.0f*fA01+fA11;
-                if ( fNumer >= fDenom )
-                {
-                    fS = (float)1.0;
-                    fT = (float)0.0;
-                    fSqrDist = fA00+((float)2.0)*fB0+fC;
-                }
-                else
-                {
-                    fS = fNumer/fDenom;
-                    fT = (float)1.0 - fS;
-                    fSqrDist = fS*(fA00*fS+fA01*fT+2.0f*fB0) +
-                        fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
-                }
-            }
-            else
-            {
-                fS = (float)0.0;
-                if ( fTmp1 <= (float)0.0 )
-                {
-                    fT = (float)1.0;
-                    fSqrDist = fA11+((float)2.0)*fB1+fC;
-                }
-                else if ( fB1 >= (float)0.0 )
-                {
-                    fT = (float)0.0;
-                    fSqrDist = fC;
-                }
-                else
-                {
-                    fT = -fB1/fA11;
-                    fSqrDist = fB1*fT+fC;
-                }
-            }
-        }
-        else if ( fT < (float)0.0 )  // region 6
-        {
-            fTmp0 = fA01 + fB1;
-            fTmp1 = fA00 + fB0;
-            if ( fTmp1 > fTmp0 )
-            {
-                fNumer = fTmp1 - fTmp0;
-                fDenom = fA00-((float)2.0)*fA01+fA11;
-                if ( fNumer >= fDenom )
-                {
-                    fT = (float)1.0;
-                    fS = (float)0.0;
-                    fSqrDist = fA11+((float)2.0)*fB1+fC;
-                }
-                else
-                {
-                    fT = fNumer/fDenom;
-                    fS = (float)1.0 - fT;
-                    fSqrDist = fS*(fA00*fS+fA01*fT+((float)2.0)*fB0) +
-                        fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
-                }
-            }
-            else
-            {
-                fT = (float)0.0;
-                if ( fTmp1 <= (float)0.0 )
-                {
-                    fS = (float)1.0;
-                    fSqrDist = fA00+((float)2.0)*fB0+fC;
-                }
-                else if ( fB0 >= (float)0.0 )
-                {
-                    fS = (float)0.0;
-                    fSqrDist = fC;
-                }
-                else
-                {
-                    fS = -fB0/fA00;
-                    fSqrDist = fB0*fS+fC;
-                }
-            }
-        }
-        else  // region 1
-        {
-            fNumer = fA11 + fB1 - fA01 - fB0;
-            if ( fNumer <= (float)0.0 )
-            {
-                fS = (float)0.0;
-                fT = (float)1.0;
-                fSqrDist = fA11+((float)2.0)*fB1+fC;
-            }
-            else
-            {
-                fDenom = fA00-2.0f*fA01+fA11;
-                if ( fNumer >= fDenom )
-                {
-                    fS = (float)1.0;
-                    fT = (float)0.0;
-                    fSqrDist = fA00+((float)2.0)*fB0+fC;
-                }
-                else
-                {
-                    fS = fNumer/fDenom;
-                    fT = (float)1.0 - fS;
-                    fSqrDist = fS*(fA00*fS+fA01*fT+((float)2.0)*fB0) +
-                        fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
-                }
-            }
-        }
-    }
+		if ( fS < (float)0.0 )  // region 2
+		{
+			fTmp0 = fA01 + fB0;
+			fTmp1 = fA11 + fB1;
+			if ( fTmp1 > fTmp0 )
+			{
+				fNumer = fTmp1 - fTmp0;
+				fDenom = fA00-2.0f*fA01+fA11;
+				if ( fNumer >= fDenom )
+				{
+					fS = (float)1.0;
+					fT = (float)0.0;
+					fSqrDist = fA00+((float)2.0)*fB0+fC;
+				}
+				else
+				{
+					fS = fNumer/fDenom;
+					fT = (float)1.0 - fS;
+					fSqrDist = fS*(fA00*fS+fA01*fT+2.0f*fB0) +
+						fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
+				}
+			}
+			else
+			{
+				fS = (float)0.0;
+				if ( fTmp1 <= (float)0.0 )
+				{
+					fT = (float)1.0;
+					fSqrDist = fA11+((float)2.0)*fB1+fC;
+				}
+				else if ( fB1 >= (float)0.0 )
+				{
+					fT = (float)0.0;
+					fSqrDist = fC;
+				}
+				else
+				{
+					fT = -fB1/fA11;
+					fSqrDist = fB1*fT+fC;
+				}
+			}
+		}
+		else if ( fT < (float)0.0 )  // region 6
+		{
+			fTmp0 = fA01 + fB1;
+			fTmp1 = fA00 + fB0;
+			if ( fTmp1 > fTmp0 )
+			{
+				fNumer = fTmp1 - fTmp0;
+				fDenom = fA00-((float)2.0)*fA01+fA11;
+				if ( fNumer >= fDenom )
+				{
+					fT = (float)1.0;
+					fS = (float)0.0;
+					fSqrDist = fA11+((float)2.0)*fB1+fC;
+				}
+				else
+				{
+					fT = fNumer/fDenom;
+					fS = (float)1.0 - fT;
+					fSqrDist = fS*(fA00*fS+fA01*fT+((float)2.0)*fB0) +
+						fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
+				}
+			}
+			else
+			{
+				fT = (float)0.0;
+				if ( fTmp1 <= (float)0.0 )
+				{
+					fS = (float)1.0;
+					fSqrDist = fA00+((float)2.0)*fB0+fC;
+				}
+				else if ( fB0 >= (float)0.0 )
+				{
+					fS = (float)0.0;
+					fSqrDist = fC;
+				}
+				else
+				{
+					fS = -fB0/fA00;
+					fSqrDist = fB0*fS+fC;
+				}
+			}
+		}
+		else  // region 1
+		{
+			fNumer = fA11 + fB1 - fA01 - fB0;
+			if ( fNumer <= (float)0.0 )
+			{
+				fS = (float)0.0;
+				fT = (float)1.0;
+				fSqrDist = fA11+((float)2.0)*fB1+fC;
+			}
+			else
+			{
+				fDenom = fA00-2.0f*fA01+fA11;
+				if ( fNumer >= fDenom )
+				{
+					fS = (float)1.0;
+					fT = (float)0.0;
+					fSqrDist = fA00+((float)2.0)*fB0+fC;
+				}
+				else
+				{
+					fS = fNumer/fDenom;
+					fT = (float)1.0 - fS;
+					fSqrDist = fS*(fA00*fS+fA01*fT+((float)2.0)*fB0) +
+						fT*(fA01*fS+fA11*fT+((float)2.0)*fB1)+fC;
+				}
+			}
+		}
+	}
 
-    if ( pfSParam )
-        *pfSParam = fS;
+	if ( pfSParam )
+		*pfSParam = fS;
 
-    if ( pfTParam )
-        *pfTParam = fT;
+	if ( pfTParam )
+		*pfTParam = fT;
 
-    return FABS(fSqrDist);
+	return FABS(fSqrDist);
 }
 
 bool intersect_sphere_tri (const zz_bounding_sphere& sphere, const vec3& p0, const vec3& p1, const vec3& p2)
 {
-    float distance_square = distance_square_tri_point(sphere.center, p0, p1, p2);
+	float distance_square = distance_square_tri_point(sphere.center, p0, p1, p2);
 	float radius_square = sphere.radius * sphere.radius;
 
 	return (distance_square < radius_square);

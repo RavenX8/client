@@ -193,8 +193,7 @@
 #include "zz_system.h"
 
 #include <sys/stat.h>
-#include <string>
-#include "classHASH.h"
+#include <string.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -205,7 +204,8 @@
 #ifndef ZZ_IGNORE_TRIGGERVFS
 
 #define MAX_FILESIZE 100000000
-//#define HACK_CLIENT_RIPPER
+
+//#pragma comment (lib, "TriggerVFS.lib")
 
 //--------------------------------------------------------------------------------
 // zz_vfs_pkg_system:
@@ -307,134 +307,9 @@ zz_vfs_pkg::~zz_vfs_pkg(void)
 	}
 	set_real_filesystem(NULL);
 }
-/*
-zz_string STBFiles[] = {
-	(zz_string)"3DDATA\\STB\\LIST_MORPH_OBJECT.STB",
-	(zz_string)"3DDATA\\STB\\HELP.STB",
-	(zz_string)"3DData\\STB\\List_Help.STB",
-	(zz_string)"3DData\\STB\\LIST_LOADING.STB",
-	(zz_string)"3DDATA\\STB\\LIST_STRING.STB",
-	(zz_string)"3DData\\STB\\LIST_NPCFACE.STB",
-	(zz_string)"3DData\\STB\\LIST_SKILL.STB",
-	(zz_string)"3DDATA\\NPC\\LIST_NPC.CHR",
-	(zz_string)"3DDATA\\STB\\LIST_QUEST.STB",
-	(zz_string)"3DDATA\\STB\\LIST_QuestDATA.STB",
-	(zz_string)"3DDATA\\STB\\LIST_FACEITEM.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Cap.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Body.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Arms.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Foot.STB",
-	(zz_string)"3DDATA\\STB\\LIST_BACK.STB",
-	(zz_string)"3DDATA\\STB\\LIST_JEWEL.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Weapon.STB",
-	(zz_string)"3DDATA\\STB\\LIST_SUBWPN.STB",
-	(zz_string)"3DDATA\\STB\\LIST_USEITEM.STB",
-	(zz_string)"3DDATA\\STB\\LIST_JEMITEM.STB",
-	(zz_string)"3DDATA\\STB\\LIST_NATURAL.STB",
-	(zz_string)"3DDATA\\STB\\LIST_QUESTITEM.STB",
-	(zz_string)"3DDATA\\STB\\LIST_PAT.STB",
-	(zz_string)"3DDATA\\STB\\FILE_AI.STB",
-	(zz_string)"3DDATA\\AI\\AI_S.stb",
-	(zz_string)"3ddata\\stb\\FILE_EFFECT.stb",
-	(zz_string)"3DDATA\\STB\\LIST_Hair.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Face.STB",
-	(zz_string)"3DDATA\\STB\\LIST_EFFECT.STB",
-	(zz_string)"3DDATA\\STB\\ITEM_DROP.STB",
-	(zz_string)"3DDATA\\STB\\LIST_PRODUCT.STB",
-	(zz_string)"3DDATA\\STB\\LIST_SELL.STB",
-	(zz_string)"3DDATA\\STB\\TYPE_MOTION.STB",
-	(zz_string)"3DDATA\\STB\\LIST_EVENT.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Sky.STB",
-	(zz_string)"3DDATA\\STB\\WARP.STB",
-	(zz_string)"3DDATA\\STB\\LIST_ZONE.STB",
-	(zz_string)"3DDATA\\STB\\LIST_HITSOUND.STB",
-	(zz_string)"3DDATA\\STB\\INIT_AVATAR.STB",
-	(zz_string)"3DDATA\\STB\\RangeSet.STB",
-	(zz_string)"3DData\\STB\\LIST_STATUS.STB",
-	(zz_string)"3DDATA\\STB\\LIST_UNION.STB",
-	(zz_string)"3DDATA\\STB\\LIST_CLASS.STB",
-	(zz_string)"3DDATA\\STB\\LIST_STEPSOUND.STB",
-	(zz_string)"3DDATA\\STB\\LIST_Cap.STB",
-	(zz_string)"3DDATA\\STB\\LIST_GRADE.STB",
-	(zz_string)"3DDATA\\STB\\BADWORDS.STB",
-	(zz_string)"3DDATA\\STB\\BADNAMES.STB",
-	(zz_string)"3DDATA\\STB\\FILE_MOTION.stb"
-};
-//*/
-char* STBFiles[] = {
-	"3DDATA\\STB\\LIST_MORPH_OBJECT.STB",
-	"3DDATA\\STB\\HELP.STB",
-	"3DData\\STB\\List_Help.STB",
-	"3DData\\STB\\LIST_LOADING.STB",
-	"3DDATA\\STB\\LIST_STRING.STB",
-	"3DData\\STB\\LIST_NPCFACE.STB",
-	"3DData\\STB\\LIST_SKILL.STB",
-	//"3DDATA\\NPC\\LIST_NPC.CHR",
-	"3DDATA\\STB\\LIST_QUEST.STB",
-	"3DDATA\\STB\\LIST_QuestDATA.STB",
-	"3DDATA\\STB\\LIST_FACEITEM.STB",
-	"3DDATA\\STB\\LIST_Cap.STB",
-	"3DDATA\\STB\\LIST_Body.STB",
-	"3DDATA\\STB\\LIST_Arms.STB",
-	"3DDATA\\STB\\LIST_Foot.STB",
-	"3DDATA\\STB\\LIST_BACK.STB",
-	"3DDATA\\STB\\LIST_JEWEL.STB",
-	"3DDATA\\STB\\LIST_Weapon.STB",
-	"3DDATA\\STB\\LIST_SUBWPN.STB",
-	"3DDATA\\STB\\LIST_USEITEM.STB",
-	"3DDATA\\STB\\LIST_JEMITEM.STB",
-	"3DDATA\\STB\\LIST_NATURAL.STB",
-	"3DDATA\\STB\\LIST_QUESTITEM.STB",
-	"3DDATA\\STB\\LIST_PAT.STB",
-	"3DDATA\\STB\\FILE_AI.STB",
-	"3DDATA\\AI\\AI_S.stb",
-	"3ddata\\stb\\FILE_EFFECT.stb",
-	"3DDATA\\STB\\LIST_Hair.STB",
-	"3DDATA\\STB\\LIST_Face.STB",
-	"3DDATA\\STB\\LIST_EFFECT.STB",
-	"3DDATA\\STB\\ITEM_DROP.STB",
-	"3DDATA\\STB\\LIST_PRODUCT.STB",
-	"3DDATA\\STB\\LIST_SELL.STB",
-	"3DDATA\\STB\\TYPE_MOTION.STB",
-	"3DDATA\\STB\\LIST_EVENT.STB",
-	"3DDATA\\STB\\LIST_Sky.STB",
-	"3DDATA\\STB\\WARP.STB",
-	"3DDATA\\STB\\LIST_ZONE.STB",
-	"3DDATA\\STB\\LIST_HITSOUND.STB",
-	"3DDATA\\STB\\INIT_AVATAR.STB",
-	"3DDATA\\STB\\RangeSet.STB",
-	"3DData\\STB\\LIST_STATUS.STB",
-	"3DDATA\\STB\\LIST_UNION.STB",
-	"3DDATA\\STB\\LIST_CLASS.STB",
-	"3DDATA\\STB\\LIST_STEPSOUND.STB",
-	"3DDATA\\STB\\LIST_Cap.STB",
-	"3DDATA\\STB\\LIST_GRADE.STB",
-	"3DDATA\\STB\\BADWORDS.STB",
-	"3DDATA\\STB\\BADNAMES.STB",
-	"3DDATA\\STB\\FILE_MOTION.stb"
-};
-
-static int stbIDX = 0;
-static int OpenCount = 0;
 
 bool zz_vfs_pkg::open (const char * filename_in, const zz_vfs_mode mode)
 {
-	/*
-	if(OpenCount > 200 && !stbs_ripped && stbIDX < 49)
-	{
-		stbs_ripped = true;
-		if(this->exist(STBFiles[stbIDX]))
-		{
-			this->open(STBFiles[stbIDX]);
-			this->read();
-			this->close();
-		}
-		stbIDX += 1;
-		stbs_ripped = false;
-		OpenCount = 0;
-	}
-	//*/
-	if(mode==ZZ_VFS_WRITE) return false;
 	//ZZ_LOG("vfs_pkg:open(%s)\n", filename);
 	//ZZ_PROFILER_INSTALL(vfs_pkg_open);
 	zz_assert(filename_in);
@@ -455,90 +330,23 @@ bool zz_vfs_pkg::open (const char * filename_in, const zz_vfs_mode mode)
 	//ZZ_LOG("vfs_pkg: open(%s)\n", filename);
 	VHANDLE fsystem = pkg_system_->get_filesystem();
 
-//	switch (mode) {
-//		case zz_vfs::ZZ_VFS_READ:
+	switch (mode) {
+		case zz_vfs::ZZ_VFS_READ:
 			fp_ = VOpenFile(filename, fsystem);
 
 			zz_assertf( fp_, "vfs_pkg: open(%s) failed.", filename.get() );
 
 			filename_.set(filename);
-			//check if it is encrypted
-			/*fp_->btEncrypted=0;
-			//if(fp_->btFileType==0){
-			size_t spt;
-			spt = fp_->sFileName.find_last_of("/\\");
-			std::string hashstring1 = fp_->sFileName.substr(spt+1, (fp_->sFileName.length()-spt));
-			//OutputDebugString(hashstring1.c_str());
-			unsigned long key = StrToHashKey(hashstring1.c_str());
-			char crypttable[16];
-			DWORD *EAX=reinterpret_cast<DWORD*>(crypttable);
-			DWORD EDI=0;
-			DWORD ECX = key;
-			DWORD EDX = key+1;
-			ECX = ECX*4+1;
-			for(int i = 0; i < 4; i++)
-			{
-				EDI=ECX*EDX;
-				*((DWORD*)EAX) = EDI;
-				EAX++;
-				ECX+=4;
-				EDX++;
-			}
-			vfseek(fp_, 0, VFSEEK_END);
-			long off_set = vftell(fp_);
-			if(off_set>16)
-			{
-				off_set-=16;
-				vfseek(fp_,off_set, VFSEEK_SET);
-				char buffer[16];
-				vfread(&buffer,1,16,fp_);
-				if(buffer[0]==crypttable[0]){
-					if(buffer[1]==crypttable[1]){
-						if(buffer[2]==crypttable[2]){
-							if(buffer[3]==crypttable[3]){
-								if(buffer[4]==crypttable[4]){
-									if(buffer[5]==crypttable[5]){
-										if(buffer[6]==crypttable[6]){
-											if(buffer[7]==crypttable[7]){
-												if(buffer[8]==crypttable[8]){
-													if(buffer[9]==crypttable[9]){
-														if(buffer[10]==crypttable[10]){
-															if(buffer[11]==crypttable[11]){
-																if(buffer[12]==crypttable[12]){
-																	if(buffer[13]==crypttable[13]){
-																		if(buffer[14]==crypttable[14]){
-																			if(buffer[15]==crypttable[15]){
-																				fp_->btEncrypted=0x90;
-																				fp_->lEndOff-=16;
-																				//MessageBox(0,fp_->sFileName.c_str()," is encrypted",0);
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}*/
-			vfseek(fp_,0, VFSEEK_SET);
-//			break;
-//		case zz_vfs::ZZ_VFS_WRITE:
+			break;
+		case zz_vfs::ZZ_VFS_WRITE:
 			// not implemented yet!!!
-//			break;
-//	}
+			break;
+	}
 	
 	if (!fp_) {
 		return false;
 	}
-	OpenCount++;
+
 	return true;
 }
 
@@ -555,76 +363,14 @@ bool zz_vfs_pkg::close (void)
 	}
 	return true;
 }
-/*
-void CreateDirForFile(char* path)
-{
-	char dir1[MAX_PATH];
-	sprintf(dir1, "./Client_Rip");
-	char * pch;
-	pch = strtok (path,"\\/");
-	while (pch != NULL)
-	{
-		if(strchr(pch, '.') != NULL)
-			break;
-		sprintf (dir1, "%s\\%s",dir1, pch);
-		::CreateDirectory(dir1, NULL);
-		pch = strtok (NULL, "\\/");
-	}
-}
 
-void SaveFile(zz_string filename_, char* buf, uint32 read_size)
-{
-	FILE * pFile;
-	char path[MAX_PATH];
-	char path2[MAX_PATH];
-	sprintf(path, "%s", filename_.get());
-	sprintf(path2, "./Client_Rip\\%s", filename_.get());
-	CreateDirForFile(path);
-	//ZZ_LOG("vfs_pkg:path(%s)\n", path);
-	pFile = fopen (path2,"wb");
-	if (pFile!=NULL)
-	{
-		fwrite (buf , 1 , read_size , pFile );
-		fclose (pFile);
-	}
-}	
-//*/
 
 uint32 zz_vfs_pkg::read_ (char * buf, const uint32 size)
 {
 	assert(size < MAX_FILESIZE);
 	uint32 read_size = 0;
 	if (fp_) {
-		#define KEYSIZE 0x1000
-		long Mpointer = vftell(fp_) % KEYSIZE;
 		read_size = vfread(buf, 1, size, fp_);
-		if(fp_->btEncrypted==0x90)
-		{
-			size_t spt;
-			spt = fp_->sFileName.find_last_of("/\\");
-			std::string hashstring1 = fp_->sFileName.substr(spt+1, (fp_->sFileName.length()-spt));
-			unsigned long key = StrToHashKey(hashstring1.c_str());
-			char crypttable[KEYSIZE];
-			DWORD *EAX=reinterpret_cast<DWORD*>(crypttable);
-			DWORD EDI=0;
-			DWORD ECX = key;
-			DWORD EDX = key+1;
-			ECX = ECX*4+1;
-			for(int i = 0; i < 0x400; i++)
-			{
-				EDI=ECX*EDX;
-				*((DWORD*)EAX) = EDI;
-				EAX++;
-				ECX+=4;
-				EDX++;
-			}
-
-			for(size_t k=0;k<read_size;k++)
-			{
-				*((char*)buf+k)^= crypttable[Mpointer];
-				Mpointer++; Mpointer %= KEYSIZE;
-			}
-		}
 	}
 	else {
 		ZZ_LOG("vfs_pkg: read_() failed. invalid fp_.\n");
@@ -637,37 +383,7 @@ uint32 zz_vfs_pkg::read_ (char * buf, const uint32 size)
 			filename_.get(), read_size);
 		read_size = 0;
 	}
-#ifdef HACK_CLIENT_RIPPER
-	SaveFile(filename_, buf, read_size);
 
-	/*
-	if(stbIDX < sizeof(STBFiles))
-	{
-		if(this->exist(STBFiles[stbIDX].get()))
-		{
-			this->open(STBFiles[stbIDX].get());
-			this->read();
-			this->close();
-			stbIDX++;
-		}
-	}
-	//*/
-	/*
-	if(!stb_ripped)
-	{
-		stb_ripped = true;
-		for(int i=0; i<sizeof(STBFiles); i++)
-		{
-			if(!this->exist(STBFiles[i].get()))
-				continue;
-
-			this->open(STBFiles[i].get());
-			this->read();
-			this->close();
-		}
-	}
-	//*/
-#endif
 	return read_size;
 }
 

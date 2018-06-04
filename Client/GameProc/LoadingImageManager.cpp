@@ -50,17 +50,19 @@ bool CLoadingImageManager::LoadImageTable( char* strSTBName )
 				if( m_bDisplayEventLoadingImage )
 				{
 					m_LoadingImageTableByEvent.push_back( szFileName );
-				}else
+				}
+			  else
 				{
 					/// Çà¼º
 					if( iImageZoneNO > 500 )
 					{
 
 						m_LoadingImageTableByPlanet.insert( std::make_pair< int, std::string >( iImageZoneNO - 500,  szFileName ) );
-					}else
+					}
+				  else
 					{
 						/// Á¸
-						m_LoadingImageTableByZone.insert( std::make_pair< int, std::string >( iImageZoneNO,  szFileName ) );
+						m_LoadingImageTableByZone.insert( std::make_pair< int, std::string >( std::move(iImageZoneNO),  szFileName ) );
 					}
 				}
 			}else

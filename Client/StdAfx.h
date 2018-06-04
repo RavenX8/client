@@ -26,6 +26,8 @@
 #include <d3d9.h>
 #include <D3DX9.h>
 
+#pragma comment(lib, "legacy_stdio_definitions.lib")
+
 // TODO: reference additional headers your program requires here
 //-------------------------------------------------------------------------------------------------
 
