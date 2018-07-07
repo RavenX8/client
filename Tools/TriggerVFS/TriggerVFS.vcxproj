@@ -75,7 +75,7 @@ xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\src;.\src\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;TRIGGERVFS_EXPORTS;__DLL;_DEBUG;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>

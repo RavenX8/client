@@ -14,29 +14,45 @@
     #pragma	comment (lib, "BCB5_lua.lib")
     #pragma	comment (lib, "BCB5_lualib.lib")
 #else
+  #ifdef ZZ_LUA500
+    #pragma	comment (lib, "lua500.lib")
+  #else
     #pragma	comment (lib, "lua401.lib")
     #pragma	comment (lib, "lualib401.lib")
+  #endif
 #endif
 
 //-------------------------------------------------------------------------------------------------
 
 classLUA::classLUA (int iStackSize)
 {
-	m_pState = lua_open (0);
+#ifdef ZZ_LUA500
+  m_pState = lua_open();
 
-    if ( m_pState ) {
-        lua_baselibopen(m_pState);
-        lua_mathlibopen(m_pState);
-        lua_iolibopen(m_pState);
-    }
+  if (m_pState) {
+    luaopen_base(m_pState);
+    luaopen_string(m_pState);
+    luaopen_table(m_pState);
+    luaopen_math(m_pState);
+    luaopen_io(m_pState);
+    luaopen_debug(m_pState);
+  }
+#else
+  m_pState = lua_open(0);
 
+  if (m_pState) {
+    lua_baselibopen(m_pState);
+    lua_mathlibopen(m_pState);
+    lua_iolibopen(m_pState);
+  }
+#endif
     m_pBuffer = NULL;
-	m_lBufferSize = 0;
+  m_lBufferSize = 0;
 }
 classLUA::~classLUA ()
 {
     if ( m_pState )
-    	lua_close (m_pState);
+      lua_close (m_pState);
 
     if ( m_pBuffer ) delete[] m_pBuffer;
 }
@@ -47,37 +63,37 @@ classLUA::~classLUA ()
 //-------------------------------------------------------------------------------------------------
 bool classLUA::GetGlobalValue (const char *VarName, double &dbNumber)
 {
-	this->GetGlobal( VarName );	// 	lua_getglobal (m_pState, VarName)
-	if ( Is_Number( -1 ) ) {	//	lua_isstring  (m_pState, -1)
-		dbNumber = To_Double( -1 );
-		return true;
-	}
+  this->GetGlobal( VarName );	// 	lua_getglobal (m_pState, VarName)
+  if ( Is_Number( -1 ) ) {	//	lua_isstring  (m_pState, -1)
+    dbNumber = To_Double( -1 );
+    return true;
+  }
 
-	return false;
+  return false;
 }
 
 //-------------------------------------------------------------------------------------------------
 bool classLUA::GetGlobalValue (const char *VarName, int  &iNumber)
 {
-	this->GetGlobal( VarName );	// 	lua_getglobal (m_pState, VarName)
-	if ( Is_Number( -1 ) ) {	//	lua_isstring  (m_pState, -1)
-		iNumber = To_Number( -1 );
-		return true;
-	}
+  this->GetGlobal( VarName );	// 	lua_getglobal (m_pState, VarName)
+  if ( Is_Number( -1 ) ) {	//	lua_isstring  (m_pState, -1)
+    iNumber = To_Number( -1 );
+    return true;
+  }
 
-	return false;
+  return false;
 }
 
 //-------------------------------------------------------------------------------------------------
 bool classLUA::GetGlobalValue (const char *VarName, char *pString)
 {
-	this->GetGlobal( VarName );	// 	lua_getglobal (m_pState, VarName)
-	if ( Is_String( -1 ) ) {	//	lua_isstring  (m_pState, -1)
-		strcpy (pString, To_String( -1 ));
-		return true;
-	}
+  this->GetGlobal( VarName );	// 	lua_getglobal (m_pState, VarName)
+  if ( Is_String( -1 ) ) {	//	lua_isstring  (m_pState, -1)
+    strcpy (pString, To_String( -1 ));
+    return true;
+  }
 
-	return false;
+  return false;
 }
 
 

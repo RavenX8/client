@@ -47,7 +47,7 @@
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
     <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
@@ -79,7 +79,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(OutDir)$(TargetName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\</Command>
+      <Command>xcopy $(OutDir)TGameCtrl_d.lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\ /s /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

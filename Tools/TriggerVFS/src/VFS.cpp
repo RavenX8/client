@@ -255,8 +255,9 @@ CVFS::CVFS (FILE * fpFAT, long lOffset, DWORD dwNum, const char *VfsName, char *
   m_si.clear ();
   m_ve.clear ();
 
+  bool bIsRoot = !_stricmp(VfsName, "ROOT.VFS");
   if((m_fp = fopen (VfsName, Mode)))
-     __ReadFileEntry ();
+     __ReadFileEntry (bIsRoot);
 }
 
 
@@ -299,6 +300,12 @@ bool CVFS::Open (FILE * fpFAT, long lOffset, const char *VfsName, const char *Di
   m_si.clear ();
   m_ve.clear ();
 
+  // in case of ROOT.VFS only read the files from the index file
+  if (!_stricmp(VfsName, "ROOT.VFS"))
+  {
+    return __ReadFileEntry(true);
+  }
+
   if( _access( sOpenPath.c_str(), 0 ) != 0 ) // 파일이 존재하지 않으면
     return false;
 
@@ -311,7 +318,7 @@ bool CVFS::Open (FILE * fpFAT, long lOffset, const char *VfsName, const char *Di
     {
       m_hMap = CreateFileMapping( m_hFile, NULL, PAGE_READONLY, 0, 0, NULL );
       if (m_hMap) 
-        return __ReadFileEntry ();
+        return __ReadFileEntry (false);
     }
   }
   /// w+ , 쓰기/읽기모드 + 생성. 기존의 파일이 있으면 내용이 지워짐
@@ -330,7 +337,7 @@ bool CVFS::Open (FILE * fpFAT, long lOffset, const char *VfsName, const char *Di
   {
     m_fp = fopen (sOpenPath.c_str (), Mode); /// 실제 오픈은 절대 경로로 한다
     if (m_fp) 
-      return __ReadFileEntry ();
+      return __ReadFileEntry (false);
   }
   
   return false;
@@ -386,16 +393,16 @@ void CVFS::Close (void)
 }
 
 
-bool CVFS::__ReadFileEntry (void)
+bool CVFS::__ReadFileEntry (bool bIsRoot)
 {
   FileEntry *fe = NULL;
 
-  if (!m_fp && (this->m_hFile == INVALID_HANDLE_VALUE)) 
+  if (!bIsRoot && !m_fp && (this->m_hFile == INVALID_HANDLE_VALUE))
     return false;
 
   /// 파일 앞으로 이동
   long lMaxOffset = 0;
-  if(m_hFile != INVALID_HANDLE_VALUE)		// Memory Mapped IO 가 아니면 파일의 크기를 조사한다
+  if(!bIsRoot && m_hFile != INVALID_HANDLE_VALUE)		// Memory Mapped IO 가 아니면 파일의 크기를 조사한다
     lMaxOffset = __fseek (m_fp, 0, SEEK_END);
 
   fseek (m_fpFAT, m_lEntryStart, SEEK_SET);
@@ -409,7 +416,7 @@ bool CVFS::__ReadFileEntry (void)
     return false;
 
   // Memory Mapped IO 가 아니면 범위를 체크한다
-  if(m_hFile != INVALID_HANDLE_VALUE && m_lStartOffset > lMaxOffset )
+  if(!bIsRoot && m_hFile != INVALID_HANDLE_VALUE && m_lStartOffset > lMaxOffset )
     return false;
 
   for(unsigned int i = 0; i < m_dwNum; i++)
@@ -635,12 +642,17 @@ short CVFS::AddFile (const char * FileName
       ::VWriteFileEntry (pFileEntry, m_fpFAT); /// 이동한 다음 파일엔트리를 갱신한다
       fflush (m_fpFAT);
 
-      fseek (m_fp, pFileEntry->lFileOffset, SEEK_SET);
-      fwrite (pbtBuff, sizeof(BYTE), (size_t)lSize, m_fp);
+      // Only write to disk, if we are not in ROOT.VFS
+      if (m_sFileName != "ROOT.VFS")
+      {
+        fseek(m_fp, pFileEntry->lFileOffset, SEEK_SET);
+        fwrite(pbtBuff, sizeof(BYTE), (size_t)lSize, m_fp);
 
-      // 2004 10 28 수정
-      // VFS 파일을 flush 하고 인덱스를 갱신하고 인덱스파일을 flush 한다
-      fflush (m_fp);
+        // 2004 10 28 수정
+        // VFS 파일을 flush 하고 인덱스를 갱신하고 인덱스파일을 flush 한다
+        fflush(m_fp);
+      }
+
       m_dwNum++;
       __VWriteVFSHeader (m_dwNum, m_dwDelCnt, m_lStartOffset);
       fflush (m_fpFAT);

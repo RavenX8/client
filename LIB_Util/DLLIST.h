@@ -15,8 +15,8 @@ class classDLLNODE {
         classDLLNODE   *m_pNEXT;
         classDLLNODE   *m_pPREV;
 
-        classDLLNODE ()            { m_pNEXT = m_pPREV = NULL; }
-        classDLLNODE (dType pArg1) { DATA  = pArg1; m_pNEXT = m_pPREV = NULL; }
+        classDLLNODE ()            { m_pNEXT = m_pPREV = nullptr; }
+        classDLLNODE (dType pArg1) { DATA  = pArg1; m_pNEXT = m_pPREV = nullptr; }
 } ;
 
 template <class dType>
@@ -32,7 +32,7 @@ class classDLLIST {
 		void				  Init (void);
 		bool				  IsEmpty (void)									{ return !iNodeCount;						}
         int					  GetNodeCount(void) 								{ return iNodeCount;						}
-		void				  ResetNode   (void)								{ m_pHEAD = m_pTAIL = NULL; iNodeCount = 0; }
+		void				  ResetNode   (void)								{ m_pHEAD = m_pTAIL = nullptr; iNodeCount = 0; }
         classDLLNODE <dType> *GetHeadNode (void)								{ return m_pHEAD;							}
         classDLLNODE <dType> *GetTailNode (void)								{ return m_pTAIL;							}
         classDLLNODE <dType> *GetNextNode (classDLLNODE <dType> *CurrentNode)	{ return CurrentNode->m_pNEXT;				}
@@ -59,8 +59,8 @@ class classDLLIST {
 template <class dType>
 void classDLLIST<dType>::Init (void)
 {
-	m_pHEAD = NULL;
-	m_pTAIL = NULL;
+	m_pHEAD = nullptr;
+	m_pTAIL = nullptr;
 	iNodeCount = 0;
 }
 
@@ -68,7 +68,7 @@ void classDLLIST<dType>::Init (void)
 template <class dType>
 void classDLLIST<dType>::AppendNodeList (classDLLIST<dType> *pList)
 {
-    if ( m_pHEAD == NULL ) {
+    if ( m_pHEAD == nullptr) {
    	    m_pHEAD = pList->GetHeadNode ();
 		m_pTAIL = pList->GetTailNode ();
 		iNodeCount = pList->GetNodeCount ();
@@ -95,7 +95,7 @@ classDLLNODE<dType> *classDLLIST<dType>::AllocNAppend (void)
         AppendNode (pNewNode);
 		return pNewNode;
     }
-	return NULL;
+	return nullptr;
 }
 
 template <class dType>
@@ -109,7 +109,7 @@ classDLLNODE<dType> *classDLLIST<dType>::AllocNAppend (dType DATA)
 		pNewNode->DATA = DATA;
 		return pNewNode;
     }
-	return NULL;
+	return nullptr;
 }
 
 //---------------------------------------------------------------------------
@@ -122,7 +122,7 @@ void classDLLIST <dType>::DeleteNFree (classDLLNODE <dType> *pNodeToDelete)
         delete pNodeToDelete;
     }
 
-    pNodeToDelete = NULL;
+    pNodeToDelete = nullptr;
 }
 
 
@@ -131,12 +131,12 @@ void classDLLIST <dType>::DeleteNFree (classDLLNODE <dType> *pNodeToDelete)
 template <class dType>
 void  classDLLIST <dType>::AppendNode(classDLLNODE <dType> *NodeToAdd)
 {
-    if ( m_pHEAD == NULL ) {
+    if ( m_pHEAD == nullptr) {
    	    m_pHEAD = m_pTAIL = NodeToAdd;
-        NodeToAdd->m_pNEXT = NULL;
-        NodeToAdd->m_pPREV = NULL;
+        NodeToAdd->m_pNEXT = nullptr;
+        NodeToAdd->m_pPREV = nullptr;
     } else {
-        NodeToAdd->m_pNEXT = NULL;
+        NodeToAdd->m_pNEXT = nullptr;
 		NodeToAdd->m_pPREV = m_pTAIL;
         m_pTAIL->m_pNEXT = NodeToAdd;
 
@@ -151,25 +151,25 @@ void  classDLLIST <dType>::AppendNode(classDLLNODE <dType> *NodeToAdd)
 template <class dType>
 void  classDLLIST <dType>::DeleteNode(classDLLNODE <dType> *NodeToDel)
 {
-    if ( NodeToDel == NULL ) return;
+    if ( NodeToDel == nullptr) return;
 
     if ( NodeToDel == m_pHEAD ) {
         m_pHEAD = m_pHEAD->m_pNEXT;
 
-        if ( m_pHEAD != NULL )
-            m_pHEAD->m_pPREV = NULL;
+        if ( m_pHEAD != nullptr)
+            m_pHEAD->m_pPREV = nullptr;
         else
-            m_pTAIL = NULL;
+            m_pTAIL = nullptr;
     } else
     if ( NodeToDel == m_pTAIL ) {
         m_pTAIL = m_pTAIL->m_pPREV;
-        m_pTAIL->m_pNEXT = NULL;
+        m_pTAIL->m_pNEXT = nullptr;
     } else {
         NodeToDel->m_pPREV->m_pNEXT = NodeToDel->m_pNEXT;
         NodeToDel->m_pNEXT->m_pPREV = NodeToDel->m_pPREV;
     }
 
-//    NodeToDel->m_pPREV = NodeToDel->m_pNEXT = NULL;
+//    NodeToDel->m_pPREV = NodeToDel->m_pNEXT = nullptr;
     iNodeCount --;
 } ;
 
@@ -179,7 +179,7 @@ void  classDLLIST <dType>::DeleteNode(classDLLNODE <dType> *NodeToDel)
 template <class dType>
 void  classDLLIST <dType>::ReplaceNode (classDLLNODE <dType> *TargetNode, classDLLNODE <dType> *NodeToReplace)
 {
-	if ( TargetNode == NULL ) return;
+	if ( TargetNode == nullptr) return;
 
 	NodeToReplace->m_pPREV = TargetNode->m_pPREV;
 	NodeToReplace->m_pNEXT = TargetNode->m_pNEXT;
@@ -201,10 +201,10 @@ void  classDLLIST <dType>::ReplaceNode (classDLLNODE <dType> *TargetNode, classD
 template <class dType>
 void  classDLLIST <dType>::InsertNodeToPrev (classDLLNODE <dType> *TargetNode, classDLLNODE <dType> *NodeToIns)
 {
-	if ( TargetNode == NULL ) return;
+	if ( TargetNode == nullptr) return;
 
     if ( TargetNode == m_pHEAD ) {
-        NodeToIns->m_pPREV	= NULL;
+        NodeToIns->m_pPREV	= nullptr;
         NodeToIns->m_pNEXT	= m_pHEAD;
         m_pHEAD->m_pPREV	= NodeToIns;
         m_pHEAD				= NodeToIns;
@@ -224,11 +224,11 @@ void  classDLLIST <dType>::InsertNodeToPrev (classDLLNODE <dType> *TargetNode, c
 template <class dType>
 void  classDLLIST <dType>::InsertNodeToNext (classDLLNODE <dType> *TargetNode, classDLLNODE <dType> *NodeToIns)
 {
-	if ( TargetNode == NULL ) return;
+	if ( TargetNode == nullptr) return;
 
     if ( TargetNode == m_pTAIL ) {
         NodeToIns->m_pPREV	= m_pTAIL;
-        NodeToIns->m_pNEXT	= NULL;
+        NodeToIns->m_pNEXT	= nullptr;
         m_pTAIL->m_pNEXT	= NodeToIns;
         m_pTAIL = NodeToIns;
     } else {

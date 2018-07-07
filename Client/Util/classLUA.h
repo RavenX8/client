@@ -96,7 +96,11 @@ public  :
     void    SetGolbalValue (const char *VarName, int    iValue);
     void    SetGolbalValue (const char *VarName, char *szValue);
 
-	int		Call (int iArgCnt, int iResultCnt)		{	return lua_call (m_pState, iArgCnt, iResultCnt);    }
+#ifdef ZZ_LUA500
+    int		Call(int iArgCnt, int iResultCnt) { return lua_pcall(m_pState, iArgCnt, iResultCnt, 0); }
+#else // 40
+    int		Call(int iArgCnt, int iResultCnt) { return lua_call(m_pState, iArgCnt, iResultCnt); }
+#endif
 } ;
 
 inline int  classLUA::Do_Buffer (const char *pBuffer, size_t iSize, const char *szNameOfTheChunk)
