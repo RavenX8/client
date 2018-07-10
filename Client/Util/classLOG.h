@@ -18,14 +18,14 @@ enum t_LOG {
 class CLOG {
 private :
     static WORD	m_wLogMODE[ LOG_MAXOUT ];
-	static char m_StrBUFF [ LOG_STR_SIZE ];
+  static char m_StrBUFF [ LOG_STR_SIZE ];
 
-	CRITICAL_SECTION	m_csLOCK;
+  CRITICAL_SECTION	m_csLOCK;
 
 public  :
     static WORD GetLogMODE   (t_LOG logType);
-	static void SetLogMODE   (WORD wLogMODE, t_LOG logType=LOG_SCR);
-	static void OutputString (WORD wLogMODE, char *fmt, ...);
+  static void SetLogMODE   (WORD wLogMODE, t_LOG logType=LOG_SCR);
+  static void OutputString (WORD wLogMODE, char *fmt, ...);
 
     CLOG ();
     ~CLOG ();
@@ -35,8 +35,8 @@ public  :
 } ;
 
 #if	defined( _DEBUG ) || defined( _D_RELEASE )
-	#define	LogString		CLOG::OutputString
-	// #define	LogString		g_LOG.CS_ODS	//CLOG::OutputString
+  #define	LogString		CLOG::OutputString
+  // #define	LogString		g_LOG.CS_ODS	//CLOG::OutputString
 #else
     #define	LogString
 #endif

@@ -416,7 +416,8 @@ void CClientSOCKET::Packet_Register2RecvUDPQ(u_long ulFromIP, WORD wFromPort,
     pNewNode = new classDLLNODE <struct tagUDPPACKET *> (NULL);
     pUDPPacket = (struct tagUDPPACKET*) new struct tagUDPPACKET;
   pUDPPacket->m_pPacket   = (t_PACKET *) new char[ iPacketSize ];
-  
+  
+
   pUDPPacket->m_ulFromIP    = ulFromIP;
   pUDPPacket->m_wFromPort	  = wFromPort;
   pUDPPacket->m_iPacketSize = iPacketSize;
@@ -446,7 +447,8 @@ void CClientSOCKET::Packet_RecvFrom(void) {
   #define s_impno S_un.S_un_b.s_b4		// imp #
   #define s_lh    S_un.S_un_b.s_b3		// logical host
   };
-   
+   
+
   struct sockaddr_in{
       short				sin_family;
       unsigned short      sin_port;

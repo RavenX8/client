@@ -81,17 +81,21 @@ void CNetwork::DisconnectFromServer(short nProcLEVEL) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void CNetwork::MoveZoneServer() {
+void CNetwork::MoveZoneServer(const bool reconnect) {
   if (NETWORK_STATUS_CONNECT == m_btZoneSocketSTATUS) {
     // 존 서버 소켓을 끊고 새로 접속한다...
     m_bMoveingZONE = true;
     m_ZoneSOCKET.Close();
-  } else {
-    // 바로 접속...
-    m_bMoveingZONE = false;
-    m_ZoneSOCKET.Connect(CSocketWND::GetInstance()->GetWindowHandle(),
-                         m_GSV_IP.Get(), m_wGSV_PORT, WM_ZONE_SOCKET_NOTIFY);
+
+    if (!reconnect) {
+      return;
+    }
+    LogString(LOG_NORMAL, "MoveZoneServer reconnection logic hit\n");
   }
+  // 바로 접속...
+  m_bMoveingZONE = false;
+  m_ZoneSOCKET.Connect(CSocketWND::GetInstance()->GetWindowHandle(),
+                       m_GSV_IP.Get(), m_wGSV_PORT, WM_ZONE_SOCKET_NOTIFY);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -143,7 +147,9 @@ void CNetwork::Proc_WorldPacket() {
         g_pCApp->SetCaption("Server DEAD");
 #ifndef __VIRTUAL_SERVER
         g_pCApp->ErrorBOX(STR_SERVER_EXAMINE, STR_SERVER_INFO, MB_OK);
+#ifndef _DEBUG
         g_pCApp->SetExitGame();
+#endif
 #endif
         break;
       }
@@ -151,7 +157,7 @@ void CNetwork::Proc_WorldPacket() {
 
       // CGame::GetInstance().ProcWndMsg( WM_USER_SERVER_DISCONNECTED,0,0 );
       // 서버와 접속 실패 했다.
-      LogString(LOG_NORMAL, "서버와의 접속에 실패했습니다.\n");
+      // LogString(LOG_NORMAL, "서버와의 접속에 실패했습니다.\n");
       break;
     }
     case SRV_ERROR:
@@ -242,7 +248,7 @@ void CNetwork::Proc_ZonePacket() {
   case WSV_MOVE_SERVER: {
     bAllInONE = false;
     Recv_wsv_MOVE_SERVER();
-    MoveZoneServer();
+    MoveZoneServer(true);
     break;
   }
 
@@ -346,7 +352,7 @@ void CNetwork::Proc_ZonePacket() {
     this->m_bWarping = false;
     Recv_gsv_TELEPORT_REPLY();
     //				Send_cli_JOIN_ZONE ();		//
-    //GSV_TELEPORT_REPLY
+    // GSV_TELEPORT_REPLY
     break;
 
   case GSV_INVENTORY_DATA:
@@ -722,6 +728,8 @@ void CNetwork::Proc() {
       case NETWORK_STATUS_DISCONNECT: {
         // 서버를 옮기기 위해 접속을 끊은것인가 ? 끊긴것인가 ?
         if (m_bMoveingZONE) {
+          LogString(LOG_DEBUG,
+                    "m_bMoveingZONE set to true, reconnecting.... \n");
           this->MoveZoneServer();
           continue;
         }

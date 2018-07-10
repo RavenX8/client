@@ -43,7 +43,7 @@ private :
 	void Proc_WorldPacket ();
 	void Proc_ZonePacket ();
 
-	void MoveZoneServer ();
+	void MoveZoneServer (const bool reconnect = false);
 
 public  :
 #ifdef	__VIRTUAL_SERVER

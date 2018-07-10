@@ -563,6 +563,8 @@ void CRecvPACKET::Recv_wsv_MOVE_SERVER() {
   this->m_wGSV_PORT = m_pRecvPacket->m_wsv_MOVE_SERVER.m_wPortNO;
   this->m_dwGSV_IDs[0] = m_pRecvPacket->m_wsv_MOVE_SERVER.m_dwIDs[0];
   this->m_dwGSV_IDs[1] = m_pRecvPacket->m_wsv_MOVE_SERVER.m_dwIDs[1];
+
+  LogString(LOG_DEBUG, "IP: %s, Port: %i\n", this->m_GSV_IP, this->m_wGSV_PORT);
 }
 
 //-------------------------------------------------------------------------------------------------
