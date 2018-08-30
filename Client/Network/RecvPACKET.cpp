@@ -4666,7 +4666,7 @@ void CRecvPACKET::Recv_gsv_CRAFT_ITEM_REPLY() {
     break;
   }
 
-  case CRAFE_BREAKUP_SUCCESS: //	0x07	// 아이템 분해 성공
+  case CRAFT_BREAKUP_SUCCESS: //	0x07	// 아이템 분해 성공
   {
     if (g_pAVATAR) {
       CSeparate &Separate = CSeparate::GetInstance();
