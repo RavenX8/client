@@ -40,7 +40,7 @@ const int INVALID_DUMMY_POINT_NUM = 999;
 ///
 struct tagDAMAGE {
   short	m_nTargetObjIDX;
-  WORD	m_wDamage;
+  int64_t	m_wDamage;
 } ;
 
 
@@ -491,7 +491,7 @@ public:
 
 
   uniDAMAGE							PopCurrentAttackerDamage( int iAttacker );
-  uniDAMAGE							PopTotalDamageFromList( int& iMaxDamage );	
+  uniDAMAGE							PopTotalDamageFromList(int64_t& iMaxDamage);	
 
   /// 모든 데이지 처리( 죽거나.. 뭐 그런 상황에서.. 정리 )
   void								ClearAllDamage();
@@ -500,7 +500,7 @@ public:
   void								ProcDamageTimeOut();
 
   /// 타격치 바로 표시
-  void								CreateImmediateDigitEffect(  WORD wDamage  );
+  void								CreateImmediateDigitEffect(int64_t wDamage);
 
   /// Damage_of_Skill => 일반 데미지로 전환저장..
   void								ConvertDamageOfSkillToDamage( gsv_DAMAGE_OF_SKILL stDamageOfSkill );
@@ -757,7 +757,7 @@ public:
 public:
   tagDAMAGE					m_DeadDAMAGE;
   long						m_lDeadTIME;
-  void						Apply_DAMAGE (CObjCHAR *pAtkOBJ, WORD wDamage);
+  void						Apply_DAMAGE (CObjCHAR *pAtkOBJ, int64_t wDamage);
 
 
   //----------------------------------------------------------------------------------------------------

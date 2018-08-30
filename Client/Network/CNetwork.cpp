@@ -246,9 +246,11 @@ void CNetwork::Proc_WorldPacket() {
 void CNetwork::Proc_ZonePacket() {
   switch (m_pRecvPacket->m_HEADER.m_wType) {
   case WSV_MOVE_SERVER: {
+    this->m_bWarping = true;
     bAllInONE = false;
     Recv_wsv_MOVE_SERVER();
     MoveZoneServer(true);
+    this->m_bWarping = false;
     break;
   }
 

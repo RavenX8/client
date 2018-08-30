@@ -1788,58 +1788,29 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
   /// 데미지로는 소환몹인지 모른다. 리스트에서 찾아서 있으면 지워라. 소환몹
   /// 리스트에서 빼라..
   //------------------------------------------------------------------------------------
-  if (m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD) {
-    if (g_pAVATAR)
-      g_pAVATAR->SubSummonedMob(m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX);
+  //if (m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD)
+  if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wACTION & DMG_ACT_DEAD) && g_pAVATAR)
+  {
+    g_pAVATAR->SubSummonedMob(m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX);
   }
 
   CObjCHAR *pAtkOBJ, *pDefOBJ;
 
-  pDefOBJ = g_pObjMGR->Get_ClientCharOBJ(
-      m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX, true);
-  pAtkOBJ = g_pObjMGR->Get_ClientCharOBJ(
-      m_pRecvPacket->m_gsv_DAMAGE.m_wAtkObjIDX, false);
-
-  /////<-2004 / 2/ 11 : 수정 - Object List에는 없지만 다른존에 있는 Member의
-  ///Damage가 올수 있다.( 파티 ) - nAvy
-  // CTDialog* pDlg = g_itMGR.FindDlg( DLG_TYPE_PARTY );
-  // if( pDlg && pDlg->IsVision() )
-  //{
-  //	CPartyDlg* pPartyDlg = (CPartyDlg*)pDlg;
-  //	if ( m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD )
-  //		pPartyDlg->MemberDead( m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX
-  //); 	else 		pPartyDlg->MemberDamaged(
-  //m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX,m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage
-  //);
-  //}
+  pDefOBJ = g_pObjMGR->Get_ClientCharOBJ(m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX, true);
+  pAtkOBJ = g_pObjMGR->Get_ClientCharOBJ(m_pRecvPacket->m_gsv_DAMAGE.m_wAtkObjIDX, false);
 
   if (NULL == pDefOBJ)
     return;
 
-  // if( pAtkOBJ ) {
-  //	LogString (LOG_NORMAL, "damage: %x,  %s(%f, %f) => %s(%f, %f) \n",
-  //m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage, 						pAtkOBJ->Get_NAME(),
-  //pAtkOBJ->m_PosCUR.x, pAtkOBJ->m_PosCUR.y, 						pDefOBJ->Get_NAME(),
-  //pDefOBJ->m_PosCUR.x, pDefOBJ->m_PosCUR.y );
-  //}
-
   if (pAtkOBJ) {
-    // 2004. 01. 06 아이템 드롭 씽그 맞추기..
     if (m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD) {
-      if (m_pRecvPacket->m_HEADER.m_nSize ==
-          (sizeof(gsv_DAMAGE) + sizeof(tag_DROPITEM))) {
-        // 죽을때 드롭된 아이템이 있다...
+      if (m_pRecvPacket->m_HEADER.m_nSize == (sizeof(gsv_DAMAGE) + sizeof(tag_DROPITEM))) {
 
         short nOffset = sizeof(gsv_DAMAGE);
-        tag_DROPITEM *pFieldItem = (tag_DROPITEM *)Packet_GetDataPtr(
-            m_pRecvPacket, nOffset, sizeof(tag_DROPITEM));
+        tag_DROPITEM *pFieldItem = (tag_DROPITEM *)Packet_GetDataPtr(m_pRecvPacket, nOffset, sizeof(tag_DROPITEM));
 
-        /// 몹이 죽으면서 드랍한것이다.
-        // CObjCHAR* pObjCHAR = g_pObjMGR->Get_ClientCharOBJ(
-        // m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX, false );
         if (pDefOBJ) {
-          assert((pFieldItem->m_ITEM.GetTYPE() < 15) ||
-                 (pFieldItem->m_ITEM.GetTYPE() == ITEM_TYPE_MONEY));
+          assert((pFieldItem->m_ITEM.GetTYPE() < 15) || (pFieldItem->m_ITEM.GetTYPE() == ITEM_TYPE_MONEY));
           pDefOBJ->PushFieldItemToList(*pFieldItem);
 
           pDefOBJ->m_bDead = true;
@@ -1847,46 +1818,23 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
       }
     }
 
-    if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD))
-    //&&  pAtkOBJ->m_iServerTarget == m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX )
+    //if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD))
+    if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wACTION & DMG_ACT_DEAD))
     {
-      // 이 데미지 맞고 죽어야 한다...
-      // 미리 죽는것을 막기위해서 죽은 넘을 일정 시간 대기시켜 놓는다.
-      pDefOBJ->m_DeadDAMAGE.m_nTargetObjIDX = pAtkOBJ->Get_INDEX(); // 때린넘
-      pDefOBJ->m_DeadDAMAGE.m_wDamage =
-          m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage;
+      pDefOBJ->m_DeadDAMAGE.m_nTargetObjIDX = pAtkOBJ->Get_INDEX();
+      pDefOBJ->m_DeadDAMAGE.m_wDamage = m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage;
       pDefOBJ->m_lDeadTIME = g_GameDATA.GetGameTime();
 
       pDefOBJ->m_bDead = true;
-
-      /*if( g_pAVATAR )
-      {
-      if( g_pAVATAR->Get_INDEX() == pAtkOBJ->Get_INDEX() )
-      {
-      switch( pDefOBJ->Get_TYPE() )
-      {
-      case OBJ_MOB:
-      sprintf( g_MsgBuf, F_STR_SUCCESS_HUNT, pDefOBJ->Get_NAME() );
-      break;
-
-      case OBJ_AVATAR:
-      sprintf( g_MsgBuf, F_STR_WIN_PVP, pDefOBJ->Get_NAME() );
-      break;
-      }
-      g_itMGR.AppendChatMsg( g_MsgBuf, IT_MGR::CHAT_TYPE_SYSTEM );
-      }
-      }*/
-
       return;
     }
 
-    // 즉시 데미지 적용..
     if (m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_IMMEDIATE) {
       pDefOBJ->Apply_DAMAGE(pAtkOBJ,
                             m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage);
       if (pDefOBJ != pAtkOBJ)
         pDefOBJ->CreateImmediateDigitEffect(
-            m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage);
+          m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage);
 
       g_itMGR.AppendChatMsg(
           CStr::Printf("%s[ %d ]", STR_SHIELD_COUNTERATTACK,
@@ -1895,27 +1843,17 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
       return;
     }
 
-    //----------------------------------------------------------------------------------------------------
-    /// @param
-    /// @brief Damage 등록..
-    ///			Pet Mode 일 경우에는 Pet 의 인덱스를 넣는다.( 서버는 탑승자만
-    ///존재하므로 탑승자로 Attacker 가 날라온다. )
-    //----------------------------------------------------------------------------------------------------
-    /// Pet 탑승중일때는
     if (pAtkOBJ->GetPetMode() >= 0) {
       if (pAtkOBJ->IsUSER()) {
         if (((CObjAVT *)pAtkOBJ)->m_pObjCART != NULL) {
           int iIndex = ((CObjAVT *)pAtkOBJ)->m_pObjCART->Get_INDEX();
-          pDefOBJ->PushDamageToList(iIndex,
-                                    m_pRecvPacket->m_gsv_DAMAGE.m_Damage);
+          pDefOBJ->PushDamageToList(iIndex, m_pRecvPacket->m_gsv_DAMAGE.m_Damage);
         } else {
           assert(0 && "PETMODE is valid, but ChildCART is NULL");
         }
       }
     } else {
-      pDefOBJ->PushDamageToList(g_pObjMGR->Get_ClientObjectIndex(
-                                    m_pRecvPacket->m_gsv_DAMAGE.m_wAtkObjIDX),
-                                m_pRecvPacket->m_gsv_DAMAGE.m_Damage);
+      pDefOBJ->PushDamageToList(g_pObjMGR->Get_ClientObjectIndex(m_pRecvPacket->m_gsv_DAMAGE.m_wAtkObjIDX), m_pRecvPacket->m_gsv_DAMAGE.m_Damage);
     }
     return;
   }
@@ -1924,32 +1862,22 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
     Log_String(LOG_NORMAL, "공격자가 없다~~~~!! \n");
 
   /// 공격자가 없는데 죽는 패킷이 왔을경우...
-  if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD)) {
-    // 이 데미지 맞고 죽어야 한다...
-    // 미리 죽는것을 막기위해서 죽은 넘을 일정 시간 대기시켜 놓는다.
+  //if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD)) {
+  if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wACTION & DMG_ACT_DEAD)) {
     pDefOBJ->m_DeadDAMAGE.m_nTargetObjIDX = 0; // 때린넘
-    pDefOBJ->m_DeadDAMAGE.m_wDamage =
-        m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage;
+    pDefOBJ->m_DeadDAMAGE.m_wDamage = m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage;
     pDefOBJ->m_lDeadTIME = g_GameDATA.GetGameTime();
     pDefOBJ->m_bDead = true;
 
-    //------------------------------------------------------------------------------------
-    /// 데미지로는 소환몹인지 모른다. 리스트에서 찾아서 있으면 지워라. 소환몹
-    /// 리스트에서 빼라..
-    //------------------------------------------------------------------------------------
     if (g_pAVATAR)
       g_pAVATAR->SubSummonedMob(m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX);
 
     return;
   }
 
-  // 공격자가 없거나, 공격자가 현재 다른 타겟을 공격중이지 않을경우 바로 데미지
-  // 적용...
-  pDefOBJ->Apply_DAMAGE(pAtkOBJ,
-                        m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage);
+  pDefOBJ->Apply_DAMAGE(pAtkOBJ, m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage);
   if (pDefOBJ != pAtkOBJ)
-    pDefOBJ->CreateImmediateDigitEffect(
-        m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage);
+    pDefOBJ->CreateImmediateDigitEffect(m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -3076,9 +3004,9 @@ void CRecvPACKET::Recv_gsv_DAMAGE_OF_SKILL() {
         return;
 
       pEffectedChar->Apply_DAMAGE(
-          NULL, m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_wDamage);
+        NULL, m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_wDamage);
       pEffectedChar->CreateImmediateDigitEffect(
-          m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_Damage.m_wVALUE);
+        m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_Damage.m_wVALUE);
     }
 
     return;
@@ -3120,10 +3048,10 @@ void CRecvPACKET::Recv_gsv_DAMAGE_OF_SKILL() {
     if (pEffectedChar == NULL)
       return;
 
-    pEffectedChar->Apply_DAMAGE(NULL,
-                                m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_wDamage);
+    pEffectedChar->Apply_DAMAGE( NULL,
+                                 m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_wDamage);
     pEffectedChar->CreateImmediateDigitEffect(
-        m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_Damage.m_wVALUE);
+      m_pRecvPacket->m_gsv_DAMAGE_OF_SKILL.m_Damage.m_wVALUE);
   }
 }
 

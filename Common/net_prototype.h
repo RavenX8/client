@@ -198,6 +198,7 @@
 */		  
 #ifndef __NET_PROTOTYPE_H
 #define __NET_PROTOTYPE_H
+#include <cstdint>
 #ifdef	__SERVER
   #include "DataTYPE.h"
   #include "CUserDATA.h"
@@ -209,8 +210,6 @@
   #include "../util/PacketHEADER.h"
   #include "../util/classHASH.h"
 #endif
-
-
 
 #define	__APPLY_04_10_15_TEAMNO			// 04.10.15일자 팀번호 변경 패킷 적용할래 ?
 #define	__INC_PLATINUM				// 유료화변경 적용여부..
@@ -1337,10 +1336,10 @@ struct cli_DAMAGE : public t_PACKETHEADER {
 } ;
 
 union uniDAMAGE {
-  WORD	m_wDamage;
+  int64_t	m_wDamage;
   struct {
-    WORD	m_wVALUE  : 11;
-    WORD	m_wACTION :  5;
+    uint32_t	m_wVALUE;
+    uint32_t	m_wACTION;
   } ;
 } ;
 struct gsv_DAMAGE : public t_PACKETHEADER {
@@ -1350,14 +1349,21 @@ struct gsv_DAMAGE : public t_PACKETHEADER {
   uniDAMAGE		m_Damage;
   tag_DROPITEM	m_DropITEM[ 0 ];	// 죽는 데미지일경우에만 값이 들어 있다. 드롭된 아이템 인덱스
 } ;
-#define	MAX_DAMAGE			0x07ff
+#define	MAX_DAMAGE			0x05F5E0FF
 
 // gsv_DAMAGE::m_wDamage와 연산되는 값.
-#define	DMG_BIT_DUMMY		0x0800		// 추가 데미지 붙은 거다 :: 자신이 때린경우 추가 데미지 계산을 해.
-#define	DMG_BIT_IMMEDIATE	0x1000		// 패키 받고 즉각 처리 하면 된다:예)방패 뎀쥐 스킬에 의해 반사된 뎀쥐
-#define	DMG_BIT_HITTED		0x2000		// 맞는 동작을 한다.
-#define	DMG_BIT_CRITICAL	0x4000		// 크리티컬 데미지다
-#define	DMG_BIT_DEAD		0x8000		// 죽었다.
+//#define	DMG_BIT_DUMMY		0x0800		// 추가 데미지 붙은 거다 :: 자신이 때린경우 추가 데미지 계산을 해.
+//#define	DMG_BIT_IMMEDIATE	0x1000		// 패키 받고 즉각 처리 하면 된다:예)방패 뎀쥐 스킬에 의해 반사된 뎀쥐
+//#define	DMG_BIT_HITTED		0x2000		// 맞는 동작을 한다.
+//#define	DMG_BIT_CRITICAL	0x4000		// 크리티컬 데미지다
+//#define	DMG_BIT_DEAD		0x8000		// 죽었다.
+
+// gsv_DAMAGE::m_wDamage와 연산되는 값.
+#define	DMG_BIT_DUMMY		  0x0100000000
+#define	DMG_BIT_IMMEDIATE	0x0200000000
+#define	DMG_BIT_HITTED		0x0400000000
+#define	DMG_BIT_CRITICAL	0x0800000000
+#define	DMG_BIT_DEAD		  0x1000000000
 
 // gsv_DAMAGE::m_wACTION이 갖는 값...
 #define	DMG_ACT_RESERVED	0x01

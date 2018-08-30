@@ -1275,7 +1275,7 @@ void CObjCHAR::ResetCUR_POS( D3DXVECTOR3& Pos )
 /// @brief  : 데미지 적용 처리
 //--------------------------------------------------------------------------------
 
-void CObjCHAR::Apply_DAMAGE (CObjCHAR *pAtkOBJ, WORD wDamage)
+void CObjCHAR::Apply_DAMAGE (CObjCHAR *pAtkOBJ, int64_t wDamage)
 {
   if ( this->Get_HP() <= DEAD_HP )
     return;
@@ -2156,7 +2156,7 @@ uniDAMAGE CObjCHAR::PopCurrentAttackerDamage( int iAttacker )
 /// @brief  : 현재 리스트의 모든 데미지를 더해서 리턴..
 //--------------------------------------------------------------------------------
 
-uniDAMAGE CObjCHAR::PopTotalDamageFromList( int& iMaxDamage )
+uniDAMAGE CObjCHAR::PopTotalDamageFromList(int64_t& iMaxDamage)
 {
   uniDAMAGE wDamage;
   wDamage.m_wDamage = 0;
@@ -2233,7 +2233,7 @@ void CObjCHAR::ProcDamageTimeOut()
 /// @brief  : 타격치 바로 표시
 //--------------------------------------------------------------------------------
 
-void CObjCHAR::CreateImmediateDigitEffect( WORD wDamage )
+void CObjCHAR::CreateImmediateDigitEffect(int64_t wDamage)
 {
   /// 타격수치 바로적용.. 적당한 장소가 없다 일단 여기에..
   uniDAMAGE Damage;
@@ -2457,7 +2457,7 @@ bool CObjCHAR::Hitted (CObjCHAR *pFromOBJ, int iEffectIDX, int iSkillIDX, bool b
       }
     }else
     {
-      int iTotalDmage = 0;
+      int64_t iTotalDmage = 0;
       uniDAMAGE stDmage;
 
       /// 스킬에 의한 데미지는 Damage of skill 로 날라온다.

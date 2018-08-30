@@ -443,7 +443,7 @@ void zz_scene_octree::render_sky2 ()
 	znzin->renderer->enable_fog(false);
 
 	if (znzin->sky) {
-		znzin->sky->set_ztest(false);  
+		znzin->sky->set_ztest(false);
 		znzin->sky->render(true);
 	}
 }
