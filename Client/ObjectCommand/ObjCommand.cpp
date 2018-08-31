@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./objcommand.h"
+#include "StdAfx.h"
+#include "./ObjCommand.h"
 #include "../CObjCHAR.h"
 
 //----------------------------------------------------------------------------------------------------

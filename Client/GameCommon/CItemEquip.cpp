@@ -1,15 +1,15 @@
-#include "stdafx.h"
-#include "citemequip.h"
+#include "StdAfx.h"
+#include "CItemEquip.h"
 
-#include "../object.h"
-#include "../common/io_stb.h"
-#include "../common/cinventory.h"
+#include "../OBJECT.h"
+#include "../Common/io_stb.h"
+#include "../Common/CInventory.h"
 
-#include "../interface/typeresource.h"
-#include "../interface/it_mgr.h"
-#include "../interface/dlgs/ChattingDlg.h"
+#include "../Interface/TypeResource.h"
+#include "../Interface/it_mgr.h"
+#include "../Interface/DLGs/ChattingDLG.h"
 
-#include "../network/cnetwork.h"
+#include "../Network/CNetwork.h"
 
 CItemEquip::CItemEquip(void) {}
 

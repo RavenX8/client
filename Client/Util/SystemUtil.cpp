@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./systemutil.h"
-#include <Tlhelp32.h>
+#include "StdAfx.h"
+#include "./SystemUtil.h"
+#include <TlHelp32.h>
 
 CSystemUtil::CSystemUtil(void) {}
 

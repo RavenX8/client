@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CSkillSlot.h"
 #include "../../Common/IO_Skill.h"
 #include "../../GameCommon/Skill.h"

@@ -1,5 +1,5 @@
-#include "stdAFX.h"
-#include <windows.h>
+#include "StdAfx.h"
+#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>

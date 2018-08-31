@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./ctevent.h"
+#include "StdAfx.h"
+#include "./CTEvent.h"
 
 CTEvent::CTEvent(void) {
   m_iID = 0;

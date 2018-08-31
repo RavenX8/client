@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./useitemdelay.h"
+#include "StdAfx.h"
+#include "./UseItemDelay.h"
 #include "../Game.h"
 
 //USEITEM

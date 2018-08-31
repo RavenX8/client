@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/LUA_Func.cpp 12    04-04-07 1:50p Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "LUA_Func.h"
 
 //-------------------------------------------------------------------------------------------------

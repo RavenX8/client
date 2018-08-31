@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "./partyoptiondlg.h"
+#include "StdAfx.h"
+#include "./PartyOptionDlg.h"
 #include "../../GameData/CParty.h"
 #include "../../GameData/Event/CTEventParty.h"
-#include "../interface/it_mgr.h"
-#include "../interface/TypeResource.h"
+#include "../Interface/it_mgr.h"
+#include "../Interface/TypeResource.h"
 #include "../../GameCommon/StringManager.h"
 #include "../../CClientStorage.h"
 

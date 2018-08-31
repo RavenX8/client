@@ -1,10 +1,10 @@
-#include "stdafx.h"
-#include "./cgamestateMoveMain.h"
+#include "StdAfx.h"
+#include "./CGameStateMoveMain.h"
 #include "CGame.h"
 #include "SystemProcScript.h"
 #include "../IO_Terrain.h"
 #include "../CCamera.h"
-#include "../interface/CUIMediator.h"
+#include "../Interface/CUIMediator.h"
 
 CGameStateMoveMain::CGameStateMoveMain(int iID) {
   m_iStateID = iID;

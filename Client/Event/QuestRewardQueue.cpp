@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./questrewardqueue.h"
+#include "StdAfx.h"
+#include "./QuestRewardQueue.h"
 #include <algorithm>
-#include "../Object.h"
-#include "../Interface/it_MGR.h"
+#include "../OBJECT.h"
+#include "../Interface/it_mgr.h"
 
 CQuestRewardQueue g_QuestRewardQueue;
 

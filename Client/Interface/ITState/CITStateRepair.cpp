@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./citstaterepair.h"
+#include "StdAfx.h"
+#include "./CITStateRepair.h"
 #include "../it_mgr.h"
 #include "../../System/CGame.h"
-#include "../dlgs/CItemDlg.h"
+#include "../DLGs/CItemDlg.h"
 
 CITStateRepair::CITStateRepair(void) {
   m_iID = IT_MGR::STATE_REPAIR;

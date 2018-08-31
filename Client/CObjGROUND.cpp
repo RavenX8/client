@@ -1,13 +1,13 @@
 /*
 	$Header: /Client/CObjGROUND.cpp 57    05-02-28 11:10a Navy $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CObjGROUND.h"
 #include "zz_interface.h"
 #include "Game.h"
-#include "common/IO_STB.h"
+#include "Common/io_stb.h"
 #include "CViewMSG.h"
-#include "../interface/TypeResource.h"
+#include "../Interface/TypeResource.h"
 
 HNODE CObjITEM::m_hMotion = NULL;
 

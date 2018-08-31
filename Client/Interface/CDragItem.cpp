@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cdragitem.h"
+#include "StdAfx.h"
+#include "./CDragItem.h"
 #include "Icon/CIcon.h"
 #include "../../TGameCtrl/TCommand.h"
 

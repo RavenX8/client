@@ -1,7 +1,7 @@
-#include "stdAFX.h"
-#include "IO_Mesh.h"
+#include "StdAfx.h"
+#include "IO_MESH.H"
 #include "Common//IO_Motion.h"
-#include "IO_Material.h"
+#include "IO_MATERIAL.H"
 #include "IO_Morpher.h"
 
 tagMORPHER::tagMORPHER() {

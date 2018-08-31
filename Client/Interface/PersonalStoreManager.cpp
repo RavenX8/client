@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./personalstoremanager.h"
+#include "StdAfx.h"
+#include "./PersonalStoreManager.h"
 
 #include "../CObjCHAR.h"
-#include "../Object.h"
+#include "../OBJECT.h"
 
 #include "SplitHangul.h"
 

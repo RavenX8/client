@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cclan.h"
+#include "StdAfx.h"
+#include "./CClan.h"
 #include "../Network/CNetwork.h"
 
 CClan::CClan(void) {

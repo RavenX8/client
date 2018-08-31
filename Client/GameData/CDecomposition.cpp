@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cdecomposition.h"
+#include "StdAfx.h"
+#include "./CDecomposition.h"
 
 CDecomposition::CDecomposition(void) {}
 

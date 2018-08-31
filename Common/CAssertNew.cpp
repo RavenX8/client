@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CAssertNew.h"
 
 // @Return: Returns false if the expression is true

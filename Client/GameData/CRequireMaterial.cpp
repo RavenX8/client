@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./crequirematerial.h"
-#include "../interface/typeresource.h"
+#include "StdAfx.h"
+#include "./CRequireMaterial.h"
+#include "../Interface/TypeResource.h"
 
 CRequireMaterial::CRequireMaterial() {
   Clear();

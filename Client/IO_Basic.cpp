@@ -1,7 +1,7 @@
-#include "stdAFX.h"
-#include "util/classSTB.h"
+#include "StdAfx.h"
+#include "Util/classSTB.h"
 #include "IO_Basic.h"
-#include "Common//IO_STB.h"
+#include "Common/io_stb.hh
 #include "Game.h"
 
 CBasicDATA g_DATA;

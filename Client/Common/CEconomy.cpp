@@ -1,6 +1,6 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CEconomy.h"
-#include "IO_STB.h"
+#include "io_stb.h"
 
 #ifdef	__SERVER
 	#include "ZoneLIST.H"

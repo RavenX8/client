@@ -1,10 +1,10 @@
-#include "stdafx.h"
-#include "./citemdlg.h"
+#include "StdAfx.h"
+#include "./CItemDlg.h"
 #include "../../GameData/Event/CTEventItem.h"
 #include "../../GameCommon/Item.h"
 #include "../CDragItem.h"
 #include "../it_mgr.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 
 #include "../Icon/CIconItem.h"
 #include "../Command/CTCmdNumberInput.h"
@@ -15,7 +15,7 @@
 #include "../../GameData/CExchange.h"
 #include "../../System/CGame.h"
 #include "../../Network/CNetwork.h"
-#include "../../misc/gameutil.h"
+#include "../../Misc/GameUtil.h"
 #include "../../Country.h"
 
 #include "ActionEvent.h"

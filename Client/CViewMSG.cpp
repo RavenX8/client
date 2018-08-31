@@ -1,14 +1,14 @@
 /*
 	$Header: /Client/CViewMSG.cpp 21    04-09-19 8:13p Zho $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CViewMSG.h"
 #include "Game.h"
-#include "Object.h"
+#include "OBJECT.h"
 #include "Interface//CUIMediator.h"
 #include "Interface/CTDrawImpl.h"
 #include "Interface/it_mgr.h"
-#include "interface/IO_ImageRes.h"
+#include "Interface/IO_ImageRes.h"
 
 CViewMSG* CViewMSG::m_pInstance = nullptr;
 

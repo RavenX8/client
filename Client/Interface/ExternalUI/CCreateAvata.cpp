@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CCreateAvata.h"
 
 #include "..//..//Network//CNetwork.h"
@@ -17,7 +17,7 @@
 #include "../../GameData/CGameDataCreateAvatar.h"
 #include "../../GameCommon/CFilterWord.h"
 
-#include "../it_MGR.h"
+#include "../it_mgr.h"
 
 CCreateAvata::CCreateAvata() {
   m_iSelectedSex        = 0;

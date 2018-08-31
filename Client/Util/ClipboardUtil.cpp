@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include <string>
-#include "./clipboardutil.h"
+#include "./ClipboardUtil.h"
 
 CClipboardUtil::CClipboardUtil(void) {}
 

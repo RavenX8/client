@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventclanskill.h"
+#include "StdAfx.h"
+#include "./CTEventClanSkill.h"
 
 CTEventClanSkill::CTEventClanSkill(void) {
   m_strString = std::string( "ETClanSkill" );

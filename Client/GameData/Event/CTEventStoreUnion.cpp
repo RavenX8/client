@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventstoreunion.h"
+#include "StdAfx.h"
+#include "./CTEventStoreUnion.h"
 
 CTEventStoreUnion::CTEventStoreUnion(void) {}
 

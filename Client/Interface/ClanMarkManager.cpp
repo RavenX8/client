@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./clanmarkmanager.h"
+#include "StdAfx.h"
+#include "./ClanMarkManager.h"
 #include "../Game.h"
 #include "ClanMarkTransfer.h"
 #include "classCRC.h"

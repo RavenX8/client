@@ -1,15 +1,15 @@
-#include "stdafx.h"
-#include "./cstore.h"
+#include "StdAfx.h"
+#include "./CStore.h"
 //#include "../gamecommon/CItemEquip.h"
 //#include "../gamecommon/CItemEtc.h"
 //#include "../gamecommon/CItemUse.h"
 //#include "../gamecommon/CItemPat.h"
-#include "../gamecommon/Item.h"
-#include "../object.h"
-#include "../gamecommon/itemcommand.h"
-#include "../interface/command/CTCmdNumberInput.h"
-#include "../interface/command/UICOMMAND.h"
-#include "../interface/it_mgr.h"
+#include "../GameCommon/Item.h"
+#include "../OBJECT.h"
+#include "../GameCommon/ItemCommand.h"
+#include "../Interface/Command/CTCmdNumberInput.h"
+#include "../Interface/Command/UICommand.h"
+#include "../Interface/it_mgr.h"
 
 CStore::CStore(void) {
   m_iUnionNo                  = 0;

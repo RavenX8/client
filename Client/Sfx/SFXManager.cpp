@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./sfxmanager.h"
+#include "StdAfx.h"
+#include "./SFXManager.h"
 #include "ISFX.h"
 #include <functional>
 #include <algorithm>

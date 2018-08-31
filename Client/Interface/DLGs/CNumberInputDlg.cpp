@@ -1,8 +1,8 @@
 //*------------------------------------------------------------------------------------
 /// 2004 / 6 /11 . 외부에서 입력된 Command의 삭제는 하지 않는다.
 //*------------------------------------------------------------------------------------
-#include "stdafx.h"
-#include "./cnumberinputdlg.h"
+#include "StdAfx.h"
+#include "./CNumberInputDlg.h"
 #include "../../../TGameCtrl/TEditBox.h"
 #include "../../../TGameCtrl/TButton.h"
 #include "../Command/CTCmdNumberInput.h"

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventparty.h"
+#include "StdAfx.h"
+#include "./CTEventParty.h"
 
 CTEventParty::CTEventParty(void) {
   m_strString = "Party";

@@ -1,8 +1,8 @@
 #ifndef _CStore_
 #define _CStore_
 #include <map>
-#include "../gamecommon/CObservable.h"
-#include "../common/CItem.h"
+#include "../GameCommon/CObservable.h"
+#include "../Common/CItem.h"
 
 const int c_iSlotCountPerTab = 48;
 

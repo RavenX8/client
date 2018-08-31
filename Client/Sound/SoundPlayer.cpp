@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./soundplayer.h"
+#include "StdAfx.h"
+#include "./SoundPlayer.h"
 
 CSoundPlayer::CSoundPlayer(void) {}
 

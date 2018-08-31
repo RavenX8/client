@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./delayedexp.h"
-#include "../interface/it_mgr.h"
+#include "StdAfx.h"
+#include "./DelayedExp.h"
+#include "../Interface/it_mgr.h"
 #include "../CObjCHAR.h"
-#include "../Object.h"
+#include "../OBJECT.h"
 #include "../GameCommon/StringManager.h"
 
 /// for singleton

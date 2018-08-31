@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./callgm.h"
+#include "StdAfx.h"
+#include "./CallGM.h"
 #include "../System/SystemProcScript.h"
 #include "../Country.h"
 

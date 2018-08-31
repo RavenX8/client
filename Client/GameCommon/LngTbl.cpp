@@ -1,9 +1,9 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "LngTbl.h"
 #include <stdio.h>
 #include "StringManager.h"
 #include "Util//VFSManager.h"
-#include "../Util/localizing.h"
+#include "../Util/Localizing.h"
 
 const char* _LtbPath [] = { LANGSTB_AI_NAME, LANGSTB_QST_NAME, LANGSTB_CON_NAME };
 

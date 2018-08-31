@@ -3,9 +3,9 @@
 */
 #ifndef	__CNETWORK_H
 #define	__CNETWORK_H
-#include "NET_Prototype.h"
-#include "../util/CshoSOCKET.H"
-#include "Object.h"
+#include "Net_Prototype.h"
+#include "../Util/CshoSOCKET.h"
+#include "OBJECT.h"
 #include "RecvPACKET.h"
 #include "SendPACKET.h"
 

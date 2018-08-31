@@ -1,7 +1,7 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 
-#include <DSound.h>
-#include <DXErr9.h>
+#include <dsound.h>
+#include <dxerr9.h>
 
 #include "CDSound.h"
 #include "CWaveFILE.h"

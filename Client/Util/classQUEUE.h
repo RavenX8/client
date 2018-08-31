@@ -3,7 +3,7 @@
 */
 #ifndef	__CQUEUE_H
 #define	__CQUEUE_H
-#include "classSTR.h"
+#include "classstr.h"
 #include "DLLIST.h"
 //-------------------------------------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "ctcmdopendlg.h"
+#include "StdAfx.h"
+#include "CTCmdOpenDlg.h"
 #include "../it_mgr.h"
 #include "CTCmdNumberInput.h"
 #include <algorithm>
@@ -133,7 +133,7 @@ CTCmdOpenPrivateChatDlg::CTCmdOpenPrivateChatDlg(DWORD dwUserTag, BYTE btStatus,
     m_strName = pszName;
 }
 
-#include "../Dlgs/CPrivateChatDlg.h"
+#include "../DLGs/CPrivateChatDlg.h"
 
 bool CTCmdOpenPrivateChatDlg::Exec(CTObject* pObj) {
   if ( g_itMGR.GetPrivateChatDlg( m_dwUserTag ) ) ///기존에 해당 유저와의 대화창이 열려있다면 열지 않는다.

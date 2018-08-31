@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "CCheat.h"
-#include <shlwapi.h>
+#include <Shlwapi.h>
 
 #include "../OBJECT.h"
 #include "..//Game.h"
@@ -9,7 +9,7 @@
 #include "CCamera.h"
 #include "../Event/Quest_FUNC.h"
 #include "../Interface/it_mgr.h"
-#include "../Interface/dlgs/ChattingDlg.h"
+#include "../Interface/DLGs/ChattingDLG.h"
 #include "../Interface/cursor/CCursor.h"
 #include "../System/CGame.h"
 #include "../Network/CNetwork.h"

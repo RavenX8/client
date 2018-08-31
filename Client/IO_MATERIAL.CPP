@@ -1,9 +1,9 @@
 /*
 	$Header: /Client/IO_MATERIAL.CPP 46    04-07-25 3:28p Zho $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Game.h"
-#include "IO_MATERIAL.h"
+#include "IO_MATERIAL.H"
 #include <assert.h>
 
 //-------------------------------------------------------------------------------------------------

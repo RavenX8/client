@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./livecheck.h"
+#include "StdAfx.h"
+#include "./LiveCheck.h"
 #include "../Network/CNetwork.h"
 
 /// for singleton

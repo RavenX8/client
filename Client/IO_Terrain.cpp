@@ -1,7 +1,7 @@
 /*
   $Header: /Client/IO_Terrain.cpp 294   05-10-27 10:48a Choo0219 $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Game.h"
 #include "CObjFIXED.h"
 #include "ObjFixedEvent.h"
@@ -9,10 +9,10 @@
 #include "IO_Event.h"
 #include "CCamera.h"
 #include "System/CGame.h"
-#include "interface//it_MGR.h"
+#include "Interface/it_mgr.hh
 #include "Network/CNetwork.h"
 #include "Util//VFSManager.h"
-#include "interface/dlgs/CMinimapDlg.h"
+#include "Interface/DLGs/CMinimapDLG.h"
 
 #include "Sound/MusicMgr.h"
 #include "CClientStorage.h"

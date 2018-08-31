@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "ChattingDLG.h"
 #include "CTargetMenu.h"
-#include "ExchangeDlg.h"
+#include "ExchangeDLG.h"
 #include "CPartyDlg.h"
 #include "../it_mgr.h"
 #include "../CToolTipMgr.h"

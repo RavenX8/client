@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./sfxfont.h"
+#include "StdAfx.h"
+#include "./SFXFont.h"
 #include "../Util/Localizing.h"
-#include "../interface/controls/EffectString.h"
+#include "../Interface/controls/EffectString.h"
 
 CSFXFont::CSFXFont(void) {}
 

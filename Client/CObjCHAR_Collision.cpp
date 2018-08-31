@@ -1,12 +1,12 @@
 /*
 	$Header: /Client/CObjCHAR_Collision.cpp 105   05-08-30 5:29p Gioend $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Game.h"
 #include "OBJECT.h"
 #include "IO_Terrain.h"
 #include "Network/CNetwork.h"
-#include "common/Calculation.h"
+#include "Common/Calculation.h"
 #include "Game_FUNC.h"
 #include "ObjectActionProcessor.h"
 #include "CObjCART.h"

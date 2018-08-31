@@ -2,8 +2,8 @@
   $Header: /Client/CApplication.cpp 82    05-10-13 11:32a Choo0219 $
 */
 
-#include "stdAFX.h"
-#include "Resource.h"
+#include "StdAfx.h"
+#include "resource.h"
 #include "CApplication.h"
 //#include "CMouse.h"
 //#include "CKeyboard.h"
@@ -11,12 +11,12 @@
 #include "Game.h"
 #include "TGameCtrl.h"
 
-#include "Interface//it_MGR.h"
+#include "Interface/it_mgr.hh
 #include "System/CGame.h"
-#include "interface/cursor/ccursor.h"
+#include "Interface/cursor/CCursor.h"
 #include "Sound/MusicMgr.h"
 #include "Sound/DirectMusicPlayer.h"
-#include "util/classMD5.h"
+#include "Util/classMD5.h"
 
 #include "TTIme.h"
 CApplication* CApplication::m_pInstance = nullptr;

@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATENULL_
 #define _CGAMESTATENULL_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 class CGameStateNull : public CGameState {
 public:

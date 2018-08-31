@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/CModelCHAR.cpp 53    04-09-02 8:36p Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "IO_Basic.h"
 #include "IO_Terrain.h"
 #include "CModelCHAR.h"

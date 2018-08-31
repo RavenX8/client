@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "./citstatenormal.h"
+#include "StdAfx.h"
+#include "./CITStateNormal.h"
 #include "../it_mgr.h"
 #include "../CDragNDropMgr.h"
-#include "../Dlgs/ChattingDLG.h"
-#include "../Dlgs/CMinimapDLG.h"
+#include "../DLGs/ChattingDLG.h"
+#include "../DLGs/CMinimapDLG.h"
 
 #include "../Icon/CIconDialog.h"
 #include "../../System/CGame.h"

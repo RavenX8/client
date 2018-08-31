@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./gameutil.h"
+#include "StdAfx.h"
+#include "./GameUtil.h"
 
 CGameUtil::CGameUtil(void) {}
 

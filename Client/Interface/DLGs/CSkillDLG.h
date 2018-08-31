@@ -2,8 +2,8 @@
 #define _SKILLDLG_
 
 #include "../SlotContainer/CSkillSlot.h"
-#include "../../gamecommon/IObserver.h"
-#include "subclass/cslot.h"
+#include "../../GameCommon/IObserver.h"
+#include "SubClass/CSlot.h"
 
 #include "TDialog.h"
 

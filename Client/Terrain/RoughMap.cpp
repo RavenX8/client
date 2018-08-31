@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./roughMap.h"
+#include "StdAfx.h"
+#include "./RoughMap.h"
 #include "IO_Terrain.h"
-#include "../Interface/it_Mgr.h"
+#include "../Interface/it_mgr.h"
 
 CRoughMap::CRoughMap(void) {
   m_hTerrainBlock = NULL;

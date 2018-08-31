@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./objecttargeteffect.h"
+#include "StdAfx.h"
+#include "./ObjectTargetEffect.h"
 #include "../CObjCHAR.h"
 
 const int s_ObjectTargetEffect = 1406;

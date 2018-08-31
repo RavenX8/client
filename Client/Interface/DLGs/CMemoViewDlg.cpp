@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./cmemoviewdlg.h"
+#include "StdAfx.h"
+#include "./CMemoViewDlg.h"
 #include "../../Game.h"
 #include "../../SqliteDB.h"
-#include "../../object.h"
+#include "../../OBJECT.h"
 #include "../it_mgr.h"
 #include "CCommDlg.h"
 

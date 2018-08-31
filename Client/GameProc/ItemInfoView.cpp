@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./iteminfoview.h"
+#include "StdAfx.h"
+#include "./ItemInfoView.h"
 #include <algorithm>
 #include <functional>
 

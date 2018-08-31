@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cmsgboxcartride.h"
+#include "StdAfx.h"
+#include "./CMsgBoxCartRide.h"
 #include "CObjCART.h"
 #include "OBJECT.h"
 

@@ -4,8 +4,8 @@
 
 #ifndef	__CAPPLICATION_H
 #define	__CAPPLICATION_H
-#include "util/CRangeTBL.h"
-#include "sound/IO_Sound.h"
+#include "Util/CRangeTBL.h"
+#include "Sound/IO_Sound.h"
 
 //-------------------------------------------------------------------------------------------------
 

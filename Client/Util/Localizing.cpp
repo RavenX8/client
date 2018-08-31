@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./localizing.h"
+#include "StdAfx.h"
+#include "./Localizing.h"
 
 /// for singleton
 CLocalizing _localizing;

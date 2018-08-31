@@ -3,7 +3,7 @@
 */
 #ifndef	__IO_SOUND_H
 #define	__IO_SOUND_H
-#include "../util/CDSound.h"
+#include "../Util/CDSound.h"
 //-------------------------------------------------------------------------------------------------
 
 #define	SOUND_VOLUME_MAX	DSBVOLUME_MAX			// 0

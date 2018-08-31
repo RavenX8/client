@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cstoreunion.h"
+#include "StdAfx.h"
+#include "./CStoreUnion.h"
 
 CStoreUnion::CStoreUnion(void) {}
 

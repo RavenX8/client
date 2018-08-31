@@ -1,10 +1,10 @@
-#include "stdafx.h"
-#include "./targetmanager.h"
+#include "StdAfx.h"
+#include "./TargetManager.h"
 #include "../CViewMSG.h"
 
 #include "../Interface/CTDrawImpl.h"
 #include "../Interface/IO_ImageRes.h"
-#include "../Interface/it_Mgr.h"
+#include "../Interface/it_mgr.h"
 #include "../OBJECT.h"
 
 #include "../JCommandState.h"

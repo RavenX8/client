@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cpatdlg.h"
+#include "StdAfx.h"
+#include "./CPatDlg.h"
 //#include "../it_mgr.h"
 //#include "../CDragItem.h"
 //#include "../Icon/CIconItem.h"

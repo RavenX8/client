@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./cfilterword.h"
+#include "StdAfx.h"
+#include "./CFilterWord.h"
 #include <algorithm>
-#include "../util/Localizing.h"
+#include "../Util/Localizing.h"
 #include "../Misc/GameUtil.h"
 
 CFilterWord::CFilterWord(void) {

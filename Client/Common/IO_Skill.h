@@ -1,7 +1,7 @@
 #ifndef	__IO_SKILL_H
 #define	__IO_SKILL_H
 
-#include "IO_STB.h"
+#include "io_stb.h"
 #ifndef __SERVER
 #include "../GameCommon/StringManager.h"
 #endif

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventseparate.h"
+#include "StdAfx.h"
+#include "./CTEventSeparate.h"
 
 CTEventSeparate::CTEventSeparate(void) {
   m_strString = "Separate";

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventskill.h"
+#include "StdAfx.h"
+#include "./CTEventSkill.h"
 
 CTEventSkill::CTEventSkill(void) {
   m_strString = "CTEventSkill";

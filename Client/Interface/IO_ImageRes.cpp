@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "IO_ImageRes.h"
 #include "Game.h"
 #include "Util/VFSManager.h"

@@ -1,10 +1,10 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CKeyMove.h"
 #include "../CCamera.h"
 #include "../OBJECT.h"
 #include "../Network//CNetwork.h"
-#include "../interface/it_mgr.h"
-#include "../system/CGame.h"
+#include "../Interface/it_mgr.h"
+#include "../System/CGame.h"
 
 CKeyMove g_KeyMove;
 

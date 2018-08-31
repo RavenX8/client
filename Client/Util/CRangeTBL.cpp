@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/Util/CRangeTBL.cpp 5     03-11-27 3:05p Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Game.h"
 #include "CRangeTBL.h"
 #include "Util//VFSManager.h"

@@ -6,8 +6,8 @@
 
 //#include "CObjCHAR.h"
 
-#include "util/DLLIST.h"
-#include "util/classHASH.h"
+#include "Util/DLLIST.h"
+#include "Util/classHASH.h"
 
 typedef unsigned int HNODE;
 

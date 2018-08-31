@@ -4,12 +4,12 @@
 #include "../../../TGameCtrl/TDialog.h"
 #include "../../../TGameCtrl/TContainerItem.h"
 #include "../../Common/CItem.h"
-#include "../../gamedata/cmanufacture.h"
-#include "../../Common/DataType.h"
-#include "../../gamecommon/item.h"
-#include "../../gamecommon/iobserver.h"
+#include "../../GameData/CManufacture.h"
+#include "../../Common/DataTYPE.h"
+#include "../../GameCommon/Item.h"
+#include "../../GameCommon/IObserver.h"
 #include "SubClass/CSlot.h"
-#include "singlelinestring.h"
+#include "SinglelineString.h"
 
 class CMakeState;
 class CMakeStateNormal;

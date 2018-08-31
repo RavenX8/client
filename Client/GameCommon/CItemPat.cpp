@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./citempat.h"
+#include "StdAfx.h"
+#include "./CItemPat.h"
 
 CItemPat::CItemPat(void) {}
 

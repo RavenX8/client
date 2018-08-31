@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./cteventmanufacture.h"
-#include "../../gamecommon/Item.h"
+#include "StdAfx.h"
+#include "./CTEventManufacture.h"
+#include "../../GameCommon/Item.h"
 
 CTEventManufacture::CTEventManufacture(void) {
   m_strString = "CTEventMake";

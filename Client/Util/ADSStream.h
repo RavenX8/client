@@ -1,7 +1,7 @@
 #ifndef	__DLL_DSSTREAM_H
 #define	__DLL_DSSTREAM_H
-#include <MMSystem.h>
-#include <DSound.h>
+#include <mmsystem.h>
+#include <dsound.h>
 #include "vorbis/vorbisfile.h"
 #include "CDSound.h"
 

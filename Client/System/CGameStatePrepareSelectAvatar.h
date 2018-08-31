@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATEPREPARESELECTAVATAR_
 #define _CGAMESTATEPREPARESELECTAVATAR_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * CGameStateSelectAvatar에 필요한 전처리를 하는 State Class

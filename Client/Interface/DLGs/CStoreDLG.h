@@ -3,8 +3,8 @@
 
 #include "../../../TGameCtrl/TDialog.h"
 #include "../../Common/CItem.h"
-#include "../../gamecommon/IObserver.h"
-#include "subclass/cslot.h"
+#include "../../GameCommon/IObserver.h"
+#include "SubClass/CSlot.h"
 #include "../../GameData/CStore.h"
 //enum StoreDLG 
 //{

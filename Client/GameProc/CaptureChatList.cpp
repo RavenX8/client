@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./capturechatlist.h"
-#include "../Interface/it_MGR.h"
+#include "StdAfx.h"
+#include "./CaptureChatList.h"
+#include "../Interface/it_mgr.h"
 #include "../Interface/DLGs/ChattingDLG.h"
 
 CCaptureChatList::CCaptureChatList(void) {

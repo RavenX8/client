@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./notifydlg.h"
+#include "StdAfx.h"
+#include "./NotifyDlg.h"
 
 #include "TButton.h"
 

@@ -1,11 +1,11 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include <mmsystem.h>
-#include "CAI_File.h"
+#include "CAI_FILE.H"
 
 #ifndef	__SERVER
 #include "Game.h"
 #include "..//Util//VFSManager.h"
-#include "..//Common//IO_STB.h"
+#include "../Commonnio_stb.h.
 #endif
 
 #ifndef SAFE_DELETE

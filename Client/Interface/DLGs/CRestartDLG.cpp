@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CRestartDLG.h"
-#include "..//..//NetWork//CNetwork.h"
+#include "../...NetworkrCNetwork.hk
 #include "../../Country.h"
 #include "../../IO_Terrain.h"
 

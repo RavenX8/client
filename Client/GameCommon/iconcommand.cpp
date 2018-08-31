@@ -1,8 +1,8 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "iconcommand.h"
-#include "item.h"
-#include "../gamedata/cdealdata.h"
-#include "../interface/icon/ciconitem.h"
+#include "Item.h"
+#include "../GameData/CDealData.h"
+#include "../Interface/Icon/CIconItem.h"
 //bool CTCmdItemIconInBuyList::Exec( CTObject* pObj )
 //{
 //	if( pObj == NULL )

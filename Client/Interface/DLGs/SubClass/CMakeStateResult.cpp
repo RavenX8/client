@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cmakestateresult.h"
+#include "StdAfx.h"
+#include "./CMakeStateResult.h"
 #include "CGuage.h"
 #include "../../../../TGameCtrl/ResourceMgr.h"
 #include "../../IO_ImageRes.h"
@@ -8,7 +8,7 @@
 #include "../../it_mgr.h"
 #include "../../Command/CTCmdHotExec.h"
 #include "../../Icon/CIconItem.h"
-#include "../../../Game_Func.h"
+#include "../../../Game_FUNC.h"
 
 CMakeStateResult::CMakeStateResult(CMakeDLG* pParent) {
   m_pParent = pParent;

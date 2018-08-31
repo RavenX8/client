@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./sqlitedb.h"
+#include "StdAfx.h"
+#include "./SqliteDB.h"
 
 #pragma comment(lib, "sqlite.lib")
 

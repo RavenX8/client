@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./cobjcart.h"
-#include "Common/IO_Pat.h"
+#include "StdAfx.h"
+#include "./CObjCART.h"
+#include "Common/IO_PAT.H"
 #include "Interface/it_mgr.h"
 #include "CObjCHAR_Collision.h"
 

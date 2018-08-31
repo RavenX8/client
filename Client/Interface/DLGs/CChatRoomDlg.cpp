@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cchatroomdlg.h"
+#include "StdAfx.h"
+#include "./CChatRoomDlg.h"
 #include "../../Game.h"
 #include "../../GameData/CChatRoom.h"
 #include "../../Network/CNetwork.h"

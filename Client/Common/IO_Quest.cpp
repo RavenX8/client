@@ -1,14 +1,14 @@
-#include "stdAFX.h"
-#include "IO_SKILL.h"
-#include "IO_QUEST.h"
+#include "StdAfx.h"
+#include "IO_Skill.h"
+#include "IO_Quest.h"
 #include "CUserDATA.h"
 #include "CObjUSER.h"
 #include "../GameData/CClan.h"
 #include "../System/SystemProcScript.h"
-#include "../Object.h"
+#include "../OBJECT.h"
 
 #include "../GameCommon/Skill.h"
-#include "../Util/ClassTIME.h"
+#include "../Util/classTIME.h"
 
 //---------------------------------------------------------------------------------------------
 ///

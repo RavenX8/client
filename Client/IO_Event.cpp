@@ -1,8 +1,8 @@
 /*
 	$Header: /Client/IO_Event.cpp 16    05-01-07 11:32a Jeddli $
 */
-#include "stdAFX.h"
-#include "Common/IO_STB.h"
+#include "StdAfx.h"
+#include "Common/io_stb.h"
 #include "IO_Event.h"
 
 //-------------------------------------------------------------------------------------------------

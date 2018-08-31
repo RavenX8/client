@@ -1,11 +1,11 @@
-#include "stdafx.h"
-#include "./cchatroom.h"
-#include "../Object.h"
+#include "StdAfx.h"
+#include "./CChatRoom.h"
+#include "../OBJECT.h"
 #include "../Network/CNetwork.h"
 
 #include "../System/CGame.h"
 #include "../Country.h"
-#include "../Interface/it_MGR.h"
+#include "../Interface/it_mgr.h"
 
 CChatMember::CChatMember(WORD wServerIdx, const char* pszName) {
   m_wServerIdx = wServerIdx;

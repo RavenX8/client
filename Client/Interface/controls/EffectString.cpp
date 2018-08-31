@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./effectstring.h"
-#include "../util/localizing.h"
+#include "StdAfx.h"
+#include "./EffectString.h"
+#include "../Util/Localizing.h"
 #include "../Game.h"
 
 CEffectString::CEffectString(void) {

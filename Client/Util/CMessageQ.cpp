@@ -1,9 +1,9 @@
 /*
 	$Header: /Client/Util/CMessageQ.cpp 4     03-09-26 1:26p Icarus $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CMessageQ.h"
-#include "classSTR.h"
+#include "classstr.h"
 
 //-------------------------------------------------------------------------------------------------
 void    CSystemMESSAGE::Add_Message(DWORD dwColor, char* fmt, ...) {

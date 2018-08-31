@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./mssmusicplayer.h"
+#include "StdAfx.h"
+#include "./MSSMusicPlayer.h"
 
 #ifdef _USE_MSS
 #pragma comment( lib , "mss32.lib")

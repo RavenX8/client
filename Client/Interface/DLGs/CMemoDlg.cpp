@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cmemodlg.h"
+#include "StdAfx.h"
+#include "./CMemoDlg.h"
 #include "../../Game.h"
 #include "../../Network/CNetwork.h"
 

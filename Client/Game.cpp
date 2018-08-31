@@ -2,7 +2,7 @@
     $Header: /Client/Game.cpp 293   05-06-13 9:03p Navy $
 */
 
-#include "stdAFX.h"
+#include "StdAfx.h"
 
 #include "Game.h"
 //#include "CMouse.h" 
@@ -15,14 +15,14 @@
 #include "CCamera.h"
 #include "Network/CNetwork.h"
 #include "OBJECT.h"
-#include "BULLET.h"
+#include "BULLET.H"
 #include "CSkyDOME.h"
-#include "util/classMD5.h"
-#include "Common/IO_AI.h"
-#include "Common/IO_STB.h"
+#include "Util/classMD5.h"
+#include "Common/IO_AI.H"
+#include "Common/io_stb.h"
 #include "TGameCtrl.h"
-#include "InterFace/it_mgr.h"
-#include "InterFace/IO_ImageRes.h"
+#include "Interface/it_mgr.h"
+#include "Interface/IO_ImageRes.h"
 
 #include "Game_FUNC.h"
 #include "CViewMSG.h"

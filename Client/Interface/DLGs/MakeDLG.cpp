@@ -11,13 +11,13 @@
 #include "../../Network/CNetwork.h"
 
 #include "../../Game.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 
 #include "../IO_ImageRes.h"
 #include "../CTDrawImpl.h"
-#include "../IT_MGR.h"
+#include "../it_mgr.h"
 #include "../CDragItem.h"
-#include "../command/uicommand.h"
+#include "../Command/UICommand.h"
 
 #include "SubClass/CMakeStateNormal.h"
 #include "SubClass/CMakeStateWait.h"

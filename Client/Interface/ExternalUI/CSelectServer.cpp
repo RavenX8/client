@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CSelectServer.h"
 #include "ExternalUILobby.h"
 

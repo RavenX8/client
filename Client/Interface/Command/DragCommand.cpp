@@ -1,20 +1,20 @@
-#include "stdafx.h"
-#include "dragcommand.h"
+#include "StdAfx.h"
+#include "DragCommand.h"
 
 #include "../it_mgr.h"
-#include "../dlgs/QuickToolBar.h"
-#include "../dlgs/CPatDlg.h"
-#include "../dlgs/CItemDlg.h"
-#include "../dlgs/CGoodsDlg.h"
-#include "../dlgs/CPrivateStoreDlg.h"
+#include "../DLGs/QuickToolBAR.h"
+#include "../DLGs/CPatDlg.h"
+#include "../DLGs/CItemDlg.h"
+#include "../DLGs/CGoodsDlg.h"
+#include "../DLGs/CPrivateStoreDlg.h"
 #include "../Icon/CIconItem.h"
 #include "../Icon/CIconSkill.h"
 #include "../Icon/CIconQuick.h"
 #include "../Icon/CIconSkillClan.h"
-#include "../../network/Cnetwork.h"
+#include "../../Network/CNetwork.h"
 #include "../../System/CGame.h"
-#include "../../gamecommon/item.h"
-#include "uicommand.h"
+#include "../../GameCommon/Item.h"
+#include "UICommand.h"
 #include "../../GameData/CPrivateStore.h"
 #include "../../GameData/CSeparate.h"
 
@@ -396,7 +396,7 @@ bool CTCmdDragBuyItemFromPrivateStoreDlg::Exec(CTObject* pObj) {
   return true;
 }
 
-#include "../Dlgs/CAvatarStoreDlg.h"
+#include "../DLGs/CAvatarStoreDlg.h"
 
 bool CTCmdDragSellItemFromAvatarStoreDlg::Exec(CTObject* pObj) {
   if ( pObj == nullptr || strcmp( pObj->toString(), "CIcon" ) ) {

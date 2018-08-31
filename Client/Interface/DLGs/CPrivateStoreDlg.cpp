@@ -1,14 +1,14 @@
-#include "stdafx.h"
-#include "./cprivatestoredlg.h"
+#include "StdAfx.h"
+#include "./CPrivateStoreDlg.h"
 #include "TRadioBox.h"
 #include "TEditBox.h"
 #include "CGoodsDlg.h"
 #include "../it_mgr.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../CDragItem.h"
 #include "../Icon/CIconItem.h"
 #include "../Command/DragCommand.h"
-#include "../../GameCommon/item.h"
+#include "../../GameCommon/Item.h"
 #include "../../GameData/Event/CTEventPrivateStore.h"
 
 CPrivateStoreDlg::CPrivateStoreDlg(int iDlgType) {

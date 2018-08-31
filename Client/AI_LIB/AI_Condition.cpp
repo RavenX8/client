@@ -1,6 +1,6 @@
-#include "stdAFX.h"
-#include "CAI_FILE.h"
-#include "CAI_LIB.h"
+#include "StdAfx.h"
+#include "CAI_FILE.H"
+#include "CAI_LIB.H"
 
 //-------------------------------------------------------------------------------------------------
 bool F_AICOND_00(stCondHead* pConDATA, t_AIPARAM* pAIParam) {

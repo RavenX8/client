@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cavatarstore.h"
+#include "StdAfx.h"
+#include "./CAvatarStore.h"
 
 CAvatarStore::CAvatarStore(void) {}
 

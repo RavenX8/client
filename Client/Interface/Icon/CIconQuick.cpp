@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./ciconquick.h"
+#include "StdAfx.h"
+#include "./CIconQuick.h"
 
 CIconQuick::CIconQuick(CIcon* pIcon) {
   assert( pIcon );

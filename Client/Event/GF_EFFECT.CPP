@@ -2,7 +2,7 @@
 	$Header: /Client/Event/GF_EFFECT.CPP 2     03-09-04 4:35p Icarus $
 */
 
-#include 	"stdAFX.h"
+#include 	"StdAfx.h"
 #include 	"Quest_FUNC.h"
 #include 	"Game.h"
 #include 	"IO_Effect.h"

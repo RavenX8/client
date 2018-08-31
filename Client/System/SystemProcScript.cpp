@@ -1,11 +1,11 @@
-#include "stdafx.h"
-#include "./systemprocscript.h"
+#include "StdAfx.h"
+#include "./SystemProcScript.h"
 
-#include "System_Func.h"
+#include "System_FUNC.h"
 #include "System_FUNC_DEF.inc"
 
-#include "../interface/interfacetype.h"
-#include "../interface/dlgs/cmenudlg.h"
+#include "../Interface/InterfaceType.h"
+#include "../Interface/DLGs/CMenuDlg.h"
 
 #define		TL_SETVAR(NAME)		set_global( #NAME, NAME );
 

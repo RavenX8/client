@@ -1,15 +1,15 @@
-#include "stdafx.h"
-#include "./cavatarstoredlg.h"
+#include "StdAfx.h"
+#include "./CAvatarStoreDlg.h"
 #include "../CDragItem.h"
 #include "../../GameCommon/Item.h"
 #include "../Command/UICommand.h"
 #include "../Command/DragCommand.h"
 #include "../Command/CTCmdNumberInput.h"
 #include "../CDragNDropMgr.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "TRadioBox.h"
 #include "../it_mgr.h"
-#include "../CTooltipMgr.h"
+#include "../CToolTipMgr.h"
 
 CAvatarStoreDlg::CAvatarStoreDlg(int iDlgType) {
   SetDialogType( iDlgType );

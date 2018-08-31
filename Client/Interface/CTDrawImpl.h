@@ -2,7 +2,7 @@
 #define _CTDRAWIMPL_
 
 #include "..//..//TGameCtrl//ITDraw.h"
-#include <D3DX9.h>
+#include <d3dx9.h>
 
 /**
 * 인터페이스 라이브러리(TGameCtrl)에게 알려줄 ITDraw의 Implemented Class

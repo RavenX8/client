@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./cteventupgrade.h"
-#include "../../gamecommon/Item.h"
+#include "StdAfx.h"
+#include "./CTEventUpgrade.h"
+#include "../../GameCommon/Item.h"
 
 CTEventUpgrade::CTEventUpgrade(void) {
   m_strString = "Upgrade";

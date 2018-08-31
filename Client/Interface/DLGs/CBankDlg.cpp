@@ -1,20 +1,20 @@
-#include "stdafx.h"
-#include "./cbankdlg.h"
+#include "StdAfx.h"
+#include "./CBankDlg.h"
 #include "CBankWindowDlg.h"
 #include "../../Network/CNetwork.h"
 
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../../System/CGame.h"
 #include "../../GameCommon/Item.h"
 #include "../../Misc/GameUtil.h"
 
 #include "../IO_ImageRes.h"
 #include "../it_mgr.h"
-#include "../icon/ciconitem.h"
+#include "../Icon/CIconItem.h"
 
 #include "../CDragItem.h"
-#include "../command/ctcmdnumberinput.h"
-#include "../command/uicommand.h"
+#include "../Command/CTCmdNumberInput.h"
+#include "../Command/UICommand.h"
 
 #include "../Country.h"
 

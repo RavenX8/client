@@ -2,12 +2,12 @@
 	$Header: /Client/Event/GF_ITEM.CPP 15    04-10-25 4:33p Jeddli $
 */
 
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Quest_FUNC.h"
 #include "TGameCtrl.h"
 #include "OBJECT.h"  /* <=== 이 파일을 인클루드 시켜 사용할 것 */
 #include "IO_Basic.h"
-#include "..//interface//it_mgr.h"
+#include "../Interfaceeit_mgr.h.
 
 //---------------------------------[ 아바타 소지 현금 관련 ]------------------------------------
 /* 아바타 소지현금 가져오기 */

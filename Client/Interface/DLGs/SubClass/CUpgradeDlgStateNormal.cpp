@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "./cupgradedlgstatenormal.h"
+#include "StdAfx.h"
+#include "./CUpgradeDlgStateNormal.h"
 #include "../CUpgradeDlg.h"
 #include "../../../GameData/CUpgrade.h"
 #include "../../it_mgr.h"
-#include "../../../object.h"
+#include "../../../OBJECT.h"
 
 CUpgradeDlgStateNormal::CUpgradeDlgStateNormal(CUpgradeDlg* pParent) {
   m_pParent = pParent;

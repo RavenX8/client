@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./preventduplicatedcommand.h"
+#include "StdAfx.h"
+#include "./PreventDuplicatedCommand.h"
 #include "../Game.h"
 
 /// for singleton

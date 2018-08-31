@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./ccursorstatesprite.h"
+#include "StdAfx.h"
+#include "./CCursorStateSprite.h"
 #include "CCursor.h"
 #include "../CTDrawImpl.h"
 

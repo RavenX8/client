@@ -3,8 +3,8 @@
 */
 #ifndef	__IO_MODEL_H
 #define	__IO_MODEL_H
-#include "IO_Mesh.h"
-#include "IO_Material.h"
+#include "IO_MESH.H"
+#include "IO_MATERIAL.H"
 #include "IO_Effect.h"
 #include "Util//VFSManager.h"
 

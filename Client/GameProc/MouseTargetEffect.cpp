@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./mousetargeteffect.h"
+#include "StdAfx.h"
+#include "./MouseTargetEffect.h"
 #include "../IO_Effect.h"
 #include "../Game.h"
 

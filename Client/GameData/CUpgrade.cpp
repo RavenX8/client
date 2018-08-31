@@ -1,12 +1,12 @@
-#include "stdafx.h"
-#include "./cupgrade.h"
+#include "StdAfx.h"
+#include "./CUpgrade.h"
 #include "CRequireMaterial.h"
-#include "../gamecommon/item.h"
-#include "../interface/it_mgr.h"
-#include "../interface/typeresource.h"
-#include "event/CTEventItem.h"
+#include "../GameCommon/Item.h"
+#include "../Interface/it_mgr.h"
+#include "../Interface/TypeResource.h"
+#include "Event/CTEventItem.h"
 #include "../Network/CNetwork.h"
-#include "../common/CEconomy.h"
+#include "../Common/CEconomy.h"
 
 CUpgrade::CUpgrade(void) {
   m_pTargetItem      = nullptr;

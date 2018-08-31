@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cmsgbox.h"
+#include "StdAfx.h"
+#include "./CMsgBox.h"
 #include "TCommand.h"
 #include "TMsgBox.h"
 #include "TListBox.h"
@@ -10,7 +10,7 @@
 #include "../ExternalUI/ExternalUILobby.h"
 #include "../../System/CGame.h"
 #include "../Command/CTCmdOpenDlg.h"
-#include "../icon/cicon.h"
+#include "../Icon/CIcon.h"
 
 CMsgBox::CMsgBox(void) {
   m_pCmdOk     = nullptr;

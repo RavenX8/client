@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./tutorialeventutility.h"
+#include "StdAfx.h"
+#include "./TutorialEventUtility.h"
 #include "../System/SystemProcScript.h"
-#include "../Object.h"
-#include "../Interface/it_MGR.h"
+#include "../OBJECT.h"
+#include "../Interface/it_mgr.h"
 
 CTutorialEventUtility _TutorialEventUtility;
 

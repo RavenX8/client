@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/IO_Skeleton.cpp 14    03-12-01 11:11a Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "IO_Skeleton.h"
 //-------------------------------------------------------------------------------------------------
 CSKELETON::~CSKELETON() {

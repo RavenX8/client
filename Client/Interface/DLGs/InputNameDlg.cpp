@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./inputnamedlg.h"
-#include "../command/uicommand.h"
+#include "StdAfx.h"
+#include "./InputNameDlg.h"
+#include "../Command/UICommand.h"
 #include "TEditBox.h"
 
 CInputNameDlg::CInputNameDlg(void) {

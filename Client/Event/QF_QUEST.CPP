@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/Event/QF_QUEST.CPP 28    04-10-25 4:33p Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Quest_FUNC.h"
 #include "OBJECT.h"
 #include "Common/IO_Quest.h"

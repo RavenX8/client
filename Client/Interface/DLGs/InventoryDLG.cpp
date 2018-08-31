@@ -1,8 +1,8 @@
 #include "StdAfx.h"
 #include "InventoryDLG.h"
-#include "DealDlg.h"
-#include "MakeDlg.h"
-#include "ChattingDlg.h"
+#include "DealDLG.h"
+#include "MakeDLG.h"
+#include "ChattingDLG.h"
 #include "JCommandState.h"
 
 #include "../it_mgr.h"
@@ -21,7 +21,7 @@
 #include "../Command/DragCommand.h"
 
 #include "../../Common/CInventory.h"
-#include "../../Common/IO_STB.h"
+#include "../../Common/io_stb.h"
 #include "../../Network/CNetwork.h"
 #include "../../System/CGame.h"
 #include "../../CClientStorage.h"

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CFileSystemTriggerVFS.h"
 #include <assert.h>
 

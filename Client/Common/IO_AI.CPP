@@ -1,11 +1,11 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 #ifndef	__SERVER
-#include "../util/CGameSTB.h"
+#include "../Util/CGameSTB.h"
 #else
 	#include "..\util\classSTB.h"
 #endif
 #include "CObjCHAR.h"
-#include "IO_AI.h"
+#include "IO_AI.H"
 
 //-------------------------------------------------------------------------------------------------
 CAI_LIST::CAI_LIST() {

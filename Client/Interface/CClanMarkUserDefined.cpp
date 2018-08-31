@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cclanmarkuserdefined.h"
+#include "StdAfx.h"
+#include "./CClanMarkUserDefined.h"
 #include "../Game.h"
 
 std::string CClanMarkUserDefined::ClanMarkFileDirectory = "clanmark\\";

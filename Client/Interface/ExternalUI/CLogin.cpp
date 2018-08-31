@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CLogin.h"
 
 #include "CExternalUIManager.h"
@@ -23,7 +23,7 @@
 #include "TListCellRenderer.h"
 #include "TContainerItem.h"
 
-#include "../util/clipboardutil.h"
+#include "../Util/ClipboardUtil.h"
 
 ///
 /// Construct

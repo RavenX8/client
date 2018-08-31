@@ -1,8 +1,8 @@
 /*
 	$Header: /Client/IO_MESH.CPP 10    04-04-15 1:35p Jeddli $
 */
-#include "stdAFX.h"
-#include "IO_MESH.h"
+#include "StdAfx.h"
+#include "IO_MESH.H"
 
 //-------------------------------------------------------------------------------------------------
 bool    CMeshLIST::Load_FILE(tagFileDATA<HNODE>* pHNODE) {

@@ -1,4 +1,4 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 
 #include <fcntl.h>
 #include <io.h>
@@ -6,9 +6,9 @@
 #include "CEvent.h"
 #include "Quest_FUNC.h"
 #include "Game_FUNC.h"
-#include "../IO_EVENT.h"
-#include "TGameCTRL.h"
-#include "../interface/It_mgr.h"
+#include "../IO_Event.h"
+#include "TGameCtrl.h"
+#include "../Interface/it_mgr.h"
 #include "OBJECT.h"
 
 #include "Util//VFSManager.h"

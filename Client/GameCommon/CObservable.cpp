@@ -2,8 +2,8 @@
 /// 2004/ 6/ 10 - AddObserver : 같은 Observer가 등록될시에는 무시한다.
 //*-----------------------------------------------------------------------/
 
-#include "stdafx.h"
-#include "./cobservable.h"
+#include "StdAfx.h"
+#include "./CObservable.h"
 #include "IObserver.h"
 #include <algorithm>
 

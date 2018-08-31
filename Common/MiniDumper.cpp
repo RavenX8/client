@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "MiniDumper.h"
 #include "CAssertNew.h"
-#include <dbghelp.h>
+#include <DbgHelp.h>
 #include <signal.h>
 #include <tchar.h>
 

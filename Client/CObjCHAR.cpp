@@ -1,20 +1,20 @@
 /*
   $Header: /Client/CObjCHAR.cpp 652   05-10-20 2:46p Gioend $  
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Game.h"
 #include "OBJECT.h"
-#include "BULLET.h"
+#include "BULLET.H"
 #include "IO_Terrain.h"
 #include "IO_Event.h"
 #include "CViewMSG.h"
 #include "Network/CNetwork.h"
-#include "common/Calculation.h"
+#include "Common/Calculation.h"
 #include "Game_FUNC.h"
-#include "Interface/it_Mgr.h"
+#include "Interface/it_mgr.h"
 #include "Interface/CUIMediator.h"
 #include "Interface/TypeResource.h"
-#include "Interface/Dlgs/ChattingDlg.h"
+#include "Interface/DLGs/ChattingDLG.h"
 #include "Interface/CClanMarkUserDefined.h"
 #include "GameCommon/Skill.h"
 #include "Event/Quest_FUNC.h"
@@ -27,13 +27,13 @@
 
 #include "GameCommon/Item.h"
 #include "GameData/CParty.h"
-#include "Common/IO_Pat.h"
+#include "Common/IO_PAT.H"
 #include "Misc/GameUtil.h"
 #include "CommandFilter.h"
 #include "../GameProc/DelayedExp.h"
 #include "../Country.h"
-#include "../common/CInventory.h"
-#include "system/System_Func.h"
+#include "../Common/CInventory.h"
+#include "System/System_FUNC.h"
 
 extern CCamera* g_pCamera;
 

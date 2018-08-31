@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./citstateappraisal.h"
+#include "StdAfx.h"
+#include "./CITStateAppraisal.h"
 #include "../it_mgr.h"
 #include "../../System/CGame.h"
-#include "../dlgs/CItemDlg.h"
+#include "../DLGs/CItemDlg.h"
 
 CITStateAppraisal::CITStateAppraisal(void) {
   m_iID = IT_MGR::STATE_APPRAISAL;

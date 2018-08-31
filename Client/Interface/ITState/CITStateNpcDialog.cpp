@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./citstatenpcdialog.h"
-#include "../IT_MGR.h"
-#include "../SFX/SFXManager.h"
+#include "StdAfx.h"
+#include "./CITStateNpcDialog.h"
+#include "../it_mgr.h"
+#include "../Sfx/SFXManager.h"
 
 CITStateNpcDialog::CITStateNpcDialog(void) {
   m_iID = IT_MGR::STATE_NPCDIALOG;

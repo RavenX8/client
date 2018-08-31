@@ -2,8 +2,8 @@
 #define _CSKILLSLOT_
 
 #include "../../Common/CUserDATA.h"
-#include "../../gamecommon/cobservable.h"
-#include "../../gamedata/event/CTEventSkill.h"
+#include "../../GameCommon/CObservable.h"
+#include "../../GameData/Event/CTEventSkill.h"
 class CSkill;
 
 /**

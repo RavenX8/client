@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include <windows.h>
+#include "StdAfx.h"
+#include <Windows.h>
 #include "classTIME.h"
 
 //-------------------------------------------------------------------------------------------------

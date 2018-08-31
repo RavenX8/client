@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./musicplayer.h"
+#include "StdAfx.h"
+#include "./MusicPlayer.h"
 
 CMusicPlayer::CMusicPlayer(void) {}
 

@@ -4,11 +4,11 @@
 #ifndef	__IO_TERRAIN_H
 #define	__IO_TERRAIN_H
 #include "IO_Basic.h"
-#include "IO_Material.h"
+#include "IO_MATERIAL.H"
 #include "IO_Effect.h"
-#include "Common/IO_STB.h"
+#include "Common/io_stb.h"
 #include "Sound/IO_Sound.h"
-#include "Object.h"
+#include "OBJECT.h"
 #include "Common/CRegenAREA.h"
 #include "Common/CEconomy.h"
 

@@ -1,20 +1,20 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CQuestDlg.h"
 #include "CDialogDlg.h"
 
 #include "../../Game.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../../Network/CNetwork.h"
-#include "../../Common/IO_QUEST.h"
+#include "../../Common/IO_Quest.h"
 #include "../../Util/Localizing.h"
 #include "../CTDrawImpl.h"
-#include "../it_MGR.h"
+#include "../it_mgr.h"
 #include "../CToolTipMgr.h"
 #include "../IO_ImageRes.h"
 
 #include "../Command/UICommand.h"
 
-#include "subclass/CQuestListItem.h"
+#include "SubClass/CQuestListItem.h"
 
 #include "SplitHangul.h"
 #include "ZListBox.h"

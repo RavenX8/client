@@ -1,11 +1,11 @@
-#include "stdafx.h"
-#include "./cbank.h"
+#include "StdAfx.h"
+#include "./CBank.h"
 //#include "../gamecommon/citemequip.h"
 //#include "../gamecommon/citemuse.h"
 //#include "../gamecommon/citemetc.h"
 //#include "../gamecommon/citempat.h"
-#include "../gamecommon/item.h"
-#include "../common/cuserdata.h"
+#include "../GameCommon/Item.h"
+#include "../Common/CUserDATA.h"
 
 CBank::CBank(void) {
   m_Money = 0;

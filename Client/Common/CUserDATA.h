@@ -4,7 +4,7 @@
 #include "CInventory.h"
 #include "CHotICON.h"
 #include "Calculation.h"
-#include "IO_STB.H"
+#include "io_stb.h"
 
 #pragma warning (disable:4201)
 //-------------------------------------------------------------------------------------------------

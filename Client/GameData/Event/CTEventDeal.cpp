@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "cteventdeal.h"
+#include "StdAfx.h"
+#include "CTEventDeal.h"
 #include "../../GameCommon/Item.h"
 
 CTEventDeal::CTEventDeal(void) {

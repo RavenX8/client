@@ -205,10 +205,10 @@
   #include "PacketHEADER.h"
   #include "classHASH.h"
 #else
-#include "../common/DataTYPE.h"
-#include "../common/CUserDATA.h"
-#include "../util/PacketHEADER.h"
-#include "../util/classHASH.h"
+#include "../Common/DataTYPE.h"
+#include "../Common/CUserDATA.h"
+#include "../Util/PacketHEADER.h"
+#include "../Util/classHASH.h"
 #endif
 
 #define	__APPLY_04_10_15_TEAMNO			// 04.10.15일자 팀번호 변경 패킷 적용할래 ?

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./levelupevent.h"
+#include "StdAfx.h"
+#include "./LevelUpEvent.h"
 #include "TutorialEventUtility.h"
 
 CLevelUpEvent::CLevelUpEvent(void) {}

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./tcmdsystem.h"
+#include "StdAfx.h"
+#include "./TCmdSystem.h"
 #include "CGame.h"
 
 CTCmdChangeGameState::CTCmdChangeGameState(int iState) {

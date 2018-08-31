@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/Util/CMMPlayer.cpp 3     04-07-01 3:20p Jeddli $
 */
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "malloc.h"
 #include "CMMPlayer.h"
 

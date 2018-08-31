@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "exuicommand.h"
+#include "StdAfx.h"
+#include "ExUICommand.h"
 #include "../../../TGameCtrl/TDialog.h"
 #include "../../Network/CNetwork.h"
 

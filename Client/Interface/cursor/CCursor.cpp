@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./ccursor.h"
+#include "StdAfx.h"
+#include "./CCursor.h"
 #include "CCursorStateDx.h"
 #include "CCursorStateWindow.h"
 #include "CCursorStateSprite.h"

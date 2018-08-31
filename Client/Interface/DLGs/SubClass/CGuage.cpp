@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cguage.h"
+#include "StdAfx.h"
+#include "./CGuage.h"
 #include "../../CTDrawImpl.h"
 #include "../../../Game.h"
 

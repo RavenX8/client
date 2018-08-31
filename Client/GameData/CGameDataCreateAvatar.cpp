@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "cgamedatacreateavatar.h"
+#include "StdAfx.h"
+#include "CGameDataCreateAvatar.h"
 
 #include "../CJustModelAVT.h"
 #include "../Game.h"

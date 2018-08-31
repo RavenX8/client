@@ -1,11 +1,11 @@
-#include "stdafx.h"
-#include "./cseparate.h"
+#include "StdAfx.h"
+#include "./CSeparate.h"
 #include "../GameCommon/Item.h"
-#include "../interface/it_mgr.h"
+#include "../Interface/it_mgr.h"
 #include "../Common/CItem.h"
-#include "../Common/IO_STB.h"
+#include "../Common/io_stb.h"
 #include "../Network/CNetwork.h"
-#include "event/CTEventItem.h"
+#include "Event/CTEventItem.h"
 
 CSeparate::CSeparate(void) {
   m_pMaterialItem    = nullptr; ///분리 하고자 하는 아이템

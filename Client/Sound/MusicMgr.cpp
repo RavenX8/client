@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./musicmgr.h"
+#include "StdAfx.h"
+#include "./MusicMgr.h"
 #include "MusicPlayer.h"
 #include "DirectMusicPlayer.h"
 #include "OggMusicPlayer.h"

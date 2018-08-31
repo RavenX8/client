@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "./notifybuttondlg.h"
+#include "StdAfx.h"
+#include "./NotifyButtonDlg.h"
 
 #include "../../Tutorial/TutorialEventUtility.h"
 #include "../it_mgr.h"
-#include "../../system/system_func.h"
+#include "../../System/System_FUNC.h"
 
 #include "TButton.h"
 #include <algorithm>

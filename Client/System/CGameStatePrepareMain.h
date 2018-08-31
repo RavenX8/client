@@ -1,7 +1,7 @@
 #ifndef _CGAMESTATEPREPAREMAIN_
 #define _CGAMESTATEPREPAREMAIN_
 
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * 캐릭터 선택후 CGameStateMain전 처리를 하는 State Class

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./ccursorstatedx.h"
+#include "StdAfx.h"
+#include "./CCursorStateDx.h"
 #include "../../CApplication.h"
 #include "resource.h"
 

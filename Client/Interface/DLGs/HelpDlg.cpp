@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./helpdlg.h"
+#include "StdAfx.h"
+#include "./HelpDlg.h"
 #include "../InterfaceType.h"
 #include "../it_mgr.h"
 #include "../IO_ImageRes.h"
@@ -16,7 +16,7 @@
 #include "JContainer.h"
 #include "TabbedPane.h"
 #include "../../Util/Localizing.h"
-#include "../../Common/IO_STB.h"
+#include "../../Common/io_stb.h"
 
 CHelpDlg::CHelpDlg(void) {
   m_pTreeModel        = nullptr;

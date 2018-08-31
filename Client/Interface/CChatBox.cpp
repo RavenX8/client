@@ -1,10 +1,10 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CChatBox.h"
-#include "..//Object.h"
+#include "../OBJECT.hh
 #include "..//Game.h"
 
 #include "CNameBox.h"
-#include "../util/Localizing.h"
+#include "../Util/Localizing.h"
 #include "SplitHangul.h"
 #include <algorithm>
 

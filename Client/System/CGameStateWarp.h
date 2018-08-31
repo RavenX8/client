@@ -1,7 +1,7 @@
 #ifndef _CGAMESTATEWARP_
 #define _CGAMESTATEWARP_
 
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * 게임내 워프시의 State Class

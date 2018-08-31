@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cmakestatewait.h"
+#include "StdAfx.h"
+#include "./CMakeStateWait.h"
 #include "../MakeDLG.h"
 
 CMakeStateWait::CMakeStateWait(CMakeDLG* pParent) {

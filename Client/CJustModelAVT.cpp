@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./cjustmodelavt.h"
-#include "Common/IO_STB.h"
+#include "StdAfx.h"
+#include "./CJustModelAVT.h"
+#include "Common/io_stb.h"
 #include "TCommand.h"
 #include "CAvatarState.h"
 

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventserverlist.h"
+#include "StdAfx.h"
+#include "./CTEventServerList.h"
 
 CTEventServerList::CTEventServerList(void) {
   m_strString = "SVR_LIST";

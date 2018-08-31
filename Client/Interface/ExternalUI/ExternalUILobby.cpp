@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "ExternalUILobby.h"
 
 #include "IO_Terrain.h"
@@ -17,10 +17,10 @@
 #include "../../System/CGame.h"
 #include "../it_mgr.h"
 #include "../../CCamera.h"
-#include "../../CSkyDome.h"
-#include "../Dlgs/CMsgBox.h"
+#include "../../CSkyDOME.h"
+#include "../DLGs/CMsgBox.h"
 #include "../Command/CTCmdHotExec.h"
-#include "../cursor/ccursor.h"
+#include "../cursor/CCursor.h"
 CExternalUILobby g_EUILobby;
 
 void ResetAvataList() {

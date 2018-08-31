@@ -1,7 +1,7 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 
 #include <mmsystem.h>
-#include <DXErr9.h>
+#include <dxerr9.h>
 
 #include "CWaveFILE.h"
 

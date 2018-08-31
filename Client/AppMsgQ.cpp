@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./appmsgq.h"
+#include "StdAfx.h"
+#include "./AppMsgQ.h"
 
 CAppMsgQ::CAppMsgQ(void) {}
 

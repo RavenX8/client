@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CGameStr.h"
 
 char*  CGameStr::ReadString(CFileSystem* pFileSystem, bool bIgnoreWhiteSpace) {

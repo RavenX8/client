@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./oggmusicplayer.h"
+#include "StdAfx.h"
+#include "./OggMusicPlayer.h"
 #include "../Util/CFileSystem.h"
 #include "Sound/MusicMgr.h"
 #include "../CClientStorage.h"

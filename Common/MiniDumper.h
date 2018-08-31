@@ -1,7 +1,7 @@
 #ifndef __MINIDUMPER_H__
 #define __MINIDUMPER_H__
 
-#include <windows.h>
+#include <Windows.h>
 
 class MiniDumper {
 public:

@@ -4,7 +4,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
-#include "../Common/IO_STB.h"
+#include "../Common/io_stb.h"
 
 class CObjCHAR;
 class CEffect;

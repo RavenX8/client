@@ -1,5 +1,5 @@
-#include "stdAFX.h"
-#include "IO_STB.h"
+#include "StdAfx.h"
+#include "io_stb.h"
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -3,10 +3,10 @@
 
 #include "InterfaceType.h"
 
-#include "dlgs/CMsgBox.h"
-#include "command/CTCmdOpenDlg.h"
+#include "DLGs/CMsgBox.h"
+#include "Command/CTCmdOpenDlg.h"
 
-#include "../common/citem.h"
+#include "../Common/CItem.h"
 #include "../Game.h"
 
 #include "TGameCtrl.h"

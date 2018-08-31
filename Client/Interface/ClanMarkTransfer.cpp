@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "./clanmarktransfer.h"
-#include "../Network/CNetWork.h"
+#include "StdAfx.h"
+#include "./ClanMarkTransfer.h"
+#include "../Network/CNetwork.h"
 #include "../System/CGame.h"
 #include "CClanMarkUserDefined.h"
-#include "../util/classCRC.h"
+#include "../Util/classCRC.h"
 #include "it_mgr.h"
 
 #include "zlib.h"

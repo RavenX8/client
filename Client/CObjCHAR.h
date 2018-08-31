@@ -6,16 +6,16 @@
 #include "IO_Model.h"
 #include "CModelCHAR.h"
 #include "Common/CObjAI.h"
-#include "Common/IO_STB.h"
-#include "common/IO_AI.h"
-#include "NET_Prototype.h"
+#include "Common/io_stb.h"
+#include "Common/IO_AI.H"
+#include "Net_Prototype.h"
 #include "Interface/CEnduranceProperty.h"
 #include "GameProc/CDayNNightProc.h"
 #include "GameProc/Objvibration.h"
 
 #include "ObjectCommand/ObjCommand.h"
 
-#include <VECTOR>
+#include <vector>
 #include <numeric>
 
 #ifdef	__VIRTUAL_SERVER
@@ -23,7 +23,7 @@
 #endif
 
 #ifndef	__SERVER
-#include "GameProc/changeactionmode.h"
+#include "GameProc/ChangeActionMode.h"
 #endif
 
 #define	QUEST_EVENT_ON_DEAD		0

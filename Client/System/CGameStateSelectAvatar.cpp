@@ -1,18 +1,18 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CGameStateSelectAvatar.h"
 #include "CGame.h"
 #include "SystemProcScript.h"
 #include "../Interface/ExternalUI/ExternalUILobby.h"
 #include "../Interface/IO_ImageRes.h"
-#include "../interface/CUIMediator.h"
-#include "../interface/ExternalUI/CSelectAvata.h"
+#include "../Interface/CUIMediator.h"
+#include "../Interface/ExternalUI/CSelectAvata.h"
 #include "../CClientStorage.h"
 #include "../IO_Terrain.h"
 #include "../CCamera.h"
-#include "../CSkyDOME.H"
+#include "../CSkyDOME.h"
 #include "../GameData/CGameDataCreateAvatar.h"
 #include "../CJustModelAVT.h"
-#include "../country.h"
+#include "../Country.h"
 
 CGameStateSelectAvatar::CGameStateSelectAvatar(int iID) {
   m_iStateID = iID;

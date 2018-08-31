@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./damageeffect.h"
+#include "StdAfx.h"
+#include "./DamageEffect.h"
 
-      CDamageEffect::CDamageEffect(void) {
+CDamageEffect::CDamageEffect(void) {
   int i                             = 0;
   for ( i                           = 0; i < MAX_DIGIT_EFFECT; i++ ) {
     m_DigitNode[i].m_hPositionDummy = NULL;

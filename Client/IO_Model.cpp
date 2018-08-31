@@ -2,7 +2,7 @@
 	$Header: /Client/IO_Model.cpp 50    04-08-19 5:11p Jeddli $
 */
 
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Game.h"
 #include "IO_Model.h"
 #include "Common/IO_Motion.h"

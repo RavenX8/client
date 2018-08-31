@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./tutorialeventmanager.h"
+#include "StdAfx.h"
+#include "./TutorialEventManager.h"
 #include "TutorialEventUtility.h"
 #include "TutorialEventManager.h"
 #include "../Game.h"

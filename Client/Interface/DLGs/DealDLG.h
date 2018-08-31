@@ -2,9 +2,9 @@
 #define _DEAL_DLG_H
 
 #include "../../../TGameCtrl/TDialog.h"
-#include "../../gamecommon/iobserver.h"
-#include "subclass/CSlot.h"
-#include "../../gamedata/cdealdata.h"
+#include "../../GameCommon/IObserver.h"
+#include "SubClass/CSlot.h"
+#include "../../GameData/CDealData.h"
 
 class CDragItem;
 class CTCommand;

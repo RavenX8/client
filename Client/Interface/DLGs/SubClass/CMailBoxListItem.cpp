@@ -1,10 +1,10 @@
-#include "stdafx.h"
-#include "./cmailboxlistitem.h"
+#include "StdAfx.h"
+#include "./CMailBoxListItem.h"
 
 #include "../CMemoViewDlg.h"
 #include "../../it_mgr.h"
 #include "../../../Game.h"
-#include "../../../Util/classTime.h"
+#include "../../../Util/classTIME.h"
 
 #include "ZListBox.h"
 

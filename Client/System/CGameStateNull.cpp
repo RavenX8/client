@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CGameStateNull.h"
 
 CGameStateNull::CGameStateNull(int iID) {

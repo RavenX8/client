@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventchatroom.h"
+#include "StdAfx.h"
+#include "./CTEventChatRoom.h"
 
 CTEventChatRoom::CTEventChatRoom(void) {
   m_strString = "ChatRoom";

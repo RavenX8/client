@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventexchange.h"
+#include "StdAfx.h"
+#include "./CTEventExchange.h"
 
 CTEventExchange::CTEventExchange(void) {
   m_strString = "CTEventExchange";

@@ -1,14 +1,14 @@
-#include "stdafx.h"
-#include "./cupgradedlg.h"
-#include "subclass/CUpgradeDlgStateNormal.h"
-#include "subclass/CUpgradeDlgStateWait.h"
-#include "subclass/CUpgradeDlgStateResult.h"
+#include "StdAfx.h"
+#include "./CUpgradeDlg.h"
+#include "SubClass/CUpgradeDlgStateNormal.h"
+#include "SubClass/CUpgradeDlgStateWait.h"
+#include "SubClass/CUpgradeDlgStateResult.h"
 #include "../../GameData/Event/CTEventUpgrade.h"
 #include "../../GameData/CUpgrade.h"
 #include "../../GameCommon/Item.h"
 #include "../CDragItem.h"
-#include "../command/dragcommand.h"
-#include "../../object.h"
+#include "../Command/DragCommand.h"
+#include "../../OBJECT.h"
 
 CUpgradeDlg::CUpgradeDlg(int iType) {
   m_pStates[STATE_NORMAL] = new CUpgradeDlgStateNormal( this );

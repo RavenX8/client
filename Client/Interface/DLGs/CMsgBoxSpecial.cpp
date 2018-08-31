@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./cmsgboxspecial.h"
-#include "../IT_MGR.h"
-#include "../externalui/externaluilobby.h"
+#include "StdAfx.h"
+#include "./CMsgBoxSpecial.h"
+#include "../it_mgr.h"
+#include "../ExternalUI/ExternalUILobby.h"
 #include "../../System/CGame.h"
 
 CMsgBoxSpecial::CMsgBoxSpecial(void) {

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "avatarinfodlg.h"
+#include "StdAfx.h"
+#include "AvatarInfoDlg.h"
 #include "TGuage.h"
 #include "ResourceMgr.h"
 
@@ -7,13 +7,13 @@
 #include "../CToolTipMgr.h"
 #include "../CTDrawImpl.h"
 #include "../IO_ImageRes.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../../System/CGame.h"
 #include "../../JCommandState.h"
 
-#include "../icon/ciconitem.h"
-#include "../../gamecommon/item.h"
-#include "../../gamedata/event/cteventitem.h"
+#include "../Icon/CIconItem.h"
+#include "../../GameCommon/Item.h"
+#include "../../GameData/Event/CTEventItem.h"
 
 #include "../Misc/GameUtil.h"
 #include "TStatic.h"

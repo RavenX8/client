@@ -1,10 +1,10 @@
-#include "stdafx.h"
-#include "./selecteventdlg.h"
+#include "StdAfx.h"
+#include "./SelectEventDlg.h"
 #include "../IO_ImageRes.h"
-#include "subclass/CDialogNpcScriptAnswerItemNew.h"
-#include "subclass/CDialogNpcScriptAnswerItem.h"
+#include "SubClass/CDialogNpcScriptAnswerItemNew.h"
+#include "SubClass/CDialogNpcScriptAnswerItem.h"
 
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../../Country.h"
 #include "../it_mgr.h"
 

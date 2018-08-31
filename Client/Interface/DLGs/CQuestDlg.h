@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 #include "TDialog.h"
-#include "../../Common/CUserData.h"
+#include "../../Common/CUserDATA.h"
 class CQuestListItem;
 
 /**

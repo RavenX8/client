@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATESELECTAVATAR_
 #define _CGAMESTATESELECTAVATAR_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * 캐릭터 선택 State Class

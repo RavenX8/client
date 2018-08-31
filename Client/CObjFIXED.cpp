@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/CObjFIXED.cpp 44    05-06-08 5:05p Gioend $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CObjFIXED.h"
 #include "GameProc/CDayNNightProc.h"
 #include "../Common/IO_STB.H"

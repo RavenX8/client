@@ -1,10 +1,10 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CGameStateCreateAvatar.h"
 #include "CGame.h"
 #include "SystemProcScript.h"
 
 #include "../Interface/ExternalUI/ExternalUILobby.h"
-#include "../interface/CUIMediator.h"
+#include "../Interface/CUIMediator.h"
 #include "../IO_Terrain.h"
 #include "../CCamera.h"
 #include "../CJustModelAVT.h"

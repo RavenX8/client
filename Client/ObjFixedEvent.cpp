@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./objfixedevent.h"
+#include "StdAfx.h"
+#include "./ObjFixedEvent.h"
 #include "System/SystemProcScript.h"
 
 CObjFixedEvent::CObjFixedEvent(void) {

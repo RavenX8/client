@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/Util/CD3DUtil.cpp 4     03-12-15 10:22a Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CD3DUtil.h"
 
 //-------------------------------------------------------------------------------------------------

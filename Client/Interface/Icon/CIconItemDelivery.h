@@ -1,6 +1,6 @@
 #ifndef _CIconItemDelivery_
 #define _CIconItemDelivery_
-#include "ciconitem.h"
+#include "CIconItem.h"
 
 /**
 * 마일리지 아이템 창고에서 사용되는 Item Icon

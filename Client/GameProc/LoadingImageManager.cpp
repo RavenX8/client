@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./loadingimagemanager.h"
+#include "StdAfx.h"
+#include "./LoadingImageManager.h"
 
 #include <algorithm>
 

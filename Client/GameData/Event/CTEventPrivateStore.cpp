@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventprivatestore.h"
+#include "StdAfx.h"
+#include "./CTEventPrivateStore.h"
 
 CTEventPrivateStore::CTEventPrivateStore(void) {
   m_strString = "PrivateStore";

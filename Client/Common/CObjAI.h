@@ -6,7 +6,7 @@
 #include "CGameOBJ.h"
 #include "IO_Motion.h"
 #include "IO_Skill.h"
-#include "../AI_LIB/CAI_LIB.h"
+#include "../AI_LIB/CAI_LIB.H"
 
 //-------------------------------------------------------------------------------------------------
 //

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./clanmark.h"
+#include "StdAfx.h"
+#include "./ClanMark.h"
 #include "../../CTDrawImpl.h"
 
 CClanMark::CClanMark(void) {

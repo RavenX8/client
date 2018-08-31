@@ -12,9 +12,9 @@
 *	3. 1,2번과 현재 Scale및 World/Screen 대비,이미지사이즈에 따라 그려질 Left-Top Screen좌표를 구한다.
 *
 */
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CMinimapDLG.h"
-#include "../IT_MGR.h"
+#include "../it_mgr.h"
 #include "../CTDrawImpl.h"
 #include "../CToolTipMgr.h"
 #include "../CTDrawImpl.h"

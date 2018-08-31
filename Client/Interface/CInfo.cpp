@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cinfo.h"
+#include "StdAfx.h"
+#include "./CInfo.h"
 #include "IO_ImageRes.h"
 #include "CTDrawImpl.h"
 #include "../../TGameCtrl/ResourceMgr.h"

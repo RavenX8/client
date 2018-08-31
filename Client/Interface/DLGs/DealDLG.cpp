@@ -7,14 +7,14 @@
 #include "../CTDrawImpl.h"
 #include "../IO_ImageRes.h"
 #include "../CDragItem.h"
-#include "../icon/ciconitem.h"
+#include "../Icon/CIconItem.h"
 
 #include "../../System/CGame.h"
-#include "../../gamecommon/iconcommand.h"
-#include "../../gamecommon/item.h"
-#include "../../gamedata/event/cteventdeal.h"
-#include "../../gamedata/cstore.h"
-#include "../../misc/gameutil.h"
+#include "../../GameCommon/iconcommand.h"
+#include "../../GameCommon/Item.h"
+#include "../../GameData/Event/CTEventDeal.h"
+#include "../../GameData/CStore.h"
+#include "../../Misc/GameUtil.h"
 
 #include "../../../TGameCtrl/ResourceMgr.h"
 

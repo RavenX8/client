@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./smoothvisibility.h"
+#include "StdAfx.h"
+#include "./SmoothVisibility.h"
 #include "../Game.h"
 
 CSmoothVisibility::CSmoothVisibility(void) {

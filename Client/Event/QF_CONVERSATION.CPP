@@ -2,11 +2,11 @@
 	$Header: /Client/Event/QF_CONVERSATION.CPP 7     05-10-17 8:49p Raning $
 */
 
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CEvent.h"
 #include "Quest_FUNC.h"
 
-#include "./dlgs/CDialogDlg.h"
+#include "./DLGs/CDialogDlg.h"
 #include "InterfaceType.h"
 #include "../Interface/it_mgr.h"
 #include "../Interface/IO_ImageRes.h"

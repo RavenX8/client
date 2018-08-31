@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./clanmemberitem.h"
+#include "StdAfx.h"
+#include "./ClanMemberItem.h"
 #include "ZListBox.h"
 #include "../../../Game.h"
 #include "../../../GameCommon/StringManager.h"

@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./objcastlegear.h"
-#include "Common/IO_Pat.h"
+#include "StdAfx.h"
+#include "./ObjCastleGear.h"
+#include "Common/IO_PAT.H"
 
 CObjCastleGear::CObjCastleGear(void) {}
 

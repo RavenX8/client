@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cgamestate.h"
+#include "CGameState.h"
 
 class CGameStateWarning : public CGameState {
 private:

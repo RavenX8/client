@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cstoreuniondlg.h"
+#include "StdAfx.h"
+#include "./CStoreUnionDlg.h"
 
 CStoreUnionDlg::CStoreUnionDlg(void) {}
 

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cdialognpcscriptansweritemnew.h"
+#include "StdAfx.h"
+#include "./CDialogNpcScriptAnswerItemNew.h"
 #include "../../../Game.h"
 
 CDialogNpcScriptAnswerItemNew::CDialogNpcScriptAnswerItemNew(int iIndex, char* pszScript, int iEventID, void (*fpEventHandle)(int iEventID), int iWidth) {

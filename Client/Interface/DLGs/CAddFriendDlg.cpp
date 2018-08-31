@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./caddfrienddlg.h"
+#include "StdAfx.h"
+#include "./CAddFriendDlg.h"
 #include "TEditBox.h"
 #include "CCommDlg.h"
 #include "../it_mgr.h"

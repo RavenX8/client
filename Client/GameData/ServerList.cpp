@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./serverlist.h"
+#include "StdAfx.h"
+#include "./ServerList.h"
 #include <utility>
 
 CServerList::CServerList(void) {

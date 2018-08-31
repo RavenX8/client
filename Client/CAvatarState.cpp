@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cavatarstate.h"
+#include "StdAfx.h"
+#include "./CAvatarState.h"
 #include "CJustModelAVT.h"
 CAvatarState::CAvatarState(void) {}
 

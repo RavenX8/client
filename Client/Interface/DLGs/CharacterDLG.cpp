@@ -7,12 +7,12 @@
 #include "../IO_ImageRes.h"
 #include "../TypeResource.h"
 
-#include "../icon/ciconitem.h"
+#include "../Icon/CIconItem.h"
 
 #include "../../System/CGame.h"
 #include "../../OBJECT.h"
-#include "../../Network/CNetWork.h"
-#include "../../gamecommon/item.h"
+#include "../../Network/CNetwork.h"
+#include "../../GameCommon/Item.h"
 #include "../../GameData/Event/CTEventItem.h"
 #include "../../GameData/CClan.h"
 

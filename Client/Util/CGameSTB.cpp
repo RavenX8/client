@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include <windows.h>
+#include "StdAfx.h"
+#include <Windows.h>
 #include <stdlib.h>
 #include "CGameSTB.h"
-#include "classSTR.h"
+#include "classstr.h"
 
 //-------------------------------------------------------------------------------------------------
 CGameSTB::CGameSTB() {

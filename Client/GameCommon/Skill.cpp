@@ -1,15 +1,15 @@
 /*
 	$Header: /Client/GameCommon/Skill.cpp 71    05-10-26 2:56p Gioend $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Skill.h"
 #include "JCommandState.h"
-#include "Network/CNetWork.h"
+#include "Network/CNetwork.h"
 #include "../Interface/SlotContainer/CSkillSlot.h"
-#include "../Interface/it_Mgr.h"
+#include "../Interface/it_mgr.h"
 #include "../Interface/IO_ImageRes.h"
-#include "../Interface/Dlgs/ChattingDlg.h"
-#include "../Interface/Dlgs/CPartyDlg.h"
+#include "../Interface/DLGs/ChattingDLG.h"
+#include "../Interface/DLGs/CPartyDlg.h"
 #include "../Interface/CTDrawImpl.h"
 #include "CSkillCommand.h"
 #include "ReloadProcess.h"

@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "./objectactionprocessor.h"
-#include "CGameObj.h"
-#include "Object.h"
-#include "Network/CNetWork.h"
+#include "StdAfx.h"
+#include "./ObjectActionProcessor.h"
+#include "CGameOBJ.h"
+#include "OBJECT.h"
+#include "Network/CNetwork.h"
 #include "ObjFixedEvent.h"
 #include "Event/Quest_FUNC.h"
 

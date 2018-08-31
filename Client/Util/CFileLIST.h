@@ -4,7 +4,7 @@
 #ifndef	__CFILELIST_H
 #define	__CFILELIST_H
 #include "classSTB.h"
-#include "classSTR.h"
+#include "classstr.h"
 #include "classHASH.h"
 #include "classLOG.h"
 #ifndef	__SERVER

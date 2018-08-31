@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cchatfilterdlg.h"
+#include "StdAfx.h"
+#include "./CChatFilterDlg.h"
 #include "../it_mgr.h"
 
 #include "TCheckBox.h"

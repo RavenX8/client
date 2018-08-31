@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CEnduranceProperty.h"
 #include <algorithm>
 #include <functional>
@@ -12,7 +12,7 @@
 #include "../GameCommon/Item.h"
 #include "../Country.h"
 
-#include "Dlgs/ChattingDlg.h"
+#include "DLGs/ChattingDLG.h"
 #include "../System/CGame.h"
 #include "CTDrawImpl.h"
 #include "../CClientStorage.h"

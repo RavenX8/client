@@ -1,9 +1,9 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 
 #ifdef __SERVER
 	#include "NET_Prototype.h"
 #else
-#include "NET_Prototype.h"
+#include "Net_Prototype.h"
 #include "../CObjUSER.h"
 #endif
 

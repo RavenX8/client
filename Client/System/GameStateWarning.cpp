@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "GameStateWarning.h"
 #include "CGame.h"
 
@@ -9,16 +9,16 @@
 #include "../Interface/ExternalUI/ExternalUILobby.h"
 #include "../Interface/CTFontImpl.h"
 #include "../Interface/IO_ImageRes.h"
-#include "../interface/CUIMediator.h"
-#include "../Interface/IT_MGR.H"
+#include "../Interface/CUIMediator.h"
+#include "../Interface/it_mgr.h"
 #include "../Interface/Command/CTCmdHotExec.h"
-#include "../Interface/Cursor/CCursor.h"
+#include "../Interface/cursor/CCursor.h"
 
 #include "../Common/IO_Quest.h"
 
 #include "../IO_Terrain.h"
 #include "../CCamera.h"
-#include "../CSkyDOME.H"
+#include "../CSkyDOME.h"
 //#include "../nProtect/nProtect.h"
 #include "../Misc/GameUtil.h"
 #include "TTIme.h"

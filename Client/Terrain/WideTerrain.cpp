@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include "./wideterrain.h"
-#include "IO_TERRAIN.h"
+#include "StdAfx.h"
+#include "./WideTerrain.h"
+#include "IO_Terrain.h"
 #include "../CClientStorage.h"
 
 static tPOINT16 s_WideSecAdjPos[ 25 ] =

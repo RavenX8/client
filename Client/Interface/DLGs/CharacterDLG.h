@@ -3,7 +3,7 @@
 
 #include "../../../TGameCtrl/TDialog.h"
 #include "../../Common/CItem.h"
-#include "../../Common/DataType.h"
+#include "../../Common/DataTYPE.h"
 
 /**
 * 캐릭터 정보를 보여주기 위한 다이얼로그 

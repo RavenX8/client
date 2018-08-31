@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "JCommandState.h"
 #include "Network//CNetwork.h"
 #include "System//CGame.h"

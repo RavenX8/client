@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATEMAIN_
 #define _CGAMESTATEMAIN_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * 캐릭터 선택후 실제 게임중인 상태

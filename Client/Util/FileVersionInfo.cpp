@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./fileversioninfo.h"
+#include "StdAfx.h"
+#include "./FileVersionInfo.h"
 
 CFileVersionInfo::CFileVersionInfo(void) {
   m_iMajorVersion  = 0;

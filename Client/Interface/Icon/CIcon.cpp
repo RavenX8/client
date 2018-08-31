@@ -1,11 +1,11 @@
-#include "stdafx.h"
-#include "./cicon.h"
+#include "StdAfx.h"
+#include "./CIcon.h"
 #include "../CTDrawImpl.h"
 #include "../it_mgr.h"
 #include "../CToolTipMgr.h"
-#include "../dlgs/subclass/CSlot.h"
+#include "../DLGs/SubClass/CSlot.h"
 
-#include "../../Common/IO_STB.h"
+#include "../../Common/io_stb.h"
 #include "../../Game.h"
 
 #include "../../../TGameCtrl/TDialog.h"

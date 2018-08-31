@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/LUA_Init.cpp 6     04-04-07 10:27a Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Event/Quest_FUNC.h"
 #include "Game_FUNC.h"
 //-------------------------------------------------------------------------------------------------

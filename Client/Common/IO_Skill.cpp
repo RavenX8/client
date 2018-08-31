@@ -1,7 +1,7 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "IO_Skill.h"
 #ifndef	__SERVER
-#include "../util/CGameSTB.h"
+#include "../Util/CGameSTB.h"
 #else
 	#include "..\util\classSTB.h"
 #include "..\GameProc\UseItemDelay.h"

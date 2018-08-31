@@ -1,13 +1,13 @@
-#include "stdafx.h"
-#include "stringmanager.h"
+#include "StdAfx.h"
+#include "StringManager.h"
 #include "../Util/VFSManager.h"
 #include "../Util/Localizing.h"
-#include "../Common/IO_STB.h"
-#include "../Common/IO_skill.h"
+#include "../Common/io_stb.h"
+#include "../Common/IO_Skill.h"
 #include "../Common/IO_Quest.h"
 #include "../Interface/CHelpMgr.h"
-#include "../interface/it_MGR.h"
-#include "item.h"
+#include "../Interface/it_mgr.h"
+#include "Item.h"
 
 #include <algorithm>
 

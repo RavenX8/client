@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATECREATEAVATAR_
 #define _CGAMESTATECREATEAVATAR_
-#include "cgamestate.h"
+#include "CGameState.h"
 #include <list>
 
 class CJustModelAVT;

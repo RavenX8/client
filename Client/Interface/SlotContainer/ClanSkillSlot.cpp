@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./clanskillslot.h"
+#include "StdAfx.h"
+#include "./ClanSkillSlot.h"
 #include "../../Common/IO_Skill.h"
 #include "../../GameCommon/Skill.h"
 

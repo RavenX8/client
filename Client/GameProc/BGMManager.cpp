@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./bgmmanager.h"
+#include "StdAfx.h"
+#include "./BGMManager.h"
 #include "../Sound/MusicMgr.h"
-#include "../Common/IO_STB.h"
+#include "../Common/io_stb.h"
 
 #include "../CClientStorage.h"
 #include "../Game.h"

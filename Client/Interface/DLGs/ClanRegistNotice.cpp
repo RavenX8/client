@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./clanregistnotice.h"
+#include "StdAfx.h"
+#include "./ClanRegistNotice.h"
 #include "../../Network/CNetwork.h"
 
 #include "TEditBox.h"

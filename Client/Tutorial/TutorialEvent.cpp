@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./tutorialevent.h"
+#include "StdAfx.h"
+#include "./TutorialEvent.h"
 #include "../System/SystemProcScript.h"
 
 CTutorialEvent::CTutorialEvent(void) {}

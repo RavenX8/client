@@ -1,14 +1,14 @@
-#include "stdafx.h"
-#include "./hoticonslot.h"
+#include "StdAfx.h"
+#include "./HotIconSlot.h"
 
-#include "../../Object.h"
-#include "../ICon/CIconQuick.h"
-#include "../ICon/CIconItem.h"
-#include "../ICon/CIconSkill.h"
-#include "../ICon/CIconDialog.h"
-#include "../ICon/CIconSkillClan.h"
-#include "../it_Mgr.h"
-#include "../gamecommon/item.h"
+#include "../../OBJECT.h"
+#include "../Icon/CIconQuick.h"
+#include "../Icon/CIconItem.h"
+#include "../Icon/CIconSkill.h"
+#include "../Icon/CIconDialog.h"
+#include "../Icon/CIconSkillClan.h"
+#include "../it_mgr.h"
+#include "../GameCommon/Item.h"
 
 //----------------------------------------------------------------------------------------------------
 /// @param

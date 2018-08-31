@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./changeactionmode.h"
+#include "StdAfx.h"
+#include "./ChangeActionMode.h"
 #include "../Game.h"
 #include "../CObjCHAR.h"
 

@@ -2,14 +2,14 @@
 	$Header: /Client/event/GF_SYSTEM.CPP 21    04-11-15 11:40a Navy $
 */
 
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Quest_FUNC.h"
 #include "Game_FUNC.h"
 #include "OBJECT.h"
 #include "Network/CNetwork.h"
 #include "IO_Terrain.h"
 #include "Game.h"
-#include "..//interface//it_mgr.h"
+#include "../Interfaceeit_mgr.h.
 #include "../GameData/CStore.h"
 
 //-------------------------------------------------------------------------------------------------

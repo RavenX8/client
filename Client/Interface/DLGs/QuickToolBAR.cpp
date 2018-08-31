@@ -8,15 +8,15 @@
 
 #include "../../OBJECT.h"
 #include "../../Network/CNetwork.h"
-#include "../../Common/IO_STB.h"
+#include "../../Common/io_stb.h"
 
 #include "../../System/CGame.h"
 #include "../../JCommandState.h"
 #include "../../GameCommon/CSkillCommand.h"
-#include "../../gamecommon/item.h"
+#include "../../GameCommon/Item.h"
 #include "../Icon/CIconQuick.h"
 #include "../Icon/CIconItem.h"
-#include "../command/dragcommand.h"
+#include "../Command/DragCommand.h"
 
 #include "../../GameData/Event/CTEventItem.h"
 #include "../../Country.h"

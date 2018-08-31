@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./citstatedead.h"
+#include "StdAfx.h"
+#include "./CITStateDead.h"
 #include "../it_mgr.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 
 CITStateDead::CITStateDead(void) {
   m_iID = IT_MGR::STATE_DEAD;

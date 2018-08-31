@@ -1,7 +1,7 @@
 /*
 $Header: /Client/Network/RecvPACKET.cpp 690   05-10-27 10:18a Choo0219 $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CCamera.h"
 #include "CNetwork.h"
 #include "Game.h"
@@ -15,7 +15,7 @@ $Header: /Client/Network/RecvPACKET.cpp 690   05-10-27 10:18a Choo0219 $
 #include "../SqliteDB.h"
 
 #include "../Common/IO_Quest.h"
-#include "../Common/IO_STB.h"
+#include "../Common/io_stb.h"
 #include "../GameCommon/Skill.h"
 #include "../GameData/CBank.h"
 #include "../GameData/CClan.h"
@@ -27,7 +27,7 @@ $Header: /Client/Network/RecvPACKET.cpp 690   05-10-27 10:18a Choo0219 $
 #include "../GameProc/CDayNNightProc.h"
 #include "../System/CGame.h"
 #include "../Util/CCheat.h"
-#include "../common/Calculation.h"
+#include "../Common/Calculation.h"
 
 #include "../Interface/CHelpMgr.h"
 #include "../Interface/CUIMediator.h"
@@ -38,29 +38,29 @@ $Header: /Client/Network/RecvPACKET.cpp 690   05-10-27 10:18a Choo0219 $
 #include "../Interface/ExternalUI/CSelectChannel.h"
 #include "../Interface/ExternalUI/ExternalUILobby.h"
 #include "../Interface/TypeResource.h"
-#include "../Interface/it_MGR.h"
+#include "../Interface/it_mgr.h"
 
-#include "../Interface/Dlgs/ChattingDlg.h"
-#include "../Interface/Dlgs/DeliveryStoreDlg.h"
-#include "../interface/dlgs/CCommDlg.h"
-#include "../interface/dlgs/CPartyDlg.h"
-#include "../interface/dlgs/CQuestDlg.h"
-#include "../interface/dlgs/CSystemMsgDlg.h"
-#include "../interface/dlgs/DealDlg.h"
-#include "../interface/dlgs/ExchangeDlg.h"
-#include "../interface/dlgs/MakeDlg.h"
-#include "../interface/icon/ciconitem.h"
+#include "../Interface/DLGs/ChattingDLG.h"
+#include "../Interface/DLGs/DeliveryStoreDlg.h"
+#include "../Interface/DLGs/CCommDlg.h"
+#include "../Interface/DLGs/CPartyDlg.h"
+#include "../Interface/DLGs/CQuestDlg.h"
+#include "../Interface/DLGs/CSystemMsgDlg.h"
+#include "../Interface/DLGs/DealDLG.h"
+#include "../Interface/DLGs/ExchangeDLG.h"
+#include "../Interface/DLGs/MakeDLG.h"
+#include "../Interface/Icon/CIconItem.h"
 
-#include "../interface/command/CTCmdHotExec.h"
-#include "../interface/command/CTCmdNumberInput.h"
-#include "../interface/command/UICommand.h"
+#include "../Interface/Command/CTCmdHotExec.h"
+#include "../Interface/Command/CTCmdNumberInput.h"
+#include "../Interface/Command/UICommand.h"
 
 #include "../Util/LogWnd.h"
 
 #include "../Event/QuestRewardQueue.h"
 #include "../ObjFixedEvent.h"
 
-#include "../Event/Quest_Func.h"
+#include "../Event/Quest_FUNC.h"
 #include "GameProc/DelayedExp.h"
 #include "GameProc/LiveCheck.h"
 
@@ -184,8 +184,8 @@ void CRecvPACKET::Recv_gsv_SET_GLOBAL_VAR() {
 //-------------------------------------------------------------------------------------------------
 void CRecvPACKET::Recv_gsv_SET_GLOVAL_FLAG() {
   g_GameDATA.m_iPvPState =
-      m_pRecvPacket->m_gsv_SET_GLOBAL_FLAG.m_dwGlobalFLAGS &
-      ZONE_FLAG_PK_ALLOWED;
+    m_pRecvPacket->m_gsv_SET_GLOBAL_FLAG.m_dwGlobalFLAGS &
+    ZONE_FLAG_PK_ALLOWED;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -405,7 +405,7 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY() {
 
     szServerName = Packet_GetStringPtr( m_pRecvPacket, nOffset );
     pServerID    =
-        (DWORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( DWORD ) );
+      (DWORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( DWORD ) );
   }
 
   std::map<BYTE, pair<DWORD, std::string>>::iterator iter;
@@ -457,7 +457,7 @@ int CRecvPACKET::Recv_lsv_SELECT_SERVER() {
   /// 내부에서 정상 동작 여부 확인...
   ///
   CSelectServer* pSelectServer =
-      (CSelectServer *)g_EUILobby.GetEUI( EUI_SELECT_SERVER );
+    (CSelectServer *)g_EUILobby.GetEUI( EUI_SELECT_SERVER );
 
   if ( pSelectServer == nullptr )
     return 0;
@@ -523,7 +523,7 @@ void CRecvPACKET::Recv_gsv_INIT_DATA() {
 //-------------------------------------------------------------------------------------------------
 void            CRecvPACKET::Recv_wsv_CHAR_LIST() {
   CSelectAvata* pSelectAvata =
-      (CSelectAvata *)g_EUILobby.GetEUI( EUI_SELECT_AVATA );
+    (CSelectAvata *)g_EUILobby.GetEUI( EUI_SELECT_AVATA );
 
   pSelectAvata->RecvAvataList( m_pRecvPacket );
 
@@ -538,7 +538,7 @@ void            CRecvPACKET::Recv_wsv_CHAR_LIST() {
 bool CRecvPACKET::Recv_wsv_CREATE_CHAR() {
 
   CCreateAvata* pCreateAvata =
-      (CCreateAvata *)g_EUILobby.GetEUI( EUI_CREATE_AVATA );
+    (CCreateAvata *)g_EUILobby.GetEUI( EUI_CREATE_AVATA );
   if ( pCreateAvata == nullptr )
     return false;
 
@@ -579,7 +579,7 @@ void CRecvPACKET::Recv_gsv_JOIN_ZONE() {
   g_pAVATAR->Set_HP( m_pRecvPacket->m_gsv_JOIN_ZONE.m_nCurHP );
   g_pAVATAR->Set_MP( m_pRecvPacket->m_gsv_JOIN_ZONE.m_nCurMP );
   g_pAVATAR->m_GrowAbility.m_lPenalEXP =
-      m_pRecvPacket->m_gsv_JOIN_ZONE.m_lPenalEXP;
+    m_pRecvPacket->m_gsv_JOIN_ZONE.m_lPenalEXP;
 
   /// 회복을 위한 시간 리셋..
   g_pAVATAR->ClearTimer();
@@ -625,7 +625,7 @@ void CRecvPACKET::Recv_gsv_JOIN_ZONE() {
     tag_PARTY_MEMBER MemberInfo;
     MemberInfo.m_dwUserTAG  = g_pAVATAR->GetUniqueTag();
     MemberInfo.m_wObjectIDX =
-        m_pRecvPacket->m_gsv_JOIN_ZONE.m_wServerObjectIndex;
+      m_pRecvPacket->m_gsv_JOIN_ZONE.m_wServerObjectIndex;
     /* 나일경우는 무시한다.
     MemberInfo.m_nHP		= g_pAVATAR->Get_HP();
     MemberInfo.m_nMaxHP		= g_pAVATAR->Get_MaxHP();
@@ -747,24 +747,24 @@ void CRecvPACKET::Recv_gsv_SELECT_CHAR() {
     &m_pRecvPacket->m_gsv_SELECT_CHAR.m_HotICONS, sizeof(CHotICONS));
 
   refGame.m_SelectedAvataInfo.m_btCharRACE =
-      m_pRecvPacket->m_gsv_SELECT_CHAR.m_btCharRACE;
+    m_pRecvPacket->m_gsv_SELECT_CHAR.m_btCharRACE;
   refGame.m_SelectedAvataInfo.m_nZoneNO =
-      m_pRecvPacket->m_gsv_SELECT_CHAR.m_nZoneNO;
+    m_pRecvPacket->m_gsv_SELECT_CHAR.m_nZoneNO;
   refGame.m_SelectedAvataInfo.m_PosSTART.x =
-      m_pRecvPacket->m_gsv_SELECT_CHAR.m_PosSTART.x;
+    m_pRecvPacket->m_gsv_SELECT_CHAR.m_PosSTART.x;
   refGame.m_SelectedAvataInfo.m_PosSTART.y =
-      m_pRecvPacket->m_gsv_SELECT_CHAR.m_PosSTART.y;
+    m_pRecvPacket->m_gsv_SELECT_CHAR.m_PosSTART.y;
   refGame.m_SelectedAvataInfo.m_nReviveZoneNO =
-      m_pRecvPacket->m_gsv_SELECT_CHAR.m_nReviveZoneNO;
+    m_pRecvPacket->m_gsv_SELECT_CHAR.m_nReviveZoneNO;
   refGame.m_SelectedAvataInfo.m_dwUniqueTAG =
-      m_pRecvPacket->m_gsv_SELECT_CHAR.m_dwUniqueTAG;
+    m_pRecvPacket->m_gsv_SELECT_CHAR.m_dwUniqueTAG;
 }
 
 //-------------------------------------------------------------------------------------------------
 void     CRecvPACKET::Recv_gsv_INVENTORY_DATA() {
   CGame& refGame                              = CGame::GetInstance();
   refGame.m_SelectedAvataINV.m_INV.m_i64Money =
-      m_pRecvPacket->m_gsv_INVENTORY_DATA.m_INV.m_i64Money;
+    m_pRecvPacket->m_gsv_INVENTORY_DATA.m_INV.m_i64Money;
 
   memcpy( &refGame.m_SelectedAvataINV.m_INV.m_ItemLIST,
           &m_pRecvPacket->m_gsv_INVENTORY_DATA.m_INV.m_ItemLIST,
@@ -836,7 +836,7 @@ void        CRecvPACKET::Recv_gsv_TOGGLE() {
          (sizeof( gsv_TOGGLE ) + sizeof( short )) ) {
       if ( pCHAR->IsUSER() ) {
         ((CObjAVT *)pCHAR)
-            ->SetOri_RunSPEED( m_pRecvPacket->m_gsv_TOGGLE.m_nRunSPEED[0] );
+          ->SetOri_RunSPEED( m_pRecvPacket->m_gsv_TOGGLE.m_nRunSPEED[0] );
       }
     }
   }
@@ -1095,7 +1095,7 @@ void CRecvPACKET::Recv_tag_ADJ_STATUS(short&        nPacketOffset,
   DWORD dwResult     = ptagAddChar->m_dwStatusFALG;
 
   CObjCHAR* pChar =
-      g_pObjMGR->Get_ClientCharOBJ( ptagAddChar->m_wObjectIDX, true );
+    g_pObjMGR->Get_ClientCharOBJ( ptagAddChar->m_wObjectIDX, true );
   if ( pChar == nullptr )
     return;
 
@@ -1219,7 +1219,7 @@ void        CRecvPACKET::Recv_gsv_NPC_CHAR() {
 
       /// 04/5/18 특정 NPC에 이벤트 변수 추가 - jeddli
       ((CObjNPC *)pSourCHAR)
-          ->SetEventValue( m_pRecvPacket->m_gsv_NPC_CHAR.m_nEventSTATUS );
+        ->SetEventValue( m_pRecvPacket->m_gsv_NPC_CHAR.m_nEventSTATUS );
       /*char Buf[255];
       sprintf( Buf, " 서버로 부터이벤트 변수 받음 %d\n",
       m_pRecvPacket->m_gsv_NPC_CHAR.m_nEventSTATUS ); MessageBox( NULL, Buf,
@@ -1329,15 +1329,15 @@ void        CRecvPACKET::Recv_gsv_MOB_CHAR() {
       if ( (pChar != nullptr) && (pChar->IsA( OBJ_USER )) ) {
         SummonMobInfo mobInfo;
         bool          bIsThere =
-            ((CObjUSER *)pChar)
-            ->GetSummonedMobInfo( m_pRecvPacket->m_gsv_MOB_CHAR.m_wObjectIDX,
-                                  mobInfo );
+          ((CObjUSER *)pChar)
+          ->GetSummonedMobInfo( m_pRecvPacket->m_gsv_MOB_CHAR.m_wObjectIDX,
+                                mobInfo );
         if ( bIsThere )
           iDoingSkillIDX = mobInfo.iSkillIDX;
 
         ((CObjUSER *)pChar)
-            ->AddSummonedMob( m_pRecvPacket->m_gsv_MOB_CHAR.m_wObjectIDX,
-                              iDoingSkillIDX );
+          ->AddSummonedMob( m_pRecvPacket->m_gsv_MOB_CHAR.m_wObjectIDX,
+                            iDoingSkillIDX );
 
         if ( iDoingSkillIDX ) {
 
@@ -1477,7 +1477,7 @@ void CRecvPACKET::Recv_gsv_AVT_CHAR() {
   switch ( m_pRecvPacket->m_gsv_AVT_CHAR.m_dwSubFLAG ) {
     case FLAG_SUB_STORE_MODE: {
       short* nType =
-          (short *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( short ) );
+        (short *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( short ) );
       char* pszTitle = (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset );
 
       pNewAVT->SetPersonalStoreTitle( pszTitle, *nType );
@@ -1517,7 +1517,7 @@ void CRecvPACKET::Recv_gsv_AVT_CHAR() {
 //-------------------------------------------------------------------------------------------------
 void    CRecvPACKET::Recv_gsv_SUB_OBJECT() {
   short nObjCNT =
-      (m_pRecvPacket->m_HEADER.m_nSize - sizeof( t_PACKETHEADER )) / 2;
+    (m_pRecvPacket->m_HEADER.m_nSize - sizeof( t_PACKETHEADER )) / 2;
 
   CGameOBJ*   pObj;
   for ( short nI = 0; nI < nObjCNT; nI++ ) {
@@ -1876,7 +1876,7 @@ void CRecvPACKET::Recv_gsv_SETEXP() {
   if ( m_pRecvPacket->m_gsv_SETEXP.m_wFromObjIDX == 0 ) {
     /// 갱신된 내 경험치다...
     long lDiff =
-        m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
+      m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
 
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
     if ( lDiff < 0 ) {
@@ -1906,7 +1906,7 @@ void CRecvPACKET::Recv_gsv_SETEXP() {
     /// 현재 경험치를 넣었더니.. 처리 순서가 틀려지만 - 경험치를 얻을 경우가
     /// 있다..
     long lDiff =
-        m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
+      m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
     if ( lDiff < 0 ) {
       char buf[255];
@@ -2090,7 +2090,7 @@ void       CRecvPACKET::Recv_gsv_EQUIP_ITEM() {
          (sizeof( gsv_EQUIP_ITEM ) + sizeof( short )) ) {
       if ( pCHAR->IsUSER() ) {
         ((CObjAVT *)pCHAR)
-            ->SetOri_RunSPEED( m_pRecvPacket->m_gsv_EQUIP_ITEM.m_nRunSPEED[0] );
+          ->SetOri_RunSPEED( m_pRecvPacket->m_gsv_EQUIP_ITEM.m_nRunSPEED[0] );
       }
     }
 
@@ -2217,8 +2217,8 @@ void CRecvPACKET::Recv_gsv_USE_ITEM() {
       /// Size가 같은 경우에는 BroadCast 시에 중복되는 패킷이다
       if ( m_pRecvPacket->m_HEADER.m_nSize != sizeof( gsv_USE_ITEM ) ) {
         tagITEM UsedItem =
-            g_pAVATAR->m_Inventory
-                     .m_ItemLIST[m_pRecvPacket->m_gsv_USE_ITEM.m_btInvIDX[0]];
+          g_pAVATAR->m_Inventory
+                   .m_ItemLIST[m_pRecvPacket->m_gsv_USE_ITEM.m_btInvIDX[0]];
         UsedItem.m_uiQuantity = 1;
         g_pAVATAR->Sub_ITEM( m_pRecvPacket->m_gsv_USE_ITEM.m_btInvIDX[0],
                              UsedItem );
@@ -2244,11 +2244,11 @@ void CRecvPACKET::Recv_gsv_USE_ITEM() {
         {
           for ( int i         = 0; i < STATE_APPLY_ABILITY_CNT; i++ ) {
             int     iStateNO1 =
-                STATE_APPLY_ING_STB(USEITME_STATUS_STB(wUseItemNO), i);
+              STATE_APPLY_ING_STB(USEITME_STATUS_STB(wUseItemNO), i);
 
             if ( iStateNO1 ) {
               int iStepValue =
-                  STATE_APPLY_ABILITY_VALUE(USEITME_STATUS_STB(wUseItemNO), i);
+                STATE_APPLY_ABILITY_VALUE(USEITME_STATUS_STB(wUseItemNO), i);
               if ( iStepValue ) {
                 int iApplyValue = USEITEM_ADD_DATA_VALUE(wUseItemNO);
 
@@ -2278,11 +2278,11 @@ void CRecvPACKET::Recv_gsv_USE_ITEM() {
       {
         for ( int i         = 0; i < STATE_APPLY_ABILITY_CNT; i++ ) {
           int     iStateNO1 =
-              STATE_APPLY_ING_STB(USEITME_STATUS_STB(wUseItemNO), i);
+            STATE_APPLY_ING_STB(USEITME_STATUS_STB(wUseItemNO), i);
 
           if ( iStateNO1 ) {
             int iStepValue =
-                STATE_APPLY_ABILITY_VALUE(USEITME_STATUS_STB(wUseItemNO), i);
+              STATE_APPLY_ABILITY_VALUE(USEITME_STATUS_STB(wUseItemNO), i);
             if ( iStepValue ) {
               int iApplyValue = USEITEM_ADD_DATA_VALUE(wUseItemNO);
 
@@ -2330,7 +2330,7 @@ void CRecvPACKET::Recv_gsv_ADD_FIELDITEM() {
     if ( iItemOBJ ) {
       CObjITEM* pITEM             = (CObjITEM *)g_pObjMGR->Get_OBJECT( iItemOBJ );
       pITEM->m_wOwnerServerObjIDX =
-          m_pRecvPacket->m_gsv_ADD_FIELDITEM.m_wOwnerObjIDX;
+        m_pRecvPacket->m_gsv_ADD_FIELDITEM.m_wOwnerObjIDX;
       pITEM->m_wRemainTIME = m_pRecvPacket->m_gsv_ADD_FIELDITEM.m_wRemainTIME;
 
       pITEM->InsertToScene();
@@ -2414,7 +2414,7 @@ void CRecvPACKET::Recv_gsv_TELEPORT_REPLY() {
     if ( ZONE_PLANET_NO(m_pRecvPacket->m_gsv_TELEPORT_REPLY.m_nZoneNO) != 8 &&
          ZONE_PLANET_NO(g_pTerrain->GetZoneNO()) != 8 ) {
       CGameStateMovePlanet::m_iTargetPlanet =
-          m_pRecvPacket->m_gsv_TELEPORT_REPLY.m_nZoneNO;
+        m_pRecvPacket->m_gsv_TELEPORT_REPLY.m_nZoneNO;
       CGame::GetInstance().ChangeState( CGame::GS_MOVEPLANET );
     } else {
       /// 아지트로 혹은 아지트로부터의 이동에는 컷신 없음..
@@ -2447,7 +2447,7 @@ void CRecvPACKET::Recv_gsv_USE_BPOINT_REPLY() {
 
     g_pAVATAR->m_BasicAbility
              .m_nBasicA[m_pRecvPacket->m_gsv_USE_BPOINT_REPLY.m_btAbilityNO] =
-        m_pRecvPacket->m_gsv_USE_BPOINT_REPLY.m_nAbilityValue;
+      m_pRecvPacket->m_gsv_USE_BPOINT_REPLY.m_nAbilityValue;
     g_pAVATAR->UpdateAbility();
   }
 }
@@ -2585,8 +2585,8 @@ void        CRecvPACKET::Recv_gsv_SELF_SKILL() {
       if ( m_pRecvPacket->m_HEADER.m_nSize ==
            (sizeof( gsv_SELF_SKILL ) + sizeof( char )) ) {
         ((CObjMOB *)pCHAR)
-            ->SetMobAniSkill(
-              m_pRecvPacket->m_gsv_SELF_SKILL.cNpcSkillMOTION[0] );
+          ->SetMobAniSkill(
+            m_pRecvPacket->m_gsv_SELF_SKILL.cNpcSkillMOTION[0] );
         Log_String(LOG_NORMAL, "SELF SKILL : cNpcSkillMOTION[0][ %d ]\n",
                    m_pRecvPacket->m_gsv_SELF_SKILL.cNpcSkillMOTION[0]);
       }
@@ -2623,8 +2623,8 @@ void CRecvPACKET::Recv_gsv_TARGET_SKILL() {
       if ( m_pRecvPacket->m_HEADER.m_nSize ==
            (sizeof( gsv_TARGET_SKILL ) + sizeof( char )) ) {
         ((CObjMOB *)pCHAR)
-            ->SetMobAniSkill(
-              m_pRecvPacket->m_gsv_TARGET_SKILL.cNpcSkillMOTION[0] );
+          ->SetMobAniSkill(
+            m_pRecvPacket->m_gsv_TARGET_SKILL.cNpcSkillMOTION[0] );
         Log_String(LOG_NORMAL, "TARGET SKILL : cNpcSkillMOTION[0][ %d ]\n",
                    m_pRecvPacket->m_gsv_TARGET_SKILL.cNpcSkillMOTION[0]);
       }
@@ -2659,8 +2659,8 @@ void        CRecvPACKET::Recv_gsv_POSITION_SKILL() {
       if ( m_pRecvPacket->m_HEADER.m_nSize ==
            (sizeof( gsv_POSITION_SKILL ) + sizeof( char )) ) {
         ((CObjMOB *)pCHAR)
-            ->SetMobAniSkill(
-              m_pRecvPacket->m_gsv_POSITION_SKILL.cNpcSkillMOTION[0] );
+          ->SetMobAniSkill(
+            m_pRecvPacket->m_gsv_POSITION_SKILL.cNpcSkillMOTION[0] );
         Log_String(LOG_NORMAL, "TARGET SKILL : cNpcSkillMOTION[0][ %d ]\n",
                    m_pRecvPacket->m_gsv_POSITION_SKILL.cNpcSkillMOTION[0]);
       }
@@ -2822,10 +2822,10 @@ void        CRecvPACKET::Recv_gsv_EFFECT_OF_SKILL() {
                   }
 
                   iIncValue =
-                      (short)(iAbilityValue *
-                              SKILL_CHANGE_ABILITY_RATE(iSkillIDX, i) /
-                              100.f +
-                              SKILL_INCREASE_ABILITY_VALUE(iSkillIDX, i));
+                    (short)(iAbilityValue *
+                            SKILL_CHANGE_ABILITY_RATE(iSkillIDX, i) /
+                            100.f +
+                            SKILL_INCREASE_ABILITY_VALUE(iSkillIDX, i));
                 }
 
                 //--------------------------------------------------------------------------------------------
@@ -2838,13 +2838,13 @@ void        CRecvPACKET::Recv_gsv_EFFECT_OF_SKILL() {
                   }
 
                   iIncValue =
-                      (short)(iAbilityValue *
-                              SKILL_CHANGE_ABILITY_RATE(iSkillIDX, i) /
-                              100.f +
-                              SKILL_INCREASE_ABILITY_VALUE(iSkillIDX, i) *
-                              (m_pRecvPacket->m_gsv_EFFECT_OF_SKILL.m_nINT +
-                               300) /
-                              315.f);
+                    (short)(iAbilityValue *
+                            SKILL_CHANGE_ABILITY_RATE(iSkillIDX, i) /
+                            100.f +
+                            SKILL_INCREASE_ABILITY_VALUE(iSkillIDX, i) *
+                            (m_pRecvPacket->m_gsv_EFFECT_OF_SKILL.m_nINT +
+                             300) /
+                            315.f);
                 }
                 //--------------------------------------------------------------------------------------------
               }
@@ -2874,8 +2874,8 @@ void        CRecvPACKET::Recv_gsv_EFFECT_OF_SKILL() {
                 /// 상태스킬이 걸릴경우 AVATAR 의 경우는 능력치 업데이트..
                 if ( pEffectedChar->IsA( OBJ_USER ) ) {
                   ((CObjUSER *)pEffectedChar)
-                      ->AddCur_STAMINA(
-                        SKILL_INCREASE_ABILITY_VALUE(iSkillIDX, i) );
+                    ->AddCur_STAMINA(
+                      SKILL_INCREASE_ABILITY_VALUE(iSkillIDX, i) );
                 }
               }
               break;
@@ -3171,7 +3171,7 @@ void       CRecvPACKET::Recv_gsv_P_STORE_OPENED() {
     if ( m_pRecvPacket->m_HEADER.m_nSize > (sizeof( gsv_P_STORE_OPENED )) ) {
       short  nOffset            = sizeof( gsv_P_STORE_OPENED );
       short* pPersonalStoreType =
-          (short *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( short ) );
+        (short *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( short ) );
       char* pszTitle = (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset );
 
       pAVTChar->SetPersonalStoreTitle( pszTitle, *pPersonalStoreType );
@@ -3182,7 +3182,7 @@ void       CRecvPACKET::Recv_gsv_P_STORE_OPENED() {
 }
 
 //-------------------------------------------------------------------------------------------------
-#include "../interface/dlgs/CAvatarStoreDlg.h"
+#include "../Interface/DLGs/CAvatarStoreDlg.h"
 
 void       CRecvPACKET::Recv_gsv_P_STORE_CLOSED() {
   CObjAVT* pAVTChar = g_pObjMGR->Get_ClientCharAVT(
@@ -3206,7 +3206,7 @@ void       CRecvPACKET::Recv_gsv_P_STORE_CLOSED() {
 }
 
 //-------------------------------------------------------------------------------------------------
-#include "../interface/dlgs/CAvatarStoreDlg.h"
+#include "../Interface/DLGs/CAvatarStoreDlg.h"
 
 void        CRecvPACKET::Recv_gsv_P_STORE_LIST_REPLY() {
   CTDialog* pDlg = g_itMGR.FindDlg( DLG_TYPE_AVATARSTORE );
@@ -3807,7 +3807,7 @@ void CRecvPACKET::Recv_gsv_CHANGE_OBJIDX() {
       m_pRecvPacket->m_gsv_CHANGE_OBJIDX.m_Member.m_wObjectIDX, false );
     if ( pObjAVT ) {
       tag_PARTY_MEMBER* pMemberInfo =
-          &(m_pRecvPacket->m_gsv_CHANGE_OBJIDX.m_Member);
+        &(m_pRecvPacket->m_gsv_CHANGE_OBJIDX.m_Member);
       if ( pMemberInfo ) ///파티원일경우
       {
         pObjAVT->Set_HP( pMemberInfo->m_nHP );
@@ -3847,9 +3847,9 @@ void CRecvPACKET::Recv_gsv_BANK_LIST_REPLY() {
 
       ///은행에 보관된 돈정보가 붙어 있을때
       short Not_IncludeMoneyPacketSize =
-          sizeof( gsv_BANK_LIST_REPLY ) +
-          sizeof( tag_SET_INVITEM ) *
-          m_pRecvPacket->m_gsv_BANK_LIST_REPLY.m_btItemCNT;
+        sizeof( gsv_BANK_LIST_REPLY ) +
+        sizeof( tag_SET_INVITEM ) *
+        m_pRecvPacket->m_gsv_BANK_LIST_REPLY.m_btItemCNT;
 
       if ( m_pRecvPacket->m_HEADER.m_nSize == Not_IncludeMoneyPacketSize + 8 ) {
         __int64* money = (__int64 *)Packet_GetDataPtr(
@@ -3914,9 +3914,9 @@ void CRecvPACKET::Recv_gsv_MOVE_ITEM() {
 /// 삭제해준다.
 void       CRecvPACKET::Recv_gsv_SET_BULLET() {
   CObjAVT* pObjAVT =
-      g_pObjMGR->Get_CharAVT( g_pObjMGR->Get_ClientObjectIndex(
-                                m_pRecvPacket->m_gsv_SET_BULLET.m_wObjectIDX ),
-                              false );
+    g_pObjMGR->Get_CharAVT( g_pObjMGR->Get_ClientObjectIndex(
+                              m_pRecvPacket->m_gsv_SET_BULLET.m_wObjectIDX ),
+                            false );
   if ( pObjAVT ) {
     tagShotDATA ShotData = m_pRecvPacket->m_gsv_SET_BULLET.m_sShot;
     pObjAVT->SetShotData( ShotData.m_cType, ShotData.m_nItemNo );
@@ -3936,8 +3936,8 @@ void CRecvPACKET::Recv_gsv_SERVER_DATA() {
         // 10~100
         short m_nTown_CONSUM[MAX_PRICE_TYPE]; // 아이템별 소비량
 
-        short m_nTownDEV;                  // 마을 발전도
-        int   m_iTownPOP;                  // 마을 인구.
+        short m_nTownDEV; // 마을 발전도
+        int   m_iTownPOP; // 마을 인구.
         int   m_iTownITEM[MAX_PRICE_TYPE]; // 아이템별 보유량
         // 1000~100000
       };
@@ -4055,7 +4055,7 @@ void        CRecvPACKET::Recv_GSV_SET_EVENT_STATUS() {
     switch ( pCHAR->Get_TYPE() ) {
       case OBJ_NPC: {
         ((CObjNPC *)pCHAR)
-            ->SetEventValue( m_pRecvPacket->m_gsv_SET_EVENT_STATUS.m_nEventSTATUS );
+          ->SetEventValue( m_pRecvPacket->m_gsv_SET_EVENT_STATUS.m_nEventSTATUS );
       }
       break;
 
@@ -4079,7 +4079,7 @@ void CRecvPACKET::Recv_GSV_SET_ITEM_LIFE() {
 
   CItemSlot* pItemSlot = g_pAVATAR->GetItemSlot();
   CItem*     pItem     =
-      pItemSlot->GetItem( m_pRecvPacket->m_gsv_SET_ITEM_LIFE.m_nInventoryIDX );
+    pItemSlot->GetItem( m_pRecvPacket->m_gsv_SET_ITEM_LIFE.m_nInventoryIDX );
   if ( pItem ) {
     pItem->SetLife( m_pRecvPacket->m_gsv_SET_ITEM_LIFE.m_nLife );
 
@@ -4140,7 +4140,7 @@ void CRecvPACKET::Recv_wsv_CHATROOM() {
     case CHAT_REPLY_ROOM_MAKED: {
       short nOffset = sizeof( tag_CHAT_HEADER );
       WORD* pwMyID  =
-          (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
+        (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
       // char* szRoomName = Packet_GetStringPtr( m_pRecvPacket, nOffset );
 
       CChatRoom::GetInstance().Made( *pwMyID );
@@ -4151,7 +4151,7 @@ void CRecvPACKET::Recv_wsv_CHATROOM() {
     case CHAT_REPLY_ROOM_JOINED: {
       short nOffset = sizeof( tag_CHAT_HEADER );
       WORD* pwMyID  =
-          (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
+        (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
       char* szRoomName = Packet_GetStringPtr( m_pRecvPacket, nOffset );
 
       CChatRoom::GetInstance().SetTitle( szRoomName );
@@ -4163,7 +4163,7 @@ void CRecvPACKET::Recv_wsv_CHATROOM() {
 
       for ( ; nOffset < m_pRecvPacket->m_HEADER.m_nSize; ) {
         pwUserID =
-            (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
+          (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
         szUserName = Packet_GetStringPtr( m_pRecvPacket, nOffset );
         CChatRoom::GetInstance().JoinMember( *pwUserID, szUserName );
         if ( !bSetMaster ) {
@@ -4255,7 +4255,7 @@ void CRecvPACKET::Recv_wsv_CHATROOM() {
   }
 }
 
-#include "../interface/dlgs/subclass/CFriendListItem.h"
+#include "../Interface/DLGs/SubClass/CFriendListItem.h"
 
 void CRecvPACKET::Recv_tag_MCMD_HEADER() {
   switch ( m_pRecvPacket->m_tag_MCMD_HEADER.m_btCMD ) {
@@ -4368,8 +4368,8 @@ void CRecvPACKET::Recv_tag_MCMD_HEADER() {
 }
 
 //----------------------------------------------------------------------------------------------------
-#include "../interface/dlgs/CPrivateChatDlg.h"
-#include "../interface/dlgs/subclass/CFriendListItem.h"
+#include "../Interface/DLGs/CPrivateChatDlg.h"
+#include "../Interface/DLGs/SubClass/CFriendListItem.h"
 
 void        CRecvPACKET::Recv_wsv_MESSENGER_CHAT() {
   CTDialog* pDlg = g_itMGR.FindDlg( DLG_TYPE_COMMUNITY );
@@ -4379,7 +4379,7 @@ void        CRecvPACKET::Recv_wsv_MESSENGER_CHAT() {
 
   CCommDlg*        pCommDlg = (CCommDlg *)pDlg;
   CFriendListItem* pItem    =
-      pCommDlg->FindFriend( m_pRecvPacket->m_wsv_MESSENGER_CHAT.m_dwUserTAG );
+    pCommDlg->FindFriend( m_pRecvPacket->m_wsv_MESSENGER_CHAT.m_dwUserTAG );
   if ( pItem ) {
     if ( CCountry::GetSingleton().IsJapan() ) {
       if ( !(CGame::GetInstance().GetPayType() & PLAY_FLAG_COMMUNITY) ) {
@@ -4437,7 +4437,7 @@ void CRecvPACKET::Recv_wsv_MEMO() {
         for ( short nOffset = sizeof( wsv_MEMO );
               nOffset < m_pRecvPacket->m_HEADER.m_nSize; ) {
           pdwRecvTime =
-              (DWORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( DWORD ) );
+            (DWORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( DWORD ) );
           pszFromName = Packet_GetStringPtr( m_pRecvPacket, nOffset );
           pszMemo     = Packet_GetStringPtr( m_pRecvPacket, nOffset );
 
@@ -4471,7 +4471,7 @@ void CRecvPACKET::Recv_wsv_MEMO() {
   }
 }
 
-#include "../interface/dlgs/CChatRoomDlg.h"
+#include "../Interface/DLGs/CChatRoomDlg.h"
 
 void        CRecvPACKET::Recv_wsv_CHATROOM_MSG() {
   CTDialog* pDlg = g_itMGR.FindDlg( DLG_TYPE_CHATROOM );
@@ -4657,11 +4657,11 @@ void CRecvPACKET::Recv_gsv_CRAFT_ITEM_REPLY() {
                      .m_btInvIDX]
                    .m_uiQuantity ) {
                 ItemData.m_uiQuantity -=
-                    g_pAVATAR->m_Inventory
-                             .m_ItemLIST[m_pRecvPacket->m_gsv_CRAFT_ITEM_REPLY
-                                                      .m_sInvITEM[i]
-                      .m_btInvIDX]
-                    .m_uiQuantity;
+                  g_pAVATAR->m_Inventory
+                           .m_ItemLIST[m_pRecvPacket->m_gsv_CRAFT_ITEM_REPLY
+                                                    .m_sInvITEM[i]
+                    .m_btInvIDX]
+                  .m_uiQuantity;
                 pItemIcon = new CIconItem( &ItemData );
                 MsgBoxData.m_Icons.push_back( pItemIcon );
               }
@@ -4761,7 +4761,7 @@ void CRecvPACKET::Recv_gsv_REPAIRED_FROM_NPC() {
 
 void      CRecvPACKET::Recv_gsv_SET_MONEY_ONLY() {
   __int64 i64Diff =
-      m_pRecvPacket->m_gsv_SET_MONEY_ONLY.m_i64Money - g_pAVATAR->Get_MONEY();
+    m_pRecvPacket->m_gsv_SET_MONEY_ONLY.m_i64Money - g_pAVATAR->Get_MONEY();
 
   if ( i64Diff > 0 )
     g_itMGR.AppendChatMsg( CStr::Printf( F_STR_SET_MONEY_INC, i64Diff ),
@@ -4776,7 +4776,7 @@ void      CRecvPACKET::Recv_gsv_SET_MONEY_ONLY() {
 
 void      CRecvPACKET::Recv_gsv_REWARD_MONEY() {
   __int64 i64Diff =
-      m_pRecvPacket->m_gsv_SET_MONEY_ONLY.m_i64Money - g_pAVATAR->Get_MONEY();
+    m_pRecvPacket->m_gsv_SET_MONEY_ONLY.m_i64Money - g_pAVATAR->Get_MONEY();
 
   if ( i64Diff > 0 )
     g_itMGR.AppendChatMsg( CStr::Printf( F_STR_REWARD_MONEY_INC, i64Diff ),
@@ -4808,16 +4808,16 @@ void CRecvPACKET::Recv_gsv_REWARD_ITEM() {
     if ( !pSrvITEM->IsEmpty() ) {
       if ( pSrvITEM->IsEnableDupCNT() ) {
         pInvITEM =
-            &g_pAVATAR->m_Inventory.m_ItemLIST
-            [m_pRecvPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[i].m_btInvIDX];
+          &g_pAVATAR->m_Inventory.m_ItemLIST
+          [m_pRecvPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[i].m_btInvIDX];
         szMsg =
-            CStr::Printf( F_STR_REWARD_ITEMS,
-                          ITEM_NAME(pSrvITEM->GetTYPE(), pSrvITEM->GetItemNO()),
-                          pSrvITEM->GetQuantity() - pInvITEM->GetQuantity() );
+          CStr::Printf( F_STR_REWARD_ITEMS,
+                        ITEM_NAME(pSrvITEM->GetTYPE(), pSrvITEM->GetItemNO()),
+                        pSrvITEM->GetQuantity() - pInvITEM->GetQuantity() );
       } else {
         szMsg =
-            CStr::Printf( F_STR_REWARD_ITEM,
-                          ITEM_NAME(pSrvITEM->GetTYPE(), pSrvITEM->GetItemNO()) );
+          CStr::Printf( F_STR_REWARD_ITEM,
+                        ITEM_NAME(pSrvITEM->GetTYPE(), pSrvITEM->GetItemNO()) );
       }
 
       g_itMGR.AppendChatMsg( szMsg, IT_MGR::CHAT_TYPE_QUESTREWARD );
@@ -4931,7 +4931,7 @@ void CRecvPACKET::Recv_gsv_APPRAISAL_REPLY() {
     if ( g_pAVATAR ) {
       g_pAVATAR->m_Inventory
                .m_ItemLIST[m_pRecvPacket->m_gsv_APPRAISAL_REPLY.m_wInventoryIndex]
-          .m_bIsAppraisal = 1;
+        .m_bIsAppraisal = 1;
       g_pAVATAR->Set_MONEY( g_pAVATAR->Get_MONEY() -
                             CGame::GetInstance().GetAppraisalCost() );
     }
@@ -5027,7 +5027,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
           Clan.SetSkill( pInfo->m_ClanBIN.m_SKILL, MAX_CLAN_SKILL_SLOT );
 
           if ( char* pszSlogan =
-              (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
+            (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
             Clan.SetSlogan( pszSlogan );
 
           Clan.AddMember( g_pAVATAR->Get_NAME(), CClan::CLAN_MASTER,
@@ -5069,11 +5069,11 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
           Clan.SetSkill( pInfo->m_ClanBIN.m_SKILL, MAX_CLAN_SKILL_SLOT );
 
           if ( char* pszSlogan =
-              (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
+            (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
             Clan.SetSlogan( pszSlogan );
 
           if ( char* pszNotice =
-              (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
+            (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
             Clan.SetNotice( pszNotice );
 
           g_pAVATAR->SetClan( pInfo->m_dwClanID, pInfo->m_wClanMARK[0],
@@ -5175,11 +5175,11 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
           Clan.SetSkill( pInfo->m_ClanBIN.m_SKILL, MAX_CLAN_SKILL_SLOT );
 
           if ( char* pszSlogan =
-              (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
+            (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
             Clan.SetSlogan( pszSlogan );
 
           if ( char* pszNotice =
-              (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
+            (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
             Clan.SetNotice( pszNotice );
 
           if ( g_pAVATAR ) ///혹시 아바타가 만들어진 후에 올수 있다.
@@ -5341,7 +5341,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
       short nOffset   = sizeof( wsv_CLAN_COMMAND );
       char* pszMaster = (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset );
       BYTE* pbtClass  =
-          (BYTE *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( BYTE ) );
+        (BYTE *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( BYTE ) );
       CClan::GetInstance().SetClass( *pbtClass );
       if ( g_pAVATAR && g_pAVATAR->GetClanMarkBack() == 0 &&
            *pbtClass > CClan::CLAN_MASTER )
@@ -5349,8 +5349,8 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
 
       if ( pszMaster ) {
         std::string strMsg =
-            CStr::Printf( STR_CLAN_RESULT_CLAN_POSITION,
-                          CStringManager::GetSingleton().GetClanClass( *pbtClass ) );
+          CStr::Printf( STR_CLAN_RESULT_CLAN_POSITION,
+                        CStringManager::GetSingleton().GetClanClass( *pbtClass ) );
         strMsg.append( ":" );
         strMsg.append( pszMaster );
 
@@ -5362,7 +5362,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
     case RESULT_CLAN_SET: {
       short nOffset  = sizeof( wsv_CLAN_COMMAND );
       WORD* pwObjIDX =
-          (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
+        (WORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( WORD ) );
       tag_CLAN_ID* pClanID = (tag_CLAN_ID *)Packet_GetDataPtr(
         m_pRecvPacket, nOffset, sizeof( tag_CLAN_ID ) );
       assert(pwObjIDX && pClanID);
@@ -5373,7 +5373,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
             pAvt->ResetClan();
           } else {
             if ( char* pszClanName =
-                (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) ) {
+              (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) ) {
               if ( pClanID->m_wClanMARK[0] == 0 &&
                    pAvt->GetClanMarkCenter() != pClanID->m_wClanMARK[1] )
                 g_pNet->Send_cli_CLANMARK_REQ( pClanID->m_dwClanID );
@@ -5387,14 +5387,14 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
       }
     }
     break;
-    case RESULT_CLAN_MEMBER_LOGIN:  // 전체에게 보내지는 멤버 로그인
+    case RESULT_CLAN_MEMBER_LOGIN: // 전체에게 보내지는 멤버 로그인
     case RESULT_CLAN_MEMBER_LOGOUT: // 전체에게 보내지는 멤버 로그아웃
     {
       short                 nOffset = sizeof( wsv_CLAN_COMMAND );
       if ( tag_CLAN_MEMBER* pMember = (tag_CLAN_MEMBER *)Packet_GetDataPtr(
         m_pRecvPacket, nOffset, sizeof( tag_CLAN_MEMBER ) ) ) {
         if ( char* pszCharName =
-            (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
+          (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
           CClan::GetInstance().ChangeConnectStatus( pszCharName,
                                                     pMember->m_btChannelNO );
       }
@@ -5407,7 +5407,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
       if ( tag_CLAN_MEMBER* pMember = (tag_CLAN_MEMBER *)Packet_GetDataPtr(
         m_pRecvPacket, nOffset, sizeof( tag_CLAN_MEMBER ) ) ) {
         if ( char* pszCharName =
-            (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
+          (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset ) )
           CClan::GetInstance().ChangeClass( pszCharName, pMember->m_btClanPOS );
       }
     }
@@ -5551,8 +5551,8 @@ void CRecvPACKET::Recv_gsv_MALL_ITEM_REPLY() {
         assert(p->get_selecteditem_slotindex() >= 1);
         if ( p->get_selecteditem_slotindex() >= 1 ) {
           CTCommand* pCmdOk =
-              new CTCmdGiftMallItem( (BYTE)(p->get_selecteditem_slotindex() - 1),
-                                     p->get_receiver_name() );
+            new CTCmdGiftMallItem( (BYTE)(p->get_selecteditem_slotindex() - 1),
+                                   p->get_receiver_name() );
           g_itMGR.OpenMsgBox(
             CStr::Printf( "%s:%s{BR}%s:%s", STR_RECEIVER, p->get_receiver_name(),
                           STR_SENDING_ITEM, p->GetSelectedItemName() ),
@@ -6124,7 +6124,7 @@ void CRecvPACKET::Recv_gsv_BILLING_MESSAGE_EXT() {
             DWORD dwCurPayType = CGame::GetInstance().GetPayType();
 
             dwCurPayType &=
-                ~m_pRecvPacket->m_gsv_BILLING_MESSAGE_EXT.m_dwPlayingFlag[0];
+              ~m_pRecvPacket->m_gsv_BILLING_MESSAGE_EXT.m_dwPlayingFlag[0];
 
             CGame::GetInstance().SetPayType( (WORD)dwCurPayType );
           }
@@ -6378,11 +6378,11 @@ void CRecvPACKET::Recv_gsv_CART_RIDE() {
       sprintf( g_MsgBuf, STR_WANT_BOARDS, pAVT->Get_NAME() );
 
       CTCmdAcceptCartRide* pCmdOk =
-          new CTCmdAcceptCartRide( m_pRecvPacket->m_gsv_CART_RIDE.m_wOwnerObjIDX,
-                                   m_pRecvPacket->m_gsv_CART_RIDE.m_wGuestObjIDX );
+        new CTCmdAcceptCartRide( m_pRecvPacket->m_gsv_CART_RIDE.m_wOwnerObjIDX,
+                                 m_pRecvPacket->m_gsv_CART_RIDE.m_wGuestObjIDX );
       CTCmdRejectCartRide* pCmdCancel =
-          new CTCmdRejectCartRide( m_pRecvPacket->m_gsv_CART_RIDE.m_wOwnerObjIDX,
-                                   m_pRecvPacket->m_gsv_CART_RIDE.m_wGuestObjIDX );
+        new CTCmdRejectCartRide( m_pRecvPacket->m_gsv_CART_RIDE.m_wOwnerObjIDX,
+                                 m_pRecvPacket->m_gsv_CART_RIDE.m_wGuestObjIDX );
 
       g_itMGR.OpenMsgBox_CartRide( g_MsgBuf, CMsgBox::BT_OK | CMsgBox::BT_CANCEL,
                                    false, 0, pCmdOk, pCmdCancel,
@@ -6479,9 +6479,9 @@ void    CRecvPACKET::Recv_gsv_UPDATE_NAME() {
   short nOffset = sizeof( gsv_UPDATE_NAME );
 
   CObjAVT* pAVT =
-      g_pObjMGR->Get_CharAVT( g_pObjMGR->Get_ClientObjectIndex(
-                                m_pRecvPacket->m_gsv_UPDATE_NAME.m_nCharID ),
-                              false );
+    g_pObjMGR->Get_CharAVT( g_pObjMGR->Get_ClientObjectIndex(
+                              m_pRecvPacket->m_gsv_UPDATE_NAME.m_nCharID ),
+                            false );
 
   if ( pAVT == nullptr ) {
     return;

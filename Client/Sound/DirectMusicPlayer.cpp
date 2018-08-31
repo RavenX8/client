@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./directmusicplayer.h"
+#include "StdAfx.h"
+#include "./DirectMusicPlayer.h"
 #include "../CApplication.h"
 
 CDirectMusicPlayer::CDirectMusicPlayer(void) {}

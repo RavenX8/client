@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./citstate.h"
+#include "StdAfx.h"
+#include "./CITState.h"
 
 CITState::CITState(void) {}
 

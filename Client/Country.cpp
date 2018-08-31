@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./country.h"
+#include "StdAfx.h"
+#include "./Country.h"
 
 unsigned long ReadRegistryKeyValue(HKEY hRootKey, const char* Path, const char* KeyName) {
   HKEY        hKey;

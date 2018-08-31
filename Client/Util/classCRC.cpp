@@ -1,10 +1,10 @@
-#include <stdafx.h>
+#include <StdAfx.h>
 //	#include "stdAFX.h"
 
 #ifdef  __BORLANDC__
 	#include <VCL.h>
 #else
-#include <windows.h>
+#include <Windows.h>
 #endif
 
 #include <stdio.h>

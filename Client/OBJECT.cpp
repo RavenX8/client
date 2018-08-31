@@ -1,17 +1,17 @@
 /*
 	$Header: /Client/OBJECT.cpp 68    05-08-30 5:18p Gioend $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "OBJECT.h"
 #include "CObjMORPH.h"
 #include "CObjGROUND.h"
 #include "CObjCHAR.h"
 //#include "CMouse.h"
-#include "common/IO_AI.h"
+#include "Common/IO_AI.H"
 #include "Game_FUNC.h"
 #include "IO_Terrain.h"
 #include "Interface/it_mgr.h"
-#include "CObjCart.h"
+#include "CObjCART.h"
 #include "ObjCastleGear.h"
 #include "CViewMSG.h"
 #include "ObjFixedEvent.h"

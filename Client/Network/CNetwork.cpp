@@ -1,13 +1,13 @@
 /*
   $Header: /Client/Network/CNetwork.cpp 168   05-10-18 3:10p Young $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CNetwork.h"
 #include "../Interface/ExternalUI/ExternalUILobby.h"
 #include "../Interface/it_mgr.h"
 #include "../System/CGame.h"
-#include "../gameproc/LiveCheck.h"
-#include "../util/CSocketWND.h"
+#include "../GameProc/LiveCheck.h"
+#include "../Util/CSocketWND.h"
 #include "Debug.h"
 #include "Game.h"
 #include "IO_Terrain.h"

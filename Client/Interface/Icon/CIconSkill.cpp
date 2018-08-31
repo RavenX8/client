@@ -1,12 +1,12 @@
-#include "stdafx.h"
-#include "./ciconskill.h"
+#include "StdAfx.h"
+#include "./CIconSkill.h"
 #include "../SlotContainer/CSkillSlot.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../../GameCommon/Skill.h"
-#include "../Dlgs/SubClass/CSlot.h"
-#include "../interfacetype.h"
+#include "../DLGs/SubClass/CSlot.h"
+#include "../InterfaceType.h"
 #include "../it_mgr.h"
-#include "../../util/Localizing.h"
+#include "../../Util/Localizing.h"
 
 #include "SplitHangul.h"
 //----------------------------------------------------------------------------------------------------

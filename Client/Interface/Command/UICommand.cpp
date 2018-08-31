@@ -1,28 +1,28 @@
-#include "stdafx.h"
-#include "uicommand.h"
+#include "StdAfx.h"
+#include "UICommand.h"
 #include "CTCmdNumberInput.h"
 
-#include "../it_Mgr.h"
-#include "../../Object.h"
+#include "../it_mgr.h"
+#include "../../OBJECT.h"
 #include "../../System/CGame.h"
 
-#include "../Dlgs/CNumberInputDlg.h"
-#include "../Dlgs/QuickToolBAR.h"
-#include "../Dlgs/CUpgradeDlg.h"
-#include "../Dlgs/DeliveryStoreDlg.h"
+#include "../DLGs/CNumberInputDlg.h"
+#include "../DLGs/QuickToolBAR.h"
+#include "../DLGs/CUpgradeDlg.h"
+#include "../DLGs/DeliveryStoreDlg.h"
 #include "../Icon/CIconItem.h"
 #include "../Icon/CIconDialog.h"
 
 #include "../../Common/CItem.h"
-#include "../../Common/IO_Pat.h"
+#include "../../Common/IO_PAT.H"
 #include "../../GameData/CManufacture.h"
 #include "../../GameData/CSeparate.h"
-#include "../../gamedata/cprivatestore.h"
+#include "../../GameData/CPrivateStore.h"
 #include "../../GameCommon/Item.h"
 #include "../../System/CGame.h"
 
 #include "../../Network/CNetwork.h"
-#include "../Dlgs/CCommDlg.h"
+#include "../DLGs/CCommDlg.h"
 #include "../ClanMarkTransfer.h"
 #include "../../Country.h"
 
@@ -300,7 +300,7 @@ void CTCmdOpenNumberInputDlg::SetMaximum(__int64 i64Maximum) {
 }
 
 //*---------------------------------------------------------------------
-#include "../dlgs/CAvatarStoreDlg.h"
+#include "../DLGs/CAvatarStoreDlg.h"
 
 bool CTCmdDragItem2AvatarStoreDlg::Exec(CTObject* pObj) {
   if ( pObj == nullptr || strcmp( pObj->toString(), "CIcon" ) ) {

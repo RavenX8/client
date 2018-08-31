@@ -1,6 +1,6 @@
-#include "stdAFX.h"
-#include "CAI_FILE.h"
-#include "CAI_LIB.h"
+#include "StdAfx.h"
+#include "CAI_FILE.H"
+#include "CAI_LIB.H"
 
 #ifdef	__SERVER
 #include "ZoneLIST.h"

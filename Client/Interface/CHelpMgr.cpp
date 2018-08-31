@@ -1,10 +1,10 @@
-#include "stdafx.h"
-#include "./chelpmgr.h"
+#include "StdAfx.h"
+#include "./CHelpMgr.h"
 #include "it_mgr.h"
-#include "dlgs/CSystemMsgDlg.h"
-#include "interfacetype.h"
-#include "../Common/IO_STB.h"
-#include "../Object.h"
+#include "DLGs/CSystemMsgDlg.h"
+#include "InterfaceType.h"
+#include "../Common/io_stb.h"
+#include "../OBJECT.h"
 #include "../GameCommon/StringManager.h"
 
 CHelpMgr g_HelpMgr;

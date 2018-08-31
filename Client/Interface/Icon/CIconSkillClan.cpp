@@ -1,13 +1,13 @@
-#include "stdafx.h"
-#include "./ciconskillclan.h"
+#include "StdAfx.h"
+#include "./CIconSkillClan.h"
 #include "../SlotContainer/ClanSkillSlot.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../../GameCommon/Skill.h"
-#include "../Dlgs/SubClass/CSlot.h"
-#include "../interfacetype.h"
-#include "../../util/Localizing.h"
+#include "../DLGs/SubClass/CSlot.h"
+#include "../InterfaceType.h"
+#include "../../Util/Localizing.h"
 #include "../../GameData/CClan.h"
-#include "../../util/classTime.h"
+#include "../../Util/classTIME.h"
 
 CIconSkillClan::CIconSkillClan(void) {}
 

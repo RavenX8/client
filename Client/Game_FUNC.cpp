@@ -1,19 +1,20 @@
 /*
 	$Header: /Client/Game_FUNC.cpp 54    05-06-19 5:33p Navy $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "IO_Effect.h"
 #include "OBJECT.h"
 #include "Game_FUNC.h"
 #include "Event/Quest_FUNC.h"
-#include "interface/it_mgr.h"
-#include "gamedata/cbank.h"
-#include "gamedata/cseparate.h"
-#include "gamedata/cupgrade.h"
-#include "gamedata/cclan.h"
-#include "interface/command/uicommand.h"
+#include "Interface/it_mgr.h"
+#include "GameData/CBank.h"
+#include "GameData/CSeparate.h"
+#include "GameData/CUpgrade.h"
+#include "GameData/CClan.h"
+#include "Interface/Command/UICommand.h"
 #include "../System/CGame.h"
-#include "../network/cnetwork.h"
+#include "../Network/CNetwork.h"
+
 //-------------------------------------------------------------------------------------------------
 
 class GlobalSCRIPT {

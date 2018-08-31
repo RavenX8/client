@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./changevisibility.h"
+#include "StdAfx.h"
+#include "./ChangeVisibility.h"
 #include "../CObjCHAR.h"
 
 //----------------------------------------------------------------------------------------------------

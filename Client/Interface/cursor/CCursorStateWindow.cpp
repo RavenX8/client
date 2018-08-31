@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./ccursorstatewindow.h"
+#include "StdAfx.h"
+#include "./CCursorStateWindow.h"
 #include "CCursor.h"
 
 CCursorStateWindow::CCursorStateWindow(void) {

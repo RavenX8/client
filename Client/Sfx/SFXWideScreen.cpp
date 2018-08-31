@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./sfxwidescreen.h"
+#include "StdAfx.h"
+#include "./SFXWideScreen.h"
 
 CSFXWideScreen::CSFXWideScreen(void) {
   m_iType = SFX_WIDE_SCREEN;

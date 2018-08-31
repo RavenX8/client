@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "./cgamestateselectsvr.h"
+#include "StdAfx.h"
+#include "./CGameStateSelectSvr.h"
 #include "../Interface/ExternalUI/ExternalUILobby.h"
 #include "../CCamera.h"
 #include "../IO_Terrain.h"
-#include "../interface/CUIMediator.h"
+#include "../Interface/CUIMediator.h"
 
 #include "../Game.h"
 #include "../System/CGame.h"
@@ -14,13 +14,13 @@
 #include "../Interface/CTFontImpl.h"
 #include "../Interface/IO_ImageRes.h"
 
-#include "../Interface/IT_MGR.H"
+#include "../Interface/it_mgr.h"
 #include "../Interface/Command/CTCmdHotExec.h"
-#include "../Interface/Cursor/CCursor.h"
+#include "../Interface/cursor/CCursor.h"
 
 #include "../Common/IO_Quest.h"
 
-#include "../CSkyDOME.H"
+#include "../CSkyDOME.h"
 #include "TTIme.h"
 #include "SystemProcScript.h"
 

@@ -2,9 +2,9 @@
 #define _INVENTORY_DLG_H
 
 #include "../../../TGameCtrl/TDialog.h"
-#include "../../gamecommon/IObserver.h"
+#include "../../GameCommon/IObserver.h"
 #include "../Icon/CIconItem.h"
-#include "subclass/CSlot.h"
+#include "SubClass/CSlot.h"
 
 // *--------------------------------------------------------------------* //
 // 인벤토리 윈도우 

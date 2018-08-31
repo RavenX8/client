@@ -1,4 +1,4 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "IO_Motion.h"
 #ifndef	__SERVER
 #include "Game.h"

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cmakestatenormal.h"
+#include "StdAfx.h"
+#include "./CMakeStateNormal.h"
 #include "../../Icon/CIconItem.h"
 #include "../MakeDLG.h"
 #include "../../it_mgr.h"

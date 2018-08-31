@@ -3,8 +3,8 @@
 
 #include "../../../TGameCtrl/TDialog.h"
 #include "SubClass/CSlot.h"
-#include "../Common/CHotIcon.h"
-#include "../gamecommon/IObserver.h"
+#include "../Common/CHotICON.h"
+#include "../GameCommon/IObserver.h"
 
 /**
 * 스킬, 아이템등을 등록하여 단축키및 마우스클릭으로 사용할수 있는 다이얼로그

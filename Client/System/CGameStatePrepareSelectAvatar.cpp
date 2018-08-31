@@ -1,11 +1,11 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CGameStatePrepareSelectAvatar.h"
 #include <process.h>
 #include "CGame.h"
 #include "SystemProcScript.h"
 #include "../IO_Terrain.h"
 #include "../CCamera.h"
-#include "../CSkyDOME.H"
+#include "../CSkyDOME.h"
 #include "../Interface/ExternalUI/ExternalUILobby.h"
 #include "../Interface/CLoading.h"
 #include "../Interface/CUIMediator.h"

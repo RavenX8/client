@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./ctstring.h"
+#include "StdAfx.h"
+#include "./CTString.h"
 
 CTString::CTString(void) {}
 

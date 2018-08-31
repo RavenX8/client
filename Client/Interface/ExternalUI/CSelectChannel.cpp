@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cselectchannel.h"
+#include "StdAfx.h"
+#include "./CSelectChannel.h"
 #include "../Command/CTCmdHotExec.h"
 #include "../../Network/CNetwork.h"
 #include "ExternalUILobby.h"

@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "./cgoodsdlg.h"
+#include "StdAfx.h"
+#include "./CGoodsDlg.h"
 #include "../Icon/CIconItem.h"
 #include "TEditBox.h"
 #include "../../GameData/CPrivateStore.h"
-#include "../../common/io_stb.h"
+#include "../../Common/io_stb.h"
 
 CGoodsDlg::CGoodsDlg(int iDlgType) {
   SetDialogType( iDlgType );

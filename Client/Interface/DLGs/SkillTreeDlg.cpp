@@ -1,14 +1,14 @@
-#include "stdafx.h"
-#include "./skilltreedlg.h"
+#include "StdAfx.h"
+#include "./SkillTreeDlg.h"
 
-#include "icon/ciconskilldummy.h"
-#include "../../object.h"
-#include "../../gamecommon/skill.h"
+#include "Icon/CIconSkillDummy.h"
+#include "../../OBJECT.h"
+#include "../../GameCommon/Skill.h"
 
 #include "xmlparse.h"
 #include "../CInfo.h"
 #include "../CToolTipMgr.h"
-#include "../interfacetype.h"
+#include "../InterfaceType.h"
 
 void node_baseskill::clear() {
   SAFE_DELETE( m_icon );

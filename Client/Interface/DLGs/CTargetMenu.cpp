@@ -1,12 +1,12 @@
-#include "stdafx.h"
-#include "ctargetmenu.h"
+#include "StdAfx.h"
+#include "CTargetMenu.h"
 #include "CPartyDlg.h"
-#include "ExchangeDlg.h"
-#include "ChattingDlg.h"
+#include "ExchangeDLG.h"
+#include "ChattingDLG.h"
 #include "CAvatarStoreDlg.h"
 
 #include "../../JCommandState.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 #include "../it_mgr.h"
 
 #include "../../Network/CNetwork.h"

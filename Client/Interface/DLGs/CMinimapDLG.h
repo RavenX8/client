@@ -2,7 +2,7 @@
 #define _CMINIMAPDLG_
 
 #include "TDialog.h"
-#include "singlelinestring.h"
+#include "SinglelineString.h"
 class CTAnimation;
 
 /**

@@ -1,11 +1,11 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CQuest.h"
 #include "IO_Quest.h"
 
 #ifndef	__SERVER
 #include "../GameProc/CDayNNightProc.h"
 #include "../Game.h"
-#include "../interface/it_mgr.h"
+#include "../Interface/it_mgr.h"
 #else
 extern DWORD Get_WorldPassTIME();
 #endif

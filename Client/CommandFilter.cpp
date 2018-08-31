@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./commandfilter.h"
+#include "StdAfx.h"
+#include "./CommandFilter.h"
 #include "ObjectCommand/ObjCommand.h"
-#include "Object.h"
+#include "OBJECT.h"
 #include "GameCommon/Skill.h"
 
 CCommandFilter _CommandFilter;

@@ -1,9 +1,9 @@
-#include "stdAFX.h"
-#include "IO_STB.h"
+#include "StdAfx.h"
+#include "io_stb.h"
 #include "CInventory.h"
 
 #ifndef	__SERVER
-#include "..//Object.h"
+#include "../OBJECT.hh
 #endif
 
 /*

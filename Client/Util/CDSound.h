@@ -1,7 +1,7 @@
 #ifndef	__DLL_DSOUND_H
 #define	__DLL_DSOUND_H
-#include <MMSystem.h>
-#include <DSound.h>
+#include <mmsystem.h>
+#include <dsound.h>
 //-------------------------------------------------------------------------------------------------
 
 typedef struct tagSOUNDDATA t_sounddata;

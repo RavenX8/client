@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventclan.h"
+#include "StdAfx.h"
+#include "./CTEventClan.h"
 
 CTEventClan::CTEventClan(void) {
   m_strString = "CTEventClan";

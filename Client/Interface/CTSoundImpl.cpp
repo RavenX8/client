@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "ctsoundimpl.h"
+#include "StdAfx.h"
+#include "CTSoundImpl.h"
 #include "../Sound/IO_Sound.h"
 
 CTSoundImpl g_SoundImpl;

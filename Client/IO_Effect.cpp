@@ -1,11 +1,11 @@
 /*
 	$Header: /Client/IO_Effect.cpp 73    05-01-10 6:14p Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "Game.h"
 #include "Common/IO_Motion.h"
 #include "IO_Effect.h"
-#include "IO_Mesh.h"
+#include "IO_MESH.H"
 #include "Util//VFSManager.h"
 
 #include "CObjCHAR.h"

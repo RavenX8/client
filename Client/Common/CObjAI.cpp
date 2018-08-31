@@ -8,7 +8,7 @@
 	** 2004/4/28 **
 	서버와의 코드 분리로.. CObjAI 는 이제 클라이언트에서만 사용함..
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CObjCHAR.h"
 #include "OBJECT.h"
 #include "../Network/CNetwork.h"
@@ -1335,7 +1335,7 @@ int CObjAI::ProcCMD_STOP() {
 /// @brief  : 이동 프로세스..
 ///				이동중 대상이 NPC이거나, ITEM 일 경우 처리..
 //--------------------------------------------------------------------------------
-#include "../Interface/Dlgs/CAvatarStoreDlg.h"
+#include "../Interface/DLGs/CAvatarStoreDlg.h"
 
 int CObjAI::ProcCMD_MOVE() {
 

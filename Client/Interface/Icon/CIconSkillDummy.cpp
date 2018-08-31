@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "./ciconskilldummy.h"
+#include "StdAfx.h"
+#include "./CIconSkillDummy.h"
 #include "../IO_ImageRes.h"
-#include "../../common/IO_SKILL.H"
+#include "../../Common/IO_Skill.h"
 CIconSkillDummy::CIconSkillDummy(void) {}
 
 CIconSkillDummy::CIconSkillDummy(int skillindex) {

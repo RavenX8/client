@@ -5,7 +5,7 @@
 #define	__SKILL_H
 
 #include <list>
-#include "Bullet.h"
+#include "BULLET.H"
 #include "Common//IO_Skill.h"
 #include "../../TGameCtrl/TObject.h"
 

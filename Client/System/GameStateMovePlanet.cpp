@@ -1,15 +1,15 @@
-#include "stdafx.h"
-#include "./gamestatemoveplanet.h"
+#include "StdAfx.h"
+#include "./GameStateMovePlanet.h"
 #include "CCamera.h"
 #include "IO_Terrain.h"
 #include "CGame.h"
-#include "CSkyDome.h"
+#include "CSkyDOME.h"
 #include "SystemProcScript.h"
 #include "System_FUNC.h"
 #include "../GameProc/LiveCheck.h"
 #include "../CClientStorage.h"
 
-#include "SFX/SFXManager.h"
+#include "Sfx/SFXManager.h"
 
 const int CUTSCENE_ZONE_NO                      = 19;
 int       CGameStateMovePlanet::m_iTargetPlanet = 1;

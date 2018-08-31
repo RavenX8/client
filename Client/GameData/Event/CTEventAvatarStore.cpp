@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "./cteventavatarstore.h"
+#include "StdAfx.h"
+#include "./CTEventAvatarStore.h"
 
 CTEventAvatarStore::CTEventAvatarStore(void) {
   m_strString = "AvatarStore";

@@ -3,7 +3,7 @@
 */
 #ifndef	__CEVENT_H
 #define	__CEVENT_H
-#include "../util/classLUA.h"
+#include "../Util/classLUA.h"
 
 //-------------------------------------------------------------------------------------------------
 
