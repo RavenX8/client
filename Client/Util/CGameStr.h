@@ -5,15 +5,12 @@
 
 /// CSTR for VFS
 
-class CGameStr : public CStr
-{
+class CGameStr : public CStr {
 public:
-	CGameStr(){};
-	~CGameStr(){};
+  CGameStr() {};
+  ~CGameStr() {};
 
-	static char *ReadString ( CFileSystem* pFileSystem, bool bIgnoreWhiteSpace=true);
+  static char* ReadString(CFileSystem* pFileSystem, bool bIgnoreWhiteSpace = true);
 };
-
-
 
 #endif //_CGAMESTR_

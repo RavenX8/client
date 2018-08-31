@@ -3,20 +3,17 @@
 
 #include "../Util/JSingleton.h"
 
-
-class CLiveCheck : public CJSingleton< CLiveCheck >
-{
+class CLiveCheck : public CJSingleton<CLiveCheck> {
 private:
-	DWORD		m_dwElapsedTime;
-	DWORD		m_dwLastRecoveryUpdateTime;
+  DWORD m_dwElapsedTime;
+  DWORD m_dwLastRecoveryUpdateTime;
 
 public:
-	CLiveCheck(void);
-	~CLiveCheck(void);
+  CLiveCheck(void );
+  ~CLiveCheck(void);
 
-	void		Check();
-	void		ResetTime();
+  void Check();
+  void ResetTime();
 };
-
 
 #endif

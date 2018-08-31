@@ -17,24 +17,23 @@
 
 //--------------------------------------------------------------------------------
 class zz_index_buffer : public zz_device_resource {
-//--------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------
 protected:
-	int size_total; // buffer size. in bytes
+  int size_total; // buffer size. in bytes
 
 public:
 
-	zz_index_buffer ();
-	~zz_index_buffer ();
+  zz_index_buffer();
+  ~zz_index_buffer();
 
-	static int get_index_size ()
-	{
-		return sizeof(unsigned short);
-	}
+  static int get_index_size() {
+    return sizeof( unsigned short );
+  }
 
-	// virtuals from zz_device_resource
-	void create_buffer (uint16 num_indices_in);
-	void update_buffer (const void * buffer_in);
-	void destroy_buffer ();
+  // virtuals from zz_device_resource
+  void create_buffer(uint16      num_indices_in);
+  void update_buffer(const void* buffer_in);
+  void destroy_buffer();
 };
 
 #endif // __ZZ_INDEX_BUFFER_H__

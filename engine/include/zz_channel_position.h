@@ -21,27 +21,27 @@ class zz_motion;
 
 //--------------------------------------------------------------------------------
 class zz_channel_position : public zz_channel {
-	friend class zz_motion;
+  friend class zz_motion;
 
 protected:
-	vec3 * positions;
-	unsigned int num_positions;
+  vec3*        positions;
+  unsigned int num_positions;
 
 public:
-	zz_channel_position(void);
-	virtual ~zz_channel_position(void);
+          zz_channel_position(void );
+  virtual ~zz_channel_position(void);
 
-	// vector related
-	virtual void assign (int size);
-	virtual void clear (void);
-	virtual int size (void);
+  // vector related
+  void assign(int size) override;
+  void clear(void ) override;
+  int  size(void  ) override;
 
-	// set methods
-	virtual void get_by_frame (int frame, void * data_pointer);
-	virtual void get_by_time (zz_time time, int fps,  void * data_pointer);
-	
-	// set methods
-	virtual void set_by_frame (int frame, void * data_pointer);
+  // set methods
+  void get_by_frame(int    frame, void* data_pointer) override;
+  void get_by_time(zz_time time, int    fps, void* data_pointer) override;
+
+  // set methods
+  void set_by_frame(int frame, void* data_pointer) override;
 };
 
 #endif // __ZZ_CHANNEL_POSITION_H__

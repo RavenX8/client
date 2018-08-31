@@ -34,18 +34,16 @@
 
 class zz_elapsed_time {
 private:
-	DWORD start;
+  DWORD start;
 
 public:
-	zz_elapsed_time ()
-	{
-		start = timeGetTime();
-	}
+  zz_elapsed_time() {
+    start = timeGetTime();
+  }
 
-	long msec ()
-	{
-		return (timeGetTime() - start);
-	}
+  long msec() {
+    return (timeGetTime() - start);
+  }
 };
 
 //--------------------------------------------------------------------------------
@@ -76,79 +74,77 @@ public:
 
 class zz_unit_test_function {
 public:
-	zz_unit_test_function(const std::string& name);
+  zz_unit_test_function(const std::string& name);
 
-	enum e_result { eNotRun, eRunning, eUnknown, eSuccess, eFailure };
+  enum e_result { eNotRun, eRunning, eUnknown, eSuccess, eFailure };
 
-	const std::string& name () const { return name_; }
+  const std::string& name() const { return name_; }
 
-	e_result result () const { return result_; }
+  e_result result() const { return result_; }
 
-	long elapsed () const { return elapsed_; }
+  long elapsed() const { return elapsed_; }
 
-	const std::string& message () const { return message_; }
+  const std::string& message() const { return message_; }
 
-	const std::string& description () const { return description_; }
+  const std::string& description() const { return description_; }
 
-	std::string result_string () const;
+  std::string result_string() const;
 
-	void set_description (const std::string& s) { description_ = s; }
+  void set_description(const std::string& s) { description_ = s; }
 
-	void run (bool verbose = false);
+  void run(bool verbose = false);
 
 protected:
-	virtual void test () = 0;
+  virtual void test() = 0;
 
-	bool verify (bool state, const std::string& message="");
+  bool verify(bool state, const std::string& message = "");
 
-	// Verifies d1=d2, within a value delta. Used by VERIFYFLOAT()
-	bool verify_float (double d1, double d2);
+  // Verifies d1=d2, within a value delta. Used by VERIFYFLOAT()
+  bool verify_float(double d1, double d2);
 
-	void add_message (const std::string& message);
+  void add_message(const std::string& message);
 
-	bool verbose_;
+  bool verbose_;
 
-	e_result result_;
-	std::string name_;
-	std::string description_;
-	std::string message_;
-	long elapsed_;
+  e_result    result_;
+  std::string name_;
+  std::string description_;
+  std::string message_;
+  long        elapsed_;
 };
-
 
 class zz_unit_test {
 public:
-	// The only instance of this object we create
-	static zz_unit_test& g_only ();
+  // The only instance of this object we create
+  static zz_unit_test& g_only();
 
-	// Run all the unit tests. Returns true if all tests are ok
-	bool run (bool verbose = false);
+  // Run all the unit tests. Returns true if all tests are ok
+  bool run(bool verbose = false);
 
-	// Dump results to specified stream
-	void dump_results (std::ostream& out);
-	
-	int size () const { return static_cast<int>(tests_.size());}
-	
-	// Retrieves the specific test, or NULL if invalid index
-	const zz_unit_test_function* retrieve (int index) const;
+  // Dump results to specified stream
+  void dump_results(std::ostream& out);
 
-	// Used by our macro to add another unit test
-	void add_test (const std::string& name, zz_unit_test_function * test);
-	
-	~zz_unit_test();
+  int size() const { return static_cast<int>(tests_.size()); }
+
+  // Retrieves the specific test, or NULL if invalid index
+  const zz_unit_test_function* retrieve(int index) const;
+
+  // Used by our macro to add another unit test
+  void add_test(const std::string& name, zz_unit_test_function* test);
+
+  ~zz_unit_test();
 
 protected:
-	static unsigned long count_;
+  static unsigned long count_;
 
 private:
-	zz_unit_test ();  // We will only have one instance, gOnly()
+  zz_unit_test(); // We will only have one instance, gOnly()
 
-	static zz_unit_test * s_only_;  // Points to our only instance
+  static zz_unit_test* s_only_; // Points to our only instance
 
-	std::vector<zz_unit_test_function*> tests_; // Array of tests
-	time_t start_, stop_;                    // Start, stop time
+  std::vector<zz_unit_test_function*> tests_;        // Array of tests
+  time_t                              start_, stop_; // Start, stop time
 };
-
 
 //--------------------------------------------------------------------------------
 // This might look difficult, but it creates a unique class,

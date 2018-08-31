@@ -13,39 +13,34 @@ class ISFX;
 ///
 //-------------------------------------------------------------------------------------------
 
-class CSFXManager : public CJSingleton< CSFXManager >
-{
+class CSFXManager : public CJSingleton<CSFXManager> {
 private:
-	std::list< ISFX* >			m_SFXList;
-
+  std::list<ISFX*> m_SFXList;
 
 public:
-	CSFXManager(void);
-	~CSFXManager(void);
+  CSFXManager(void );
+  ~CSFXManager(void);
 
-	//-----------------------------------------------------------------------------------------
-	/// General purpose..
-	//-----------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------
+  /// General purpose..
+  //-----------------------------------------------------------------------------------------
 
-	void						Update();
-	void						Draw();
-	void						Clear();
+  void Update();
+  void Draw();
+  void Clear();
 
-	ISFX*						AddSFX( ISFX* pSFX );
-	bool						DeleteSFX( ISFX* pSFX );
+  ISFX* AddSFX(ISFX*    pSFX);
+  bool  DeleteSFX(ISFX* pSFX);
 
-	ISFX*						FindSFXWithType( int iSFXType );
+  ISFX* FindSFXWithType(int iSFXType);
 
-	//-----------------------------------------------------------------------------------------
-	/// Specific special effect
-	//-----------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------
+  /// Specific special effect
+  //-----------------------------------------------------------------------------------------
 
-	bool						StartWideScreenEffect();
-	void						StopWideScreenEffect();
-
+  bool StartWideScreenEffect();
+  void StopWideScreenEffect();
 
 };
-
-
 
 #endif //_SFX_MANAGER_

@@ -57,44 +57,40 @@
 //--------------------------------------------------------------------------------
 class zz_material_ocean : public zz_material {
 private:
-	void set_first();
-	void set_first_light();
-	int current_texture_index;
+  void set_first();
+  void set_first_light();
+  int  current_texture_index;
 public:
 
-	zz_material_ocean (void);
-	virtual ~zz_material_ocean (void);
-	virtual bool set (int pass);
-	
-	// manipulate current texture index
-	void set_current_texture_index (int index);
-	int get_current_texture_index (void);
-	void increase_current_texture_index ();
-	void decrease_current_texture_index ();
+          zz_material_ocean(void );
+  virtual ~zz_material_ocean(void);
+  bool    set(int                pass) override;
 
-	ZZ_DECLARE_DYNAMIC(zz_material_ocean)
+  // manipulate current texture index
+  void set_current_texture_index(int index);
+  int  get_current_texture_index(void);
+  void increase_current_texture_index();
+  void decrease_current_texture_index();
+
+ZZ_DECLARE_DYNAMIC(zz_material_ocean)
 };
 
-inline void zz_material_ocean::increase_current_texture_index ()
-{
-	current_texture_index = (++current_texture_index >= get_num_textures()) ? 0 : current_texture_index;
+inline void zz_material_ocean::increase_current_texture_index() {
+  current_texture_index = (++current_texture_index >= get_num_textures()) ? 0 : current_texture_index;
 }
 
-inline void zz_material_ocean::decrease_current_texture_index ()
-{
-	current_texture_index = (--current_texture_index < 0) ? get_num_textures()-1 : current_texture_index;
+inline void zz_material_ocean::decrease_current_texture_index() {
+  current_texture_index = (--current_texture_index < 0) ? get_num_textures() - 1 : current_texture_index;
 }
 
-inline void zz_material_ocean::set_current_texture_index (int index)
-{
-	int size = get_num_textures();
-	assert(index < get_num_textures());
-	current_texture_index = index;
+inline void zz_material_ocean::set_current_texture_index(int index) {
+  int       size = get_num_textures();
+  assert(index < get_num_textures());
+  current_texture_index = index;
 }
 
-inline int zz_material_ocean::get_current_texture_index (void)
-{
-	return current_texture_index;
+inline int zz_material_ocean::get_current_texture_index(void) {
+  return current_texture_index;
 }
 
 #endif __ZZ_MATERIAL_OCEAN_H__

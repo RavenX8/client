@@ -2,41 +2,43 @@
 #define _CGoodsDlg_
 #include "tdialog.h"
 #include "subclass/CSlot.h"
+
 /**
 * ∞≥¿ŒªÛ¡°ø° π∞«∞ µÓ∑œΩ√ ªÁøÎµ«¥¬ UI Dialog
 *
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/12
 */
-class CGoodsDlg : public CTDialog
-{
+class CGoodsDlg : public CTDialog {
 public:
-	CGoodsDlg(int iDlgType);
-	virtual ~CGoodsDlg(void);
-	virtual void Draw();
-	virtual void Show();
-	virtual void MoveWindow( POINT pt );
-	virtual void Update( POINT ptMouse );
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	
-	void	SetIcon( CIcon* pIcon );
-	void	SetType( int iType );
+           CGoodsDlg(int  iDlgType);
+  virtual  ~CGoodsDlg(void);
+  void     Draw() override;
+  void     Show() override;
+  void     MoveWindow(POINT pt) override;
+  void     Update(POINT     ptMouse) override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	enum{
-		ADD_SELLLIST,
-		ADD_BUYLIST
-	};
+  void SetIcon(CIcon* pIcon);
+  void SetType(int    iType);
+
+  enum {
+    ADD_SELLLIST,
+    ADD_BUYLIST
+  };
+
 private:
 
-	enum{
-		IID_TEXT_BUY		= 6,
-		IID_TEXT_SELL		= 7,
-		IID_BTN_CLOSE		= 10,
-		IID_BTN_CONFIRM		= 11,
-		IID_EDIT_PRICE		= 20,
-		IID_EDIT_QUANTITY	= 21,
-	};
-	int		m_iType;				/// ±∏¿‘»Ò∏¡ or ∆«∏≈»Ò∏¡ ±∏∫–
-	CSlot	m_Slot;
+  enum {
+    IID_TEXT_BUY = 6,
+    IID_TEXT_SELL = 7,
+    IID_BTN_CLOSE = 10,
+    IID_BTN_CONFIRM = 11,
+    IID_EDIT_PRICE = 20,
+    IID_EDIT_QUANTITY = 21,
+  };
+
+  int   m_iType; /// ±∏¿‘»Ò∏¡ or ∆«∏≈»Ò∏¡ ±∏∫–
+  CSlot m_Slot;
 };
 #endif

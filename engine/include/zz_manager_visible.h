@@ -23,10 +23,10 @@ class zz_manager_visible : public zz_manager {
 protected:
 
 public:
-	zz_manager_visible ();
-	virtual ~zz_manager_visible ();
-	
-	ZZ_DECLARE_DYNAMIC(zz_manager_visible);
+          zz_manager_visible();
+  virtual ~zz_manager_visible();
+
+ZZ_DECLARE_DYNAMIC(zz_manager_visible);
 };
 
 #endif // _ZZ_MANAGER_VISIBLE_H__

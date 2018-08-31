@@ -43,8 +43,8 @@ public :
 	}
 
 	// 장비에서 보석 분리시 필요한 mp & money
-	// param :
-	//		short ORI_QUAL = ITEM_QUALITY( pInITEM->GetTYPE(), pInITEM->GetItemNO() );
+// param :
+//		short ORI_QUAL = ITEM_QUALITY( pInITEM->GetTYPE(), pInITEM->GetItemNO() );
 	//		short GEM_QUAL = ITEM_QUALITY( ITEM_TYPE_GEM,	  pInITEM->GetGemNO() );
 	static int  GetMP_WhenBreakupGEM ( short ORI_QUAL, short GEM_QUAL )
 	{
@@ -67,8 +67,8 @@ public :
 	}
 
 	// 장비의 등급을 올릴때 필요한 mp & money
-	// param :
-	//		pInITEM->GetGrade ()
+// param :
+//		pInITEM->GetGrade ()
 	//		ITEM_QUALITY( pInITEM->GetTYPE(), pInITEM->GetItemNO() );
 	static int  GetMP_WhenUpgradeEQUIP ( short nCurGrade, short ITEM_QUAL )
 	{
@@ -90,4 +90,3 @@ public :
 
 //-------------------------------------------------------------------------------------------------
 #endif
- 

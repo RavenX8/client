@@ -8,18 +8,17 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CClanMark : public CWinCtrl
-{
+class CClanMark : public CWinCtrl {
 public:
-	CClanMark(void);
-	virtual ~CClanMark(void);
-	virtual void Draw();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	void SetGraphicID( int iID );
-	void SetModuleID( int iID );
+           CClanMark(void );
+  virtual  ~CClanMark(void);
+  void     Draw() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     SetGraphicID(int iID);
+  void     SetModuleID(int  iID);
 
 protected:
-	int	m_iGraphicID;
-	int m_iModuleID;
+  int m_iGraphicID;
+  int m_iModuleID;
 };
 #endif

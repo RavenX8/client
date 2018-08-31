@@ -67,23 +67,23 @@
 // vfs_mem class does not support write operations
 // and open by filename. Instead, use memory pointer.
 class zz_vfs_mem : public zz_vfs {
-	const char * _mp; // memory pointer
-	uint32 _mem_size; // memory size in byte
+  const char* _mp;       // memory pointer
+  uint32      _mem_size; // memory size in byte
 
-	// buf : buffer to be read into
-	// size : maximum size of the buffer
-	// return : size of the data that was read
-	uint32 read_ (char * buf, uint32 size);
-		
+  // buf : buffer to be read into
+  // size : maximum size of the buffer
+  // return : size of the data that was read
+  uint32 read_(char* buf, uint32 size) override;
+
 public:
-	zz_vfs_mem();
-	~zz_vfs_mem();
+  zz_vfs_mem();
+  ~zz_vfs_mem();
 
-	// mem_pointer: memory pointer of the buffer
-	bool open (const char * mem_pointer, uint32 mem_size);
-	bool close ();
-	
-	uint32 get_size () const;
+  // mem_pointer: memory pointer of the buffer
+  bool open(const char* mem_pointer, uint32 mem_size);
+  bool close() override;
+
+  uint32 get_size() const override;
 };
 
 #endif // __ZZ_VFS_MEM_H__

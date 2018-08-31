@@ -1,10 +1,9 @@
 #ifndef _CDecomposition_
 #define _CDecomposition_
 
-class CDecomposition
-{
+class CDecomposition {
 public:
-	CDecomposition(void);
-	~CDecomposition(void);
+  CDecomposition(void );
+  ~CDecomposition(void);
 };
 #endif

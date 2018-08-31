@@ -2,11 +2,10 @@
 #define _CItemEtc_
 #include "item.h"
 
-class CItemEtc : public CItem
-{
+class CItemEtc : public CItem {
 public:
-	CItemEtc(void);
-	virtual ~CItemEtc(void);
+          CItemEtc(void );
+  virtual ~CItemEtc(void);
 
 };
 

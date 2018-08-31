@@ -1,7 +1,6 @@
 #ifndef _RELOAD_PROCESS_
 #define _RELOAD_PROCESS_
 
-
 /**
 * 재장전에 필요한 시간을 표시하는 클래스
 * 
@@ -10,17 +9,15 @@
 * @Date		2005/9/5
 */
 
-class CReloadProcess
-{
+class CReloadProcess {
 
 public:
-	CReloadProcess(void);
-	virtual ~CReloadProcess(void);
+          CReloadProcess(void );
+  virtual ~CReloadProcess(void);
 
-	bool					LoadReloadTexture();
+  bool LoadReloadTexture();
 
-	void					Draw( int iX, int iY, int iModuleID, int iGraphicID, float fProcessRate );
+  void Draw(int iX, int iY, int iModuleID, int iGraphicID, float fProcessRate);
 };
-
 
 #endif //_RELOAD_PROCESS_

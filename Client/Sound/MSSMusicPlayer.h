@@ -13,8 +13,7 @@
 ///
 //---------------------------------------------------------------------------------------------
 
-class CMSSMusicPlayer : public CMusicPlayer
-{
+class CMSSMusicPlayer : public CMusicPlayer {
 private:
 #ifdef _USE_MSS
 	HDIGDRIVER		m_hDig;
@@ -24,20 +23,19 @@ private:
 #endif
 
 public:
-	CMSSMusicPlayer(void);
-	~CMSSMusicPlayer(void);
+  CMSSMusicPlayer(void );
+  ~CMSSMusicPlayer(void);
 
-	void	HandleEvent();
+  void HandleEvent() override;
 
-	bool	Init();
-	bool	Play( const char* fName );
-	void	Stop();
+  bool Init() override;
+  bool Play(const char* fName) override;
+  void Stop() override;
 
-	void	Run();
-	void    Pause();
-	
-	void	SetVolume( long lVolume );
+  void Run() override;
+  void Pause() override;
+
+  void SetVolume(long lVolume) override;
 };
-
 
 #endif //_MSS_MUSIC_PLAYER_

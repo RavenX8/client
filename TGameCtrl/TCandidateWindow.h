@@ -10,16 +10,15 @@
 /// @Author			√÷¡æ¡¯
 /// @Date			2005/8/30
 //---------------------------------------------------------------------------------------------------------------------
-class CTCandidateWindow : public CWinCtrl
-{
+class CTCandidateWindow : public CWinCtrl {
 public:
-	CTCandidateWindow(void);
-	virtual ~CTCandidateWindow(void);
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
+           CTCandidateWindow(void );
+  virtual  ~CTCandidateWindow(void);
+  unsigned Process(unsigned       uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	virtual void Draw(){};
-	virtual void AddCandidate( const char* pszCandidate ) = 0;
-	virtual void Clear() = 0;
-	virtual void SetSelection( short n ){}
+  void         Draw() override {};
+  virtual void AddCandidate(const char* pszCandidate) = 0;
+  virtual void Clear() = 0;
+  virtual void SetSelection(short n) {}
 };
 #endif

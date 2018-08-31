@@ -93,60 +93,60 @@
 #include "zz_node.h"
 #endif
 
-
 class zz_visible;
 struct zz_bounding_obb;
+
 // scene interface
 //--------------------------------------------------------------------------------
 class zz_scene : public zz_node {
 public:
-	zz_scene () {};
-	~zz_scene () {};
-	
-	virtual void render () = 0;
-	virtual void clear () = 0;
-	virtual void build () = 0;
-	virtual void insert (zz_visible * vis) = 0;
-	virtual void remove (zz_visible * vis) = 0;
-	virtual void refresh (zz_visible * vis) = 0;
-	virtual void update (zz_time diff_time) = 0;
-	virtual void update_object_sort () = 0;
-	virtual void update_init_list () = 0;
-	virtual void cull () = 0;
-	virtual void invalidate () = 0;
-	virtual bool is_valid () = 0;
-	virtual void increase_num_glows () = 0;
-	virtual int get_num_glows () = 0;
-	virtual void before_render () = 0;
-	virtual void after_render () = 0;
-	virtual void input_scene_sphere(float x, float y, float z, float r) = 0;
-	virtual void draw_scene_sphere() = 0;
-    virtual void input_scene_obb(const zz_bounding_obb *obb) = 0;
-	virtual void draw_scene_obb() = 0;
-	virtual void reset_scene_obb() = 0;
-    virtual void reset_scene_sphere() = 0;
-    virtual void input_scene_aabb(float min[3], float max[3], DWORD color) = 0;
-	virtual void draw_scene_aabb() = 0;
-    virtual void reset_scene_aabb() = 0;
-    virtual void input_scene_cylinder(float x, float y, float z, float length, float r) = 0;
-	virtual void draw_scene_cylinder() = 0;
-    virtual void reset_scene_cylinder() = 0;
-    virtual void input_scene_line(vec3& vec1, vec3& vec2) = 0;
-	virtual void draw_scene_line() = 0;
-    virtual void reset_scene_line() = 0;
-    virtual void input_scene_obb2(vec3& center, quat& rotation, float xlength, float ylength, float zlength) = 0;
-	virtual void draw_scene_obb2() = 0;
-	virtual void reset_scene_obb2() = 0;
-    virtual void input_scene_axis(zz_visible *vis,float size) = 0;
-	virtual void draw_scene_axis() = 0;
-	virtual void reset_scene_axis() = 0;
+  zz_scene() {};
+  ~zz_scene() {};
 
-	// get the sorted list by distance between the viewer position and the visible position
-	// list_out        : the new visible list 
-	// viewer_position : the position of the current camera
-	//void sort_by_distance (zz_list<zz_visible *>& list_out, const vec3& viewer_position_in);
+  virtual void render() = 0;
+  virtual void clear() = 0;
+  virtual void build() = 0;
+  virtual void insert(zz_visible*  vis) = 0;
+  virtual void remove(zz_visible*  vis) = 0;
+  virtual void refresh(zz_visible* vis) = 0;
+  virtual void update(zz_time      diff_time) = 0;
+  virtual void update_object_sort() = 0;
+  virtual void update_init_list() = 0;
+  virtual void cull() = 0;
+  virtual void invalidate() = 0;
+  virtual bool is_valid() = 0;
+  virtual void increase_num_glows() = 0;
+  virtual int  get_num_glows() = 0;
+  virtual void before_render() = 0;
+  virtual void after_render() = 0;
+  virtual void input_scene_sphere(float x, float y, float z, float r) = 0;
+  virtual void draw_scene_sphere() = 0;
+  virtual void input_scene_obb(const zz_bounding_obb* obb) = 0;
+  virtual void draw_scene_obb() = 0;
+  virtual void reset_scene_obb() = 0;
+  virtual void reset_scene_sphere() = 0;
+  virtual void input_scene_aabb(float min[3], float max[3], DWORD color) = 0;
+  virtual void draw_scene_aabb() = 0;
+  virtual void reset_scene_aabb() = 0;
+  virtual void input_scene_cylinder(float x, float y, float z, float length, float r) = 0;
+  virtual void draw_scene_cylinder() = 0;
+  virtual void reset_scene_cylinder() = 0;
+  virtual void input_scene_line(vec3& vec1, vec3& vec2) = 0;
+  virtual void draw_scene_line() = 0;
+  virtual void reset_scene_line() = 0;
+  virtual void input_scene_obb2(vec3& center, quat& rotation, float xlength, float ylength, float zlength) = 0;
+  virtual void draw_scene_obb2() = 0;
+  virtual void reset_scene_obb2() = 0;
+  virtual void input_scene_axis(zz_visible* vis, float size) = 0;
+  virtual void draw_scene_axis() = 0;
+  virtual void reset_scene_axis() = 0;
 
-	ZZ_DECLARE_DYNAMIC(zz_scene)
+  // get the sorted list by distance between the viewer position and the visible position
+  // list_out        : the new visible list 
+  // viewer_position : the position of the current camera
+  //void sort_by_distance (zz_list<zz_visible *>& list_out, const vec3& viewer_position_in);
+
+ZZ_DECLARE_DYNAMIC(zz_scene)
 };
 
 #endif // __ZZ_SCENE_H__

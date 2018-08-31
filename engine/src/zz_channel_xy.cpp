@@ -53,63 +53,53 @@
 #include "zz_channel.h"
 #include "zz_channel_xy.h"
 
-zz_channel_xy::zz_channel_xy(void) : zz_channel(ZZ_INTERP_LINEAR), xys(0), num_xys(0)
-{
+zz_channel_xy::zz_channel_xy(void) : zz_channel( ZZ_INTERP_LINEAR ), xys( nullptr ), num_xys( 0 ) {}
+
+zz_channel_xy::~zz_channel_xy(void) {
+  clear();
 }
 
-zz_channel_xy::~zz_channel_xy(void)
-{
-	clear();
+void zz_channel_xy::assign(int size) {
+  num_xys = size;
+  xys     = zz_new vec2 [size];
 }
 
-void zz_channel_xy::assign (int size)
-{
-	num_xys = size;
-	xys = zz_new vec2 [size];
+void zz_channel_xy::clear(void) {
+  num_xys = 0;
+  ZZ_SAFE_DELETE_ARRAY(xys);
 }
 
-void zz_channel_xy::clear (void)
-{
-	num_xys = 0;
-	ZZ_SAFE_DELETE_ARRAY(xys);
+int zz_channel_xy::size(void) {
+  return (int)num_xys;
 }
 
-int zz_channel_xy::size (void)
-{
-	return (int)num_xys;
+void zz_channel_xy::get_by_frame(int frame, void* data_pointer) {
+  assert(frame < (int)num_xys);
+  assert(frame >= 0);
+
+  vec2* data = static_cast<vec2 *>(data_pointer);
+
+  *data = xys[frame];
 }
 
-void zz_channel_xy::get_by_frame (int frame, void * data_pointer)
-{
-	assert(frame < (int)num_xys);
-	assert(frame >= 0);
-	
-	vec2 * data = static_cast<vec2 *>(data_pointer);
-	
-	*data = xys[frame];
+void    zz_channel_xy::get_by_time(zz_time time, int fps, void* data_pointer) {
+  int   start_frame, next_frame;
+  float ratio;
+  vec2* data = static_cast<vec2 *>(data_pointer);
+
+  switch ( interp_style ) {
+    case ZZ_INTERP_LINEAR: time_to_frame( time, start_frame, next_frame, ratio, (int)num_xys, fps );
+      // lerp
+      data->x = xys[start_frame].x * ratio + xys[next_frame].x * (1.0f - ratio);
+      data->y = xys[start_frame].y * ratio + xys[next_frame].y * (1.0f - ratio);
+      break;
+    default: // ZZ_INTERP_NONE
+      time_to_frame( time, start_frame, next_frame, ratio, (int)num_xys, fps );
+      *data = xys[start_frame];
+      break;
+  }
 }
 
-void zz_channel_xy::get_by_time (zz_time time, int fps, void * data_pointer)
-{
-	int start_frame, next_frame;
-	float ratio;
-	vec2 * data = static_cast<vec2 *>(data_pointer);
-	
-	switch (interp_style) {
-		case ZZ_INTERP_LINEAR:
-			time_to_frame(time, start_frame, next_frame, ratio, (int)num_xys, fps);
-			// lerp
-			data->x = xys[start_frame].x*ratio + xys[next_frame].x*(1.0f-ratio);
-			data->y = xys[start_frame].y*ratio + xys[next_frame].y*(1.0f-ratio);
-			break;
-		default: // ZZ_INTERP_NONE
-			time_to_frame(time, start_frame, next_frame, ratio, (int)num_xys, fps);
-			*data = xys[start_frame];
-			break;
-	}
-}
-
-void zz_channel_xy::set_by_frame (int frame, void * data_pointer)
-{
-	xys[frame] = *(vec2 *)data_pointer;
+void zz_channel_xy::set_by_frame(int frame, void* data_pointer) {
+  xys[frame] = *(vec2 *)data_pointer;
 }

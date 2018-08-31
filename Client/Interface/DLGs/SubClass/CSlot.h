@@ -1,7 +1,6 @@
 #ifndef _CSLOT_
 #define _CSLOT_
 
-
 #include "WinCtrl.h"
 
 class CIcon;
@@ -19,51 +18,45 @@ class CDragItem;
 * @Date		2005/9/15
 */
 //-------------------------------------------------------------------------------------------
-class CSlot : public CWinCtrl
-{
+class CSlot : public CWinCtrl {
 public:
-	CSlot(void);
-	virtual ~CSlot(void);
-	virtual bool	AttachIcon( CIcon* pIcon );
-	virtual void	DetachIcon();
-	virtual CIcon *	MoveIcon();
+                 CSlot(void        );
+  virtual        ~CSlot(void       );
+  virtual bool   AttachIcon(CIcon* pIcon);
+  virtual void   DetachIcon();
+  virtual CIcon* MoveIcon();
 
-	virtual void	Draw();
-	virtual unsigned int Process( UINT uiMsg,WPARAM wParam,LPARAM lParam );
-	virtual void	MoveWindow( POINT pt );///Parent Dialog의 Left-Top Point
-	virtual void	Update( POINT ptMouse );
+  void         Draw() override;
+  unsigned int Process(UINT     uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void         MoveWindow(POINT pt) override; ///Parent Dialog의 Left-Top Point
+  void         Update(POINT     ptMouse) override;
 
+  CIcon* GetIcon() { return m_pIcon; }
 
+  void SetParent(int iID);
+  int  GetParent();
+  void SetDragAvailable();
+  void SetDragDisable();
 
+  void       SetDragItem(CDragItem* pDragItem);
+  CDragItem* GetDragItem();
+  void       SetCommand(CTCommand* pCmd);
+  void       ResetClicked();
 
-	CIcon*	GetIcon(){ return m_pIcon; }
-
-	void		SetParent( int iID );
-	int			GetParent();
-	void		SetDragAvailable();
-	void		SetDragDisable();
-		
-
-	void		SetDragItem( CDragItem* pDragItem );
-	CDragItem*	GetDragItem();
-	void		SetCommand( CTCommand* pCmd );
-	void		ResetClicked();
-
-	void		SetTooltipType( DWORD dwType );
+  void SetTooltipType(DWORD dwType);
 protected:
-	void    SetIconPosition( POINT pt );
-	void	SetPosition( POINT pt );
-
+  void SetIconPosition(POINT pt);
+  void SetPosition(POINT     pt);
 
 protected:
-	CIcon*		m_pIcon;
-	int			m_iParentID;		/// Slot의 Parent ID( 현재는 TDialog만 가능 ..)
-	bool		m_bDragAvailable;	/// Slot에 Item이 있을때 Drag가능한가?
-	CDragItem*	m_pDragItem;
-	CTCommand*	m_pCommand;			/// Slot이 비어있을경우에 실행되는 Command
-	bool		m_bClicked;
-	POINT		m_ptClicked;
-	DWORD       m_dwTooltipType;
+  CIcon*     m_pIcon;
+  int        m_iParentID;      /// Slot의 Parent ID( 현재는 TDialog만 가능 ..)
+  bool       m_bDragAvailable; /// Slot에 Item이 있을때 Drag가능한가?
+  CDragItem* m_pDragItem;
+  CTCommand* m_pCommand; /// Slot이 비어있을경우에 실행되는 Command
+  bool       m_bClicked;
+  POINT      m_ptClicked;
+  DWORD      m_dwTooltipType;
 };
 
 /*
@@ -81,21 +74,20 @@ protected:
 /**
 * CPrivateStoreDlg에서 매입탭에 사용되는 Slot
 */
-class CSlotBuyPrivateStore : public CSlot
-{
+class CSlotBuyPrivateStore : public CSlot {
 public:
-	CSlotBuyPrivateStore(void);
-	virtual ~CSlotBuyPrivateStore(void){}
-	virtual void DetachIcon();
-	virtual void Draw();
-	virtual unsigned int Process( UINT uiMsg,WPARAM wParam,LPARAM lParam );
-	void	SetExhibition( bool b );
-	bool	IsExhibition();
-	bool	IsSelected();
-	void	SetSelected();
+               CSlotBuyPrivateStore(void );
+  virtual      ~CSlotBuyPrivateStore(void) {}
+  void         DetachIcon() override;
+  void         Draw() override;
+  unsigned int Process(UINT       uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void         SetExhibition(bool b);
+  bool         IsExhibition();
+  bool         IsSelected();
+  void         SetSelected() override;
 protected:
-	bool		m_bExhibition;///찜목록에서 선택해서 매입 리스트에 올려진 아이템을 가지고 있는가?
-	static		CSlotBuyPrivateStore* s_pSelectedSlot;
+  bool                         m_bExhibition; ///찜목록에서 선택해서 매입 리스트에 올려진 아이템을 가지고 있는가?
+  static CSlotBuyPrivateStore* s_pSelectedSlot;
 
 };
 #endif

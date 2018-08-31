@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include ".\cdialogdlg.h"
+#include "./cdialogdlg.h"
 #include "../../Object.h"
 #include "../it_MGR.h"
 #include "subclass/CDialogNpcScriptItem.h"
@@ -17,438 +17,393 @@
 #include "../../System/CGame.h"
 
 const int BG_IMAGE_HEIGHT = 150;
-CDialogDlg::CDialogDlg(void)
-{
-	m_hNpcFace = NULL;
-	m_heightNpcFace = 0;
-	m_widthNpcFace  = 0;
+
+CDialogDlg::CDialogDlg(void) {
+  m_hNpcFace      = NULL;
+  m_heightNpcFace = 0;
+  m_widthNpcFace  = 0;
 }
 
-CDialogDlg::~CDialogDlg(void)
-{
+CDialogDlg::~CDialogDlg(void) {}
 
+void CDialogDlg::SetScript(char* pszScript) {
+  assert( pszScript );
+  if ( pszScript == nullptr ) return;
+
+  if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
+    SetHeight( BG_IMAGE_HEIGHT );
+    m_strTempScript.clear();
+    m_strTempScript = pszScript;
+
+    CWinCtrl* pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
+    if ( pCtrl == nullptr )
+      return;
+
+    CZListBox* pListBox = (CZListBox*)pCtrl;
+    pListBox->Clear();
+  } else {
+    CTCaption* pCaption = GetCaption();
+    assert( pCaption );
+    if ( pCaption == nullptr ) return;
+    SetHeight( pCaption->GetHeight() );
+
+    CWinCtrl* pCtrl = Find( IID_ZLISTBOX_NPCSCRIPT );
+    assert( pCtrl );
+    if ( pCtrl == nullptr ) return;
+
+    int        iListBoxHeight = 0;
+    CZListBox* pListBox       = (CZListBox*)pCtrl;
+    pListBox->Clear();
+
+    int                   iWidth      = 350;
+    int                   iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_TOP" );
+    int                   iLineHeight = 16;
+    CDialogNpcScriptItem* pItem       = new CDialogNpcScriptItem( 0, nullptr, iImageID, iLineHeight, iWidth, 0 );
+    pListBox->Add( pItem );
+    iListBoxHeight += pItem->GetHeight();
+
+    iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_MIDDLE" );
+    iLineHeight = 20;
+    pItem       = new CDialogNpcScriptItem( 1, pszScript, iImageID, iLineHeight, iWidth, 25 );
+    pListBox->Add( pItem );
+    iListBoxHeight += pItem->GetHeight();
+
+    iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_BOTTOM" );
+    iLineHeight = 16;
+    pItem       = new CDialogNpcScriptItem( -1, nullptr, iImageID, iLineHeight, iWidth, 0 );
+    pListBox->Add( pItem );
+    iListBoxHeight += pItem->GetHeight();
+
+    pListBox->SetHeight( iListBoxHeight );
+    SetHeight( GetHeight() + iListBoxHeight );
+
+    pListBox->SetValue( 0 );
+    pListBox->SetExtent( 3 );
+
+    ///ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ListBoxï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+    pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
+    assert( pCtrl );
+    if ( pCtrl == nullptr ) return;
+
+    pListBox = (CZListBox*)pCtrl;
+    pListBox->SetOffset( 0, GetHeight() );
+    MoveWindow( m_sPosition );
+
+    pListBox->Clear();
+
+    int iAnswerListBoxHeight                = 0;
+    iImageID                                = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_ANSWER_TOP" );
+    iLineHeight                             = 10;
+    iWidth                                  = 350;
+    CDialogNpcScriptAnswerItem* pAnswerItem = new CDialogNpcScriptAnswerItem( 0, nullptr, 0, nullptr, iImageID, iLineHeight, iWidth );
+    pListBox->Add( pAnswerItem );
+    iAnswerListBoxHeight += pAnswerItem->GetHeight();
+
+    iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_ANSWER_BOTTOM" );
+    iLineHeight = 17;
+    pAnswerItem = new CDialogNpcScriptAnswerItem( -1, nullptr, 0, nullptr, iImageID, iLineHeight, iWidth );
+    pListBox->Add( pAnswerItem );
+    iAnswerListBoxHeight += pAnswerItem->GetHeight();
+
+    pListBox->SetExtent( 2 );
+    pListBox->SetValue( 0 );
+    pListBox->SetHeight( iAnswerListBoxHeight );
+    SetHeight( GetHeight() + iAnswerListBoxHeight );
+  }
 }
 
-void CDialogDlg::SetScript( char* pszScript )
-{
-	assert( pszScript ); if( pszScript == NULL ) return;
+void CDialogDlg::AddAnswerExample(char* pszScript, int iEventID, void (*fpEventHandle)(int iEventID)) {
+  if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
+    CWinCtrl* pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
+    assert( pCtrl );
+    if ( pCtrl == nullptr ) return;
+    assert( pszScript );
+    if ( pszScript == nullptr ) return;
+    CZListBox* pListBox   = (CZListBox*)pCtrl;
+    int        iItemCount = pListBox->GetSize();
 
+    int iWidth = g_pCApp->GetWIDTH();
 
-	if( CCountry::GetSingleton().IsApplyNewVersion() )
-	{
-		SetHeight( BG_IMAGE_HEIGHT );	
-		m_strTempScript.clear();	
-		m_strTempScript = pszScript;
+    CDialogNpcScriptAnswerItemNew* pAnswerItem = new CDialogNpcScriptAnswerItemNew(
+      iItemCount + 1, pszScript, iEventID, fpEventHandle, iWidth );
 
+    pListBox->Add( pAnswerItem );
+    pListBox->SetExtent( iItemCount + 1 );
+    pListBox->SetValue( 0 );
+    pListBox->SetHeight( pListBox->GetHeight() + pAnswerItem->GetHeight() );
+    pListBox->SetWidth( iWidth );
 
-		CWinCtrl* pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
-		if( pCtrl == NULL ) 
-			return;
+    SetHeight( GetHeight() + pAnswerItem->GetHeight() );
+  } else {
+    CWinCtrl* pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
+    assert( pCtrl );
+    if ( pCtrl == nullptr ) return;
+    assert( pszScript );
+    if ( pszScript == nullptr ) return;
+    CZListBox* pListBox   = (CZListBox*)pCtrl;
+    int        iItemCount = pListBox->GetSize();
 
-		CZListBox* pListBox = (CZListBox*)pCtrl;
-		pListBox->Clear();
-	}
-	else
-	{
-		CTCaption* pCaption = GetCaption();
-		assert( pCaption ); if( pCaption == NULL ) return;
-		SetHeight( pCaption->GetHeight() );
+    if ( iItemCount <= 0 ) return;
 
-		CWinCtrl* pCtrl = Find( IID_ZLISTBOX_NPCSCRIPT );
-		assert( pCtrl ); if( pCtrl == NULL ) return;
+    int                         iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_ANSWER_MIDDLE" );
+    int                         iHeight     = 25;
+    int                         iWidth      = 350;
+    CDialogNpcScriptAnswerItem* pAnswerItem = new CDialogNpcScriptAnswerItem(
+      iItemCount - 1, pszScript, iEventID, fpEventHandle,
+      iImageID, iHeight, iWidth );
 
-		int iListBoxHeight = 0;
-		CZListBox* pListBox = (CZListBox*)pCtrl;
-		pListBox->Clear();
+    pListBox->InsertItem( iItemCount - 1, pAnswerItem );
+    pListBox->SetExtent( pListBox->GetExtent() + 1 );
 
-		int iWidth		= 350;
-		int iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_TOP" );
-		int iLineHeight = 16;
-		CDialogNpcScriptItem* pItem = new CDialogNpcScriptItem( 0, NULL , iImageID, iLineHeight, iWidth , 0 );
-		pListBox->Add( pItem ); iListBoxHeight += pItem->GetHeight();
+    pListBox->SetValue( 0 );
+    pListBox->SetHeight( pListBox->GetHeight() + pAnswerItem->GetHeight() );
 
-
-		iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_MIDDLE" );
-		iLineHeight = 20;
-		pItem = new CDialogNpcScriptItem( 1, pszScript , iImageID, iLineHeight, iWidth , 25 );
-		pListBox->Add( pItem ); iListBoxHeight += pItem->GetHeight();
-
-		iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_BOTTOM" );
-		iLineHeight = 16;
-		pItem = new CDialogNpcScriptItem( -1, NULL , iImageID, iLineHeight, iWidth , 0);
-		pListBox->Add( pItem ); iListBoxHeight += pItem->GetHeight();
-
-		pListBox->SetHeight( iListBoxHeight );
-		SetHeight( GetHeight() + iListBoxHeight );
-
-		pListBox->SetValue( 0 );
-		pListBox->SetExtent( 3 );
-
-
-		///´äº¯ ¿¹Á¦¸¦ ´ãÀ» ListBoxÀÇ À§Ä¡¸¦ Á¶Á¤ÇÑ´Ù.
-		pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
-		assert( pCtrl ); if( pCtrl == NULL ) return;
-
-		pListBox = (CZListBox*)pCtrl;
-		pListBox->SetOffset( 0, GetHeight() );
-		MoveWindow( m_sPosition );
-
-		pListBox->Clear();
-
-
-		int iAnswerListBoxHeight = 0;
-		iImageID = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_ANSWER_TOP" );
-		iLineHeight  = 10;
-		iWidth   = 350;
-		CDialogNpcScriptAnswerItem* pAnswerItem = new CDialogNpcScriptAnswerItem( 0, NULL ,0 , NULL , iImageID, iLineHeight, iWidth );
-		pListBox->Add( pAnswerItem ); iAnswerListBoxHeight += pAnswerItem->GetHeight();
-
-
-		iImageID = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_ANSWER_BOTTOM" );
-		iLineHeight  = 17;
-		pAnswerItem = new CDialogNpcScriptAnswerItem( -1, NULL , 0 , NULL ,iImageID, iLineHeight , iWidth );
-		pListBox->Add( pAnswerItem ); iAnswerListBoxHeight += pAnswerItem->GetHeight();
-
-		pListBox->SetExtent( 2 );
-		pListBox->SetValue( 0 );
-		pListBox->SetHeight( iAnswerListBoxHeight );
-		SetHeight( GetHeight() + iAnswerListBoxHeight );
-	}
+    SetHeight( GetHeight() + pAnswerItem->GetHeight() );
+  }
 }
 
-void CDialogDlg::AddAnswerExample( char* pszScript , int iEventID , void (*fpEventHandle)(int iEventID))
-{
-	if( CCountry::GetSingleton().IsApplyNewVersion() )
-	{
-		CWinCtrl* pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
-		assert( pCtrl ); if( pCtrl == NULL ) return;
-		assert( pszScript ); if( pszScript == NULL ) return;
-		CZListBox* pListBox = (CZListBox*)pCtrl;
-		int iItemCount = pListBox->GetSize();
+unsigned CDialogDlg::Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) {
+  if ( !IsVision() ) return 0;
+  if ( unsigned uiProcID = CTDialog::Process( uiMsg, wParam, lParam ) ) {
+    if ( uiProcID == IID_BTN_CLOSE && uiMsg == WM_LBUTTONUP )
+      Hide();
 
-		int iWidth	 = g_pCApp->GetWIDTH();
+    //if( CCountry::GetSingleton().IsApplyNewVersion() )
+    //{
+    //	if( uiProcID == WM_KEYUP && wParam == VK_ESCAPE )
+    //		Hide();
+    //}
 
-		CDialogNpcScriptAnswerItemNew* pAnswerItem = new CDialogNpcScriptAnswerItemNew( 
-															iItemCount + 1, pszScript, iEventID, fpEventHandle, iWidth );
+    return uiMsg;
+  }
 
-		pListBox->Add( pAnswerItem );
-		pListBox->SetExtent( iItemCount + 1 );
-		pListBox->SetValue( 0 );
-		pListBox->SetHeight( pListBox->GetHeight() + pAnswerItem->GetHeight() );
-		pListBox->SetWidth( iWidth );
+  if ( CCountry::GetSingleton().IsApplyNewVersion() )
+    return uiMsg;
 
-		SetHeight( GetHeight() + pAnswerItem->GetHeight() );
-	}
-	else
-	{
-		CWinCtrl* pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
-		assert( pCtrl ); if( pCtrl == NULL ) return;
-		assert( pszScript ); if( pszScript == NULL ) return;
-		CZListBox* pListBox = (CZListBox*)pCtrl;
-		int iItemCount = pListBox->GetSize();
-
-		if( iItemCount <= 0 ) return;
-
-		int iImageID = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_ANSWER_MIDDLE" );
-		int iHeight  = 25;
-		int iWidth	 = 350;
-		CDialogNpcScriptAnswerItem* pAnswerItem = new CDialogNpcScriptAnswerItem( 
-															iItemCount -1, pszScript, iEventID, fpEventHandle, 
-															iImageID, iHeight , iWidth );
-
-
-
-		pListBox->InsertItem( iItemCount - 1 , pAnswerItem  );
-		pListBox->SetExtent( pListBox->GetExtent() + 1 );
-
-		pListBox->SetValue( 0 );
-		pListBox->SetHeight( pListBox->GetHeight() + pAnswerItem->GetHeight() );
-
-		SetHeight( GetHeight() + pAnswerItem->GetHeight() );
-	}
+  return 0;
 }
 
-unsigned CDialogDlg::Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam )
-{
-	if( !IsVision() ) return 0;
-	if( unsigned uiProcID = CTDialog::Process( uiMsg, wParam, lParam ) )
-	{
-		if( uiProcID == IID_BTN_CLOSE && uiMsg == WM_LBUTTONUP )
-			Hide();
+void CDialogDlg::Update(POINT ptMouse) {
+  if ( !IsVision() ) return;
 
-		//if( CCountry::GetSingleton().IsApplyNewVersion() )
-		//{
-		//	if( uiProcID == WM_KEYUP && wParam == VK_ESCAPE )
-		//		Hide();
-		//}
+  CTDialog::Update( ptMouse );
+  CGameOBJ* pObj = g_pObjMGR->Get_OBJECT( m_nTargetClientIdx );
 
-		return uiMsg;
-	}
-
-	if( CCountry::GetSingleton().IsApplyNewVersion() )
-		return uiMsg;
-
-	return 0;
+  ///NPC Objectï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Ö´Âµï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½Ì»ï¿½ï¿½Ì¶ï¿½ï¿½ 
+  if ( pObj == nullptr )
+    Hide();
+  else if ( g_pAVATAR->Get_DISTANCE( pObj->Get_CurPOS() ) >= 1000 )
+    Hide();
 }
 
-void CDialogDlg::Update( POINT ptMouse )
-{
-	if( !IsVision() ) return;
+void CDialogDlg::SetTargetNpcClientObjectIndex(short iIndex) {
+  m_nTargetClientIdx = iIndex;
+  CGameOBJ* pObj     = g_pObjMGR->Get_OBJECT( iIndex );
+  if ( pObj && pObj->IsA( OBJ_NPC ) ) {
+    m_strNpcName = pObj->Get_NAME();
+    CObjNPC* p   = (CObjNPC*)pObj;
 
-	CTDialog::Update( ptMouse );
-	CGameOBJ* pObj = g_pObjMGR->Get_OBJECT( m_nTargetClientIdx );
+    if ( CTDialog* pDlg     = g_itMGR.FindDlg( DLG_TYPE_MINIMAP ) ) {
+      CMinimapDLG* pMinimap = (CMinimapDLG*)pDlg;
+      if ( pMinimap->GetIndicatorNpc( p->Get_CharNO() ) )
+        pMinimap->RemoveAutodeleteIndicatorNpc( p->Get_CharNO() );
+    }
 
-	///NPC Object°¡ ¾ø°Å³ª ÀÖ´Âµ¥ °Å¸®°¡ ÀÏÁ¤ °Å¸® ÀÌ»óÀÌ¶ó¸é 
-	if( pObj == NULL )
-		Hide();
-	else if( g_pAVATAR->Get_DISTANCE( pObj->Get_CurPOS() ) >= 1000 )
-		Hide();
+    if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
+      if ( m_hNpcFace ) {
+        unloadTexture( m_hNpcFace );
+        m_hNpcFace      = NULL;
+        m_widthNpcFace  = 0;
+        m_heightNpcFace = 0;
+      }
+
+      m_hNpcFace = CImageResManager::GetSingleton().Load_NpcFace( NPC_FACE_ICON( p->Get_CharNO() ) );
+      if ( m_hNpcFace )
+        getTextureSize( m_hNpcFace, m_widthNpcFace, m_heightNpcFace );
+    }
+
+    m_Script.Clear();
+    if ( !m_strTempScript.empty() ) {
+      m_Script.SetSplitType( CJStringParser::SPLIT_WORD );
+      m_Script.SetDefaultColor( g_dwWHITE );
+      m_Script.SetDefaultFont( FONT_OUTLINE_11_BOLD );
+      m_Script.SetString( m_strTempScript.c_str(), GetWidth() - (m_widthNpcFace + 100) );
+    }
+  }
 }
 
-void CDialogDlg::SetTargetNpcClientObjectIndex( short iIndex )
-{
-	m_nTargetClientIdx = iIndex;
-	CGameOBJ* pObj = g_pObjMGR->Get_OBJECT( iIndex );
-	if( pObj && pObj->IsA( OBJ_NPC) )
-	{
-		m_strNpcName = pObj->Get_NAME();
-		CObjNPC* p = (CObjNPC*)pObj;
-		
-		if( CTDialog* pDlg = g_itMGR.FindDlg( DLG_TYPE_MINIMAP ) )
-		{
-			CMinimapDLG* pMinimap = (CMinimapDLG*)pDlg;
-			if( pMinimap->GetIndicatorNpc( p->Get_CharNO() ) )
-				pMinimap->RemoveAutodeleteIndicatorNpc( p->Get_CharNO() );
-		}
+int CDialogDlg::IsInValidShow() {
+  if ( g_pAVATAR && g_pAVATAR->Get_HP() <= 0 )
+    return 99;
 
+  if ( g_itMGR.IsDlgOpened( DLG_TYPE_DEAL ) )
+    return DLG_TYPE_DEAL;
 
-		if( CCountry::GetSingleton().IsApplyNewVersion() )
-		{
-			if( m_hNpcFace )
-			{
-				unloadTexture( m_hNpcFace );
-				m_hNpcFace = NULL;
-				m_widthNpcFace	= 0;
-				m_heightNpcFace = 0;
-			}
+  if ( g_itMGR.IsDlgOpened( DLG_TYPE_EXCHANGE ) )
+    return DLG_TYPE_EXCHANGE;
 
-			m_hNpcFace = CImageResManager::GetSingleton().Load_NpcFace( NPC_FACE_ICON( p->Get_CharNO() ) );
-			if( m_hNpcFace )
-				::getTextureSize( m_hNpcFace, m_widthNpcFace, m_heightNpcFace );
-		}
+  if ( g_itMGR.IsDlgOpened( DLG_TYPE_DIALOG ) )
+    return DLG_TYPE_DIALOG;
 
-		m_Script.Clear();
-		if( !m_strTempScript.empty() )
-		{
-			m_Script.SetSplitType( CJStringParser::SPLIT_WORD );
-			m_Script.SetDefaultColor( g_dwWHITE );
-			m_Script.SetDefaultFont( FONT_OUTLINE_11_BOLD );
-			m_Script.SetString( m_strTempScript.c_str(), GetWidth() - ( m_widthNpcFace + 100 ) );
-		}
-	}
+  if ( g_itMGR.IsDlgOpened( DLG_TYPE_MAKE ) )
+    return DLG_TYPE_MAKE;
+
+  return 0;
 }
 
-int	 CDialogDlg::IsInValidShow()
-{
-	if( g_pAVATAR && g_pAVATAR->Get_HP() <= 0 )
-		return 99;
+void CDialogDlg::Hide() {
+  CTDialog::Hide();
+  CZListBox* pListBox = nullptr;
+  CWinCtrl*  pCtrl    = Find( IID_ZLISTBOX_NPCSCRIPT );
+  assert( pCtrl );
+  if ( pCtrl ) {
+    pListBox = (CZListBox*)pCtrl;
+    pListBox->Clear();
+  }
 
-	if( g_itMGR.IsDlgOpened( DLG_TYPE_DEAL ) )
-		return DLG_TYPE_DEAL;
+  pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
+  assert( pCtrl );
+  if ( pCtrl ) {
+    pListBox = (CZListBox*)pCtrl;
+    pListBox->Clear();
+  }
 
-	if( g_itMGR.IsDlgOpened( DLG_TYPE_EXCHANGE ) )
-		return DLG_TYPE_EXCHANGE;
+  CTCaption* pCaption = GetCaption();
+  if ( pCaption )
+    SetHeight( pCaption->GetHeight() );
 
-	if( g_itMGR.IsDlgOpened( DLG_TYPE_DIALOG ))
-		return DLG_TYPE_DIALOG;
-
-	if( g_itMGR.IsDlgOpened( DLG_TYPE_MAKE ))
-		return DLG_TYPE_MAKE;
-
-	return 0;
-}
-void CDialogDlg::Hide()
-{
-	CTDialog::Hide();
-	CZListBox* pListBox = NULL;
-	CWinCtrl* pCtrl = Find( IID_ZLISTBOX_NPCSCRIPT );
-	assert( pCtrl );
-	if( pCtrl )
-	{
-		pListBox = (CZListBox*)pCtrl;
-		pListBox->Clear();
-	}
-
-	pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
-	assert( pCtrl );
-	if( pCtrl )
-	{
-		pListBox = (CZListBox*)pCtrl;
-		pListBox->Clear();
-	}
-
-	CTCaption* pCaption = GetCaption();
-	if( pCaption )
-		SetHeight( pCaption->GetHeight() );
-
-	if( CCountry::GetSingleton().IsApplyNewVersion() )
-		g_itMGR.ChangeState( IT_MGR::STATE_NORMAL );
+  if ( CCountry::GetSingleton().IsApplyNewVersion() )
+    g_itMGR.ChangeState( IT_MGR::STATE_NORMAL );
 }
 
-void CDialogDlg::Draw()
-{
-	if( !IsVision() ) return;
+void CDialogDlg::Draw() {
+  if ( !IsVision() ) return;
 
-	// È«±Ù : È÷¾î·Î Äù½ºÆ® Ãß°¡.
-	if( m_fNpctalkinterfaceHideTime > 0 )
-	{
-		m_fNpctalkinterfaceHideTime -= g_GameDATA.GetElapsedFrameTime();
-		return;
-	}
+  // È«ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½.
+  if ( m_fNpctalkinterfaceHideTime > 0 ) {
+    m_fNpctalkinterfaceHideTime -= g_GameDATA.GetElapsedFrameTime();
+    return;
+  }
 
-	CTDialog::Draw();
+  CTDialog::Draw();
 
-	if( CCountry::GetSingleton().IsApplyNewVersion() )
-	{
+  if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
 
-		if( m_hNpcFace )
-		{
-			// Transform	
-			D3DXMATRIX mat;	
-			D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y + BG_IMAGE_HEIGHT - m_heightNpcFace, 0 );
-			::setTransformSprite( mat );
+    if ( m_hNpcFace ) {
+      // Transform	
+      D3DXMATRIX mat;
+      D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y + BG_IMAGE_HEIGHT - m_heightNpcFace, 0 );
+      setTransformSprite( mat );
 
-			::drawSprite( m_hNpcFace,
-						NULL,
-						NULL,
-						&D3DXVECTOR3( 0, 0 , 0 ),								
-						D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
+      drawSprite( m_hNpcFace,
+                  nullptr,
+                  nullptr,
+                  &D3DXVECTOR3( 0, 0, 0 ),
+                  D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 
-			if( !m_strNpcName.empty() )
-			{
-				D3DXMATRIX mat;	
-				D3DXMatrixTranslation( &mat, (float)m_sPosition.x , (float)m_sPosition.y, 0 );
-				::setTransformSprite( mat );
+      if ( !m_strNpcName.empty() ) {
+        D3DXMATRIX mat;
+        D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y, 0 );
+        setTransformSprite( mat );
 
-				::drawFont( g_GameDATA.m_hFONT[ FONT_OUTLINE_16_BOLD ], true, m_widthNpcFace + 20, 5, g_dwWHITE, m_strNpcName.c_str());
-			}
+        drawFont( g_GameDATA.m_hFONT[FONT_OUTLINE_16_BOLD], true, m_widthNpcFace + 20, 5, g_dwWHITE, m_strNpcName.c_str() );
+      }
 
-			int offset_y = 40;
-			for( int i = 0 ; i < m_Script.GetStringCount(); ++i )
-			{
-				m_Script.GetString( i )->Draw( m_widthNpcFace + 20, offset_y, false );
-				offset_y += m_Script.GetString( i )->GetStringHeight() + 5;
-			}
-		}
-		else
-		{
-			if( !m_strNpcName.empty() )
-			{
-				D3DXMATRIX mat;	
-				D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y, 0 );
-				::setTransformSprite( mat );
+      int       offset_y = 40;
+      for ( int i        = 0; i < m_Script.GetStringCount(); ++i ) {
+        m_Script.GetString( i )->Draw( m_widthNpcFace + 20, offset_y, false );
+        offset_y += m_Script.GetString( i )->GetStringHeight() + 5;
+      }
+    } else {
+      if ( !m_strNpcName.empty() ) {
+        D3DXMATRIX mat;
+        D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y, 0 );
+        setTransformSprite( mat );
 
-				::drawFont( g_GameDATA.m_hFONT[ FONT_OUTLINE_16_BOLD ], true, 100, 5, g_dwWHITE, m_strNpcName.c_str());
-			}
+        drawFont( g_GameDATA.m_hFONT[FONT_OUTLINE_16_BOLD], true, 100, 5, g_dwWHITE, m_strNpcName.c_str() );
+      }
 
-			int offset_y = 40;
-			for( int i = 0 ; i < m_Script.GetStringCount(); ++i )
-			{
-				m_Script.GetString( i )->Draw( 100, offset_y, false );
-				offset_y += m_Script.GetString( i )->GetStringHeight() + 5;
-			}
+      int       offset_y = 40;
+      for ( int i        = 0; i < m_Script.GetStringCount(); ++i ) {
+        m_Script.GetString( i )->Draw( 100, offset_y, false );
+        offset_y += m_Script.GetString( i )->GetStringHeight() + 5;
+      }
 
-		}
-	}
-	else
-	{
-		if( !m_strNpcName.empty() )
-		{
-			D3DXMATRIX mat;	
-			D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y,0.0f);
-			::setTransformSprite( mat );
-			::drawFont( g_GameDATA.m_hFONT[ FONT_NORMAL_BOLD ], true, 50, 5, g_dwWHITE, m_strNpcName.c_str());
-		}
-	}
+    }
+  } else {
+    if ( !m_strNpcName.empty() ) {
+      D3DXMATRIX mat;
+      D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y, 0.0f );
+      setTransformSprite( mat );
+      drawFont( g_GameDATA.m_hFONT[FONT_NORMAL_BOLD], true, 50, 5, g_dwWHITE, m_strNpcName.c_str() );
+    }
+  }
 }
 
-short CDialogDlg::GetTargetNpcClientObjectIndex()
-{
-	return m_nTargetClientIdx;
+short CDialogDlg::GetTargetNpcClientObjectIndex() {
+  return m_nTargetClientIdx;
 }
 
-void CDialogDlg::Show()
-{
-	CTDialog::Show();
+void CDialogDlg::Show() {
+  CTDialog::Show();
 
-	if( CCountry::GetSingleton().IsApplyNewVersion() )
-	{
-		POINT pt = { 0, g_pCApp->GetHEIGHT() * 2 / 5 - GetHeight()  };
-		MoveWindow( pt );
-		SetWidth( g_pCApp->GetWIDTH() );
-		g_itMGR.ChangeState( IT_MGR::STATE_NPCDIALOG );
-	}
-}
-bool CDialogDlg::Create( const char* IDD )
-{
-	if( CTDialog::Create( IDD ) )
-	{
-		if( CCountry::GetSingleton().IsApplyNewVersion() )
-		{
-			
-			CWinCtrl* pCtrl = Find( IID_BG_IMAGE );
-			if( NULL != pCtrl && CTRL_IMAGE == pCtrl->GetControlType() )
-			{
-				CTImage* pImage = (CTImage*)pCtrl;
-				pImage->SetScaleWidth( g_pCApp->GetWIDTH() / pImage->GetWidth() );
-			}
-
-			pCtrl = Find( IID_BTN_CLOSE );
-			if( NULL != pCtrl  && CTRL_BUTTON == pCtrl->GetControlType() )
-			{
-				CTButton* pBtn = (CTButton*)pCtrl;
-				POINT pt = pBtn->GetOffset();
-				pt.x = g_pCApp->GetWIDTH() - pBtn->GetWidth() - 10;
-				pBtn->SetOffset( pt );
-	//			pBtn->MoveWindow( m_sPosition );
-			}
-
-			pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
-			if( NULL != pCtrl )
-			{
-				pCtrl->SetOffset( 20, GetHeight() + 40);
-	//			pCtrl->MoveWindow( m_sPosition );
-			}
-
-			POINT pt = { 0, g_pCApp->GetHEIGHT() * 2 / 5 - GetHeight()  };
-
-			MoveWindow( pt );
-			SetWidth( g_pCApp->GetWIDTH() );
-		}
-		return true;
-	}
-	return false;
+  if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
+    POINT pt = { 0, g_pCApp->GetHEIGHT() * 2 / 5 - GetHeight() };
+    MoveWindow( pt );
+    SetWidth( g_pCApp->GetWIDTH() );
+    g_itMGR.ChangeState( IT_MGR::STATE_NPCDIALOG );
+  }
 }
 
-void CDialogDlg::SetNpcFace( HNODE hNode_ )
-{
-	m_hNpcFace = hNode_;
+bool CDialogDlg::Create(const char* IDD) {
+  if ( CTDialog::Create( IDD ) ) {
+    if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
+
+      CWinCtrl* pCtrl = Find( IID_BG_IMAGE );
+      if ( nullptr != pCtrl && CTRL_IMAGE == pCtrl->GetControlType() ) {
+        CTImage* pImage = (CTImage*)pCtrl;
+        pImage->SetScaleWidth( g_pCApp->GetWIDTH() / pImage->GetWidth() );
+      }
+
+      pCtrl = Find( IID_BTN_CLOSE );
+      if ( nullptr != pCtrl && CTRL_BUTTON == pCtrl->GetControlType() ) {
+        CTButton* pBtn = (CTButton*)pCtrl;
+        POINT     pt   = pBtn->GetOffset();
+        pt.x           = g_pCApp->GetWIDTH() - pBtn->GetWidth() - 10;
+        pBtn->SetOffset( pt );
+        //			pBtn->MoveWindow( m_sPosition );
+      }
+
+      pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
+      if ( nullptr != pCtrl ) {
+        pCtrl->SetOffset( 20, GetHeight() + 40 );
+        //			pCtrl->MoveWindow( m_sPosition );
+      }
+
+      POINT pt = { 0, g_pCApp->GetHEIGHT() * 2 / 5 - GetHeight() };
+
+      MoveWindow( pt );
+      SetWidth( g_pCApp->GetWIDTH() );
+    }
+    return true;
+  }
+  return false;
 }
 
-void CDialogDlg::SetNpcName( std::string strName )
-{
-	m_strNpcName = strName;
+void CDialogDlg::SetNpcFace(HNODE hNode_) {
+  m_hNpcFace = hNode_;
 }
 
-//È«±Ù : È÷¾î·Î Äù½ºÆ®
-void CDialogDlg::SetNpctalkinterfaceHide( float fTime )
-{
-	m_fNpctalkinterfaceHideTime = fTime;
+void CDialogDlg::SetNpcName(std::string strName) {
+  m_strNpcName = strName;
 }
 
-//È«±Ù : È÷¾î·Î Äù½ºÆ®
-float CDialogDlg::GetNpctalkinterfaceHide()
-{
-	return m_fNpctalkinterfaceHideTime;
+//È«ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+void CDialogDlg::SetNpctalkinterfaceHide(float fTime) {
+  m_fNpctalkinterfaceHideTime = fTime;
 }
 
+//È«ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+float CDialogDlg::GetNpctalkinterfaceHide() {
+  return m_fNpctalkinterfaceHideTime;
+}

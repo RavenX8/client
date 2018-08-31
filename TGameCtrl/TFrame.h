@@ -13,22 +13,21 @@ class CTImage;
 *
 * @Date			2005/8/30
 */
-class TGAMECTRL_API CTFrame :	public CWinCtrl
-{
+class TGAMECTRL_API CTFrame : public CWinCtrl {
 public:
-	CTFrame(void);
-	virtual ~CTFrame(void);
-	virtual void Show();
-	virtual void Hide();
-	virtual void Draw();
-	void	SetPosition( int x, int y );
-	DWORD	get_time();
-	void	set_time( DWORD time );
-	void	set_image( CTImage* image );
+          CTFrame(void );
+  virtual ~CTFrame(void);
+  void    Show() override;
+  void    Hide() override;
+  void    Draw() override;
+  void    SetPosition(int x, int y);
+  DWORD   get_time();
+  void    set_time(DWORD     time);
+  void    set_image(CTImage* image);
 
 protected:
-	CTImage*	m_Image;					 
-	DWORD		m_time;						/// 화면에 출력되어질 시간( 밀리세컨드 )
-	
+  CTImage* m_Image;
+  DWORD    m_time; /// 화면에 출력되어질 시간( 밀리세컨드 )
+
 };
 #endif

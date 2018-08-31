@@ -25,36 +25,33 @@
 #include <map>
 #include <string>
 
-
 class zz_error {
 public:
-	enum zz_lang_code {
-		ENGLISH = 0,
-		KOREAN = 1,
-		JAPANESE =2,
-		MAXLANG = 4,
-	};
+  enum zz_lang_code {
+    ENGLISH = 0,
+    KOREAN = 1,
+    JAPANESE =2,
+    MAXLANG = 4,
+  };
 
-	enum zz_error_code {
-		MSG_ERROR,
-		INIT_FAIL,
-		CREATE_D3D_FAIL,
-		CREATE_FONT_FAIL,
-		CREATE_TEXTURE_FAIL,
-		MSG_EXIT_D3DERROR,
-	};
+  enum zz_error_code {
+    MSG_ERROR,
+    INIT_FAIL,
+    CREATE_D3D_FAIL,
+    CREATE_FONT_FAIL,
+    CREATE_TEXTURE_FAIL,
+    MSG_EXIT_D3DERROR,
+  };
 
-	zz_error(zz_error_code error_code, zz_lang_code lang_code, const char * error_string);
+  zz_error(zz_error_code error_code, zz_lang_code lang_code, const char* error_string);
 
-	static const char * get_text (zz_error_code err_code);
-	static zz_lang_code get_lang_code ()
-	{
-		return lang_code;
-	}
+  static const char* get_text(zz_error_code err_code);
+
+  static zz_lang_code get_lang_code() {
+    return lang_code;
+  }
 
 private:
-	static std::map<zz_error_code, std::string> errormap[MAXLANG];
-	static zz_lang_code lang_code;
+  static std::map<zz_error_code, std::string> errormap[MAXLANG];
+  static zz_lang_code                         lang_code;
 };
-
-

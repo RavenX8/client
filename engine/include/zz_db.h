@@ -23,25 +23,25 @@
 
 #include "sqlite.h"
 
-typedef sqlite * zz_hdb;
+typedef sqlite* zz_hdb;
 
 // callback sample:
 // int db_callback (void * user_data, int argc, char **argv, char ** column_names) { return 0; }
-typedef int (*zz_db_callback)(void*,int,char**,char**);
+typedef int (*zz_db_callback)(void*, int, char**, char**);
 
 //--------------------------------------------------------------------------------
 class zz_db {
-//--------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------
 private:
-	zz_string path; // database filename
-	sqlite * hdb; // database handle
+  zz_string path; // database filename
+  sqlite*   hdb;  // database handle
 
 public:
-	zz_db (const char * db_path);
-	~zz_db ();
-	
-	// execute sql query and do user callback routine.
-	int exec (char * sql, zz_db_callback callback, void *user_data);
+  zz_db(const char* db_path);
+  ~zz_db();
+
+  // execute sql query and do user callback routine.
+  int exec(char* sql, zz_db_callback callback, void* user_data);
 };
 
 /* TESTCODE

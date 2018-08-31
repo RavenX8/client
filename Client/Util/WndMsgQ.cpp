@@ -5,82 +5,72 @@
 #include "WndMsgQ.h"
 
 //-------------------------------------------------------------------------------------------------
-bool CWndMsgQ::_Init (short nMaxQSize)
-{
-    m_sCurMsg.uiMsg = 0;
-    m_sCurMsg.wParam = 0;
-    m_sCurMsg.lParam = 0;
+bool CWndMsgQ::_Init(short nMaxQSize) {
+  m_sCurMsg.uiMsg  = 0;
+  m_sCurMsg.wParam = 0;
+  m_sCurMsg.lParam = 0;
 
-	m_nMaxQSize = nMaxQSize;
+  m_nMaxQSize = nMaxQSize;
 
-	if ( m_pQueue )
-		delete[] m_pQueue;
-	m_pQueue = new struct tagWNDMSG[ m_nMaxQSize ];
+  if ( m_pQueue )
+    delete[] m_pQueue;
+  m_pQueue = new struct tagWNDMSG[ m_nMaxQSize ];
 
-	Del_AllMSG ();
+  Del_AllMSG();
 
-    return true;
+  return true;
 }
-
 
 //-------------------------------------------------------------------------------------------------
-void CWndMsgQ::_Free (void)
-{
-	if ( m_pQueue ) {
-		delete[] m_pQueue;
-		m_pQueue = NULL;
-	}
+void CWndMsgQ::_Free(void) {
+  if ( m_pQueue ) {
+    delete[] m_pQueue;
+    m_pQueue = nullptr;
+  }
 }
-
 
 //-------------------------------------------------------------------------------------------------
-void CWndMsgQ::Del_AllMSG (void)
-{
-    m_nQCount = 0;
-    m_nQHead  = m_nQTail = 0;
+void CWndMsgQ::Del_AllMSG(void) {
+  m_nQCount = 0;
+  m_nQHead  = m_nQTail = 0;
 
-    m_sCurMsg.uiMsg  = 0;
-    m_sCurMsg.wParam = 0;
-    m_sCurMsg.lParam = 0;
+  m_sCurMsg.uiMsg  = 0;
+  m_sCurMsg.wParam = 0;
+  m_sCurMsg.lParam = 0;
 }
-
 
 //-------------------------------------------------------------------------------------------------
-void CWndMsgQ::Add_WndMSG2Q (UINT uiMsg, WPARAM wParam, LPARAM lParam)
-{
-    if ( m_nQCount < m_nMaxQSize ) {
-        m_nQTail %= m_nMaxQSize;
-        m_pQueue[ m_nQTail ].uiMsg	= uiMsg;
-        m_pQueue[ m_nQTail ].wParam	= wParam;
-        m_pQueue[ m_nQTail ].lParam = lParam;
-        m_nQTail  ++;
-        m_nQCount ++;
-    } else {
-        m_sCurMsg.uiMsg	 = uiMsg;
-        m_sCurMsg.wParam = wParam;
-        m_sCurMsg.lParam = lParam;
-    }
+void CWndMsgQ::Add_WndMSG2Q(UINT uiMsg, WPARAM wParam, LPARAM lParam) {
+  if ( m_nQCount < m_nMaxQSize ) {
+    m_nQTail %= m_nMaxQSize;
+    m_pQueue[m_nQTail].uiMsg  = uiMsg;
+    m_pQueue[m_nQTail].wParam = wParam;
+    m_pQueue[m_nQTail].lParam = lParam;
+    m_nQTail ++;
+    m_nQCount ++;
+  } else {
+    m_sCurMsg.uiMsg  = uiMsg;
+    m_sCurMsg.wParam = wParam;
+    m_sCurMsg.lParam = lParam;
+  }
 }
-
 
 //-------------------------------------------------------------------------------------------------
-bool CWndMsgQ::Get_WndMSG (void)
-{
-    if ( m_nQCount == 0 ) 
-        return false;
+bool CWndMsgQ::Get_WndMSG(void) {
+  if ( m_nQCount == 0 )
+    return false;
 
-    m_nQCount --;
-    m_nQHead %= m_nMaxQSize;
+  m_nQCount --;
+  m_nQHead %= m_nMaxQSize;
 
-    m_sCurMsg.uiMsg  = m_pQueue[ m_nQHead ].uiMsg;
-    m_sCurMsg.wParam = m_pQueue[ m_nQHead ].wParam;
-    m_sCurMsg.lParam = m_pQueue[ m_nQHead ].lParam;
+  m_sCurMsg.uiMsg  = m_pQueue[m_nQHead].uiMsg;
+  m_sCurMsg.wParam = m_pQueue[m_nQHead].wParam;
+  m_sCurMsg.lParam = m_pQueue[m_nQHead].lParam;
 
-    m_nQHead ++;
+  m_nQHead ++;
 
-    return true;
+  return true;
 }
-
 
 //-------------------------------------------------------------------------------------------------
 /*

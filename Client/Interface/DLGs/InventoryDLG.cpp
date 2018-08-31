@@ -1,4 +1,3 @@
-
 #include "StdAfx.h"
 #include "InventoryDLG.h"
 #include "DealDlg.h"
@@ -21,24 +20,19 @@
 #include "../Command/UICommand.h"
 #include "../Command/DragCommand.h"
 
-
 #include "../../Common/CInventory.h"
 #include "../../Common/IO_STB.h"
 #include "../../Network/CNetwork.h"
 #include "../../System/CGame.h"
 #include "../../CClientStorage.h"
 
-
-
-
 #include "../../../TGameCtrl/ResourceMgr.h"
 #include "../../GameCommon/Skill.h"
 #include "../../GameData/CExchange.h"
 #include "../../GameData/Event/CTEventItem.h"
 
-
 #define ITEM_START_POS_X		8
-#define ITEM_START_POS_Y		66	
+#define ITEM_START_POS_Y		66
 #define ITEM_WIDTH				33
 #define ITEM_HEIGHT				33
 
@@ -53,205 +47,180 @@
 
 #define INDEX_MONEY				0
 
-const	int	MAX_DROP_MONEY	= 100000;///돈을 바닥에 버릴경우 최대 10만까지
+const int MAX_DROP_MONEY = 100000; ///돈을 바닥에 버릴경우 최대 10만까지
 ///const	int	MAX_DROP_MONEY	= 100000000;///돈을 바닥에 버릴경우 최대 10만까지
-CInventoryDLG::CInventoryDLG( int iType )
-{
-	m_nInvType   = 0;
-	POINT ptOffset;
+          CInventoryDLG::CInventoryDLG(int iType) {
+  m_nInvType = 0;
+  POINT ptOffset;
 
-	CTCommand* pCmd = NULL;
-	m_pDragItem = new CDragItem;
+  CTCommand* pCmd = nullptr;
+  m_pDragItem     = new CDragItem;
 
-	///퀵바로의 이동
-	pCmd = new CTCmdDragInven2QuickBar;
-	m_pDragItem->AddTarget( DLG_TYPE_QUICKBAR, pCmd );
+  ///퀵바로의 이동
+  pCmd = new CTCmdDragInven2QuickBar;
+  m_pDragItem->AddTarget( DLG_TYPE_QUICKBAR, pCmd );
 
-	///매매창으로의 이동
-	CTCmdNumberInput* pNumberCmd = new CTCmdAddItem2DealFromInventory;
-	CTCmdOpenNumberInputDlg* pOpenCmd = new CTCmdOpenNumberInputDlg;
-	pOpenCmd->SetCommand( pNumberCmd );
-	m_pDragItem->AddTarget( DLG_TYPE_DEAL, pOpenCmd );
+  ///매매창으로의 이동
+  CTCmdNumberInput*        pNumberCmd = new CTCmdAddItem2DealFromInventory;
+  CTCmdOpenNumberInputDlg* pOpenCmd   = new CTCmdOpenNumberInputDlg;
+  pOpenCmd->SetCommand( pNumberCmd );
+  m_pDragItem->AddTarget( DLG_TYPE_DEAL, pOpenCmd );
 
-	///교환창으로 이동
-	pNumberCmd  = new CTCmdAddMyItem2Exchange;
-	pOpenCmd	= new CTCmdOpenNumberInputDlg;
-	pOpenCmd->SetCommand( pNumberCmd );
-	m_pDragItem->AddTarget( DLG_TYPE_EXCHANGE, pOpenCmd );
+  ///교환창으로 이동
+  pNumberCmd = new CTCmdAddMyItem2Exchange;
+  pOpenCmd   = new CTCmdOpenNumberInputDlg;
+  pOpenCmd->SetCommand( pNumberCmd );
+  m_pDragItem->AddTarget( DLG_TYPE_EXCHANGE, pOpenCmd );
 
+  ///상점창으로 이동
+  pNumberCmd = new CTCmdSellItem;
+  pOpenCmd   = new CTCmdOpenNumberInputDlg;
+  pOpenCmd->SetCommand( pNumberCmd );
+  m_pDragItem->AddTarget( DLG_TYPE_STORE, pOpenCmd );
 
-	///상점창으로 이동
-	pNumberCmd = new CTCmdSellItem;
-	pOpenCmd   = new CTCmdOpenNumberInputDlg;
-	pOpenCmd->SetCommand( pNumberCmd );
-	m_pDragItem->AddTarget( DLG_TYPE_STORE, pOpenCmd );
+  ///땅으로 드랍
+  pNumberCmd = new CTCmdDropItem;
+  pOpenCmd   = new CTCmdOpenNumberInputDlg;
+  pOpenCmd->SetCommand( pNumberCmd );
+  m_pDragItem->AddTarget( CDragItem::TARGET_GROUND, pOpenCmd );
 
-	///땅으로 드랍
-	pNumberCmd	= new CTCmdDropItem;
-	pOpenCmd	= new CTCmdOpenNumberInputDlg;
-	pOpenCmd->SetCommand( pNumberCmd );
-	m_pDragItem->AddTarget( CDragItem::TARGET_GROUND, pOpenCmd );
+  ///Bank로 이동
+  pNumberCmd = new CTCmdMoveItemInv2Bank;
+  pOpenCmd   = new CTCmdOpenNumberInputDlg;
+  pOpenCmd->SetCommand( pNumberCmd );
+  m_pDragItem->AddTarget( DLG_TYPE_BANK, pOpenCmd );
 
-	///Bank로 이동
-	pNumberCmd	= new CTCmdMoveItemInv2Bank;
-	pOpenCmd	= new CTCmdOpenNumberInputDlg;
-	pOpenCmd->SetCommand( pNumberCmd );
-	m_pDragItem->AddTarget( DLG_TYPE_BANK, pOpenCmd );
+  ///제조창으로 이동
+  pCmd = new CTCmdTakeInItem2MakeDlg;
+  m_pDragItem->AddTarget( DLG_TYPE_MAKE, pCmd );
 
-	///제조창으로 이동
-	pCmd = new CTCmdTakeInItem2MakeDlg;
-	m_pDragItem->AddTarget( DLG_TYPE_MAKE, pCmd );
+  ///캐릭터 창으로의 이동
+  pCmd = new CTCmdDragItemEquipFromInven;
+  m_pDragItem->AddTarget( DLG_TYPE_CHAR, pCmd );
 
-	///캐릭터 창으로의 이동
-	pCmd = new CTCmdDragItemEquipFromInven;
-	m_pDragItem->AddTarget( DLG_TYPE_CHAR, pCmd );
+  for ( int   i  = 0; i < MAX_INV_TYPE; ++i ) {
+    for ( int j  = 0; j < INVENTORY_PAGE_SIZE; ++j ) {
+      ptOffset.x = ITEM_START_POS_X + ((j % 10) * ITEM_WIDTH);
+      ptOffset.y = ITEM_START_POS_Y + ((j / 10) * ITEM_HEIGHT);
+      m_ItemSlots[i][j].SetOffset( ptOffset );
+      m_ItemSlots[i][j].SetParent( iType );
+      m_ItemSlots[i][j].SetDragAvailable();
+      m_ItemSlots[i][j].SetDragItem( m_pDragItem );
+    }
+  }
+  SetDialogType( iType );
 
-	for( int i = 0; i < MAX_INV_TYPE; ++i )
-	{
-		for( int j = 0; j < INVENTORY_PAGE_SIZE; ++j )
-		{
-			ptOffset.x = ITEM_START_POS_X + ( (j%10) * ITEM_WIDTH );
-			ptOffset.y = ITEM_START_POS_Y + ( (j/10) * ITEM_HEIGHT );
-			m_ItemSlots[i][j].SetOffset( ptOffset );
-			m_ItemSlots[i][j].SetParent( iType );
-			m_ItemSlots[i][j].SetDragAvailable();
-			m_ItemSlots[i][j].SetDragItem( m_pDragItem );
-		}
-	}
-	SetDialogType( iType );
-
-	///돈Drop관련 command
-	m_pCmdDropMoney				= new CTCmdDropMoney;
-	m_pCmdAddMyMoney2Exchange	= new CTCmdAddMyMoney2Exchange;
+  ///돈Drop관련 command
+  m_pCmdDropMoney           = new CTCmdDropMoney;
+  m_pCmdAddMyMoney2Exchange = new CTCmdAddMyMoney2Exchange;
 }
 
-CInventoryDLG::~CInventoryDLG()
-{
-	if( m_pDragItem )
-	{
-		delete m_pDragItem;
-		m_pDragItem = NULL;
-	}
+CInventoryDLG::~CInventoryDLG() {
+  if ( m_pDragItem ) {
+    delete m_pDragItem;
+    m_pDragItem = nullptr;
+  }
 
 }
 
-void CInventoryDLG::Draw()
-{	
-	if(!IsVision()) return ;
-	CTDialog::Draw();
+void CInventoryDLG::Draw() {
+  if ( !IsVision() ) return;
+  CTDialog::Draw();
 
-	DrawWeightANDGold();
+  DrawWeightANDGold();
 
-	for( int i = 0; i < INVENTORY_PAGE_SIZE; ++i )
-		m_ItemSlots[m_nInvType][i].Draw();
+  for ( int i = 0; i < INVENTORY_PAGE_SIZE; ++i )
+    m_ItemSlots[m_nInvType][i].Draw();
 }
 
 /// 무게와, 금 정보를 출력한다.
-void CInventoryDLG::DrawWeightANDGold()
-{
-	D3DXMATRIX mat;	
-	D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y,0.0f);
-	::setTransformSprite( mat );
+void         CInventoryDLG::DrawWeightANDGold() {
+  D3DXMATRIX mat;
+  D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y, 0.0f );
+  setTransformSprite( mat );
 
-	/// 무게 표시..
-	RECT rt = { WEIGHT_INFO_X , 
-				WEIGHT_INFO_Y , 
-				WEIGHT_INFO_X + WEIGHT_INFO_WIDTH, 
-				WEIGHT_INFO_Y + WEIGHT_INFO_HEIGHT }; 
+  /// 무게 표시..
+  RECT rt = {
+    WEIGHT_INFO_X,
+    WEIGHT_INFO_Y,
+    WEIGHT_INFO_X + WEIGHT_INFO_WIDTH,
+    WEIGHT_INFO_Y + WEIGHT_INFO_HEIGHT
+  };
 
-	::drawFontf(g_GameDATA.m_hFONT[ FONT_NORMAL ],true, &rt,D3DCOLOR_XRGB( 0, 210, 255 ), DT_CENTER|DT_VCENTER, "%d/%d", g_pAVATAR->GetCur_WEIGHT(), g_pAVATAR->GetCur_MaxWEIGHT() );
-	
-	//돈표시 
-	SetRect( &rt, GOLD_INFO_X , 
-				  GOLD_INFO_Y , 
-				  GOLD_INFO_X + GOLD_INFO_WIDTH , 
-				  GOLD_INFO_Y + GOLD_INFO_HEIGHT );
+  drawFontf( g_GameDATA.m_hFONT[FONT_NORMAL], true, &rt,D3DCOLOR_XRGB( 0, 210, 255 ), DT_CENTER | DT_VCENTER, "%d/%d", g_pAVATAR->GetCur_WEIGHT(), g_pAVATAR->GetCur_MaxWEIGHT() );
 
-	::drawFontf( g_GameDATA.m_hFONT[ FONT_NORMAL ], true, &rt,D3DCOLOR_XRGB( 255, 240, 0 ), DT_RIGHT|DT_VCENTER, "%d", g_pAVATAR->Get_MONEY() );
+  //돈표시 
+  SetRect( &rt, GOLD_INFO_X,
+           GOLD_INFO_Y,
+           GOLD_INFO_X + GOLD_INFO_WIDTH,
+           GOLD_INFO_Y + GOLD_INFO_HEIGHT );
+
+  drawFontf( g_GameDATA.m_hFONT[FONT_NORMAL], true, &rt,D3DCOLOR_XRGB( 255, 240, 0 ), DT_RIGHT | DT_VCENTER, "%d", g_pAVATAR->Get_MONEY() );
 }
 
-unsigned int CInventoryDLG::Process(UINT uiMsg,WPARAM wParam,LPARAM lParam)
-{
-	unsigned iProcID = 0;
-	if( iProcID = CTDialog::Process(uiMsg,wParam,lParam)) 
-	{
-		///Slots처리
-		for( int i = 0; i < INVENTORY_PAGE_SIZE; ++i )
-		{
-			if( m_ItemSlots[m_nInvType][i].Process( uiMsg, wParam, lParam ) )
-				return uiMsg;
-		}
+unsigned int CInventoryDLG::Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) {
+  unsigned   iProcID = 0;
+  if ( iProcID       = CTDialog::Process( uiMsg, wParam, lParam ) ) {
+    ///Slots처리
+    for ( int i = 0; i < INVENTORY_PAGE_SIZE; ++i ) {
+      if ( m_ItemSlots[m_nInvType][i].Process( uiMsg, wParam, lParam ) )
+        return uiMsg;
+    }
 
-		switch(uiMsg)
-		{
-		case WM_LBUTTONUP:
-			On_LButtonUP( iProcID, wParam, lParam); 
-			break;
-		default:
-			break;
-		}
+    switch ( uiMsg ) {
+      case WM_LBUTTONUP: On_LButtonUP( iProcID, wParam, lParam );
+        break;
+      default: break;
+    }
 
-		return uiMsg;
-	}
-	return 0;
+    return uiMsg;
+  }
+  return 0;
 }
-
 
 // *------------------------------------------------------------------------* //
-bool CInventoryDLG::On_LButtonUP( unsigned iProcID,WPARAM wParam, LPARAM lParam )
-{
-	switch(iProcID)
-	{
-	case INV_BTN_CLOSE:		
-		Hide();
-		return true;
-	case INV_BTN_TAB1:
-		m_nInvType = 0;
-		UpdateSlotPosition( m_nInvType );
-		return true;
-	case INV_BTN_TAB2:
-		m_nInvType = 1;
-		UpdateSlotPosition( m_nInvType );
-		return true;
-	case INV_BTN_TAB3:
-		m_nInvType = 2;
-		UpdateSlotPosition( m_nInvType );
-		return true;
-	/// 메세지창 띄우고 확인에 숫자입력창 띄운다.
-	case INV_BTN_MONEY:
-		{
-			int iMaxDropMoney = 0;		
+bool CInventoryDLG::On_LButtonUP(unsigned iProcID, WPARAM wParam, LPARAM lParam) {
+  switch ( iProcID ) {
+    case INV_BTN_CLOSE: Hide();
+      return true;
+    case INV_BTN_TAB1: m_nInvType = 0;
+      UpdateSlotPosition( m_nInvType );
+      return true;
+    case INV_BTN_TAB2: m_nInvType = 1;
+      UpdateSlotPosition( m_nInvType );
+      return true;
+    case INV_BTN_TAB3: m_nInvType = 2;
+      UpdateSlotPosition( m_nInvType );
+      return true;
+      /// 메세지창 띄우고 확인에 숫자입력창 띄운다.
+    case INV_BTN_MONEY: {
+      int iMaxDropMoney = 0;
 
-			if( g_itMGR.IsDlgOpened( DLG_TYPE_EXCHANGE ) )
-			{
-				CTCmdOpenNumberInputDlg OpenCmd;
-				OpenCmd.SetCommand( m_pCmdAddMyMoney2Exchange );
-				OpenCmd.SetMaximum( g_pAVATAR->Get_MONEY() - CExchange::GetInstance().GetMyTradeMoney() );
-				OpenCmd.Exec( NULL );
+      if ( g_itMGR.IsDlgOpened( DLG_TYPE_EXCHANGE ) ) {
+        CTCmdOpenNumberInputDlg OpenCmd;
+        OpenCmd.SetCommand( m_pCmdAddMyMoney2Exchange );
+        OpenCmd.SetMaximum( g_pAVATAR->Get_MONEY() - CExchange::GetInstance().GetMyTradeMoney() );
+        OpenCmd.Exec( nullptr );
 
-			}
-			else
-			{
-				CTCmdOpenNumberInputDlg OpenCmd;
-				OpenCmd.SetCommand( m_pCmdDropMoney );
+      } else {
+        CTCmdOpenNumberInputDlg OpenCmd;
+        OpenCmd.SetCommand( m_pCmdDropMoney );
 
-				__int64 i64MaxDropMoney;
-				if( MAX_DROP_MONEY >= g_pAVATAR->Get_MONEY() )
-					i64MaxDropMoney = g_pAVATAR->Get_MONEY();
-				else
-					i64MaxDropMoney = MAX_DROP_MONEY;
+        __int64 i64MaxDropMoney;
+        if ( MAX_DROP_MONEY >= g_pAVATAR->Get_MONEY() )
+          i64MaxDropMoney = g_pAVATAR->Get_MONEY();
+        else
+          i64MaxDropMoney = MAX_DROP_MONEY;
 
-				OpenCmd.SetMaximum( i64MaxDropMoney );
-				OpenCmd.Exec( NULL );
-			}
-			return true;
-		}
-	}
+        OpenCmd.SetMaximum( i64MaxDropMoney );
+        OpenCmd.Exec( nullptr );
+      }
+      return true;
+    }
+  }
 
-	return false;
+  return false;
 }
-
-
 
 // *------------------------------------------------------------------------* //
 // Check function
@@ -433,66 +402,64 @@ void CInventoryDLG::CreateVirtualInventory()
 	}
 }
 */
-void CInventoryDLG::MoveIcon( int iVirtualInvenIdx1 , int iVirtualInvenIdx2 , int iInvenType )
-{
-	/*	CIconItem tempItem = m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx1 ];
-	m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx1 ] = m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx2 ];
-	m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx2 ] = tempItem;
+void CInventoryDLG::MoveIcon(int iVirtualInvenIdx1, int iVirtualInvenIdx2, int iInvenType) {
+  /*	CIconItem tempItem = m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx1 ];
+  m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx1 ] = m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx2 ];
+  m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx2 ] = tempItem;
 
-	POINT ptDraw;
+  POINT ptDraw;
 
-	ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iVirtualInvenIdx1%10) * ITEM_WIDTH );
-	ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iVirtualInvenIdx1/10) * ITEM_HEIGHT );
-	m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx1 ].SetPosition( ptDraw );
+  ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iVirtualInvenIdx1%10) * ITEM_WIDTH );
+  ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iVirtualInvenIdx1/10) * ITEM_HEIGHT );
+  m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx1 ].SetPosition( ptDraw );
 
-	ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iVirtualInvenIdx2%10) * ITEM_WIDTH );
-	ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iVirtualInvenIdx2/10) * ITEM_HEIGHT );
-	m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx2 ].SetPosition( ptDraw );
+  ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iVirtualInvenIdx2%10) * ITEM_WIDTH );
+  ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iVirtualInvenIdx2/10) * ITEM_HEIGHT );
+  m_VirtualInventory[ iInvenType ][ iVirtualInvenIdx2 ].SetPosition( ptDraw );
 */
 
 }
 
-void CInventoryDLG::MoveIcon( int iInvenIdx )
-{
-	/*
-	POINT ptSlotIdx = GetVirtualSlotIdxByRealInvenIdx( iInvenIdx );
+void CInventoryDLG::MoveIcon(int iInvenIdx) {
+  /*
+  POINT ptSlotIdx = GetVirtualSlotIdxByRealInvenIdx( iInvenIdx );
 
-	int iSrcSlotIdx = (int)ptSlotIdx.y;
-	if( iSrcSlotIdx >= 0 )
-	{
-		POINT pt;
-		CGame::GetInstance().Get_MousePos( pt );
-		int iDestSlotIdx = GetVirtualSlotIdxByPoint( pt );
-		if( iDestSlotIdx >= 0 )
-		{
-			POINT ptDraw;
-			if( m_VirtualInventory[m_nInvType][iDestSlotIdx].IsEmpty() )
-			{
-				m_VirtualInventory[m_nInvType][iDestSlotIdx] = m_VirtualInventory[m_nInvType][iSrcSlotIdx];
+  int iSrcSlotIdx = (int)ptSlotIdx.y;
+  if( iSrcSlotIdx >= 0 )
+  {
+    POINT pt;
+    CGame::GetInstance().Get_MousePos( pt );
+    int iDestSlotIdx = GetVirtualSlotIdxByPoint( pt );
+    if( iDestSlotIdx >= 0 )
+    {
+      POINT ptDraw;
+      if( m_VirtualInventory[m_nInvType][iDestSlotIdx].IsEmpty() )
+      {
+        m_VirtualInventory[m_nInvType][iDestSlotIdx] = m_VirtualInventory[m_nInvType][iSrcSlotIdx];
 
-				ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iDestSlotIdx%10) * ITEM_WIDTH );
-				ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iDestSlotIdx/10) * ITEM_HEIGHT );
+        ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iDestSlotIdx%10) * ITEM_WIDTH );
+        ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iDestSlotIdx/10) * ITEM_HEIGHT );
 
-				m_VirtualInventory[m_nInvType][iDestSlotIdx].SetPosition( ptDraw );
-				m_VirtualInventory[m_nInvType][iSrcSlotIdx].Clear();
-			}
-			else
-			{
-				CIconInvenItem Icon = m_VirtualInventory[m_nInvType][iDestSlotIdx];
-				
-				m_VirtualInventory[m_nInvType][iDestSlotIdx] = m_VirtualInventory[m_nInvType][iSrcSlotIdx];
-				ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iDestSlotIdx%10) * ITEM_WIDTH );
-				ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iDestSlotIdx/10) * ITEM_HEIGHT );
-				m_VirtualInventory[m_nInvType][iDestSlotIdx].SetPosition( ptDraw );
+        m_VirtualInventory[m_nInvType][iDestSlotIdx].SetPosition( ptDraw );
+        m_VirtualInventory[m_nInvType][iSrcSlotIdx].Clear();
+      }
+      else
+      {
+        CIconInvenItem Icon = m_VirtualInventory[m_nInvType][iDestSlotIdx];
+        
+        m_VirtualInventory[m_nInvType][iDestSlotIdx] = m_VirtualInventory[m_nInvType][iSrcSlotIdx];
+        ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iDestSlotIdx%10) * ITEM_WIDTH );
+        ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iDestSlotIdx/10) * ITEM_HEIGHT );
+        m_VirtualInventory[m_nInvType][iDestSlotIdx].SetPosition( ptDraw );
 
 
-				m_VirtualInventory[m_nInvType][iSrcSlotIdx] = Icon;
-				ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iSrcSlotIdx%10) * ITEM_WIDTH );
-				ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iSrcSlotIdx/10) * ITEM_HEIGHT );
-				m_VirtualInventory[m_nInvType][iSrcSlotIdx].SetPosition( ptDraw );
-			}
-		}
-	}*/
+        m_VirtualInventory[m_nInvType][iSrcSlotIdx] = Icon;
+        ptDraw.x = m_sPosition.x + ITEM_START_POS_X + ( (iSrcSlotIdx%10) * ITEM_WIDTH );
+        ptDraw.y = m_sPosition.y + ITEM_START_POS_Y + ( (iSrcSlotIdx/10) * ITEM_HEIGHT );
+        m_VirtualInventory[m_nInvType][iSrcSlotIdx].SetPosition( ptDraw );
+      }
+    }
+  }*/
 }
 
 /*
@@ -533,16 +500,14 @@ int CInventoryDLG::GetVirtualSlotIdxByPoint( POINT pt )
 	return -1;	
 }
 */
-void CInventoryDLG::UpdateSlotPosition( int iType )
-{
-	for( int j = 0; j < INVENTORY_PAGE_SIZE; ++j )
-		m_ItemSlots[iType][j].MoveWindow( m_sPosition );
+void        CInventoryDLG::UpdateSlotPosition(int iType) {
+  for ( int j = 0; j < INVENTORY_PAGE_SIZE; ++j )
+    m_ItemSlots[iType][j].MoveWindow( m_sPosition );
 }
 
-void CInventoryDLG::MoveWindow( POINT ptMouse )
-{
-	CTDialog::MoveWindow( ptMouse );
-	UpdateSlotPosition( m_nInvType );
+void CInventoryDLG::MoveWindow(POINT ptMouse) {
+  CTDialog::MoveWindow( ptMouse );
+  UpdateSlotPosition( m_nInvType );
 }
 
 ///*
@@ -646,59 +611,57 @@ void CInventoryDLG::MoveWindow( POINT ptMouse )
 //	}
 //}
 //*/
-void CInventoryDLG::Hide()
-{
-	CTDialog::Hide();
-//	SaveVirtualInventoryTable();
+void CInventoryDLG::Hide() {
+  CTDialog::Hide();
+  //	SaveVirtualInventoryTable();
 }
 
-int	CInventoryDLG::FindItem( int iItemType , int iItemNo )
-{
-///*	CIconItem* pItemIcon	= NULL;
-//	tagITEM*   pItem		= NULL;
-//	for( int i = 0; i < MAX_INV_TYPE; ++i )
-//	{
-//		for( int j = 0; j < INVENTORY_PAGE_SIZE; ++j )
-//		{
-//			pItemIcon = &(m_VirtualInventory[i][j]);
-//			if( !pItemIcon->IsEmpty() )
-//			{
-//				pItem = &(g_pAVATAR->m_Inventory.m_ItemLIST[ pItemIcon->GetInvenIdx() ]);
-//				if( !pItem->IsEmpty() )
-//				{
-//					if( iItemType == pItem->GetTYPE() && iItemNo == pItem->GetItemNO() )
-//						return pItemIcon->GetInvenIdx();
-//				}
-//			}
-//		}
-//	}*/
-	return -1;
+int CInventoryDLG::FindItem(int iItemType, int iItemNo) {
+  ///*	CIconItem* pItemIcon	= NULL;
+  //	tagITEM*   pItem		= NULL;
+  //	for( int i = 0; i < MAX_INV_TYPE; ++i )
+  //	{
+  //		for( int j = 0; j < INVENTORY_PAGE_SIZE; ++j )
+  //		{
+  //			pItemIcon = &(m_VirtualInventory[i][j]);
+  //			if( !pItemIcon->IsEmpty() )
+  //			{
+  //				pItem = &(g_pAVATAR->m_Inventory.m_ItemLIST[ pItemIcon->GetInvenIdx() ]);
+  //				if( !pItem->IsEmpty() )
+  //				{
+  //					if( iItemType == pItem->GetTYPE() && iItemNo == pItem->GetItemNO() )
+  //						return pItemIcon->GetInvenIdx();
+  //				}
+  //			}
+  //		}
+  //	}*/
+  return -1;
 }
 
-int CInventoryDLG::FindItem( int iClass )
-{
-	///*
-	//CIconItem* pItemIcon	= NULL;
-	//tagITEM*   pItem		= NULL;
-	//for( int i = 0; i < MAX_INV_TYPE; ++i )
-	//{
-	//	for( int j = 0; j < INVENTORY_PAGE_SIZE; ++j )
-	//	{
-	//		pItemIcon = &(m_VirtualInventory[i][j]);
-	//		if( !pItemIcon->IsEmpty() )
-	//		{
-	//			pItem = &(g_pAVATAR->m_Inventory.m_ItemLIST[ pItemIcon->GetInvenIdx() ]);
-	//			if( !pItem->IsEmpty() )
-	//			{
-	//				if( ITEM_TYPE( pItem->GetTYPE(), pItem->GetItemNO() ) == iClass )
-	//					return pItemIcon->GetInvenIdx();
-	//			}
-	//		}
-	//	}
-	//}
-	//*/
-	return -1;
+int CInventoryDLG::FindItem(int iClass) {
+  ///*
+  //CIconItem* pItemIcon	= NULL;
+  //tagITEM*   pItem		= NULL;
+  //for( int i = 0; i < MAX_INV_TYPE; ++i )
+  //{
+  //	for( int j = 0; j < INVENTORY_PAGE_SIZE; ++j )
+  //	{
+  //		pItemIcon = &(m_VirtualInventory[i][j]);
+  //		if( !pItemIcon->IsEmpty() )
+  //		{
+  //			pItem = &(g_pAVATAR->m_Inventory.m_ItemLIST[ pItemIcon->GetInvenIdx() ]);
+  //			if( !pItem->IsEmpty() )
+  //			{
+  //				if( ITEM_TYPE( pItem->GetTYPE(), pItem->GetItemNO() ) == iClass )
+  //					return pItemIcon->GetInvenIdx();
+  //			}
+  //		}
+  //	}
+  //}
+  //*/
+  return -1;
 }
+
 //
 //void CInventoryDLG::Update( CObservable* pObservable, CTObject* pObj )
 //{
@@ -769,18 +732,16 @@ short CInventoryDLG::GetMouse_PointITEM(tagITEM& sITEM, POINT ptPoint )
 	return -1;
 }
 */
-void CInventoryDLG::Update( POINT pt )
-{
-	if( !IsVision() ) return;
-	CTDialog::Update( pt );
-	
-	for( int iSlot = 0 ; iSlot < INVENTORY_PAGE_SIZE ; ++iSlot )
-		m_ItemSlots[ m_nInvType ][iSlot].Update( pt );
-	
+void CInventoryDLG::Update(POINT pt) {
+  if ( !IsVision() ) return;
+  CTDialog::Update( pt );
+
+  for ( int iSlot = 0; iSlot < INVENTORY_PAGE_SIZE; ++iSlot )
+    m_ItemSlots[m_nInvType][iSlot].Update( pt );
+
 }
 
-void CInventoryDLG::Show()
-{
-	CTDialog::Show();
-	UpdateSlotPosition( m_nInvType );
+void CInventoryDLG::Show() {
+  CTDialog::Show();
+  UpdateSlotPosition( m_nInvType );
 }

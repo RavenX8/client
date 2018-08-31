@@ -96,54 +96,44 @@
 
 ZZ_IMPLEMENT_DYNAMIC(zz_view, zz_node)
 
-zz_view::zz_view () : zz_node(), is_active(false)
-{
+zz_view::zz_view() : zz_node(), is_active( false ) {}
+
+void zz_view::set_width(int width) {
+  assert(znzin);
+  znzin->get_rs()->screen_width = width;
 }
 
-void zz_view::set_width (int width)
-{
-	assert(znzin);
-	znzin->get_rs()->screen_width = width;
+int zz_view::get_width(void) {
+  assert(znzin);
+  return znzin->get_rs()->screen_width;
 }
 
-int zz_view::get_width (void)
-{
-	assert(znzin);
-	return znzin->get_rs()->screen_width;
+void zz_view::set_height(int height) {
+  assert(znzin);
+  znzin->get_rs()->screen_height = height;
 }
 
-void zz_view::set_height (int height)
-{
-	assert(znzin);
-	znzin->get_rs()->screen_height = height;
+int zz_view::get_height(void) {
+  assert(znzin);
+  return znzin->get_rs()->screen_height;
 }
 
-int zz_view::get_height (void)
-{
-	assert(znzin);
-	return znzin->get_rs()->screen_height;
+void zz_view::set_depth(int bpp) {
+  assert(znzin);
+  znzin->get_rs()->screen_depth = bpp;
 }
 
-void zz_view::set_depth (int bpp)
-{
-	assert(znzin);
-	znzin->get_rs()->screen_depth = bpp;
+int zz_view::get_depth(void) {
+  assert(znzin);
+  return znzin->get_rs()->screen_depth;
 }
 
-int zz_view::get_depth (void)
-{
-	assert(znzin);
-	return znzin->get_rs()->screen_depth;
+void zz_view::set_fullscreen(bool true_or_false) {
+  assert(znzin);
+  znzin->get_rs()->use_fullscreen = true_or_false;
 }
 
-void zz_view::set_fullscreen (bool true_or_false)
-{
-	assert(znzin);
-	znzin->get_rs()->use_fullscreen = true_or_false;
-}
-
-bool zz_view::get_fullscreen (void)
-{
-	assert(znzin);
-	return znzin->get_rs()->use_fullscreen;
+bool zz_view::get_fullscreen(void) {
+  assert(znzin);
+  return znzin->get_rs()->use_fullscreen;
 }

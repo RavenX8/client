@@ -12,22 +12,21 @@
 * @Author	√÷¡æ¡¯
 * @Date		2005/8/30
 */
-class CTCandidateWindowList : public CTCandidateWindow
-{
+class CTCandidateWindowList : public CTCandidateWindow {
 public:
-	CTCandidateWindowList(void);
-	virtual ~CTCandidateWindowList(void);
-	virtual void Draw();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void AddCandidate( const char* pszCandidate );
-	virtual void Clear();
-	virtual void MoveWindow( POINT pt );
-	virtual void Show();
-	virtual void Hide();
-	virtual void SetSelection( short n );
+           CTCandidateWindowList(void );
+  virtual  ~CTCandidateWindowList(void);
+  void     Draw() override;
+  unsigned Process(unsigned         uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     AddCandidate(const char* pszCandidate) override;
+  void     Clear() override;
+  void     MoveWindow(POINT pt) override;
+  void     Show() override;
+  void     Hide() override;
+  void     SetSelection(short n) override;
 protected:
 
-	CTListBox	m_Candidats;
-	int			m_iMaxWidth;
+  CTListBox m_Candidats;
+  int       m_iMaxWidth;
 };
 #endif

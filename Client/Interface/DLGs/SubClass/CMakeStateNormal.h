@@ -12,28 +12,26 @@ class CTComboBox;
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CMakeStateNormal : public CMakeState
-{
+class CMakeStateNormal : public CMakeState {
 public:
-	CMakeStateNormal( CMakeDLG* pParent);
-	virtual ~CMakeStateNormal(){}
+          CMakeStateNormal(CMakeDLG* pParent);
+  virtual ~CMakeStateNormal() {}
 
-	virtual void Draw();
-	virtual void Update( POINT ptMouse );
-	virtual void Show();
-	virtual void Hide();
-	virtual unsigned int Process(UINT uiMsg,WPARAM wParam,LPARAM lParam );
-	virtual void Init();
-	virtual void MoveWindow(POINT ptPos ){}
-	virtual bool IsModal();
- 
+  void         Draw() override;
+  void         Update(POINT ptMouse) override;
+  void         Show() override;
+  void         Hide() override;
+  unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void         Init() override;
+  void         MoveWindow(POINT ptPos) override {}
+  bool         IsModal() override;
+
 private:
-	void	OnLButtonUp( unsigned iProcID, WPARAM wParam, LPARAM lParam );
-	void	OnLButtonDown( unsigned iProcID, WPARAM wParam, LPARAM lParam );
+  void OnLButtonUp(unsigned   iProcID, WPARAM wParam, LPARAM lParam);
+  void OnLButtonDown(unsigned iProcID, WPARAM wParam, LPARAM lParam);
 
-	
-//private:
-//	int		m_iSelectedItemIdx;
+  //private:
+  //	int		m_iSelectedItemIdx;
 
 };
 #endif

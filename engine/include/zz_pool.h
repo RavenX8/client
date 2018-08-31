@@ -75,200 +75,175 @@
 
 #define ZZ_POOL_MAX_SIZE 10000
 
-template<class T>
+template <class T>
 class zz_pool {
 private:
-	std::map<zz_handle, T> running_map;
-	std::map<zz_handle, T> free_map;
+  std::map<zz_handle, T> running_map;
+  std::map<zz_handle, T> free_map;
 
-	typedef typename std::map<zz_handle, T>::iterator it_type;
+  typedef typename std::map<zz_handle, T>::iterator it_type;
 
 public:
-	class iterator {
-		friend zz_pool;
-	private:
-		typename std::map<zz_handle, T>::iterator _it;
+  class iterator {
+    friend zz_pool;
+  private:
+    typename std::map<zz_handle, T>::iterator _it;
 
-	public:
-		iterator& operator++()
-		{
-			_it++;
-			return *this;
-		}
+  public:
+    iterator& operator++() {
+      ++_it;
+      return *this;
+    }
 
-		iterator& operator++(int i)
-		{
-			_it++;
-			return *this;
-		}
+    iterator& operator++(int i) {
+      ++_it;
+      return *this;
+    }
 
-		iterator& operator--()
-		{
-			_it--;
-			return *this;
-		}
+    iterator& operator--() {
+      --_it;
+      return *this;
+    }
 
-		iterator& operator--(int i)
-		{
-			_it->operator--(i);
-			return *this;
-		}
+    iterator& operator--(int i) {
+      _it->operator--( i );
+      return *this;
+    }
 
-		bool operator!=(iterator& it)
-		{
-			return (it._it != _it);
-		}
+    bool operator!=(iterator& it) {
+      return (it._it != _it);
+    }
 
-		bool operator==(iterator& it)
-		{
-			return (it._it == _it);
-		}	
+    bool operator==(iterator& it) {
+      return (it._it == _it);
+    }
 
-		T& operator*()
-		{
-			return (_it->second);
-		}
-	};
+    T& operator*() {
+      return (_it->second);
+    }
+  };
 
-	zz_pool ()
-	{
-	}
+  zz_pool() { }
 
-	~zz_pool ()
-	{
-	}
+  ~zz_pool() { }
 
-	iterator begin ()
-	{
-		iterator it;
-		it._it = running_map.begin();
-		return it;
-	}
+  iterator   begin() {
+    iterator it;
+    it._it = running_map.begin();
+    return it;
+  }
 
-	iterator end ()
-	{
-		iterator it;
-		it._it = running_map.end();
-		return it;
-	}
+  iterator   end() {
+    iterator it;
+    it._it = running_map.end();
+    return it;
+  }
 
-	// add an element
-	zz_handle add (T data)
-	{
-		zz_handle index;
+  // add an element
+  zz_handle   add(T data) {
+    zz_handle index;
 
-		// if has no free_map, then create one by using new index
-		if (free_map.empty()) {
-            index = get_num_total();
-		}
-		else {
-			// if has free node, then re-use the index that
-			// free node have used
-			it_type it = free_map.begin();
-			index = (*it).first;
-			free_map.erase(index);
-		}
-		assert(index <= ZZ_POOL_MAX_SIZE);
-		assert(!find(index));
-		running_map[index] = data;
+    // if has no free_map, then create one by using new index
+    if ( free_map.empty() ) {
+      index = get_num_total();
+    } else {
+      // if has free node, then re-use the index that
+      // free node have used
+      it_type it = free_map.begin();
+      index      = (*it).first;
+      free_map.erase( index );
+    }
+    assert(index <= ZZ_POOL_MAX_SIZE);
+    assert(!find(index));
+    running_map[index] = data;
 
-		return index;
-	}
+    return index;
+  }
 
-	bool find (zz_handle index_to_find)
-	{
-		return (running_map.find(index_to_find) != running_map.end());
-	}
+  bool find(zz_handle index_to_find) {
+    return (running_map.find( index_to_find ) != running_map.end());
+  }
 
-	// invalidate the index
-	void del (zz_handle index_to_remove)
-	{
-		assert(ZZ_HANDLE_IS_VALID(index_to_remove));
-		assert(this->find(index_to_remove));
-		assert(free_map.find(index_to_remove) == free_map.end());
-		
-		free_map[index_to_remove] = running_map[index_to_remove];
-		running_map.erase(index_to_remove);
-	}
+  // invalidate the index
+  void del(zz_handle index_to_remove) {
+    assert(ZZ_HANDLE_IS_VALID(index_to_remove));
+    assert(this->find(index_to_remove));
+    assert(free_map.find(index_to_remove) == free_map.end());
 
-	// delete by iterator
-	void erase (iterator it)
-	{
-		// *it* is of running_map's
-		assert((it._it) != running_map.end()); // confirm valid iterator
-		zz_handle index = (it._it)->first; // get index
-		assert(ZZ_HANDLE_IS_VALID(index)); // confirm valid handle
-		free_map[index] = (it._it)->second; // copy data from running_map to free_map
-		running_map.erase(index); // delete running_map item with index
-	}
+    free_map[index_to_remove] = running_map[index_to_remove];
+    running_map.erase( index_to_remove );
+  }
 
-	T& operator[] (zz_handle index)
-	{
-		return running_map[index];
-	}
+  // delete by iterator
+  void erase(iterator it) {
+    // *it* is of running_map's
+    assert((it._it) != running_map.end()); // confirm valid iterator
+    zz_handle index = (it._it)->first;     // get index
+    assert(ZZ_HANDLE_IS_VALID(index));     // confirm valid handle
+    free_map[index] = (it._it)->second;    // copy data from running_map to free_map
+    running_map.erase( index );            // delete running_map item with index
+  }
 
-	const T& operator[] (zz_handle index) const
-	{
-		return running_map[index];
-	}
+  T& operator[](zz_handle index) {
+    return running_map[index];
+  }
 
-	unsigned int get_num_running () const
-	{
-		return running_map.size();
-	}
+  const T& operator[](zz_handle index) const {
+    return running_map[index];
+  }
 
-	unsigned int get_num_total () const
-	{
-		return running_map.size() + free_map.size();
-	}
+  unsigned int get_num_running() const {
+    return running_map.size();
+  }
 
-	void clear ()
-	{
-		it_type it = running_map.begin();
-		zz_handle index;
-		while (it != running_map.end()) {
-			index = (*it).first;
-			free_map[index] = (*it).second;
-			running_map.erase(index);
-			it = running_map.begin();
-		}
-		assert(running_map.empty());
-	}
+  unsigned int get_num_total() const {
+    return running_map.size() + free_map.size();
+  }
 
-	// Check if any items of these maps were lost or overlapped.
-	bool check ()
-	{
-		int num_of_items = (int)free_map.size() + (int)running_map.size();
-		
-		for (int i = 0; i < num_of_items; i++) {
-			bool free_found = (free_map.find(i) == free_map.end());
-			bool run_found = (running_map.find(i) == running_map.end());
-			if (free_found == run_found) return false;
-		}
-		return true;
-	}
+  void        clear() {
+    it_type   it = running_map.begin();
+    zz_handle index;
+    while ( it != running_map.end() ) {
+      index           = (*it).first;
+      free_map[index] = (*it).second;
+      running_map.erase( index );
+      it = running_map.begin();
+    }
+    assert(running_map.empty());
+  }
 
-	// Dump content
-	void dump ()
-	{
-		it_type it;
-		ZZ_LOG("[%x/%d]->running_map = {", this, running_map.size());
-		for (it = running_map.begin(); it != running_map.end(); it++) {
-			ZZ_LOG("%d ", (*it).first);
-		}
-		ZZ_LOG("}\n");
-		ZZ_LOG("[%x/%d]->free_map= {", this, free_map.size());
-		int num = (int)free_map.size();
-		int count = 0;
-		for (count = 0, it = free_map.begin(); it != free_map.end(); it++, count++) {
-			ZZ_LOG("%d ", (*it).first);
-			if (count > num) {
-				assert(0);
-			}
-		}
-		ZZ_LOG("}\n");
-		assert(check());
-	}
+  // Check if any items of these maps were lost or overlapped.
+  bool  check() {
+    int num_of_items = (int)free_map.size() + (int)running_map.size();
+
+    for ( int i          = 0; i < num_of_items; i++ ) {
+      bool    free_found = (free_map.find( i ) == free_map.end());
+      bool    run_found  = (running_map.find( i ) == running_map.end());
+      if ( free_found == run_found ) return false;
+    }
+    return true;
+  }
+
+  // Dump content
+  void      dump() {
+    it_type it;
+    ZZ_LOG( "[%x/%d]->running_map = {", this, running_map.size() );
+    for ( it = running_map.begin(); it != running_map.end(); ++it ) {
+      ZZ_LOG( "%d ", (*it).first );
+    }
+    ZZ_LOG( "}\n" );
+    ZZ_LOG( "[%x/%d]->free_map= {", this, free_map.size() );
+    int num     = (int)free_map.size();
+    int count   = 0;
+    for ( count = 0, it = free_map.begin(); it != free_map.end(); ++it, count++ ) {
+      ZZ_LOG( "%d ", (*it).first );
+      if ( count > num ) {
+        assert(0);
+      }
+    }
+    ZZ_LOG( "}\n" );
+    assert(check());
+  }
 };
 
 /*

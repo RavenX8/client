@@ -10,17 +10,16 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CUpgradeDlgStateWait : public CUpgradeDlgState
-{
+class CUpgradeDlgStateWait : public CUpgradeDlgState {
 public:
-	CUpgradeDlgStateWait(void);
-	virtual ~CUpgradeDlgStateWait(void);
+          CUpgradeDlgStateWait(void );
+  virtual ~CUpgradeDlgStateWait(void);
 
-	virtual void Enter(){}
-	virtual void Leave(){}
-	virtual void Update( POINT ptMouse ){}
-	virtual void Draw(){}
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam ){ return 1; }
+  void     Enter() override {}
+  void     Leave() override {}
+  void     Update(POINT ptMouse) override {}
+  void     Draw() override {}
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override { return 1; }
 
 };
 #endif

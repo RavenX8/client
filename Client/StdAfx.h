@@ -31,11 +31,11 @@
 // TODO: reference additional headers your program requires here
 //-------------------------------------------------------------------------------------------------
 
-typedef	LPDIRECT3DDEVICE9			LPD3DDEVICE;
-typedef	IDirect3DTexture9			ID3DTexture;
-typedef	LPDIRECT3DTEXTURE9			LPD3DTEXTURE;
-typedef	D3DMATERIAL9				D3DMATERIAL;
-typedef	LPDIRECT3DVERTEXBUFFER9		LPD3DVERTEXBUFFER;
+typedef LPDIRECT3DDEVICE9       LPD3DDEVICE;
+typedef IDirect3DTexture9       ID3DTexture;
+typedef LPDIRECT3DTEXTURE9      LPD3DTEXTURE;
+typedef D3DMATERIAL9            D3DMATERIAL;
+typedef LPDIRECT3DVERTEXBUFFER9 LPD3DVERTEXBUFFER;
 
 //#define _D_RELEASE
 
@@ -57,23 +57,23 @@ typedef	LPDIRECT3DVERTEXBUFFER9		LPD3DVERTEXBUFFER;
 #include "zz_interface.h"
 
 // #pragma warning(default : 4786)
-#pragma warning( disable : 4651 ) 
+#pragma warning( disable : 4651 )
 
-#include "util\CVector.h"
-#include "common\DataTYPE.h"
+#include "util/CVector.h"
+#include "common/DataTYPE.h"
 
-#include "util\CD3DUtil.h"
-#include "util\classSTR.h"
-#include "util\classLOG.h"
-#include "util\classLUA.h"
-#include "util\classHASH.h"
-#include "util\classUTIL.h"
-#include "util\SLLIST.h"
-#include "util\DLLIST.h"
-#include "util\CFileLIST.h"
+#include "util/CD3DUtil.h"
+#include "util/classSTR.h"
+#include "util/classLOG.h"
+#include "util/classLUA.h"
+#include "util/classHASH.h"
+#include "util/classUTIL.h"
+#include "util/SLLIST.h"
+#include "util/DLLIST.h"
+#include "util/CFileLIST.h"
 
-#include "util\CGameSTR.h"
-#include "util\CGameSTB.h"
+#include "util/CGameSTR.h"
+#include "util/CGameSTB.h"
 
 #include "CApplication.h"
 
@@ -91,7 +91,6 @@ typedef	LPDIRECT3DVERTEXBUFFER9		LPD3DVERTEXBUFFER;
 #ifndef SAFE_RELEASE
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 #endif
-
 
 #ifndef	GET_WHEEL_DELTA_WPARAM
 #define GET_WHEEL_DELTA_WPARAM(wParam)  ((short)HIWORD(wParam))

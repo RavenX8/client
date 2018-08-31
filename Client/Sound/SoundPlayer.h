@@ -8,12 +8,10 @@
 ///        can use dsound, mms
 ///
 //---------------------------------------------------------------------------------------------
-class CSoundPlayer
-{
+class CSoundPlayer {
 public:
-	CSoundPlayer(void);
-	~CSoundPlayer(void);
+  CSoundPlayer(void );
+  ~CSoundPlayer(void);
 };
-
 
 #endif //_SOUND_PLAYER_

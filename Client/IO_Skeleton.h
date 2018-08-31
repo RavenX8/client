@@ -19,21 +19,21 @@ typedef unsigned int HNODE;
 /// skeleton list
 class CSKELETON : public CFileLIST<HNODE> {
 private :
-	short	**m_ppDATA;
+  short** m_ppDATA;
 
-	bool	Load_FILE (tagFileDATA<HNODE> *pHNODE);
-	void	Free_FILE (tagFileDATA<HNODE> *pHNODE);
+  bool Load_FILE(tagFileDATA<HNODE>* pHNODE) override;
+  void Free_FILE(tagFileDATA<HNODE>* pHNODE) override;
 
-public  :
-	CSKELETON () : CFileLIST<HNODE>("SKEL")		{	;	}
-	~CSKELETON ();
+public :
+  CSKELETON() : CFileLIST<HNODE>( "SKEL" ) { }
+  ~CSKELETON();
 
-	t_HASHKEY Add_SKELETON (char *szFileName);
+  t_HASHKEY Add_SKELETON(char* szFileName);
 
-	short Get_DATA(short nRow, short nCol)		{	return	m_ppDATA[ nRow ][ nCol ];	}
-	bool  Load (char *szSTBFile);
-	void  Free ();
-} ;
+  short Get_DATA(short nRow, short nCol) { return m_ppDATA[nRow][nCol]; }
+  bool  Load(char*     szSTBFile);
+  void  Free() override;
+};
 
 //-------------------------------------------------------------------------------------------------
 #endif

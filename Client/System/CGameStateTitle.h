@@ -8,33 +8,30 @@
 * @Author	최종진
 * @Date		2005/9/15
 */
-class CGameStateTitle :	public CGameState
-{
-	HANDLE		m_hThread;
+class CGameStateTitle : public CGameState {
+  HANDLE m_hThread;
 public:
-	CGameStateTitle(int iID);
-	~CGameStateTitle(void);
+  CGameStateTitle(int  iID);
+  ~CGameStateTitle(void);
 
-	virtual int Update( bool bLostFocus );
-	virtual int Enter( int iPrevStateID );
-	virtual int Leave( int iNextStateID );
+  int Update(bool bLostFocus) override;
+  int Enter(int   iPrevStateID) override;
+  int Leave(int   iNextStateID) override;
 
-	virtual void ServerDisconnected(){}
+  void ServerDisconnected() override {}
 
-	virtual int ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lParam ){return 0;}
-	virtual int ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM lParam ){ return 0;}
+  int ProcMouseInput(UINT    uiMsg, WPARAM wParam, LPARAM lParam) override { return 0; }
+  int ProcKeyboardInput(UINT uiMsg, WPARAM wParam, LPARAM lParam) override { return 0; }
 
-	
 protected:
-	static unsigned __stdcall ThreadFunc( void* pArguments );
-	void Draw();
+  static unsigned __stdcall ThreadFunc(void* pArguments);
+  void                      Draw();
 
-	///
-	/// system 배경에 사용될 존번호
-	///
-	static int	m_iBackGroundZone;
-	HNODE		m_hTitleTexture;
+  ///
+  /// system 배경에 사용될 존번호
+  ///
+  static int m_iBackGroundZone;
+  HNODE      m_hTitleTexture;
 };
-
 
 #endif

@@ -86,39 +86,39 @@
 
 // read & write zip(WinZip, PKWare .ZIP) compressed file
 class zz_vfs_zip : public zz_vfs {
-	// unzip file class instance from [unzip.h]
-	unzFile _uf;
+  // unzip file class instance from [unzip.h]
+  unzFile _uf;
 
-	// zip file name. include path name. ex) D:/cvs/znzin/haha.zip
-	// It can include relative path and absolute full path.
-	zz_string _zipname; 
-	
-	// filename. inside the zip file. ex) /haha/zho.txt
-	zz_string _filename;
-	
-	// parse _zipname & _filename from fullname
-	// ex) fullname := "D:/cvs/znzin/haha.zip/haha/zho.txt"
-	//     _zipname := "D:/cvs/znzin/haha.zip"
-	//     _filename := "/haha/zho.txt"
-	// used only in zz_vfs_zip::open() method
-	void _parse_filename (const char * fullname); 
+  // zip file name. include path name. ex) D:/cvs/znzin/haha.zip
+  // It can include relative path and absolute full path.
+  zz_string _zipname;
 
-	// buf : buffer to be read into
-	// size : maximum size of the buffer
-	// return : size of the data that was read
-	uint32 read_ (char * buf, uint32 size);
-	
+  // filename. inside the zip file. ex) /haha/zho.txt
+  zz_string _filename;
+
+  // parse _zipname & _filename from fullname
+  // ex) fullname := "D:/cvs/znzin/haha.zip/haha/zho.txt"
+  //     _zipname := "D:/cvs/znzin/haha.zip"
+  //     _filename := "/haha/zho.txt"
+  // used only in zz_vfs_zip::open() method
+  void _parse_filename(const char* fullname);
+
+  // buf : buffer to be read into
+  // size : maximum size of the buffer
+  // return : size of the data that was read
+  uint32 read_(char* buf, uint32 size) override;
+
 public:
-	zz_vfs_zip();
-	~zz_vfs_zip();
+  zz_vfs_zip();
+  ~zz_vfs_zip();
 
 #define ZZ_VFS_ZIP_EXTENSION ".zip"
 
-	// filename : ex) d:/cvs/znzin/haha.zip/haha/zho.txt
-	bool open (const char * filename, const zz_vfs_mode mode = ZZ_VFS_READ);
-	bool close (void);
-	
-	uint32 get_size () const;
+  // filename : ex) d:/cvs/znzin/haha.zip/haha/zho.txt
+  bool open(const char* filename, zz_vfs_mode mode = ZZ_VFS_READ) override;
+  bool close(void       ) override;
+
+  uint32 get_size() const override;
 };
 
 // usage :

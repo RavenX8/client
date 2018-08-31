@@ -49,20 +49,20 @@
 class zz_light_omni : public zz_light {
 public:
 
-	zz_light_omni(void);
-	virtual ~zz_light_omni(void);
+          zz_light_omni(void );
+  virtual ~zz_light_omni(void);
 
-	ZZ_DECLARE_DYNAMIC(zz_light_omni)
+ZZ_DECLARE_DYNAMIC(zz_light_omni)
 
-	//vec3& get_position ();
-	//vec3& get_ambient ();
-	//vec3& get_specular ();
-	//vec3& get_diffuse ();
+  //vec3& get_position ();
+  //vec3& get_ambient ();
+  //vec3& get_specular ();
+  //vec3& get_diffuse ();
 
-	//void set_position (vec3& position_to_set);
-	//void set_ambient (vec3& ambient_to_set);
-	//void set_specular (vec3& specular_to_set);
-	//void set_diffuse (vec3& diffuse_to_set);
+  //void set_position (vec3& position_to_set);
+  //void set_ambient (vec3& ambient_to_set);
+  //void set_specular (vec3& specular_to_set);
+  //void set_diffuse (vec3& diffuse_to_set);
 };
 
 #endif // __ZZ_LIGHT_OMNI_H__

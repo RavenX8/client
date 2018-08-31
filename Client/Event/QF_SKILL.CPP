@@ -6,15 +6,12 @@
 #include "Quest_FUNC.h"
 
 //-------------------------------------------------------------------------------------------------
-int		QF_getSkillLevel ( int iSkillNo )
-{
-	return 0;
+int QF_getSkillLevel(int iSkillNo) {
+  return 0;
 }
 
-int		QF_givePoint ( int iPoint )
-{
-	return 0;
+int QF_givePoint(int iPoint) {
+  return 0;
 }
-
 
 //-------------------------------------------------------------------------------------------------

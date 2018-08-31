@@ -17,19 +17,19 @@
 
 //--------------------------------------------------------------------------------
 class zz_vertex_buffer : public zz_device_resource {
-//--------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------
 protected:
-	int size_total; // total size(in bytes). passes to renderer
+  int size_total; // total size(in bytes). passes to renderer
 
 public:
 
-	zz_vertex_buffer ();
-	~zz_vertex_buffer ();
+  zz_vertex_buffer();
+  ~zz_vertex_buffer();
 
-	// virtuals from zz_device_resource
-	void create_buffer (int size_total_in);
-	void update_buffer (const void * buffer_in);
-	void destroy_buffer ();
+  // virtuals from zz_device_resource
+  void create_buffer(int         size_total_in);
+  void update_buffer(const void* buffer_in);
+  void destroy_buffer();
 };
 
 #endif // __ZZ_VERTEX_BUFFER_H__

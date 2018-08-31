@@ -4,11 +4,9 @@
 
 // #include <string>
 
-class CLibString
-{
+class CLibString {
 public:
-	static bool CompareNI (const char * s1, const char * s2);
+  static bool CompareNI(const char* s1, const char* s2);
 };
-
 
 #endif

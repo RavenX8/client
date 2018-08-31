@@ -10,51 +10,50 @@
 * @Author		최종진
 * @Date			2005/9/12
 */
-class CDialogDlg : public CTDialog
-{
+class CDialogDlg : public CTDialog {
 public:
-	CDialogDlg(void);
-	virtual ~CDialogDlg(void);
+          CDialogDlg(void );
+  virtual ~CDialogDlg(void);
 
-	virtual bool Create( const char* IDD );
-	virtual void Update( POINT ptMouse );
-	virtual void Hide();
-	virtual void Draw();
-	virtual void Show();
-	virtual unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam );
+  bool     Create(const char* IDD) override;
+  void     Update(POINT       ptMouse) override;
+  void     Hide() override;
+  void     Draw() override;
+  void     Show() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	void		SetScript( char* pszScript );															/// NPC 대사 
-	void		AddAnswerExample( char* pszScript, int iEventID, void (*fpEventHandle)(int iEventID) );	/// 선택문 추가
+  void SetScript(char*        pszScript);                                                    /// NPC 대사 
+  void AddAnswerExample(char* pszScript, int iEventID, void (*fpEventHandle)(int iEventID)); /// 선택문 추가
 
-	void		SetTargetNpcClientObjectIndex( short iIndex );		
-	short		GetTargetNpcClientObjectIndex();					
-	
-	int			IsInValidShow();																		/// 화면에 보여질수 있는가?
-	void		SetNpcFace( HNODE hNode_ );
-	void		SetNpcName( std::string strName );
-	void		SetNpctalkinterfaceHide( float fTime );
-	float		GetNpctalkinterfaceHide();
+  void  SetTargetNpcClientObjectIndex(short iIndex);
+  short GetTargetNpcClientObjectIndex();
+
+  int   IsInValidShow() override; /// 화면에 보여질수 있는가?
+  void  SetNpcFace(HNODE              hNode_);
+  void  SetNpcName(std::string        strName);
+  void  SetNpctalkinterfaceHide(float fTime);
+  float GetNpctalkinterfaceHide();
 
 protected:
 
-	enum{
-		IID_BG_IMAGE				= 1,
-		IID_BTN_CLOSE				= 10,
-		IID_ZLISTBOX_NPCSCRIPT		= 20,
-		IID_ZLISTBOX_ANSWER_EXAMPLE = 21
-	};
+  enum {
+    IID_BG_IMAGE = 1,
+    IID_BTN_CLOSE = 10,
+    IID_ZLISTBOX_NPCSCRIPT = 20,
+    IID_ZLISTBOX_ANSWER_EXAMPLE = 21
+  };
 
-	short m_nTargetClientIdx;						/// NPC의 클라이언트 인덱스
-	
-	std::string m_strNpcName;						/// NPC이름
-	std::string m_strTempScript;					/// 임시 변수
-	
-	HNODE		m_hNpcFace;							/// 대화창에 보여질 NPC의얼굴 텍스쳐 노드
-	int			m_widthNpcFace;						/// 텍스쳐의 너비
-	int			m_heightNpcFace;					/// 텍스쳐의 높이
+  short m_nTargetClientIdx; /// NPC의 클라이언트 인덱스
 
-	CJStringParser	m_Script;						/// NPC대사 
+  std::string m_strNpcName;    /// NPC이름
+  std::string m_strTempScript; /// 임시 변수
 
-	float		m_fNpctalkinterfaceHideTime;
+  HNODE m_hNpcFace;      /// 대화창에 보여질 NPC의얼굴 텍스쳐 노드
+  int   m_widthNpcFace;  /// 텍스쳐의 너비
+  int   m_heightNpcFace; /// 텍스쳐의 높이
+
+  CJStringParser m_Script; /// NPC대사 
+
+  float m_fNpctalkinterfaceHideTime;
 };
 #endif

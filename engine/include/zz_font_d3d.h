@@ -28,50 +28,48 @@
 
 //--------------------------------------------------------------------------------
 class zz_font_d3d : public zz_font {
-//--------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------
 private:
-	INT _draw_text ( LPD3DXSPRITE pSprite, const char * pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color ); // just wrapper for DrawText
+  INT _draw_text(LPD3DXSPRITE pSprite, const char* pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color); // just wrapper for DrawText
 
 protected:
-	LPD3DXFONT _d3d_font;
-	LPDIRECT3DDEVICE9 _d3d_device;
+  LPD3DXFONT        _d3d_font;
+  LPDIRECT3DDEVICE9 _d3d_device;
 
-	int _logical_pixels_y; // get by GetDeviceCaps
-	int _num_font_textures;
-	zz_font_texture_d3d _d3d_font_texture;
+  int                 _logical_pixels_y; // get by GetDeviceCaps
+  int                 _num_font_textures;
+  zz_font_texture_d3d _d3d_font_texture;
 
-	// this is primitive virtual functions
-	virtual void draw_text_prim (const zz_font_text& text_item);
-	virtual void draw_text_prim_offset (const zz_font_text& text_item, float offsetx, float offsety);
-	virtual void draw_text_prim_outline_simple (const zz_font_text& text_item);
-	virtual void draw_text_prim_shadow_simple (const zz_font_text& text_item);
+  // this is primitive virtual functions
+  void draw_text_prim(const zz_font_text&                text_item) override;
+  void draw_text_prim_offset(const zz_font_text&         text_item, float offsetx, float offsety) override;
+  void draw_text_prim_outline_simple(const zz_font_text& text_item) override;
+  void draw_text_prim_shadow_simple(const zz_font_text&  text_item) override;
 
-	virtual zz_font_texture * get_font_texture ()
-	{
-		if (_num_font_textures == 0) return NULL;
-		return static_cast<zz_font_texture*>(&_d3d_font_texture);
-	}
+  zz_font_texture* get_font_texture() override {
+    if ( _num_font_textures == 0 ) return nullptr;
+    return static_cast<zz_font_texture*>(&_d3d_font_texture);
+  }
 
 public:
-	zz_font_d3d();
-	virtual ~zz_font_d3d();
+          zz_font_d3d();
+  virtual ~zz_font_d3d();
 
-	// from node
-	virtual bool load ();
-	virtual bool unload ();
+  // from node
+  bool load() override;
+  bool unload() override;
 
-	virtual bool get_text_extent (const char * text, zz_size * extent);
+  bool get_text_extent(const char* text, zz_size* extent) override;
 
-	// restoring device stuff
-	virtual bool restore_device_objects (); // create unmanaged objects
-	virtual bool init_device_objects (); // create managed objects
-	virtual bool invalidate_device_objects (); // destroy unmanaged objects
-	virtual bool delete_device_objects (); // destroy managed objects
+  // restoring device stuff
+  bool restore_device_objects() override;    // create unmanaged objects
+  bool init_device_objects() override;       // create managed objects
+  bool invalidate_device_objects() override; // destroy unmanaged objects
+  bool delete_device_objects() override;     // destroy managed objects
 
-	virtual void set_cache_property (int num_textures_in, int texture_width_in, int texture_height_in);
+  void set_cache_property(int num_textures_in, int texture_width_in, int texture_height_in) override;
 
-	ZZ_DECLARE_DYNAMIC(zz_font_d3d);
+ZZ_DECLARE_DYNAMIC(zz_font_d3d);
 };
-
 
 #endif // __ZZ_FONT_D3D_H__

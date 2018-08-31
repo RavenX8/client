@@ -1,23 +1,20 @@
 #include "stdafx.h"
 #include "CUIMediator.h"
-#include "..\\Game.h"
+#include "..//Game.h"
 
 #include "System/CGame.h"
 
-CUIMediator	g_UIMed;
+CUIMediator g_UIMed;
 
+CUIMediator::CUIMediator() {
+  m_iLogoWidth  = 0;
+  m_iLogoHeight = 0;
 
-CUIMediator::CUIMediator()
-{
-	m_iLogoWidth = 0;
-	m_iLogoHeight = 0;
-
-	// Construct
+  // Construct
 }
 
-CUIMediator::~CUIMediator()
-{
-	// Destruct
+CUIMediator::~CUIMediator() {
+  // Destruct
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -25,39 +22,37 @@ CUIMediator::~CUIMediator()
 /// @brief  UI관리자 초기화..
 //----------------------------------------------------------------------------------------------------
 
-bool CUIMediator::InitMediator()
-{
-	setDelayedLoad(0);
+bool CUIMediator::InitMediator() {
+  setDelayedLoad( 0 );
 
-	if( m_ChatBoxMgr.Init() == false )
-		return false;
+  if ( m_ChatBoxMgr.Init() == false )
+    return false;
 
-	//if( m_NameBox.Init( "3DData\\Control\\Res\\NameBox.tga" ) == false )
-	//	return false;
+  //if( m_NameBox.Init( "3DData\\Control\\Res\\NameBox.tga" ) == false )
+  //	return false;
 
-	if( m_DigitEffect.Init() == false )
-		return false;
+  if ( m_DigitEffect.Init() == false )
+    return false;
 
-	if( m_PersonalStoreManager.Init() == false )
-		return false;
-	
-	/// For load..( temp )
-	m_LogoTex = loadTexture ( "Logo.dds", "Logo.dds", 1, 0 );
+  if ( m_PersonalStoreManager.Init() == false )
+    return false;
 
-	setDelayedLoad(1);
+  /// For load..( temp )
+  m_LogoTex = loadTexture( "Logo.dds", "Logo.dds", 1, 0 );
 
-	if( m_LogoTex == NULL )
-	{
+  setDelayedLoad( 1 );
+
+  if ( m_LogoTex == NULL ) {
 #ifdef _DEBUG
 			g_pCApp->ErrorBOX( "LogoTex load failed !!", "File open error" );
 #endif
-			//실패한 이유를 적어준다..
-			return false;
-	}	
-	
-	getTextureSize( m_LogoTex, m_iLogoWidth, m_iLogoHeight );
+    //실패한 이유를 적어준다..
+    return false;
+  }
 
-	return true;
+  getTextureSize( m_LogoTex, m_iLogoWidth, m_iLogoHeight );
+
+  return true;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -65,44 +60,39 @@ bool CUIMediator::InitMediator()
 /// @brief 모든 리소스 해제
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::FreeResource()
-{
-	m_ChatBoxMgr.FreeResource();
-//	m_NameBox.FreeResource();
+void CUIMediator::FreeResource() {
+  m_ChatBoxMgr.FreeResource();
+  //	m_NameBox.FreeResource();
 
-	m_DigitEffect.ClearAll();
-	m_PersonalStoreManager.FreeResource();
+  m_DigitEffect.ClearAll();
+  m_PersonalStoreManager.FreeResource();
 }
-
 
 //----------------------------------------------------------------------------------------------------
 /// @param
 /// @brief 아바타 이름 출력
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::DrawAvataName( CObjCHAR* pCharOBJ )
-{
-	if( pCharOBJ == NULL )
-		return;
+void CUIMediator::DrawAvataName(CObjCHAR* pCharOBJ) {
+  if ( pCharOBJ == nullptr )
+    return;
 
-	D3DVECTOR   PosSCR;
-	
-	int iType = pCharOBJ->Get_TYPE();
-	if( iType == OBJ_MOB )
-	{
-		int a = 10;
-	}
-	pCharOBJ->GetScreenPOS (PosSCR);	
+  D3DVECTOR PosSCR;
 
-	if ( PosSCR.x < 0 || PosSCR.y < 0 )
-		return;
+  int iType = pCharOBJ->Get_TYPE();
+  if ( iType == OBJ_MOB ) {
+    int a = 10;
+  }
+  pCharOBJ->GetScreenPOS( PosSCR );
 
-	if ( PosSCR.x > g_pCApp->GetWIDTH() ||
-		PosSCR.y > g_pCApp->GetHEIGHT() )
-		return;
-	
-	
-	m_NameBox.Draw( pCharOBJ, PosSCR.x, PosSCR.y, PosSCR.z ); 	
+  if ( PosSCR.x < 0 || PosSCR.y < 0 )
+    return;
+
+  if ( PosSCR.x > g_pCApp->GetWIDTH() ||
+       PosSCR.y > g_pCApp->GetHEIGHT() )
+    return;
+
+  m_NameBox.Draw( pCharOBJ, PosSCR.x, PosSCR.y, PosSCR.z );
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -110,9 +100,8 @@ void CUIMediator::DrawAvataName( CObjCHAR* pCharOBJ )
 /// @brief 타격수치 출력
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::CreateDamageDigit(int iPoint,float x,float y,float z, bool bIsUSER )
-{
-	m_DigitEffect.CreateDigitEffect( iPoint, x, y, z, bIsUSER );
+void CUIMediator::CreateDamageDigit(int iPoint, float x, float y, float z, bool bIsUSER) {
+  m_DigitEffect.CreateDigitEffect( iPoint, x, y, z, bIsUSER );
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -120,9 +109,8 @@ void CUIMediator::CreateDamageDigit(int iPoint,float x,float y,float z, bool bIs
 /// @brief 
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::Update()
-{
-	m_DigitEffect.Refresh();
+void CUIMediator::Update() {
+  m_DigitEffect.Refresh();
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -130,30 +118,29 @@ void CUIMediator::Update()
 /// @brief 랜더링..
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::Draw()
-{	
-	DrawChatBox();	
-	//DrawZoneName();
+void CUIMediator::Draw() {
+  DrawChatBox();
+  //DrawZoneName();
 
-	m_PersonalStoreManager.Draw();
+  m_PersonalStoreManager.Draw();
 
 #if defined(_USA) || defined(_NEWUI)
 
 #else
-	{
-		//// Transform
-		D3DXMATRIX mat;	
-		D3DXMatrixTranslation( &mat, (float)g_pCApp->GetWIDTH() - m_iLogoWidth - 20, 
-			(float)g_pCApp->GetHEIGHT() - m_iLogoHeight , 0.0f );
-		::setTransformSprite( mat );
-		::drawSprite( m_LogoTex, 
-			NULL,
-			NULL,
-			&D3DXVECTOR3( 0, 0, 0 ),								
-			D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
-	}
+  {
+    //// Transform
+    D3DXMATRIX mat;
+    D3DXMatrixTranslation( &mat, (float)g_pCApp->GetWIDTH() - m_iLogoWidth - 20,
+                           (float)g_pCApp->GetHEIGHT() - m_iLogoHeight, 0.0f );
+    setTransformSprite( mat );
+    drawSprite( m_LogoTex,
+                nullptr,
+                nullptr,
+                &D3DXVECTOR3( 0, 0, 0 ),
+                D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
+  }
 #endif
-	
+
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -161,9 +148,8 @@ void CUIMediator::Draw()
 /// @brief Chat msg 추가
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::AddChatMsg( int iCharIndex, const char* pMsg, DWORD Color )
-{
-	m_ChatBoxMgr.AddChat( iCharIndex, pMsg, Color );
+void CUIMediator::AddChatMsg(int iCharIndex, const char* pMsg, DWORD Color) {
+  m_ChatBoxMgr.AddChat( iCharIndex, pMsg, Color );
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -197,14 +183,12 @@ void CUIMediator::AddChatMsg( int iCharIndex, const char* pMsg, DWORD Color )
 //	}
 //}
 
-
 //----------------------------------------------------------------------------------------------------	
 /// @brief personal store
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::AddPersonalStoreIndex( int iClientObjIDX )
-{
-	m_PersonalStoreManager.AddStoreList( iClientObjIDX );
+void CUIMediator::AddPersonalStoreIndex(int iClientObjIDX) {
+  m_PersonalStoreManager.AddStoreList( iClientObjIDX );
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -212,9 +196,8 @@ void CUIMediator::AddPersonalStoreIndex( int iClientObjIDX )
 /// @brief 
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::SubPersonalStoreIndex( int iClientObjIDX )
-{
-	m_PersonalStoreManager.SubStoreList( iClientObjIDX );
+void CUIMediator::SubPersonalStoreIndex(int iClientObjIDX) {
+  m_PersonalStoreManager.SubStoreList( iClientObjIDX );
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -222,7 +205,6 @@ void CUIMediator::SubPersonalStoreIndex( int iClientObjIDX )
 /// @brief
 //----------------------------------------------------------------------------------------------------
 
-void CUIMediator::ResetPersonalStore()
-{
-	m_PersonalStoreManager.ClearList();
+void CUIMediator::ResetPersonalStore() {
+  m_PersonalStoreManager.ClearList();
 }

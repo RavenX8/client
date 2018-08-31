@@ -5,27 +5,27 @@
 #define	__CSHO_SOCK_H
 #include "CClientSOCKET.h"
 #include "Net_Prototype.h"
+
 //-------------------------------------------------------------------------------------------------
 
-class CshoClientSOCK : public CClientSOCKET
-{
+class CshoClientSOCK : public CClientSOCKET {
 private:
-	HANDLE	m_hEncSOCK;
-	int		m_iSendSEQ;
+  HANDLE m_hEncSOCK;
+  int    m_iSendSEQ;
 
-	WORD	mF_ESP (t_PACKETHEADER *pPacket);
-	WORD	mF_DRH (t_PACKETHEADER *pPacket);
-	short	mF_DRB (t_PACKETHEADER *pPacket);
+  WORD  mF_ESP(t_PACKETHEADER* pPacket) override;
+  WORD  mF_DRH(t_PACKETHEADER* pPacket) override;
+  short mF_DRB(t_PACKETHEADER* pPacket) override;
 
 public :
-	CshoClientSOCK ();
-	virtual ~CshoClientSOCK ();
+          CshoClientSOCK();
+  virtual ~CshoClientSOCK();
 
-	void mF_Init(DWORD dwInit);
-	void Set_NetSTATUS (BYTE btStatus);
-	void OnAccepted(int *pSendSEQ);
-	bool WndPROC ( WPARAM wParam, LPARAM lParam );
-} ;
+  void mF_Init(DWORD      dwInit) override;
+  void Set_NetSTATUS(BYTE btStatus) override;
+  void OnAccepted(int*    pSendSEQ) override;
+  bool WndPROC(WPARAM     wParam, LPARAM lParam) override;
+};
 
 //-------------------------------------------------------------------------------------------------
 #endif

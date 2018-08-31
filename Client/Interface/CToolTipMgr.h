@@ -2,14 +2,14 @@
 #define _CToolTipMgr_
 #include "CInfo.h"
 
-
 ///<- 이하 define은 사용되지 않는것 같다 2005/9/5 최종진
-#define INFO_STATUS_DEF			0x00000001			
+#define INFO_STATUS_DEF			0x00000001
 #define INFO_STATUS_ATK			0x00000002
 #define INFO_STATUS_ACC			0x00000004
 #define INFO_STATUS_GEM			0x00000010
 #define INFO_STATUS_USE			0x00000020
 #define INFO_STATUS_ETC			0x00000040
+
 //->
 
 /**
@@ -20,24 +20,23 @@
 * @Date			2005/9/5	
 */
 
-class CToolTipMgr
-{
-	CToolTipMgr(void);
+class CToolTipMgr {
+  CToolTipMgr(void);
 public:
-	~CToolTipMgr(void);
-	static CToolTipMgr& GetInstance();
+                      ~CToolTipMgr(void);
+  static CToolTipMgr& GetInstance();
 
-	/// 툴팁 등록 Methods
-	void  RegUIInfo( const int x, const int y, const DWORD dwDlgType, const int iToolTipID );
-	void  RegistInfo( const CInfo& Info );
-	void  RegToolTip( int x, int y, const char* pszMsg );
+  /// 툴팁 등록 Methods
+  void RegUIInfo(int           x, int y, DWORD dwDlgType, int iToolTipID);
+  void RegistInfo(const CInfo& Info);
+  void RegToolTip(int          x, int y, const char* pszMsg);
 
-	/// 등록된 툴팁 Draw
-	void  Draw();
+  /// 등록된 툴팁 Draw
+  void Draw();
 
 private:
-	bool			m_bHasDrawInfo;
-	CInfo			m_Info;
+  bool  m_bHasDrawInfo;
+  CInfo m_Info;
 
 };
 #endif

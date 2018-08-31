@@ -1,4 +1,3 @@
-
 #include <windows.h>
 #include "IJL.h"
 #include "LIB_IJL.h"
@@ -290,90 +289,81 @@ struct tagJPEGBUFFER *IJL_DecodeFromJPEGBuffer (char *szFileName, int iPixelForm
 */
 
 //---------------------------------------------------------------------------------------
-bool IJL_EncodeToJPEGFile (char *lpszPathName, unsigned long dwWidth, unsigned long dwHeight, unsigned char *pRGB)
-{
-	bool	bres;
-	IJLERR	jerr;
-	unsigned long	dwRgbBufferSize;
-	unsigned char   *lpTemp;
+bool             IJL_EncodeToJPEGFile(char* lpszPathName, unsigned long dwWidth, unsigned long dwHeight, unsigned char* pRGB) {
+  bool           bres;
+  IJLERR         jerr;
+  unsigned long  dwRgbBufferSize;
+  unsigned char* lpTemp;
 
-	// Allocate the IJL JPEG_CORE_PROPERTIES structure.
-	JPEG_CORE_PROPERTIES jcprops;
+  // Allocate the IJL JPEG_CORE_PROPERTIES structure.
+  JPEG_CORE_PROPERTIES jcprops;
 
-	bres = true;
-	__try
-	{
-		// Initialize the Intel(R) JPEG Library.
-		jerr = ijlInit(&jcprops);
-		if ( IJL_OK != jerr )
-		{
-			bres = false;
-			__leave;
-		}
+  bres = true;
+  __try {
+    // Initialize the Intel(R) JPEG Library.
+    jerr = ijlInit( &jcprops );
+    if ( IJL_OK != jerr ) {
+      bres = false;
+      __leave;
+    }
 
-		dwRgbBufferSize = dwWidth * dwHeight * 3;
-		lpTemp = new unsigned char [ dwRgbBufferSize ];
-		if ( NULL == lpTemp )
-		{
-			bres = false;
-			__leave;
-		}
+    dwRgbBufferSize = dwWidth * dwHeight * 3;
+    lpTemp          = new unsigned char [ dwRgbBufferSize ];
+    if ( nullptr == lpTemp ) {
+      bres = false;
+      __leave;
+    }
 
-		/*
-		WORD   w16RGB, wX, wY;
-		struct tag24RGB s24RGB;
+    /*
+    WORD   w16RGB, wX, wY;
+    struct tag24RGB s24RGB;
 
-		for (wY=0; wY<dwHeight; wY++) 
-			for (wX=0; wX<dwWidth; wX++) {
-				w16RGB = *( p16RGB + wY*dwWidth + wX );
-				s24RGB = Get24RGB (iPixelFormat, w16RGB);
-				*( lpTemp + wY*3*dwWidth + wX*3 + 0 ) = s24RGB.btR;
-				*( lpTemp + wY*3*dwWidth + wX*3 + 1 ) = s24RGB.btG;
-				*( lpTemp + wY*3*dwWidth + wX*3 + 2 ) = s24RGB.btB;
-			}
-		*/
-		lpTemp = pRGB;
+    for (wY=0; wY<dwHeight; wY++) 
+      for (wX=0; wX<dwWidth; wX++) {
+        w16RGB = *( p16RGB + wY*dwWidth + wX );
+        s24RGB = Get24RGB (iPixelFormat, w16RGB);
+        *( lpTemp + wY*3*dwWidth + wX*3 + 0 ) = s24RGB.btR;
+        *( lpTemp + wY*3*dwWidth + wX*3 + 1 ) = s24RGB.btG;
+        *( lpTemp + wY*3*dwWidth + wX*3 + 2 ) = s24RGB.btB;
+      }
+    */
+    lpTemp = pRGB;
 
-		// Set up information to write from the pixel buffer.
-		jcprops.DIBWidth	= dwWidth;
-		jcprops.DIBHeight	= dwHeight; // Implies a bottom-up DIB.
-		jcprops.DIBBytes	= lpTemp;
-		jcprops.DIBPadBytes = 0;
-		jcprops.DIBChannels = 3;
-		jcprops.DIBColor	= IJL_RGB;
-		jcprops.JPGWidth	= dwWidth;
-		jcprops.JPGHeight	= dwHeight;
-		jcprops.JPGFile		= const_cast<LPSTR>(lpszPathName);
-		jcprops.JPGChannels = 3;
-		jcprops.JPGColor	= IJL_YCBCR;
-		jcprops.JPGSubsampling = IJL_411; // 4:1:1 subsampling.
-		jcprops.jquality	= 100; // Select "good" image quality
-		// Write the actual JPEG image from the pixel buffer.
-		jerr = ijlWrite(&jcprops,IJL_JFILE_WRITEWHOLEIMAGE);
+    // Set up information to write from the pixel buffer.
+    jcprops.DIBWidth       = dwWidth;
+    jcprops.DIBHeight      = dwHeight; // Implies a bottom-up DIB.
+    jcprops.DIBBytes       = lpTemp;
+    jcprops.DIBPadBytes    = 0;
+    jcprops.DIBChannels    = 3;
+    jcprops.DIBColor       = IJL_RGB;
+    jcprops.JPGWidth       = dwWidth;
+    jcprops.JPGHeight      = dwHeight;
+    jcprops.JPGFile        = const_cast<LPSTR>(lpszPathName);
+    jcprops.JPGChannels    = 3;
+    jcprops.JPGColor       = IJL_YCBCR;
+    jcprops.JPGSubsampling = IJL_411; // 4:1:1 subsampling.
+    jcprops.jquality       = 100;     // Select "good" image quality
+    // Write the actual JPEG image from the pixel buffer.
+    jerr = ijlWrite( &jcprops, IJL_JFILE_WRITEWHOLEIMAGE );
 
-		if ( IJL_OK != jerr )
-		{
-			bres = false;
-			__leave;
-		}
-	} // __try
+    if ( IJL_OK != jerr ) {
+      bres = false;
+      __leave;
+    }
+  } // __try
 
-	__finally
-	{
-		if ( NULL != lpTemp )
-		{
-			delete[] lpTemp;
-			lpTemp = NULL;
-		} 
+  __finally {
+    if ( nullptr != lpTemp ) {
+      delete[] lpTemp;
+      lpTemp = nullptr;
+    }
 
-		// Clean up the Intel(R) JPEG Library.
-		ijlFree(&jcprops);
-	}
+    // Clean up the Intel(R) JPEG Library.
+    ijlFree( &jcprops );
+  }
 
-	return bres;
+  return bres;
 } // EncodeToJPEGFile ()
-
-
 
 //----------------------------------------------------------
 // An example using the IntelR JPEG Library:
@@ -521,8 +511,6 @@ BOOL EncodeToJPEGBuffer (unsigned char* lpRgbBuffer, unsigned long dwWidth, unsi
 	return bres;
 } // EncodeToJPEGBuffer()
 */
-
-
 
 /*
 #include "ijl.h"	

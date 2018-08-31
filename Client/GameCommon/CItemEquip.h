@@ -2,14 +2,11 @@
 #define _CItemEquip_
 #include "item.h"
 
-class CItemEquip : public CItem
-{
+class CItemEquip : public CItem {
 public:
-	CItemEquip(void);
-	virtual ~CItemEquip(void);
-	
+          CItemEquip(void );
+  virtual ~CItemEquip(void);
 
 };
-
 
 #endif

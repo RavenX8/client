@@ -16,9 +16,8 @@ class CWinCtrl;
 /// @Date		2005/8/23
 //---------------------------------------------------------------------------------------------------
 
-class TGAMECTRL_API IListCellRenderer
-{
+class TGAMECTRL_API IListCellRenderer {
 public:
-	virtual CWinCtrl* GetListCellRendererComponent( const CTObject* pObject, bool selected, bool mouseover ) = 0/* { _ASSERT( 0 && "IListCellRenderer::GetListCellRendererComponent"); return NULL;}*/;
+  virtual CWinCtrl* GetListCellRendererComponent(const CTObject* pObject, bool selected, bool mouseover) = 0/* { _ASSERT( 0 && "IListCellRenderer::GetListCellRendererComponent"); return NULL;}*/;
 };
 #endif

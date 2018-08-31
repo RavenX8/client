@@ -11,10 +11,6 @@
 
 #include "../network/cnetwork.h"
 
-CItemEquip::CItemEquip(void)
-{
-}
+CItemEquip::CItemEquip(void) {}
 
-CItemEquip::~CItemEquip(void)
-{
-}
+CItemEquip::~CItemEquip(void) {}

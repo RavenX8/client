@@ -19,40 +19,38 @@
 
 // zz_assert message rendering functions
 // @return 1(ignore, ignore assertion and contine), 0(cancel, exit program)
-int _zz_assert ( const char * msg, const char * filename, int linenum );
+int _zz_assert(const char* msg, const char* filename, int linenum);
 
 // static variables for linenumber and filename
 struct zz_assert_shared_struct {
-	static int s_current_line;
-	static const char * s_current_file;
+  static int         s_current_line;
+  static const char* s_current_file;
 
-	template< typename T >
-	void assertf ( T exp, const char * msg_format, ... );
+  template <typename T>
+  void assertf(T exp, const char* msg_format, ...);
 
-	zz_assert_shared_struct ( const char * filename, int linenum )
-	{
-		s_current_line = linenum;
-		s_current_file = filename;
-	}
+  zz_assert_shared_struct(const char* filename, int linenum) {
+    s_current_line = linenum;
+    s_current_file = filename;
+  }
 };
 
 // We cannot assume that T is bool, int, unsigned int, short, or any pointer type.
 // That is why we use template.
-template< typename T >
-void zz_assert_shared_struct::assertf ( T exp, const char * msg_format, ... )
-{
-	if (exp) return;
+template <typename T>
+void zz_assert_shared_struct::assertf(T exp, const char* msg_format, ...) {
+  if ( exp ) return;
 
-	static char buffer[1024];
-	
-	va_list va;
-	va_start(va, msg_format);	
-	vsprintf(buffer, msg_format, va);
-	va_end(va);	
+  static char buffer[1024];
 
-	if (!_zz_assert(buffer, zz_assert_shared_struct::s_current_file, zz_assert_shared_struct::s_current_line)) {
-		_asm { int 3 }
-	}
+  va_list va;
+  va_start(va, msg_format);
+  vsprintf( buffer, msg_format, va );
+  va_end(va);
+
+  if ( !_zz_assert( buffer, s_current_file, s_current_line ) ) {
+    _asm { int 3 }
+  }
 }
 
 //--------------------------------------------------------------------------------
@@ -61,7 +59,7 @@ void zz_assert_shared_struct::assertf ( T exp, const char * msg_format, ... )
 #if defined(_DEBUG)
 	#define _SHOW_ASSERTIONS
 #elif defined(_SHOW_ASSERTIONS_IN_RELEASE)
-	#define _SHOW_ASSERTIONS
+#define _SHOW_ASSERTIONS
 #endif // _debug
 
 //--------------------------------------------------------------------------------
@@ -88,7 +86,7 @@ void zz_assert_shared_struct::assertf ( T exp, const char * msg_format, ... )
 #endif
 
 // message box
-void zz_msgbox ( const char * caption, const char * msg );
-void zz_msgboxf ( const char * caption, const char * msg_format, ... );
+void zz_msgbox(const char*  caption, const char* msg);
+void zz_msgboxf(const char* caption, const char* msg_format, ...);
 
 #endif // __ZZ_ASSERT_H__

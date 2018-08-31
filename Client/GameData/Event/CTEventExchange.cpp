@@ -1,42 +1,34 @@
 #include "stdafx.h"
-#include ".\cteventexchange.h"
+#include "./cteventexchange.h"
 
-CTEventExchange::CTEventExchange(void)
-{
-	m_strString = "CTEventExchange";
+CTEventExchange::CTEventExchange(void) {
+  m_strString = "CTEventExchange";
 }
 
-CTEventExchange::~CTEventExchange(void)
-{
-	m_strString.clear();
+CTEventExchange::~CTEventExchange(void) {
+  m_strString.clear();
 }
 
-void CTEventExchange::SetItem( CItem* pItem )
-{
-	m_pItem = pItem;
+void CTEventExchange::SetItem(CItem* pItem) {
+  m_pItem = pItem;
 }
 
-void CTEventExchange::SetReadyOther( bool bReady )
-{
-	m_bReadyOther = bReady;
+void CTEventExchange::SetReadyOther(bool bReady) {
+  m_bReadyOther = bReady;
 }
 
-CItem* CTEventExchange::GetItem()
-{
-	return m_pItem;
+CItem* CTEventExchange::GetItem() {
+  return m_pItem;
 }
 
-bool CTEventExchange::GetReadyOther()
-{
-	return m_bReadyOther;
+bool CTEventExchange::GetReadyOther() {
+  return m_bReadyOther;
 }
 
-int CTEventExchange::GetSlotIndex()
-{
-	return m_iSlotIndex;
+int CTEventExchange::GetSlotIndex() {
+  return m_iSlotIndex;
 }
 
-void CTEventExchange::SetSlotIndex( int iIndex )
-{
-	m_iSlotIndex = iIndex;
+void CTEventExchange::SetSlotIndex(int iIndex) {
+  m_iSlotIndex = iIndex;
 }

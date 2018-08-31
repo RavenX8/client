@@ -1,28 +1,23 @@
 #include "stdafx.h"
-#include ".\questrewardqueue.h"
+#include "./questrewardqueue.h"
 #include <algorithm>
 #include "../Object.h"
 #include "../Interface/it_MGR.h"
 
-
 CQuestRewardQueue g_QuestRewardQueue;
 
-
-CQuestRewardQueue::CQuestRewardQueue(void)
-{
-	Clear();
+CQuestRewardQueue::CQuestRewardQueue(void) {
+  Clear();
 }
 
-CQuestRewardQueue::~CQuestRewardQueue(void)
-{
-	Clear();
+CQuestRewardQueue::~CQuestRewardQueue(void) {
+  Clear();
 }
 
-void CQuestRewardQueue::Clear()
-{
-//	m_InvItemList.clear();
-	m_SetAbilityList.clear();
-	m_AddAbilityList.clear();
+void CQuestRewardQueue::Clear() {
+  //	m_InvItemList.clear();
+  m_SetAbilityList.clear();
+  m_AddAbilityList.clear();
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -30,26 +25,24 @@ void CQuestRewardQueue::Clear()
 /// @brief 모든 리스트를 적용..
 //----------------------------------------------------------------------------------------------------
 
-void CQuestRewardQueue::ApplyReward()
-{
-	//----------------------------------------------------------------------------------------------------
-	/// 아이템 보상
-	//----------------------------------------------------------------------------------------------------	
-	//std::for_each( m_InvItemList.begin(), m_InvItemList.end(), CQuestRewardQueue::RewardItem );
-	
-	//----------------------------------------------------------------------------------------------------
-	/// Set ability
-	//----------------------------------------------------------------------------------------------------	
-	std::for_each( m_SetAbilityList.begin(), m_SetAbilityList.end(), CQuestRewardQueue::SetAbility );
+void CQuestRewardQueue::ApplyReward() {
+  //----------------------------------------------------------------------------------------------------
+  /// 아이템 보상
+  //----------------------------------------------------------------------------------------------------	
+  //std::for_each( m_InvItemList.begin(), m_InvItemList.end(), CQuestRewardQueue::RewardItem );
 
-	//----------------------------------------------------------------------------------------------------
-	/// Add alility
-	//----------------------------------------------------------------------------------------------------	
-	std::for_each( m_AddAbilityList.begin(), m_AddAbilityList.end(), CQuestRewardQueue::AddAbility );
+  //----------------------------------------------------------------------------------------------------
+  /// Set ability
+  //----------------------------------------------------------------------------------------------------	
+  std::for_each( m_SetAbilityList.begin(), m_SetAbilityList.end(), SetAbility );
 
+  //----------------------------------------------------------------------------------------------------
+  /// Add alility
+  //----------------------------------------------------------------------------------------------------	
+  std::for_each( m_AddAbilityList.begin(), m_AddAbilityList.end(), AddAbility );
 
-	/// Reset
-	Clear();
+  /// Reset
+  Clear();
 }
 
 //void CQuestRewardQueue::PushSetInvItem( tag_SET_INVITEM& sSetInvItem )
@@ -57,16 +50,13 @@ void CQuestRewardQueue::ApplyReward()
 //	m_InvItemList.push_back( sSetInvItem );
 //}
 
-void CQuestRewardQueue::PushSetAbility( gsv_SET_ABILITY& sSetAbility )
-{
-	m_SetAbilityList.push_back( sSetAbility );
+void CQuestRewardQueue::PushSetAbility(gsv_SET_ABILITY& sSetAbility) {
+  m_SetAbilityList.push_back( sSetAbility );
 }
 
-void CQuestRewardQueue::PushAddAbility( gsv_SET_ABILITY& sAddAbility )
-{
-	m_AddAbilityList.push_back( sAddAbility );
+void CQuestRewardQueue::PushAddAbility(gsv_SET_ABILITY& sAddAbility) {
+  m_AddAbilityList.push_back( sAddAbility );
 }
-
 
 //----------------------------------------------------------------------------------------------------
 /// @param
@@ -96,13 +86,12 @@ void CQuestRewardQueue::PushAddAbility( gsv_SET_ABILITY& sAddAbility )
 /// @brief 아바타 능력치 세팅
 //----------------------------------------------------------------------------------------------------
 
-void CQuestRewardQueue::SetAbility( gsv_SET_ABILITY sSetAbility )
-{
-	CStr::Printf( F_STR_SET_ABILITY, 
-		CStringManager::GetSingleton().GetAbility( sSetAbility.m_wAbilityTYPE ),
-			sSetAbility.m_iValue, g_dwWHITE );
+void CQuestRewardQueue::SetAbility(gsv_SET_ABILITY sSetAbility) {
+  CStr::Printf( F_STR_SET_ABILITY,
+                CStringManager::GetSingleton().GetAbility( sSetAbility.m_wAbilityTYPE ),
+                sSetAbility.m_iValue, g_dwWHITE );
 
-	g_pAVATAR->Set_AbilityValue( sSetAbility.m_wAbilityTYPE, sSetAbility.m_iValue );
+  g_pAVATAR->Set_AbilityValue( sSetAbility.m_wAbilityTYPE, sSetAbility.m_iValue );
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -110,11 +99,10 @@ void CQuestRewardQueue::SetAbility( gsv_SET_ABILITY sSetAbility )
 /// @brief Add Avatar ability
 //----------------------------------------------------------------------------------------------------
 
-void CQuestRewardQueue::AddAbility( gsv_SET_ABILITY sSetAbility )
-{
-	CStr::Printf( F_STR_INCREASE_ABILITY, 
-			CStringManager::GetSingleton().GetAbility( sSetAbility.m_wAbilityTYPE ),
-			sSetAbility.m_iValue, g_dwWHITE );
+void CQuestRewardQueue::AddAbility(gsv_SET_ABILITY sSetAbility) {
+  CStr::Printf( F_STR_INCREASE_ABILITY,
+                CStringManager::GetSingleton().GetAbility( sSetAbility.m_wAbilityTYPE ),
+                sSetAbility.m_iValue, g_dwWHITE );
 
-	g_pAVATAR->Add_AbilityValue( sSetAbility.m_wAbilityTYPE, sSetAbility.m_iValue );
+  g_pAVATAR->Add_AbilityValue( sSetAbility.m_wAbilityTYPE, sSetAbility.m_iValue );
 }

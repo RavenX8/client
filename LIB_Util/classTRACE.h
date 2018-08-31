@@ -24,12 +24,12 @@
 
 	#pragma comment( lib, "imagehlp.lib" )
 
-	#if defined(_AFX) || defined(_AFXDLL)
+#if defined(_AFX) || defined(_AFXDLL)
 	#define TRACEF									         TRACE
-	#else
+#else
 	#define TRACEF									         OutputDebugStringFormat
 	void OutputDebugStringFormat( LPCTSTR, ... );
-	#endif
+#endif
 
 	#define TRACE_INIT( IniSymbolPath )						Trace_INIT( IniSymbolPath )
 	#define TRACE_FREE()									Trace_FREE()
@@ -49,23 +49,22 @@
 //-------------------------------------------------------------------------------------------------
 #else
 //-------------------------------------------------------------------------------------------------
-	#define TRACE_INIT( IniSymbolPath )						((void)0)
-	#define TRACE_FREE()									((void)0)
-	#define TRACEF									        ((void)0)
-	#define TRACE_SOURCECUSTOM( Msg, File, Line)			((void)0)
-	#define TRACE_SOURCE( Msg )								((void)0)
-	#define TRACE_PARAM()							        ((void)0)
-	#define STACKTRACEMSG( Msg )					        ((void)0)
-	#define TRACE_STACKMSG( Msg )					        ((void)0)
-	#define TRACE_STACK()						         	((void)0)
-	#define TRACE_THREADSTACKMSG( hThread, Msg )			((void)0)
-	#define TRACE_THREADSTACK( hThread )					((void)0)
+#define TRACE_INIT( IniSymbolPath )						((void)0)
+#define TRACE_FREE()									((void)0)
+#define TRACEF									        ((void)0)
+#define TRACE_SOURCECUSTOM( Msg, File, Line)			((void)0)
+#define TRACE_SOURCE( Msg )								((void)0)
+#define TRACE_PARAM()							        ((void)0)
+#define STACKTRACEMSG( Msg )					        ((void)0)
+#define TRACE_STACKMSG( Msg )					        ((void)0)
+#define TRACE_STACK()						         	((void)0)
+#define TRACE_THREADSTACKMSG( hThread, Msg )			((void)0)
+#define TRACE_THREADSTACK( hThread )					((void)0)
 //-------------------------------------------------------------------------------------------------
 #endif
 
 //-------------------------------------------------------------------------------------------------
 #endif
-
 
 /*
 #include "ExtendedTrace.h"

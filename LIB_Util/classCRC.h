@@ -1,5 +1,6 @@
 #ifndef	__CLASSCRC_H
 #define	__CLASSCRC_H
+
 //-------------------------------------------------------------------------------------------------
 
 // #define	__USE_STATIC_CRC_VAR
@@ -24,13 +25,13 @@ class classCRC {
 		static WORD		DataCRC16 (const void *pDATA, int iSize, bool bInitCRC);
 		static BYTE		DataCRC08 (const BYTE *pDATA, int iSize, bool bInitCRC);
 #else
-	public :
-		static DWORD	DataCRC32 (const void *pDATA, int iSize, DWORD dwInitCRC);
-		static WORD		DataCRC16 (const void *pDATA, int iSize/*, WORD  wInitCRC*/);
-		static BYTE		DataCRC08 (const BYTE *pDATA, int iSize/*, BYTE  btInitCRC*/);
+public :
+  static DWORD DataCRC32(const void* pDATA, int iSize, DWORD dwInitCRC);
+  static WORD  DataCRC16(const void* pDATA, int iSize/*, WORD  wInitCRC*/);
+  static BYTE  DataCRC08(const BYTE* pDATA, int iSize/*, BYTE  btInitCRC*/);
 #endif
-	static DWORD	FileCRC32 (char *szFileName);
-} ;
+  static DWORD FileCRC32(char* szFileName);
+};
 
 #define CRC08(CRC,btVALUE)	( g_pcCRC08[ CRC ^ btVALUE ] );
 #define	CRC16(CRC,btVALUE)	( (CRC >> 8 ) ^ g_pwCRC16[ ( CRC ^ btVALUE ) & 0x0ff ] );

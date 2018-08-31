@@ -16,39 +16,37 @@ class CTCommand;
 * @Author		최종진
 * @Date			2005/9/14
 */
-class CDealDLG : public CTDialog, public IObserver
-{
+class CDealDLG : public CTDialog, public IObserver {
 private:
-	CSlot			m_Slots[MAX_DEAL_SELLBUY][ TOTAL_DEAL_INVENTORY ];
-	CDragItem*		m_pBuyDragItem;
-	CDragItem*		m_pSellDragItem;
+  CSlot      m_Slots[MAX_DEAL_SELLBUY][ TOTAL_DEAL_INVENTORY ];
+  CDragItem* m_pBuyDragItem;
+  CDragItem* m_pSellDragItem;
 
-	CTCommand* m_pCmdRemoveItemFromBuyList;
-	CTCommand* m_pCmdRemoveItemFromSellList;
+  CTCommand* m_pCmdRemoveItemFromBuyList;
+  CTCommand* m_pCmdRemoveItemFromSellList;
 public:
-	CDealDLG( int iType );
-	virtual ~CDealDLG();
-		
-	virtual void Draw();
-	virtual void Hide();
-	virtual void MoveWindow( POINT pt );
-	virtual void Update(POINT ptMouse);
+          CDealDLG(int iType);
+  virtual ~CDealDLG();
 
-	virtual unsigned int Process(UINT uiMsg,WPARAM wParam,LPARAM lParam);
+  void Draw() override;
+  void Hide() override;
+  void MoveWindow(POINT pt) override;
+  void Update(POINT     ptMouse) override;
 
-	virtual void Update( CObservable* pObservable, CTObject* pObj );
+  unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	enum dealDLG{
-		DEAL_BTN_CLOSE = 10,				//1.창닫기 	
-		DEAL_BTN_OK,						//2.거래확인 
-	};
+  void Update(CObservable* pObservable, CTObject* pObj) override;
 
+  enum dealDLG {
+    DEAL_BTN_CLOSE = 10,
+    //1.창닫기 	
+    DEAL_BTN_OK,
+    //2.거래확인 
+  };
 
 private:
-	bool On_LButtonUP( unsigned ProcID, WPARAM wParam, LPARAM lParam );
+  bool On_LButtonUP(unsigned ProcID, WPARAM wParam, LPARAM lParam);
 
-
-	
 };
 
 #endif

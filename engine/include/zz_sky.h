@@ -65,27 +65,26 @@
 
 class zz_sky : public zz_visible {
 private:
-	std::vector<float> rot_angles_delta;
-	std::vector<float> rot_angles_current;
-	bool ztest;
+  std::vector<float> rot_angles_delta;
+  std::vector<float> rot_angles_current;
+  bool               ztest;
 
 public:
-	zz_sky();
+  zz_sky();
 
-	virtual void before_render ();
-	virtual void after_render ();
-	virtual void update_time (bool recursive, zz_time diff_time);
-	virtual void render (bool recursive = false);
-	void render_glow ();
+  void before_render() override;
+  void after_render() override;
+  void update_time(bool recursive, zz_time diff_time) override;
+  void render(bool      recursive = false) override;
+  void render_glow();
 
-	void set_ztest (bool ztest_in)
-	{
-		ztest = ztest_in;
-	}
+  void set_ztest(bool ztest_in) {
+    ztest = ztest_in;
+  }
 
-	bool set_rotation_deltas (int index, float angle_degree_per_second);
+  bool set_rotation_deltas(int index, float angle_degree_per_second);
 
-	ZZ_DECLARE_DYNAMIC(zz_sky)	
+ZZ_DECLARE_DYNAMIC(zz_sky)
 };
 
 #endif // __ZZ_SKY_H__

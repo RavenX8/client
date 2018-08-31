@@ -10,23 +10,21 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CGameStatePrepareMain : public CGameState
-{
-	int m_iPrevStateID;
-	HANDLE m_hThread;
+class CGameStatePrepareMain : public CGameState {
+  int    m_iPrevStateID;
+  HANDLE m_hThread;
 public:
-	CGameStatePrepareMain(int iID);
-	~CGameStatePrepareMain(void);
-	virtual int Update( bool bLostFocus );
-	virtual int Enter( int iPrevStateID );
-	virtual int Leave( int iNextStateID );
-	virtual int ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lParam ) { return 0;}
-	virtual int ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM lParam ) { return 0;}
-
+      CGameStatePrepareMain(int  iID);
+      ~CGameStatePrepareMain(void);
+  int Update(bool                bLostFocus) override;
+  int Enter(int                  iPrevStateID) override;
+  int Leave(int                  iNextStateID) override;
+  int ProcMouseInput(UINT        uiMsg, WPARAM wParam, LPARAM lParam) override { return 0; }
+  int ProcKeyboardInput(UINT     uiMsg, WPARAM wParam, LPARAM lParam) override { return 0; }
 
 protected:
-	static unsigned __stdcall ThreadFunc( void* pArguments );
-	void Draw();
+  static unsigned __stdcall ThreadFunc(void* pArguments);
+  void                      Draw();
 
 };
 #endif

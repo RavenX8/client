@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
@@ -48,41 +47,39 @@
 #define CREATE_RTTI( TYPE, BASE_CLASS )
 #define CREATE_RTTI_BASE( TYPE ) 
 
-struct rtti
-{
-    bool IsKindOf( const rtti& RTTI ) const;
-         rtti    ( const char* pTypeName );
-         rtti    ( const char* pTypeName, const rtti& RTTI );
+struct rtti {
+  bool IsKindOf(const rtti& RTTI) const;
+       rtti(const char*     pTypeName);
+       rtti(const char*     pTypeName, const rtti& RTTI);
 
-    const char* pType;      // This is not really need it, just useful in debugger.
-    const rtti& Next;
+  const char* pType; // This is not really need it, just useful in debugger.
+  const rtti& Next;
 };
 
 //==============================================================================
 // IMPLEMENTATION
 //==============================================================================
-#pragma warning( push ) 
+#pragma warning( push )
 #pragma warning( disable : 4355 ) // warning 'this' used in base member initializer list
 #undef CREATE_RTTI
 #undef CREATE_RTTI_BASE
 
-inline rtti::rtti( const char* pTypeName ) : 
-pType(pTypeName), Next( *this ){}
+inline rtti::rtti(const char* pTypeName) :
+  pType( pTypeName ), Next( *this ) {}
 
-inline rtti::rtti( const char* pTypeName, const rtti& RTTI ) : 
-pType(pTypeName), Next( RTTI ){}
+inline rtti::rtti(const char* pTypeName, const rtti& RTTI) :
+  pType( pTypeName ), Next( RTTI ) {}
 
-inline bool rtti::IsKindOf( const rtti& RTTI ) const 
-{ 
-    const rtti* p = this; 
-    do
-    { 
-        if( p == &RTTI    ) return true;
-        if( p == &p->Next ) break;
-        p = &p->Next;
+inline bool   rtti::IsKindOf(const rtti& RTTI) const {
+  const rtti* p = this;
+  do {
+    if ( p == &RTTI ) return true;
+    if ( p == &p->Next ) break;
+    p = &p->Next;
 
-    } while(1);
-    return false;
+  }
+  while ( true );
+  return false;
 }
 
 #define PRIVATE_RTTI_FUNCTION_SET( TYPE, BASE_CLASS )                 \
@@ -122,5 +119,3 @@ inline bool rtti::IsKindOf( const rtti& RTTI ) const
     PRIVATE_RTTI_FUNCTION_SET(TYPE,TYPE)
 
 #pragma warning( pop )
-
-

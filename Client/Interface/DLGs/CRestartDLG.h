@@ -1,7 +1,6 @@
 #ifndef _RESTARTDLG_
 #define _RESTARTDLG_
 
-
 #include "TDialog.h"
 
 /**
@@ -11,27 +10,26 @@
 * @Author		최종진
 * @Date			2005/9/14
 */
-class CRestartDLG  : public CTDialog
-{
+class CRestartDLG : public CTDialog {
 public:
-	CRestartDLG();
-	~CRestartDLG();
-	
-	virtual void Show();
-	virtual unsigned int Process( UINT uiMsg,WPARAM wParam,LPARAM lParam );
+  CRestartDLG();
+  ~CRestartDLG();
+
+  void         Show() override;
+  unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
 
 protected:
 
-	enum
-	{
-		BTN_RESTART_SAVE_POSITION = 3,			/// 저장된 마을로 
-		BTN_RESTART_CURRENT_FIELD,				/// 현재 필드에서 ( 대만버젼에서는 빠졌다: XML Date)
-		BTN_RESTART_DUNGEON_GATE,				/// 던전입구로 ( 대만버젼에서 던전안에서 죽었을경우 던전입구에서 부활할수 있도록 버튼 추가 )
-	};
+  enum {
+    BTN_RESTART_SAVE_POSITION = 3,
+    /// 저장된 마을로 
+    BTN_RESTART_CURRENT_FIELD,
+    /// 현재 필드에서 ( 대만버젼에서는 빠졌다: XML Date)
+    BTN_RESTART_DUNGEON_GATE,
+    /// 던전입구로 ( 대만버젼에서 던전안에서 죽었을경우 던전입구에서 부활할수 있도록 버튼 추가 )
+  };
 
-
-	bool On_LButtonUP( unsigned iProcID);
+  bool On_LButtonUP(unsigned iProcID);
 };
-
 
 #endif //_RESTARTDLG_

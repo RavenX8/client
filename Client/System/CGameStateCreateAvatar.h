@@ -12,18 +12,17 @@ class CJustModelAVT;
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CGameStateCreateAvatar : public CGameState
-{
+class CGameStateCreateAvatar : public CGameState {
 public:
-	CGameStateCreateAvatar(int iID);
-	~CGameStateCreateAvatar(void);
+  CGameStateCreateAvatar(int  iID);
+  ~CGameStateCreateAvatar(void);
 
-	virtual int Update( bool bLostFocus );
-	virtual int Enter( int iPrevStateID );
-	virtual int Leave( int iNextStateID );
+  int Update(bool bLostFocus) override;
+  int Enter(int   iPrevStateID) override;
+  int Leave(int   iNextStateID) override;
 
-	virtual int ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual int ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM lParam );
+  int ProcMouseInput(UINT    uiMsg, WPARAM wParam, LPARAM lParam) override;
+  int ProcKeyboardInput(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
 
 };
 #endif

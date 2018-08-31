@@ -100,95 +100,85 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_ocean_block, zz_visible)
 
-zz_ocean_block::zz_ocean_block()
-{
-	cast_shadow =false;
-	receive_shadow = false;
-	receive_fog = true;
-	bv_type = ZZ_BV_OBB;
-	collision_level = ZZ_CL_OBB; // set_collision_level(ZZ_CL_NONE);
-	draw_priority = ZZ_DP_LOW;
-	time_interval = 0;
-	runits.reserve(1);
+zz_ocean_block::zz_ocean_block() {
+  cast_shadow     = false;
+  receive_shadow  = false;
+  receive_fog     = true;
+  bv_type         = ZZ_BV_OBB;
+  collision_level = ZZ_CL_OBB; // set_collision_level(ZZ_CL_NONE);
+  draw_priority   = ZZ_DP_LOW;
+  time_interval   = 0;
+  runits.reserve( 1 );
 }
 
-zz_ocean_block::~zz_ocean_block ()
-{
+zz_ocean_block::~zz_ocean_block() {}
+
+void zz_ocean_block::set_interval(zz_time interval) {
+  time_interval = interval;
 }
 
-void zz_ocean_block::set_interval (zz_time interval)
-{
-	time_interval = interval;
+zz_time zz_ocean_block::get_interval(void) {
+  return time_interval;
 }
 
-zz_time zz_ocean_block::get_interval (void)
-{
-	return time_interval;
-}
-
-void zz_ocean_block::update_animation (bool recursive, zz_time diff_time)
-{
-	zz_material_ocean * ocean_mat = reinterpret_cast<zz_material_ocean*>(runits[0].material);
-	assert(ocean_mat);
-	assert(ZZ_RUNTIME_TYPE(zz_material_ocean) == ocean_mat->get_node_type());
-	if (time_interval > 0) {
-		int texture_index = znzin->get_current_time() / time_interval;
-		texture_index = texture_index % ocean_mat->get_num_textures();
-		ocean_mat->set_current_texture_index(texture_index);
-	}
-	// no need to call visible::update_animation()
-	// because ocean_block do not have child visibles
+void                 zz_ocean_block::update_animation(bool recursive, zz_time diff_time) {
+  zz_material_ocean* ocean_mat = reinterpret_cast<zz_material_ocean*>(runits[0].material);
+  assert(ocean_mat);
+  assert(ZZ_RUNTIME_TYPE(zz_material_ocean) == ocean_mat->get_node_type());
+  if ( time_interval > 0 ) {
+    int texture_index = znzin->get_current_time() / time_interval;
+    texture_index     = texture_index % ocean_mat->get_num_textures();
+    ocean_mat->set_current_texture_index( texture_index );
+  }
+  // no need to call visible::update_animation()
+  // because ocean_block do not have child visibles
 }
 
 // same as terrain_block
-void zz_ocean_block::render_runit (unsigned int runit_index)
-{	
-	assert(runit_index < num_runits);
+void zz_ocean_block::render_runit(unsigned int runit_index) {
+  assert(runit_index < num_runits);
 
-	// light can be NULL
-	assert(is_visible());
+  // light can be NULL
+  assert(is_visible());
 
-	zz_runit& ru = runits[runit_index];
-	zz_mesh * mesh = ru.mesh;
-	zz_material * mat = ru.material;
-	const zz_shader * shader = (mat) ? mat->get_shader() : NULL;
-	zz_light * light = ru.light;
+  zz_runit&        ru     = runits[runit_index];
+  zz_mesh*         mesh   = ru.mesh;
+  zz_material*     mat    = ru.material;
+  const zz_shader* shader = (mat) ? mat->get_shader() : nullptr;
+  zz_light*        light  = ru.light;
 
-	assert(mesh && mat && shader);
+  assert(mesh && mat && shader);
 
-	// set modelviewTM from modelview_worldTM
-	mat4 modelview_worldTM;
-	get_modelview_worldTM(modelview_worldTM);
-	znzin->renderer->set_modelview_matrix(modelview_worldTM);
-	znzin->renderer->set_world_matrix(get_worldTM());
+  // set modelviewTM from modelview_worldTM
+  mat4 modelview_worldTM;
+  get_modelview_worldTM( modelview_worldTM );
+  znzin->renderer->set_modelview_matrix( modelview_worldTM );
+  znzin->renderer->set_world_matrix( get_worldTM() );
 
-	if (!mat->get_device_updated())
-		return;
+  if ( !mat->get_device_updated() )
+    return;
 
-	if (!mesh->get_device_updated())
-		return;
+  if ( !mesh->get_device_updated() )
+    return;
 
-	znzin->renderer->render(mesh, mat, light);
+  znzin->renderer->render( mesh, mat, light );
 }
 
 // same as terrain_block
-void zz_ocean_block::before_render ()
-{
-	zz_runit& ru = runits[0];
-	zz_mesh * mesh = ru.mesh;
-	zz_material * mat = ru.material;
+void           zz_ocean_block::before_render() {
+  zz_runit&    ru   = runits[0];
+  zz_mesh*     mesh = ru.mesh;
+  zz_material* mat  = ru.material;
 
-	zz_renderer * r = znzin->renderer;
+  zz_renderer* r = znzin->renderer;
 
-	apply_lod(mesh, mat); // apply_lod must precede flush_device()
+  apply_lod( mesh, mat ); // apply_lod must precede flush_device()
 
-	mat->flush_device(true /* immediate */);
+  mat->flush_device( true /* immediate */ );
 
-	if (!mesh->get_device_updated()) {
-		mesh->flush_device(true /* immediate */);
-	}
+  if ( !mesh->get_device_updated() ) {
+    mesh->flush_device( true /* immediate */ );
+  }
 }
 
-void zz_ocean_block::after_render ()
-{
-}
+void zz_ocean_block::after_render() {}

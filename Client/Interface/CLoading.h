@@ -12,26 +12,24 @@
 * @Author	최종진
 * @Date		2005/9/5
 */
-class CLoading : public CJSingleton< CLoading >
-{
-	
-	HNODE						m_hTexture;
+class CLoading : public CJSingleton<CLoading> {
 
-	CLoadingImageManager		m_LoadingImageManager;
+  HNODE m_hTexture;
 
-	/// m_LoadingImageManager 가 초기화 되었는가?
-	bool						m_bInitLoadingImageManager;
+  CLoadingImageManager m_LoadingImageManager;
 
+  /// m_LoadingImageManager 가 초기화 되었는가?
+  bool m_bInitLoadingImageManager;
 
 public:
-	CLoading();
-	~CLoading();
+  CLoading();
+  ~CLoading();
 
-	bool			InitLoadingImageManager();
+  bool InitLoadingImageManager();
 
-	bool			LoadTexture( int iZoneNo = 9999, int iPlanetNO = 0 );
-	void			Draw();
-	void			UnloadTexture();
+  bool LoadTexture(int iZoneNo = 9999, int iPlanetNO = 0);
+  void Draw();
+  void UnloadTexture();
 };
 
 #define g_Loading CLoading::GetSingleton()

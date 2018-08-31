@@ -22,10 +22,10 @@
 // number of quadrilateral on one axis
 // this will be used for key to access shared index list
 enum INDEX_ORDER {
-	OCEAN_INDEX_ORDER = 11,
-	TERRAIN_INDEX_ORDER = 0,
-	ROUGH_TERRAIN_INDEX_ORDER = 12,
-	NUM_INDEX_ORDER = 13
+  OCEAN_INDEX_ORDER = 11,
+  TERRAIN_INDEX_ORDER = 0,
+  ROUGH_TERRAIN_INDEX_ORDER = 12,
+  NUM_INDEX_ORDER = 13
 };
 
 class zz_manager_mesh_ishared;
@@ -35,62 +35,59 @@ class zz_manager_mesh_ishared;
 // : construct square mesh.
 //--------------------------------------------------------------------------------
 class zz_mesh_ishared : public zz_mesh {
-//--------------------------------------------------------------------------------
-	friend class zz_manager_mesh_ishared;
+  //--------------------------------------------------------------------------------
+  friend class zz_manager_mesh_ishared;
 
 public:
-	zz_mesh_ishared (int key_in = 0);
-	virtual ~zz_mesh_ishared ();
+          zz_mesh_ishared(int key_in = 0);
+  virtual ~zz_mesh_ishared();
 
-	virtual bool load ();
-	virtual bool unload ();
-	virtual void init_reuse ();
+  bool load() override;
+  bool unload() override;
+  void init_reuse() override;
 
-	void set_num_faces (uint16 num_faces_in);
+  void set_num_faces(uint16 num_faces_in) override;
 
-	virtual void create_index_buffer ();
-	virtual void destroy_index_buffer ();
-	virtual void update_index_buffer ();
+  void create_index_buffer() override;
+  void destroy_index_buffer() override;
+  void update_index_buffer() override;
 
-	// initialize/destroy static member variables
-	static void init_static (int key_in); // prepare s_indices for this key
-	static void dest_static (int key_in); // clear s_inidices for this key
-	static void init_static_all (); // initialize(clear) all s_indices data
-	static void dest_static_all (); // destroy all s_indices data
+  // initialize/destroy static member variables
+  static void init_static(int key_in); // prepare s_indices for this key
+  static void dest_static(int key_in); // clear s_inidices for this key
+  static void init_static_all();       // initialize(clear) all s_indices data
+  static void dest_static_all();       // destroy all s_indices data
 
-	virtual bool restore_device_objects (); // create unmanaged objects
-	virtual bool init_device_objects (); // create managed objects
-	virtual bool invalidate_device_objects (); // destroy unmanaged objects
-	virtual bool delete_device_objects (); // destroy managed objects
+  bool restore_device_objects() override;    // create unmanaged objects
+  bool init_device_objects() override;       // create managed objects
+  bool invalidate_device_objects() override; // destroy unmanaged objects
+  bool delete_device_objects() override;     // destroy managed objects
 
-	void set_index_order (int index_order_in);
+  void set_index_order(int index_order_in);
 
-	int get_index_order ()
-	{
-		return key;
-	}
+  int get_index_order() {
+    return key;
+  }
 
 protected:
-	struct zz_index {
-		zz_index_buffer * ibuf_res;
-		uint16 * ibuf;
-		uint16 num_indices;
-	};
+  struct zz_index {
+    zz_index_buffer* ibuf_res;
+    uint16*          ibuf;
+    uint16           num_indices;
+  };
 
-	// key is the index to s_indices
-	// key is mapped to number of faces in vertical
-	int key; // key to index s_indices. 0 <= key < MAX_INDEX_ORDER
+  // key is the index to s_indices
+  // key is mapped to number of faces in vertical
+  int key; // key to index s_indices. 0 <= key < MAX_INDEX_ORDER
 
-	static zz_index s_indices[NUM_INDEX_ORDER];
-	
-	static zz_index * get_shared_indices ()
-	{
-		return s_indices;
-	}
+  static zz_index s_indices[NUM_INDEX_ORDER];
 
+  static zz_index* get_shared_indices() {
+    return s_indices;
+  }
 
 public:
-	ZZ_DECLARE_DYNAMIC(zz_mesh_ishared)
+ZZ_DECLARE_DYNAMIC(zz_mesh_ishared)
 };
 
 #endif // __ZZ_MESH_ISHARED_H__

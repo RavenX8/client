@@ -65,68 +65,62 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_material_ocean, zz_material)
 
-zz_material_ocean::zz_material_ocean (void) :
-	zz_material(1),
-	current_texture_index(0)
-{
-	state.blend_type = ZZ_BT_CUSTOM;
-	state.blend_src = ZZ_BLEND_ONE;
-	state.blend_dest = ZZ_BLEND_ONE;
+zz_material_ocean::zz_material_ocean(void) :
+  zz_material( 1 ),
+  current_texture_index( 0 ) {
+  state.blend_type = ZZ_BT_CUSTOM;
+  state.blend_src  = ZZ_BLEND_ONE;
+  state.blend_dest = ZZ_BLEND_ONE;
 }
 
-zz_material_ocean::~zz_material_ocean (void)
-{
+zz_material_ocean::~zz_material_ocean(void) {}
+
+void zz_material_ocean::set_first_light() {
+  // colormap
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE );
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLORARG2, ZZ_TA_DIFFUSE );
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1 );
+
+  s_state.texture_address[0] = ZZ_TADDRESS_WRAP;
+
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLORARG1, ZZ_TA_DIFFUSE );
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLORARG2, ZZ_TA_CURRENT );
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLOROP, ZZ_TOP_MODULATE );
+
+  s_renderer->set_texture_stage_state( 2, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE );
 }
 
-void zz_material_ocean::set_first_light()
-{
-	// colormap
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE);
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLORARG2, ZZ_TA_DIFFUSE);
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1);
-		
-	s_state.texture_address[0] = ZZ_TADDRESS_WRAP;
+void zz_material_ocean::set_first() {
+  // colormap
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE );
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLORARG2, ZZ_TA_DIFFUSE );
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1 );
 
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLORARG1, ZZ_TA_DIFFUSE);
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLORARG2, ZZ_TA_CURRENT);
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLOROP, ZZ_TOP_MODULATE);
-	
-	s_renderer->set_texture_stage_state(2, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE);
-}
+  s_state.texture_address[0] = ZZ_TADDRESS_WRAP;
 
-void zz_material_ocean::set_first()
-{
-	// colormap
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE);
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLORARG2, ZZ_TA_DIFFUSE);
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1);
-		
-	s_state.texture_address[0] = ZZ_TADDRESS_WRAP;
-
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE);
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE );
 }
 
 // meaning of *pass* is in [zz_material.h]
-bool zz_material_ocean::set (int pass)
-{
-	zz_texture * firstmap = get_texture(current_texture_index);
+bool          zz_material_ocean::set(int pass) {
+  zz_texture* firstmap = get_texture( current_texture_index );
 
-	s_state.copy_from(state);
+  s_state.copy_from( state );
 
-	if (firstmap) {
-		firstmap->set(0);
-	}
-	
-	s_state.cullmode = zz_render_state::ZZ_CULLMODE_NONE;
+  if ( firstmap ) {
+    firstmap->set( 0 );
+  }
 
-	//s_renderer->set_texture_stage_state(0, ZZ_TSS_ALPHAARG1, ZZ_TA_TEXTURE);
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_ALPHAARG2, ZZ_TA_DIFFUSE); // to alpha fog
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_ALPHAOP,   ZZ_TOP_SELECTARG2);
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_ALPHAOP,   ZZ_TOP_DISABLE);
+  s_state.cullmode = zz_render_state::ZZ_CULLMODE_NONE;
 
-	set_first();
-	
-	apply_shared_property(1);
+  //s_renderer->set_texture_stage_state(0, ZZ_TSS_ALPHAARG1, ZZ_TA_TEXTURE);
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_ALPHAARG2, ZZ_TA_DIFFUSE ); // to alpha fog
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_ALPHAOP, ZZ_TOP_SELECTARG2 );
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_ALPHAOP, ZZ_TOP_DISABLE );
 
-	return true;
+  set_first();
+
+  apply_shared_property( 1 );
+
+  return true;
 }

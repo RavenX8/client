@@ -15,16 +15,16 @@
 #include "zz_algebra.h"
 
 struct zz_bvolume_obb {
-	vec3 center;
-	vec3 half_length;
-	mat3 rotation;
+  vec3 center;
+  vec3 half_length;
+  mat3 rotation;
 
-	zz_bvolume_obb () : center(0, 0, 0), half_length(0, 0, 0), rotation(mat3_id) {}
-	~zz_bvolume_obb () {}
+  zz_bvolume_obb() : center( 0, 0, 0 ), half_length( 0, 0, 0 ), rotation( mat3_id ) {}
+  ~zz_bvolume_obb() {}
 };
 
-bool intersect (const zz_bvolume_obb& A, const zz_bvolume_obb& B);
+bool intersect(const zz_bvolume_obb& A, const zz_bvolume_obb& B);
 //bool intersect (const zz_bvolume_obb& A, const vec3& origin, const vec3& direction, vec3& contact_point);
-bool intersect (const zz_bvolume_obb& rkBox, const vec3& origin, const vec3& direction);
+bool intersect(const zz_bvolume_obb& rkBox, const vec3& origin, const vec3& direction);
 
 #endif // __ZZ_BVOLUME_OBB_H__

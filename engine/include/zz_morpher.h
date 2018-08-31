@@ -15,24 +15,23 @@
 #include "zz_animatable.h"
 #endif
 
-
 // mesh morpher
 class zz_morpher : public zz_animatable {
-	// channel type combination. ex) ZZ_CTYPE_POSITION | ZZ_CTYPE_NORMAL | ZZ_CTYPE_UV0
-	uint32 channel_types;
+  // channel type combination. ex) ZZ_CTYPE_POSITION | ZZ_CTYPE_NORMAL | ZZ_CTYPE_UV0
+  uint32 channel_types;
 
 public:
-	zz_morpher ();
+  zz_morpher();
 
-	virtual ~zz_morpher () {}
+  virtual ~zz_morpher() {}
 
-	virtual bool apply_motion (void);
+  bool apply_motion(void) override;
 
-	virtual void render (bool recursive);
+  void render(bool recursive) override;
 
-	virtual void update_animation (bool recursive, zz_time diff_time);
+  void update_animation(bool recursive, zz_time diff_time) override;
 
-	ZZ_DECLARE_DYNAMIC(zz_morpher)
+ZZ_DECLARE_DYNAMIC(zz_morpher)
 };
 
 #endif __ZZ_MORPHERER_H__

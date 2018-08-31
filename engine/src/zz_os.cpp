@@ -73,7 +73,7 @@
 #include "zz_os.h"
 #include "zz_log.h"
 
-#ifdef WIN32	
+#ifdef WIN32 
 #include <windows.h>
 #include <winbase.h>
 
@@ -81,55 +81,55 @@ zz_os_counter_type g_counter_type = TIMER_RDTSC;
 
 bool g_counter_initialized = false;
 
-void (*g_get_ticks_ptr) (uint64& clock_time) = NULL;
+void (*g_get_ticks_ptr)(uint64& clock_time) = nullptr;
 
 uint64 g_ticks_per_second = 1000; // default
 
 #pragma comment (lib, "Winmm.lib") // for timeGetTime()
 
-void zz_os::initialize ()
-{
-	if (g_counter_initialized) return; // do only once
+void zz_os::initialize() {
+  if ( g_counter_initialized ) return; // do only once
 
-	char * counter_string = NULL;
+  char* counter_string = nullptr;
 
-	// rdtsc is unreliable on multi-core processors, rdtsc is not sync'd accross
-	//   the cores, and thus, when the application switches cores it can easily
-	//   receive times not linearly related to the time that it got from other cores
-	if (false){ //init_rdtsc()) { // try rdtsc and initialize
-		g_counter_type = TIMER_RDTSC;
-		g_get_ticks_ptr = zz_os::get_ticks_rdtsc;
-		counter_string = "rdtsc";
-	}
-	else if (init_qpc()) { // try qpc and initialize
-		g_counter_type = TIMER_QPC;
-		g_get_ticks_ptr = zz_os::get_ticks_qpc;
-		counter_string = "qpc";
-	}
-	else { // use timeGetTime   //AMD 듀얼 코어 문제로 인한 시간 변경
-		// none of fast methods are available.
-		g_counter_type = TIMER_TIMEGETTIME;
-		g_get_ticks_ptr = zz_os::get_ticks_tgt;
-		g_ticks_per_second = 1000; // timeGetTime() uses millisecond
-		counter_string = "tgt";
-	}
-	g_counter_initialized = true;
-	ZZ_LOG("os: %s supported.\n", counter_string);
+  // rdtsc is unreliable on multi-core processors, rdtsc is not sync'd accross
+  //   the cores, and thus, when the application switches cores it can easily
+  //   receive times not linearly related to the time that it got from other cores
+  if ( false ) {
+    //init_rdtsc()) { // try rdtsc and initialize
+    g_counter_type  = TIMER_RDTSC;
+    g_get_ticks_ptr = get_ticks_rdtsc;
+    counter_string  = "rdtsc";
+  }
+  if ( init_qpc() ) {
+    // try qpc and initialize
+    g_counter_type  = TIMER_QPC;
+    g_get_ticks_ptr = get_ticks_qpc;
+    counter_string  = "qpc";
+  } else {
+    // use timeGetTime   //AMD 듀얼 코어 문제로 인한 시간 변경
+    // none of fast methods are available.
+    g_counter_type     = TIMER_TIMEGETTIME;
+    g_get_ticks_ptr    = get_ticks_tgt;
+    g_ticks_per_second = 1000; // timeGetTime() uses millisecond
+    counter_string     = "tgt";
+  }
+  g_counter_initialized = true;
+  ZZ_LOG( "os: %s supported.\n", counter_string );
 }
 
-void zz_os::get_system_time (uint64& systime)
-{
-	SYSTEMTIME st;
-	FILETIME ft;
+void         zz_os::get_system_time(uint64& systime) {
+  SYSTEMTIME st;
+  FILETIME   ft;
 
-	GetSystemTime(&st); // gets current time
-	SystemTimeToFileTime(&st, &ft); // convert to file format
+  GetSystemTime( &st );             // gets current time
+  SystemTimeToFileTime( &st, &ft ); // convert to file format
 
-	ULARGE_INTEGER ui;
-	ui.LowPart = ft.dwLowDateTime;
-	ui.HighPart = ft.dwHighDateTime;
+  ULARGE_INTEGER ui;
+  ui.LowPart  = ft.dwLowDateTime;
+  ui.HighPart = ft.dwHighDateTime;
 
-	systime = static_cast<uint64>(ui.QuadPart);
+  systime = static_cast<uint64>(ui.QuadPart);
 }
 
 // or faster method, but only available in MSVC

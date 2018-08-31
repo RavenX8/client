@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include ".\cpatdlg.h"
+#include "./cpatdlg.h"
 //#include "../it_mgr.h"
 //#include "../CDragItem.h"
 //#include "../Icon/CIconItem.h"
@@ -12,103 +12,88 @@
 //#include "../../gamecommon/item.h"
 //#include "../../GameData/Event/CTEventItem.h"
 
-CPatDlg::CPatDlg()
-{
-	//SetDialogType( iType );
+CPatDlg::CPatDlg() {
+  //SetDialogType( iType );
 
-	//m_pCmdInvenIcon = new CTCmdAssembleRideItem;
-	//m_pCmdEquipIcon = new CTCmdDisAssembleRideItem;
+  //m_pCmdInvenIcon = new CTCmdAssembleRideItem;
+  //m_pCmdEquipIcon = new CTCmdDisAssembleRideItem;
 
+  //CTCommand* pCmd = NULL;
 
-	//CTCommand* pCmd = NULL;
+  //m_pEquipDragItem = new CDragItem;
+  //pCmd = new CTCmdDragItemFromPatEquip;
+  //m_pEquipDragItem->AddTarget( iType, pCmd );
 
-	//m_pEquipDragItem = new CDragItem;
-	//pCmd = new CTCmdDragItemFromPatEquip;
-	//m_pEquipDragItem->AddTarget( iType, pCmd );
+  //m_pInvenDragItem = new CDragItem;
+  //pCmd = new CTCmdDragItemFromPatInven;
+  //m_pInvenDragItem->AddTarget( iType, pCmd );
 
+  /////매매창으로의 이동
+  //CTCmdNumberInput* pNumberCmd = new CTCmdAddItem2DealFromInventory;
+  //CTCmdOpenNumberInputDlg* pOpenCmd = new CTCmdOpenNumberInputDlg;
+  //pOpenCmd->SetCommand( pNumberCmd );
 
-	//m_pInvenDragItem = new CDragItem;
-	//pCmd = new CTCmdDragItemFromPatInven;
-	//m_pInvenDragItem->AddTarget( iType, pCmd );
+  //m_pInvenDragItem->AddTarget( DLG_TYPE_DEAL, pOpenCmd );
 
+  /////상점창으로 이동
+  //pNumberCmd = new CTCmdSellItem;
+  //pOpenCmd = new CTCmdOpenNumberInputDlg;
+  //pOpenCmd->SetCommand( pNumberCmd );
+  //m_pInvenDragItem->AddTarget( DLG_TYPE_STORE, pOpenCmd );
 
-	/////매매창으로의 이동
-	//CTCmdNumberInput* pNumberCmd = new CTCmdAddItem2DealFromInventory;
-	//CTCmdOpenNumberInputDlg* pOpenCmd = new CTCmdOpenNumberInputDlg;
-	//pOpenCmd->SetCommand( pNumberCmd );
+  /////땅으로 드랍
+  //pNumberCmd	= new CTCmdDropItem;
+  //pOpenCmd	= new CTCmdOpenNumberInputDlg;
+  //pOpenCmd->SetCommand( pNumberCmd );
+  //m_pInvenDragItem->AddTarget( CDragItem::TARGET_GROUND, pOpenCmd );
 
-	//m_pInvenDragItem->AddTarget( DLG_TYPE_DEAL, pOpenCmd );
+  /////Bank로 이동
+  //pNumberCmd	= new CTCmdMoveItemInv2Bank;
+  //pOpenCmd	= new CTCmdOpenNumberInputDlg;
+  //pOpenCmd->SetCommand( pNumberCmd );
+  //m_pInvenDragItem->AddTarget( DLG_TYPE_BANK, pOpenCmd );
 
-	/////상점창으로 이동
-	//pNumberCmd = new CTCmdSellItem;
-	//pOpenCmd = new CTCmdOpenNumberInputDlg;
-	//pOpenCmd->SetCommand( pNumberCmd );
-	//m_pInvenDragItem->AddTarget( DLG_TYPE_STORE, pOpenCmd );
+  /////교환창으로 이동
+  //pNumberCmd  = new CTCmdAddMyItem2Exchange;
+  //pOpenCmd	= new CTCmdOpenNumberInputDlg;
+  //pOpenCmd->SetCommand( pNumberCmd );
+  //m_pInvenDragItem->AddTarget( DLG_TYPE_EXCHANGE, pOpenCmd );
 
-	/////땅으로 드랍
-	//pNumberCmd	= new CTCmdDropItem;
-	//pOpenCmd	= new CTCmdOpenNumberInputDlg;
-	//pOpenCmd->SetCommand( pNumberCmd );
-	//m_pInvenDragItem->AddTarget( CDragItem::TARGET_GROUND, pOpenCmd );
+  //CSlot Slot;
+  //CSlotPatEquip EquipSlot;
+  //POINT ptPos = { 77, 45 };
+  //for( int i = 0; i < MAX_RIDING_PART; ++i )
+  //{
+  //	EquipSlot.SetOffset( ptPos );
+  //	EquipSlot.SetDragAvailable();
+  //	EquipSlot.SetDragItem( m_pEquipDragItem );
+  //	EquipSlot.SetParent( iType );
+  //	m_listEquipSlot.push_back( EquipSlot );
+  //	ptPos.y += 37;
+  //}
 
-	/////Bank로 이동
-	//pNumberCmd	= new CTCmdMoveItemInv2Bank;
-	//pOpenCmd	= new CTCmdOpenNumberInputDlg;
-	//pOpenCmd->SetCommand( pNumberCmd );
-	//m_pInvenDragItem->AddTarget( DLG_TYPE_BANK, pOpenCmd );
+  //ptPos.x = 11;
+  //ptPos.y = 201;
 
-
-	/////교환창으로 이동
-	//pNumberCmd  = new CTCmdAddMyItem2Exchange;
-	//pOpenCmd	= new CTCmdOpenNumberInputDlg;
-	//pOpenCmd->SetCommand( pNumberCmd );
-	//m_pInvenDragItem->AddTarget( DLG_TYPE_EXCHANGE, pOpenCmd );
-
-
-
-
-
-
-
-
-
-	//CSlot Slot;
-	//CSlotPatEquip EquipSlot;
-	//POINT ptPos = { 77, 45 };
-	//for( int i = 0; i < MAX_RIDING_PART; ++i )
-	//{
-	//	EquipSlot.SetOffset( ptPos );
-	//	EquipSlot.SetDragAvailable();
-	//	EquipSlot.SetDragItem( m_pEquipDragItem );
-	//	EquipSlot.SetParent( iType );
-	//	m_listEquipSlot.push_back( EquipSlot );
-	//	ptPos.y += 37;
-	//}
-
-
-	//ptPos.x = 11;
-	//ptPos.y = 201;
-
-	//for( int i = 0; i < 4; ++i )
-	//{
-	//	for( int j = 0 ; j < 6; ++j )
-	//	{
-	//		Slot.SetOffset( ptPos );
-	//		Slot.SetDragAvailable();
-	//		Slot.SetDragItem( m_pInvenDragItem );
-	//		Slot.SetParent( iType );
-	//		m_listInvenSlot.push_back( Slot );
-	//		ptPos.x += 33;
-	//	}
-	//	ptPos.x = 11;
-	//	ptPos.y += 33;
-	//}
+  //for( int i = 0; i < 4; ++i )
+  //{
+  //	for( int j = 0 ; j < 6; ++j )
+  //	{
+  //		Slot.SetOffset( ptPos );
+  //		Slot.SetDragAvailable();
+  //		Slot.SetDragItem( m_pInvenDragItem );
+  //		Slot.SetParent( iType );
+  //		m_listInvenSlot.push_back( Slot );
+  //		ptPos.x += 33;
+  //	}
+  //	ptPos.x = 11;
+  //	ptPos.y += 33;
+  //}
 }
 
-CPatDlg::~CPatDlg(void)
-{
-	//SAFE_DELETE( m_pEquipDragItem );
-	//SAFE_DELETE( m_pInvenDragItem );
+CPatDlg::~CPatDlg(void) {
+  //SAFE_DELETE( m_pEquipDragItem );
+  //SAFE_DELETE( m_pInvenDragItem );
 }
 
 //void	CPatDlg::MoveWindow( POINT pt )

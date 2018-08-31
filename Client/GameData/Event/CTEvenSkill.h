@@ -3,10 +3,9 @@
 
 #include "ctevent.h"
 
-class CTEvenSkill :	public CTEvent
-{
+class CTEvenSkill : public CTEvent {
 public:
-	CTEvenSkill(void);
-	virtual ~CTEvenSkill(void);
+          CTEvenSkill(void );
+  virtual ~CTEvenSkill(void);
 };
 #endif

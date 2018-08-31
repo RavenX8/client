@@ -20,29 +20,29 @@
 
 class zz_font_texture_d3d : public zz_font_texture {
 private:
-	LPDIRECT3DTEXTURE9 _texture;
-	LPDIRECT3DSURFACE9 _surface;
+  LPDIRECT3DTEXTURE9 _texture;
+  LPDIRECT3DSURFACE9 _surface;
 
-	static LPDIRECT3DDEVICE9 _device;
+  static LPDIRECT3DDEVICE9 _device;
 
 protected:
-	virtual void render_text_impl (const zz_font& font, const zz_font_text& text);
-	virtual void render_to_texture_impl (zz_font& font, const zz_font_text& text);
-	virtual void render_to_texture_begin_impl ();
-	virtual void render_to_texture_end_impl ();
-	void clear_text_texture (const zz_font_text& text);
+  void render_text_impl(const zz_font& font, const zz_font_text& text) override;
+  void render_to_texture_impl(zz_font& font, const zz_font_text& text) override;
+  void render_to_texture_begin_impl() override;
+  void render_to_texture_end_impl() override;
+  void clear_text_texture(const zz_font_text& text);
 
 public:
-	zz_font_texture_d3d ();
-	virtual ~zz_font_texture_d3d ();
+          zz_font_texture_d3d();
+  virtual ~zz_font_texture_d3d();
 
-	virtual void render_text_texture (void);
+  void render_text_texture(void) override;
 
-	// restoring device stuff
-	virtual bool restore_device_objects (); // create unmanaged objects
-	virtual bool init_device_objects (); // create managed objects
-	virtual bool invalidate_device_objects (); // destroy unmanaged objects
-	virtual bool delete_device_objects (); // destroy managed objects
+  // restoring device stuff
+  bool restore_device_objects() override;    // create unmanaged objects
+  bool init_device_objects() override;       // create managed objects
+  bool invalidate_device_objects() override; // destroy unmanaged objects
+  bool delete_device_objects() override;     // destroy managed objects
 };
 
 #endif // __ZZ_FONT_TEXTURE_D3D_H__

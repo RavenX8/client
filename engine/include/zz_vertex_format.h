@@ -47,131 +47,116 @@
 
 class zz_vertex_format {
 private:
-	int format; // vertex format info
+  int format; // vertex format info
 
 public:
-	int size; // vertex size in bytes
+  int size; // vertex size in bytes
 
-	int pos_offset;
-	int normal_offset;
-	int color_offset;
-	int blend_weight_offset;
-	int blend_index_offset;
-	int tangent_offset;
-	int uv_offset[4];
+  int pos_offset;
+  int normal_offset;
+  int color_offset;
+  int blend_weight_offset;
+  int blend_index_offset;
+  int tangent_offset;
+  int uv_offset[4];
 
 public:
 
-	zz_vertex_format (const zz_vertex_format& format_in) :
-	  size(format_in.size),
-		  pos_offset(format_in.pos_offset),
-		  normal_offset(format_in.normal_offset),
-		  color_offset(format_in.color_offset),
-		  blend_weight_offset(format_in.blend_weight_offset),
-		  blend_index_offset(format_in.blend_index_offset),
-		  tangent_offset(format_in.tangent_offset)
-	  {
-		  memset(uv_offset, 0, sizeof(int)*4);
-		  set_format(format_in.format);
-	  }
+  zz_vertex_format(const zz_vertex_format& format_in) :
+    size( format_in.size ),
+    pos_offset( format_in.pos_offset ),
+    normal_offset( format_in.normal_offset ),
+    color_offset( format_in.color_offset ),
+    blend_weight_offset( format_in.blend_weight_offset ),
+    blend_index_offset( format_in.blend_index_offset ),
+    tangent_offset( format_in.tangent_offset ) {
+    memset( uv_offset, 0, sizeof( int ) * 4 );
+    set_format( format_in.format );
+  }
 
-	zz_vertex_format (int format_in = ZZ_VF_NONE) :
-	  size(0),
-	  pos_offset(0),
-	  normal_offset(0),
-	  color_offset(0),
-	  blend_weight_offset(0),
-	  blend_index_offset(0),
-	  tangent_offset(0)
-	{
-		memset(uv_offset, 0, sizeof(int)*4);
-		set_format(format_in);
-	}
+  zz_vertex_format(int format_in = ZZ_VF_NONE) :
+    size( 0 ),
+    pos_offset( 0 ),
+    normal_offset( 0 ),
+    color_offset( 0 ),
+    blend_weight_offset( 0 ),
+    blend_index_offset( 0 ),
+    tangent_offset( 0 ) {
+    memset( uv_offset, 0, sizeof( int ) * 4 );
+    set_format( format_in );
+  }
 
-	int get_format () const
-	{
-		return format;
-	}
+  int get_format() const {
+    return format;
+  }
 
-	bool set_format (int format_in)
-	{
-		format = format_in;
+  bool set_format(int format_in) {
+    format = format_in;
 
-		pos_offset = 0;
-		size = sizeof(vec3); // 12
+    pos_offset = 0;
+    size       = sizeof( vec3 ); // 12
 
-		normal_offset = size; // include position
-		size += (use_normal()) ? sizeof(vec3) : 0; // 12
+    normal_offset = size;                        // include position
+    size += (use_normal()) ? sizeof( vec3 ) : 0; // 12
 
-		color_offset = size;
-		size += (use_color()) ? sizeof(zz_color) : 0; // 4
+    color_offset = size;
+    size += (use_color()) ? sizeof( zz_color ) : 0; // 4
 
-		blend_weight_offset = size;
-		blend_index_offset = size + ((use_skin()) ? sizeof(vec4) : 0); // 16
-		size += (use_skin()) ? 32 : 0; // vec4 + uivec4
-		tangent_offset = size;
+    blend_weight_offset = size;
+    blend_index_offset  = size + ((use_skin()) ? sizeof( vec4 ) : 0); // 16
+    size += (use_skin()) ? 32 : 0;                                    // vec4 + uivec4
+    tangent_offset = size;
 
-		size += (use_tangent()) ? sizeof(vec3) : 0; // 12
-		uv_offset[0] = size;
+    size += (use_tangent()) ? sizeof( vec3 ) : 0; // 12
+    uv_offset[0] = size;
 
-		size += (get_num_mapchannel() >= 1) ? 8 : 0;
-		uv_offset[1] = size;
+    size += (get_num_mapchannel() >= 1) ? 8 : 0;
+    uv_offset[1] = size;
 
-		size += (get_num_mapchannel() >= 2) ? 8 : 0;
-		uv_offset[2] = size;
+    size += (get_num_mapchannel() >= 2) ? 8 : 0;
+    uv_offset[2] = size;
 
-		size += (get_num_mapchannel() >= 3) ? 8 : 0;
-		uv_offset[3] = size;
-		return true;
-	}
+    size += (get_num_mapchannel() >= 3) ? 8 : 0;
+    uv_offset[3] = size;
+    return true;
+  }
 
-	bool use_skin (void) const 
-	{
-		return
-			((format & ZZ_VF_BLEND_WEIGHT) && 
-			(format & ZZ_VF_BLEND_INDEX));
-	}
+  bool use_skin(void) const {
+    return
+    ((format & ZZ_VF_BLEND_WEIGHT) &&
+     (format & ZZ_VF_BLEND_INDEX));
+  }
 
-	bool use_tangent (void) const 
-	{
-		return (format & ZZ_VF_TANGENT) > 0;
-	}
+  bool use_tangent(void) const {
+    return (format & ZZ_VF_TANGENT) > 0;
+  }
 
-	int get_num_mapchannel (void) const
-	{
-		int num = 0;
-		num = (format & ZZ_VF_UV0) ? num+1 : num;
-		num = (format & ZZ_VF_UV1) ? num+1 : num;
-		num = (format & ZZ_VF_UV2) ? num+1 : num;
-		num = (format & ZZ_VF_UV3) ? num+1 : num;
-		return num;
-	}
+  int   get_num_mapchannel(void) const {
+    int num = 0;
+    num     = (format & ZZ_VF_UV0) ? num + 1 : num;
+    num     = (format & ZZ_VF_UV1) ? num + 1 : num;
+    num     = (format & ZZ_VF_UV2) ? num + 1 : num;
+    num     = (format & ZZ_VF_UV3) ? num + 1 : num;
+    return num;
+  }
 
-	bool use_normal (void) const
-	{
-		return (format & ZZ_VF_NORMAL) > 0;
-	}
+  bool use_normal(void) const {
+    return (format & ZZ_VF_NORMAL) > 0;
+  }
 
-	bool use_color (void) const
-	{
-		return (format & ZZ_VF_COLOR) > 0;
-	}
+  bool use_color(void) const {
+    return (format & ZZ_VF_COLOR) > 0;
+  }
 
-	bool use_uv (int index) const
-	{
-		switch (index)
-		{
-		case 0:
-			return (format & ZZ_VF_UV0) > 0;
-		case 1:
-			return (format & ZZ_VF_UV1) > 0;
-		case 2:
-			return (format & ZZ_VF_UV2) > 0;
-		case 3:
-			return (format & ZZ_VF_UV3) > 0;
-		}
-		return false;
-	}
+  bool use_uv(int index) const {
+    switch ( index ) {
+      case 0: return (format & ZZ_VF_UV0) > 0;
+      case 1: return (format & ZZ_VF_UV1) > 0;
+      case 2: return (format & ZZ_VF_UV2) > 0;
+      case 3: return (format & ZZ_VF_UV3) > 0;
+    }
+    return false;
+  }
 };
 
 #endif // __ZZ_VERTEX_FORMAT_H__

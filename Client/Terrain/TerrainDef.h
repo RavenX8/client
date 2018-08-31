@@ -1,14 +1,11 @@
 #ifndef _TERRAIN_DEF_
 #define _TERRAIN_DEF_
 
-
 //-------------------------------------------------------------------------------------------------
 
 #define	MAGNIFICATION_RATE			1
 
-
 #define	MAP_COUNT_PER_ZONE_AXIS		64
-
 
 #define	MAX_VERTEX_COUNT_PER_PATCH_AXIS		33
 

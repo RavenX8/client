@@ -100,63 +100,62 @@ class zz_shader;
 //--------------------------------------------------------------------------------
 class zz_material_colormap : public zz_material {
 protected:
-	float lightmap_transform[4]; // 0 : U translation index, 1 : V translation index, 2 : 1/width, 3 : 1/height
+  float lightmap_transform[4]; // 0 : U translation index, 1 : V translation index, 2 : 1/width, 3 : 1/height
 
-	void _set_colormap_specularmap (void);
-	void _set_tfactor_texture_alpha ();
-	void _set_texture_texture_alpha (void);
-	void _set_texture_x_tfactor_alpha (void);
-	void _set_diffuse_alpha (void);
-	void _set_texture_alpha (void);
-	void _set_tfactor_alpha (void);
-	void _set_nop_alpha (void);
-	void _set_texture_x_diffuse_alpha (void);
-	void _set_colormap (void);
-	void _set_shadowmap (void);
-	void _set_tfactor_colormap (void);
-	void _set_colormap_lightmap (void);
-	void _set_colormap_shadowmap (void);
-	void _set_colormap_lightmap_shadowmap (void);
-	void _set_irradiancemap (void);
-	void _set_glow (void);
-	void _set_glow_lit (void);
-	void _set_glow_texture (void);
-	void _set_glow_texture_lit (void);
-	void _set_glow_alpha (void);
-	void _set_target_shadowmap (void);
-	void _set_target_glow (void);
+  void _set_colormap_specularmap(void);
+  void _set_tfactor_texture_alpha();
+  void _set_texture_texture_alpha(void      );
+  void _set_texture_x_tfactor_alpha(void    );
+  void _set_diffuse_alpha(void              );
+  void _set_texture_alpha(void              );
+  void _set_tfactor_alpha(void              );
+  void _set_nop_alpha(void                  );
+  void _set_texture_x_diffuse_alpha(void    );
+  void _set_colormap(void                   );
+  void _set_shadowmap(void                  );
+  void _set_tfactor_colormap(void           );
+  void _set_colormap_lightmap(void          );
+  void _set_colormap_shadowmap(void         );
+  void _set_colormap_lightmap_shadowmap(void);
+  void _set_irradiancemap(void              );
+  void _set_glow(void                       );
+  void _set_glow_lit(void                   );
+  void _set_glow_texture(void               );
+  void _set_glow_texture_lit(void           );
+  void _set_glow_alpha(void                 );
+  void _set_target_shadowmap(void           );
+  void _set_target_glow(void                );
 
-	// set each pass
-	void _set_pass_fogged (void);
-	void _set_pass_diffusemap (void);
-	void _set_pass_diffusemap_specularmap (void);
-	void _set_pass_diffusemap_lightmap (void);
-	void _set_pass_diffusemap_lightmap_shadowmap (void);
-	void _set_pass_diffusemap_shadowmap (void);
-	void _set_pass_lightmap (void);
-	void _set_pass_lightmap_shadowmap (void);
-	void _set_pass_shadowmap (void);
-	
-	void bind_texture (void);
+  // set each pass
+  void _set_pass_fogged(void                       );
+  void _set_pass_diffusemap(void                   );
+  void _set_pass_diffusemap_specularmap(void       );
+  void _set_pass_diffusemap_lightmap(void          );
+  void _set_pass_diffusemap_lightmap_shadowmap(void);
+  void _set_pass_diffusemap_shadowmap(void         );
+  void _set_pass_lightmap(void                     );
+  void _set_pass_lightmap_shadowmap(void           );
+  void _set_pass_shadowmap(void                    );
+
+  void bind_texture(void);
 
 public:
 
-	zz_material_colormap (void);
-	virtual ~zz_material_colormap (void);
+          zz_material_colormap(void );
+  virtual ~zz_material_colormap(void);
 
-	virtual bool set (int pass);
+  bool set(int pass) override;
 
-	virtual int get_shader_format () const;
+  int get_shader_format() const override;
 
-	void set_lightmap_transform (int x, int y, int width, int height)
-	{
-		lightmap_transform[0] = float(x);
-		lightmap_transform[1] = float(y);
-		lightmap_transform[2] = 1.0f/float(width);
-		lightmap_transform[3] = 1.0f/float(height);
-	}
+  void set_lightmap_transform(int x, int y, int width, int height) {
+    lightmap_transform[0] = float( x );
+    lightmap_transform[1] = float( y );
+    lightmap_transform[2] = 1.0f / float( width );
+    lightmap_transform[3] = 1.0f / float( height );
+  }
 
-	ZZ_DECLARE_DYNAMIC(zz_material_colormap)
+ZZ_DECLARE_DYNAMIC(zz_material_colormap)
 };
 
 #endif // __ZZ_MATERIAL_COLORMAP_H__

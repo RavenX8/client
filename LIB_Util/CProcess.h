@@ -4,19 +4,19 @@
 #include <Tlhelp32.h>
 //-------------------------------------------------------------------------------------------------
 
-typedef	bool (__stdcall *CALLBACK_FINDPROCESS) ( DWORD dwPID, char *szFileName );
+typedef bool (__stdcall *CALLBACK_FINDPROCESS)(DWORD dwPID, char* szFileName);
 
 class CProcess {
 public :
-	static DWORD	FindThread (DWORD dwProcessID);
+  static DWORD FindThread(DWORD dwProcessID);
 
-	static DWORD    FindProcessWithCallBack ( CALLBACK_FINDPROCESS CallBackFunc );
+  static DWORD FindProcessWithCallBack(CALLBACK_FINDPROCESS CallBackFunc);
 
-    static DWORD	FindProcess ( char *szExeName );
-    static BOOL	    KillProcess ( DWORD dwPID );
-    static HWND     GetWindowHandleWithProcessID (DWORD dwPID);
-	static HWND		GetWindowHandleWithFileName (char *szFileName);
-} ;
+  static DWORD FindProcess(char*                  szExeName);
+  static BOOL  KillProcess(DWORD                  dwPID);
+  static HWND  GetWindowHandleWithProcessID(DWORD dwPID);
+  static HWND  GetWindowHandleWithFileName(char*  szFileName);
+};
 
 //-------------------------------------------------------------------------------------------------
 #endif

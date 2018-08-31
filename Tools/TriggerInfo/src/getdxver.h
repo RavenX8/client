@@ -3,7 +3,7 @@
 
 #include <string>
 
-std::string GetDxVersion (void);
-DWORD GetDxVersion2(void);
+std::string GetDxVersion(void );
+DWORD       GetDxVersion2(void);
 
 #endif

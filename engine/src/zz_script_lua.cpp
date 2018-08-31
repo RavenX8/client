@@ -126,27 +126,25 @@
 
 // file scope variables
 // for saved return type
-int f_return_int = 0;
-unsigned int f_return_uint = 0;
-float f_return_float = 0.0f;
-const float * f_return_float3 = NULL;
-const char * f_return_string = NULL;
+int          f_return_int    = 0;
+unsigned int f_return_uint   = 0;
+float        f_return_float  = 0.0f;
+const float* f_return_float3 = nullptr;
+const char*  f_return_string = nullptr;
 
 char current_lua_file[ZZ_MAX_STRING];
 
 ZZ_IMPLEMENT_DYNCREATE(zz_script_lua, zz_script)
 
-
-zz_script_lua::zz_script_lua (const char * filename) : param_count(0), zz_script()
-{
-#ifdef ZZ_LUA500	
+zz_script_lua::zz_script_lua(const char* filename) : zz_script(), param_count( 0 ) {
+#ifdef ZZ_LUA500 
   L = lua_open();
-  luaopen_base(L);
-  luaopen_string(L);
-  luaopen_table(L);
-  luaopen_math(L);
-  luaopen_io(L);
-  luaopen_debug(L);
+  luaopen_base( L );
+  luaopen_string( L );
+  luaopen_table( L );
+  luaopen_math( L );
+  luaopen_io( L );
+  luaopen_debug( L );
 #else // 401
   L = lua_open(0);
   lua_baselibopen(L);
@@ -158,61 +156,58 @@ zz_script_lua::zz_script_lua (const char * filename) : param_count(0), zz_script
   set_initial_globals();
 }
 
-zz_script_lua::~zz_script_lua ()
-{
-  if (L) lua_close(L);
+zz_script_lua::~zz_script_lua() {
+  if ( L ) lua_close( L );
 }
 
 // if filename is not null, buffer is ignored. 
 // if filename is null, do buffer
-bool zz_script_lua::do_script (const char * filename, const char * buffer)
-{
-  bool ret = true;
+bool     zz_script_lua::do_script(const char* filename, const char* buffer) {
+  bool   ret = true;
   zz_vfs script_file;
 
-  const char * data = NULL;
-  uint32 size = 0;
-  if (filename) {
-    strcpy(current_lua_file, filename); // save current lua file name for error/warning message printing
-    data = (const char *)script_file.open_read_get_data(filename, &size);
+  const char* data = nullptr;
+  uint32      size = 0;
+  if ( filename ) {
+    strcpy( current_lua_file, filename ); // save current lua file name for error/warning message printing
+    data = (const char *)script_file.open_read_get_data( filename, &size );
     //ZZ_LOG("script_lua: do_script(%s, %d)\n", filename, size);
-    if (!data) {
-      ZZ_LOG("script_lua: do_scipt(%s) failed. file not found\n", filename);
+    if ( !data ) {
+      ZZ_LOG( "script_lua: do_scipt(%s) failed. file not found\n", filename );
       ret = false; // error
     }
-  }
-  else {
+  } else {
     data = buffer;
-    size = (int)strlen(buffer);
-    if (!data || size == 0) {
-      ZZ_LOG("script_lua: do_script(NULL, %s) failed. size 0\n",	buffer);
+    size = (int)strlen( buffer );
+    if ( !data || size == 0 ) {
+      ZZ_LOG( "script_lua: do_script(NULL, %s) failed. size 0\n", buffer );
       ret = false; // error
     }
   }
   int lua_error = 0;
 
-  if (ret != false) {
-    lua_error = lua_dobuffer(L, data, size, NULL);
+  if ( ret != false ) {
+    lua_error = lua_dobuffer( L, data, size, nullptr );
     //script_file.dump();
   }
 
-  if (lua_error != 0) {
-    ZZ_LOG("script: do_script::lua_dobuffer(%s:%x) failed\n", filename, buffer);
-    switch (lua_error) {
+  if ( lua_error != 0 ) {
+    ZZ_LOG( "script: do_script::lua_dobuffer(%s:%x) failed\n", filename, buffer );
+    switch ( lua_error ) {
       case LUA_ERRRUN:
-        ZZ_LOG("\t error while running the chunk\n");
+        ZZ_LOG( "\t error while running the chunk\n" );
         break;
       case LUA_ERRSYNTAX:
-        ZZ_LOG("\t syntax error during pre-compilation\n");
+        ZZ_LOG( "\t syntax error during pre-compilation\n" );
         break;
       case LUA_ERRMEM:
-        ZZ_LOG("\t memory allocation error.\n");
+        ZZ_LOG( "\t memory allocation error.\n" );
         break;
       case LUA_ERRERR:
-        ZZ_LOG("\t error while running _ERRORMESSAGE\n");
+        ZZ_LOG( "\t error while running _ERRORMESSAGE\n" );
         break;
       case LUA_ERRFILE:
-        ZZ_LOG("\t error opening the file.\n");
+        ZZ_LOG( "\t error opening the file.\n" );
         break;
     }
     ret = false;
@@ -220,125 +215,111 @@ bool zz_script_lua::do_script (const char * filename, const char * buffer)
   return true;
 }
 
-bool zz_script_lua::get_global (const char * variable_name, int& variable_to_set)
-{
+bool zz_script_lua::get_global(const char* variable_name, int& variable_to_set) {
   lua_getglobal(L, variable_name);
-  if (lua_isnumber(L, -1)) {
-    variable_to_set = static_cast<int>(lua_tonumber(L, -1));
+  if ( lua_isnumber( L, -1 ) ) {
+    variable_to_set = static_cast<int>(lua_tonumber( L, -1 ));
     return true;
   }
   return false; // no such global variable
 }
 
-bool zz_script_lua::get_global (const char * variable_name, char * variable_to_set)
-{
+bool zz_script_lua::get_global(const char* variable_name, char* variable_to_set) {
   lua_getglobal(L, variable_name);
-  if (lua_isstring(L, -1)) {
-    strcpy(variable_to_set, lua_tostring(L, -1));
+  if ( lua_isstring( L, -1 ) ) {
+    strcpy( variable_to_set, lua_tostring( L, -1 ) );
     return true;
   }
   return false; // no such global variable
 }
 
-bool zz_script_lua::get_global (const char * variable_name, float& variable_to_set)
-{
+bool zz_script_lua::get_global(const char* variable_name, float& variable_to_set) {
   lua_getglobal(L, variable_name);
-  if (lua_isnumber(L, -1)) {
-    variable_to_set = static_cast<float>(lua_tonumber(L, -1));
+  if ( lua_isnumber( L, -1 ) ) {
+    variable_to_set = static_cast<float>(lua_tonumber( L, -1 ));
     return true;
   }
   return false; // no such global variable
 }
 
-void zz_script_lua::set_global (const char * variable_name, int value)
-{
-  lua_pushnumber(L, value);
+void zz_script_lua::set_global(const char* variable_name, int value) {
+  lua_pushnumber( L, value );
   lua_setglobal(L, variable_name);
 }
 
-void zz_script_lua::set_global (const char * variable_name, float value)
-{
-  lua_pushnumber(L, value);
+void zz_script_lua::set_global(const char* variable_name, float value) {
+  lua_pushnumber( L, value );
   lua_setglobal(L, variable_name);
 }
 
-void zz_script_lua::set_global (const char * variable_name, const char * value)
-{
-  lua_pushstring(L, value);
+void zz_script_lua::set_global(const char* variable_name, const char* value) {
+  lua_pushstring( L, value );
   lua_setglobal(L, variable_name);
 }
 
-void zz_script_lua::set_param_uint (unsigned int val)
-{
+void zz_script_lua::set_param_uint(unsigned int val) {
   assert(L);
-  lua_pushnumber(L, (double)val);
+  lua_pushnumber( L, (double)val );
   param_count++;
 }
 
-void zz_script_lua::set_param_int (int val)
-{
+void zz_script_lua::set_param_int(int val) {
   assert(L);
-  lua_pushnumber(L, (double)val);
+  lua_pushnumber( L, (double)val );
   param_count++;
 }
 
-void zz_script_lua::set_param_float (float val)
-{
+void zz_script_lua::set_param_float(float val) {
   assert(L);
-  lua_pushnumber(L, (double)val);
+  lua_pushnumber( L, (double)val );
   param_count++;
 }
 
-void zz_script_lua::set_param_float3 (const float * val)
-{
+void zz_script_lua::set_param_float3(const float* val) {
   assert(L);
   assert(val);
-  lua_pushnumber(L, (double)val[0]);
-  lua_pushnumber(L, (double)val[1]);
-  lua_pushnumber(L, (double)val[2]);
+  lua_pushnumber( L, (double)val[0] );
+  lua_pushnumber( L, (double)val[1] );
+  lua_pushnumber( L, (double)val[2] );
   param_count += 3;
 }
 
-void zz_script_lua::set_param_string (const char * val)
-{
+void zz_script_lua::set_param_string(const char* val) {
   assert(L);
-  lua_pushstring(L, val);
+  lua_pushstring( L, val );
   param_count++;
 }
 
-void zz_script_lua::set_param_hnode (void * val)
-{
+void zz_script_lua::set_param_hnode(void* val) {
   assert(L);
-  lua_pushnumber(L, double(reinterpret_cast<int>(val)));
+  lua_pushnumber( L, double( reinterpret_cast<int>(val) ) );
   param_count++;
 }
 
-bool zz_script_lua::call (const char * function_name, va_list va)
-{
+bool zz_script_lua::call(const char* function_name, va_list va) {
   param_count = 0;
   lua_getglobal(L, function_name);
-  if (!lua_isfunction(L, -1)) { // if no lua function exists
+  if ( !lua_isfunction(L, -1) ) {
+    // if no lua function exists
     lua_pop(L, param_count+1); // restore function name and arguments in stack
     return false;
   }
 
   zz_param_type type;
-  int int_type_value;
-  float float_type_value;
-  unsigned int uint_type_value;
-  const float * pfloat_type_value;
-  const char * pchar_type_value;
-  void * hnode_type_value;
-  while ((type = va_arg(va, zz_param_type)) != ZZ_PARAM_END) {
-    switch (type) {
-      case ZZ_PARAM_UINT:
-        uint_type_value = va_arg(va, unsigned int);
+  int           int_type_value;
+  float         float_type_value;
+  unsigned int  uint_type_value;
+  const float*  pfloat_type_value;
+  const char*   pchar_type_value;
+  void*         hnode_type_value;
+  while ( (type = va_arg(va, zz_param_type)) != ZZ_PARAM_END ) {
+    switch ( type ) {
+      case ZZ_PARAM_UINT: uint_type_value = va_arg(va, unsigned int);
         //? uint_type_value = (unsigned int)va_arg(va, int);
-        set_param_uint(uint_type_value);
+        set_param_uint( uint_type_value );
         break;
-      case ZZ_PARAM_INT:
-        int_type_value = va_arg(va, int);
-        set_param_int(int_type_value);
+      case ZZ_PARAM_INT: int_type_value = va_arg(va, int);
+        set_param_int( int_type_value );
         break;
       case ZZ_PARAM_FLOAT:
         // float types use double argument type
@@ -352,55 +333,51 @@ bool zz_script_lua::call (const char * function_name, va_list va)
         +++++++++++++++++++++++++++++++++++++++++++
         */
         float_type_value = (float)va_arg(va, double);
-        set_param_float(float_type_value);
+        set_param_float( float_type_value );
         break;
-      case ZZ_PARAM_FLOAT3:
-        pfloat_type_value = va_arg(va, const float *);
-        set_param_float3(pfloat_type_value);
+      case ZZ_PARAM_FLOAT3: pfloat_type_value = va_arg(va, const float *);
+        set_param_float3( pfloat_type_value );
         break;
-      case ZZ_PARAM_STRING:
-        pchar_type_value = va_arg(va, const char *);
-        set_param_string(pchar_type_value);
+      case ZZ_PARAM_STRING: pchar_type_value = va_arg(va, const char *);
+        set_param_string( pchar_type_value );
         break;
-      case ZZ_PARAM_HNODE:
-        hnode_type_value = va_arg(va, void *);
-        set_param_hnode(hnode_type_value);
+      case ZZ_PARAM_HNODE: hnode_type_value = va_arg(va, void *);
+        set_param_hnode( hnode_type_value );
         break;
     }
   }
 
-  
 #ifdef ZZ_LUA500
-  int err = lua_pcall(L, param_count, 0 /* nresults */, 0 /* errfunc */);
+  int err = lua_pcall( L, param_count, 0 /* nresults */, 0 /* errfunc */ );
 #else // 401
   int err = lua_call(L, param_count, 0 /* nresults */);
 #endif
 
   param_count = 0;
 
-  if (err == 0) {
+  if ( err == 0 ) {
     return true;
   }
   // error code print
-  ZZ_LOG("script_lua: call(%s) failed.\t", function_name);
-  switch (err) {
+  ZZ_LOG( "script_lua: call(%s) failed.\t", function_name );
+  switch ( err ) {
     case LUA_ERRRUN:
-      ZZ_LOG("error while running the chunk\n");
+      ZZ_LOG( "error while running the chunk\n" );
       break;
     case LUA_ERRSYNTAX:
-      ZZ_LOG("syntax error during pre-compilation\n");
+      ZZ_LOG( "syntax error during pre-compilation\n" );
       break;
     case LUA_ERRMEM:
-      ZZ_LOG("memory allocation error. For such errors, Lua does not call _ERRORMESSAGE (see Section 4.7). \n");
+      ZZ_LOG( "memory allocation error. For such errors, Lua does not call _ERRORMESSAGE (see Section 4.7). \n" );
       break;
     case LUA_ERRERR:
-      ZZ_LOG("error while running _ERRORMESSAGE. For such errors, Lua does not call _ERRORMESSAGE again, to avoid loops. \n");
+      ZZ_LOG( "error while running _ERRORMESSAGE. For such errors, Lua does not call _ERRORMESSAGE again, to avoid loops. \n" );
       break;
     case LUA_ERRFILE:
-      ZZ_LOG("error opening the file (only for lua_dofile). \n");
+      ZZ_LOG( "error opening the file (only for lua_dofile). \n" );
       break;
     default:
-      ZZ_LOG("unknown error type.\n");
+      ZZ_LOG( "unknown error type.\n" );
       break;
   }
   return false;
@@ -435,102 +412,91 @@ bool zz_script_lua::call (const char * function_name, va_list va)
 
 // Lua stack index range :
 // 1 <= param_index <= lua_gettop(L)
-unsigned int get_param_uint (lua_State * L, int& param_index, const char * where)
-{
+unsigned int get_param_uint(lua_State* L, int& param_index, const char* where) {
   assert(param_index <= lua_gettop(L));
   assert(param_index >= 1);
-  if (!lua_isnumber(L, param_index)) {
-    ZZ_LOG("script_lua: %s().parameter(uint:%d) match failed\n", where, param_index);
+  if ( !lua_isnumber( L, param_index ) ) {
+    ZZ_LOG( "script_lua: %s().parameter(uint:%d) match failed\n", where, param_index );
     return 0;
   }
-  return (unsigned int)lua_tonumber(L, param_index++);
+  return (unsigned int)lua_tonumber( L, param_index++ );
 }
 
-int get_param_int (lua_State * L, int& param_index, const char * where)
-{
+int get_param_int(lua_State* L, int& param_index, const char* where) {
   assert(param_index <= lua_gettop(L));
   assert(param_index >= 1);
-  if (!lua_isnumber(L, param_index)) {
-    ZZ_LOG("script_lua: %s().parameter(int;%d) match failed\n", where, param_index);
+  if ( !lua_isnumber( L, param_index ) ) {
+    ZZ_LOG( "script_lua: %s().parameter(int;%d) match failed\n", where, param_index );
     return 0;
   }
-  return (int)lua_tonumber(L, param_index++);
+  return (int)lua_tonumber( L, param_index++ );
 }
 
-const char * get_param_string (lua_State * L, int& param_index, const char * where)
-{
+const char* get_param_string(lua_State* L, int& param_index, const char* where) {
   assert(param_index <= lua_gettop(L));
   assert(param_index >= 1);
-  if (!lua_isstring(L, param_index)) {
-    ZZ_LOG("script_lua: %s().parameter(string:%d) match failed\n", where, param_index);
-    return NULL;
+  if ( !lua_isstring( L, param_index ) ) {
+    ZZ_LOG( "script_lua: %s().parameter(string:%d) match failed\n", where, param_index );
+    return nullptr;
   }
-  return lua_tostring(L, param_index++);
+  return lua_tostring( L, param_index++ );
 }
 
-float get_param_float (lua_State * L, int& param_index, const char * where)
-{
+float get_param_float(lua_State* L, int& param_index, const char* where) {
   assert(param_index <= lua_gettop(L));
   assert(param_index >= 1);
-  if (!lua_isnumber(L, param_index)) {
-    ZZ_LOG("_script_lua: %s().parameter(float:%d) match failed\n", where, param_index);
+  if ( !lua_isnumber( L, param_index ) ) {
+    ZZ_LOG( "_script_lua: %s().parameter(float:%d) match failed\n", where, param_index );
     return 0;
   }
-  return (float)lua_tonumber(L, param_index++);
+  return (float)lua_tonumber( L, param_index++ );
 }
 
-float * get_param_float3 (lua_State * L, int& param_index, const char * where)
-{
+float* get_param_float3(lua_State* L, int& param_index, const char* where) {
   assert(param_index <= lua_gettop(L));
   assert(param_index >= 1);
-  if (!lua_isnumber(L, param_index-2) || !lua_isnumber(L, param_index-1) || !lua_isnumber(L, param_index)) {
-    ZZ_LOG("script_lua: %s().parameter(float3:%d) match failed\n", where, param_index);
-    return NULL;
+  if ( !lua_isnumber( L, param_index - 2 ) || !lua_isnumber( L, param_index - 1 ) || !lua_isnumber( L, param_index ) ) {
+    ZZ_LOG( "script_lua: %s().parameter(float3:%d) match failed\n", where, param_index );
+    return nullptr;
   }
   static float ret[3];
-  ret[0] = (float)lua_tonumber(L, param_index++);
-  ret[1] = (float)lua_tonumber(L, param_index++);
-  ret[2] = (float)lua_tonumber(L, param_index++);
+  ret[0] = (float)lua_tonumber( L, param_index++ );
+  ret[1] = (float)lua_tonumber( L, param_index++ );
+  ret[2] = (float)lua_tonumber( L, param_index++ );
   return ret;
 }
 
-void set_param_uint (lua_State * L, int& return_num, unsigned int val)
-{
+void set_param_uint(lua_State* L, int& return_num, unsigned int val) {
   f_return_uint = val;
-  lua_pushnumber(L, val);
+  lua_pushnumber( L, val );
   return_num++;
 }
 
-void set_param_int (lua_State * L, int& return_num, int val)
-{
+void set_param_int(lua_State* L, int& return_num, int val) {
   f_return_int = val;
-  lua_pushnumber(L, val);
+  lua_pushnumber( L, val );
   return_num++;
 }
 
-void set_param_float (lua_State * L, int& return_num, float val)
-{
+void set_param_float(lua_State* L, int& return_num, float val) {
   f_return_float = val;
-  lua_pushnumber(L, val);
+  lua_pushnumber( L, val );
   return_num++;
 }
 
-void set_param_float3 (lua_State * L, int& return_num,  const float * val)
-{
+void set_param_float3(lua_State* L, int& return_num, const float* val) {
   f_return_float3 = val;
-  lua_pushnumber(L, val[0]);
-  lua_pushnumber(L, val[1]);
-  lua_pushnumber(L, val[2]);
+  lua_pushnumber( L, val[0] );
+  lua_pushnumber( L, val[1] );
+  lua_pushnumber( L, val[2] );
   return_num += 3;
 }
 
-void set_param_string (lua_State * L, int& return_num, const char * val)
-{
+void set_param_string(lua_State* L, int& return_num, const char* val) {
   f_return_string = val;
-  lua_pushstring(L, val);
+  lua_pushstring( L, val );
   return_num++;
 }
-
 
 // sample) zz_api_define.inc
 /*
@@ -559,23 +525,20 @@ int zz_lua_setLight (lua_State * L)
 #include "zz_script_lua.inc"
 
 #define ZL_SETVAR(NAME) \
-  set_global( #NAME, NAME ); \
-
+  set_global( #NAME, NAME );
 // lua error message receiver
 // redefinition of luaB__ALERT() in lbaselib.c
-static int my_ERROR_MESSAGE (lua_State *L) {
-  ZZ_LOG("script_lua:error: %s in [%s]\n", luaL_check_string(L, 1), current_lua_file);
+static int my_ERROR_MESSAGE(lua_State* L) {
+  ZZ_LOG( "script_lua:error: %s in [%s]\n", luaL_check_string(L, 1), current_lua_file );
   return 0;
 }
 
-static int my_ALERT_MESSAGE (lua_State * L)
-{
-  ZZ_LOG("script_lua:alert: %s in [%s]\n", luaL_check_string(L, 1), current_lua_file);
+static int my_ALERT_MESSAGE(lua_State* L) {
+  ZZ_LOG( "script_lua:alert: %s in [%s]\n", luaL_check_string(L, 1), current_lua_file );
   return 0;
 }
 
-void zz_script_lua::set_initial_globals ()
-{
+void zz_script_lua::set_initial_globals() {
   // lua alert message handler
   lua_register(L, "_ALERT", my_ALERT_MESSAGE);
 
@@ -585,7 +548,7 @@ void zz_script_lua::set_initial_globals ()
   // for initial setting
   // lua_register(L, "setScreen", zz_lua_setScreen);
 
-  register_api_interfaces(L); // in zz_script_lua.inc
+  register_api_interfaces( L ); // in zz_script_lua.inc
 
   // set global variables or enum
   ZL_SETVAR( ZZ_KEY_NONE )
@@ -675,12 +638,12 @@ void zz_script_lua::set_initial_globals ()
   ZL_SETVAR( ZZ_TYPE_NONE )
   ZL_SETVAR( ZZ_TYPE_VISIBLE )
   ZL_SETVAR( ZZ_TYPE_ANIMATABLE )
-  ZL_SETVAR( ZZ_TYPE_MORPHER    )
-  ZL_SETVAR( ZZ_TYPE_SKELETON   )
-  ZL_SETVAR( ZZ_TYPE_MODEL      )
-  ZL_SETVAR( ZZ_TYPE_PARTICLE   )
-  ZL_SETVAR( ZZ_TYPE_TRAIL      )
-  ZL_SETVAR( ZZ_TYPE_TERRAIN    )
+  ZL_SETVAR( ZZ_TYPE_MORPHER )
+  ZL_SETVAR( ZZ_TYPE_SKELETON )
+  ZL_SETVAR( ZZ_TYPE_MODEL )
+  ZL_SETVAR( ZZ_TYPE_PARTICLE )
+  ZL_SETVAR( ZZ_TYPE_TRAIL )
+  ZL_SETVAR( ZZ_TYPE_TERRAIN )
 
   ZL_SETVAR( ZZ_CL_NONE )
   ZL_SETVAR( ZZ_CL_SPHERE )
@@ -689,35 +652,35 @@ void zz_script_lua::set_initial_globals ()
   ZL_SETVAR( ZZ_CL_POLYGON )
 
   ZL_SETVAR( ZZ_DP_HIGHEST )
-  ZL_SETVAR( ZZ_DP_HIGH    )
-  ZL_SETVAR( ZZ_DP_NORMAL  )
-  ZL_SETVAR( ZZ_DP_LOW     )
-  ZL_SETVAR( ZZ_DP_LOWEST  )
+  ZL_SETVAR( ZZ_DP_HIGH )
+  ZL_SETVAR( ZZ_DP_NORMAL )
+  ZL_SETVAR( ZZ_DP_LOW )
+  ZL_SETVAR( ZZ_DP_LOWEST )
 
   ZL_SETVAR( ZZ_BLEND_ZERO )
-    ZL_SETVAR( ZZ_BLEND_ONE )
-    ZL_SETVAR( ZZ_BLEND_SRCCOLOR )
-    ZL_SETVAR( ZZ_BLEND_INVSRCCOLOR )
-    ZL_SETVAR( ZZ_BLEND_SRCALPHA )
-    ZL_SETVAR( ZZ_BLEND_INVSRCALPHA )
-    ZL_SETVAR( ZZ_BLEND_DESTALPHA )
-    ZL_SETVAR( ZZ_BLEND_INVDESTALPHA )
-    ZL_SETVAR( ZZ_BLEND_DESTCOLOR )
-    ZL_SETVAR( ZZ_BLEND_INVDESTCOLOR )
-    ZL_SETVAR( ZZ_BLEND_SRCALPHASAT )
-    ZL_SETVAR( ZZ_BLEND_BOTHSRCALPHA )
-    ZL_SETVAR( ZZ_BLEND_BOTHINVSRCALPHA )
-    ZL_SETVAR( ZZ_BLEND_BLENDFACTOR )
-    ZL_SETVAR( ZZ_BLEND_INVBLENDFACTOR )
-    
-  ZL_SETVAR( ZZ_BLENDOP_ADD )
-    ZL_SETVAR( ZZ_BLENDOP_SUBTRACT )
-    ZL_SETVAR( ZZ_BLENDOP_REVSUBTRACT )
-    ZL_SETVAR( ZZ_BLENDOP_MIN )
-    ZL_SETVAR( ZZ_BLENDOP_MAX )
+  ZL_SETVAR( ZZ_BLEND_ONE )
+  ZL_SETVAR( ZZ_BLEND_SRCCOLOR )
+  ZL_SETVAR( ZZ_BLEND_INVSRCCOLOR )
+  ZL_SETVAR( ZZ_BLEND_SRCALPHA )
+  ZL_SETVAR( ZZ_BLEND_INVSRCALPHA )
+  ZL_SETVAR( ZZ_BLEND_DESTALPHA )
+  ZL_SETVAR( ZZ_BLEND_INVDESTALPHA )
+  ZL_SETVAR( ZZ_BLEND_DESTCOLOR )
+  ZL_SETVAR( ZZ_BLEND_INVDESTCOLOR )
+  ZL_SETVAR( ZZ_BLEND_SRCALPHASAT )
+  ZL_SETVAR( ZZ_BLEND_BOTHSRCALPHA )
+  ZL_SETVAR( ZZ_BLEND_BOTHINVSRCALPHA )
+  ZL_SETVAR( ZZ_BLEND_BLENDFACTOR )
+  ZL_SETVAR( ZZ_BLEND_INVBLENDFACTOR )
 
-  ZL_SETVAR( SHADER_FORMAT_DEFAULT	)
-  ZL_SETVAR( SHADER_FORMAT_FIRSTMAP	 )
+  ZL_SETVAR( ZZ_BLENDOP_ADD )
+  ZL_SETVAR( ZZ_BLENDOP_SUBTRACT )
+  ZL_SETVAR( ZZ_BLENDOP_REVSUBTRACT )
+  ZL_SETVAR( ZZ_BLENDOP_MIN )
+  ZL_SETVAR( ZZ_BLENDOP_MAX )
+
+  ZL_SETVAR( SHADER_FORMAT_DEFAULT )
+  ZL_SETVAR( SHADER_FORMAT_FIRSTMAP )
   ZL_SETVAR( SHADER_FORMAT_SECONDMAP )
   ZL_SETVAR( SHADER_FORMAT_SPECULARMAP )
   ZL_SETVAR( SHADER_FORMAT_IRADIANCEMAP )
@@ -726,27 +689,22 @@ void zz_script_lua::set_initial_globals ()
   ZL_SETVAR( SHADER_FORMAT_FOG )
 }
 
-int zz_script_lua::get_return_int (void)
-{
+int zz_script_lua::get_return_int(void) {
   return f_return_int;
 }
 
-unsigned int zz_script_lua::get_return_uint (void)
-{
+unsigned int zz_script_lua::get_return_uint(void) {
   return f_return_uint;
 }
 
-float zz_script_lua::get_return_float (void)
-{
+float zz_script_lua::get_return_float(void) {
   return f_return_float;
 }
 
-const float * zz_script_lua::get_return_float3 (void)
-{
+const float* zz_script_lua::get_return_float3(void) {
   return f_return_float3;
 }
 
-const char * zz_script_lua::get_return_string (void)
-{
+const char* zz_script_lua::get_return_string(void) {
   return f_return_string;
 }

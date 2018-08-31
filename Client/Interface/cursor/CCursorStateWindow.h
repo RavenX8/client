@@ -2,7 +2,6 @@
 #define _CCursorStateWindow_
 #include "ccursorstate.h"
 
-
 /**
 * 윈도우 기본 커서를 변경없이 사용하는  State Class
 * 
@@ -11,13 +10,12 @@
 *
 * @Date			2005/9/6
 */
-class CCursorStateWindow : public CCursorState
-{
+class CCursorStateWindow : public CCursorState {
 public:
-	CCursorStateWindow(void);
-	virtual ~CCursorStateWindow(void);
-	virtual void Draw( POINT ptMouse ){}
-	virtual int SetCursorType( int iType );
+          CCursorStateWindow(void );
+  virtual ~CCursorStateWindow(void);
+  void    Draw(POINT              ptMouse) override {}
+  int     SetCursorType(int       iType) override;
 
 };
 #endif

@@ -1,6 +1,7 @@
 #ifndef _iconcommand_
 #define _iconcommand_
 #include "../../TGameCtrl/TCommand.h"
+
 //class CTCmdItemIconInBuyList : public CTCommand
 //{
 //public:
@@ -17,19 +18,17 @@
 //	virtual bool Exec( CTObject* pObj );
 //};
 
-class CTCmdRemoveItemInBuyList : public CTCommand
-{
+class CTCmdRemoveItemInBuyList : public CTCommand {
 public:
-	CTCmdRemoveItemInBuyList(void){}
-	virtual ~CTCmdRemoveItemInBuyList(){}
-	virtual bool Exec( CTObject* pObj );
+          CTCmdRemoveItemInBuyList(void) {}
+  virtual ~CTCmdRemoveItemInBuyList() {}
+  bool    Exec(CTObject* pObj) override;
 };
 
-class CTCmdRemoveItemInSellList : public CTCommand
-{
+class CTCmdRemoveItemInSellList : public CTCommand {
 public:
-	CTCmdRemoveItemInSellList(void){}
-	virtual ~CTCmdRemoveItemInSellList(void){}
-	virtual bool Exec( CTObject* pObj );
+          CTCmdRemoveItemInSellList(void ) {}
+  virtual ~CTCmdRemoveItemInSellList(void) {}
+  bool    Exec(CTObject*                 pObj) override;
 };
 #endif

@@ -9,37 +9,35 @@
 * @Author		최종진
 * @Date			2005/9/12
 */
-class CPrivateChatDlg :	public CTDialog, public IActionListener
-{
+class CPrivateChatDlg : public CTDialog, public IActionListener {
 public:
-	CPrivateChatDlg( int iDlgType );
-	virtual ~CPrivateChatDlg(void);
+          CPrivateChatDlg(int  iDlgType);
+  virtual ~CPrivateChatDlg(void);
 
-	virtual void		Draw();
-	virtual void		Hide();
-	virtual bool		Create( const char* IDD );
-	virtual unsigned	Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
+  void     Draw() override;
+  void     Hide() override;
+  bool     Create(const char* IDD) override;
+  unsigned Process(unsigned   uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	virtual unsigned ActionPerformed( CActionEvent* e );
+  unsigned ActionPerformed(CActionEvent* e) override;
 
-
-	void	SetOther( DWORD dwUserTag, BYTE btStatus, const char* pszName );
-	void	RecvChatMsg( DWORD dwUserTag, const char* pszMsg );
-
-private:
-	void	SendChatMsg();
-	void	AddChatMsg( const char* pszMsg );
+  void SetOther(DWORD    dwUserTag, BYTE        btStatus, const char* pszName);
+  void RecvChatMsg(DWORD dwUserTag, const char* pszMsg);
 
 private:
-	enum{
-		IID_BTN_CLOSE	= 10,
-		IID_EDITBOX		= 20,
-		IID_LISTBOX		= 30,
-		IID_SCROLLBAR	= 31,
-	};
+  void SendChatMsg();
+  void AddChatMsg(const char* pszMsg);
 
-	DWORD		m_dwUserTag;		/// 상대방의 서버 태그
-	std::string m_strName;			/// 상대방의 이름
-	BYTE		m_btStatus;			/// 상대방의 상태
+private:
+  enum {
+    IID_BTN_CLOSE = 10,
+    IID_EDITBOX = 20,
+    IID_LISTBOX = 30,
+    IID_SCROLLBAR = 31,
+  };
+
+  DWORD       m_dwUserTag; /// 상대방의 서버 태그
+  std::string m_strName;   /// 상대방의 이름
+  BYTE        m_btStatus;  /// 상대방의 상태
 };
 #endif

@@ -44,13 +44,11 @@
 
 #define	PAT_ITEM_SEAT_CNT(I)				g_PatITEM.GetValue(I, 38)		// 추가 좌석수
 
-
 //----------------------------------------------------------------------------------------
 /// 팻, 팻 탑승 아바타의 동작 상태위치( 시작 위치 )
 //----------------------------------------------------------------------------------------
 #define PAT_RELATIVE_MOTION_POS(I)			g_PatITEM.GetValue(I, 40)
 #define PAT_RELATIVE_MOTION_POS_AVATAR(I)	g_PatITEM.GetValue(I, 41)
-	
 
 //----------------------------------------------------------------------------------------
 /// 상황에 따른 팻의 효과
@@ -64,21 +62,19 @@
 #define PAT_STOP_SOUND(I)					g_PatITEM.GetValue(I, 48)		// 정지시 효과음
 #define PAT_MOVE_EFFECT(I)					g_PatITEM.GetValue(I, 49)
 #define PAT_MOVE_SOUND(I)					g_PatITEM.GetValue(I, 50)
-	
+
 #define PAT_ATTACK_EFFECT(I)				g_PatITEM.GetValue(I, 51)
 #define PAT_ATTACK_SOUND(I)					g_PatITEM.GetValue(I, 52)
 #define PAT_HIT_EFFECT(I)					g_PatITEM.GetValue(I, 53)
 #define PAT_HIT_SOUND(I)					g_PatITEM.GetValue(I, 54)
-	
-#define PAT_BULLET(I)						g_PatITEM.GetValue(I, 55)	
+
+#define PAT_BULLET(I)						g_PatITEM.GetValue(I, 55)
 //박지호
 #define PAT_BULLET_FIRE_POINT(l,m)			g_PatITEM.GetValue(l,m)
 
 //----------------------------------------------------------------------------------------
 /// 이동, 정지 시 효과음, 효과
 //----------------------------------------------------------------------------------------
-
-
 
 //----------------------------------------------------------------------------------------
 /// 카트의 더미본에 붙는 효과들
@@ -90,28 +86,27 @@
 #define PAT_ITEM_EQUIP_REQUIRE_CLASS(I)		g_PatITEM.GetValue(I, 68)			// 장착/사용가능 직업군
 #define PAT_ITEM_ABILITY_TYPE(I)			g_PatITEM.GetValue(I, 70)			// 어빌리티 구분.
 
-class CPatITEM
-{
+class CPatITEM {
 private:
 
 public :
-	STBDATA		m_ItemDATA;
+  STBDATA m_ItemDATA;
 
-	CPatITEM ();
-	~CPatITEM ();
+  CPatITEM();
+  ~CPatITEM();
 
-	bool  LoadPatITEM(const char *szFileName);
-	void  Free ();
+  bool LoadPatITEM(const char* szFileName);
+  void Free();
 
-	/// icarus:  : 2004. 6. 3 기준가격의 범위 초과 입력으로 short => int로 변환
-	int GetValue(WORD wLine, WORD wCol)
-	{
-		_ASSERT( wLine < m_ItemDATA.m_nDataCnt );
+  /// icarus:  : 2004. 6. 3 기준가격의 범위 초과 입력으로 short => int로 변환
+  int GetValue(WORD wLine, WORD wCol) {
+    _ASSERT( wLine < m_ItemDATA.m_nDataCnt );
 
-		return m_ItemDATA.m_ppDATA[ wLine ][ wCol ];
-	}
-} ;
-extern CPatITEM	g_PatITEM;
+    return m_ItemDATA.m_ppDATA[wLine][wCol];
+  }
+};
+
+extern CPatITEM g_PatITEM;
 
 //-------------------------------------------------------------------------------------------------
 #endif

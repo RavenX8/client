@@ -116,163 +116,158 @@ ZZ_IMPLEMENT_DYNCREATE(zz_skeleton, zz_node)
 //#define LOG_SKELETON_INFO
 
 zz_skeleton::zz_skeleton() :
-	root_bone_index_(-1)
-{
-	nodes.reserve(100);
-	dummies.reserve(10);
+  root_bone_index_( -1 ) {
+  nodes.reserve( 100 );
+  dummies.reserve( 10 );
 }
 
-zz_skeleton::~zz_skeleton()
-{
-}
+zz_skeleton::~zz_skeleton() {}
 
-bool zz_skeleton::load_skeleton (const char * path_in)
-{
-	zz_vfs_pkg skel_file;
-	char magic_number[8];
-	uint32 parent_id = 0;
-	
-	if (skel_file.open(path_in) == false) {
-		ZZ_LOG("skeleton: load_skeleton(%s) file open failed\n", path_in);
-		return false;
-	}
-	
-	// header section
-	skel_file.read_string(magic_number, 7);
-	int version = 3;
-	if (strncmp(magic_number, ZZ_ZMD_VERSION2, 7) == 0) {
-		version = 2;
-	}
-	else if (strncmp(magic_number, ZZ_ZMD_VERSION3, 7) == 0) {
-		version = 3;
-	}
-	else {
-		ZZ_LOG("skeleton: load_skeleton(%s) failed. [%s] version required\n",
-			path_in, ZZ_ZMD_VERSION3);
-		return false;
-	}
+bool         zz_skeleton::load_skeleton(const char* path_in) {
+  zz_vfs_pkg skel_file;
+  char       magic_number[8];
+  uint32     parent_id = 0;
 
-	uint32 num_bones;
-	char name[ZZ_MAX_STRING];
-	uint32 i;
+  if ( skel_file.open( path_in ) == false ) {
+    ZZ_LOG( "skeleton: load_skeleton(%s) file open failed\n", path_in );
+    return false;
+  }
 
-	skel_file.read_uint32(num_bones);
-	vec3 translation;
-	quat rotation;
+  // header section
+  skel_file.read_string( magic_number, 7 );
+  int version = 3;
+  if ( strncmp( magic_number, ZZ_ZMD_VERSION2, 7 ) == 0 ) {
+    version = 2;
+  } else if ( strncmp( magic_number, ZZ_ZMD_VERSION3, 7 ) == 0 ) {
+    version = 3;
+  } else {
+    ZZ_LOG( "skeleton: load_skeleton(%s) failed. [%s] version required\n",
+            path_in, ZZ_ZMD_VERSION3 );
+    return false;
+  }
 
-	assert(num_bones < MAX_NUM_BONES);
-	if (num_bones >= MAX_NUM_BONES) {
-		ZZ_LOG("skeleton: load_skeleton(%s) failed. num_bones(%d)\n", path_in, num_bones);
-		num_bones = 0;
-	}
+  uint32 num_bones;
+  char   name[ZZ_MAX_STRING];
+  uint32 i;
 
-	nodes.reserve(num_bones);
+  skel_file.read_uint32( num_bones );
+  vec3 translation;
+  quat rotation;
 
-	// read each bone
-	for (i = 0; i < num_bones; i++) {
-		// set name
-		skel_file.read_uint32(parent_id);
-		skel_file.read_string(name);
+  assert(num_bones < MAX_NUM_BONES);
+  if ( num_bones >= MAX_NUM_BONES ) {
+    ZZ_LOG( "skeleton: load_skeleton(%s) failed. num_bones(%d)\n", path_in, num_bones );
+    num_bones = 0;
+  }
 
-		// set translation
-		skel_file.read_float3(translation.vec_array);
-		translation.x *= ZZ_SCALE_IN;
-		translation.y *= ZZ_SCALE_IN;
-		translation.z *= ZZ_SCALE_IN;
+  nodes.reserve( num_bones );
 
-		// set skeleton rotation
-		skel_file.read_float(rotation.w);
-		skel_file.read_float(rotation.x);
-		skel_file.read_float(rotation.y);
-		skel_file.read_float(rotation.z);
+  // read each bone
+  for ( i = 0; i < num_bones; i++ ) {
+    // set name
+    skel_file.read_uint32( parent_id );
+    skel_file.read_string( name );
 
-		// set nodes
-		nodes.push_back(zz_skeleton_node());
-		nodes[i].bone_name.set(name);
-		nodes[i].translation = translation;
-		nodes[i].rotation    = rotation;
-		nodes[i].parent_id   = parent_id;
+    // set translation
+    skel_file.read_float3( translation.vec_array );
+    translation.x *= ZZ_SCALE_IN;
+    translation.y *= ZZ_SCALE_IN;
+    translation.z *= ZZ_SCALE_IN;
 
-		if (parent_id == i) { // this is root bone
-			root_bone_index_ = i;
-		}
+    // set skeleton rotation
+    skel_file.read_float( rotation.w );
+    skel_file.read_float( rotation.x );
+    skel_file.read_float( rotation.y );
+    skel_file.read_float( rotation.z );
+
+    // set nodes
+    nodes.push_back( zz_skeleton_node() );
+    nodes[i].bone_name.set( name );
+    nodes[i].translation = translation;
+    nodes[i].rotation    = rotation;
+    nodes[i].parent_id   = parent_id;
+
+    if ( parent_id == i ) {
+      // this is root bone
+      root_bone_index_ = i;
+    }
 #ifdef LOG_SKELETON_INFO
 		ZZ_LOG("skeleton: read_bone(%d, %s)\n", i, name);
 #endif // LOG_SKELETON_INFO
-	}
-	if (root_bone_index_ < 0) {
-		ZZ_LOG("skeleton: load_skeleton(%s) failed. cannot find root bone.\n", name);
-		root_bone_index_ = 0;
-	}
+  }
+  if ( root_bone_index_ < 0 ) {
+    ZZ_LOG( "skeleton: load_skeleton(%s) failed. cannot find root bone.\n", name );
+    root_bone_index_ = 0;
+  }
 
-	// read dummy nodes
-	uint32 num_dummies;
-	zz_dummy_node dummy;
+  // read dummy nodes
+  uint32        num_dummies;
+  zz_dummy_node dummy;
 
-	skel_file.read_uint32(num_dummies);
-	
-	assert(num_dummies < MAX_NUM_DUMMIES);
-	if (num_dummies >= MAX_NUM_DUMMIES) {
-		ZZ_LOG("skeleton: load_skeleton(%s) failed. num_dummies(%d)\n", path_in, num_dummies);
-		num_dummies = 0;
-	}
+  skel_file.read_uint32( num_dummies );
 
-	// prepare dummies
-	dummies.reserve(num_dummies + 1); // + 1 means extra added dummy
-	rotation = quat_id;
-	for (i = 0; i < num_dummies; i++) {
-		skel_file.read_string(name);
-		skel_file.read_uint32(parent_id);
-		skel_file.read_float3(translation.vec_array);
-		if (version == 3) { // version3 includes dummy rotation
-			skel_file.read_float(rotation.w);
-			skel_file.read_float(rotation.x);
-			skel_file.read_float(rotation.y);
-			skel_file.read_float(rotation.z);
-		}
-		translation.x *= ZZ_SCALE_IN;
-		translation.y *= ZZ_SCALE_IN;
-		translation.z *= ZZ_SCALE_IN;
+  assert(num_dummies < MAX_NUM_DUMMIES);
+  if ( num_dummies >= MAX_NUM_DUMMIES ) {
+    ZZ_LOG( "skeleton: load_skeleton(%s) failed. num_dummies(%d)\n", path_in, num_dummies );
+    num_dummies = 0;
+  }
 
-		dummies.push_back(zz_dummy_node());
-		dummies[i].dummy_name.set(name);
-		dummies[i].parent_id = static_cast<int>(parent_id);
-		dummies[i].translation = translation;
-		dummies[i].rotation = rotation;
+  // prepare dummies
+  dummies.reserve( num_dummies + 1 ); // + 1 means extra added dummy
+  rotation = quat_id;
+  for ( i  = 0; i < num_dummies; i++ ) {
+    skel_file.read_string( name );
+    skel_file.read_uint32( parent_id );
+    skel_file.read_float3( translation.vec_array );
+    if ( version == 3 ) {
+      // version3 includes dummy rotation
+      skel_file.read_float( rotation.w );
+      skel_file.read_float( rotation.x );
+      skel_file.read_float( rotation.y );
+      skel_file.read_float( rotation.z );
+    }
+    translation.x *= ZZ_SCALE_IN;
+    translation.y *= ZZ_SCALE_IN;
+    translation.z *= ZZ_SCALE_IN;
 
-		const char * parent_name = nodes[parent_id].bone_name.get();
+    dummies.push_back( zz_dummy_node() );
+    dummies[i].dummy_name.set( name );
+    dummies[i].parent_id   = static_cast<int>(parent_id);
+    dummies[i].translation = translation;
+    dummies[i].rotation    = rotation;
+
+    const char* parent_name = nodes[parent_id].bone_name.get();
 #ifdef LOG_SKELETON_INFO
 		ZZ_LOG("skeleton: read_dummy(%s:%d). parent=(%s:%d)\n",	name, i, parent_name, parent_id);
 #endif
-	}
+  }
 
-	// add extra root bone dummy
-	dummies.push_back(zz_dummy_node());
-	dummies[num_dummies].dummy_name.set("_p1");
-	dummies[num_dummies].parent_id = 0;
-	dummies[num_dummies].translation = vec3_null;
-	dummies[num_dummies].rotation = quat_id;
+  // add extra root bone dummy
+  dummies.push_back( zz_dummy_node() );
+  dummies[num_dummies].dummy_name.set( "_p1" );
+  dummies[num_dummies].parent_id   = 0;
+  dummies[num_dummies].translation = vec3_null;
+  dummies[num_dummies].rotation    = quat_id;
 
-	set_path(path_in);
+  set_path( path_in );
 
 #ifdef LOG_SKELETON_INFO
 	ZZ_LOG("skeleton: load_skeleton(%s). filename(%s), num_bones(%d), num_dummies(%d)\n",
 		get_name(), path_in, num_bones, num_dummies);
 #endif
 
-	skel_file.close();
+  skel_file.close();
 
-	return true;
+  return true;
 }
 
-bool zz_skeleton::set_path (const char * path_in)
-{
-	assert(!path_.get());
-	assert(path_in);
-	if (path_.get()) {
-		ZZ_LOG("skeleton: [%s:%s]->set_path(%s) failed. already have a path(%s).\n", get_name(), path_in, path_.get());
-		return false;
-	}
-	path_.set(path_in);
-	return true;
+bool zz_skeleton::set_path(const char* path_in) {
+  assert(!path_.get());
+  assert(path_in);
+  if ( path_.get() ) {
+    ZZ_LOG( "skeleton: [%s:%s]->set_path(%s) failed. already have a path(%s).\n", get_name(), path_in, path_.get() );
+    return false;
+  }
+  path_.set( path_in );
+  return true;
 }

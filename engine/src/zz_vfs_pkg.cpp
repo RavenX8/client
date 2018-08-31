@@ -211,255 +211,236 @@
 // zz_vfs_pkg_system:
 //--------------------------------------------------------------------------------
 zz_vfs_pkg_system::zz_vfs_pkg_system() :
-	fsystem_(NULL)
-{
+  fsystem_( NULL ) {}
+
+zz_vfs_pkg_system::~zz_vfs_pkg_system() {
+  close_filesystem();
 }
 
-zz_vfs_pkg_system::~zz_vfs_pkg_system()
-{
-	close_filesystem();
+bool zz_vfs_pkg_system::set_filesystem(VHANDLE fsystem_in) {
+  assert(!fsystem_in);
+
+  if ( fsystem_ ) {
+    close_filesystem();
+  }
+
+  fsystem_ = fsystem_in;
+
+  if ( !fsystem_ ) {
+    ZZ_LOG( "vfs_pkg_system: set_filesystem() failed. invalid fsystem_.\n" );
+    return false;
+  }
+  return true;
 }
 
-bool zz_vfs_pkg_system::set_filesystem (VHANDLE fsystem_in)
-{
-	assert(!fsystem_in);
+bool zz_vfs_pkg_system::open_filesystem(const char* filesystem_name_in) {
+  assert(filesystem_name_in);
 
-	if (fsystem_) {
-		close_filesystem();
-	}
+  if ( filesystem_name_in[0] == '\0' ) {
+    ZZ_LOG( "vfs_pkg_system: open_filesystem(%s) failed. not a valid name.\n", filesystem_name_in );
+    return false;
+  }
 
-	fsystem_ = fsystem_in;
+  assert(!fsystem_);
+  if ( fsystem_ ) {
+    ZZ_LOG( "vfs_pkg_system: open_filesystem(%s) failed. already opened\n", filesystem_name_in );
+    close_filesystem();
+  }
+  //ZZ_LOG("vfs_pkg: open_filesystem(%s)\n", filesystem_name);
 
-	if (!fsystem_) {
-		ZZ_LOG("vfs_pkg_system: set_filesystem() failed. invalid fsystem_.\n");
-		return false;
-	}
-	return true;
+  zz_slash_converter filesystem_name( filesystem_name_in );
+
+  fsystem_ = OpenVFS( filesystem_name, "mr" ); // memory-mapped io read
+
+  assert(fsystem_);
+
+  if ( !fsystem_ ) {
+    ZZ_LOG( "vfs_pkg_system: open_filesystem(%s) failed. cannot open.\n", filesystem_name );
+    return false;
+  }
+  return true;
 }
 
-bool zz_vfs_pkg_system::open_filesystem (const char * filesystem_name_in)
-{
-	assert(filesystem_name_in);
+bool zz_vfs_pkg_system::close_filesystem() {
+  //ZZ_LOG("vfs_pkg: close_filesystem:\n");
 
-	if (filesystem_name_in[0] == '\0') {
-		ZZ_LOG("vfs_pkg_system: open_filesystem(%s) failed. not a valid name.\n", filesystem_name_in);
-		return false;
-	}
+  assert(fsystem_);
 
-	assert(!fsystem_);
-	if (fsystem_) {
-		ZZ_LOG("vfs_pkg_system: open_filesystem(%s) failed. already opened\n", filesystem_name_in);
-		close_filesystem();
-	}
-	//ZZ_LOG("vfs_pkg: open_filesystem(%s)\n", filesystem_name);
+  if ( !fsystem_ ) {
+    // already closed or not opened
+    return true;
+  }
 
-	zz_slash_converter filesystem_name(filesystem_name_in);
+  CloseVFS( fsystem_ );
+  fsystem_ = NULL;
 
-	fsystem_ = OpenVFS(filesystem_name, "mr"); // memory-mapped io read
-
-	assert(fsystem_);
-
-	if (!fsystem_) {
-		ZZ_LOG("vfs_pkg_system: open_filesystem(%s) failed. cannot open.\n", filesystem_name);
-		return false;
-	}
-	return true;
-}
-
-bool zz_vfs_pkg_system::close_filesystem ()
-{
-	//ZZ_LOG("vfs_pkg: close_filesystem:\n");
-
-	assert(fsystem_);
-
-	if (!fsystem_) {
-		// already closed or not opened
-		return true;
-	}
-
-	CloseVFS(fsystem_);
-	fsystem_ = NULL;
-
-	return true;
+  return true;
 }
 
 //--------------------------------------------------------------------------------
-
 
 //--------------------------------------------------------------------------------
 // zz_vfs_pkg:
 //--------------------------------------------------------------------------------
-zz_vfs_pkg::zz_vfs_pkg(zz_vfs_pkg_system * pkg_system_in) :
-	zz_vfs(),
-	fp_(NULL),
-	pkg_system_(pkg_system_in)
-{
-	if (pkg_system_in == NULL) {
-		pkg_system_ = zz_system::get_pkg_system();
-	}
-	set_real_filesystem(this);
+zz_vfs_pkg::zz_vfs_pkg(zz_vfs_pkg_system* pkg_system_in) :
+  zz_vfs(),
+  pkg_system_( pkg_system_in ),
+  fp_( nullptr ) {
+  if ( pkg_system_in == nullptr ) {
+    pkg_system_ = zz_system::get_pkg_system();
+  }
+  set_real_filesystem( this );
 }
 
-zz_vfs_pkg::~zz_vfs_pkg(void)
-{
-	if (fp_) {
-		close();
-	}
-	set_real_filesystem(NULL);
+zz_vfs_pkg::~zz_vfs_pkg(void) {
+  if ( fp_ ) {
+    close();
+  }
+  set_real_filesystem( nullptr );
 }
 
-bool zz_vfs_pkg::open (const char * filename_in, const zz_vfs_mode mode)
-{
-	//ZZ_LOG("vfs_pkg:open(%s)\n", filename);
-	//ZZ_PROFILER_INSTALL(vfs_pkg_open);
-	zz_assert(filename_in);
-	zz_assert(filename_in[0]);
+bool zz_vfs_pkg::open(const char* filename_in, const zz_vfs_mode mode) {
+  //ZZ_LOG("vfs_pkg:open(%s)\n", filename);
+  //ZZ_PROFILER_INSTALL(vfs_pkg_open);
+  zz_assert(filename_in);
+  zz_assert(filename_in[0]);
 
-	zz_slash_converter filename(filename_in);
+  zz_slash_converter filename( filename_in );
 
-	if (fp_) {
-		close();
-	}
+  if ( fp_ ) {
+    close();
+  }
 
-	assert(!fp_);
-	if (!pkg_system_) {
-		ZZ_LOG("vfs_pkg: open(%s) failed. invalid pkg_system_.\n", filename.get());
-		return false;
-	}
+  assert(!fp_);
+  if ( !pkg_system_ ) {
+    ZZ_LOG( "vfs_pkg: open(%s) failed. invalid pkg_system_.\n", filename.get() );
+    return false;
+  }
 
-	//ZZ_LOG("vfs_pkg: open(%s)\n", filename);
-	VHANDLE fsystem = pkg_system_->get_filesystem();
+  //ZZ_LOG("vfs_pkg: open(%s)\n", filename);
+  VHANDLE fsystem = pkg_system_->get_filesystem();
 
-	switch (mode) {
-		case zz_vfs::ZZ_VFS_READ:
-			fp_ = VOpenFile(filename, fsystem);
+  switch ( mode ) {
+    case ZZ_VFS_READ: fp_ = VOpenFile( filename, fsystem );
 
-			zz_assertf( fp_, "vfs_pkg: open(%s) failed.", filename.get() );
+      zz_assertf( fp_, "vfs_pkg: open(%s) failed.", filename.get() );
 
-			filename_.set(filename);
-			break;
-		case zz_vfs::ZZ_VFS_WRITE:
-			// not implemented yet!!!
-			break;
-	}
-	
-	if (!fp_) {
-		return false;
-	}
+      filename_.set( filename );
+      break;
+    case ZZ_VFS_WRITE:
+      // not implemented yet!!!
+      break;
+  }
 
-	return true;
+  if ( !fp_ ) {
+    return false;
+  }
+
+  return true;
 }
 
-bool zz_vfs_pkg::close (void)
-{
-	//ZZ_LOG("vfs_pkg:close(%s)\n", filename_.get());
-	//ZZ_PROFILER_INSTALL(vfs_pkg_close);
+bool zz_vfs_pkg::close(void) {
+  //ZZ_LOG("vfs_pkg:close(%s)\n", filename_.get());
+  //ZZ_PROFILER_INSTALL(vfs_pkg_close);
 
-	set_status(zz_vfs::ZZ_VFS_INI);
-	filename_.reset();
-	if (fp_) {
-		VCloseFile(fp_);
-		fp_ = NULL;
-	}
-	return true;
+  set_status( ZZ_VFS_INI );
+  filename_.reset();
+  if ( fp_ ) {
+    VCloseFile( fp_ );
+    fp_ = nullptr;
+  }
+  return true;
 }
 
+uint32 zz_vfs_pkg::read_(char* buf, const uint32 size) {
+  assert(size < MAX_FILESIZE);
+  uint32 read_size = 0;
+  if ( fp_ ) {
+    read_size = vfread( buf, 1, size, fp_ );
+  } else {
+    ZZ_LOG( "vfs_pkg: read_() failed. invalid fp_.\n" );
+    return 0;
+  }
 
-uint32 zz_vfs_pkg::read_ (char * buf, const uint32 size)
-{
-	assert(size < MAX_FILESIZE);
-	uint32 read_size = 0;
-	if (fp_) {
-		read_size = vfread(buf, 1, size, fp_);
-	}
-	else {
-		ZZ_LOG("vfs_pkg: read_() failed. invalid fp_.\n");
-		return 0;
-	}
+  assert(read_size < MAX_FILESIZE);
+  if ( read_size >= MAX_FILESIZE ) {
+    ZZ_LOG( "vfs_pkg: read_(%s) failed. read_size = %d.\n",
+            filename_.get(), read_size );
+    read_size = 0;
+  }
 
-	assert(read_size < MAX_FILESIZE);
-	if (read_size >= MAX_FILESIZE) {
-		ZZ_LOG("vfs_pkg: read_(%s) failed. read_size = %d.\n",
-			filename_.get(), read_size);
-		read_size = 0;
-	}
-
-	return read_size;
+  return read_size;
 }
 
-uint32 zz_vfs_pkg::write_ (const char * buf, uint32 size)
-{
-	return 0;
+uint32 zz_vfs_pkg::write_(const char* buf, uint32 size) {
+  return 0;
 }
 
-bool zz_vfs_pkg::exist (const char * filename_in) const
-{
-	//ZZ_LOG("vfs_pkg: exist:\n");
-	bool ret = false;
+bool zz_vfs_pkg::exist(const char* filename_in) const {
+  //ZZ_LOG("vfs_pkg: exist:\n");
+  bool ret = false;
 
-	zz_slash_converter filename(filename_in);
-	if (!pkg_system_) {
-		ZZ_LOG("vfs_pkg: exist(%s) failed. invalid pkg_system_.\n", filename);
-		ret = false;
-	}
+  zz_slash_converter filename( filename_in );
+  if ( !pkg_system_ ) {
+    ZZ_LOG( "vfs_pkg: exist(%s) failed. invalid pkg_system_.\n", filename );
+    ret = false;
+  }
 
-	VHANDLE fsystem = pkg_system_->get_filesystem();
-	assert(fsystem);
-	
-	ret = VFileExists(fsystem, filename);
-	
-	return ret;
+  VHANDLE fsystem = pkg_system_->get_filesystem();
+  assert(fsystem);
+
+  ret = VFileExists( fsystem, filename );
+
+  return ret;
 }
 
-uint32 zz_vfs_pkg::get_size () const
-{
-	//ZZ_LOG("vfs_pkg: get_size:\n");
-	uint32 read_size = 0;
+uint32 zz_vfs_pkg::get_size() const {
+  //ZZ_LOG("vfs_pkg: get_size:\n");
+  uint32 read_size = 0;
 
-	if (!fp_) {
-		ZZ_LOG("vfs_pkg: get_size(%s) failed. invalid fp_.\n", filename_.get());
-		return 0;
-	}
+  if ( !fp_ ) {
+    ZZ_LOG( "vfs_pkg: get_size(%s) failed. invalid fp_.\n", filename_.get() );
+    return 0;
+  }
 
-	assert(fp_);
-	read_size = vfgetsize(fp_);
-	
-	assert(read_size < MAX_FILESIZE);
-	if (read_size >= MAX_FILESIZE) {
-		ZZ_LOG("vfs_pkg: get_size(%s) failed. read_size = %d.\n",
-			filename_.get(), read_size);
-		read_size = 0;
-	}
+  assert(fp_);
+  read_size = vfgetsize( fp_ );
 
-	return uint32(read_size);
+  assert(read_size < MAX_FILESIZE);
+  if ( read_size >= MAX_FILESIZE ) {
+    ZZ_LOG( "vfs_pkg: get_size(%s) failed. read_size = %d.\n",
+            filename_.get(), read_size );
+    read_size = 0;
+  }
+
+  return uint32( read_size );
 }
 
-uint32 zz_vfs_pkg::get_size (const char * filename_in) const
-{
-	//ZZ_LOG("vfs_pkg: get_size(%s):\n", filename);
-	uint32 read_size;
-	zz_slash_converter filename(filename_in);
+uint32 zz_vfs_pkg::get_size(const char* filename_in) const {
+  //ZZ_LOG("vfs_pkg: get_size(%s):\n", filename);
+  uint32             read_size;
+  zz_slash_converter filename( filename_in );
 
-	assert(pkg_system_);
-	if (!pkg_system_) {
-		ZZ_LOG("vfs_pkg: get_size(%s) failed. invalid pkg_system_.\n", filename);
-		return 0;
-	}
+  assert(pkg_system_);
+  if ( !pkg_system_ ) {
+    ZZ_LOG( "vfs_pkg: get_size(%s) failed. invalid pkg_system_.\n", filename );
+    return 0;
+  }
 
-	VHANDLE fsystem = pkg_system_->get_filesystem();
-	
-	read_size = VGetFileLength(fsystem, filename);
-	
-	assert(read_size < MAX_FILESIZE);
-	if (read_size >= MAX_FILESIZE) {
-		ZZ_LOG("vfs_pkg: get_size(%s) failed. read_size = %d.\n",
-			filename, read_size);
-		read_size = 0;
-	}
+  VHANDLE fsystem = pkg_system_->get_filesystem();
 
-	//ZZ_LOG("vfs_pkg: get_size() lock_count_(%d)\n", lock_count_);
+  read_size = VGetFileLength( fsystem, filename );
 
-	return read_size;
+  assert(read_size < MAX_FILESIZE);
+  if ( read_size >= MAX_FILESIZE ) {
+    ZZ_LOG( "vfs_pkg: get_size(%s) failed. read_size = %d.\n",
+            filename, read_size );
+    read_size = 0;
+  }
+
+  //ZZ_LOG("vfs_pkg: get_size() lock_count_(%d)\n", lock_count_);
+
+  return read_size;
 }
 
 #endif // ZZ_USE_TRIGGERVFS

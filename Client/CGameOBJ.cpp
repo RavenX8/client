@@ -7,60 +7,55 @@
 #include "System/CGame.h"
 //-------------------------------------------------------------------------------------------------
 
-float		CGameOBJ::m_fPickDistance;
+float       CGameOBJ::m_fPickDistance;
 D3DXVECTOR3 CGameOBJ::m_PickPosition;
-bool		CGameOBJ::m_bStepOnObject = false;
+bool        CGameOBJ::m_bStepOnObject = false;
 
 //-------------------------------------------------------------------------------------------------
-CGameOBJ::CGameOBJ ()
-{
-	m_bIsVisible = false;
-	m_nIndex = 0;
+CGameOBJ::CGameOBJ() {
+  m_bIsVisible = false;
+  m_nIndex     = 0;
 
-	m_iSpecialUserData = 0;
-	m_pListNODE = NULL;
+  m_iSpecialUserData = 0;
+  m_pListNODE        = nullptr;
 }
-CGameOBJ::~CGameOBJ ()
-{
-}
+
+CGameOBJ::~CGameOBJ() {}
 
 //-------------------------------------------------------------------------------------------------
-bool CGameOBJ::IsIntersect (HNODE hNODE, float &fCurDistance)
-{
+bool CGameOBJ::IsIntersect(HNODE hNODE, float& fCurDistance) {
 
-	D3DXVECTOR3 RayOrig;
-	D3DXVECTOR3 RayDir;
-	CGame::GetInstance().GetRayOrig( RayOrig );
-	CGame::GetInstance().GetRayDir( RayDir );
+  D3DXVECTOR3 RayOrig;
+  D3DXVECTOR3 RayDir;
+  CGame::GetInstance().GetRayOrig( RayOrig );
+  CGame::GetInstance().GetRayDir( RayDir );
 
-	if ( ::intersectRay( hNODE,
-			RayOrig.x,	RayOrig.y,	RayOrig.z,
-			RayDir.x,	RayDir.y,	RayDir.z,
-			&m_PickPosition.x,		&m_PickPosition.y,		&m_PickPosition.z,		&m_fPickDistance) ) {
-		if ( m_fPickDistance < fCurDistance ) {
-			fCurDistance = m_fPickDistance;
-			return true;
-		}
-	}
-	return false;
+  if ( intersectRay( hNODE,
+                     RayOrig.x, RayOrig.y, RayOrig.z,
+                     RayDir.x, RayDir.y, RayDir.z,
+                     &m_PickPosition.x, &m_PickPosition.y, &m_PickPosition.z, &m_fPickDistance ) ) {
+    if ( m_fPickDistance < fCurDistance ) {
+      fCurDistance = m_fPickDistance;
+      return true;
+    }
+  }
+  return false;
 }
 
 //-------------------------------------------------------------------------------------------------
-void CGameOBJ::AdjustPickPOSITION (float fMaxDistanceFromAvatar)
-{
-	if ( !g_pAVATAR ) return;
+void CGameOBJ::AdjustPickPOSITION(float fMaxDistanceFromAvatar) {
+  if ( !g_pAVATAR ) return;
 
-	D3DXVECTOR3 vAvatarPos = g_pAVATAR->Get_CurPOS();
-	D3DXVECTOR3 vAdjustedPickPos;
-	D3DXVECTOR3 vDirection = m_PickPosition - vAvatarPos;
+  D3DXVECTOR3 vAvatarPos = g_pAVATAR->Get_CurPOS();
+  D3DXVECTOR3 vAdjustedPickPos;
+  D3DXVECTOR3 vDirection = m_PickPosition - vAvatarPos;
 
-	float fDistance = D3DXVec3Length(&vDirection);
+  float fDistance = D3DXVec3Length( &vDirection );
 
-	if (fDistance < fMaxDistanceFromAvatar) return;
-	D3DXVECTOR3 vDirectionNormalized;
+  if ( fDistance < fMaxDistanceFromAvatar ) return;
+  D3DXVECTOR3 vDirectionNormalized;
 
-	D3DXVec3Normalize( &vDirectionNormalized, &vDirection );
+  D3DXVec3Normalize( &vDirectionNormalized, &vDirection );
 
-	m_PickPosition = vAvatarPos + fMaxDistanceFromAvatar * vDirectionNormalized;
+  m_PickPosition = vAvatarPos + fMaxDistanceFromAvatar * vDirectionNormalized;
 }
-

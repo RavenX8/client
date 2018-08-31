@@ -1,15 +1,10 @@
 #include "stdafx.h"
-#include ".\citstate.h"
+#include "./citstate.h"
 
-CITState::CITState(void)
-{
-}
+CITState::CITState(void) {}
 
-CITState::~CITState(void)
-{
-}
+CITState::~CITState(void) {}
 
-int CITState::GetID()
-{
-	return m_iID;
+int CITState::GetID() {
+  return m_iID;
 }

@@ -23,26 +23,24 @@ class zz_manager_mesh_ocean;
 
 //--------------------------------------------------------------------------------
 class zz_mesh_ocean : public zz_mesh_ishared {
-//--------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------
 public:
-	zz_mesh_ocean ();
-	virtual ~zz_mesh_ocean ();
+          zz_mesh_ocean();
+  virtual ~zz_mesh_ocean();
 
-	virtual bool load_mesh ();
-	void set_property ( float width, float height, int repeat_hori, int repeat_vert );
+  bool load_mesh() override;
+  void set_property(float width, float height, int repeat_hori, int repeat_vert);
 
 protected:
-	float width_;
-	float height_;
-	int repeat_hori_; // horizontal tiling count
-	int repeat_vert_; // vertical tiling count
-	friend class zz_mesh_tool;
-	friend class zz_manager_mesh_ocean;
+  float width_;
+  float height_;
+  int   repeat_hori_; // horizontal tiling count
+  int   repeat_vert_; // vertical tiling count
+  friend class zz_mesh_tool;
+  friend class zz_manager_mesh_ocean;
 
 public:
-	ZZ_DECLARE_DYNAMIC(zz_mesh_ocean)
+ZZ_DECLARE_DYNAMIC(zz_mesh_ocean)
 };
 
-
 #endif // __ZZ_MESH_OCEAN_H__
-

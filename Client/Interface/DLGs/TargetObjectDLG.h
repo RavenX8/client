@@ -1,9 +1,7 @@
 #ifndef _TARGETOBJECTDLG_
 #define _TARGETOBJECTDLG_
 
-
 #include "../../../TGameCtrl/TDialog.h"
-
 
 /**
 * 예전 클베때 타겟에 대한 정보를 보여주는 다이얼로그
@@ -12,23 +10,19 @@
 * @Author		최종진
 * @Date			2005/9/15
 */
-class CTargetObjectDLG : public CTDialog
-{
+class CTargetObjectDLG : public CTDialog {
 
 public:
-	CTargetObjectDLG();
-	virtual ~CTargetObjectDLG();
+          CTargetObjectDLG();
+  virtual ~CTargetObjectDLG();
 
-	
-	// *---------------------------------------------------* //
-	// Overrided function
-	// *---------------------------------------------------* //
-	virtual void Draw();
-	virtual unsigned int Process(UINT uiMsg,WPARAM wParam,LPARAM lParam);
-	// *---------------------------------------------------* //
+  // *---------------------------------------------------* //
+  // Overrided function
+  // *---------------------------------------------------* //
+  void         Draw() override;
+  unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
+  // *---------------------------------------------------* //
 
 };
-
-
 
 #endif //_TARGETOBJECTDLG_

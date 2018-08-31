@@ -50,98 +50,85 @@
 #include "zz_gamma.h"
 #include "zz_log.h"
 
-zz_gamma::zz_gamma (int type)
-{
-	switch (type) {
-		case 1:
-			to_white();
-			break;
-		case 2:
-			to_black();
-			break;
-		default:
-			reset();
-	}
+zz_gamma::zz_gamma(int type) {
+  switch ( type ) {
+    case 1: to_white();
+      break;
+    case 2: to_black();
+      break;
+    default: reset();
+  }
 }
 
-zz_gamma::~zz_gamma ()
-{
+zz_gamma::~zz_gamma() {}
+
+void        zz_gamma::reset() {
+  for ( int i = 0; i < 256; ++i ) {
+    red[i]    = (i + 1) * 256 - 1;
+    green[i]  = (i + 1) * 256 - 1;
+    blue[i]   = (i + 1) * 256 - 1;
+  }
 }
 
-void zz_gamma::reset ()
-{
-	for (int i = 0; i < 256; ++i) {
-		red[i]   = (i+1)*256 - 1;
-		green[i] = (i+1)*256 - 1;
-		blue[i]  = (i+1)*256 - 1;
-	}
+void        zz_gamma::to_black() {
+  for ( int i = 0; i < 256; i++ ) {
+    red[i]    = 0;
+    green[i]  = 0;
+    blue[i]   = 0;
+  }
 }
 
-void zz_gamma::to_black ()
-{
-	for (int i = 0; i < 256; i++) {
-		red[i]   = 0;
-		green[i] = 0;
-		blue[i]  = 0;
-	}
+void        zz_gamma::to_white() {
+  for ( int i = 0; i < 256; i++ ) {
+    red[i]    = 65535;
+    green[i]  = 65535;
+    blue[i]   = 65535;
+  }
 }
 
-void zz_gamma::to_white ()
-{
-	for (int i = 0; i < 256; i++) {
-		red[i]   = 65535;
-		green[i] = 65535;
-		blue[i]  = 65535;
-	}
+void        zz_gamma::copy_from(const zz_gamma& from) {
+  for ( int i      = 0; i < 256; ++i ) {
+    this->red[i]   = from.red[i];
+    this->green[i] = from.green[i];
+    this->blue[i]  = from.blue[i];
+  }
 }
 
-void zz_gamma::copy_from (const zz_gamma& from)
-{
-	for (int i = 0; i < 256; ++i) {
-		this->red[i] = from.red[i];
-		this->green[i] = from.green[i];
-		this->blue[i] = from.blue[i];
-	}
+float zz_gamma::get_gamma_value() {
+  return gamma_value;
 }
 
-float zz_gamma::get_gamma_value ()
-{
-	return gamma_value;
+void zz_gamma::set_gamma_value(float gamma_value_in) {
+  gamma_value = gamma_value_in;
+
+  if ( gamma_value <= -4.0f ) {
+    gamma_value = -3.9f;
+  }
+  uint16    value;
+  for ( int i      = 0; i < 256; ++i ) {
+    value          = (uint16)(65535.f * powf( (float)i / 255.0f, 1.0f / ((gamma_value / 4.0f) + 1.0f) ));
+    this->red[i]   = value;
+    this->green[i] = value;
+    this->blue[i]  = value;
+  }
 }
 
-void zz_gamma::set_gamma_value (float gamma_value_in)
-{
-	gamma_value = gamma_value_in;
+void zz_gamma::interpolate(const zz_gamma& from, const zz_gamma& to, float t) {
+  t           = t * t;
+  for ( int i = 0; i < 256; i++ ) {
+    // [red] component
+    // ...if same, just skip
+    if ( from.red[i] != to.red[i] )
+      red[i] = uint16( float( from.red[i] ) * (1.0f - t) + float( to.red[i] ) * t );
 
-	if (gamma_value <= -4.0f) {
-		gamma_value = -3.9f;
-	}
-	uint16 value;
-	for (int i = 0; i < 256 ; ++i) {
-		value = (uint16)(65535.f*powf((float)i/255.0f, 1.0f/((gamma_value/4.0f) + 1.0f)));
-		this->red[i]   = value;
-		this->green[i] = value;
-		this->blue[i]  = value;
-	}
-}
+    // [green] component
+    // ...if same, just skip
+    if ( from.green[i] != to.green[i] )
+      green[i] = uint16( float( from.green[i] ) * (1.0f - t) + float( to.green[i] ) * t );
 
-void zz_gamma::interpolate (const zz_gamma& from, const zz_gamma& to, float t)
-{
-	t = t*t;
-	for (int i = 0; i < 256; i++) {
-		// [red] component
-		// ...if same, just skip
-		if (from.red[i] != to.red[i]) 
-			red[i] = uint16(float(from.red[i])*(1.0f - t) + float(to.red[i])*t);
-
-		// [green] component
-		// ...if same, just skip
-		if (from.green[i] != to.green[i]) 
-			green[i] = uint16(float(from.green[i])*(1.0f - t) + float(to.green[i])*t);
-
-		// [blue] component
-		// ...if same, just skip
-		if (from.blue[i] != to.blue[i])
-            blue[i] = uint16(float(from.blue[i])*(1.0f - t) + float(to.blue[i])*t);
-	}
+    // [blue] component
+    // ...if same, just skip
+    if ( from.blue[i] != to.blue[i] )
+      blue[i] = uint16( float( from.blue[i] ) * (1.0f - t) + float( to.blue[i] ) * t );
+  }
 }

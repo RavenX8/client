@@ -54,36 +54,31 @@
 #include "zz_type.h"
 #endif
 
-inline int random_number(int imin, int imax)
-{
-	if (imin == imax) return(imin);
-	return((rand() % (abs(imax-imin)+1))+imin);
+inline int random_number(int imin, int imax) {
+  if ( imin == imax ) return (imin);
+  return ((rand() % (abs( imax - imin ) + 1)) + imin);
 }
 
-inline float random_number(float fmin, float fmax)
-{
-	if (fmin == fmax) return(fmin);
-	float frandom = (float)rand() / (float)RAND_MAX;
-	return((frandom * (float)fabs(fmax-fmin))+fmin);
+inline float random_number(float fmin, float fmax) {
+  if ( fmin == fmax ) return (fmin);
+  float frandom = (float)rand() / (float)RAND_MAX;
+  return ((frandom * (float)fabs( fmax - fmin )) + fmin);
 }
 
-inline vec3 random_number (vec3 vmin, vec3 vmax)
-{
-  float x = random_number(vmin.x, vmax.x);
-  float y = random_number(vmin.y, vmax.y);
-  float z = random_number(vmin.z, vmax.z);
-  return(vec3(x,y,z));
+inline vec3 random_number(vec3 vmin, vec3 vmax) {
+  float     x = random_number( vmin.x, vmax.x );
+  float     y = random_number( vmin.y, vmax.y );
+  float     z = random_number( vmin.z, vmax.z );
+  return (vec3( x, y, z ));
 }
 
-inline vec4 random_number (vec4 vmin, vec4 vmax)
-{
-  float x = random_number(vmin.x, vmax.x);
-  float y = random_number(vmin.y, vmax.y);
-  float z = random_number(vmin.z, vmax.z);
-  float w = random_number(vmin.w, vmax.w);
-  return(vec4(x, y, z, w));
+inline vec4 random_number(vec4 vmin, vec4 vmax) {
+  float     x = random_number( vmin.x, vmax.x );
+  float     y = random_number( vmin.y, vmax.y );
+  float     z = random_number( vmin.z, vmax.z );
+  float     w = random_number( vmin.w, vmax.w );
+  return (vec4( x, y, z, w ));
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 ///
@@ -96,146 +91,117 @@ inline vec4 random_number (vec4 vmin, vec4 vmax)
 // This can also be stated as finding the smallest non-negative integer x
 // such that pow(2,x) > n and returning pow(2,x)-1.
 
-inline uint32 bitmask ( uint32 n )
-{
-	if ( n == 0 )
-		return 0;
+inline uint32 bitmask(uint32 n) {
+  if ( n == 0 )
+    return 0;
 
-	uint32 mask = 0xffffffff;
+  uint32 mask = 0xffffffff;
 
-	uint32 t = 0xffff;
-	if ( t >= n )
-		mask = t;
+  uint32 t = 0xffff;
+  if ( t >= n )
+    mask = t;
 
-	t = mask >> 8;
-	if ( t >= n )
-		mask = t;
+  t = mask >> 8;
+  if ( t >= n )
+    mask = t;
 
-	t = mask >> 4;
-	if ( t >= n )
-		mask = t;
+  t = mask >> 4;
+  if ( t >= n )
+    mask = t;
 
-	t = mask >> 2;
-	if ( t >= n )
-		mask = t;
+  t = mask >> 2;
+  if ( t >= n )
+    mask = t;
 
-	t = mask >> 1;
-	if ( t >= n )
-		mask = t;
+  t = mask >> 1;
+  if ( t >= n )
+    mask = t;
 
-	return mask;
+  return mask;
 }
 
 // Find the largest non-negative integer x such that pow(2,x) <= n.
 // The exception is n=0, which returns 0.
-inline uint32 log2le ( uint32 n )
-{
-	uint32 t, log2;
+inline uint32 log2le(uint32 n) {
+  uint32      t, log2;
 
-	if ( n >= 0x10000 )
-	{
-		log2 = 16;
-		t = 0x1000000;
-	}
-	else
-	{
-		log2 = 0;
-		t = 0x100;
-	}
+  if ( n >= 0x10000 ) {
+    log2 = 16;
+    t    = 0x1000000;
+  } else {
+    log2 = 0;
+    t    = 0x100;
+  }
 
-	if ( n >= t )
-	{
-		log2 += 8;
-		t <<= 4;
-	}
-	else
-	{
-		t >>= 4;
-	}
+  if ( n >= t ) {
+    log2 += 8;
+    t <<= 4;
+  } else {
+    t >>= 4;
+  }
 
-	if ( n >= t )
-	{
-		log2 += 4;
-		t <<= 2;
-	}
-	else
-	{
-		t >>= 2;
-	}
+  if ( n >= t ) {
+    log2 += 4;
+    t <<= 2;
+  } else {
+    t >>= 2;
+  }
 
-	if ( n >= t )
-	{
-		log2 += 2;
-		t <<= 1;
-	}
-	else
-	{
-		t >>= 1;
-	}
+  if ( n >= t ) {
+    log2 += 2;
+    t <<= 1;
+  } else {
+    t >>= 1;
+  }
 
-	if ( n >= t )
-	{
-		log2 += 1;
-	}
+  if ( n >= t ) {
+    log2 += 1;
+  }
 
-	return log2;
+  return log2;
 }
 
 // Find the smallest non-negative integer x such that pow(2,x) >= n.
-inline uint32 log2ge ( uint32 n )
-{
-	if ( n > 0x80000000 )
-		return 32;
+inline uint32 log2ge(uint32 n) {
+  if ( n > 0x80000000 )
+    return 32;
 
-	uint32 t, log2;
+  uint32 t, log2;
 
-	if ( n > 0x8000 )
-	{
-		log2 = 16;
-		t = 0x800000;
-	}
-	else
-	{
-		log2 = 0;
-		t = 0x80;
-	}
+  if ( n > 0x8000 ) {
+    log2 = 16;
+    t    = 0x800000;
+  } else {
+    log2 = 0;
+    t    = 0x80;
+  }
 
-	if ( n > t )
-	{
-		log2 += 8;
-		t <<= 4;
-	}
-	else
-	{
-		t >>= 4;
-	}
+  if ( n > t ) {
+    log2 += 8;
+    t <<= 4;
+  } else {
+    t >>= 4;
+  }
 
-	if ( n > t )
-	{
-		log2 += 4;
-		t <<= 2;
-	}
-	else
-	{
-		t >>= 2;
-	}
+  if ( n > t ) {
+    log2 += 4;
+    t <<= 2;
+  } else {
+    t >>= 2;
+  }
 
-	if ( n > t )
-	{
-		log2 += 2;
-		t <<= 1;
-	}
-	else
-	{
-		t >>= 1;
-	}
+  if ( n > t ) {
+    log2 += 2;
+    t <<= 1;
+  } else {
+    t >>= 1;
+  }
 
-	if ( n > t )
-	{
-		log2 += 1;
-	}
+  if ( n > t ) {
+    log2 += 1;
+  }
 
-	return log2;
+  return log2;
 }
 
 #endif // __ZZ_MISC_H__

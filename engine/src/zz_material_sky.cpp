@@ -17,101 +17,92 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_material_sky, zz_material)
 
-zz_material_sky::zz_material_sky (void) :
-	blend_ratio_(1.0f)
-{
+zz_material_sky::zz_material_sky(void) :
+  blend_ratio_( 1.0f ) {}
+
+zz_material_sky::~zz_material_sky(void) {
+  // CAUTION: DO NOT INSERT SUB OBJECT RELEASE()
+  // because we need auto-cleaning without deleting dependent items
+  // in manager destructor
 }
 
-zz_material_sky::~zz_material_sky (void)
-{
-	// CAUTION: DO NOT INSERT SUB OBJECT RELEASE()
-	// because we need auto-cleaning without deleting dependent items
-	// in manager destructor
+void zz_material_sky::set_sky_one(void) {
+  // stage0_
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE );
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1 );
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE );
+
+  // ignore alpha
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_ALPHAOP, ZZ_TOP_DISABLE );
 }
 
+void zz_material_sky::set_sky_two(void) {
+  //s_renderer->set_render_state(ZZ_RS_TEXTUREFACTOR, ZZ_TO_D3DRGBA(0, 0, 0, blend_ratio_));
+  int factor      = int( 255.0f * blend_ratio_ );
+  s_state.tfactor = ZZ_COLOR_RGBA( factor, factor, factor, factor );
 
-void zz_material_sky::set_sky_one (void)
-{
-	// stage0_
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE);
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1);
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE);
+  // stage0_rgba = texture1
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE );
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1 );
 
-	// ignore alpha
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_ALPHAOP,   ZZ_TOP_DISABLE);
+  // stage1_rgba = texture1*(factor) + texture2*(1 - factor)
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLORARG1, ZZ_TA_CURRENT );
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLORARG2, ZZ_TA_TEXTURE );
+  s_renderer->set_texture_stage_state( 1, ZZ_TSS_COLOROP, ZZ_TOP_BLENDFACTORALPHA );
+
+  // disable stage2
+  s_renderer->set_texture_stage_state( 2, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE );
+
+  // ignore alpha
+  s_renderer->set_texture_stage_state( 0, ZZ_TSS_ALPHAOP, ZZ_TOP_DISABLE );
 }
 
-void zz_material_sky::set_sky_two (void)
-{
-	//s_renderer->set_render_state(ZZ_RS_TEXTUREFACTOR, ZZ_TO_D3DRGBA(0, 0, 0, blend_ratio_));
-	int factor = int(255.0f*blend_ratio_);
-	s_state.tfactor = ZZ_COLOR_RGBA( factor, factor, factor, factor );
+bool zz_material_sky::set(int pass) {
+  assert(get_cullmode() != zz_render_state::ZZ_CULLMODE_NONE);
 
-	// stage0_rgba = texture1
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLORARG1, ZZ_TA_TEXTURE);
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_COLOROP, ZZ_TOP_SELECTARG1);
+  zz_texture *firstmap, *secondmap;
 
-	// stage1_rgba = texture1*(factor) + texture2*(1 - factor)
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLORARG1, ZZ_TA_CURRENT);
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLORARG2, ZZ_TA_TEXTURE);
-	s_renderer->set_texture_stage_state(1, ZZ_TSS_COLOROP, ZZ_TOP_BLENDFACTORALPHA);
+  firstmap  = get_texture( 0 );
+  secondmap = get_texture( 1 );
 
-	// disable stage2
-	s_renderer->set_texture_stage_state(2, ZZ_TSS_COLOROP, ZZ_TOP_DISABLE);
+  if ( firstmap ) {
+    firstmap->set( 0 );
+  }
+  if ( secondmap ) {
+    secondmap->set( 1 );
+  }
 
-	// ignore alpha
-	s_renderer->set_texture_stage_state(0, ZZ_TSS_ALPHAOP,   ZZ_TOP_DISABLE);
-}
+  if ( s_renderstate->use_pixel_shader ) {
+    //ZZ_VSC_LIGHT_DIRECTION
+    float trans[4] = { 1.0f, 1.0f, 1.0f, blend_ratio_ };
+    s_renderer->set_pixel_shader_constant( 14, trans, 1 );
+  }
 
-bool zz_material_sky::set (int pass)
-{
-	assert(get_cullmode() != zz_render_state::ZZ_CULLMODE_NONE);
+  // do sky texture stage setup
+  s_state.copy_from( state );
 
-	zz_texture * firstmap, * secondmap;
-	
-	firstmap = get_texture(0);
-	secondmap = get_texture(1);
+  if ( receive_fog ) {
+    // blend with dest alpha
+    // (invdestalpha, destalpha, add) is not supported in Matrox G400 Fullscreen mode?
+    //  .. In G400, the windowed-mode is OK, but in fullscreen mode, sky is not rendered.
+    s_state.blend_src  = ZZ_BLEND_INVDESTALPHA;
+    s_state.blend_dest = ZZ_BLEND_DESTALPHA;
 
-	if (firstmap) {
-		firstmap->set(0);
-	}
-	if (secondmap) {
-		secondmap->set(1);
-	}
+    s_state.blend_op    = ZZ_BLENDOP_ADD;
+    s_state.alpha_blend = true;
+    s_state.blend_type  = ZZ_BT_CUSTOM;
+  } else {
+    s_state.alpha_blend = false;
+  }
 
-	if( s_renderstate->use_pixel_shader ) {
-		//ZZ_VSC_LIGHT_DIRECTION
-		float trans[4] = { 1.0f, 1.0f, 1.0f, blend_ratio_ };
-		s_renderer->set_pixel_shader_constant( 14, trans, 1 );
-	}
+  // set sky texture stage setup
+  if ( firstmap && !secondmap ) {
+    set_sky_one();
+  } else if ( firstmap && secondmap ) {
+    set_sky_two();
+  }
 
-	// do sky texture stage setup
-	s_state.copy_from(state);
+  apply_shared_property( 2 );
 
-	if (receive_fog) {
-		// blend with dest alpha
-		// (invdestalpha, destalpha, add) is not supported in Matrox G400 Fullscreen mode?
-		//  .. In G400, the windowed-mode is OK, but in fullscreen mode, sky is not rendered.
-		s_state.blend_src = ZZ_BLEND_INVDESTALPHA;
-		s_state.blend_dest = ZZ_BLEND_DESTALPHA;
-
-		s_state.blend_op = ZZ_BLENDOP_ADD;
-		s_state.alpha_blend = true;
-		s_state.blend_type = ZZ_BT_CUSTOM;
-	}
-	else {
-		s_state.alpha_blend = false;
-	}
-
-	// set sky texture stage setup
-	if (firstmap && !secondmap) {
-		set_sky_one();
-	}
-	else if (firstmap && secondmap) {
-		set_sky_two();
-	}
-
-	apply_shared_property(2);
-
-	return true;
+  return true;
 }

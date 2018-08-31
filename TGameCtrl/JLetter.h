@@ -13,28 +13,26 @@
 /// @Date				2005/08/30
 //------------------------------------------------------------------------------------------------------------------------
 
-class TGAMECTRL_API CJLetter
-{
+class TGAMECTRL_API CJLetter {
 public:
-	CJLetter();
-	~CJLetter(){}
+  CJLetter();
+  ~CJLetter() {}
 
-	void	SetLetter( const char* pszLetter );
-	void	SetSize( SIZE& size );
-	void	SetFont( int iFont );
-	void	SetColor( DWORD dwColor );
+  void SetLetter(const char* pszLetter);
+  void SetSize(SIZE&         size);
+  void SetFont(int           iFont);
+  void SetColor(DWORD        dwColor);
 
-	const SIZE& GetSize();
-	int			GetFont();
-	DWORD		GetColor();
-	const char* GetLetter();
-
+  const SIZE& GetSize();
+  int         GetFont();
+  DWORD       GetColor();
+  const char* GetLetter();
 
 private:
-	int				m_iFont;						/// Client에 정의된 Font Index : 잘못된 Index일경우 안나오거나 잘못 나올수 있다(Client의 구현에 따라 틀림 )
-	DWORD			m_dwColor;						/// 색상				
-	SIZE            m_Size;							/// Draw시 Width,Height
-	std::string		m_Letter;						
+  int         m_iFont;   /// Client에 정의된 Font Index : 잘못된 Index일경우 안나오거나 잘못 나올수 있다(Client의 구현에 따라 틀림 )
+  DWORD       m_dwColor; /// 색상				
+  SIZE        m_Size;    /// Draw시 Width,Height
+  std::string m_Letter;
 
 };
 #endif

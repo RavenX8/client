@@ -9,18 +9,17 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CGameStateLoginVirtual :	public CGameState
-{
+class CGameStateLoginVirtual : public CGameState {
 public:
-	CGameStateLoginVirtual( int iID );
-	virtual ~CGameStateLoginVirtual(void);
-	virtual int	Update(	bool bLostFocus );
-	virtual int Enter( int iPrevStateID );
-	virtual int Leave( int iNextStateID );
-	virtual int ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual int ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void ServerDisconnected();
-	virtual void WorldServerDisconnected();
-	virtual void AcceptedConnectLoginSvr();
+          CGameStateLoginVirtual(int  iID);
+  virtual ~CGameStateLoginVirtual(void);
+  int     Update(bool                 bLostFocus) override;
+  int     Enter(int                   iPrevStateID) override;
+  int     Leave(int                   iNextStateID) override;
+  int     ProcMouseInput(UINT         uiMsg, WPARAM wParam, LPARAM lParam) override;
+  int     ProcKeyboardInput(UINT      uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void    ServerDisconnected() override;
+  void    WorldServerDisconnected() override;
+  void    AcceptedConnectLoginSvr() override;
 };
 #endif

@@ -9,36 +9,32 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CNotifyDlg :	public CTDialog
-{
+class CNotifyDlg : public CTDialog {
 public:
-	CNotifyDlg(void);
-	virtual ~CNotifyDlg(void);
-	virtual void Draw();
-	virtual void Hide();
-	virtual bool Create( const char* IDD );
-	virtual void Show();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam ,LPARAM lParam );
+           CNotifyDlg(void );
+  virtual  ~CNotifyDlg(void);
+  void     Draw() override;
+  void     Hide() override;
+  bool     Create(const char* IDD) override;
+  void     Show() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	
-	void	SetAdjPos();
+  void SetAdjPos();
 
-	void	SetScript( const char* pszScript );
-	void	Clear();
+  void SetScript(const char* pszScript);
+  void Clear();
 
 private:
 
-	enum{
-		IID_BTN_CLOSE = 10,
-		IID_BTN_PREV  = 11,
-		IID_BTN_NEXT  = 12
-	};
-	CJStringParser	 m_Script;
-	int				 m_iExtentLine;
-	int				 m_iDrawLine;
+  enum {
+    IID_BTN_CLOSE = 10,
+    IID_BTN_PREV = 11,
+    IID_BTN_NEXT = 12
+  };
 
-	
-	
+  CJStringParser m_Script;
+  int            m_iExtentLine;
+  int            m_iDrawLine;
 
 };
 #endif

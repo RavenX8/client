@@ -86,50 +86,48 @@
 #include "zz_mem.h"
 #include "zz_string.h"
 
-void zz_string::set (const char * source_string)
-{
-	if (!source_string) { // null string
-		reset();
-		return;
-	}
+void zz_string::set(const char* source_string) {
+  if ( !source_string ) {
+    // null string
+    reset();
+    return;
+  }
 
-	if (length || name) {
-		reset();
-	}
+  if ( length || name ) {
+    reset();
+  }
 
-	length = int(strlen(source_string));
-	if (length == 0) return; // do nothing
-	name = zz_new char[length+1];
-	strcpy(name, source_string);
+  length = int( strlen( source_string ) );
+  if ( length == 0 ) return; // do nothing
+  name = zz_new char[length + 1];
+  strcpy( name, source_string );
 }
 
-zz_string& zz_string::operator+=( const char * source_string )
-{
-	int right_length = strlen(source_string);
-	if (right_length == 0) return *this; // do nothing
-	int new_length = this->length + right_length;
-	char * new_name = zz_new char[new_length + 1];
-	strncpy(new_name, name, this->length);
-	strncpy((new_name + this->length), source_string, right_length);
-	new_name[new_length] = '\0';
-	reset();
-	name = new_name;
-	length = new_length;
-	return *this;
+zz_string& zz_string::operator+=(const char* source_string) {
+  int      right_length = strlen( source_string );
+  if ( right_length == 0 ) return *this; // do nothing
+  int   new_length = this->length + right_length;
+  char* new_name   = zz_new char[new_length + 1];
+  strncpy( new_name, name, this->length );
+  strncpy( (new_name + this->length), source_string, right_length );
+  new_name[new_length] = '\0';
+  reset();
+  name   = new_name;
+  length = new_length;
+  return *this;
 }
 
-zz_string& zz_string::operator+=( const zz_string& rhs)
-{
-	if (&rhs != this) {
-		if (rhs.length == 0) return *this; // do nothing
-		int new_length = this->length + rhs.length;
-		char * new_name = zz_new char[new_length + 1];
-		strncpy(new_name, name, this->length);
-		strncpy((new_name + this->length), rhs.name, rhs.length);
-		new_name[new_length] = '\0';
-		reset();
-		name = new_name;
-		length = new_length;
-	}
-	return *this;
-}	
+zz_string& zz_string::operator+=(const zz_string& rhs) {
+  if ( &rhs != this ) {
+    if ( rhs.length == 0 ) return *this; // do nothing
+    int   new_length = this->length + rhs.length;
+    char* new_name   = zz_new char[new_length + 1];
+    strncpy( new_name, name, this->length );
+    strncpy( (new_name + this->length), rhs.name, rhs.length );
+    new_name[new_length] = '\0';
+    reset();
+    name   = new_name;
+    length = new_length;
+  }
+  return *this;
+}

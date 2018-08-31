@@ -230,198 +230,188 @@
 // for debugging purpose
 char state_string[3][5] = { "FILL", "READ", "DEST" };
 
-unsigned zz_vfs_thread::thread_proc ()
-{
-	zz_item * item;
-	int size;
-	bool current_not_end = false;
-	while (1)
-	{
-		{
-			zz_autolock<zz_critical_section> locked(cs_);
-			size = items_.size();
-			current_ = items_.begin();
-			current_not_end = (current_ != items_.end());
-		}
-		if (size == 0) {
-			// We have nothing to do, take a rest until new job is arrived.
-			event_.wait();  // Wait for event object.
-			event_.reset(); // Not to skip in next time wait.
-		}
-		while (current_not_end)
-		{
-			{ // begining of the locking block
-				zz_autolock<zz_critical_section> locked(cs_);
+unsigned   zz_vfs_thread::thread_proc() {
+  zz_item* item;
+  int      size;
+  bool     current_not_end = false;
+  while ( true ) {
+    {
+      zz_autolock<zz_critical_section> locked( cs_ );
+      size            = items_.size();
+      current_        = items_.begin();
+      current_not_end = (current_ != items_.end());
+    }
+    if ( size == 0 ) {
+      // We have nothing to do, take a rest until new job is arrived.
+      event_.wait();  // Wait for event object.
+      event_.reset(); // Not to skip in next time wait.
+    }
+    while ( current_not_end ) {
+      {
+        // begining of the locking block
+        zz_autolock<zz_critical_section> locked( cs_ );
 
-				if (current_ != items_.end()) { // Double check
-					item = (*current_);
-					
-					switch (item->state)
-					{
-					case STATE_FILL:
-						// Fill the buffer
-						item->buffer = create_buffer_and_read_file_(item->filename.get(), &item->filesize);
-						item->state = STATE_READ;
-						break;
-					case STATE_READ:
-						// Do nothing
-						break;
-					}
-				}
-				++current_;
-				current_not_end = (current_ != items_.end());
-			} // end of the locking block
-			::Sleep(200); // Return the context to the main thread.
-		}
-		if (terminate_worker_ != 0) { // If it's time to exit.
-			return 0;
-		}
-	}
-	return 1;
+        if ( current_ != items_.end() ) {
+          // Double check
+          item = (*current_);
+
+          switch ( item->state ) {
+            case STATE_FILL:
+              // Fill the buffer
+              item->buffer = create_buffer_and_read_file_( item->filename.get(), &item->filesize );
+              item->state  = STATE_READ;
+              break;
+            case STATE_READ:
+              // Do nothing
+              break;
+          }
+        }
+        ++current_;
+        current_not_end = (current_ != items_.end());
+      }             // end of the locking block
+      Sleep( 200 ); // Return the context to the main thread.
+    }
+    if ( terminate_worker_ != 0 ) {
+      // If it's time to exit.
+      return 0;
+    }
+  }
+  return 1;
 }
 
-zz_vfs_thread::zz_vfs_thread () :
-	worker_pkg_system_(NULL), terminate_worker_(0)
-{
+zz_vfs_thread::zz_vfs_thread() :
+  worker_pkg_system_( nullptr ), terminate_worker_( 0 ) {}
+
+zz_vfs_thread::~zz_vfs_thread() {
+  lockset_( terminate_worker_, static_cast<LOCKTYPE>(true) );
+
+  event_.set(); // to wake the worker thread when it is waiting event.
+
+  wait(); // wait until the worker thread is dead.
+  // assure that the worker thread is terminated.
+  clear_all_(); // clean up all remaining process
 }
 
-zz_vfs_thread::~zz_vfs_thread ()
-{	
-	lockset_(terminate_worker_, static_cast<LOCKTYPE>(true));
-
-	event_.set(); // to wake the worker thread when it is waiting event.
-
-	wait(); // wait until the worker thread is dead.
-	// assure that the worker thread is terminated.
-	clear_all_(); // clean up all remaining process
-}
-
-void zz_vfs_thread::clear_all_ ()
-{
-	zz_item_it it = items_.begin();
-	while (it != items_.end())
-	{
-		// delete the buffer
-		if ((*it)->buffer) {
-			zz_delete [] (*it)->buffer;
-			(*it)->buffer = NULL;
-		}
-		items_.erase(it);
-		it = items_.begin();
-	}
+void         zz_vfs_thread::clear_all_() {
+  zz_item_it it = items_.begin();
+  while ( it != items_.end() ) {
+    // delete the buffer
+    if ( (*it)->buffer ) {
+      zz_delete [] (*it)->buffer;
+      (*it)->buffer = nullptr;
+    }
+    items_.erase( it );
+    it = items_.begin();
+  }
 }
 
 // Open file by filename, and returns the file handle.
-zz_vfs_thread::zz_item_it zz_vfs_thread::open (const char * filename_in)
-{
-	zz_autolock<zz_critical_section> locked(cs_);
+zz_vfs_thread::zz_item_it          zz_vfs_thread::open(const char* filename_in) {
+  zz_autolock<zz_critical_section> locked( cs_ );
 
-	// Check if we have already the same name.	
-	zz_item_it it = items_.find(filename_in);
+  // Check if we have already the same name.	
+  zz_item_it it = items_.find( filename_in );
 
-	if (it != items_.end()) { // If it was already opened,
-		// Increase reference count
-		(*it)->refcount++;
-		// In this case, current empty handle is not modified. So, finding empty handle is not required.
-		// And count-increasing and event-setting is not also required.
-		return it;
-	}
+  if ( it != items_.end() ) {
+    // If it was already opened,
+    // Increase reference count
+    (*it)->refcount++;
+    // In this case, current empty handle is not modified. So, finding empty handle is not required.
+    // And count-increasing and event-setting is not also required.
+    return it;
+  }
 
-	// Lock and fill the content.
-	it = items_.insert(filename_in, zz_new zz_item(filename_in));
+  // Lock and fill the content.
+  it = items_.insert( filename_in, zz_new zz_item( filename_in ) );
 
-	assert( it != items_.end() );
-	event_.set();
+  assert( it != items_.end() );
+  event_.set();
 
-	return it;
+  return it;
 }
 
-void * zz_vfs_thread::read (zz_item_it handle, uint32 * psize, bool forcing)
-{
-	if (!is_valid_handle(handle)) {
-		return NULL;
-	}
+void* zz_vfs_thread::read(zz_item_it handle, uint32* psize, bool forcing) {
+  if ( !is_valid_handle( handle ) ) {
+    return nullptr;
+  }
 
-	zz_autolock<zz_critical_section> locked(cs_);
+  zz_autolock<zz_critical_section> locked( cs_ );
 
-	zz_item * item = (*handle);
+  zz_item* item = (*handle);
 
-	if ((item->state != STATE_READ) && (forcing)) {
-		// similar work as worker thread::STATE_FILL
-		item->buffer = create_buffer_and_read_file_(item->filename.get(), &item->filesize);
-		item->state = STATE_READ;
-	}
-	
-	if (psize) {
-		*psize = item->filesize;
-	}
-	return item->buffer;
+  if ( (item->state != STATE_READ) && (forcing) ) {
+    // similar work as worker thread::STATE_FILL
+    item->buffer = create_buffer_and_read_file_( item->filename.get(), &item->filesize );
+    item->state  = STATE_READ;
+  }
+
+  if ( psize ) {
+    *psize = item->filesize;
+  }
+  return item->buffer;
 }
 
 // request the worker thread to free the buffer
-bool zz_vfs_thread::close (zz_item_it handle)
-{
-	if (!is_valid_handle(handle)) {
-		return false;
-	}
+bool zz_vfs_thread::close(zz_item_it handle) {
+  if ( !is_valid_handle( handle ) ) {
+    return false;
+  }
 
-	zz_autolock<zz_critical_section> locked(cs_);
+  zz_autolock<zz_critical_section> locked( cs_ );
 
-	zz_item * item = (*handle);
+  zz_item* item = (*handle);
 
-	if (item->refcount > 0) { // Another one has this.
-		item->refcount--;
-		// do nothing
-	}
-	else { // This is the last one.
-		// Destroy the buffer
-		//item->state = STATE_DEST;
-		zz_delete [] item->buffer;
-		item->buffer = NULL;
-		current_ = items_.erase(handle);
-		zz_delete item;
-	}
-	return true;
+  if ( item->refcount > 0 ) {
+    // Another one has this.
+    item->refcount--;
+    // do nothing
+  } else {
+    // This is the last one.
+    // Destroy the buffer
+    //item->state = STATE_DEST;
+    zz_delete [] item->buffer;
+    item->buffer = nullptr;
+    current_     = items_.erase( handle );
+    zz_delete item;
+  }
+  return true;
 }
 
 // This call should be in locked state.
-void * zz_vfs_thread::create_buffer_and_read_file_ (const char * filename, uint32 * psize)
-{
-	// The main thread uses main thread's pkg_system that is obtained by zz_system::get_pkg_system().
-	// The worker thread uses its own pkg_system(also stored in zz_system)  in zz_vfs_thread.
-	//ZZ_PROFILER_INSTALL(Pcreate_buffer_and_read_file);
+void* zz_vfs_thread::create_buffer_and_read_file_(const char* filename, uint32* psize) {
+  // The main thread uses main thread's pkg_system that is obtained by zz_system::get_pkg_system().
+  // The worker thread uses its own pkg_system(also stored in zz_system)  in zz_vfs_thread.
+  //ZZ_PROFILER_INSTALL(Pcreate_buffer_and_read_file);
 
-	zz_vfs_pkg fs(worker_pkg_system_);
-	
-	*psize = fs.get_size(filename);
+  zz_vfs_pkg fs( worker_pkg_system_ );
 
-	//ZZ_LOG("vfs_thread: create_buffer_and_read_file(%s)=>%d\n", filename, *psize);
-	
-	if (!fs.open(filename)) {
-		return NULL;
-	}
-	void * buf = zz_new char[*psize]; // The allocated memory must be deallocated in the caller.
-	assert(buf);
-	
-	fs.read(reinterpret_cast<char*>(buf), *psize);
+  *psize = fs.get_size( filename );
 
-	fs.close();
-	
-	return buf;
+  //ZZ_LOG("vfs_thread: create_buffer_and_read_file(%s)=>%d\n", filename, *psize);
+
+  if ( !fs.open( filename ) ) {
+    return nullptr;
+  }
+  void* buf = zz_new char[*psize]; // The allocated memory must be deallocated in the caller.
+  assert(buf);
+
+  fs.read( reinterpret_cast<char*>(buf), *psize );
+
+  fs.close();
+
+  return buf;
 }
 
-
-void zz_vfs_thread::get_num_items (int& num_fill, int& num_total)
-{
-	zz_autolock<zz_critical_section> locked(cs_);
-	num_fill = 0;
-	num_total = 0;
-	for (zz_item_it it = items_.begin(); it != items_.end(); ++it) {
-		if ((*it)->state == STATE_FILL) {
-			num_fill++;
-		}
-		num_total++;
-	}
+void                               zz_vfs_thread::get_num_items(int& num_fill, int& num_total) {
+  zz_autolock<zz_critical_section> locked( cs_ );
+  num_fill            = 0;
+  num_total           = 0;
+  for ( zz_item_it it = items_.begin(); it != items_.end(); ++it ) {
+    if ( (*it)->state == STATE_FILL ) {
+      num_fill++;
+    }
+    num_total++;
+  }
 }
 
 #endif // ZZ_IGNORE_TRIGGER_VFS

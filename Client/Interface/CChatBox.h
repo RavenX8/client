@@ -4,73 +4,70 @@
 #include <string>
 #include <list>
 
-
-const int	CHAT_DISPLAY_TIME = 270;
-const int	MAX_CHAT_BOX = 100;
-
+const int CHAT_DISPLAY_TIME = 270;
+const int MAX_CHAT_BOX      = 100;
 
 class CChatBox;
 
-enum 
-{
-	CHATBOX_BIG = 0,
-	CHATBOX_SMALL,
-	CHATBOX_MAX,
+enum {
+  CHATBOX_BIG = 0,
+  CHATBOX_SMALL,
+  CHATBOX_MAX,
 };
 
 /// Chatbox manager
-class CChatBoxManager
-{
+class CChatBoxManager {
 private:
-	std::list< CChatBox* >	m_ChatBoxPool;
-	std::list< CChatBox* >	m_ActiveChatBoxList;
+  std::list<CChatBox*> m_ChatBoxPool;
+  std::list<CChatBox*> m_ActiveChatBoxList;
 
-	/// Background		
-	HNODE					m_BackGroundTex[ CHATBOX_MAX ];
-	
+  /// Background		
+  HNODE m_BackGroundTex[ CHATBOX_MAX ];
 
 public:
-	CChatBoxManager();
-	~CChatBoxManager();
+  CChatBoxManager();
+  ~CChatBoxManager();
 
-	bool					Init( );
-	void					FreeResource();
-	void					Clear();
+  bool Init();
+  void FreeResource();
+  void Clear();
 
-	void					AddChat( int iCharIndex, const char* Msg, DWORD Color );
+  void AddChat(int iCharIndex, const char* Msg, DWORD Color);
 
-	void					Draw();
+  void Draw();
 };
 
-
-
-
-
-/// Avata ¸Ó¸®À§ Ãª ¹Ú½º
-class CChatBox
-{
+/// Avata ï¿½Ó¸ï¿½ï¿½ï¿½ Ãª ï¿½Ú½ï¿½
+class CChatBox {
 private:
-	int					m_iCharIndex;
+  int m_iCharIndex;
 
-	/// Display time    
-	int					m_iDisplayTime;
+  /// Display time    
+  int m_iDisplayTime;
 
-	/// Ãª ´ëÈ­..
-	std::string			m_strText;
-	DWORD				m_Color;
+  /// Ãª ï¿½ï¿½È­..
+  std::string m_strText;
+  DWORD       m_Color;
 
 public:
-	CChatBox();
-	~CChatBox();	
+  CChatBox();
+  ~CChatBox();
 
-	int					GetChatIndex(){ return m_iCharIndex; }
+  int GetChatIndex() { return m_iCharIndex; }
 
-	void				SetMember( int iCharIndex, const char* Msg, DWORD Color = 0 );
+  void SetMember(int iCharIndex, const char* Msg, DWORD Color = 0);
 
-	void				SetText( const char* pStr ){ m_strText = std::string( pStr ); m_iDisplayTime = CHAT_DISPLAY_TIME; }
-	void				SetText( std::string str ){ m_strText = str; m_iDisplayTime = CHAT_DISPLAY_TIME; }
+  void SetText(const char* pStr) {
+    m_strText      = std::string( pStr );
+    m_iDisplayTime = CHAT_DISPLAY_TIME;
+  }
 
-	bool				Draw( HNODE* backTexture );
+  void SetText(std::string str) {
+    m_strText      = str;
+    m_iDisplayTime = CHAT_DISPLAY_TIME;
+  }
+
+  bool Draw(HNODE* backTexture);
 };
 
 #endif //_CHATBOX_

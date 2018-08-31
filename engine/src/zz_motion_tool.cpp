@@ -62,69 +62,58 @@
 #include "zz_system.h"
 #include "zz_manager.h"
 
-zz_motion_tool::zz_motion_tool(void)
-{
+zz_motion_tool::zz_motion_tool(void) {}
+
+zz_motion_tool::~zz_motion_tool(void) {}
+
+zz_motion_mixer*   zz_motion_tool::create_blend_motion(const char* name, zz_motion* motion_arg1, zz_motion* motion_arg2, float blend_weight) {
+  zz_motion_mixer* blended_motion = nullptr;
+
+  // create motion
+  blended_motion = (zz_motion_mixer *)znzin->motions->spawn( name, ZZ_RUNTIME_TYPE(zz_motion_mixer) );
+  assert(motion_arg1 && motion_arg2);
+  assert(blended_motion);
+  blended_motion->link_child( motion_arg1 );
+  blended_motion->link_child( motion_arg2 );
+  blended_motion->set_blend_weight( blend_weight );
+
+  return blended_motion;
 }
 
-zz_motion_tool::~zz_motion_tool(void)
-{
+vec3    zz_motion_tool::blend_position(const vec3& pos1, const vec3& pos2, float t_0_to_1) {
+  float weight = sinf( ZZ_HALF_PI * t_0_to_1 ); // scurve(t_0_to_1);
+
+  return ((1.f - weight) * pos1 + weight * pos2);
 }
 
-zz_motion_mixer * zz_motion_tool::create_blend_motion (const char * name, zz_motion * motion_arg1, zz_motion * motion_arg2, float blend_weight)
-{
-	zz_motion_mixer * blended_motion = NULL;
+quat    zz_motion_tool::blend_rotation(const quat& rot1, const quat& rot2, float t_0_to_1) {
+  float weight = sinf( ZZ_HALF_PI * t_0_to_1 ); // scurve(t_0_to_1);
 
-	// create motion
-	blended_motion = (zz_motion_mixer *)znzin->motions->spawn(name, ZZ_RUNTIME_TYPE(zz_motion_mixer));
-	assert(motion_arg1 && motion_arg2);
-	assert(blended_motion);
-	blended_motion->link_child(motion_arg1);
-	blended_motion->link_child(motion_arg2);
-	blended_motion->set_blend_weight(blend_weight);
-
-	return blended_motion;
+  return qslerp( rot1, rot2, weight );
 }
 
-vec3 zz_motion_tool::blend_position (const vec3& pos1, const vec3& pos2, float t_0_to_1)
-{
-	float weight = sinf(ZZ_HALF_PI*t_0_to_1); // scurve(t_0_to_1);
+bool zz_motion_tool::load_motion(zz_motion*  motion,
+                                 const char* motion_file_name,
+                                 bool        use_loop,
+                                 int         interp_position,
+                                 int         interp_rotation,
+                                 float       scale) {
+  assert(motion);
+  assert(motion_file_name);
+  if ( !motion || !motion_file_name ) return false;
 
-	return ((1.f - weight)*pos1 + weight*pos2);
+  if ( motion->load( motion_file_name, scale ) == false ) return false;
+
+  motion->set_loop( use_loop );
+  zz_interp_style pos_style, rot_style;
+
+  pos_style = static_cast<zz_interp_style>((int)interp_position);
+  motion->set_channel_interp_style( ZZ_CFMT_XYZ, pos_style );
+  motion->set_channel_interp_style( ZZ_CFMT_XY, pos_style ); // set by position
+  motion->set_channel_interp_style( ZZ_CFMT_X, pos_style );  // set by position
+
+  rot_style = static_cast<zz_interp_style>((int)interp_rotation);
+  motion->set_channel_interp_style( ZZ_CFMT_WXYZ, rot_style );
+
+  return true;
 }
-
-quat zz_motion_tool::blend_rotation (const quat& rot1, const quat& rot2, float t_0_to_1)
-{
-	float weight = sinf(ZZ_HALF_PI*t_0_to_1); // scurve(t_0_to_1);
-
-	return qslerp(rot1, rot2, weight);
-}
-
-bool zz_motion_tool::load_motion (zz_motion * motion,
-								  const char * motion_file_name,
-								  bool use_loop,
-								  int interp_position,
-								  int interp_rotation,
-								  float scale)
-{
-	assert(motion);
-	assert(motion_file_name);
-	if (!motion || !motion_file_name) return false;
-
-	if (motion->load(motion_file_name, scale) == false) return false;
-
-	motion->set_loop(use_loop);
-	zz_interp_style pos_style, rot_style;
-
-	pos_style = static_cast<zz_interp_style>((int)interp_position);
-	motion->set_channel_interp_style(ZZ_CFMT_XYZ, pos_style);
-	motion->set_channel_interp_style(ZZ_CFMT_XY, pos_style); // set by position
-	motion->set_channel_interp_style(ZZ_CFMT_X, pos_style);  // set by position
-	
-	rot_style = static_cast<zz_interp_style>((int)interp_rotation);
-	motion->set_channel_interp_style(ZZ_CFMT_WXYZ, rot_style);
-
-	return true;
-}
-
-
-

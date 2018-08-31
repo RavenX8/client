@@ -47,34 +47,29 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_manager_mesh_ishared, zz_manager)
 
-zz_manager_mesh_ishared::zz_manager_mesh_ishared ()
-{
+zz_manager_mesh_ishared::zz_manager_mesh_ishared() {}
+
+zz_manager_mesh_ishared::~zz_manager_mesh_ishared() {
+  invalidate_device_objects();
 }
 
-zz_manager_mesh_ishared::~zz_manager_mesh_ishared ()
-{
-	invalidate_device_objects();
+bool                         zz_manager_mesh_ishared::s_restore_device_objects() {
+  zz_mesh_ishared::zz_index* indices = zz_mesh_ishared::get_shared_indices();
+  for ( int                  i       = 0; i < NUM_INDEX_ORDER; ++i ) {
+    if ( indices[i].num_indices ) {
+      indices[i].ibuf_res->create_buffer( indices[i].num_indices );
+      indices[i].ibuf_res->update_buffer( indices[i].ibuf );
+    }
+  }
+  return true;
 }
 
-bool zz_manager_mesh_ishared::s_restore_device_objects ()
-{
-	zz_mesh_ishared::zz_index * indices = zz_mesh_ishared::get_shared_indices();
-	for (int i = 0; i < NUM_INDEX_ORDER; ++i) {
-		if (indices[i].num_indices) {
-			indices[i].ibuf_res->create_buffer(indices[i].num_indices);
-			indices[i].ibuf_res->update_buffer(indices[i].ibuf);
-		}
-	}
-	return true;
-}
-
-bool zz_manager_mesh_ishared::s_invalidate_device_objects ()
-{
-	zz_mesh_ishared::zz_index * indices = zz_mesh_ishared::get_shared_indices();
-	for (int i = 0; i < NUM_INDEX_ORDER; ++i) {
-		if (indices[i].num_indices) {
-			indices[i].ibuf_res->destroy_buffer();
-		}
-	}
-	return true;
+bool                         zz_manager_mesh_ishared::s_invalidate_device_objects() {
+  zz_mesh_ishared::zz_index* indices = zz_mesh_ishared::get_shared_indices();
+  for ( int                  i       = 0; i < NUM_INDEX_ORDER; ++i ) {
+    if ( indices[i].num_indices ) {
+      indices[i].ibuf_res->destroy_buffer();
+    }
+  }
+  return true;
 }

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include ".\checkhack.h"
+#include "./checkhack.h"
 //#include "TRose.h"
 /*
 TCheck_Init g_fpTRInit	= NULL;	

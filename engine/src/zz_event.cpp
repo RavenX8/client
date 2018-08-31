@@ -28,18 +28,15 @@
 #include "zz_event.h"
 
 #ifdef WIN32
-zz_event::zz_event ()
-{
-	handle_ = ::CreateEvent(NULL, TRUE /* manualreset */, FALSE /* initial state */, NULL /* name */);
+zz_event::zz_event() {
+  handle_ = ::CreateEvent( nullptr, TRUE /* manualreset */, FALSE /* initial state */, nullptr /* name */ );
 }
 
-bool zz_event::set ()
-{
-	return (::SetEvent(handle_) == TRUE);
+bool zz_event::set() {
+  return (SetEvent( handle_ ) == TRUE);
 }
 
-bool zz_event::reset ()
-{
-	return (::ResetEvent(handle_) == TRUE);
+bool zz_event::reset() {
+  return (ResetEvent( handle_ ) == TRUE);
 }
 #endif // WIN32

@@ -7,22 +7,21 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/5
 */
-class CTString
-{
+class CTString {
 public:
-	CTString(void);
-	~CTString(void);
+  CTString(void );
+  ~CTString(void);
 
-	void SetString( const char* pszTxt );
-	void SetColor( DWORD dwColor );
-	void SetFormat( UINT uFormat );
-	void SetFont( HNODE hFont );
-	void Draw( RECT& rcDraw );
+  void SetString(const char* pszTxt);
+  void SetColor(DWORD        dwColor);
+  void SetFormat(UINT        uFormat);
+  void SetFont(HNODE         hFont);
+  void Draw(RECT&            rcDraw);
 
-	std::string	m_strText;
-	DWORD		m_dwColor;
-	UINT		m_uFormat;
-	HNODE		m_hFont;
+  std::string m_strText;
+  DWORD       m_dwColor;
+  UINT        m_uFormat;
+  HNODE       m_hFont;
 
 };
 #endif

@@ -74,7 +74,6 @@
 #include "zz_renderer_d3d.h"
 #endif
 
-
 #define ZZ_DEFAULT_INIT_SCRIPT "init.lua"
 #define ZZ_DEFAULT_LOAD_SCRIPT "load.lua"
 
@@ -83,37 +82,37 @@ class zz_renderer;
 //--------------------------------------------------------------------------------
 class zz_view_d3d : public zz_view {
 protected:
-	//zz_pointer<zz_renderer_d3d> renderer;
-	HWND window_handle;
-	int restore_window_mode;
-	bool scene_began; // same as renderer_d3d's
-	
-	//UINT uMSH_MOUSEWHEEL = 0;   // Value returned from RegisterWindowMessage()
-	//bool install_wheel ();
+  //zz_pointer<zz_renderer_d3d> renderer;
+  HWND window_handle;
+  int  restore_window_mode;
+  bool scene_began; // same as renderer_d3d's
+
+  //UINT uMSH_MOUSEWHEEL = 0;   // Value returned from RegisterWindowMessage()
+  //bool install_wheel ();
 
 public:
-	zz_view_d3d ();
-	~zz_view_d3d ();
+  zz_view_d3d();
+  ~zz_view_d3d();
 
-	// TODO: client area dismatch screen size
-	//virtual int get_width (void);
-	//virtual int get_height (void);
+  // TODO: client area dismatch screen size
+  //virtual int get_width (void);
+  //virtual int get_height (void);
 
-	virtual bool attach_window (void);
-	virtual bool detach_window (void);
+  bool attach_window(void) override;
+  bool detach_window(void) override;
 
-	void render ();
+  void render() override;
 
-	bool begin_scene ();
-	bool end_scene ();
+  bool begin_scene() override;
+  bool end_scene() override;
 
-	void set_handle (const void * handle_to_set);
-	void * get_handle ();
+  void  set_handle(const void* handle_to_set) override;
+  void* get_handle() override;
 
-	HWND get_hwnd ();
+  HWND get_hwnd();
 
-	void set_window_text (const char * title);
-	ZZ_DECLARE_DYNAMIC(zz_view_d3d)
+  void set_window_text(const char* title) override;
+ZZ_DECLARE_DYNAMIC(zz_view_d3d)
 };
 
 #endif // __ZZ_VIEW_D3D_H__

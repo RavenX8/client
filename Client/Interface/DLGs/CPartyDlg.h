@@ -9,9 +9,8 @@ class CPartyMember;
 #include "../../GameCommon/IObserver.h"
 #include <list>
 
-typedef	list< CPartyMember* >			LIST_PARTY_MEMBER;
-typedef LIST_PARTY_MEMBER::iterator		LIST_PARTY_MEMBER_ITER;
-
+typedef list<CPartyMember*>         LIST_PARTY_MEMBER;
+typedef LIST_PARTY_MEMBER::iterator LIST_PARTY_MEMBER_ITER;
 
 /**
 * 파티시 파티정보및 파티원을 보여주는 다이얼로그
@@ -22,51 +21,52 @@ typedef LIST_PARTY_MEMBER::iterator		LIST_PARTY_MEMBER_ITER;
 * @Author	최종진
 * @Date		2005/9/12
 */
-class CPartyDlg : public CTDialog, public IObserver
-{
+class CPartyDlg : public CTDialog, public IObserver {
 
 public:
-	CPartyDlg(void);
-	virtual ~CPartyDlg(void);
-	virtual void Draw();
-	virtual void Show();
-	virtual void Hide();
-	virtual void Update(POINT ptMouse);
-	virtual void MoveWindow( POINT pt );
-	virtual unsigned int Process(UINT uiMsg,WPARAM wParam,LPARAM lParam);
+               CPartyDlg(void );
+  virtual      ~CPartyDlg(void);
+  void         Draw() override;
+  void         Show() override;
+  void         Hide() override;
+  void         Update(POINT     ptMouse) override;
+  void         MoveWindow(POINT pt) override;
+  unsigned int Process(UINT     uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	virtual void Update( CObservable* pObservable, CTObject* pObj );
-	
-	void			ClearMemberList();
+  void Update(CObservable* pObservable, CTObject* pObj) override;
 
-protected:
-
-	void			OnLButtonUp( unsigned iProcID );
-
-	WORD			GetSelectedMemberSvrIdx();
-	DWORD			GetSelectedMemberUserTag();
-
-
-	void			ResetMemberPositions();										/// 파티원이 한명 빠질때마다 표시 위치들을 재 계산해준다.
-
-	CPartyMember*	FindMember( WORD wObjSvrIdx );
-	CPartyMember*	GetSelectedMember();
+  void ClearMemberList();
 
 protected:
 
-	enum{
-		IID_BTN_CLOSE		= 10,	/// 파티창 닫기 == IID_BTN_LEAVE와 같은 처리
-		IID_BTN_ENTRUST		= 11,	/// 파티장으로 위임
-		IID_BTN_BAN			= 12,	/// 파티에서 추방
-		IID_BTN_LEAVE		= 13,	/// 파티 떠나기
-		IID_BTN_OPTION		= 14,	/// 파티 옵션창 열기
-	};
+  void OnLButtonUp(unsigned iProcID);
 
+  WORD  GetSelectedMemberSvrIdx();
+  DWORD GetSelectedMemberUserTag();
 
-	LIST_PARTY_MEMBER		m_listPartyMember;							/// 파티원들 정보 컨테이너
+  void ResetMemberPositions(); /// 파티원이 한명 빠질때마다 표시 위치들을 재 계산해준다.
 
+  CPartyMember* FindMember(WORD wObjSvrIdx);
+  CPartyMember* GetSelectedMember();
 
-	int						m_iGuagePartyExpIdx;						/// 파티 경험지 게이지 그래픽 ID
-	int						m_iGuagePartyExpBGIdx;						/// 파티 경험치 게이지 배경 그래픽 ID
+protected:
+
+  enum {
+    IID_BTN_CLOSE = 10,
+    /// 파티창 닫기 == IID_BTN_LEAVE와 같은 처리
+    IID_BTN_ENTRUST = 11,
+    /// 파티장으로 위임
+    IID_BTN_BAN = 12,
+    /// 파티에서 추방
+    IID_BTN_LEAVE = 13,
+    /// 파티 떠나기
+    IID_BTN_OPTION = 14,
+    /// 파티 옵션창 열기
+  };
+
+  LIST_PARTY_MEMBER m_listPartyMember; /// 파티원들 정보 컨테이너
+
+  int m_iGuagePartyExpIdx;   /// 파티 경험지 게이지 그래픽 ID
+  int m_iGuagePartyExpBGIdx; /// 파티 경험치 게이지 배경 그래픽 ID
 };
 #endif

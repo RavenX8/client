@@ -47,60 +47,55 @@
 #ifdef WIN32
 #include <windows.h>
 
-static zz_error::zz_lang_code get_default_lang_code ()
-{
-	LANGID langid = GetUserDefaultLangID();
+static zz_error::zz_lang_code get_default_lang_code() {
+  LANGID                      langid = GetUserDefaultLangID();
 
-	zz_error::zz_lang_code lang_code = zz_error::ENGLISH;
+  zz_error::zz_lang_code lang_code = zz_error::ENGLISH;
 
-	if (langid == LANG_SYSTEM_DEFAULT) { // use system default lang id
-		langid = GetSystemDefaultLangID();
-	}
+  if ( langid == LANG_SYSTEM_DEFAULT ) {
+    // use system default lang id
+    langid = GetSystemDefaultLangID();
+  }
 
-	switch (PRIMARYLANGID(langid))
-	{
-	case LANG_KOREAN: // korean
-		lang_code = zz_error::KOREAN;
-		break;
-	case LANG_JAPANESE: // japanese
-		lang_code = zz_error::JAPANESE;
-		break;
-	default:
-		lang_code = zz_error::ENGLISH;
-	}
+  switch ( PRIMARYLANGID(langid) ) {
+    case LANG_KOREAN: // korean
+      lang_code = zz_error::KOREAN;
+      break;
+    case LANG_JAPANESE: // japanese
+      lang_code = zz_error::JAPANESE;
+      break;
+    default: lang_code = zz_error::ENGLISH;
+  }
 
-	return lang_code;
+  return lang_code;
 }
 
 #endif // win32
 
-zz_error::zz_lang_code zz_error::lang_code = get_default_lang_code();
-std::map<zz_error::zz_error_code, std::string> zz_error::errormap[zz_error::MAXLANG];
+zz_error::zz_lang_code                         zz_error::lang_code = get_default_lang_code();
+std::map<zz_error::zz_error_code, std::string> zz_error::errormap[MAXLANG];
 
-
-zz_error::zz_error (zz_error_code error_code, zz_lang_code lang_code, const char * error_string)
-{
-	errormap[lang_code][error_code] = std::string(error_string);
+zz_error::zz_error(zz_error_code error_code, zz_lang_code lang_code, const char* error_string) {
+  errormap[lang_code][error_code] = std::string( error_string );
 }
 
-const char * zz_error::get_text (zz_error_code error_code)
-{
-	if (errormap[lang_code].end() == errormap[lang_code].find(error_code)) { // not found
-		if (lang_code == ENGLISH) {
-			return NULL;
-		}
-		if (errormap[lang_code].end() == errormap[zz_lang_code::ENGLISH].find(error_code)) { // not found english
-			return NULL;
-		}
-		// found english
-		return errormap[ENGLISH][error_code].c_str();
-	}
-	// found errorcode
-	return errormap[lang_code][error_code].c_str();
+const char* zz_error::get_text(zz_error_code error_code) {
+  if ( errormap[lang_code].end() == errormap[lang_code].find( error_code ) ) {
+    // not found
+    if ( lang_code == ENGLISH ) {
+      return nullptr;
+    }
+    if ( errormap[lang_code].end() == errormap[ENGLISH].find( error_code ) ) {
+      // not found english
+      return nullptr;
+    }
+    // found english
+    return errormap[ENGLISH][error_code].c_str();
+  }
+  // found errorcode
+  return errormap[lang_code][error_code].c_str();
 }
 
 #define ZZ_REG_ERROR( ERCODE, ERLANG, ERMSG ) zz_error err_##ERCODE##ERLANG (zz_error::ERCODE, zz_error::ERLANG, ERMSG);
 
 #include "zz_error_trans.inc"
-
-

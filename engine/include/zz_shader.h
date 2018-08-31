@@ -122,91 +122,84 @@
 //--------------------------------------------------------------------------------
 class zz_shader : public zz_node {
 protected:
-	// handle starts from 0. -1 means no shader
-	zz_handle vshader_handles[ZZ_MAX_SHADER_FORMAT]; // vertex shader handle array  
-	zz_handle pshader_handles[ZZ_MAX_SHADER_FORMAT]; // pixel shader handle array
+  // handle starts from 0. -1 means no shader
+  zz_handle vshader_handles[ZZ_MAX_SHADER_FORMAT]; // vertex shader handle array  
+  zz_handle pshader_handles[ZZ_MAX_SHADER_FORMAT]; // pixel shader handle array
 
-	// names for recovery
-	char * vshader_names[ZZ_MAX_SHADER_FORMAT];
-	char * pshader_names[ZZ_MAX_SHADER_FORMAT];
+  // names for recovery
+  char* vshader_names[ZZ_MAX_SHADER_FORMAT];
+  char* pshader_names[ZZ_MAX_SHADER_FORMAT];
 
-	int num_format; // the number of shader pairs
+  int num_format; // the number of shader pairs
 
-	zz_vertex_format vformat; // vertex format which this shader uses
+  zz_vertex_format vformat; // vertex format which this shader uses
 
-	bool is_binary;
+  bool is_binary;
 
 public:
-	static zz_shader * shadow_shader;
-	static zz_shader * shadow_shader_skin;
-	static zz_shader * glow_shader;
-	static zz_shader * glow_shader_skin;
-	static zz_shader * terrain_shader;
-	static zz_shader * ssao_shader;
-	static zz_shader * ssao_shader_skin;
-	static zz_shader * post_process_shader;
+  static zz_shader* shadow_shader;
+  static zz_shader* shadow_shader_skin;
+  static zz_shader* glow_shader;
+  static zz_shader* glow_shader_skin;
+  static zz_shader* terrain_shader;
+  static zz_shader* ssao_shader;
+  static zz_shader* ssao_shader_skin;
+  static zz_shader* post_process_shader;
 
-	zz_shader(void);
-	virtual ~zz_shader(void);
+          zz_shader(void );
+  virtual ~zz_shader(void);
 
-	static bool init_shader (); // load default shaders. called by system
-	static bool dest_shader (); // cleanup default shaders. called by system
+  static bool init_shader(); // load default shaders. called by system
+  static bool dest_shader(); // cleanup default shaders. called by system
 
-	bool has_skin() const
-	{
-		return vformat.use_skin();
-	}
+  bool has_skin() const {
+    return vformat.use_skin();
+  }
 
-	zz_handle get_vshader (int format_in = SHADER_FORMAT_DEFAULT, ZZ_RENDERWHERE render_where = ZZ_RW_SCENE) const;
-	zz_handle get_pshader (int format_in = SHADER_FORMAT_DEFAULT, ZZ_RENDERWHERE render_where = ZZ_RW_SCENE) const;
+  zz_handle get_vshader(int format_in = SHADER_FORMAT_DEFAULT, ZZ_RENDERWHERE render_where = ZZ_RW_SCENE) const;
+  zz_handle get_pshader(int format_in = SHADER_FORMAT_DEFAULT, ZZ_RENDERWHERE render_where = ZZ_RW_SCENE) const;
 
-	// set current format
-	void set_num_format (int num_format_in)
-	{
-		num_format= num_format_in;
-	}
+  // set current format
+  void set_num_format(int num_format_in) {
+    num_format = num_format_in;
+  }
 
-	int get_num_format () const
-	{
-		return num_format;
-	}
-	
-	void set_vertex_format (int vertex_format_in)
-	{
-		vformat.set_format(vertex_format_in);	
-	}
+  int get_num_format() const {
+    return num_format;
+  }
 
-	const zz_vertex_format& get_vertex_format () const
-	{
-		return vformat;
-	}
+  void set_vertex_format(int vertex_format_in) {
+    vformat.set_format( vertex_format_in );
+  }
 
-	void set_is_binary (bool is_binary_in)
-	{
-		is_binary = is_binary_in;
-	}
+  const zz_vertex_format& get_vertex_format() const {
+    return vformat;
+  }
 
-	bool get_is_binary () const
-	{
-		return is_binary;
-	}
+  void set_is_binary(bool is_binary_in) {
+    is_binary = is_binary_in;
+  }
 
-	zz_handle create_vshader (const char * vshader_filename, int format_in);
-	zz_handle create_pshader (const char * pshader_filename, int format_in);
+  bool get_is_binary() const {
+    return is_binary;
+  }
 
-	// managing device objects
-	virtual void set_load_weight (int weight_in) { }
-	virtual int get_load_weight () const { return 0; }
-	virtual bool bind_device () { return true; }
-	virtual bool unbind_device () { return true; }
-	virtual bool restore_device_objects (); // create unmanaged objects
-	virtual bool invalidate_device_objects (); // destroy unmanaged objects
-	virtual bool init_device_objects (); // create managed objects
-	virtual bool delete_device_objects (); // destroy managed objects
+  zz_handle create_vshader(const char* vshader_filename, int format_in);
+  zz_handle create_pshader(const char* pshader_filename, int format_in);
 
-	static bool check_system_shaders (); // check if has all system default shaders
+  // managing device objects
+  void set_load_weight(int weight_in) override { }
+  int  get_load_weight() const override { return 0; }
+  bool bind_device() override { return true; }
+  bool unbind_device() override { return true; }
+  bool restore_device_objects() override;    // create unmanaged objects
+  bool invalidate_device_objects() override; // destroy unmanaged objects
+  bool init_device_objects() override;       // create managed objects
+  bool delete_device_objects() override;     // destroy managed objects
 
-	ZZ_DECLARE_DYNAMIC(zz_shader)
+  static bool check_system_shaders(); // check if has all system default shaders
+
+ZZ_DECLARE_DYNAMIC(zz_shader)
 };
 
 #endif // __ZZ_SHADER_H__

@@ -3,7 +3,6 @@
 #define	__LIB_UTIL_H
 //-------------------------------------------------------------------------------------------------
 
-
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
 #endif
@@ -16,23 +15,21 @@
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 #endif
 
-
 #ifndef	GET_WHEEL_DELTA_WPARAM
 #define GET_WHEEL_DELTA_WPARAM(wParam)  ((short)HIWORD(wParam))
 #endif
-
 
 #define IS_SIGNED(type)				( ((type) (-1)) < ((type) 0) )
 #define IS_UNSIGNED(type)			( ((type) (-1)) > ((type) 0) )
 
 #ifndef COMPILE_TIME_ASSERT
-	#define COMPILE_TIME_ASSERT(expr)	{	typedef int compile_time_assert_fail[1 - 2 * !(expr)];	}
+#define COMPILE_TIME_ASSERT(expr)	{	typedef int compile_time_assert_fail[1 - 2 * !(expr)];	}
 #endif
 
 #ifndef	COMPILE_TIME_MSG
-	#define TO_NAME(x)					#x 
-	#define TO_NAME2(x)					TO_NAME(x) 
-	#define COMPILE_TIME_MSG(szDESC)	message(__FILE__ "(" TO_NAME2(__LINE__) ") : check! " szDESC) 
+#define TO_NAME(x)					#x
+#define TO_NAME2(x)					TO_NAME(x)
+#define COMPILE_TIME_MSG(szDESC)	message(__FILE__ "(" TO_NAME2(__LINE__) ") : check! " szDESC)
 #endif
 
 #undef MAX_CHAR
@@ -43,7 +40,7 @@
 #define	MAX_USHORT				0x0ffff
 #define	MAX_WORD				MAX_USHORT
 #define	MAX_INT					0x07fffffff
-#define	MAX_UINT				0x0ffffffff 
+#define	MAX_UINT				0x0ffffffff
 #define	MAX_DWORD				MAX_UINT
 #define MAX_INT64				0x7fffffffffffffff
 
@@ -72,16 +69,14 @@ private:									\
 public:										\
 	static class_name *Instance ();			\
 	static class_name *GetInstance();		\
-	static void Destroy ();					\
-
+	static void Destroy ();
 
 #define	DECLARE_INSTANCE2(class_name)		\
 private:									\
 	static class_name *m_p##class_name;		\
 public:										\
 	static class_name *GetInstance();		\
-	static void Destroy ();					\
-
+	static void Destroy ();
 //-----------------------------------------------
 /*
 IMPLEMENT_INSTANCE( CTest ) ==> 
@@ -110,8 +105,7 @@ class_name* class_name::GetInstance()		\
 void class_name::Destroy()					\
 {	if ( m_p##class_name ) {				\
 		delete m_p##class_name;				\
-		m_p##class_name=0;	}		}		\
-
+		m_p##class_name=0;	}		}
 
 #define	IMPLEMENT_INSTANCE2(class_name)		\
 class_name* class_name::m_p##class_name=0;	\
@@ -123,53 +117,51 @@ void class_name::Destroy()					\
 		m_p##class_name=0;	}		}		\
 //-----------------------------------------------
 
-
 #ifndef  __BORLANDC__
-	inline int round_int (double x)
-	{
-	int      i;
-	static const float round_to_nearest = 0.5f;
-	__asm
-	{
-		fld      x
-		fadd     st, st (0)
-		fadd     round_to_nearest
-		fistp    i
-		sar      i, 1
-	}
+inline int           round_int(double x) {
+  int                i;
+  static const float round_to_nearest = 0.5f;
+  __asm
+  {
+    fld x
+    fadd st, st (0)
+    fadd round_to_nearest
+    fistp i
+    sar i, 1
+  }
 
-	return (i);
-	}
-	inline int floor_int (double x)
-	{
-	int      i;
-	static const float round_toward_m_i = -0.5f;
-	__asm
-		{
-		fld      x
-		fadd     st, st (0)
-		fadd     round_toward_m_i
-		fistp    i
-		sar      i, 1
-	}
+  return (i);
+}
 
-	return (i);
-	}
-	inline int ceil_int (double x)
-	{
-	int      i;
-	static const float round_toward_p_i = -0.5f;
-	__asm
-	{
-		fld      x
-		fadd     st, st (0)
-		fsubr    round_toward_p_i
-		fistp    i
-		sar      i, 1
-	}
+inline int           floor_int(double x) {
+  int                i;
+  static const float round_toward_m_i = -0.5f;
+  __asm
+  {
+    fld x
+    fadd st, st (0)
+    fadd round_toward_m_i
+    fistp i
+    sar i, 1
+  }
 
-	return (-i);
-	}
+  return (i);
+}
+
+inline int           ceil_int(double x) {
+  int                i;
+  static const float round_toward_p_i = -0.5f;
+  __asm
+  {
+    fld x
+    fadd st, st (0)
+    fsubr round_toward_p_i
+    fistp i
+    sar i, 1
+  }
+
+  return (-i);
+}
 #endif
 
 //-------------------------------------------------------------------------------------------------

@@ -134,14 +134,12 @@ typedef std::map<zz_visible*, _debug_item> zz_debug_scene_map;
 zz_debug_scene_map debug_scene_map; // to check inserted node. true(inserted), false(removed)
 #endif
 
-zz_octree::zz_octree() : root(NULL)
-{
-	infrustum_nodes.reserve(1000);
+zz_octree::zz_octree() : root( nullptr ) {
+  infrustum_nodes.reserve( 1000 );
 }
 
-zz_octree::~zz_octree ()
-{
-	free_node(root);
+zz_octree::~zz_octree() {
+  free_node( root );
 #ifdef ZZ_DEBUG_SCENE
 	zz_debug_scene_map::iterator it;
 	int count = 0;
@@ -156,67 +154,68 @@ zz_octree::~zz_octree ()
 
 // if found node can afford *obj*, then return that node
 // and, if not found, return top self- *node* 
-zz_octree::_octree_node * zz_octree::find_downward (zz_visible * obj, zz_octree::_octree_node * node)
-{
-	int i;
-	_octree_node * cur_node = node;
+zz_octree::_octree_node* zz_octree::find_downward(zz_visible* obj, _octree_node* node) {
+  int                    i;
+  _octree_node*          cur_node = node;
 
-	// if root was not created, now create one.
-	// root should be freed in destructor
-	if (!root) {
-		assert(cur_node == NULL);
-		root = alloc_node(NULL,
-			ZZ_OCTREE_MINX, ZZ_OCTREE_MAXX,
-			ZZ_OCTREE_MINY, ZZ_OCTREE_MAXY,
-			ZZ_OCTREE_MINZ, ZZ_OCTREE_MAXZ);
-		cur_node = root;
-	}
+  // if root was not created, now create one.
+  // root should be freed in destructor
+  if ( !root ) {
+    assert(cur_node == NULL);
+    root = alloc_node( nullptr,
+                       ZZ_OCTREE_MINX, ZZ_OCTREE_MAXX,
+                       ZZ_OCTREE_MINY, ZZ_OCTREE_MAXY,
+                       ZZ_OCTREE_MINZ, ZZ_OCTREE_MAXZ );
+    cur_node = root;
+  }
 
-	// outer loop : abort if no children
+  // outer loop : abort if no children
 #ifdef _DEBUG
 	static int depth = 0, maxdepth = -1;
 	depth = 0; // for debugging
-#endif 
+#endif
 
-	zz_assert(obj);
-	zz_assert(obj->minmax);
+  zz_assert(obj);
+  zz_assert(obj->minmax);
 
-	zz_assertf(obj->minmax[0].x <= obj->minmax[1].x, "[%s:%s] min.x[%f] <= max.x[%f]",
-		obj->get_name(),
-		obj->get_node_type()->type_name,
-		obj->minmax[0].x, obj->minmax[1].x
-		);
+  zz_assertf( obj->minmax[0].x <= obj->minmax[1].x, "[%s:%s] min.x[%f] <= max.x[%f]",
+              obj->get_name(),
+              obj->get_node_type()->type_name,
+              obj->minmax[0].x, obj->minmax[1].x
+  );
 
-	zz_assertf(obj->minmax[0].y <= obj->minmax[1].y, "[%s:%s] min.y[%f] <= max.y[%f]",
-		obj->get_name(),
-		obj->get_node_type()->type_name,
-		obj->minmax[0].y, obj->minmax[1].y
-		);
+  zz_assertf( obj->minmax[0].y <= obj->minmax[1].y, "[%s:%s] min.y[%f] <= max.y[%f]",
+              obj->get_name(),
+              obj->get_node_type()->type_name,
+              obj->minmax[0].y, obj->minmax[1].y
+  );
 
-	zz_assertf(obj->minmax[0].z <= obj->minmax[1].z, "[%s:%s] min.z[%f] <= max.z[%f]",
-		obj->get_name(),
-		obj->get_node_type()->type_name,
-		obj->minmax[0].z, obj->minmax[1].z
-		);
+  zz_assertf( obj->minmax[0].z <= obj->minmax[1].z, "[%s:%s] min.z[%f] <= max.z[%f]",
+              obj->get_name(),
+              obj->get_node_type()->type_name,
+              obj->minmax[0].z, obj->minmax[1].z
+  );
 
-	while (cur_node->child[0]) { // if has children
-		for (i = 0; i < 8; ++i) {
-			if (is_inside_node(cur_node->child[i], obj->minmax[0], obj->minmax[1])) { // found
-				cur_node = cur_node->child[i];
-				break;
-			}
-		}
-		// if we reach this point, then although there are children, none of them 
-		// is big enough to contain the obj
-		if (i == 8) {
-			cur_node = node;
-			break;
-		}
-		node = cur_node; // update node
+  while ( cur_node->child[0] ) {
+    // if has children
+    for ( i = 0; i < 8; ++i ) {
+      if ( is_inside_node( cur_node->child[i], obj->minmax[0], obj->minmax[1] ) ) {
+        // found
+        cur_node = cur_node->child[i];
+        break;
+      }
+    }
+    // if we reach this point, then although there are children, none of them 
+    // is big enough to contain the obj
+    if ( i == 8 ) {
+      cur_node = node;
+      break;
+    }
+    node = cur_node; // update node
 #ifdef _DEBUG
 		depth++;
 #endif
-	}
+  }
 
 #ifdef _DEBUG
 	if (depth > maxdepth) {
@@ -225,39 +224,38 @@ zz_octree::_octree_node * zz_octree::find_downward (zz_visible * obj, zz_octree:
 	}
 #endif
 
-	// this cur_node has no children, then return this cur_node
-	// if this cur_node has too many children, it will be collapsed after call to collapse()
-	// currently, we does not care about how many children are here
-	return cur_node;
+  // this cur_node has no children, then return this cur_node
+  // if this cur_node has too many children, it will be collapsed after call to collapse()
+  // currently, we does not care about how many children are here
+  return cur_node;
 }
 
 // insert object in the adequate node
 // we begin by finding octree node which is enough to contain the object
-bool zz_octree::insert (zz_visible * object)
-{
-	zz_assert(object);
-	zz_assert(!object->_onode);
-	zz_assert(object->parent_node == object->get_root());
-	zz_assert(object->valid_bvolume);
+bool zz_octree::insert(zz_visible* object) {
+  zz_assert(object);
+  zz_assert(!object->_onode);
+  zz_assert(object->parent_node == object->get_root());
+  zz_assert(object->valid_bvolume);
 
-	_octree_node * node = find_downward(object, root);
-	zz_assert(node);
+  _octree_node* node = find_downward( object, root );
+  zz_assert(node);
 
-	_octree_node * found = NULL;
+  _octree_node* found = nullptr;
 
-	while ((node->pmax.x - node->pmin.x) > ZZ_OCTREE_MIN_WIDTH) {
-		if (node->child[0] == NULL) {
-			subdivide(node);
-		}
-		found = find_downward(object, node);
-		if (found == node) break;
-		node = found;
-	}
+  while ( (node->pmax.x - node->pmin.x) > ZZ_OCTREE_MIN_WIDTH ) {
+    if ( node->child[0] == nullptr ) {
+      subdivide( node );
+    }
+    found = find_downward( object, node );
+    if ( found == node ) break;
+    node = found;
+  }
 
-	// really add
-	node->add(object);
-	// set visible's otree node
-	object->_onode = node;
+  // really add
+  node->add( object );
+  // set visible's otree node
+  object->_onode = node;
 
 #ifdef ZZ_DEBUG_SCENE
 	if (!object->is_a(ZZ_RUNTIME_TYPE(zz_terrain_block)) &&
@@ -287,30 +285,29 @@ bool zz_octree::insert (zz_visible * object)
 			aabb->pmin.x, aabb->pmax.x, aabb->pmin.y, aabb->pmax.y, aabb->pmin.z, aabb->pmax.z);
 	}
 #endif
-	return true;
+  return true;
 }
 
 // if not found, return false
 // this version does not update octree tree structure
-bool zz_octree::remove (zz_visible * object)
-{
-	assert(object);
-	assert(object->is_a(ZZ_RUNTIME_TYPE(zz_visible)));
+bool zz_octree::remove(zz_visible* object) {
+  assert(object);
+  assert(object->is_a(ZZ_RUNTIME_TYPE(zz_visible)));
 
-	_octree_node * node = reinterpret_cast<_octree_node *>(object->_onode);
+  _octree_node* node = reinterpret_cast<_octree_node *>(object->_onode);
 
-	if (!node) return false;
-	
+  if ( !node ) return false;
+
 #ifdef _DEBUG
 	zz_list<zz_visible *>::iterator it = node->objects.find(object);
 	assert(it != node->objects.end()); // remove failed
 #endif
-	
-	// delete actually
-	node->del(object);
 
-	// clear visible's octree node information
-	object->_onode = NULL;
+  // delete actually
+  node->del( object );
+
+  // clear visible's octree node information
+  object->_onode = nullptr;
 
 #ifdef ZZ_DEBUG_SCENE
 	if (!object->is_a(ZZ_RUNTIME_TYPE(zz_terrain_block)) &&
@@ -336,93 +333,107 @@ bool zz_octree::remove (zz_visible * object)
 	}
 #endif
 
-	//ZZ_LOG("octree: remove(%s) completed\n", object->get_name());
-	return true;
+  //ZZ_LOG("octree: remove(%s) completed\n", object->get_name());
+  return true;
 }
 
 // simply remove and insert
-bool zz_octree::refresh (zz_visible * vis)
-{
-	assert(vis);
-	assert(vis->valid_bvolume);
-	assert(vis->_onode);
+bool zz_octree::refresh(zz_visible* vis) {
+  assert(vis);
+  assert(vis->valid_bvolume);
+  assert(vis->_onode);
 
-	remove(vis);
-	insert(vis);
+  remove( vis );
+  insert( vis );
 
-	return true;
+  return true;
 }
 
-zz_octree::_octree_node * zz_octree::alloc_node(zz_octree::_octree_node * p,
-                             float x0, float x1,
-                             float y0, float y1,
-                             float z0, float z1)
-{
-    //_octree_node * n = this->free_root;
-	_octree_node * n = zz_new _octree_node;
-    assert(n);
-    //this->free_root = n->next;
-    n->parent = p;
-    n->pmin.x=x0; n->pmin.y=y0; n->pmin.z=z0;
-    n->pmax.x=x1; n->pmax.y=y1; n->pmax.z=z1;
-    return n;
+zz_octree::_octree_node* zz_octree::alloc_node(_octree_node* p,
+                                               float         x0, float x1,
+                                               float         y0, float y1,
+                                               float         z0, float z1) {
+  //_octree_node * n = this->free_root;
+  _octree_node* n = zz_new _octree_node;
+  assert(n);
+  //this->free_root = n->next;
+  n->parent = p;
+  n->pmin.x = x0;
+  n->pmin.y = y0;
+  n->pmin.z = z0;
+  n->pmax.x = x1;
+  n->pmax.y = y1;
+  n->pmax.z = z1;
+  return n;
 }
 
-void zz_octree::free_children (_octree_node * n)
-{
-	assert(n);
+void zz_octree::free_children(_octree_node* n) {
+  assert(n);
 
-	for (int i = 0; i < 8; ++i) {
-		if (n->child[i]) {
-			free_node(n->child[i]);
-			n->child[i] = NULL;
-		}
-	}
+  for ( int i = 0; i < 8; ++i ) {
+    if ( n->child[i] ) {
+      free_node( n->child[i] );
+      n->child[i] = nullptr;
+    }
+  }
 }
 
 // [updated: 2003-02-21 by zho]
 // We begin by freeing all children nodes, and
 // clear octree node info of all visibles in object list.
 // And then, delete itself
-void zz_octree::free_node(_octree_node * n)
-{
-	if (!n) return;
-	free_children(n);
+void zz_octree::free_node(_octree_node* n) {
+  if ( !n ) return;
+  free_children( n );
 
-	// this can be time-consuming task
-	// if then, remove this and remove assert() in insert()
-	zz_list<zz_visible *>::iterator it;
-	//ZZ_LOG("octree: [%p]->free_node() called\n", n);
-	for (it = n->objects.begin(); it != n->objects.end(); it++) {
-		if (*it) {
-			//ZZ_LOG("octree: [%p]->free_node(%s) done\n", n, (*it)->get_name());
-			(*it)->_onode = NULL;
-		}
-	}
+  // this can be time-consuming task
+  // if then, remove this and remove assert() in insert()
+  zz_list<zz_visible *>::iterator it;
+  //ZZ_LOG("octree: [%p]->free_node() called\n", n);
+  for ( it = n->objects.begin(); it != n->objects.end(); ++it ) {
+    if ( *it ) {
+      //ZZ_LOG("octree: [%p]->free_node(%s) done\n", n, (*it)->get_name());
+      (*it)->_onode = nullptr;
+    }
+  }
 
-	if (n == root) root = NULL;
-	ZZ_SAFE_DELETE(n);
+  if ( n == root ) root = nullptr;
+  ZZ_SAFE_DELETE(n);
 }
 
-void zz_octree::subdivide (zz_octree::_octree_node * node)
-{
-	assert(NULL == node->child[0]);
+void zz_octree::subdivide(_octree_node* node) {
+  assert(NULL == node->child[0]);
 
-	// create new child-nodes
-	float x = (node->pmin.x + node->pmax.x) * 0.5f;
-	float y = (node->pmin.y + node->pmax.y) * 0.5f;
-	float z = (node->pmin.z + node->pmax.z) * 0.5f;
-	int i;
-	for (i=0; i<8; i++) {
-		float x0,x1,y0,y1,z0,z1;
-		if (i & 1) { x0=node->pmin.x; x1=x; }
-		else       { x0=x; x1=node->pmax.x; }
-		if (i & 2) { y0=node->pmin.y; y1=y; }
-		else       { y0=y; y1=node->pmax.y; }
-		if (i & 4) { z0=node->pmin.z; z1=z; }
-		else       { z0=z; z1=node->pmax.z; }
-		node->child[i] = this->alloc_node(node,x0,x1,y0,y1,z0,z1);
-	}
+  // create new child-nodes
+  float x = (node->pmin.x + node->pmax.x) * 0.5f;
+  float y = (node->pmin.y + node->pmax.y) * 0.5f;
+  float z = (node->pmin.z + node->pmax.z) * 0.5f;
+  int   i;
+  for ( i = 0; i < 8; i++ ) {
+    float x0, x1, y0, y1, z0, z1;
+    if ( i & 1 ) {
+      x0 = node->pmin.x;
+      x1 = x;
+    } else {
+      x0 = x;
+      x1 = node->pmax.x;
+    }
+    if ( i & 2 ) {
+      y0 = node->pmin.y;
+      y1 = y;
+    } else {
+      y0 = y;
+      y1 = node->pmax.y;
+    }
+    if ( i & 4 ) {
+      z0 = node->pmin.z;
+      z1 = z;
+    } else {
+      z0 = z;
+      z1 = node->pmax.z;
+    }
+    node->child[i] = this->alloc_node( node, x0, x1, y0, y1, z0, z1 );
+  }
 }
 
 //void zz_octree::balance (_octree_node * node)
@@ -463,170 +474,162 @@ void zz_octree::subdivide (zz_octree::_octree_node * node)
 // is also recorded. 
 //
 ////////////////////////////////////////////////////
-void zz_octree::_octree_node::cull_planes(bool insert_onoff,zz_octree& octree, const zz_viewfrustum& view)
-{
-	if (all_num_objs <= 0) return;
+void zz_octree::_octree_node::cull_planes(bool insert_onoff, zz_octree& octree, const zz_viewfrustum& view) {
+  if ( all_num_objs <= 0 ) return;
 
-	unsigned char zones[8]={0,0,0,0,0,0,0,0};
-	vec3 pt[8];
-	int ii;
-	vec3 dir;
-	float dist;
-	
-	zz_visible * vis;
-	zz_list<zz_visible *>::iterator it, it_end;
-	
-	//compute the half dimensions
-	float wd2 = .5f*(pmax.x - pmin.x); //float wd2=m_width/2.0f;
-	float hd2 = .5f*(pmax.y - pmin.y); //float hd2=m_height/2.0f;
-	float dd2 = .5f*(pmax.z - pmin.z); //float dd2=m_depth/2.0f;
-	vec3 center(.5f*(pmax + pmin));
+  unsigned char zones[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+  vec3          pt[8];
+  int           ii;
+  vec3          dir;
+  float         dist;
 
-	bool hint;
-    
-	if(insert_onoff)
-	{
-		for (it = objects.begin(), it_end = objects.end(); it != it_end; ++it) {
-			vis = (*it);
-			(*it)->gather_visible(octree.infrustum_nodes);
-		
-			//// for test
-			//int i = 0;
-			//const zz_bounding_aabb * aabb = obj->get_bvolume()->get_aabb();
-			//ZZ_LOG("octree: cull_planes(%d). octree(%d-%d, %d-%d, %d-%d)-vis(%d-%d, %d-%d, %d-%d), %s\n",
-			//	i++, 
-			//		int(pmin.x), int(pmax.x),
-			//		int(pmin.y), int(pmax.y),
-			//		int(pmin.z), int(pmax.z),
-			//		int(aabb->pmin.x), int(aabb->pmax.x),
-			//		int(aabb->pmin.y), int(aabb->pmax.y),
-			//		int(aabb->pmin.z), int(aabb->pmax.z),
-			//		obj->get_name()
-			//		);
-		}
-	}	
-	else
-	{
-	
-		//ZZ_LOG("octree: cull_planes() all_num_objs(%d)\n", all_num_objs);
+  zz_visible*                     vis;
+  zz_list<zz_visible *>::iterator it, it_end;
 
-		//loop throught the eight corners of the node
-		// and determine where they lie with respect
-		// to the frustum planes
-		//
-		// This is sub-optimal as several points are
-		// actually checked multiple times, but it
-		// seems to make the code more understandable
-		for(ii=0;ii<8;++ii){
-			//compute the location of the current corner
-			pt[ii].x=center.x+((ii&0x1)?wd2:-wd2);
-			pt[ii].y=center.y+((ii&0x2)?hd2:-hd2);
-			pt[ii].z=center.z+((ii&0x4)?dd2:-dd2);
+  //compute the half dimensions
+  float wd2 = .5f * (pmax.x - pmin.x); //float wd2=m_width/2.0f;
+  float hd2 = .5f * (pmax.y - pmin.y); //float hd2=m_height/2.0f;
+  float dd2 = .5f * (pmax.z - pmin.z); //float dd2=m_depth/2.0f;
+  vec3  center( .5f * (pmax + pmin) );
 
-			if((view.np.x*pt[ii].x+view.np.y*pt[ii].y+view.np.z*pt[ii].z+view.np.w)>-0.01f)
-				zones[ii]|=0x01;
-			else if((view.fp.x*pt[ii].x+view.fp.y*pt[ii].y+view.fp.z*pt[ii].z+view.fp.w)>-0.01f)
-				zones[ii]|=0x02;
+  bool hint;
 
-			if((view.lp.x*pt[ii].x+view.lp.y*pt[ii].y+view.lp.z*pt[ii].z+view.lp.w)>-0.01f)
-				zones[ii]|=0x04;
-			if((view.rp.x*pt[ii].x+view.rp.y*pt[ii].y+view.rp.z*pt[ii].z+view.rp.w)>-0.01f)
-				zones[ii]|=0x08;
+  if ( insert_onoff ) {
+    for ( it = objects.begin(), it_end = objects.end(); it != it_end; ++it ) {
+      vis    = (*it);
+      (*it)->gather_visible( octree.infrustum_nodes );
 
-			if((view.tp.x*pt[ii].x+view.tp.y*pt[ii].y+view.tp.z*pt[ii].z+view.tp.w)>-0.01f)
-				zones[ii]|=0x10;
-			if((view.bp.x*pt[ii].x+view.bp.y*pt[ii].y+view.bp.z*pt[ii].z+view.bp.w)>-0.01f)
-				zones[ii]|=0x20;
-		}
-
-		//if all of the corners are outside on of the boundaries
-		// this node is excluded, so stop traversing
-		//
-		//This allows some nodes to sneak through that are at the corners
-		// of the frustum, but ignoring that case was done to
-		// simplify the code
-		if (zones[0]&zones[1]&zones[2]&zones[3]&zones[4]&zones[5]&zones[6]&zones[7])
-			return;
-
-		//compute the distance squared
-		dir = center;
-		dist = dir.x*dir.x+dir.y*dir.y+dir.z*dir.z;
-
-		//determine if node is completely contained
-		hint=!((zones[0]|zones[1]|zones[2]|zones[3]|zones[4]|zones[5]|zones[6]|zones[7]));
-
-		
-		vec3 * minmax;
-		if(hint)
-		{
-			insert_onoff = true;
-			for (it = objects.begin(), it_end = objects.end(); it != it_end; ++it) {
-				vis = (*it);
-				(*it)->gather_visible(octree.infrustum_nodes);
-			
-				//// for test
-				//int i = 0;
-				//const zz_bounding_aabb * aabb = obj->get_bvolume()->get_aabb();
-				//ZZ_LOG("octree: cull_planes(%d). octree(%d-%d, %d-%d, %d-%d)-vis(%d-%d, %d-%d, %d-%d), %s\n",
-				//	i++, 
-				//		int(pmin.x), int(pmax.x),
-				//		int(pmin.y), int(pmax.y),
-				//		int(pmin.z), int(pmax.z),
-				//		int(aabb->pmin.x), int(aabb->pmax.x),
-				//		int(aabb->pmin.y), int(aabb->pmax.y),
-				//		int(aabb->pmin.z), int(aabb->pmax.z),
-				//		obj->get_name()
-				//		);
-		    }
-		
-			// add this node into rendering list
-			static int max_num_objects = 0;
-			//if (objects.size() > max_num_objects) {
-				//max_num_objects = objects.size();
-				//ZZ_LOG("octree: max_num_objects = %d, range = (%07d_%07d, %07d_%07d, %07d_%07d)\n",
-				//	max_num_objects, 
-				//	(int)this->pmin.x, (int)this->pmax.x,
-				//	(int)this->pmin.y, (int)this->pmax.y,
-				//	(int)this->pmin.z, (int)this->pmax.z);
-			//}
-		}
-		else
-		{
-		
-			insert_onoff = false;
-			for (it = objects.begin(), it_end = objects.end(); it != it_end; ++it) {
-				vis = (*it);
-				minmax = vis->get_minmax();
-				assert(minmax);
-				if (intersect(minmax[0], minmax[1], view)) {
-					//octree.infrustum_nodes.push_back(*it);
-					(*it)->gather_visible(octree.infrustum_nodes);
-				}
-
-				//// for test
-				//int i = 0;
-				//const zz_bounding_aabb * aabb = obj->get_bvolume()->get_aabb();
-				//ZZ_LOG("octree: cull_planes(%d). octree(%d-%d, %d-%d, %d-%d)-vis(%d-%d, %d-%d, %d-%d), %s\n",
-				//	i++, 
-				//		int(pmin.x), int(pmax.x),
-				//		int(pmin.y), int(pmax.y),
-				//		int(pmin.z), int(pmax.z),
-				//		int(aabb->pmin.x), int(aabb->pmax.x),
-				//		int(aabb->pmin.y), int(aabb->pmax.y),
-				//		int(aabb->pmin.z), int(aabb->pmax.z),
-				//		obj->get_name()
-				//		);
-			}
-		}
-	
+      //// for test
+      //int i = 0;
+      //const zz_bounding_aabb * aabb = obj->get_bvolume()->get_aabb();
+      //ZZ_LOG("octree: cull_planes(%d). octree(%d-%d, %d-%d, %d-%d)-vis(%d-%d, %d-%d, %d-%d), %s\n",
+      //	i++, 
+      //		int(pmin.x), int(pmax.x),
+      //		int(pmin.y), int(pmax.y),
+      //		int(pmin.z), int(pmax.z),
+      //		int(aabb->pmin.x), int(aabb->pmax.x),
+      //		int(aabb->pmin.y), int(aabb->pmax.y),
+      //		int(aabb->pmin.z), int(aabb->pmax.z),
+      //		obj->get_name()
+      //		);
     }
-	// traverse children if any
-	for(ii=0;ii<8;++ii) {
-		if (child[ii]) {
-			child[ii]->cull_planes(insert_onoff,octree, view);
-	 	}
-		
-	}
+  } else {
+
+    //ZZ_LOG("octree: cull_planes() all_num_objs(%d)\n", all_num_objs);
+
+    //loop throught the eight corners of the node
+    // and determine where they lie with respect
+    // to the frustum planes
+    //
+    // This is sub-optimal as several points are
+    // actually checked multiple times, but it
+    // seems to make the code more understandable
+    for ( ii = 0; ii < 8; ++ii ) {
+      //compute the location of the current corner
+      pt[ii].x = center.x + ((ii & 0x1) ? wd2 : -wd2);
+      pt[ii].y = center.y + ((ii & 0x2) ? hd2 : -hd2);
+      pt[ii].z = center.z + ((ii & 0x4) ? dd2 : -dd2);
+
+      if ( (view.np.x * pt[ii].x + view.np.y * pt[ii].y + view.np.z * pt[ii].z + view.np.w) > -0.01f )
+        zones[ii] |= 0x01;
+      else if ( (view.fp.x * pt[ii].x + view.fp.y * pt[ii].y + view.fp.z * pt[ii].z + view.fp.w) > -0.01f )
+        zones[ii] |= 0x02;
+
+      if ( (view.lp.x * pt[ii].x + view.lp.y * pt[ii].y + view.lp.z * pt[ii].z + view.lp.w) > -0.01f )
+        zones[ii] |= 0x04;
+      if ( (view.rp.x * pt[ii].x + view.rp.y * pt[ii].y + view.rp.z * pt[ii].z + view.rp.w) > -0.01f )
+        zones[ii] |= 0x08;
+
+      if ( (view.tp.x * pt[ii].x + view.tp.y * pt[ii].y + view.tp.z * pt[ii].z + view.tp.w) > -0.01f )
+        zones[ii] |= 0x10;
+      if ( (view.bp.x * pt[ii].x + view.bp.y * pt[ii].y + view.bp.z * pt[ii].z + view.bp.w) > -0.01f )
+        zones[ii] |= 0x20;
+    }
+
+    //if all of the corners are outside on of the boundaries
+    // this node is excluded, so stop traversing
+    //
+    //This allows some nodes to sneak through that are at the corners
+    // of the frustum, but ignoring that case was done to
+    // simplify the code
+    if ( zones[0] & zones[1] & zones[2] & zones[3] & zones[4] & zones[5] & zones[6] & zones[7] )
+      return;
+
+    //compute the distance squared
+    dir  = center;
+    dist = dir.x * dir.x + dir.y * dir.y + dir.z * dir.z;
+
+    //determine if node is completely contained
+    hint = !((zones[0] | zones[1] | zones[2] | zones[3] | zones[4] | zones[5] | zones[6] | zones[7]));
+
+    vec3* minmax;
+    if ( hint ) {
+      insert_onoff = true;
+      for ( it     = objects.begin(), it_end = objects.end(); it != it_end; ++it ) {
+        vis        = (*it);
+        (*it)->gather_visible( octree.infrustum_nodes );
+
+        //// for test
+        //int i = 0;
+        //const zz_bounding_aabb * aabb = obj->get_bvolume()->get_aabb();
+        //ZZ_LOG("octree: cull_planes(%d). octree(%d-%d, %d-%d, %d-%d)-vis(%d-%d, %d-%d, %d-%d), %s\n",
+        //	i++, 
+        //		int(pmin.x), int(pmax.x),
+        //		int(pmin.y), int(pmax.y),
+        //		int(pmin.z), int(pmax.z),
+        //		int(aabb->pmin.x), int(aabb->pmax.x),
+        //		int(aabb->pmin.y), int(aabb->pmax.y),
+        //		int(aabb->pmin.z), int(aabb->pmax.z),
+        //		obj->get_name()
+        //		);
+      }
+
+      // add this node into rendering list
+      static int max_num_objects = 0;
+      //if (objects.size() > max_num_objects) {
+      //max_num_objects = objects.size();
+      //ZZ_LOG("octree: max_num_objects = %d, range = (%07d_%07d, %07d_%07d, %07d_%07d)\n",
+      //	max_num_objects, 
+      //	(int)this->pmin.x, (int)this->pmax.x,
+      //	(int)this->pmin.y, (int)this->pmax.y,
+      //	(int)this->pmin.z, (int)this->pmax.z);
+      //}
+    } else {
+
+      insert_onoff = false;
+      for ( it     = objects.begin(), it_end = objects.end(); it != it_end; ++it ) {
+        vis        = (*it);
+        minmax     = vis->get_minmax();
+        assert(minmax);
+        if ( intersect( minmax[0], minmax[1], view ) ) {
+          //octree.infrustum_nodes.push_back(*it);
+          (*it)->gather_visible( octree.infrustum_nodes );
+        }
+
+        //// for test
+        //int i = 0;
+        //const zz_bounding_aabb * aabb = obj->get_bvolume()->get_aabb();
+        //ZZ_LOG("octree: cull_planes(%d). octree(%d-%d, %d-%d, %d-%d)-vis(%d-%d, %d-%d, %d-%d), %s\n",
+        //	i++, 
+        //		int(pmin.x), int(pmax.x),
+        //		int(pmin.y), int(pmax.y),
+        //		int(pmin.z), int(pmax.z),
+        //		int(aabb->pmin.x), int(aabb->pmax.x),
+        //		int(aabb->pmin.y), int(aabb->pmax.y),
+        //		int(aabb->pmin.z), int(aabb->pmax.z),
+        //		obj->get_name()
+        //		);
+      }
+    }
+
+  }
+  // traverse children if any
+  for ( ii = 0; ii < 8; ++ii ) {
+    if ( child[ii] ) {
+      child[ii]->cull_planes( insert_onoff, octree, view );
+    }
+
+  }
 }
 
 /*
@@ -643,122 +646,118 @@ octree -> bbox :
        recurse it
    else, add nodes which are in bbox
 */
-void zz_octree::collect_by_minmax_recurse (
-	_octree_node * node,
-	std::vector<zz_visible *>& nodes,
-	const vec3 minmax[2],
-	bool skip_no_collision
-)
-{
-	int i;
-	int res;
+void zz_octree::collect_by_minmax_recurse(
+  _octree_node*              node,
+  std::vector<zz_visible *>& nodes,
+  const vec3                 minmax[2],
+  bool                       skip_no_collision
+) {
+  int i;
+  int res;
 
-	if (!node) return;
+  if ( !node ) return;
 
-	res = zz_bounding_aabb::intersect(node->pmin, node->pmax, minmax[0], minmax[1]);
-	if (res == zz_bounding_aabb::ISCONTAINED) {
-		// add all nodes in this octree_node
-		node->collect(nodes, skip_no_collision);
-		return;
-	}
-	else if (res == zz_bounding_aabb::OUTSIDE) {
-		return; // ignore
-	}
-	node->collect_by_minmax(nodes, minmax, skip_no_collision);
+  res = zz_bounding_aabb::intersect( node->pmin, node->pmax, minmax[0], minmax[1] );
+  if ( res == zz_bounding_aabb::ISCONTAINED ) {
+    // add all nodes in this octree_node
+    node->collect( nodes, skip_no_collision );
+    return;
+  }
+  if ( res == zz_bounding_aabb::OUTSIDE ) {
+    return; // ignore
+  }
+  node->collect_by_minmax( nodes, minmax, skip_no_collision );
 
-	// recurse it
-	// outer loop : abort if no children
-	if (node->child[0]) { // if has children
-		for (i = 0; i < 8; ++i) {
-			collect_by_minmax_recurse(node->child[i], nodes, minmax, skip_no_collision);
-		}
-	}
+  // recurse it
+  // outer loop : abort if no children
+  if ( node->child[0] ) {
+    // if has children
+    for ( i = 0; i < 8; ++i ) {
+      collect_by_minmax_recurse( node->child[i], nodes, minmax, skip_no_collision );
+    }
+  }
 }
 
-void zz_octree::cull_planes (const zz_viewfrustum& view)
-{
-	this->infrustum_nodes.clear();
-	//ZZ_LOG("octree: cull_planes():infrustum_nodes.size(%d)\n", infrustum_nodes.size());
-	if (!root) {
-		ZZ_LOG("octree: cull_planes() no root\n");
-		return;
-	}
-	root->cull_planes(false,*this, view);
+void zz_octree::cull_planes(const zz_viewfrustum& view) {
+  this->infrustum_nodes.clear();
+  //ZZ_LOG("octree: cull_planes():infrustum_nodes.size(%d)\n", infrustum_nodes.size());
+  if ( !root ) {
+    ZZ_LOG( "octree: cull_planes() no root\n" );
+    return;
+  }
+  root->cull_planes( false, *this, view );
 
-	// to see octree node information(debugging purpose)
-	//trace(root);
+  // to see octree node information(debugging purpose)
+  //trace(root);
 }
 
-void zz_octree::trace (_octree_node * node)
-{
-	if (!node) return;
-	
-	if (node == root) {
-		ZZ_LOG("trace() number of nodes(%d)\n", node->all_num_objs);
-	}
+void zz_octree::trace(_octree_node* node) {
+  if ( !node ) return;
 
-	if (node->objects.size() != 0) {
-		ZZ_LOG("octree::trace(). range[X, Y, Z]=[%+8.f..%+8.f, %+8.f..%+8.f, %+8.f..%+8.f] has #(%d) objects.\n",
-			node->pmin.x, node->pmax.x, node->pmin.y, node->pmax.y, node->pmin.z, node->pmax.z, 
-			node->objects.size());
-	}
+  if ( node == root ) {
+    ZZ_LOG( "trace() number of nodes(%d)\n", node->all_num_objs );
+  }
 
-	for (int i = 0; i < 8; ++i) {
-		trace(node->child[i]);
-	}
+  if ( node->objects.size() != 0 ) {
+    ZZ_LOG( "octree::trace(). range[X, Y, Z]=[%+8.f..%+8.f, %+8.f..%+8.f, %+8.f..%+8.f] has #(%d) objects.\n",
+            node->pmin.x, node->pmax.x, node->pmin.y, node->pmax.y, node->pmin.z, node->pmax.z,
+            node->objects.size() );
+  }
+
+  for ( int i = 0; i < 8; ++i ) {
+    trace( node->child[i] );
+  }
 }
 
 // sync to collect_by_minmax()
-void zz_octree::_octree_node::collect (
-									   std::vector<zz_visible *>& nodes,
-									   bool skip_no_collision
-									   )
-{
-	zz_list<zz_visible*>::iterator it, it_end;
-	zz_visible * vis;
+void zz_octree::_octree_node::collect(
+  std::vector<zz_visible *>& nodes,
+  bool                       skip_no_collision
+) {
+  zz_list<zz_visible*>::iterator it, it_end;
+  zz_visible*                    vis;
 
-	if (skip_no_collision) {
-		for (it = objects.begin(), it_end = objects.end(); it != it_end; ++it) {
-			// skip if it is not the compare_type or is descendant of parent_to_ignore_child
-			vis = (*it);
-			vis->gather_collidable(nodes); // includes children
-		}
-	}
-	else {
-		for (it = objects.begin(), it_end = objects.end(); it != it_end; ++it) {
-			// skip if it is not the compare_type or is descendant of parent_to_ignore_child
-			vis = (*it);
-			vis->gather_visible(nodes); // includes children
-		}
-	}
-	if (!this->child[0]) return;
-	for (int i = 0; i < 8; ++i) {
-		child[i]->collect(nodes, skip_no_collision);
-	}
+  if ( skip_no_collision ) {
+    for ( it = objects.begin(), it_end = objects.end(); it != it_end; ++it ) {
+      // skip if it is not the compare_type or is descendant of parent_to_ignore_child
+      vis = (*it);
+      vis->gather_collidable( nodes ); // includes children
+    }
+  } else {
+    for ( it = objects.begin(), it_end = objects.end(); it != it_end; ++it ) {
+      // skip if it is not the compare_type or is descendant of parent_to_ignore_child
+      vis = (*it);
+      vis->gather_visible( nodes ); // includes children
+    }
+  }
+  if ( !this->child[0] ) return;
+  for ( int i = 0; i < 8; ++i ) {
+    child[i]->collect( nodes, skip_no_collision );
+  }
 }
 
-void zz_octree::_octree_node::collect_by_minmax (
-	std::vector<zz_visible*>& nodes,
-	const vec3 minmax[2],
-	bool skip_no_collision // if it is true, skip none collision objects.
-	)
-{
-	zz_list<zz_visible*>::iterator it, it_end;
-	zz_visible * vis;
-	if (skip_no_collision) {
-		for (it = objects.begin(), it_end = objects.end(); it != it_end; ++it) {
-			vis = (*it);
-			if (vis->test_intersection_box_level(minmax[0], minmax[1], ZZ_CL_AABB)) { // intersect
-				vis->gather_collidable(nodes);
-			}
-		}
-	}
-	else {
-		for (it = objects.begin(), it_end = objects.end(); it != it_end; ++it) {
-			vis = (*it);
-			if (vis->test_intersection_box_level(minmax[0], minmax[1], ZZ_CL_AABB)) { // intersect
-				vis->gather_visible(nodes);
-			}
-		}
-	}
+void zz_octree::_octree_node::collect_by_minmax(
+  std::vector<zz_visible*>& nodes,
+  const vec3                minmax[2],
+  bool                      skip_no_collision // if it is true, skip none collision objects.
+) {
+  zz_list<zz_visible*>::iterator it, it_end;
+  zz_visible*                    vis;
+  if ( skip_no_collision ) {
+    for ( it = objects.begin(), it_end = objects.end(); it != it_end; ++it ) {
+      vis    = (*it);
+      if ( vis->test_intersection_box_level( minmax[0], minmax[1], ZZ_CL_AABB ) ) {
+        // intersect
+        vis->gather_collidable( nodes );
+      }
+    }
+  } else {
+    for ( it = objects.begin(), it_end = objects.end(); it != it_end; ++it ) {
+      vis    = (*it);
+      if ( vis->test_intersection_box_level( minmax[0], minmax[1], ZZ_CL_AABB ) ) {
+        // intersect
+        vis->gather_visible( nodes );
+      }
+    }
+  }
 }

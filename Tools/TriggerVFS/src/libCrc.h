@@ -6,11 +6,10 @@
  * CRC Library
  *
  */
-class CLibCrc
-{
+class CLibCrc {
 public:
-	// Crc 값을 조사한다
-	static DWORD GetIcarusCrc ( const unsigned char * pbtData, int iLength);
+  // Crc 값을 조사한다
+  static DWORD GetIcarusCrc(const unsigned char* pbtData, int iLength);
 };
 
 #endif

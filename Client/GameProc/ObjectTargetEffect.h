@@ -1,7 +1,6 @@
 #ifndef _OBJECT_TARGET_EFFECT_
 #define _OBJECT_TARGET_EFFECT_
 
-
 class CEffect;
 class CObjCHAR;
 
@@ -10,21 +9,19 @@ class CObjCHAR;
 /// class CObjectTargetEffect
 //----------------------------------------------------------------------------------------------------
 
-class CObjectTargetEffect
-{
-	CEffect*			m_pEffect;
-	CObjCHAR*			m_pParent;
+class CObjectTargetEffect {
+  CEffect*  m_pEffect;
+  CObjCHAR* m_pParent;
 
 public:
-	CObjectTargetEffect(void);
-	~CObjectTargetEffect(void);
+  CObjectTargetEffect(void );
+  ~CObjectTargetEffect(void);
 
-	void				Init();
-	void				Clear();
+  void Init();
+  void Clear();
 
-	void				Attach( CObjCHAR* pObjCHAR );
-	void				Detach();	
+  void Attach(CObjCHAR* pObjCHAR);
+  void Detach();
 };
-
 
 #endif //_OBJECT_TARGET_EFFECT_

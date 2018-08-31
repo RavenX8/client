@@ -43,34 +43,35 @@
 
 class zz_thread : public zz_oskernel {
 private:
-	static unsigned _stdcall call_thread_proc (void * thread_pointer);
+  static unsigned _stdcall call_thread_proc(void* thread_pointer);
 
 protected:
-	unsigned int thread_id_;
+  unsigned int thread_id_;
 
 public:
 #ifdef WIN32
-	enum zz_priority {
-		ABOVE_NORMAL = THREAD_PRIORITY_ABOVE_NORMAL, // defined in winbase.h and winnt.h
-		BELOW_NORMAL = THREAD_PRIORITY_BELOW_NORMAL,
-		HIGHEST = THREAD_PRIORITY_HIGHEST,
-		IDLE = THREAD_PRIORITY_IDLE,
-		LOWEST = THREAD_PRIORITY_LOWEST,
-		NORMAL = THREAD_PRIORITY_NORMAL,
-		TIME_CRITICAL = THREAD_PRIORITY_TIME_CRITICAL,
-	};
+  enum zz_priority {
+    ABOVE_NORMAL = THREAD_PRIORITY_ABOVE_NORMAL,
+    // defined in winbase.h and winnt.h
+    BELOW_NORMAL = THREAD_PRIORITY_BELOW_NORMAL,
+    HIGHEST = THREAD_PRIORITY_HIGHEST,
+    IDLE = THREAD_PRIORITY_IDLE,
+    LOWEST = THREAD_PRIORITY_LOWEST,
+    NORMAL = THREAD_PRIORITY_NORMAL,
+    TIME_CRITICAL = THREAD_PRIORITY_TIME_CRITICAL,
+  };
 #endif
 
-	zz_thread ();
-	virtual ~zz_thread () {}
+          zz_thread();
+  virtual ~zz_thread() {}
 
-	bool thread_start ();
-	bool thread_suspend ();
-	bool thread_resume ();
-	// bool terminate(); // not implemented yet for the safety issue
-	bool set_thread_priority (zz_priority priority);
-	zz_priority get_thread_priority ();
-	virtual unsigned thread_proc (void) = 0;
+  bool thread_start();
+  bool thread_suspend();
+  bool thread_resume();
+  // bool terminate(); // not implemented yet for the safety issue
+  bool             set_thread_priority(zz_priority priority);
+  zz_priority      get_thread_priority();
+  virtual unsigned thread_proc(void) = 0;
 };
 
 #endif // __ZZ_THREAD_H__

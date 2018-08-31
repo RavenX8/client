@@ -1,15 +1,12 @@
 #pragma once
 #include <string>
 
-class CClipboardUtil
-{
+class CClipboardUtil {
 
 public:
-	CClipboardUtil(void);
-	~CClipboardUtil(void);
+  CClipboardUtil(void );
+  ~CClipboardUtil(void);
 
-	static void			CopyStringtoClibboard(std::string istr);
-	static std::string  GetStringFromClibboard();
+  static void        CopyStringtoClibboard(std::string istr);
+  static std::string GetStringFromClibboard();
 };
-
-

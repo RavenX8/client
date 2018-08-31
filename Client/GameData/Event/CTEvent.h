@@ -10,16 +10,15 @@
 * @Author	√÷¡æ¡¯
 * @Date		2005/9/15
 */
-class CTEvent :	public CTObject
-{
+class CTEvent : public CTObject {
 public:
-	CTEvent(void);
-	virtual ~CTEvent(void);
+          CTEvent(void );
+  virtual ~CTEvent(void);
 
-	void	SetID( int iID );
-	int		GetID();
+  void SetID(int iID);
+  int  GetID();
 
 protected:
-	int		m_iID;
+  int m_iID;
 };
 #endif

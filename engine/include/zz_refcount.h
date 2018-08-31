@@ -50,62 +50,65 @@
 #include "zz_mem.h"
 #endif
 
-
 class zz_refcount {
 public:
-	zz_refcount () : count(0), locked(false) {}
-	~zz_refcount () {}
+  zz_refcount() : count( 0 ), locked( false ) {}
+  ~zz_refcount() {}
 
-	virtual void lock () { locked = true; }
-	virtual void unlock () { locked = false; }
-	virtual void addref () { count++; }
-	virtual void release () { count = (--count < 0) ? 0 : count; if (0 == count) zz_delete this;}
-	virtual void reset_ref () { count = 0; locked = false; }
-	int get_count () { return count; }
-	void set_count (int new_count) { count = new_count; }
+  virtual void lock() { locked   = true; }
+  virtual void unlock() { locked = false; }
+  virtual void addref() { count++; }
+
+  virtual void release() {
+    count = (--count < 0) ? 0 : count;
+    if ( 0 == count ) zz_delete this;
+  }
+
+  virtual void reset_ref() {
+    count  = 0;
+    locked = false;
+  }
+
+  int  get_count() { return count; }
+  void set_count(int new_count) { count = new_count; }
 
 private:
-	int count; // reference count
-	bool locked;
+  int  count; // reference count
+  bool locked;
 };
 
-template<class T>
+template <class T>
 class zz_refcounted {
 public:
-	zz_refcounted () : count_(0) {}
-	~zz_refcounted () {}
+  zz_refcounted() : count_( 0 ) {}
+  ~zz_refcounted() {}
 
-	void addref ()
-	{
-		count_++;
-	}
+  void addref() {
+    count_++;
+  }
 
-	void release ()
-	{
-		count_ = (--count_ < 0) ? 0 : count_;
-	}
-	
-	unsigned int count ()
-	{
-		return count_;
-	}
-	
-	T& get ()
-	{
-		return data_;
-	}
+  void release() {
+    count_ = (--count_ < 0) ? 0 : count_;
+  }
 
-	bool set (T data_in)
-	{
-		data_ = data_in;
-		count_ = 0;
-		addref();
-		return true;
-	}
+  unsigned int count() {
+    return count_;
+  }
+
+  T& get() {
+    return data_;
+  }
+
+  bool set(T data_in) {
+    data_  = data_in;
+    count_ = 0;
+    addref();
+    return true;
+  }
 
 private:
-	T data_; // real data
-	unsigned int count_; // reference count
+  T            data_;  // real data
+  unsigned int count_; // reference count
 };
 
 #endif // __ZZ_REFCOUNT_H__

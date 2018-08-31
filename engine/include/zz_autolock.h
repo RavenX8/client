@@ -29,45 +29,43 @@
 #include "zz_critical_section.h"
 
 // Every T class should have methods lock() and unlock().
-template<class T>
+template <class T>
 class zz_autolock {
 private:
-	T * obj_;
-	
+  T* obj_;
+
 public:
-	zz_autolock(T& obj) : obj_(&obj)
-	{
-		obj_->lock();
-	}
-	zz_autolock(T* pobj) : obj_(pobj)
-	{
-		obj_->lock();
-	}
-	~zz_autolock()
-	{
-		obj_->unlock();
-	}
+  zz_autolock(T& obj) : obj_( &obj ) {
+    obj_->lock();
+  }
+
+  zz_autolock(T* pobj) : obj_( pobj ) {
+    obj_->lock();
+  }
+
+  ~zz_autolock() {
+    obj_->unlock();
+  }
 };
 
 // zz_autolock template class specilization of critical section
-template<>
+template <>
 class zz_autolock<zz_critical_section> {
 private:
-	zz_critical_section * cs_;
+  zz_critical_section* cs_;
 
 public:
-	zz_autolock(zz_critical_section& cs) : cs_(&cs)
-	{
-		cs_->enter();
-	}
-	zz_autolock(zz_critical_section * cs) : cs_(cs)
-	{
-		cs_->enter();
-	}
-	~zz_autolock()
-	{
-		cs_->leave();
-	}
+  zz_autolock(zz_critical_section& cs) : cs_( &cs ) {
+    cs_->enter();
+  }
+
+  zz_autolock(zz_critical_section* cs) : cs_( cs ) {
+    cs_->enter();
+  }
+
+  ~zz_autolock() {
+    cs_->leave();
+  }
 };
 
 #endif // __ZZ_AUTOLOCK_H__

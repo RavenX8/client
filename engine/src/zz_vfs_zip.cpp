@@ -191,7 +191,7 @@ uint32 zz_vfs_zip::read_ (char * buf, const uint32 size)
 	} while ((err > 0) && (read_size < size));
 
 	//if (err == 0) {
-		// end of file
+// end of file
 	//}
 
 	return read_size;

@@ -78,120 +78,109 @@
 // skeleton does not have scale component.
 // skeleton affects bone transform, which affects mesh vertex position.
 class zz_skeleton : public zz_node {
-//--------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------
 private:
-	zz_string path_;
+  zz_string path_;
 
-	struct zz_skeleton_node {
-		int parent_id;
-		zz_string bone_name;
-		vec3 translation; // local translation
-		quat rotation; // local rotation
-	};
+  struct zz_skeleton_node {
+    int       parent_id;
+    zz_string bone_name;
+    vec3      translation; // local translation
+    quat      rotation;    // local rotation
+  };
 
-	// point node for dummy link
-	struct zz_dummy_node {
-		int parent_id;
-		zz_string dummy_name;
-		vec3 translation;
-		quat rotation;
-	};
+  // point node for dummy link
+  struct zz_dummy_node {
+    int       parent_id;
+    zz_string dummy_name;
+    vec3      translation;
+    quat      rotation;
+  };
 
-	int root_bone_index_; // index of root bone which has zero-parent id
-	std::vector<zz_skeleton_node> nodes;
-	std::vector<zz_dummy_node> dummies;
+  int                           root_bone_index_; // index of root bone which has zero-parent id
+  std::vector<zz_skeleton_node> nodes;
+  std::vector<zz_dummy_node>    dummies;
 
 public:
-	zz_skeleton();
-	virtual ~zz_skeleton();
+          zz_skeleton();
+  virtual ~zz_skeleton();
 
-	bool load_skeleton (const char * path_in);
-	uint32 get_num_dummies () const { return dummies.size(); }
-	uint32 get_num_bones () const { return nodes.size(); }
+  bool   load_skeleton(const char* path_in);
+  uint32 get_num_dummies() const { return dummies.size(); }
+  uint32 get_num_bones() const { return nodes.size(); }
 
-	// get bone property
-	int get_bone_parent_id (int index);
-	const char * get_bone_name (int index);
-	const vec3& get_bone_translation (int index);
-	const quat& get_bone_rotation (int index);
-	
-	// get dummy property
-	int get_dummy_parent_id (int index);
-	const char * get_dummy_name (int index);
-	const vec3& get_dummy_translation (int index);
-	const quat& get_dummy_rotation (int index);
+  // get bone property
+  int         get_bone_parent_id(int   index);
+  const char* get_bone_name(int        index);
+  const vec3& get_bone_translation(int index);
+  const quat& get_bone_rotation(int    index);
 
-	int get_root_bone_index () const
-	{
-		return root_bone_index_;
-	}
+  // get dummy property
+  int         get_dummy_parent_id(int   index);
+  const char* get_dummy_name(int        index);
+  const vec3& get_dummy_translation(int index);
+  const quat& get_dummy_rotation(int    index);
 
-	bool set_path (const char * path_in);
-	const char * get_path () const;
+  int get_root_bone_index() const {
+    return root_bone_index_;
+  }
 
-	ZZ_DECLARE_DYNAMIC(zz_skeleton)
+  bool        set_path(const char* path_in);
+  const char* get_path() const;
+
+ZZ_DECLARE_DYNAMIC(zz_skeleton)
 };
 
-inline const char *  zz_skeleton::get_path () const
-{
-	return path_.get();
+inline const char* zz_skeleton::get_path() const {
+  return path_.get();
 }
 
-inline int zz_skeleton::get_bone_parent_id (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)nodes.size());
-	return nodes[index].parent_id;
+inline int zz_skeleton::get_bone_parent_id(int index) {
+  assert(index >= 0);
+  assert(index < (int)nodes.size());
+  return nodes[index].parent_id;
 }
 
-inline const char * zz_skeleton::get_bone_name (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)nodes.size());
-	return nodes[index].bone_name.get();
+inline const char* zz_skeleton::get_bone_name(int index) {
+  assert(index >= 0);
+  assert(index < (int)nodes.size());
+  return nodes[index].bone_name.get();
 }
 
-inline const vec3& zz_skeleton::get_bone_translation (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)nodes.size());
-	return nodes[index].translation;
+inline const vec3& zz_skeleton::get_bone_translation(int index) {
+  assert(index >= 0);
+  assert(index < (int)nodes.size());
+  return nodes[index].translation;
 }
 
-inline const quat& zz_skeleton::get_bone_rotation (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)nodes.size());
-	return nodes[index].rotation;
+inline const quat& zz_skeleton::get_bone_rotation(int index) {
+  assert(index >= 0);
+  assert(index < (int)nodes.size());
+  return nodes[index].rotation;
 }
 
-inline int zz_skeleton::get_dummy_parent_id (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)dummies.size());
-	return dummies[index].parent_id;
+inline int zz_skeleton::get_dummy_parent_id(int index) {
+  assert(index >= 0);
+  assert(index < (int)dummies.size());
+  return dummies[index].parent_id;
 }
 
-inline const char * zz_skeleton::get_dummy_name (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)dummies.size());
-	return dummies[index].dummy_name.get();
+inline const char* zz_skeleton::get_dummy_name(int index) {
+  assert(index >= 0);
+  assert(index < (int)dummies.size());
+  return dummies[index].dummy_name.get();
 }
 
-inline const vec3& zz_skeleton::get_dummy_translation (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)dummies.size());
-	return dummies[index].translation;
+inline const vec3& zz_skeleton::get_dummy_translation(int index) {
+  assert(index >= 0);
+  assert(index < (int)dummies.size());
+  return dummies[index].translation;
 }
 
-inline const quat& zz_skeleton::get_dummy_rotation (int index)
-{
-	assert(index >= 0);
-	assert(index < (int)dummies.size());
-	return dummies[index].rotation;
+inline const quat& zz_skeleton::get_dummy_rotation(int index) {
+  assert(index >= 0);
+  assert(index < (int)dummies.size());
+  return dummies[index].rotation;
 }
-
 
 #endif // __ZZ_SKELETON_H__

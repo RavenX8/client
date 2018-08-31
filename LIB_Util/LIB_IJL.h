@@ -1,4 +1,3 @@
-
 #ifndef __LIB_IJL_H
 #define __LIB_IJL_H
 //-------------------------------------------------------------------------------------------------
@@ -23,7 +22,7 @@ struct tagJPEGBUFFER
 struct tagJPEGBUFFER *IJL_DecodeFromJPEGBuffer (char *szFileName, int iPixelFormat, long lFileNo=-1);
 void                  IJL_DeleteJPEGBuffer (struct tagJPEGBUFFER *pJpegBuffer);
 */
-bool IJL_EncodeToJPEGFile (char *lpszPathName, unsigned long dwWidth, unsigned long dwHeight, unsigned char *pRGB);
+bool IJL_EncodeToJPEGFile(char* lpszPathName, unsigned long dwWidth, unsigned long dwHeight, unsigned char* pRGB);
 
 //-------------------------------------------------------------------------------------------------
 #endif

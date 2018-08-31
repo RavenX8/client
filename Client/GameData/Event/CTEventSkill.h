@@ -2,23 +2,23 @@
 #define _CTEventSkill_
 #include "ctevent.h"
 
-class CTEventSkill : public CTEvent
-{
+class CTEventSkill : public CTEvent {
 public:
-	CTEventSkill(void);
-	virtual ~CTEventSkill(void);
-	enum{
-		EID_NONE,
-		EID_ADD_SKILL,
-		EID_DEL_SKILL,
-		EID_CHANGE_SKILL,
-		EID_LEVELUP,
-	};
+          CTEventSkill(void );
+  virtual ~CTEventSkill(void);
 
-	void	SetIndex( int iIndex );
-	int		GetIndex();
+  enum {
+    EID_NONE,
+    EID_ADD_SKILL,
+    EID_DEL_SKILL,
+    EID_CHANGE_SKILL,
+    EID_LEVELUP,
+  };
+
+  void SetIndex(int iIndex);
+  int  GetIndex();
 protected:
 
-	int			m_iIndex;
+  int m_iIndex;
 };
 #endif

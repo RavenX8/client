@@ -11,12 +11,11 @@ class CObjCHAR;
 *
 * @Date		2005/3/23
 */
-class CClanMarkView
-{
+class CClanMarkView {
 public:
-	CClanMarkView(void);
-	~CClanMarkView(void);
+  CClanMarkView(void );
+  ~CClanMarkView(void);
 
-	static void Draw( CObjCHAR* pObjChar/*, const POINT& ptDraw*/ , const D3DVECTOR&  vDrawPos);
+  static void Draw(CObjCHAR* pObjChar/*, const POINT& ptDraw*/ , const D3DVECTOR& vDrawPos);
 };
 #endif

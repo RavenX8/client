@@ -20,26 +20,25 @@ class CTCommand;
 * @Author		최종진
 * @Date			2005/9/5
 */
-class CDragItem
-{
+class CDragItem {
 public:
-	CDragItem(void);
-	~CDragItem(void);
+  CDragItem(void );
+  ~CDragItem(void);
 
-	void AddTarget( int iTargetType , CTCommand* pCmd );		/// 드랍할수 있는 Target과 Target에 드랍시 실행할 CTCommand 
-	void SetIcon( CIcon* pIcon );								/// 드래그할 CIcon의 Clone
-	
-	CIcon*	GetIcon();
-	const std::map< int , CTCommand* >& GetTargets();
+  void AddTarget(int  iTargetType, CTCommand* pCmd); /// 드랍할수 있는 Target과 Target에 드랍시 실행할 CTCommand 
+  void SetIcon(CIcon* pIcon);                        /// 드래그할 CIcon의 Clone
 
-	enum{
-		TARGET_GROUND,
-		TARGET_ALL			= DLG_TYPE_MAX
-	};
+  CIcon*                           GetIcon();
+  const std::map<int, CTCommand*>& GetTargets();
+
+  enum {
+    TARGET_GROUND,
+    TARGET_ALL = DLG_TYPE_MAX
+  };
 
 protected:
-	std::map< int , CTCommand* > m_Targets;
-	CIcon*	m_pIcon;
+  std::map<int, CTCommand*> m_Targets;
+  CIcon*                    m_pIcon;
 
 };
 #endif

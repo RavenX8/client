@@ -4,53 +4,53 @@
 #include "../../CInfo.h"
 
 /**
-* Å¬·£Ã¢¿¡¼­ Å¬·£¸É¹ö List¿¡ »ç¿ëµÇ´Â item class
+* Å¬ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½É¹ï¿½ Listï¿½ï¿½ ï¿½ï¿½ï¿½Ç´ï¿½ item class
 *
-* @Author		ÃÖÁ¾Áø
+* @Author		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * @Date			2005/9/15
 */
-class CClanMemberItem :	public CWinCtrl
-{
+class CClanMemberItem : public CWinCtrl {
 public:
-	CClanMemberItem( const char* pszName, int iClass , int iClanPoint, int iChannelNo ,short nLevel, short nJob);
-	virtual ~CClanMemberItem(void);
+          CClanMemberItem(const char* pszName, int iClass, int iClanPoint, int iChannelNo, short nLevel, short nJob);
+  virtual ~CClanMemberItem(void       );
 
-	virtual void Draw();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void SetSelected();
-	virtual void Update( POINT ptMouse );
+  void     Draw() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     SetSelected() override;
+  void     Update(POINT ptMouse) override;
 
-	void	SetLevel( short nLevel );
-	void	SetJob( short nJob );
-	short	GetLevel();
-	short	GetJob();
-	void	SetClass( int iClass );
-	int		GetClass();
-	int		GetClanPoint();
-	int		GetChannelNo();
-	void	SetConnectStatus( int iChannelNo );
-	const char* GetName();
+  void        SetLevel(short nLevel);
+  void        SetJob(short   nJob);
+  short       GetLevel();
+  short       GetJob();
+  void        SetClass(int iClass);
+  int         GetClass();
+  int         GetClanPoint();
+  int         GetChannelNo();
+  void        SetConnectStatus(int iChannelNo);
+  const char* GetName();
 
-	enum{///CONNECT STATUS
-		CS_OFFLINE,
-		CS_ONLINE,
-	};
+  enum {
+    ///CONNECT STATUS
+    CS_OFFLINE,
+    CS_ONLINE,
+  };
 
 protected:
 
-	int				m_iOnlineMarkImageID;
-	int				m_iOfflineMarkImageID;
-	int				m_iClass;
-	int				m_iClanPoint;
-	int				m_iChannelNo;
-	short			m_nLevel;
-	short			m_nJob;
+  int   m_iOnlineMarkImageID;
+  int   m_iOfflineMarkImageID;
+  int   m_iClass;
+  int   m_iClanPoint;
+  int   m_iChannelNo;
+  short m_nLevel;
+  short m_nJob;
 
-	std::string		m_strJob;
-	std::string		m_strClass;
-	std::string		m_strName;
-	std::string		m_strChannel;
-	
-	CInfo			m_Info;
+  std::string m_strJob;
+  std::string m_strClass;
+  std::string m_strName;
+  std::string m_strChannel;
+
+  CInfo m_Info;
 };
 #endif

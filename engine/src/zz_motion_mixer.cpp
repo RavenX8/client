@@ -58,83 +58,69 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_motion_mixer, zz_motion);
 
-zz_motion_mixer::zz_motion_mixer(void)
-{
+zz_motion_mixer::zz_motion_mixer(void) {}
+
+zz_motion_mixer::~zz_motion_mixer(void) {}
+
+zz_motion* zz_motion_mixer::get_motion_arg(int index) {
+  assert(this->get_child_by_index(index));
+
+  return ((zz_motion *)this->get_child_by_index( index ));
 }
 
-zz_motion_mixer::~zz_motion_mixer(void)
-{
+int zz_motion_mixer::get_num_frames(void) {
+  return get_motion_arg( 0 )->get_num_frames();
 }
 
-zz_motion * zz_motion_mixer::get_motion_arg (int index)
-{
-	assert(this->get_child_by_index(index));
-	
-	return ((zz_motion *)this->get_child_by_index(index));
+zz_time zz_motion_mixer::get_total_time(void) {
+  return get_motion_arg( 0 )->get_total_time();
 }
 
-int zz_motion_mixer::get_num_frames (void)
-{
-	return get_motion_arg(0)->get_num_frames();
+int zz_motion_mixer::get_fps(void) {
+  return get_motion_arg( 0 )->get_fps();
 }
 
+void zz_motion_mixer::get_channel_data(int channel_index, zz_time time, void* data) {
+  // mixer does not use its channel data. instead, connected node's channel data.
+  // blending occures here.
+  // this channel is rotation_channel,
 
-zz_time zz_motion_mixer::get_total_time (void)
-{
-	return get_motion_arg(0)->get_total_time();
+  //// for test
+  //this->get_motion_arg(0)->get_channel_data(channel_index, time, data);
+  //return;
+
+  zz_motion *arg1, *arg2;
+
+  arg1 = this->get_motion_arg( 0 );
+  arg2 = this->get_motion_arg( 1 );
+
+  assert(arg1 && arg2);
+
+  vec3 position1, position2, *position3;
+  quat rotation1, rotation2, *rotation3;
+
+  //_t_ means relative time in the total time() of 1st argument motion.
+  float   t     = float( time ) / arg1->get_total_time();
+  zz_time time2 = long( t * arg2->get_total_time() );
+
+  if ( arg1->channels[channel_index]->get_channel_format() == ZZ_CFMT_XYZ ) {
+    arg1->get_channel_data( channel_index, time, (void *)&position1 );
+    arg2->get_channel_data( channel_index, time2, (void *)&position2 );
+    position3  = static_cast<vec3 *>(data);
+    *position3 = znzin->motion_tool.blend_position( position1, position2, t );
+  }
+  if ( arg1->channels[channel_index]->get_channel_format() == ZZ_CFMT_WXYZ ) {
+    arg1->get_channel_data( channel_index, time, (void *)&rotation1 );
+    arg2->get_channel_data( channel_index, time2, (void *)&rotation2 );
+    rotation3  = (quat *)data;
+    *rotation3 = znzin->motion_tool.blend_rotation( rotation1, rotation2, t );
+  }
 }
 
-int zz_motion_mixer::get_fps (void)
-{
-	return get_motion_arg(0)->get_fps();
+const vec3& zz_motion_mixer::get_initial_position(void) {
+  return this->get_motion_arg( 0 )->get_initial_position();
 }
 
-void zz_motion_mixer::get_channel_data (int channel_index, zz_time time, void * data)
-{
-	// mixer does not use its channel data. instead, connected node's channel data.
-	// blending occures here.
-	// this channel is rotation_channel,
-
-	//// for test
-	//this->get_motion_arg(0)->get_channel_data(channel_index, time, data);
-	//return;
-
-	zz_motion * arg1, * arg2;
-
-	arg1 = this->get_motion_arg(0);
-	arg2 = this->get_motion_arg(1);
-
-	assert(arg1 && arg2);
-
-	vec3 position1, position2, * position3;
-	quat rotation1, rotation2, * rotation3;
-
-	//_t_ means relative time in the total time() of 1st argument motion.
-	float t = float(time)/ arg1->get_total_time();
-	zz_time time2 = long(t*arg2->get_total_time());
-
-		
-	if (arg1->channels[channel_index]->get_channel_format() == ZZ_CFMT_XYZ) {
-		arg1->get_channel_data(channel_index, time, (void *)&position1);
-		arg2->get_channel_data(channel_index, time2, (void *)&position2);
-		position3 = static_cast<vec3 *>(data);
-		*position3 = znzin->motion_tool.blend_position(position1, position2, t);
-	}
-	if (arg1->channels[channel_index]->get_channel_format() == ZZ_CFMT_WXYZ) {
-		arg1->get_channel_data(channel_index, time, (void *)&rotation1);
-		arg2->get_channel_data(channel_index, time2, (void *)&rotation2);
-		rotation3 = (quat *)data;
-		*rotation3 = znzin->motion_tool.blend_rotation(rotation1, rotation2, t);
-	}		
+const quat& zz_motion_mixer::get_initial_rotation(void) {
+  return this->get_motion_arg( 0 )->get_initial_rotation();
 }
-
-const vec3& zz_motion_mixer::get_initial_position (void)
-{
-	return this->get_motion_arg(0)->get_initial_position();
-}
-
-const quat& zz_motion_mixer::get_initial_rotation (void)
-{
-	return this->get_motion_arg(0)->get_initial_rotation();
-}
-

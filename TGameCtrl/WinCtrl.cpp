@@ -1,186 +1,161 @@
 #include "StdAfx.h"
-#include ".\winctrl.h"
+#include "./winctrl.h"
 //#include "CToolTip.h"
 #include "IActionListener.h"
 #include "ActionEvent.h"
 
-CWinCtrl* CWinCtrl::m_pMouseExclusiveCtrl = NULL;   ///마우스를 독점하고 있는 컨트롤
-CWinCtrl* CWinCtrl::m_pProcessMouseOverCtrl = NULL;
+CWinCtrl* CWinCtrl::m_pMouseExclusiveCtrl   = nullptr; ///마우스를 독점하고 있는 컨트롤
+CWinCtrl* CWinCtrl::m_pProcessMouseOverCtrl = nullptr;
 
-bool	  CWinCtrl::m_bProcessMouseOver	  = false;
-CWinCtrl::CWinCtrl(void)
-{
-	m_iWidth		= 0;
-	m_iHeight		= 0;
-	m_iControlID	= 0;		/// 컨터롤 아이디
-	m_iParentID		= 0;
-	m_sPosition.x = 0;
-	m_sPosition.y = 0;
-	m_ptOffset.x  = 0;
-	m_ptOffset.y  = 0;
+bool CWinCtrl::m_bProcessMouseOver = false;
 
-	m_pDraw			= NULL;	
-	m_pParent		= NULL;
+CWinCtrl::CWinCtrl(void) {
+  m_iWidth      = 0;
+  m_iHeight     = 0;
+  m_iControlID  = 0; /// 컨터롤 아이디
+  m_iParentID   = 0;
+  m_sPosition.x = 0;
+  m_sPosition.y = 0;
+  m_ptOffset.x  = 0;
+  m_ptOffset.y  = 0;
 
-	m_bOwnerDraw	= false;
-	m_bSelected		= false;
+  m_pDraw   = nullptr;
+  m_pParent = nullptr;
 
-	m_fScaleWidth   = 0;
-	m_fScaleHeight  = 0;
-	m_btAlphaValue  = 0;
-	m_dwStatus		= 0;
+  m_bOwnerDraw = false;
+  m_bSelected  = false;
+
+  m_fScaleWidth  = 0;
+  m_fScaleHeight = 0;
+  m_btAlphaValue = 0;
+  m_dwStatus     = 0;
 }
 
-CWinCtrl::~CWinCtrl(void)
-{
+CWinCtrl::~CWinCtrl(void) {}
+
+void CWinCtrl::Init(DWORD dwType, int iScrX, int iScrY, int iWidth, int iHeight) {
+
+  m_dwCtrlType  = dwType;
+  m_dwStatus    = 0;
+  m_sPosition.x = iScrX;
+  m_sPosition.y = iScrY;
+  m_iWidth      = iWidth;
+  m_iHeight     = iHeight;
+
+  ZeroMemory( &m_ptOffset, sizeof( POINT ));
+
+  SetEnable( true );
 }
 
-void CWinCtrl::Init( DWORD dwType,int iScrX, int iScrY, int iWidth, int iHeight )
-{
-
-	m_dwCtrlType	= dwType;
-	m_dwStatus		= 0;
-	m_sPosition.x	= iScrX;
-	m_sPosition.y	= iScrY;
-	m_iWidth		= iWidth;
-	m_iHeight		= iHeight;
-
-
-	ZeroMemory( &m_ptOffset, sizeof( POINT ));
-
-	SetEnable( true );
+void CWinCtrl::MoveWindow(POINT pt) {
+  m_sPosition.x = pt.x + m_ptOffset.x;
+  m_sPosition.y = pt.y + m_ptOffset.y;
 }
 
-void CWinCtrl::MoveWindow( POINT pt )
-{
-	m_sPosition.x = pt.x + m_ptOffset.x;
-	m_sPosition.y = pt.y + m_ptOffset.y;
+bool CWinCtrl::IsInside(int x, int y) {
+  if ( m_sPosition.x <= x && m_sPosition.y <= y && m_sPosition.x + m_iWidth > x && m_sPosition.y + m_iHeight > y )
+    return true;
+  return false;
 }
 
-bool CWinCtrl::IsInside( int x, int y )
-{
-	if( m_sPosition.x <= x && m_sPosition.y <= y && m_sPosition.x + m_iWidth > x && m_sPosition.y + m_iHeight > y )
-		return true;
-	return false;
+bool CWinCtrl::IsExclusive() {
+  if ( m_pMouseExclusiveCtrl )
+    return true;
+  return false;
 }
 
-bool CWinCtrl::IsExclusive()
-{ 
-	if( m_pMouseExclusiveCtrl)
-		return true;
-	else
-		return false;
-}
-void CWinCtrl::SetMouseExclusiveCtrl( CWinCtrl* pCtrl )
-{
-	m_pMouseExclusiveCtrl = pCtrl;
+void CWinCtrl::SetMouseExclusiveCtrl(CWinCtrl* pCtrl) {
+  m_pMouseExclusiveCtrl = pCtrl;
 }
 
-CWinCtrl* CWinCtrl::GetMouseExclusiveCtrl()
-{
-	return m_pMouseExclusiveCtrl;
+CWinCtrl* CWinCtrl::GetMouseExclusiveCtrl() {
+  return m_pMouseExclusiveCtrl;
 }
 
 ///OffSet
-void    CWinCtrl::SetOffset( POINT pt)
-{ 
-	m_ptOffset = pt; 
+void CWinCtrl::SetOffset(POINT pt) {
+  m_ptOffset = pt;
 }
 
-void	CWinCtrl::SetOffset( int x, int y )
-{ 
-	m_ptOffset.x = x;
-	m_ptOffset.y = y;
+void CWinCtrl::SetOffset(int x, int y) {
+  m_ptOffset.x = x;
+  m_ptOffset.y = y;
 }
 
-POINT	CWinCtrl::GetOffset()
-{ 
-	return m_ptOffset; 
+POINT CWinCtrl::GetOffset() {
+  return m_ptOffset;
 }
 
-void CWinCtrl::SetSelected()
-{
-	m_bSelected = true;
-}
-void CWinCtrl::SetDeselected()
-{
-	m_bSelected = false;
+void CWinCtrl::SetSelected() {
+  m_bSelected = true;
 }
 
-bool CWinCtrl::IsSelected()
-{
-	return m_bSelected;
-}
-void CWinCtrl::SetParent( CWinCtrl* pParent )
-{
-	m_pParent = pParent;
+void CWinCtrl::SetDeselected() {
+  m_bSelected = false;
 }
 
-void CWinCtrl::SetScaleWidth( float fScale )
-{
-	m_fScaleWidth = fScale;
+bool CWinCtrl::IsSelected() {
+  return m_bSelected;
 }
 
-void CWinCtrl::SetScaleHeight( float fScale )
-{
-	m_fScaleHeight = fScale;
+void CWinCtrl::SetParent(CWinCtrl* pParent) {
+  m_pParent = pParent;
 }
 
-void CWinCtrl::SetAlphaValue( BYTE btValue )
-{
-	m_btAlphaValue = btValue;
+void CWinCtrl::SetScaleWidth(float fScale) {
+  m_fScaleWidth = fScale;
 }
 
-void CWinCtrl::AddActionListener( IActionListener* pListener )
-{
-	m_ActionListenerList.Add( pListener );
+void CWinCtrl::SetScaleHeight(float fScale) {
+  m_fScaleHeight = fScale;
 }
 
-void CWinCtrl::RemoveActionListener( IActionListener* pListener )
-{
-	m_ActionListenerList.Remove( pListener );
+void CWinCtrl::SetAlphaValue(BYTE btValue) {
+  m_btAlphaValue = btValue;
 }
 
-CWinCtrl* CWinCtrl::GetParent()
-{
-	return m_pParent;
-}
-unsigned int CWinCtrl::Process( UINT uiMsg,WPARAM wParam,LPARAM lParam )
-{
-	unsigned uiRet = 0;
-
-	if( !m_ActionListenerList.IsEmpty() )
-	{
-		std::list< IActionListener* >& list =  m_ActionListenerList.GetListenerList( );
-		std::list< IActionListener* >::iterator iter;
-		CActionEvent Event( this, uiMsg , wParam, lParam );
-
-		for( iter = list.begin(); iter != list.end(); ++iter )
-			uiRet |= (*iter)->ActionPerformed( &Event );
-	}
-	return uiRet;
+void CWinCtrl::AddActionListener(IActionListener* pListener) {
+  m_ActionListenerList.Add( pListener );
 }
 
-void CWinCtrl::SetOwnerDraw( bool b )
-{ 
-	m_bOwnerDraw = b; 
+void CWinCtrl::RemoveActionListener(IActionListener* pListener) {
+  m_ActionListenerList.Remove( pListener );
 }
 
-bool CWinCtrl::IsOwnerDraw()
-{
-	return m_bOwnerDraw;
+CWinCtrl* CWinCtrl::GetParent() {
+  return m_pParent;
 }
 
-CWinCtrl* CWinCtrl::Find( const char * szName )
-{
-	return NULL;
+unsigned int CWinCtrl::Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) {
+  unsigned   uiRet = 0;
+
+  if ( !m_ActionListenerList.IsEmpty() ) {
+    std::list<IActionListener*>&          list = m_ActionListenerList.GetListenerList();
+    std::list<IActionListener*>::iterator iter;
+    CActionEvent                          Event( this, uiMsg, wParam, lParam );
+
+    for ( iter = list.begin(); iter != list.end(); ++iter )
+      uiRet |= (*iter)->ActionPerformed( &Event );
+  }
+  return uiRet;
 }
 
-void	CWinCtrl::SetSizeFit( bool bFit )
-{
-	m_bSizeFit = bFit;
+void CWinCtrl::SetOwnerDraw(bool b) {
+  m_bOwnerDraw = b;
 }
-bool	CWinCtrl::GetSizeFit()
-{
-	return m_bSizeFit;
+
+bool CWinCtrl::IsOwnerDraw() {
+  return m_bOwnerDraw;
+}
+
+CWinCtrl* CWinCtrl::Find(const char* szName) {
+  return nullptr;
+}
+
+void CWinCtrl::SetSizeFit(bool bFit) {
+  m_bSizeFit = bFit;
+}
+
+bool CWinCtrl::GetSizeFit() {
+  return m_bSizeFit;
 }

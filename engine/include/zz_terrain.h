@@ -45,17 +45,16 @@
 #include "zz_node.h"
 #endif
 
-
 class zz_terrain : public zz_node {
 public:
-	zz_terrain () {}
-	virtual ~zz_terrain () {}
+          zz_terrain() {}
+  virtual ~zz_terrain() {}
 
-	virtual void render () = 0;
-	virtual bool is_loaded () = 0;
-	virtual float get_terrain_height_world (float horiz, float vert) = 0;
+  virtual void  render() = 0;
+  virtual bool  is_loaded() = 0;
+  virtual float get_terrain_height_world(float horiz, float vert) = 0;
 
-	ZZ_DECLARE_DYNAMIC(zz_terrain)
+ZZ_DECLARE_DYNAMIC(zz_terrain)
 };
 
 #endif // __ZZ_TERRAIN_H__

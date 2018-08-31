@@ -127,121 +127,114 @@
 
 class zz_particle_emitter : public zz_animatable {
 public:
-	std::string m_strLastError;
+  std::string m_strLastError;
 
-	zz_particle_emitter();
-	virtual ~zz_particle_emitter();
+          zz_particle_emitter();
+  virtual ~zz_particle_emitter();
 
-	virtual void update_time (bool recursive, zz_time diff_time);
-	virtual void update_animation (bool recursive, zz_time diff_time);
-	virtual void render (bool recursive = false);
+  void update_time(bool      recursive, zz_time diff_time) override;
+  void update_animation(bool recursive, zz_time diff_time) override;
+  void render(bool           recursive = false) override;
 
-	virtual void set_load_weight (int weight_in) { }
-	virtual int get_load_weight () const { return 0; }
+  void set_load_weight(int weight_in) override { }
+  int  get_load_weight() const override { return 0; }
 
-	virtual bool restore_device_objects ();
-	virtual bool invalidate_device_objects ();
-    
-	virtual void Init();
-	virtual bool load (const char* fname, bool loadnow = false);
-	virtual bool load (zz_vfs * fs, bool loadnow = false);
+  bool restore_device_objects() override;
+  bool invalidate_device_objects() override;
 
-	virtual void play();
-	virtual void pause();
-	virtual void stop();
-	virtual bool IsRunning()
-	{
-		return (m_bIsRunning && motion_controller.is_playing());
-	}
-	
-	int DeleteAllParticles(void) 
-	{
-		std::for_each( m_Sequences.begin(), m_Sequences.end(), std::mem_fun< int, zz_particle_event_sequence > ( &zz_particle_event_sequence::DeleteAllParticles) );		
-		return 0;
-	}
+  virtual void Init();
+  virtual bool load(const char* fname, bool loadnow = false);
+  virtual bool load(zz_vfs*     fs, bool    loadnow = false);
 
-	// [attributes] Get, Set method  
-	zz_minmax<vec3> GetPosRange(void) const { return(m_vPosRange); }
-	void	SetPosRange(const zz_minmax<vec3> &data) { m_vPosRange = data; }
+  void play() override;
+  void pause() override;
+  void stop() override;
 
-	vec3	GetPos(void) const { return(m_vPos); }
-	void	SetPos(const vec3 &data) { m_vPos = data; }  
-	
-	int GetVBSize(void) const { return(m_iVBSize); }
-	void SetVBSize(const int data) { m_iVBSize = data; } // must be 6 times
+  virtual bool IsRunning() {
+    return (m_bIsRunning && motion_controller.is_playing());
+  }
 
-	int Reset(void) 
-	{
-		std::for_each( m_Sequences.begin(), m_Sequences.end(), std::mem_fun< int, zz_particle_event_sequence > ( &zz_particle_event_sequence::Reset) );		
-		return 0;
-	}
+  int DeleteAllParticles(void) {
+    std::for_each( m_Sequences.begin(), m_Sequences.end(), std::mem_fun<int, zz_particle_event_sequence>( &zz_particle_event_sequence::DeleteAllParticles ) );
+    return 0;
+  }
 
-	int GetNumActiveParticles(void) 
-	{
-		int count=0;
-		for (std::vector<zz_particle_event_sequence *>::iterator i = m_Sequences.begin(); i != m_Sequences.end(); i++) 
-		{
-			count += (*i)->GetNumActiveParticles();
-		}
-		return(count);
-	}
+  // [attributes] Get, Set method  
+  zz_minmax<vec3> GetPosRange(void                   ) const { return (m_vPosRange); }
+  void            SetPosRange(const zz_minmax<vec3>& data) { m_vPosRange = data; }
 
-	virtual bool apply_motion (void);
+  vec3 GetPos(void        ) const { return (m_vPos); }
+  void SetPos(const vec3& data) { m_vPos = data; }
 
-	virtual void attach_motion (zz_motion * motion_to_attach);
+  int  GetVBSize(void      ) const { return (m_iVBSize); }
+  void SetVBSize(const int data) { m_iVBSize = data; } // must be 6 times
+
+  int Reset(void) {
+    std::for_each( m_Sequences.begin(), m_Sequences.end(), std::mem_fun<int, zz_particle_event_sequence>( &zz_particle_event_sequence::Reset ) );
+    return 0;
+  }
+
+  int                                                         GetNumActiveParticles(void) {
+    int                                                       count = 0;
+    for ( std::vector<zz_particle_event_sequence *>::iterator i     = m_Sequences.begin(); i != m_Sequences.end(); ++i ) {
+      count += (*i)->GetNumActiveParticles();
+    }
+    return (count);
+  }
+
+  bool apply_motion(void) override;
+
+  void attach_motion(zz_motion* motion_to_attach) override;
 
 protected:
-	// sub-function of the reset_bvolume()
-	virtual void build_mesh_minmax (vec3& mesh_min_out, vec3& mesh_max_out);
+  // sub-function of the reset_bvolume()
+  void build_mesh_minmax(vec3& mesh_min_out, vec3& mesh_max_out) override;
 
-private:  
-  
-	// particle system attributes
-	zz_minmax<vec3> m_vPosRange; 
-	vec3	m_vPos; // actual position of emitter
-	bool use_pointsprite; // whether this use pointsprite, default is true
+private:
 
-	std::vector<zz_particle_event_sequence *>	m_Sequences;
+  // particle system attributes
+  zz_minmax<vec3> m_vPosRange;
+  vec3            m_vPos;          // actual position of emitter
+  bool            use_pointsprite; // whether this use pointsprite, default is true
 
-	int m_iMaxParticles;
-	bool m_bIsRunning;
+  std::vector<zz_particle_event_sequence *> m_Sequences;
 
-	int m_iVBSize; // size of the vertex buffer (can and should be less than NUMPARTICLES)
+  int  m_iMaxParticles;
+  bool m_bIsRunning;
 
-	int total_particles; // affects on lifetime
+  int m_iVBSize; // size of the vertex buffer (can and should be less than NUMPARTICLES)
 
-	zz_channel_position * pos_channel;
+  int total_particles; // affects on lifetime
 
-	// all particles share these
-	static LPDIRECT3DDEVICE9	m_pd3dDevice;
-	static LPDIRECT3DVERTEXBUFFER9 m_vbParticles;
-	static LPDIRECT3DVERTEXBUFFER9 m_vbParticles_point;
-	static int vb_ref_count;
-	zz_device_resource res;
+  zz_channel_position* pos_channel;
 
-	virtual void before_render ();
-	//virtual void after_render ();
+  // all particles share these
+  static LPDIRECT3DDEVICE9       m_pd3dDevice;
+  static LPDIRECT3DVERTEXBUFFER9 m_vbParticles;
+  static LPDIRECT3DVERTEXBUFFER9 m_vbParticles_point;
+  static int                     vb_ref_count;
+  zz_device_resource             res;
 
-	ZZ_DECLARE_DYNAMIC(zz_particle_emitter)
+  void before_render() override;
+  //virtual void after_render ();
+
+ZZ_DECLARE_DYNAMIC(zz_particle_emitter)
 };
 
-inline void zz_particle_emitter::play()
-{
-	m_bIsRunning = true;
-	motion_controller.play();
+inline void zz_particle_emitter::play() {
+  m_bIsRunning = true;
+  motion_controller.play();
 }
 
-inline void zz_particle_emitter::pause()
-{
-	m_bIsRunning = false;
-	motion_controller.pause();
+inline void zz_particle_emitter::pause() {
+  m_bIsRunning = false;
+  motion_controller.pause();
 }
 
-inline void zz_particle_emitter::stop()
-{
-	pause();
-	DeleteAllParticles();
-	motion_controller.stop();
+inline void zz_particle_emitter::stop() {
+  pause();
+  DeleteAllParticles();
+  motion_controller.stop();
 }
 
 #endif // __ZZ_PARTICLE_EMITTER_H__

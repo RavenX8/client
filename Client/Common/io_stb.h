@@ -1,83 +1,84 @@
 #ifndef	__IO_STB_H
 #define	__IO_STB_H
-#include "..\Util\classHASH.h"
+#include "../Util/classHASH.h"
 #ifndef __SERVER
-	#include "../GameCommon/StringManager.h"
+#include "../GameCommon/StringManager.h"
 #endif
-#include "..\Util\classstr.h"
+#include "../Util/classstr.h"
+
 //-------------------------------------------------------------------------------------------------
 
 class STBVALUE {
 private:
-	bool	m_bString;
+  bool m_bString;
 
-	int		m_iValue;
-	CStrVAR*m_pString;
+  int      m_iValue;
+  CStrVAR* m_pString;
 
 public :
-	STBVALUE ();
-	~STBVALUE ();
+  STBVALUE();
+  ~STBVALUE();
 
-	void	SetTYPE (bool bString)	{	m_bString=bString;		}
-	bool	IsString ()				{	return m_bString;		}
+  void SetTYPE(bool bString) { m_bString = bString; }
+  bool IsString() { return m_bString; }
 
-	void	SetVALUE (char *szValue);
-	void	SetVALUE (int iValue);
+  void SetVALUE(char* szValue);
+  void SetVALUE(int   iValue);
 
-	int		GetSHORT ()		{	return GetINT();			}
-	int		GetINT ()		{	return m_iValue;			}
+  int GetSHORT() { return GetINT(); }
+  int GetINT() { return m_iValue; }
 
-	char   *GetSTR ()		{	return (m_bString)?m_pString->Get():NULL;		}
+  char* GetSTR() { return (m_bString) ? m_pString->Get() : nullptr; }
 #ifdef	__SERVER
 	int		GetStrLEN()		{	return IsString()?m_pString->BuffLength():0;	}
 #endif
-} ;	
-
+};
 
 class STBDATA {
 private:
-	classHASH< short >	m_KeyTable;
-	bool	m_bLoad2;
+  classHASH<short> m_KeyTable;
+  bool             m_bLoad2;
 
 public :
-	short	m_nDataCnt;
-	short	m_nColCnt;
+  short m_nDataCnt;
+  short m_nColCnt;
 
-	char  **m_ppNAME;
-	char  **m_ppDESC;
-	union {
-		int		**m_ppDATA;
-		STBVALUE**m_ppVALUE;
-	} ;
-	
-	STBDATA () : m_ppNAME(NULL),m_ppDESC(NULL), m_ppVALUE(NULL)				{	m_bLoad2=false, m_ppDATA=NULL,m_nColCnt=m_nDataCnt=0;	}
-	virtual ~STBDATA ()		{	this->Free();					}
+  char** m_ppNAME;
+  char** m_ppDESC;
 
-	bool	Load2 (char *szFileName, bool bHasTYPE, bool bMakeKEY);
+  union {
+    int**      m_ppDATA;
+    STBVALUE** m_ppVALUE;
+  };
 
-	bool	Load (char *szFileName, bool bHasNameCol=false, bool bHasDescCol=false, bool bMakeKEY=false);
-	void	Free (void);
+          STBDATA() : m_ppNAME( nullptr ), m_ppDESC( nullptr ), m_ppVALUE( nullptr ) { m_bLoad2 = false, m_ppDATA = nullptr, m_nColCnt = m_nDataCnt = 0; }
+  virtual ~STBDATA() { this->Free(); }
 
-	//	xls2stb.exe로 변경된 유니코드stb파일 읽기..
-	bool	LoadWSTB (char *szFileName, int iKeyColIDX, ...);
-	bool	LoadWSTB (bool bCheckQuotationMark, char *szFileName, int iKeyColIDX, ...);
-	char   *GetValueSTR(short nCol, short nRow)
-	{
-		if ( nCol < 0 || nRow < 0 )
-			return NULL;
-		if ( nCol >= m_nColCnt || nRow >= m_nDataCnt )
-			return NULL;
-		return m_ppVALUE[ nRow ][ nCol ].GetSTR();		
-	}
+  bool Load2(char* szFileName, bool bHasTYPE, bool bMakeKEY);
 
-	short	GetRowIndex (t_HASHKEY HashKey)		
-	{	
-		tagHASH< short > *pNode;
-		pNode = m_KeyTable.Search( HashKey );
-		return ( pNode ) ? pNode->m_DATA : 0;
-	}
-	short	GetRowIndex (char *szName)			{	return GetRowIndex( StrToHashKey( szName ) );	}
-} ;
+  bool Load(char* szFileName, bool bHasNameCol = false, bool bHasDescCol = false, bool bMakeKEY = false);
+  void Free(void  );
+
+  //	xls2stb.exe로 변경된 유니코드stb파일 읽기..
+  bool LoadWSTB(char* szFileName, int            iKeyColIDX, ...);
+  bool LoadWSTB(bool  bCheckQuotationMark, char* szFileName, int iKeyColIDX, ...);
+
+  char* GetValueSTR(short nCol, short nRow) {
+    if ( nCol < 0 || nRow < 0 )
+      return nullptr;
+    if ( nCol >= m_nColCnt || nRow >= m_nDataCnt )
+      return nullptr;
+    return m_ppVALUE[nRow][nCol].GetSTR();
+  }
+
+  short             GetRowIndex(t_HASHKEY HashKey) {
+    tagHASH<short>* pNode;
+    pNode = m_KeyTable.Search( HashKey );
+    return (pNode) ? pNode->m_DATA : 0;
+  }
+
+  short GetRowIndex(char* szName) { return GetRowIndex( StrToHashKey( szName ) ); }
+};
 
 //-------------------------------------------------------------------------------------------------
 // 장착 아이템 STB 21,22Column추가( 장착 제한 조건 추가 ): 2004/1/12 - nAvy
@@ -87,9 +88,9 @@ public :
 	#define	ITEM_NAME(T,I)					g_pTblSTBs[T]->m_ppNAME[ I ]			// 아이템 이름
 	#define ITEM_DESC(T,I)					g_pTblSTBs[T]->m_ppDESC[ I ]			// 아이템 설명
 #else
-	#define	ITEM_NAME(T,I)					CStringManager::GetSingleton().GetItemName( T, I ) 
-	#define ITEM_DESC(T,I)					CStringManager::GetSingleton().GetItemDesc( T, I )// 아이템 설명
-	#define	ITEM_NO(T,I)					CStringManager::GetSingleton().GetItemNOFromName( T, I ) // Gets item number from the name.
+#define	ITEM_NAME(T,I)					CStringManager::GetSingleton().GetItemName( T, I )
+#define ITEM_DESC(T,I)					CStringManager::GetSingleton().GetItemDesc( T, I )// 아이템 설명
+#define	ITEM_NO(T,I)					CStringManager::GetSingleton().GetItemNOFromName( T, I ) // Gets item number from the name.
 #endif
 
 ///사용제한 - 0: 모두 사용가능, 1: 상점 판매만 불가, 2: 버리기,교환만 불가, 3:상점판매,버리기,교환 불가
@@ -101,7 +102,6 @@ public :
 #define ITEM_DONT_DROP_EXCHANGE			0x02
 #define ITEM_DONT_SELL_DROP_EXCHANGE	0x03
 #define	ITEM_ENABLE_KEEPING				0x04
-
 
 #define	ITEM_TYPE(T,I)					g_pTblSTBs[T]->m_ppDATA[ I ][  4 ]	// 아이템 종류 : 중분류?
 #define	ITEM_BASE_PRICE(T,I)			g_pTblSTBs[T]->m_ppDATA[ I ][  5 ]	// 기준가격
@@ -132,7 +132,6 @@ public :
 #define ITEM_EQUIP_REQUIRE_UNION_CNT		2
 #define ITEM_EQUIP_REQUIRE_UNION(T,I,C)		g_pTblSTBs[T]->m_ppDATA[ I ][ 17 + C ]
 
-
 #define ITEM_NEED_DATA_CNT				2
 #define	ITEM_NEED_DATA_TYPE(T,I,C)		g_pTblSTBs[T]->m_ppDATA[ I ][ 19+(C*2) ]	// 아이템 종류
 #define	ITEM_NEED_DATA_VALUE(T,I,C)		g_pTblSTBs[T]->m_ppDATA[ I ][ 20+(C*2) ]	// 아이템 종류
@@ -146,11 +145,9 @@ public :
 #define ITEM_DEFENCE(T,I)				g_pTblSTBs[T]->m_ppDATA[ I ][ 31 ]	// 방어력
 #define ITEM_RESISTENCE(T,I)			g_pTblSTBs[T]->m_ppDATA[ I ][ 32 ]	// 항마력
 
-
 //-------------------------------------------------------------------------------------------------
 // LIST_CAP.STB
 #define HELMET_NAME(I)					ITEM_NAME( ITEM_TYPE_HELMET, I );
-
 
 //	@Use ITEM_xxxx
 #define HELMET_HAIR_TYPE(I)				g_TblHELMET.m_ppDATA[ I ][ 33 ]
@@ -178,16 +175,13 @@ public :
 #define FACEITEM_NAME(I)			ITEM_NAME( ITEM_TYPE_FACE_ITEM, I )
 #define FACEITEM_DESC(I)			ITEM_DESC( ITEM_TYPE_FACE_ITEM, I )
 
-
 //-------------------------------------------------------------------------------------------------
 // LIST_BACK.STB		가방아이템 
 #define BACKITEM_NAME(I)				ITEM_NAME( ITEM_TYPE_KNAPSACK, I )
-#define BACKITEM_DESC(I)				ITEM_DESC( ITEM_TYPE_KNAPSACK, I )	
-
+#define BACKITEM_DESC(I)				ITEM_DESC( ITEM_TYPE_KNAPSACK, I )
 
 //	@Use ITEM_xxxx
 #define	BACKITEM_MOVE_SPEED(I)			g_TblBACKITEM.m_ppDATA[ I ][ 33 ]
-
 
 //-------------------------------------------------------------------------------------------------
 // LIST_WEAPON.STB
@@ -267,10 +261,6 @@ public :
 
 #define	MAX_USEITEM_COOLTIME_TYPE			4	// 0~3
 
-
-
-
-
 //-------------------------------------------------------------------------------------------------
 // LIST_JEMITEM.STB		보석아이템
 #define GEMITEM_NAME(I)						ITEM_NAME( ITEM_TYPE_GEM, I )//이름
@@ -286,17 +276,12 @@ public :
 #define GEMITEM_MARK_IMAGE(I)				g_TblGEMITEM.m_ppDATA[ I ][ 20 ]	//마크이미지 
 #define GEMITEM_ATTACK_EFFECT(I)			g_TblGEMITEM.m_ppDATA[ I ][ 21 ]	//아이텝에 붙을 이미지
 
-
-
-
 //-------------------------------------------------------------------------------------------------
 // LIST_NATURAL.STB		원재료 
 #define NATURAL_NAME(I)				ITEM_NAME( ITEM_TYPE_NATURAL, I )
 #define NATURAL_DESC(I)				ITEM_DESC( ITEM_TYPE_NATURAL, I )
 //	@Use ITEM_xxxx
 #define NATURAL_BULLET_NO(I)		g_TblNATUAL.m_ppDATA[ I ][ 17 ]///수정 2004 / 2 /18 :nAvy g_TblNPC => g_TblNATUAL
-
-
 
 //#ifdef __SERVER
 //	#define	NPC_NAME_STR_COLUMN			0
@@ -310,9 +295,9 @@ public :
 //	#define	SET_NPC_DEAD_EVENT(I,V)		g_TblNPC.m_ppVALUE[ I ][ 41 ].SetVALUE(V)
 //#else
 /// use load2 function
-	#define	NPC_NAME(I)					CStringManager::GetSingleton().GetNpcName( I )	// NPC 이름
-	#define NPC_DESC(I)					g_TblNPC.m_ppVALUE[ I ][ 41 ].GetSTR()			/// 죽을때 이벤트
-	#define NPC_HEIGHT(I)				g_TblNPC.m_ppVALUE[ I ][ 42 ].GetINT()			/// NPC키
+#define	NPC_NAME(I)					CStringManager::GetSingleton().GetNpcName( I )	// NPC 이름
+#define NPC_DESC(I)					g_TblNPC.m_ppVALUE[ I ][ 41 ].GetSTR()			/// 죽을때 이벤트
+#define NPC_HEIGHT(I)				g_TblNPC.m_ppVALUE[ I ][ 42 ].GetINT()			/// NPC키
 //#endif
 #define	NPC_WALK_SPEED(I)			g_TblNPC.m_ppVALUE[ I ][ 2 ].GetINT()
 #define NPC_RUN_SPEED(I)			g_TblNPC.m_ppVALUE[ I ][ 3 ].GetINT()
@@ -369,14 +354,10 @@ public :
 #define	NPC_STRING_ID_COLOUM		40
 #define NPC_STRING_ID(I)			g_TblNPC.m_ppVALUE[ I ][ NPC_STRING_ID_COLOUM ].GetSTR()		//	스트링 아이디
 
-
 #define	NPC_CREATE_EFFECT(I)		g_TblNPC.m_ppVALUE[ I ][ 44 ].GetINT()		// 생성시 효과.
 #define NPC_CREATE_SOUND(I)			g_TblNPC.m_ppVALUE[ I ][ 45 ].GetINT()		// 생성시 효과음.
 
-
 //////////////////////////////////////////////////////////////////////////
-
-
 
 //-------------------------------------------------------------------------------------------------
 
@@ -431,8 +412,6 @@ public :
 #define	JEWEL_ICON_NO(I)					g_TblJEWELITEM.m_ppDATA[ I ][ 9 ]
 #define	JEWEL_QUALITY(I)					g_TblJEWELITEM.m_ppDATA[ I ][ 8 ]
 
-
-
 // 퀘스트아이템 
 
 // 상점 
@@ -441,8 +420,8 @@ public :
 	#define STORE_TAB_ICON(I)				g_TblStore.m_ppDATA[ I ][ 1 ]
 	#define STORE_ITEM(I,T)					g_TblStore.m_ppDATA[ I ][ 2+T ]
 #else
-	#define STORE_NAME(I)					CStringManager::GetSingleton().GetStoreTabName( I )
-	#define STORE_ITEM(I,T)					g_TblStore.m_ppVALUE[ I ][ 2+T ].GetINT()
+#define STORE_NAME(I)					CStringManager::GetSingleton().GetStoreTabName( I )
+#define STORE_ITEM(I,T)					g_TblStore.m_ppVALUE[ I ][ 2+T ].GetINT()
 #endif
 
 // 워프
@@ -456,7 +435,6 @@ public :
 #define	EVENT_DESC(I)						g_TblEVENT.m_ppVALUE[ I ][ 2 ].GetSTR()
 #define EVENT_FILENAME(I)					g_TblEVENT.m_ppVALUE[ I ][ 3 ].GetSTR()
 
-
 #define	SKY_MESH(S)							g_TblSKY.m_ppVALUE[ S ][ 0 ].GetSTR()
 #define SKY_TEXTURE_CNT						4
 #define	SKY_TEXTURE(S,T)					g_TblSKY.m_ppVALUE[ S ][ 1 + T ].GetSTR()
@@ -469,8 +447,6 @@ public :
 
 #define SKY_CHANGE_DELAY_CNT				4
 #define SKY_CHANGE_DELAY(I,T)				g_TblSKY.m_ppDATA[ I ][ 18 + T ]
-
-
 
 // ZONE LIST
 #ifdef __SERVER
@@ -518,13 +494,10 @@ public :
 //#define	ZONE_OCEAN_TEXTURE_DIRECTORY(I)		g_TblZONE.m_ppVALUE[ I ][ 30 ].GetINT()
 //#define	ZONE_OCEAN_FRAME(I)					g_TblZONE.m_ppVALUE[ I ][ 31 ].GetINT()
 
-
 #define	ZONE_RIDING_REFUSE_FLAG(I)			g_TblZONE.m_ppVALUE[ I ][ 30 ].GetINT()			// 탑승 거부 플래그
 #define	ZONE_REVIVE_ZONENO(I)				g_TblZONE.m_ppVALUE[ I ][ 31 ].GetINT()			// 사망시 부활존 번호
 #define	ZONE_REVIVE_X_POS(I)				g_TblZONE.m_ppVALUE[ I ][ 32 ].GetINT()			// 사망시 부활존 좌표
 #define	ZONE_REVIVE_Y_POS(I)				g_TblZONE.m_ppVALUE[ I ][ 33 ].GetINT()			// 사망시 부활존 좌표
-
-
 
 // INIT AVATAR
 #define	AVATAR_STR(I)						g_TblAVATAR.m_ppDATA[ I ][ 0 ]
@@ -562,13 +535,11 @@ public :
 #define FILTER_FOULWORD(I)					g_TblFoulWord.m_ppVALUE[ i ][ 0 ].GetSTR();
 #define FILTER_CHANGEWORD(I)				g_TblFoulWord.m_ppVALUE[ i ][ 1 ].GetSTR();
 
-
-
 /// 캐릭터 상태변경 정보
 #ifdef __SERVER
 	#define STATE_NAME(I)					g_TblSTATE.m_ppVALUE[ I ][ 0 ].GetSTR()
 #else
-	#define STATE_NAME(I)					CStringManager::GetSingleton().GetStatusName( I )
+#define STATE_NAME(I)					CStringManager::GetSingleton().GetStatusName( I )
 #endif
 //#define STATE_DESC(I)						g_TblSTATE.m_ppVALUE[ I ][ 18 ].GetSTR()
 
@@ -601,12 +572,11 @@ public :
 	#define STATE_SETTING_STRING(I)				g_TblSTATE.m_ppVALUE[ I ][ 18 ].GetSTR()	/// 설정 스트링
 	#define STATE_DELETE_STRING(I)				g_TblSTATE.m_ppVALUE[ I ][ 19 ].GetSTR()	/// 종료 스트링
 #else
-	#define STATE_SETTING_STRING(I)				CStringManager::GetSingleton().GetStatusStartMsg( I )
-	#define STATE_DELETE_STRING(I)				CStringManager::GetSingleton().GetStatusEndMsg( I )
+#define STATE_SETTING_STRING(I)				CStringManager::GetSingleton().GetStatusStartMsg( I )
+#define STATE_DELETE_STRING(I)				CStringManager::GetSingleton().GetStatusEndMsg( I )
 #endif
 
 #define STATE_STRING_ID(I)					g_TblSTATE.m_ppVALUE[ I ][ 20 ].GetSTR()	/// 종료 스트링
-
 
 ///
 ///	시야정보...
@@ -624,13 +594,11 @@ public :
 #define CAMERA_NEAR_FOG(I)					g_TblCamera.m_ppVALUE[ I ][ 9 ].GetINT()
 #define CAMERA_FAR_FOG(I)					g_TblCamera.m_ppVALUE[ I ][ 10 ].GetINT()
 
-
 ///
 /// Lod 관련 거리 정보
 ///
 #define LOD_APPEAR_MIN(I)					g_TblRangeSet.m_ppDATA[ I ][ 1 ]
 #define LOD_APPEAR_MAX(I)					g_TblRangeSet.m_ppDATA[ I ][ 2 ]
-
 
 ///
 /// 조합...( LIST_UNION.STB )
@@ -638,7 +606,7 @@ public :
 #ifdef __SERVER
 	#define UNION_NAME(I)						g_TblUnion.m_ppVALUE[ I ][ 0 ].GetSTR()
 #else
-	#define UNION_NAME(I)						CStringManager::GetSingleton().GetUnionName( I )
+#define UNION_NAME(I)						CStringManager::GetSingleton().GetUnionName( I )
 #endif
 #define UNION_COLOR(I)						g_TblUnion.m_ppVALUE[ I ][ 1 ].GetINT()
 #define UNION_MARK(I)						g_TblUnion.m_ppVALUE[ I ][ 2 ].GetINT()
@@ -646,30 +614,24 @@ public :
 #define UNION_HOSTILE(I,C)					g_TblUnion.m_ppVALUE[ I ][ 3 + C ].GetINT();
 #define UNION_STRING_ID(I)					g_TblUnion.m_ppVALUE[ I ][ 11 ].GetSTR()
 
-
 ///
 /// 직업군( LIST_CLASS.STB )
 ///
 #ifdef __SERVER
 	#define CLASS_NAME(I)						g_TblClass.m_ppVALUE[ I ][ 0 ].GetSTR()
 #else
-	#define CLASS_NAME(I)						CStringManager::GetSingleton().GetClassName(I)
+#define CLASS_NAME(I)						CStringManager::GetSingleton().GetClassName(I)
 #endif
 #define CLASS_INCLUDE_JOB_CNT				8///해당 Class에 포함되는 직업들의 총 갯수
-#define CLASS_INCLUDE_JOB(I,C)				g_TblClass.m_ppVALUE[ I ][ 1 + C ].GetINT()	
+#define CLASS_INCLUDE_JOB(I,C)				g_TblClass.m_ppVALUE[ I ][ 1 + C ].GetINT()
 #define CLASS_STRING_ID(L)					g_TblClass.m_ppVALUE[ L ][ 11 ].GetSTR()
 
 // *--------------------------------------------------------------------------------* //
-
 
 ///
 /// 발자국 소리( LIST_STEPSOUND.STB )
 ///
 #define STEPSOUND( ZONETYPE, TILENO )		g_TblStepSound.m_ppDATA[ TILENO ][ ZONETYPE ]
-
-
-
-
 
 ///
 /// 장비 아이템 등급별 적용 수치...( LIST_GRADE.STB )
@@ -681,73 +643,61 @@ public :
 #define	ITEMGRADE_AVOID(G)					g_TblItemGRADE.m_ppDATA[ G ][ 4 ]
 #define	ITEMGRADE_GLOW_COLOR(G)				g_TblItemGRADE.m_ppDATA[ G ][ 5 ]
 
+extern STBDATA g_TblHAIR; //머리
+extern STBDATA g_TblFACE; //얼굴
 
+extern STBDATA g_TblARMOR;     //갑옷 아이템
+extern STBDATA g_TblGAUNTLET;  //장갑 아이템 
+extern STBDATA g_TblBOOTS;     //신발 아이템 
+extern STBDATA g_TblHELMET;    //헬멧 아이템 
+extern STBDATA g_TblWEAPON;    //무기 아이템
+extern STBDATA g_TblSUBWPN;    //보조무기 아이템
+extern STBDATA g_TblFACEITEM;  //얼굴 아이템 
+extern STBDATA g_TblBACKITEM;  //등에 다는 아이템 
+extern STBDATA g_TblJEWELITEM; //장신구 아이템 
+extern STBDATA g_TblGEMITEM;   //보석 아이템 
+extern STBDATA g_TblNATUAL;    //원재료 
+extern STBDATA g_TblUSEITEM;   //소모 아이템 
 
+extern STBDATA g_TblEFFECT;   //효과 
+extern STBDATA g_TblNPC;      //NPC
+extern STBDATA g_TblDropITEM; //드롭 아이템
+extern STBDATA g_TblAniTYPE;  //anitype
+extern STBDATA g_TblPRODUCT;  //생산물	
 
+extern STBDATA g_TblQUESTITEM; //퀘스트 아이템 
+extern STBDATA g_TblStore;     //상점 
 
+extern STBDATA g_TblWARP;  // 워프 !
+extern STBDATA g_TblEVENT; // 이벤트
 
+extern STBDATA g_TblSKY;
 
+extern STBDATA g_TblZONE;
 
-extern STBDATA	g_TblHAIR;			//머리
-extern STBDATA	g_TblFACE;			//얼굴
+extern STBDATA* g_pTblSTBs[ ITEM_TYPE_RIDE_PART + 1 ];
 
-extern STBDATA	g_TblARMOR;			//갑옷 아이템
-extern STBDATA	g_TblGAUNTLET;		//장갑 아이템 
-extern STBDATA	g_TblBOOTS;			//신발 아이템 
-extern STBDATA	g_TblHELMET;		//헬멧 아이템 
-extern STBDATA	g_TblWEAPON;		//무기 아이템
-extern STBDATA	g_TblSUBWPN;		//보조무기 아이템
-extern STBDATA  g_TblFACEITEM;		//얼굴 아이템 
-extern STBDATA  g_TblBACKITEM;		//등에 다는 아이템 
-extern STBDATA  g_TblJEWELITEM;		//장신구 아이템 
-extern STBDATA  g_TblGEMITEM;		//보석 아이템 
-extern STBDATA  g_TblNATUAL;		//원재료 
-extern STBDATA	g_TblUSEITEM;		//소모 아이템 
+extern STBDATA g_TblString;   // String table
+extern STBDATA g_TblHitSound; // 재질에 따른 타격시의 사운드
 
+extern STBDATA g_TblAVATAR;     /// 아바타 초기 설정 데이타..
+extern STBDATA g_TblResolution; /// 옵션-해상도
+extern STBDATA g_TblFoulWord;   /// 채팅시 Filtering될 단어들의 리스트 
 
-extern STBDATA  g_TblEFFECT;		//효과 
-extern STBDATA	g_TblNPC;			//NPC
-extern STBDATA	g_TblDropITEM;		//드롭 아이템
-extern STBDATA	g_TblAniTYPE;		//anitype
-extern STBDATA  g_TblPRODUCT;		//생산물	
+extern STBDATA g_TblSTATE; /// 캐릭터의 상태를 변경하는 정보.
 
-extern STBDATA  g_TblQUESTITEM;		//퀘스트 아이템 
-extern STBDATA  g_TblStore;			//상점 
+extern STBDATA g_TblCamera;   /// 시야관련 정보..
+extern STBDATA g_TblRangeSet; /// LOD 거리 관련 정보..
 
-extern STBDATA	g_TblWARP;			// 워프 !
-extern STBDATA	g_TblEVENT;			// 이벤트
+extern STBDATA g_TblUnion;
+extern STBDATA g_TblClass;
+extern STBDATA g_TblStepSound; /// 발자국소리..
 
-extern STBDATA	g_TblSKY;
-
-extern STBDATA	g_TblZONE;
-
-extern STBDATA *g_pTblSTBs[ ITEM_TYPE_RIDE_PART+1 ];
-
-
-
-extern STBDATA	g_TblString;		// String table
-extern STBDATA	g_TblHitSound;		// 재질에 따른 타격시의 사운드
-
-extern STBDATA	g_TblAVATAR;		/// 아바타 초기 설정 데이타..
-extern STBDATA  g_TblResolution;	/// 옵션-해상도
-extern STBDATA	g_TblFoulWord;		/// 채팅시 Filtering될 단어들의 리스트 
-
-
-
-extern STBDATA  g_TblSTATE;			/// 캐릭터의 상태를 변경하는 정보.
-
-extern STBDATA  g_TblCamera;		/// 시야관련 정보..
-extern STBDATA  g_TblRangeSet;		/// LOD 거리 관련 정보..
-
-extern STBDATA  g_TblUnion;
-extern STBDATA	g_TblClass;
-extern STBDATA  g_TblStepSound;		/// 발자국소리..
-
-extern STBDATA	g_TblItemGRADE;		/// 장비 아이템별 등급 적용 수치
+extern STBDATA g_TblItemGRADE; /// 장비 아이템별 등급 적용 수치
 
 #ifndef __SERVER
-	extern STBDATA      g_TblHELP; 
-	extern STBDATA		g_TblBadNames;
+extern STBDATA g_TblHELP;
+extern STBDATA g_TblBadNames;
 #endif
 //-------------------------------------------------------------------------------------------------
 #endif

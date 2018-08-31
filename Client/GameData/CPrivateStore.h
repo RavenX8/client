@@ -8,6 +8,7 @@
 class CItem;
 class CItemFragment;
 struct t_PACKET;
+
 /**
 * 개인상점용 Data Class
 * - 개인상점용 UI는 Show시에 Observer로 등록하고 Hide시에 해제한다.
@@ -33,56 +34,51 @@ struct t_PACKET;
 * @Author		최종진
 * @Date			2005/9/15
 */
-class CPrivateStore : public CObservable, public IObserver
-{
-	CPrivateStore(void);
-	~CPrivateStore(void);
+class CPrivateStore : public CObservable, public IObserver {
+  CPrivateStore(void );
+  ~CPrivateStore(void);
 public:
-	static CPrivateStore& GetInstance();
+  static CPrivateStore& GetInstance();
 
-	virtual void Update( CObservable* pObservable, CTObject* pObj );
+  void Update(CObservable* pObservable, CTObject* pObj) override;
 
-	void	AddItemSellList( CItem* pItem, int iQuantity, int iUnitPrice );
-	void	SortItemSellList();
-	void	RemoveItemSellList( int iIndex );
-	CItem*	GetItemSellList( int iIndex );
-	void	UpdateSellList( tagPS_SLOT_ITEM& SlotITEM );
-	void	UpdateBuyList( tagPS_SLOT_ITEM& SlotITEM );
+  void   AddItemSellList(CItem* pItem, int iQuantity, int iUnitPrice);
+  void   SortItemSellList();
+  void   RemoveItemSellList(int          iIndex);
+  CItem* GetItemSellList(int             iIndex);
+  void   UpdateSellList(tagPS_SLOT_ITEM& SlotITEM);
+  void   UpdateBuyList(tagPS_SLOT_ITEM&  SlotITEM);
 
+  void AddItemBuyList(int    iIndex, int iUnitCost, int iQuantity);
+  void RemoveItemBuyList(int iIndex);
+  //CItem*	GetItemBuyList( int iIndex );
 
-	void	AddItemBuyList( int iIndex, int iUnitCost, int iQuantity );
-	void	RemoveItemBuyList( int iIndex );
-	//CItem*	GetItemBuyList( int iIndex );
+  void AddItemWishList(tagITEM& Item, bool bSendPacket, int iSlotIndex = -1);
+  void RemoveItemWishList(int   iIndex);
 
+  void ClearSellList();
+  void ClearBuyList();
 
-	void	AddItemWishList( tagITEM& Item , bool bSendPacket, int iSlotIndex = -1 );
-	void	RemoveItemWishList( int iIndex );
+  bool Open();
+  void Close();
+  void Clear();
 
-	void	ClearSellList();
-	void	ClearBuyList();
+  const char* GetTitle();
+  void        SetTitle(const char* pszTitle);
 
-
-	bool	Open();
-	void	Close();
-	void	Clear();
-
-	const	char* GetTitle();
-	void	SetTitle( const char* pszTitle );
-
-	CItem*	GetWishItem( int iIndex );
-	bool	IsOpened();
-	bool	IsValidOpen();
+  CItem* GetWishItem(int iIndex);
+  bool   IsOpened();
+  bool   IsValidOpen();
 private:
 
-
 private:
-	std::string			m_strTitle;
-	
-	std::vector< CItemFragment* >		m_SellItems;///판매 아이템 리스트
+  std::string m_strTitle;
+
+  std::vector<CItemFragment*> m_SellItems; ///판매 아이템 리스트
 	/// 구입 아이템 리스트
-	std::list< CItemFragment* >			m_BuyItems; 
-	CItem* 								m_WishItems[MAX_WISH_ITEMS];///찜리스트 - 항상 유지
-	bool				m_bOpened;	///현재 상점이 열려있는가?
-	
+  std::list<CItemFragment*>   m_BuyItems;
+  CItem*                      m_WishItems[MAX_WISH_ITEMS]; ///찜리스트 - 항상 유지
+  bool                        m_bOpened;                   ///현재 상점이 열려있는가?
+
 };
 #endif

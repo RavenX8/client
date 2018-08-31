@@ -4,46 +4,41 @@
 #include "../../tgamectrl/tcommand.h"
 
 struct tagBaseITEM;
-class CTCmdItemEquipInInventory : public CTCommand
-{
+
+class CTCmdItemEquipInInventory : public CTCommand {
 public:
-	CTCmdItemEquipInInventory(void){}
-	virtual ~CTCmdItemEquipInInventory(void){}
-	virtual bool Exec( CTObject* pObj );
+          CTCmdItemEquipInInventory(void ) {}
+  virtual ~CTCmdItemEquipInInventory(void) {}
+  bool    Exec(CTObject*                 pObj) override;
 
 };
 
-class CTCmdItemUseInInventory : public CTCommand
-{
+class CTCmdItemUseInInventory : public CTCommand {
 public:
-	CTCmdItemUseInInventory(void){}
-	virtual ~CTCmdItemUseInInventory(void){}
-	virtual bool Exec( CTObject* pObj );
+          CTCmdItemUseInInventory(void ) {}
+  virtual ~CTCmdItemUseInInventory(void) {}
+  bool    Exec(CTObject*               pObj) override;
 };
 
-class CTCmdItemEtcInInventory : public CTCommand
-{
+class CTCmdItemEtcInInventory : public CTCommand {
 public:
-	CTCmdItemEtcInInventory(void){}
-	virtual ~CTCmdItemEtcInInventory(void){}
-	virtual bool Exec( CTObject* pObj );
+          CTCmdItemEtcInInventory(void ) {}
+  virtual ~CTCmdItemEtcInInventory(void) {}
+  bool    Exec(CTObject*               pObj) override;
 };
 
-
-class CTCmdItemEquiped : public CTCommand
-{
+class CTCmdItemEquiped : public CTCommand {
 public:
-	CTCmdItemEquiped(void){}
-	virtual ~CTCmdItemEquiped(void){}
-	virtual bool Exec( CTObject* pObj );
+          CTCmdItemEquiped(void ) {}
+  virtual ~CTCmdItemEquiped(void) {}
+  bool    Exec(CTObject*        pObj) override;
 };
 
-class CTCmdItemBullet : public CTCommand
-{
+class CTCmdItemBullet : public CTCommand {
 public:
-	CTCmdItemBullet(void){}
-	virtual ~CTCmdItemBullet(void){}
-	virtual bool Exec( CTObject* pObj );
+          CTCmdItemBullet(void ) {}
+  virtual ~CTCmdItemBullet(void) {}
+  bool    Exec(CTObject*       pObj) override;
 };
 
 #endif

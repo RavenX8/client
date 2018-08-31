@@ -18,61 +18,55 @@ class CTCaption;
 * @Data		2005/8/30	
 */
 
-class TGAMECTRL_API CTMsgBox : public CTDialog
-{
+class TGAMECTRL_API CTMsgBox : public CTDialog {
 public:
-	CTMsgBox(void);
-	virtual ~CTMsgBox(void);
+          CTMsgBox(void );
+  virtual ~CTMsgBox(void);
 
-	virtual unsigned int Process( UINT uiMsg,WPARAM wParam,LPARAM lParam );
-	virtual	void Update( POINT ptMouse );
-	virtual	void Draw();
-	virtual void MoveWindow( POINT pt );
-	virtual void Show();
-	virtual void Hide();
-	virtual bool Create( char* szIDD );
+  unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void         Update(POINT ptMouse) override;
+  void         Draw() override;
+  void         MoveWindow(POINT pt) override;
+  void         Show() override;
+  void         Hide() override;
+  virtual bool Create(char* szIDD);
 
+  void      SetButtonType(short int iType);
+  short int GetButtonType() { return m_iButtonType; }
 
-	void		SetButtonType( short int iType );
-	short int	GetButtonType(){ return m_iButtonType; }
+  enum {
+    BT_NONE = 0x0000,
+    BT_OK = 0x0001,
+    BT_CANCEL = 0x0002
+  };
 
+  void         SetButtons(CTButton*    pBtnOk, CTButton*   pBtnCancel);
+  void         SetImages(CTImage*      pImageTop, CTImage* pImageMiddle, CTImage* pImageBottom);
+  virtual void SetString(const char*   szString);
+  void         SetMsgType(unsigned int iType) { m_iMsgType = iType; }
 
+  unsigned int GetMsgType() { return m_iMsgType; }
 
-	enum{
-		BT_NONE		= 0x0000,
-		BT_OK		= 0x0001,
-		BT_CANCEL	= 0x0002
-	};
-
-	void SetButtons( CTButton* pBtnOk, CTButton* pBtnCancel );
-	void SetImages( CTImage* pImageTop, CTImage* pImageMiddle, CTImage* pImageBottom );
-	virtual void SetString( const char* szString );
-	void SetMsgType( unsigned int iType ){ m_iMsgType = iType; }
-
-
-	unsigned int GetMsgType(){ return m_iMsgType; }
-
-
-	void	AddExtraHeight( int iHeight );
-	int		GetExtraHeightStartPoint();
+  void AddExtraHeight(int iHeight);
+  int  GetExtraHeightStartPoint();
 protected:
-	void DrawImages();
+  void DrawImages();
 
 protected:
 
-	CTButton*	m_pButtonOk;									// Ok Button
-	CTButton*	m_pButtonCancel;								// Cancel Button
-	
-	CTImage*	m_pImageTop;									// 배경이미지중 상단
-	CTImage*	m_pImageMiddle;									// 배경이미지중 가운데( 메세지 박스에 표시될 스트링의 길이에 따라서 자동으로 반복되어 그려진다 )
-	CTImage*	m_pImageBottom;									// 배경이미지중 하단
-	
-	short int   m_iButtonType;									// BT_NONE, BT_OK, BT_CANCEL
+  CTButton* m_pButtonOk;     // Ok Button
+  CTButton* m_pButtonCancel; // Cancel Button
 
-	unsigned int m_iMsgType;
-	int			 m_iExtraHeight;								// 추가적인 여유공간
-	int			 m_iExtraHeightStartPoint;
+  CTImage* m_pImageTop;    // 배경이미지중 상단
+  CTImage* m_pImageMiddle; // 배경이미지중 가운데( 메세지 박스에 표시될 스트링의 길이에 따라서 자동으로 반복되어 그려진다 )
+  CTImage* m_pImageBottom; // 배경이미지중 하단
 
-	CJStringParser m_message_parser;							// 메세지 박스에 출력될 스트링
+  short int m_iButtonType; // BT_NONE, BT_OK, BT_CANCEL
+
+  unsigned int m_iMsgType;
+  int          m_iExtraHeight; // 추가적인 여유공간
+  int          m_iExtraHeightStartPoint;
+
+  CJStringParser m_message_parser; // 메세지 박스에 출력될 스트링
 };
 #endif

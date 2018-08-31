@@ -4,133 +4,126 @@
 #ifndef	__COBJGROUND_H
 #define	__COBJGROUND_H
 #include "CObjFIXED.h"
-#include "Common\CItem.h"
+#include "Common/CItem.h"
 
 ///
 /// 필드 아이템...
 ///
 
-class CObjITEM : public CObjFIXED
-{
+class CObjITEM : public CObjFIXED {
 private:
-	HNODE					m_hDummyPosition;
-	HNODE					m_hAnimatable;
+  HNODE m_hDummyPosition;
+  HNODE m_hAnimatable;
 
-	static HNODE			m_hMotion;
+  static HNODE m_hMotion;
 
 public :
-	CObjITEM ();
-	virtual ~CObjITEM ();
+          CObjITEM();
+  virtual ~CObjITEM();
 
+  tagITEM m_ITEM;
 
-	tagITEM					m_ITEM;
+  DWORD m_dwCreatedTIME;
+  WORD  m_wOwnerServerObjIDX;
+  WORD  m_wRemainTIME;
 
-	DWORD					m_dwCreatedTIME;
-	WORD					m_wOwnerServerObjIDX;
-	WORD					m_wRemainTIME;
+  //////////////////////////////////////////////////////////////////////////////////////////
+  /// < Inherited from CGameObj 
 
+  /*override*/
+  int Get_TYPE() override { return OBJ_ITEM; }
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	/// < Inherited from CGameObj 
+  /*override*/
+  void InsertToScene(void) override;
+  /*override*/
+  void RemoveFromScene(bool bIncludeEFFECT = true) override;
+  /*override*/
+  char* Get_NAME() override;
 
-	/*override*/ int					Get_TYPE()		{	return OBJ_ITEM;	}	
+  /*override*/
+  int Proc() override;
 
-	/*override*/ virtual void			InsertToScene (void);
-	/*override*/ virtual void			RemoveFromScene (bool bIncludeEFFECT=true);
-	/*override*/ virtual char*			Get_NAME();
+  /// < End 
+  //////////////////////////////////////////////////////////////////////////////////////////
 
-	/*override*/int						Proc();
-	/// < End 
-	//////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////
+  /// < Inherited from CObjFIXED 
 
+  /*override*/
+  char* Make_ZNAME(int iCreateOrder, short nPartIdx) override { return CStr::Printf( NAME_ITEMOBJ, iCreateOrder, nPartIdx ); }
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	/// < Inherited from CObjFIXED 
+  /*override*/
+  void Delete() override;
 
-	/*override*/char*					Make_ZNAME(int iCreateOrder, short nPartIdx)	{	return CStr::Printf (NAME_ITEMOBJ, iCreateOrder, nPartIdx);	}
+  /// < End 
+  //////////////////////////////////////////////////////////////////////////////////////////
 
-	/*override*/virtual void			Delete ();	
-	
-	/// < End 
-	//////////////////////////////////////////////////////////////////////////////////////////
+  static bool SetMotion(const char* strMotion);
+  static void ClearMotion();
 
-	
+  bool CreateAnimatable();
 
-	static bool				SetMotion( const char* strMotion );
-	static void				ClearMotion();
-
-	bool					CreateAnimatable();	
-
-	
-} ;
-
+};
 
 ///
 /// 나무, 풀, 바위...
 ///
 
-class CObjTREE : public CObjFIXED
-{
+class CObjTREE : public CObjFIXED {
 private:
 
 public :
-	CObjTREE ();
-	virtual ~CObjTREE ();
+          CObjTREE();
+  virtual ~CObjTREE();
 
+  //////////////////////////////////////////////////////////////////////////////////////////
+  /// < Inherited from CGameObj 
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	/// < Inherited from CGameObj 
+  /*override*/
+  int Get_TYPE() override { return OBJ_GROUND; }
 
-	/*override*/int					Get_TYPE()		{	return OBJ_GROUND;	}
-	
-	/// < End 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	
+  /// < End 
+  //////////////////////////////////////////////////////////////////////////////////////////
 
+  //////////////////////////////////////////////////////////////////////////////////////////
+  /// < Inherited from CObjFIXED 
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	/// < Inherited from CObjFIXED 
+  /*override*/
+  char* Make_ZNAME(int iCreateOrder, short nPartIdx) override { return CStr::Printf( NAME_TREEOBJ, iCreateOrder, nPartIdx ); }
 
-	/*override*/char*				Make_ZNAME(int iCreateOrder, short nPartIdx)	{	return CStr::Printf (NAME_TREEOBJ, iCreateOrder, nPartIdx);	}	
-	
-	/// < End 
-	//////////////////////////////////////////////////////////////////////////////////////////	
-} ;
-
-
+  /// < End 
+  //////////////////////////////////////////////////////////////////////////////////////////	
+};
 
 ///
 /// 건물
 ///
 
-class CObjCNST : public CObjFIXED
-{
+class CObjCNST : public CObjFIXED {
 private:
 
 public :
-	CObjCNST ();
-	virtual ~CObjCNST ();
+          CObjCNST();
+  virtual ~CObjCNST();
 
+  //////////////////////////////////////////////////////////////////////////////////////////
+  /// < Inherited from CGameObj 
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	/// < Inherited from CGameObj 
+  /*override*/
+  int Get_TYPE() override { return OBJ_CNST; }
 
-	/*override*/int				Get_TYPE()		{	return OBJ_CNST;	}
-	
-	/// < End 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	
+  /// < End 
+  //////////////////////////////////////////////////////////////////////////////////////////
 
+  //////////////////////////////////////////////////////////////////////////////////////////
+  /// < Inherited from CObjFIXED 
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	/// < Inherited from CObjFIXED 
+  /*override*/
+  char* Make_ZNAME(int iCreateOrder, short nPartIdx) override { return CStr::Printf( NAME_CNSTOBJ, iCreateOrder, nPartIdx ); }
 
-	/*override*/char *			Make_ZNAME(int iCreateOrder, short nPartIdx)	{	return CStr::Printf (NAME_CNSTOBJ, iCreateOrder, nPartIdx);	}
-	
-	/// < End 
-	//////////////////////////////////////////////////////////////////////////////////////////	
-} ;
+  /// < End 
+  //////////////////////////////////////////////////////////////////////////////////////////	
+};
 
 //-------------------------------------------------------------------------------------------------
-#endif	
-
+#endif

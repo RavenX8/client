@@ -287,7 +287,7 @@ zz_manager_sound::~zz_manager_sound ()
 bool zz_manager_sound::initialize ()
 {
     // Create a static IDirectSound in the CSound class.  
-    // Set coop level to DSSCL_PRIORITY, and set primary buffer 
+// Set coop level to DSSCL_PRIORITY, and set primary buffer 
     // format to stereo, 22kHz and 16-bit output.
 	if (!g_pSoundManager) {
 		g_pSoundManager = new CSoundManager();

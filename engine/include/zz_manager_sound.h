@@ -45,12 +45,12 @@
 class zz_manager_sound : public zz_manager {
 private:
 	//LPDIRECTSOUND8 ds_;
-	//LPDIRECTSOUND3DLISTENER listener_; // 3D listener object
-	//DS3DBUFFER buffer_params_; // 3D buffer properties
-	//DS3DLISTENER listener_params_; // Listener properties
+//LPDIRECTSOUND3DLISTENER listener_; // 3D listener object
+//DS3DBUFFER buffer_params_; // 3D buffer properties
+//DS3DLISTENER listener_params_; // Listener properties
 
-	//bool set_primary_buffer_format ( DWORD dwPrimaryChannels, DWORD dwPrimaryFreq, DWORD dwPrimaryBitRate );
-	//bool get_3d_listener_interface ( LPDIRECTSOUND3DLISTENER* ppDSListener );
+//bool set_primary_buffer_format ( DWORD dwPrimaryChannels, DWORD dwPrimaryFreq, DWORD dwPrimaryBitRate );
+//bool get_3d_listener_interface ( LPDIRECTSOUND3DLISTENER* ppDSListener );
 	//bool create ( LPTSTR strWaveFileName );
 
 	void set_listener_position (const vec3& position);

@@ -1,33 +1,32 @@
 #ifndef _CFriendListItem_
 #define _CFriendListItem_
 #include "winctrl.h"
+
 /**
-* Ä¿¹Â´ÏÆ¼ Ã¢¿¡¼­ Ä£±¸ ¸®½ºÆ®¿¡ »ç¿ëµÇ´Â Item Class
+* Ä¿ï¿½Â´ï¿½Æ¼ Ã¢ï¿½ï¿½ï¿½ï¿½ Ä£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ç´ï¿½ Item Class
 *
-* @Author		ÃÖÁ¾Áø
+* @Author		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * @Date			2005/9/15
 */
-class CFriendListItem :	public CWinCtrl
-{
+class CFriendListItem : public CWinCtrl {
 public:
-	CFriendListItem( DWORD dwUserTag, BYTE btStatus, const char* pszName );
-	virtual ~CFriendListItem(void);
-	virtual void Draw();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void SetSelected();
-	
-	void	SetStatus( BYTE btStatus );
-	
-	const	DWORD	GetUserTag();
-	const	char*	GetName();
-	const	BYTE	GetStatus();
+           CFriendListItem(DWORD dwUserTag, BYTE btStatus, const char* pszName);
+  virtual  ~CFriendListItem(void );
+  void     Draw() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     SetSelected() override;
 
-	
-protected: 
-	DWORD		m_dwUserTag;
-	BYTE		m_btStatus;
-	std::string m_strName;
-	int			m_online_image_id;
-	int			m_offline_image_id;
+  void SetStatus(BYTE btStatus);
+
+  const DWORD GetUserTag();
+  const char* GetName();
+  const BYTE  GetStatus();
+
+protected:
+  DWORD       m_dwUserTag;
+  BYTE        m_btStatus;
+  std::string m_strName;
+  int         m_online_image_id;
+  int         m_offline_image_id;
 };
 #endif

@@ -10,13 +10,12 @@ class CTStatic;
 *
 * @Data			2005/8/30	
 */
-class TGAMECTRL_API CTListCellRenderer : public IListCellRenderer
-{
-	CTStatic*		m_pComponent;
+class TGAMECTRL_API CTListCellRenderer : public IListCellRenderer {
+  CTStatic* m_pComponent;
 public:
-	CTListCellRenderer(void);
-	~CTListCellRenderer(void);
+  CTListCellRenderer(void );
+  ~CTListCellRenderer(void);
 
-	virtual CWinCtrl* GetListCellRendererComponent( const CTObject* pObject, bool selected, bool mouseover );
+  CWinCtrl* GetListCellRendererComponent(const CTObject* pObject, bool selected, bool mouseover) override;
 };
 #endif

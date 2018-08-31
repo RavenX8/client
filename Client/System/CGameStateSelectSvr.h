@@ -8,20 +8,19 @@
 * @Author	√÷¡æ¡¯
 * @Date		2005/9/15
 */
-class CGameStateSelectSvr :	public CGameState
-{
+class CGameStateSelectSvr : public CGameState {
 public:
-	CGameStateSelectSvr( int iID );
-	virtual ~CGameStateSelectSvr(void);
+          CGameStateSelectSvr(int  iID);
+  virtual ~CGameStateSelectSvr(void);
 
-	int Update( bool bLostFocus );
-	int Enter( int iPrevStateID );
-	int Leave( int iNextStateID );
-	virtual void ServerDisconnected();
+  int  Update(bool bLostFocus) override;
+  int  Enter(int   iPrevStateID) override;
+  int  Leave(int   iNextStateID) override;
+  void ServerDisconnected() override;
 
-	virtual int ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual int ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM lParam );
+  int ProcMouseInput(UINT    uiMsg, WPARAM wParam, LPARAM lParam) override;
+  int ProcKeyboardInput(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
 private:
-	int		m_iPrevState;
+  int m_iPrevState;
 };
 #endif

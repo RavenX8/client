@@ -162,19 +162,19 @@ long double    |10 | none                               | 1.2E +/- 4932 (19 digi
 */
 
 //typedef unsigned char  bool; /* 1 */
-typedef unsigned char  byte; /* 1 */
+typedef unsigned char byte; /* 1 */
 
 #ifdef WIN32
 #include <windows.h>
 #include <d3d9.h>
-typedef signed __int16        int16; /* 2 */
-typedef signed __int32        int32; /* 4 */
-typedef signed __int64        int64; /* 8 */
+typedef signed __int16   int16; /* 2 */
+typedef signed __int32   int32; /* 4 */
+typedef signed __int64   int64; /* 8 */
 typedef unsigned __int64 uint64;
-typedef DWORD dword;
-typedef RECT zz_rect;
-typedef D3DCOLOR color32; // argb
-typedef SIZE zz_size;
+typedef DWORD            dword;
+typedef RECT             zz_rect;
+typedef D3DCOLOR         color32; // argb
+typedef SIZE             zz_size;
 #else
 typedef short int      int16; /* 2 */
 typedef int            int32; /* 4 */
@@ -196,9 +196,9 @@ typedef struct _zz_size {
 
 typedef unsigned short uint16; /* 2 */
 // typedef unsigned long  uint32; /* 4 */
-typedef unsigned int uint32; /* 4 */
-typedef unsigned int uint; /* ?(..4) */
-typedef unsigned char  uchar; /* 1 */
+typedef unsigned int  uint32; /* 4 */
+typedef unsigned int  uint;   /* ?(..4) */
+typedef unsigned char uchar;  /* 1 */
 
 typedef unsigned long ulong;
 
@@ -224,7 +224,7 @@ typedef unsigned long zz_handle;
 #endif
 
 // default 100 MEGA byte memory (is it OK?)
-#define ZZ_MAX_MEMORY 100000000 
+#define ZZ_MAX_MEMORY 100000000
 #define ZZ_MAX_STRING 255
 #define ZZ_MAX_VERTEX_BUFFERS 1000
 #define ZZ_MAX_INDEX_BUFFERS 1000
@@ -288,25 +288,21 @@ typedef unsigned long zz_handle;
 #define ZZ_COLOR32_GREEN(C) (((C)&0x0000FF00) >> 8)
 #define ZZ_COLOR32_BLUE(C) (((C)&0x000000FF))
 
-struct zz_color
-{
-	float r, g, b, a;
+struct zz_color {
+  float r, g, b, a;
 
-	zz_color() { }
-	zz_color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) { }
-	zz_color(color32 argb32) : a(float((argb32>>24)&0xff)/255.0f), r(float((argb32>>16)&0xff)/255.0f), g(float((argb32>>8)&0xff)/255.0f), b(float(argb32&0xff)/255.0f) {}
-	
-	operator dword () const
-	{
-		return ZZ_COLOR32_ARGB(int(a*255.0f), int(r*255.0f), int(g*255.0f), int(b*255.0f));
-	}
+  zz_color() { }
+  zz_color(float   r, float g, float b, float a) : r( r ), g( g ), b( b ), a( a ) { }
+  zz_color(color32 argb32) : r( float( (argb32 >> 16) & 0xff ) / 255.0f ), g( float( (argb32 >> 8) & 0xff ) / 255.0f ), b( float( argb32 & 0xff ) / 255.0f ), a( float( (argb32 >> 24) & 0xff ) / 255.0f ) {}
 
-	bool operator == (const zz_color& c) const
-	{
-		return ((c.a == a) && (c.r == r) && (c.g == g) && (c.b == b));
-	}
+  operator dword() const {
+    return ZZ_COLOR32_ARGB(int(a*255.0f), int(r*255.0f), int(g*255.0f), int(b*255.0f));
+  }
+
+  bool operator ==(const zz_color& c) const {
+    return ((c.a == a) && (c.r == r) && (c.g == g) && (c.b == b));
+  }
 };
-
 
 //---------------------------------------------------------------------------------------------
 // color format (same as one in d3d9type.h)
@@ -342,108 +338,105 @@ struct zz_color
  *            number of bits per Depth channel (but not Stencil channel).
  */
 #ifndef ZZ_MAKEFOURCC
-    #define ZZ_MAKEFOURCC(ch0, ch1, ch2, ch3)                              \
+#define ZZ_MAKEFOURCC(ch0, ch1, ch2, ch3)                              \
                 ((dword)(byte)(ch0) | ((dword)(byte)(ch1) << 8) |       \
                 ((dword)(byte)(ch2) << 16) | ((dword)(byte)(ch3) << 24 ))
 #endif /* defined(MAKEFOURCC) */
 
-typedef enum _ZZ_FORMAT
-{
-    ZZ_FMT_UNKNOWN              =  0,
+typedef enum _ZZ_FORMAT {
+  ZZ_FMT_UNKNOWN = 0,
 
-    ZZ_FMT_R8G8B8               = 20,
-    ZZ_FMT_A8R8G8B8             = 21,
-    ZZ_FMT_X8R8G8B8             = 22,
-    ZZ_FMT_R5G6B5               = 23,
-    ZZ_FMT_X1R5G5B5             = 24,
-    ZZ_FMT_A1R5G5B5             = 25,
-    ZZ_FMT_A4R4G4B4             = 26,
-    ZZ_FMT_R3G3B2               = 27,
-    ZZ_FMT_A8                   = 28,
-    ZZ_FMT_A8R3G3B2             = 29,
-    ZZ_FMT_X4R4G4B4             = 30,
-    ZZ_FMT_A2B10G10R10          = 31,
-    ZZ_FMT_A8B8G8R8             = 32,
-    ZZ_FMT_X8B8G8R8             = 33,
-    ZZ_FMT_G16R16               = 34,
-    ZZ_FMT_A2R10G10B10          = 35,
-    ZZ_FMT_A16B16G16R16         = 36,
+  ZZ_FMT_R8G8B8 = 20,
+  ZZ_FMT_A8R8G8B8 = 21,
+  ZZ_FMT_X8R8G8B8 = 22,
+  ZZ_FMT_R5G6B5 = 23,
+  ZZ_FMT_X1R5G5B5 = 24,
+  ZZ_FMT_A1R5G5B5 = 25,
+  ZZ_FMT_A4R4G4B4 = 26,
+  ZZ_FMT_R3G3B2 = 27,
+  ZZ_FMT_A8 = 28,
+  ZZ_FMT_A8R3G3B2 = 29,
+  ZZ_FMT_X4R4G4B4 = 30,
+  ZZ_FMT_A2B10G10R10 = 31,
+  ZZ_FMT_A8B8G8R8 = 32,
+  ZZ_FMT_X8B8G8R8 = 33,
+  ZZ_FMT_G16R16 = 34,
+  ZZ_FMT_A2R10G10B10 = 35,
+  ZZ_FMT_A16B16G16R16 = 36,
 
-    ZZ_FMT_A8P8                 = 40,
-    ZZ_FMT_P8                   = 41,
+  ZZ_FMT_A8P8 = 40,
+  ZZ_FMT_P8 = 41,
 
-    ZZ_FMT_L8                   = 50,
-    ZZ_FMT_A8L8                 = 51,
-    ZZ_FMT_A4L4                 = 52,
+  ZZ_FMT_L8 = 50,
+  ZZ_FMT_A8L8 = 51,
+  ZZ_FMT_A4L4 = 52,
 
-    ZZ_FMT_V8U8                 = 60,
-    ZZ_FMT_L6V5U5               = 61,
-    ZZ_FMT_X8L8V8U8             = 62,
-    ZZ_FMT_Q8W8V8U8             = 63,
-    ZZ_FMT_V16U16               = 64,
-    ZZ_FMT_A2W10V10U10          = 67,
+  ZZ_FMT_V8U8 = 60,
+  ZZ_FMT_L6V5U5 = 61,
+  ZZ_FMT_X8L8V8U8 = 62,
+  ZZ_FMT_Q8W8V8U8 = 63,
+  ZZ_FMT_V16U16 = 64,
+  ZZ_FMT_A2W10V10U10 = 67,
 
-    ZZ_FMT_UYVY                 = ZZ_MAKEFOURCC('U', 'Y', 'V', 'Y'),
-    ZZ_FMT_R8G8_B8G8            = ZZ_MAKEFOURCC('R', 'G', 'B', 'G'),
-    ZZ_FMT_YUY2                 = ZZ_MAKEFOURCC('Y', 'U', 'Y', '2'),
-    ZZ_FMT_G8R8_G8B8            = ZZ_MAKEFOURCC('G', 'R', 'G', 'B'),
-    ZZ_FMT_DXT1                 = ZZ_MAKEFOURCC('D', 'X', 'T', '1'),
-    ZZ_FMT_DXT2                 = ZZ_MAKEFOURCC('D', 'X', 'T', '2'),
-    ZZ_FMT_DXT3                 = ZZ_MAKEFOURCC('D', 'X', 'T', '3'),
-    ZZ_FMT_DXT4                 = ZZ_MAKEFOURCC('D', 'X', 'T', '4'),
-    ZZ_FMT_DXT5                 = ZZ_MAKEFOURCC('D', 'X', 'T', '5'),
+  ZZ_FMT_UYVY = ZZ_MAKEFOURCC('U', 'Y', 'V', 'Y'),
+  ZZ_FMT_R8G8_B8G8 = ZZ_MAKEFOURCC('R', 'G', 'B', 'G'),
+  ZZ_FMT_YUY2 = ZZ_MAKEFOURCC('Y', 'U', 'Y', '2'),
+  ZZ_FMT_G8R8_G8B8 = ZZ_MAKEFOURCC('G', 'R', 'G', 'B'),
+  ZZ_FMT_DXT1 = ZZ_MAKEFOURCC('D', 'X', 'T', '1'),
+  ZZ_FMT_DXT2 = ZZ_MAKEFOURCC('D', 'X', 'T', '2'),
+  ZZ_FMT_DXT3 = ZZ_MAKEFOURCC('D', 'X', 'T', '3'),
+  ZZ_FMT_DXT4 = ZZ_MAKEFOURCC('D', 'X', 'T', '4'),
+  ZZ_FMT_DXT5 = ZZ_MAKEFOURCC('D', 'X', 'T', '5'),
 
-    ZZ_FMT_D16_LOCKABLE         = 70,
-    ZZ_FMT_D32                  = 71,
-    ZZ_FMT_D15S1                = 73,
-    ZZ_FMT_D24S8                = 75,
-    ZZ_FMT_D24X8                = 77,
-    ZZ_FMT_D24X4S4              = 79,
-    ZZ_FMT_D16                  = 80,
+  ZZ_FMT_D16_LOCKABLE = 70,
+  ZZ_FMT_D32 = 71,
+  ZZ_FMT_D15S1 = 73,
+  ZZ_FMT_D24S8 = 75,
+  ZZ_FMT_D24X8 = 77,
+  ZZ_FMT_D24X4S4 = 79,
+  ZZ_FMT_D16 = 80,
 
-    ZZ_FMT_D32F_LOCKABLE        = 82,
-    ZZ_FMT_D24FS8               = 83,
+  ZZ_FMT_D32F_LOCKABLE = 82,
+  ZZ_FMT_D24FS8 = 83,
 
+  ZZ_FMT_L16 = 81,
 
-    ZZ_FMT_L16                  = 81,
+  ZZ_FMT_VERTEXDATA =100,
+  ZZ_FMT_INDEX16 =101,
+  ZZ_FMT_INDEX32 =102,
 
-    ZZ_FMT_VERTEXDATA           =100,
-    ZZ_FMT_INDEX16              =101,
-    ZZ_FMT_INDEX32              =102,
+  ZZ_FMT_Q16W16V16U16 =110,
 
-    ZZ_FMT_Q16W16V16U16         =110,
+  ZZ_FMT_MULTI2_ARGB8 = ZZ_MAKEFOURCC('M','E','T','1'),
 
-    ZZ_FMT_MULTI2_ARGB8         = ZZ_MAKEFOURCC('M','E','T','1'),
+  // Floating point surface formats
 
-    // Floating point surface formats
+  // s10e5 formats (16-bits per channel)
+  ZZ_FMT_R16F = 111,
+  ZZ_FMT_G16R16F = 112,
+  ZZ_FMT_A16B16G16R16F = 113,
 
-    // s10e5 formats (16-bits per channel)
-    ZZ_FMT_R16F                 = 111,
-    ZZ_FMT_G16R16F              = 112,
-    ZZ_FMT_A16B16G16R16F        = 113,
+  // IEEE s23e8 formats (32-bits per channel)
+  ZZ_FMT_R32F = 114,
+  ZZ_FMT_G32R32F = 115,
+  ZZ_FMT_A32B32G32R32F = 116,
 
-    // IEEE s23e8 formats (32-bits per channel)
-    ZZ_FMT_R32F                 = 114,
-    ZZ_FMT_G32R32F              = 115,
-    ZZ_FMT_A32B32G32R32F        = 116,
+  ZZ_FMT_CxV8U8 = 117,
 
-    ZZ_FMT_CxV8U8               = 117,
-
-
-    ZZ_FMT_FORCE_DWORD          =0x7fffffff
+  ZZ_FMT_FORCE_DWORD =0x7fffffff
 } ZZ_FORMAT;
 
 // do not mix the order. client uses it as integer. just add new
 enum zz_collision_level {
-	ZZ_CL_NONE					= 0x0,
-	ZZ_CL_SPHERE				= 0x1,
-	ZZ_CL_AABB					= 0x2,
-	ZZ_CL_OBB					= 0x3,
-	ZZ_CL_POLYGON				= 1 << 2,
-	ZZ_CL_NOTMOVEABLE			= 1 << 3, 
-	ZZ_CL_NOTPICKABLE			= 1 << 4,
-    ZZ_CL_HEIGHTONLY            = 1 << 5,
-    ZZ_CL_NOTCAMERACOLLISION    = 1 << 6,
+  ZZ_CL_NONE = 0x0,
+  ZZ_CL_SPHERE = 0x1,
+  ZZ_CL_AABB = 0x2,
+  ZZ_CL_OBB = 0x3,
+  ZZ_CL_POLYGON = 1 << 2,
+  ZZ_CL_NOTMOVEABLE = 1 << 3,
+  ZZ_CL_NOTPICKABLE = 1 << 4,
+  ZZ_CL_HEIGHTONLY = 1 << 5,
+  ZZ_CL_NOTCAMERACOLLISION = 1 << 6,
 };
 
 #define ZZ_IS_SPHERE_LEVEL(L)			(((L) & 0x7) == ZZ_CL_SPHERE)
@@ -454,8 +447,8 @@ enum zz_collision_level {
 #define ZZ_IS_PICKABLE(L)				(!((L) & ZZ_CL_NOTPIKABLE))
 #define ZZ_IS_NOTMOVEABLE(L)			((L) & ZZ_CL_NOTMOVEABLE)
 #define ZZ_IS_NOTPICKABLE(L)			((L) & ZZ_CL_NOTPICKABLE)
-#define ZZ_IS_HEIGHTONOY(L)             ((L) & ZZ_CL_HEIGHTONLY) 
-#define ZZ_IS_NOTCAMERACOLLISION(L)    ((L) & ZZ_CL_NOTCAMERACOLLISION) 
+#define ZZ_IS_HEIGHTONOY(L)             ((L) & ZZ_CL_HEIGHTONLY)
+#define ZZ_IS_NOTCAMERACOLLISION(L)    ((L) & ZZ_CL_NOTCAMERACOLLISION)
 
 #define ZZ_SCALE_IN			(0.01f)
 #define ZZ_SCALE_OUT		(100.0f)
@@ -469,13 +462,20 @@ enum zz_collision_level {
 #define MAX_NUM_FACES 100000
 
 enum zz_glow_type {
-	ZZ_GLOW_NONE					= 0, // do not use glow
-	ZZ_GLOW_NOTSET				= 1, // not set yet. it is the visible's default setting. it does not affect material's glow state.
-	ZZ_GLOW_SIMPLE				= 2, // simple color glow
-	ZZ_GLOW_LIGHT					= 3, // lit color glow
-	ZZ_GLOW_TEXTURE				= 4, // color x texture glow
-	ZZ_GLOW_TEXTURE_LIGHT = 5, // lit color x texture glow
-	ZZ_GLOW_ALPHA					= 6, // only alpha
+  ZZ_GLOW_NONE = 0,
+  // do not use glow
+  ZZ_GLOW_NOTSET = 1,
+  // not set yet. it is the visible's default setting. it does not affect material's glow state.
+  ZZ_GLOW_SIMPLE = 2,
+  // simple color glow
+  ZZ_GLOW_LIGHT = 3,
+  // lit color glow
+  ZZ_GLOW_TEXTURE = 4,
+  // color x texture glow
+  ZZ_GLOW_TEXTURE_LIGHT = 5,
+  // lit color x texture glow
+  ZZ_GLOW_ALPHA = 6,
+  // only alpha
 };
 
 #endif // __ZZ_TYPE_H__

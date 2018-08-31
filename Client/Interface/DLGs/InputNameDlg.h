@@ -5,7 +5,6 @@
 
 class CTCmdInputName;
 
-
 /**
 * 이름및 스트링 입력시 공통으로 사용되는 다이얼로그
 * 
@@ -13,25 +12,25 @@ class CTCmdInputName;
 * @Author		최종진
 * @Date			2005/9/14
 */
-class CInputNameDlg : public CTDialog
-{
+class CInputNameDlg : public CTDialog {
 public:
-	CInputNameDlg(void);
-	virtual ~CInputNameDlg(void);
+          CInputNameDlg(void );
+  virtual ~CInputNameDlg(void);
 
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	virtual void Hide();
-	void	SetCommand( CTCmdInputName* m_command );
+  void Hide() override;
+  void SetCommand(CTCmdInputName* m_command);
 private:
-	bool	ExecuteCommand();
-	enum{
-		IID_BTN_CLOSE	= 10,
-		IID_BTN_CONFIRM = 11,
-		IID_EDITBOX		= 20
-	};
+  bool ExecuteCommand();
 
-	CTCmdInputName* m_command;
+  enum {
+    IID_BTN_CLOSE = 10,
+    IID_BTN_CONFIRM = 11,
+    IID_EDITBOX = 20
+  };
+
+  CTCmdInputName* m_command;
 };
 
 #endif

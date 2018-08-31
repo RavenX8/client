@@ -1,7 +1,7 @@
 #ifndef __ERRORETC_H__
 #define __ERRORETC_H__
 
-void ODS (char *fmt, ...);
+void ODS(char* fmt, ...);
 
 #define VERROR_NONE				0
 #define VERROR_TOOMANYENTRY		1
@@ -17,14 +17,13 @@ void ODS (char *fmt, ...);
 #define VERROR_11
 #define VERROR_12
 
-class CErrorInfo
-{
+class CErrorInfo {
 private:
-	static DWORD m_dwLastErrorCode;
+  static DWORD m_dwLastErrorCode;
 
 public:
-	static void Refresh ( void );
-	static DWORD GetError ( void );
+  static void  Refresh(void );
+  static DWORD GetError(void);
 };
 
 #endif

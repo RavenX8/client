@@ -4,33 +4,33 @@
 #include "itreenoderenderer.h"
 #include "TStatic.h"
 class CTImage;
-class TGAMECTRL_API CTDefaultTreeNodeRenderer : public CTStatic, public ITreeNodeRenderer
-{
+
+class TGAMECTRL_API CTDefaultTreeNodeRenderer : public CTStatic, public ITreeNodeRenderer {
 public:
-	CTDefaultTreeNodeRenderer(void);
-	virtual ~CTDefaultTreeNodeRenderer(void);
+          CTDefaultTreeNodeRenderer(void );
+  virtual ~CTDefaultTreeNodeRenderer(void);
 
-	///ITreeNodeRenderer
-	virtual CWinCtrl* getTreeCellRendererComponent(CTree* tree, CTObject* value, bool selected, bool expanded, bool leaf, int row, bool hasFocus);
+  ///ITreeNodeRenderer
+  CWinCtrl* getTreeCellRendererComponent(CTree* tree, CTObject* value, bool selected, bool expanded, bool leaf, int row, bool hasFocus) override;
 
-	/// CWinCtrl
-	virtual void CTDefaultTreeNodeRenderer::Draw( POINT ptDraw );
+  /// CWinCtrl
+  void CTDefaultTreeNodeRenderer::Draw(POINT ptDraw) override;
 
-	void	setOpenImage( CTImage* pImage );
-	void	setCloseImage( CTImage* pImage );
+  void setOpenImage(CTImage*  pImage);
+  void setCloseImage(CTImage* pImage);
 
-	void	setParentImage( CTImage* pImage);
-	void	setLeafImage( CTImage* pImage);
+  void setParentImage(CTImage* pImage);
+  void setLeafImage(CTImage*   pImage);
 
 protected:
-	CTImage*		m_pCloseImage;
-	CTImage*		m_pOpenImage;
-	CTImage*		m_pLeafImage;
-	CTImage*		m_pParentImage;
+  CTImage* m_pCloseImage;
+  CTImage* m_pOpenImage;
+  CTImage* m_pLeafImage;
+  CTImage* m_pParentImage;
 
-	CTImage*		m_pNodeImage;
+  CTImage* m_pNodeImage;
 
-	D3DCOLOR		m_color;
-	SIZE			m_sizeImage;///close or open image¿« size
+  D3DCOLOR m_color;
+  SIZE     m_sizeImage; ///close or open image¿« size
 };
 #endif

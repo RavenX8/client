@@ -27,39 +27,34 @@
 //	return true;
 //}
 
-bool CTCmdRemoveItemInBuyList::Exec( CTObject* pObj )
-{
-	if( pObj == NULL )
-	{
-		assert( pObj && "pObj is NULL @CTCmdRemoveItemInBuyList" );
-		return true;
-	}
+bool CTCmdRemoveItemInBuyList::Exec(CTObject* pObj) {
+  if ( pObj == nullptr ) {
+    assert( pObj && "pObj is NULL @CTCmdRemoveItemInBuyList" );
+    return true;
+  }
 
-	if( strcmp( pObj->toString(), "CIcon" ) == 0 )
-		CDealData::GetInstance().RemoveItemFromBuyList( ((CIconItem*)pObj)->GetCItem() );
-	else if( strcmp( pObj->toString(), "CItem" ) == 0 )
-		CDealData::GetInstance().RemoveItemFromBuyList( (CItem*)pObj );
-	else
-		assert( 0 && "Invalid CTObject Type @CTCmdRemoveItemInBuyList" );
+  if ( strcmp( pObj->toString(), "CIcon" ) == 0 )
+    CDealData::GetInstance().RemoveItemFromBuyList( ((CIconItem*)pObj)->GetCItem() );
+  else if ( strcmp( pObj->toString(), "CItem" ) == 0 )
+    CDealData::GetInstance().RemoveItemFromBuyList( (CItem*)pObj );
+  else
+    assert( 0 && "Invalid CTObject Type @CTCmdRemoveItemInBuyList" );
 
-	return true;
+  return true;
 }
 
-bool CTCmdRemoveItemInSellList::Exec( CTObject* pObj )
-{
-	if( pObj == NULL )
-	{
-		assert( pObj && "pObj is NULL @CTCmdRemoveItemInSellList" );
-		return true;
-	}
+bool CTCmdRemoveItemInSellList::Exec(CTObject* pObj) {
+  if ( pObj == nullptr ) {
+    assert( pObj && "pObj is NULL @CTCmdRemoveItemInSellList" );
+    return true;
+  }
 
-	if( strcmp( pObj->toString(), "CIcon" ) == 0 )
-		CDealData::GetInstance().RemoveItemFromSellList( ((CIconItem*)pObj)->GetCItem() );
-	else if( strcmp( pObj->toString(), "CItem" ) == 0 )
-		CDealData::GetInstance().RemoveItemFromSellList( (CItem*)pObj );
-	else
-		assert( 0 && "Invalid CTObject Type @CTCmdRemoveItemInSellList" );
+  if ( strcmp( pObj->toString(), "CIcon" ) == 0 )
+    CDealData::GetInstance().RemoveItemFromSellList( ((CIconItem*)pObj)->GetCItem() );
+  else if ( strcmp( pObj->toString(), "CItem" ) == 0 )
+    CDealData::GetInstance().RemoveItemFromSellList( (CItem*)pObj );
+  else
+    assert( 0 && "Invalid CTObject Type @CTCmdRemoveItemInSellList" );
 
-	return true;
+  return true;
 }
-

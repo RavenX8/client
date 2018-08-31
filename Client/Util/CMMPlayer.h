@@ -4,37 +4,36 @@
 #ifndef	__CMMPLAYER_H
 #define	__CMMPLAYER_H
 #include <dshow.h>
+
 //-------------------------------------------------------------------------------------------------
 
-class classMMPLAYER
-{
+class classMMPLAYER {
 public:
-	IGraphBuilder *m_pGraphBuilder;
-	IMediaEventEx *m_pMediaEvent;
-	IMediaControl *m_pMediaControl;
-	IMediaSeeking *m_pMediaSeeking;
-	IBaseFilter   *m_pSourceCurrent;
-	IBaseFilter   *m_pSourceNext;
+  IGraphBuilder* m_pGraphBuilder;
+  IMediaEventEx* m_pMediaEvent;
+  IMediaControl* m_pMediaControl;
+  IMediaSeeking* m_pMediaSeeking;
+  IBaseFilter*   m_pSourceCurrent;
+  IBaseFilter*   m_pSourceNext;
 
 public :
-	HRESULT HandleEvent();
+  HRESULT HandleEvent();
 
-	HRESULT Init( HWND argHwnd, UINT uiEventMsg );
-	void	Free (void);
+  HRESULT Init(HWND argHwnd, UINT uiEventMsg);
+  void    Free(void );
 
-	classMMPLAYER();
-	virtual ~classMMPLAYER();
+          classMMPLAYER();
+  virtual ~classMMPLAYER();
 
-	HRESULT Play( char *szFileName);
+  HRESULT Play(char* szFileName);
 
-	HRESULT Run ();
-	HRESULT Pause ();
-	HRESULT	Stop ();
+  HRESULT Run();
+  HRESULT Pause();
+  HRESULT Stop();
 
-	virtual	void ON_Completed ()	{	;	}
-	virtual void ON_Abort ()		{	;	}
+  virtual void ON_Completed() { }
+  virtual void ON_Abort() { }
 };
-
 
 //-------------------------------------------------------------------------------------------------
 #endif

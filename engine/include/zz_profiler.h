@@ -89,61 +89,61 @@
 #define __ZZ_PROFILER_DISABLE__
 
 struct zz_profiler_item {
-	int count; // number of occurence
-	char name[ZZ_MAX_STRING]; // function name
-	double total; // total timing in [ms]
+  int    count;               // number of occurence
+  char   name[ZZ_MAX_STRING]; // function name
+  double total;               // total timing in [ms]
 
-	zz_profiler_item(const char * name_in = NULL) : count(0), total(0) {
-		if (name_in) {
-			strcpy(name, name_in);
-		}
-		else {
-			name[0] = '\0';
-		}
-	}
-	~zz_profiler_item() {}
+  zz_profiler_item(const char* name_in = nullptr) : count( 0 ), total( 0 ) {
+    if ( name_in ) {
+      strcpy( name, name_in );
+    } else {
+      name[0] = '\0';
+    }
+  }
+
+  ~zz_profiler_item() {}
 };
 
 // for profiling
 class zz_profiler {
-	int _count;
-	int _cycle;
-	const char * _msg;
-	uint64 _start;
-	uint64 _end;
-	uint64 _sum_of_intervals;
-	uint64 _ticks_per_second;
-	static uint64 _total_profiled; // totally profiled sum, starting from reset()
-	static int _depth; // starting from 0. represent overlapping depth
+  int           _count;
+  int           _cycle;
+  const char*   _msg;
+  uint64        _start;
+  uint64        _end;
+  uint64        _sum_of_intervals;
+  uint64        _ticks_per_second;
+  static uint64 _total_profiled; // totally profiled sum, starting from reset()
+  static int    _depth;          // starting from 0. represent overlapping depth
 
 public:
-	typedef zz_hash_table<zz_profiler_item> zz_items;
+  typedef zz_hash_table<zz_profiler_item> zz_items;
 
 private:
-	zz_items::iterator _item_it;
-	static zz_items _items;
-	
+  zz_items::iterator _item_it;
+  static zz_items    _items;
+
 public:
-	zz_profiler(const char * msg, int cycle = 1);
-	~zz_profiler()
-	{
-		end();
-	}
-	
-	void begin();
-	void end();
+  zz_profiler(const char* msg, int cycle = 1);
 
-	void reset ();
+  ~zz_profiler() {
+    end();
+  }
 
-	// in milliseconds
-	double get_total_profiled ();
+  void begin();
+  void end();
 
-	static void dump ();
-	
-	static void statistics (bool by_time);
+  void reset();
 
-	//long interval () { return long(_sum_of_intervals/_count); }
-	//long interval () { return long(_end - _start); }
+  // in milliseconds
+  double get_total_profiled();
+
+  static void dump();
+
+  static void statistics(bool by_time);
+
+  //long interval () { return long(_sum_of_intervals/_count); }
+  //long interval () { return long(_end - _start); }
 };
 
 // macro design
@@ -159,8 +159,8 @@ public:
 #define ZZ_PROFILER_INSTALL(pname)
 #endif // __ZZ_PROFILER_DISABLE__
 
-void zz_profiler_begin ();
-void zz_profiler_end (const char * profile_name);
+void zz_profiler_begin();
+void zz_profiler_end(const char* profile_name);
 
 // usage :
 /*

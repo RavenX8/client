@@ -3,97 +3,95 @@
 //-------------------------------------------------------------------------------------------------
 
 #ifndef	__SERVER
-	class CMAP;
-	class CObjCHAR;
+class CMAP;
+class CObjCHAR;
 #endif
 
-
 struct tagREGENMOB {
-	short	m_iMobIDX;
-	short	m_iMobCNT;
-} ;
-
+  short m_iMobIDX;
+  short m_iMobCNT;
+};
 
 class CRegenPOINT {
-// private:
+  // private:
 public :
-	#ifndef	__SERVER
-	CMAP	   *m_pZONE;
-	#else
+#ifndef	__SERVER
+  CMAP* m_pZONE;
+#else
     CZoneTHREAD*m_pZONE;
-	#endif
+#endif
 
-	DWORD		m_dwCheckTIME;
+  DWORD m_dwCheckTIME;
 
-	int			m_iBasicCNT;
-	int			m_iTacticsCNT;
+  int m_iBasicCNT;
+  int m_iTacticsCNT;
 
-	tagREGENMOB*m_pBasicMOB;
-	tagREGENMOB*m_pTacticsMOB;
+  tagREGENMOB* m_pBasicMOB;
+  tagREGENMOB* m_pTacticsMOB;
 
-	int			m_iInterval;
-	int			m_iLimitCNT;
-	int			m_iTacticsPOINT;	// 전술P 주기
+  int m_iInterval;
+  int m_iLimitCNT;
+  int m_iTacticsPOINT; // 전술P 주기
 
-	int			m_iLiveCNT;
-	int			m_iCurTactics;		// 현재 전술P
-//#ifdef	_DEBUG
-//	int			m_iLastCurTactics;
-//#endif
+  int m_iLiveCNT;
+  int m_iCurTactics; // 현재 전술P
+  //#ifdef	_DEBUG
+  //	int			m_iLastCurTactics;
+  //#endif
 
 #ifdef	__VIRTUAL_SERVER
 	classDLLIST< CObjCHAR* >	m_CharLIST;
 #endif
 
 public :
-	float		m_fXPos, m_fYPos;
-	int			m_iRange;
+  float m_fXPos, m_fYPos;
+  int   m_iRange;
 
-	#ifndef	__SERVER
-	CRegenPOINT (CMAP *m_pZONE, float fXPos, float fYPos);
-	#else
+#ifndef	__SERVER
+  CRegenPOINT(CMAP* m_pZONE, float fXPos, float fYPos);
+#else
 	CRegenPOINT (CZoneTHREAD *pZONE, float fXPos, float fYPos);
-	#endif
-	~CRegenPOINT ();
+#endif
+  ~CRegenPOINT();
 
-	#ifndef	__SERVER
-	void RegenCharacter (int iIndex, int iCount);
-	bool Load ( CFileSystem* pFileSystem );	
-	#else
+#ifndef	__SERVER
+  void RegenCharacter(int iIndex, int iCount);
+  bool Load(CFileSystem*  pFileSystem);
+#else
 	inline void RegenCharacter (int iIndex, int iCount)		{	m_pZONE->RegenCharacter( this, iIndex, iCount );	}
 	bool Load ( FILE *fp );
-	#endif
-	void ClearCharacter (CObjCHAR *pCharOBJ);
+#endif
+  void ClearCharacter(CObjCHAR* pCharOBJ);
 
-	void Proc (DWORD dwCurTIME);
+  void Proc(DWORD dwCurTIME);
 
-    void AddLiveCNT ()      {   m_iLiveCNT++;       }
-	void SubLiveCNT ()		
-	{	
-		// 강제 초기화할경우 - 값이 될수 있다.
-		if ( m_iLiveCNT > 0 )
-			m_iLiveCNT--;	    
-	}
-    int  GetLiveCNT ()      {   return m_iLiveCNT;  }
-	void Reset ()
-	{
-		m_iLiveCNT = 0;
-		m_iCurTactics = 1;
-	}
-} ;
+  void AddLiveCNT() { m_iLiveCNT++; }
 
+  void SubLiveCNT() {
+    // 강제 초기화할경우 - 값이 될수 있다.
+    if ( m_iLiveCNT > 0 )
+      m_iLiveCNT--;
+  }
+
+  int GetLiveCNT() { return m_iLiveCNT; }
+
+  void Reset() {
+    m_iLiveCNT    = 0;
+    m_iCurTactics = 1;
+  }
+};
 
 #ifndef	__SERVER
 class CRegenAREA {
 private:
 public :
-	classDLLIST< CRegenPOINT* >	m_LIST;
+  classDLLIST<CRegenPOINT*> m_LIST;
 
-	CRegenAREA ();
-	~CRegenAREA ();
+  CRegenAREA();
+  ~CRegenAREA();
 
-	void Proc ();
-} ;
+  void Proc();
+};
 #endif
 
 //-------------------------------------------------------------------------------------------------

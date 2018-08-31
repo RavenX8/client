@@ -5,11 +5,11 @@
 #include <vector>
 
 /// Tag 파싱시 필요한 Data 구조체
-struct TagInfo{
-	DWORD	m_color;
-	int		m_font;
-	bool	m_linefeed;
-	char*   m_pCurrChar;
+struct TagInfo {
+  DWORD m_color;
+  int   m_font;
+  bool  m_linefeed;
+  char* m_pCurrChar;
 };
 
 //--------------------------------------------------------------------------------------------------------------------------------------
@@ -29,41 +29,44 @@ struct TagInfo{
 ///
 /// @Date				2005/08/30
 //--------------------------------------------------------------------------------------------------------------------------------------
-class TGAMECTRL_API CJStringParser
-{
+class TGAMECTRL_API CJStringParser {
 public:
-	CJStringParser(void);
-	~CJStringParser(void);
-	int			SetString( const char* pszString ,int iDisplayWidth);
-	CJString*	GetString( int index );
-	int			GetStringCount();													
-	void		Clear();
+            CJStringParser(void   );
+            ~CJStringParser(void  );
+  int       SetString(const char* pszString, int iDisplayWidth);
+  CJString* GetString(int         index);
+  int       GetStringCount();
+  void      Clear();
 
-	void		SetDefaultFont( int iFont );									/// Default 폰트 Set
-	void		SetDefaultColor( DWORD dwColor );								/// Default 폰트 색상 Set
-	void		SetSplitType( int type );										/// 자동 줄넘김 타입을 Set
+  void SetDefaultFont(int    iFont);   /// Default 폰트 Set
+  void SetDefaultColor(DWORD dwColor); /// Default 폰트 색상 Set
+  void SetSplitType(int      type);    /// 자동 줄넘김 타입을 Set
 
-	enum{																		/// 자동 줄넘김 타입
-		SPLIT_LETTER,															/// 문자별(Default)
-		SPLIT_WORD,																/// 단어별
-	};
+  enum {
+    /// 자동 줄넘김 타입
+    SPLIT_LETTER,
+    /// 문자별(Default)
+    SPLIT_WORD,
+    /// 단어별
+  };
+
 protected:
-	std::vector< CJString >	m_Strings;											/// 
-	int			m_iDefaultFont;													/// Default 폰트
-	int			m_split_type;													/// 줄넘김 타입
-	DWORD		m_dwDefaultColor;												/// Default 폰트 색상
+  std::vector<CJString> m_Strings;        /// 
+  int                   m_iDefaultFont;   /// Default 폰트
+  int                   m_split_type;     /// 줄넘김 타입
+  DWORD                 m_dwDefaultColor; /// Default 폰트 색상
 
+  /// 이하 Tag를 파싱하기 위한 Method들
+  void Tag(TagInfo&                 tag_info);
+  void TagStartProcess(std::string& Tag, TagInfo& tag_info);
+  void TagEndProcess(std::string&   Tag, TagInfo& tag_info);
 
-	/// 이하 Tag를 파싱하기 위한 Method들
-	void		Tag( TagInfo& tag_info );
-	void		TagStartProcess( std::string& Tag, TagInfo& tag_info );
-	void		TagEndProcess( std::string& Tag, TagInfo& tag_info );
-	enum{
-		TAG,
-		START_TAG,
-		END_TAG
-	};
+  enum {
+    TAG,
+    START_TAG,
+    END_TAG
+  };
 
-	LPSTR		GetNextWord( WORD CodePage,LPSTR pCurrChar, DWORD dwFlags );
+  LPSTR GetNextWord(WORD CodePage, LPSTR pCurrChar, DWORD dwFlags);
 };
 #endif

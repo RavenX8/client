@@ -15,9 +15,8 @@ class CWinCtrl;
 ///
 /// @Date			2005/08/23
 //------------------------------------------------------------------------------------------------------------------------
-class TGAMECTRL_API ITreeNodeRenderer
-{
+class TGAMECTRL_API ITreeNodeRenderer {
 public:
-	virtual CWinCtrl* getTreeCellRendererComponent(CTree* tree, CTObject* value, bool selected, bool expanded, bool leaf, int row, bool hasFocus) = 0; /*{ _ASSERT( 0 && "ITreeNodeRenderer::getTreeCellRendererComponent"); return NULL; }*/
+  virtual CWinCtrl* getTreeCellRendererComponent(CTree* tree, CTObject* value, bool selected, bool expanded, bool leaf, int row, bool hasFocus) = 0; /*{ _ASSERT( 0 && "ITreeNodeRenderer::getTreeCellRendererComponent"); return NULL; }*/
 };
 #endif

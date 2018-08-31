@@ -5,96 +5,86 @@
 // AddTrack 내부에서 new 를 사용하는것은 제외해야한다..
 #undef new
 
-AllocList *allocList;
+AllocList* allocList;
 
-void AddTrack(DWORD addr,  DWORD asize,  const char *fname, DWORD lnum, char cAllocType )
-{
-	ALLOC_INFO *info;
+void          AddTrack(DWORD addr, DWORD asize, const char* fname, DWORD lnum, char cAllocType) {
+  ALLOC_INFO* info;
 
-	if(!allocList) {
-		allocList = new(AllocList);
-	}
+  if ( !allocList ) {
+    allocList = new(AllocList);
+  }
 
-	info = new(ALLOC_INFO);
-	info->address = addr;
-	strncpy(info->file, fname, 63);
-	info->line = lnum;
-	info->size = asize;
-	info->AllocType = cAllocType;
-	allocList->insert(allocList->begin(), info);
+  info          = new(ALLOC_INFO);
+  info->address = addr;
+  strncpy( info->file, fname, 63 );
+  info->line      = lnum;
+  info->size      = asize;
+  info->AllocType = cAllocType;
+  allocList->insert( allocList->begin(), info );
 };
 
-void RemoveTrack(DWORD addr, char cAllocType )
-{
-	AllocList::iterator i;
-	ALLOC_INFO	*info;
+void                  RemoveTrack(DWORD addr, char cAllocType) {
+  AllocList::iterator i;
+  ALLOC_INFO*         info;
 
-	if(!allocList)
-		return;
-	for(i = allocList->begin(); i != allocList->end(); i++)
-	{
-		if((*i)->address == addr)
-		{
-			info = *i;
-			if( info->AllocType == cAllocType )
-			{
-				allocList->remove((*i));
-			}
+  if ( !allocList )
+    return;
+  for ( i = allocList->begin(); i != allocList->end(); ++i ) {
+    if ( (*i)->address == addr ) {
+      info = *i;
+      if ( info->AllocType == cAllocType ) {
+        allocList->remove( (*i) );
+      }
 
-			break;
-		}
-	}
+      break;
+    }
+  }
 };
 
-void DumpUnfreedToOutputString()
-{
-	AllocList::iterator i;
-	DWORD totalSize = 0;
-	char buf[1024];
+void                  DumpUnfreedToOutputString() {
+  AllocList::iterator i;
+  DWORD               totalSize = 0;
+  char                buf[1024];
 
-	if(!allocList)
-		return;
+  if ( !allocList )
+    return;
 
-	for(i = allocList->begin(); i != allocList->end(); i++) {
-		sprintf(buf, "%-50s:\t\tLINE %d,\t\tADDRESS %d\t%d unfreed\n",
-			(*i)->file, (*i)->line, (*i)->address, (*i)->size);
-		OutputDebugString(buf);
-		totalSize += (*i)->size;
-	}
-	sprintf(buf, "-----------------------------------------------------------\n");
-	OutputDebugString(buf);
-	sprintf(buf, "Total Unfreed: %d bytes\n", totalSize);
-	OutputDebugString(buf);
+  for ( i = allocList->begin(); i != allocList->end(); ++i ) {
+    sprintf( buf, "%-50s:\t\tLINE %d,\t\tADDRESS %d\t%d unfreed\n",
+             (*i)->file, (*i)->line, (*i)->address, (*i)->size );
+    OutputDebugString( buf );
+    totalSize += (*i)->size;
+  }
+  sprintf( buf, "-----------------------------------------------------------\n" );
+  OutputDebugString( buf );
+  sprintf( buf, "Total Unfreed: %d bytes\n", totalSize );
+  OutputDebugString( buf );
 };
 
-void DumpUnfreedToFile()
-{
-	AllocList::iterator i;
-	DWORD totalSize = 0;
-	char buf[1024];
+void                  DumpUnfreedToFile() {
+  AllocList::iterator i;
+  DWORD               totalSize = 0;
+  char                buf[1024];
 
-	if(!allocList)
-		return;
+  if ( !allocList )
+    return;
 
+  FILE* fp = fopen( "MemLeak.txt", "wt" );
 
-	FILE*	fp = fopen( "MemLeak.txt", "wt" );
+  if ( fp == nullptr )
+    return;
 
-	if( fp == NULL )
-		return;
+  for ( i = allocList->begin(); i != allocList->end(); ++i ) {
+    fprintf( fp, "%-50s:\t\tLINE %d,\t\tADDRESS %d\t%d unfreed\n",
+             (*i)->file, (*i)->line, (*i)->address, (*i)->size );
+    totalSize += (*i)->size;
+  }
 
-	for(i = allocList->begin(); i != allocList->end(); i++) 
-	{
-		fprintf( fp, "%-50s:\t\tLINE %d,\t\tADDRESS %d\t%d unfreed\n",
-			(*i)->file, (*i)->line, (*i)->address, (*i)->size );				
-		totalSize += (*i)->size;
-	}
+  fprintf( fp, "-----------------------------------------------------------\n" );
+  fprintf( fp, "Total Unfreed: %d bytes\n", totalSize );
 
-	fprintf( fp, "-----------------------------------------------------------\n" );	
-	fprintf( fp, "Total Unfreed: %d bytes\n", totalSize );
-
-	fclose( fp );	
+  fclose( fp );
 };
-
 
 #if ( 0 )
 #ifdef _DEBUG

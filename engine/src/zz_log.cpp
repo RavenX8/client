@@ -8,7 +8,6 @@
  * $Header: /engine/src/zz_log.cpp 41    04-10-19 12:12p Zho $
  */
 
-
 #ifdef ZZ_MEM_ON
 #define ZZ_MEM_ONED // save original mem_on state here.
 #endif
@@ -59,33 +58,30 @@ unsigned long zz_log::_error_index = 0;
 
 char zz_log::_file_name[ZZ_MAX_STRING] = LOG_FILENAME;
 
-FILE * zz_log::_fp = NULL;
-bool zz_log::_active = false;
-zz_critical_section * zz_log::_cs = NULL;
-bool zz_log::_started = false;
+FILE*                zz_log::_fp      = nullptr;
+bool                 zz_log::_active  = false;
+zz_critical_section* zz_log::_cs      = nullptr;
+bool                 zz_log::_started = false;
 
 #ifndef ZZ_MEM_ONED
 zz_log g_log; // if memory manager is on, g_log will be in zz_mem.
 #endif
 //--------------------------------------------------------------------------------
 
-zz_log::zz_log ()
-{
+zz_log::zz_log() {
 #ifndef ZZ_LOG_DISABLE
-	begin();
+  begin();
 #endif
 }
 
-zz_log::~zz_log () 
-{
+zz_log::~zz_log() {
 #ifndef ZZ_LOG_DISABLE
-	end();
+  end();
 #endif
 }
 
-void zz_log::begin ()
-{
-	if (_started) return;
+void zz_log::begin() {
+  if ( _started ) return;
 
 #ifdef ZZ_LOG_LOCK
 	assert(!_cs);
@@ -95,44 +91,42 @@ void zz_log::begin ()
 	}
 #endif
 
-	activate(true);
+  activate( true );
 
 #ifndef ZZ_LOG_FILE_OFF
-	//if (_access(filename, 0) == 0) { // only if exists
-	if (zz_vfs_local::s_get_size(_file_name) > 1000000) { // size check
-		_fp = fopen(_file_name, "w");
-	}
-	else {
-        _fp = fopen(_file_name, "a+");
-	}
+  //if (_access(filename, 0) == 0) { // only if exists
+  if ( zz_vfs_local::s_get_size( _file_name ) > 1000000 ) {
+    // size check
+    _fp = fopen( _file_name, "w" );
+  } else {
+    _fp = fopen( _file_name, "a+" );
+  }
 #endif
 
-	_started = true;
+  _started = true;
 
 #ifdef WIN32
-	char time_string[ZZ_MAX_STRING] = "";
-	char date_string[ZZ_MAX_STRING] = "";
-	char path_string[ZZ_MAX_STRING] = "";
-	zz_path::to_unix(path_string, zz_path::get_cwd());
-	::GetTimeFormat(LOCALE_USER_DEFAULT, 0, NULL, "HH':'mm':'ss", time_string, sizeof(time_string));
-	::GetDateFormat(LOCALE_USER_DEFAULT, 0, NULL, "yyyy/MM/dd", date_string, sizeof(date_string));
-	
-	ZZ_LOG("\n----------------------------------------------------------------------\n");
-	ZZ_LOG("log: start. (%s, %s) from(%s) version(%s). lang(%d)\n", date_string, time_string, path_string, ZZ_VERSION_STRING, zz_error::get_lang_code());
+  char time_string[ZZ_MAX_STRING] = "";
+  char date_string[ZZ_MAX_STRING] = "";
+  char path_string[ZZ_MAX_STRING] = "";
+  zz_path::to_unix( path_string, zz_path::get_cwd() );
+  ::GetTimeFormat( LOCALE_USER_DEFAULT, 0, nullptr, "HH':'mm':'ss", time_string, sizeof(time_string) );
+  ::GetDateFormat( LOCALE_USER_DEFAULT, 0, nullptr, "yyyy/MM/dd", date_string, sizeof(date_string) );
+
+  ZZ_LOG( "\n----------------------------------------------------------------------\n" );
+  ZZ_LOG( "log: start. (%s, %s) from(%s) version(%s). lang(%d)\n", date_string, time_string, path_string, ZZ_VERSION_STRING, zz_error::get_lang_code() );
 #endif
 }
 
-
-void zz_log::end ()
-{
-	if (!_started) return;
+void zz_log::end() {
+  if ( !_started ) return;
 
 #ifdef WIN32
-	char time_string[ZZ_MAX_STRING] = "";
-	char date_string[ZZ_MAX_STRING] = "";
-	::GetTimeFormat(LOCALE_USER_DEFAULT, 0, NULL, "HH':'mm':'ss", time_string, sizeof(time_string));
-	::GetDateFormat(LOCALE_USER_DEFAULT, 0, NULL, "yyyy/MM/dd", date_string, sizeof(date_string));
-	ZZ_LOG("log: end. (%s, %s).\n", date_string, time_string);
+  char time_string[ZZ_MAX_STRING] = "";
+  char date_string[ZZ_MAX_STRING] = "";
+  ::GetTimeFormat( LOCALE_USER_DEFAULT, 0, nullptr, "HH':'mm':'ss", time_string, sizeof(time_string) );
+  ::GetDateFormat( LOCALE_USER_DEFAULT, 0, nullptr, "yyyy/MM/dd", date_string, sizeof(date_string) );
+  ZZ_LOG( "log: end. (%s, %s).\n", date_string, time_string );
 #endif
 
 #ifdef ZZ_LOG_LOCK
@@ -144,10 +138,10 @@ void zz_log::end ()
 #endif
 
 #ifndef ZZ_LOG_FILE_OFF
-	if (_fp) {
-		fclose(_fp);
-		_fp = NULL;
-	}
+  if ( _fp ) {
+    fclose( _fp );
+    _fp = nullptr;
+  }
 
 #ifdef _DEBUG
 	flush();
@@ -155,125 +149,119 @@ void zz_log::end ()
 #endif
 #endif
 
-	_file_name[0] = '\0';
-	_active = false;
-	_started = false;
+  _file_name[0] = '\0';
+  _active       = false;
+  _started      = false;
 }
 
-bool zz_log::activate (bool true_or_false)
-{
-	static bool old_value = _active;
-	_active = true_or_false;
-	return old_value;
+bool          zz_log::activate(bool true_or_false) {
+  static bool old_value = _active;
+  _active               = true_or_false;
+  return old_value;
 }
 
-void zz_log::flush ()
-{
+void zz_log::flush() {
 #ifndef ZZ_LOG_FILE_OFF
-	if (_fp) {
-		fflush(_fp);
-	}
+  if ( _fp ) {
+    fflush( _fp );
+  }
 #endif
 }
 
-void zz_log::log (const char * format, ...)
-{
-	//if (!_started) {
-	//	begin();
-	//}
+void zz_log::log(const char* format, ...) {
+  //if (!_started) {
+  //	begin();
+  //}
 
-	if (!_active) return;
+  if ( !_active ) return;
 
 #ifdef ZZ_LOG_LOCK
 	zz_autolock<zz_critical_section> lockitem(_cs);
 #endif
 
-	if (_file_name[0] == '\0') {
-		return;
-	}
+  if ( _file_name[0] == '\0' ) {
+    return;
+  }
 
-	va_list va;
-	va_start(va, format);	
+  va_list va;
+  va_start(va, format);
 
-	static char buffer[1024];
-	vsprintf(buffer, format, va);
-	
+  static char buffer[1024];
+  vsprintf( buffer, format, va );
+
 #ifdef ZZ_LOG_DEBUG_CONSOLE
 	::OutputDebugString(buffer);
 	puts(buffer);
 #endif
 
 #ifndef ZZ_LOG_FILE_OFF
-	if (_fp) {
+  if ( _fp ) {
 #ifdef ZZ_LOG_USE_ID
 		fprintf(_fp, "%05Ld: ", _error_index++);
 #endif
-		fputs(buffer, _fp);
-		
+    fputs( buffer, _fp );
+
 #ifdef ZZ_LOG_EVERY_FLUSH
 		int ret = fflush(_fp);
 		assert(0 == ret);
 #endif
-	}
+  }
 #endif // ZZ_LOG_FILE_OFF
 
 #ifndef ZZ_MEM_ONED
-	if (log_history.size() < MAX_LOG_HISTORY) {
-		log_history.push(std::string(buffer));
-	}
-	else {
-		int topop = log_history.size() - MAX_LOG_HISTORY + 1;
-		for (int i = 0; i < topop; ++i) {
-			log_history.pop();
-		}
-		assert(log_history.size() < MAX_LOG_HISTORY);
-		log_history.push(std::string(buffer));
-	}
+  if ( log_history.size() < MAX_LOG_HISTORY ) {
+    log_history.push( std::string( buffer ) );
+  } else {
+    int       topop = log_history.size() - MAX_LOG_HISTORY + 1;
+    for ( int i     = 0; i < topop; ++i ) {
+      log_history.pop();
+    }
+    assert(log_history.size() < MAX_LOG_HISTORY);
+    log_history.push( std::string( buffer ) );
+  }
 #endif // ZZ_MEM_ONED
 
-	va_end(va);
+  va_end(va);
 }
 
-const char * zz_log::read_latest_log (int num_latest, const char * linebreaking)
-{
-	static std::string latest_log;
+const char*          zz_log::read_latest_log(int num_latest, const char* linebreaking) {
+  static std::string latest_log;
 
-	int total_size = log_history.size();
-	int latest_size = total_size;
+  int total_size  = log_history.size();
+  int latest_size = total_size;
 
-	if (num_latest != 0) {
-		latest_size = ZZ_MIN(total_size, num_latest);
-	}
+  if ( num_latest != 0 ) {
+    latest_size = ZZ_MIN(total_size, num_latest);
+  }
 
-	latest_log.clear();
+  latest_log.clear();
 
-	int i = 0;
-	std::string temp;
+  int         i = 0;
+  std::string temp;
 
-	// skip
-	for (i = 0; i < (total_size - latest_size); ++i) {
-		log_history.pop();
-	}
+  // skip
+  for ( i = 0; i < (total_size - latest_size); ++i ) {
+    log_history.pop();
+  }
 
-	char system_info_string[255];
+  char system_info_string[255];
 
-	sprintf(system_info_string, "engine: %s, lang: %d%sadapter: %s%s",
-		znzin->sysinfo.engine_string, zz_error::get_lang_code(), linebreaking, 
-		znzin->sysinfo.video_string, linebreaking);
+  sprintf( system_info_string, "engine: %s, lang: %d%sadapter: %s%s",
+           znzin->sysinfo.engine_string, zz_error::get_lang_code(), linebreaking,
+           znzin->sysinfo.video_string, linebreaking );
 
-	latest_log += system_info_string;
+  latest_log += system_info_string;
 
-	for ( ; i < total_size; ++i) {
-		latest_log += log_history.front();
+  for ( ; i < total_size; ++i ) {
+    latest_log += log_history.front();
 
-		// log <BR> for HTML
-		if (linebreaking && (latest_log.size() > 0)) {
-			if (*(latest_log.c_str() + latest_log.size() - 1) == '\n') {
-				latest_log += linebreaking;
-			}
-		}
-		log_history.pop();
-	}
-	return latest_log.c_str();
+    // log <BR> for HTML
+    if ( linebreaking && (latest_log.size() > 0) ) {
+      if ( *(latest_log.c_str() + latest_log.size() - 1) == '\n' ) {
+        latest_log += linebreaking;
+      }
+    }
+    log_history.pop();
+  }
+  return latest_log.c_str();
 }
-

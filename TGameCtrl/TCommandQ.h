@@ -14,18 +14,17 @@ class CTCommand;
 *
 * @Date		2005/8/30
 */
-class TGAMECTRL_API CTCommandQ
-{
+class TGAMECTRL_API CTCommandQ {
 public:
-	CTCommandQ(void);
-	virtual ~CTCommandQ(void);
+          CTCommandQ(void );
+  virtual ~CTCommandQ(void);
 
-	void		Push_Back( CTCommand* pCmd);
-	void		Push_Front( CTCommand* pCmd);
-	CTCommand*	GetCommand();
-	void		Clear();
+  void       Push_Back(CTCommand*  pCmd);
+  void       Push_Front(CTCommand* pCmd);
+  CTCommand* GetCommand();
+  void       Clear();
 
 protected:
-	list<CTCommand*>	m_listCommand;
+  list<CTCommand*> m_listCommand;
 };
 #endif

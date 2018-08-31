@@ -9,7 +9,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-
 /****************************************************************************************
 This software is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm. 
 Incorporation of this statement is a condition of use; please see the RSA
@@ -288,9 +287,8 @@ Laboratory for Computer Science and RSA Data Security, Inc., April 1992.
 
 *****************************************************************************************/
 
-
 //interface functions for the RSA MD5 calculation
-unsigned char *GetMD5(unsigned char OutBuf[32], unsigned char *pInBuf, unsigned int uiInBufLen);
+unsigned char* GetMD5(unsigned char OutBuf[32], unsigned char* pInBuf, unsigned int uiInBufLen);
 // static char *GetMD5(CFile& File);
 // static char *GetMD5(const CString& strFilePath);
 

@@ -20,22 +20,21 @@ class CTObject;
 *
 */
 
-class CDragNDropMgr : public IObserver
-{
-	CDragNDropMgr(void);
+class CDragNDropMgr : public IObserver {
+  CDragNDropMgr(void);
 public:
-	~CDragNDropMgr(void);
+  ~CDragNDropMgr(void);
 
-	static CDragNDropMgr&	GetInstance();
+  static CDragNDropMgr& GetInstance();
 
-	virtual void Update( CObservable* pObservable, CTObject* pObj );	/// 드래그중인 아이콘의 Data가 변경시 처리( 스킬, 아이템등 )
+  void Update(CObservable* pObservable, CTObject* pObj) override; /// 드래그중인 아이콘의 Data가 변경시 처리( 스킬, 아이템등 )
 
-	void Draw( POINT ptMouse );				/// 드래그 중인 CIcon을 그린다.
-	void DragStart( CDragItem* pItem );		/// 드래그 시작
-	void DragEnd( int iTargetType );		/// 드랍
-	bool IsDraging();						/// 드래그 중인가?
+  void Draw(POINT           ptMouse);     /// 드래그 중인 CIcon을 그린다.
+  void DragStart(CDragItem* pItem);       /// 드래그 시작
+  void DragEnd(int          iTargetType); /// 드랍
+  bool IsDraging();                       /// 드래그 중인가?
 
 private:
-	CDragItem*	m_pItem;					/// 드래그 중인 CIcon 의 포인터 임시 저장
+  CDragItem* m_pItem; /// 드래그 중인 CIcon 의 포인터 임시 저장
 };
 #endif

@@ -167,132 +167,119 @@
 
 #include "zz_interface.h"  //test
 
-HWND g_hWnd = NULL; // global window handle
+HWND g_hWnd = nullptr; // global window handle
 
 ZZ_IMPLEMENT_DYNCREATE(zz_view_d3d, zz_view)
 
-zz_view_d3d::zz_view_d3d () : zz_view(), window_handle(NULL), restore_window_mode(0), scene_began(false)
-{
-	//ZZ_LOG("view_d3d: zz_view_d3d created\n");
+zz_view_d3d::zz_view_d3d() : zz_view(), window_handle( nullptr ), restore_window_mode( 0 ), scene_began( false ) {
+  //ZZ_LOG("view_d3d: zz_view_d3d created\n");
 }
 
-zz_view_d3d::~zz_view_d3d ()
-{
-	//ZZ_LOG("view_d3d: zz_view_d3d destroyed\n");
+zz_view_d3d::~zz_view_d3d() {
+  //ZZ_LOG("view_d3d: zz_view_d3d destroyed\n");
 }
 
-void zz_view_d3d::set_handle (const void * handle_to_set)
-{
-	window_handle = ((HWND)handle_to_set);
-	g_hWnd = window_handle;
+void zz_view_d3d::set_handle(const void* handle_to_set) {
+  window_handle = ((HWND)handle_to_set);
+  g_hWnd        = window_handle;
 }
 
-void * zz_view_d3d::get_handle ()
-{
-	return window_handle;
+void* zz_view_d3d::get_handle() {
+  return window_handle;
 }
 
-HWND zz_view_d3d::get_hwnd ()
-{
-	return window_handle;
+HWND zz_view_d3d::get_hwnd() {
+  return window_handle;
 }
 
-bool zz_view_d3d::attach_window ()
-{
-	znzin->renderer->set_view(znzin->view);
+bool zz_view_d3d::attach_window() {
+  znzin->renderer->set_view( znzin->view );
 
-	try {
-		if (!znzin->renderer->initialize()) {
-			return false;
-		}
-	}
-	catch (const char * log) {
-		ZZ_LOG(log);
-		ZZ_LOG("view_d3d: attach_window() failed. iNiTfAiL\n");
-		strcat(znzin->sysinfo.video_string," <Window Create failed>");
-		zz_msgboxf(zz_error::get_text(zz_error::MSG_ERROR), zz_error::get_text(zz_error::MSG_EXIT_D3DERROR), znzin->sysinfo.video_string);
-		exit(EXIT_FAILURE);
-	}
-	
-	znzin->timer_start();
-	return true;
+  try {
+    if ( !znzin->renderer->initialize() ) {
+      return false;
+    }
+  } catch ( const char* log ) {
+    ZZ_LOG( log );
+    ZZ_LOG( "view_d3d: attach_window() failed. iNiTfAiL\n" );
+    strcat( znzin->sysinfo.video_string, " <Window Create failed>" );
+    zz_msgboxf( zz_error::get_text( zz_error::MSG_ERROR ), zz_error::get_text( zz_error::MSG_EXIT_D3DERROR ), znzin->sysinfo.video_string );
+    exit( EXIT_FAILURE );
+  }
+
+  znzin->timer_start();
+  return true;
 }
 
-bool zz_view_d3d::detach_window ()
-{
-	return true;
+bool zz_view_d3d::detach_window() {
+  return true;
 }
 
-void zz_view_d3d::set_window_text (const char * text)
-{
-	if (this->get_fullscreen()) return;
-	SetWindowText(this->window_handle, text);
+void zz_view_d3d::set_window_text(const char* text) {
+  if ( this->get_fullscreen() ) return;
+  SetWindowText( this->window_handle, text );
 }
 
+void zz_view_d3d::render(void) {
+  if ( !scene_began )
+    return;
 
-void zz_view_d3d::render (void)
-{
-	if (!scene_began)
-		return;
+  if ( !znzin )
+    return;
 
-	if (!znzin)
-		return;
+  if ( !znzin->renderer )
+    return;
 
-	if (!znzin->renderer)
-		return;
+  znzin->scene.render();
 
-	znzin->scene.render();
-
-	Sleep(znzin->renderer->get_state()->time_delay); // waiting until swap complete
+  Sleep( znzin->renderer->get_state()->time_delay ); // waiting until swap complete
 }
 
-bool zz_view_d3d::begin_scene ()
-{
-	assert(!scene_began);
+bool zz_view_d3d::begin_scene() {
+  assert(!scene_began);
 
-	
-	if (!znzin->scene.is_valid()) {
-		znzin->scene.update(zz_time(0));
-	}
+  if ( !znzin->scene.is_valid() ) {
+    znzin->scene.update( zz_time( 0 ) );
+  }
 
-	if (znzin->renderer->reset_device()) { // if device_lost
-		scene_began = false;
-		return false; // device lost
-	}
+  if ( znzin->renderer->reset_device() ) {
+    // if device_lost
+    scene_began = false;
+    return false; // device lost
+  }
 
-	znzin->renderer->init_render_state();
+  znzin->renderer->init_render_state();
 
-	znzin->fonts->prepare_font();
+  znzin->fonts->prepare_font();
 
-	znzin->scene.before_render();
+  znzin->scene.before_render();
 
-	znzin->renderer->init_textures(); // ?
+  znzin->renderer->init_textures(); // ?
 
-	((zz_scene_octree*)&znzin->scene)->render_shadowmap(); // includes begin_scene()/end_scene()
+  ((zz_scene_octree*)&znzin->scene)->render_shadowmap(); // includes begin_scene()/end_scene()
 
-	znzin->renderer->init_scene();
-	znzin->renderer->init_render_state();
-	znzin->renderer->begin_scene(ZZ_RW_SCENE);
-	scene_began = true;
+  znzin->renderer->init_scene();
+  znzin->renderer->init_render_state();
+  znzin->renderer->begin_scene( ZZ_RW_SCENE );
+  scene_began = true;
 
-	return true;
+  return true;
 }
 
-bool zz_view_d3d::end_scene ()
-{
-	if (!scene_began)
-		return false;
+bool zz_view_d3d::end_scene() {
+  if ( !scene_began )
+    return false;
 
-	scene_began = false;
+  scene_began = false;
 
-	znzin->renderer->end_scene();
+  znzin->renderer->end_scene();
 
-	if (znzin->get_rs()->draw_shadowmap_viewport) {
-		((zz_scene_octree*)&znzin->scene)->render_shadowmap_viewport();
-	}
-	znzin->scene.after_render();
+  if ( znzin->get_rs()->draw_shadowmap_viewport ) {
+    ((zz_scene_octree*)&znzin->scene)->render_shadowmap_viewport();
+  }
+  znzin->scene.after_render();
 
-	return true;
+  return true;
 }
 
 //int zz_view_d3d::get_height (void)
@@ -323,7 +310,6 @@ bool zz_view_d3d::end_scene ()
 //	}
 //}
 
-
 //int APIENTRY WinMain (HINSTANCE hThisInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 //{
 //	// new system
@@ -338,4 +324,3 @@ bool zz_view_d3d::end_scene ()
 //	zz_delete znzin;
 //	return 0;
 //}
-

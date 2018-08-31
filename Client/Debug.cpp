@@ -1,6 +1,5 @@
-
 #include "StdAfx.h"
-#include "Debug.h"	
+#include "Debug.h"
 #include <string>
 #include "Game.h"
 

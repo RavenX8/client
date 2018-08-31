@@ -2,10 +2,9 @@
 #define _CStoreUnion_
 
 ///사용안함
-class CStoreUnion
-{
+class CStoreUnion {
 public:
-	CStoreUnion(void);
-	~CStoreUnion(void);
+  CStoreUnion(void );
+  ~CStoreUnion(void);
 };
 #endif

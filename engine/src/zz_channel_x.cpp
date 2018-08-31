@@ -53,61 +53,51 @@
 #include "zz_channel_x.h"
 #include "zz_profiler.h"
 
-zz_channel_x::zz_channel_x(void) : zz_channel(ZZ_INTERP_LINEAR), floats(0), num_floats(0)
-{
+zz_channel_x::zz_channel_x(void) : zz_channel( ZZ_INTERP_LINEAR ), floats( nullptr ), num_floats( 0 ) {}
+
+zz_channel_x::~zz_channel_x(void) {
+  clear();
 }
 
-zz_channel_x::~zz_channel_x(void)
-{
-	clear();
+void zz_channel_x::assign(int size) {
+  num_floats = size;
+  floats     = zz_new float [size];
 }
 
-void zz_channel_x::assign (int size)
-{
-	num_floats = size;
-	floats = zz_new float [size];
+void zz_channel_x::clear(void) {
+  num_floats = 0;
+  ZZ_SAFE_DELETE_ARRAY(floats);
 }
 
-void zz_channel_x::clear (void)
-{
-	num_floats = 0;
-	ZZ_SAFE_DELETE_ARRAY(floats);
+int zz_channel_x::size(void) {
+  return (int)num_floats;
 }
 
-int zz_channel_x::size (void)
-{
-	return (int)num_floats;
+void zz_channel_x::get_by_frame(int frame, void* data_pointer) {
+  assert(frame < (int)num_floats);
+  assert(frame >= 0);
+  float* data = static_cast<float *>(data_pointer);
+
+  *data = floats[frame];
 }
 
-void zz_channel_x::get_by_frame (int frame, void * data_pointer)
-{
-	assert(frame < (int)num_floats);
-	assert(frame >= 0);
-	float * data = static_cast<float *>(data_pointer);
-	
-	*data = floats[frame];
+void     zz_channel_x::get_by_time(zz_time time, int fps, void* data_pointer) {
+  int    start_frame, next_frame;
+  float  ratio;
+  float* data = static_cast<float *>(data_pointer);
+
+  switch ( interp_style ) {
+    case ZZ_INTERP_LINEAR: time_to_frame( time, start_frame, next_frame, ratio, (int)num_floats, fps );
+      // lerp
+      *data = floats[start_frame] * ratio + floats[next_frame] * (1.0f - ratio);
+      break;
+    default: // ZZ_INTERP_NONE
+      time_to_frame( time, start_frame, next_frame, ratio, (int)num_floats, fps );
+      *data = floats[start_frame];
+      break;
+  }
 }
 
-void zz_channel_x::get_by_time (zz_time time, int fps, void * data_pointer)
-{
-	int start_frame, next_frame;
-	float ratio;
-	float * data = static_cast<float *>(data_pointer);
-	
-	switch (interp_style) {
-		case ZZ_INTERP_LINEAR:
-			time_to_frame(time, start_frame, next_frame, ratio, (int)num_floats, fps);
-			// lerp
-			*data = floats[start_frame]*ratio + floats[next_frame]*(1.0f-ratio);
-			break;
-		default: // ZZ_INTERP_NONE
-			time_to_frame(time, start_frame, next_frame, ratio, (int)num_floats, fps);
-			*data = floats[start_frame];
-			break;
-	}
-}
-
-void zz_channel_x::set_by_frame (int frame, void * data_pointer)
-{
-	floats[frame] = *(float *)data_pointer;
+void zz_channel_x::set_by_frame(int frame, void* data_pointer) {
+  floats[frame] = *(float *)data_pointer;
 }

@@ -46,13 +46,13 @@
 #endif
 
 //--------------------------------------------------------------------------------
-class zz_light_direct :	public zz_light {
+class zz_light_direct : public zz_light {
 public:
-	vec4 direction;
+  vec4 direction;
 
-	zz_light_direct(void);
-	virtual ~zz_light_direct(void);
-	ZZ_DECLARE_DYNAMIC(zz_light_direct)
+          zz_light_direct(void );
+  virtual ~zz_light_direct(void);
+ZZ_DECLARE_DYNAMIC(zz_light_direct)
 };
 
 #endif //__ZZ_LIGHT_DIRECT_H__

@@ -50,15 +50,12 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_light_omni, zz_light)
 
-zz_light_omni::zz_light_omni(void) : zz_light()
-{
-	position = vec4(0, 0, 0, 0);
-//	znzin->renderer->set_light_type(zz_light::light_index_in_renderer, zz_renderer::ZZ_RLT_OMNI);
+zz_light_omni::zz_light_omni(void) : zz_light() {
+  position = vec4( 0, 0, 0, 0 );
+  //	znzin->renderer->set_light_type(zz_light::light_index_in_renderer, zz_renderer::ZZ_RLT_OMNI);
 }
 
-zz_light_omni::~zz_light_omni(void)
-{
-}
+zz_light_omni::~zz_light_omni(void) {}
 
 //vec3& zz_light_omni::get_position ()
 //{

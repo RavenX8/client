@@ -1,7 +1,7 @@
 #ifndef _CTDRAWIMPL_
 #define _CTDRAWIMPL_
 
-#include "..\\..\\TGameCtrl\\ITDraw.h"
+#include "..//..//TGameCtrl//ITDraw.h"
 #include <D3DX9.h>
 
 /**
@@ -12,39 +12,37 @@
 *
 * @Date			2005/9/5
 */
-class CTDrawImpl : public ITDraw
-{
+class CTDrawImpl : public ITDraw {
 public:
-	CTDrawImpl();
-	~CTDrawImpl();
+  CTDrawImpl();
+  ~CTDrawImpl();
 
-	virtual void Draw( int iX, int iY, int iModuleID, int iGraphicID );
-	virtual void Draw( int iX, int iY, int iModuleID, int iGraphicID, D3DCOLOR color );
-	virtual void Draw( int iX, int iY, int iWidth, int iModuleID, int iGraphicID );
-	virtual void Draw( int iX, int iY, int iWidth, int iModuleID, int iGraphicID, D3DCOLOR color );
-	virtual void Draw( float iX, float iY, float iZ, int iModuleID, int iGraphicID );
-	virtual void Draw( float iX, float iY, float iZ, int iModuleID, int iGraphicID , D3DCOLOR color);
-	virtual void Draw( float iX, float iY, float iZ,int iWidth, int iModuleID, int iGraphicID );
+  void         Draw(int   iX, int   iY, int   iModuleID, int iGraphicID) override;
+  void         Draw(int   iX, int   iY, int   iModuleID, int iGraphicID, D3DCOLOR color) override;
+  void         Draw(int   iX, int   iY, int   iWidth, int    iModuleID, int       iGraphicID) override;
+  void         Draw(int   iX, int   iY, int   iWidth, int    iModuleID, int       iGraphicID, D3DCOLOR color) override;
+  void         Draw(float iX, float iY, float iZ, int        iModuleID, int       iGraphicID) override;
+  virtual void Draw(float iX, float iY, float iZ, int        iModuleID, int       iGraphicID, D3DCOLOR color);
+  virtual void Draw(float iX, float iY, float iZ, int        iWidth, int          iModuleID, int       iGraphicID);
 
-	/// 가로, 세로 자동 확대.
-	virtual void DrawFitW( int iX, int iY, int iModuleID, int iGraphicID, int iWidth, D3DCOLOR color );
-	virtual void DrawFitH( int iX, int iY, int iModuleID, int iGraphicID, int iHeight, D3DCOLOR color );
-	virtual void DrawFit( int iX, int iY, int iModuleID, int iGraphicID, int iWidth, int iHeight, D3DCOLOR color );
+  /// 가로, 세로 자동 확대.
+  void DrawFitW(int iX, int iY, int iModuleID, int iGraphicID, int iWidth, D3DCOLOR  color) override;
+  void DrawFitH(int iX, int iY, int iModuleID, int iGraphicID, int iHeight, D3DCOLOR color) override;
+  void DrawFit(int  iX, int iY, int iModuleID, int iGraphicID, int iWidth, int       iHeight, D3DCOLOR color) override;
 
-	virtual int GetScreenWidth();
-	virtual int GetScreenHeight();
+  virtual int GetScreenWidth();
+  virtual int GetScreenHeight();
 
-	/// 가로, 세로 확대시 
-	virtual void Draw( int iX, int iY, int iModuleID, int iGraphicID, float fScaleWidth , float fScaleHeight , D3DCOLOR color );	
-	virtual void Draw( int iX, int iY, int iModuleID, int iGraphicID, int iWidth, float fScaleWidth , float fScaleHeight , D3DCOLOR color );	
+  /// 가로, 세로 확대시 
+  void Draw(int iX, int iY, int iModuleID, int iGraphicID, float fScaleWidth, float fScaleHeight, D3DCOLOR color) override;
+  void Draw(int iX, int iY, int iModuleID, int iGraphicID, int   iWidth, float      fScaleWidth, float     fScaleHeight, D3DCOLOR color) override;
 
-	/// Y축을 기준으로 회전시 
-	virtual void DrawRotateY( float fX, float fY, float fZ, float fRotateY , int iModuleID, int iGraphicID );
+  /// Y축을 기준으로 회전시 
+  virtual void DrawRotateY(float fX, float fY, float fZ, float fRotateY, int iModuleID, int iGraphicID);
 
-	/// 진행 게이지(쿨타임)가 있는 아이콘
-	void DrawCover( int iX, int iY, int iModuleID, int iGraphicID, D3DCOLOR color, D3DCOLOR coverColor, float value );
+  /// 진행 게이지(쿨타임)가 있는 아이콘
+  void DrawCover(int iX, int iY, int iModuleID, int iGraphicID, D3DCOLOR color, D3DCOLOR coverColor, float value);
 };
 
-
-extern CTDrawImpl		g_DrawImpl;
+extern CTDrawImpl g_DrawImpl;
 #endif // _CTDRAWIMPL_

@@ -90,20 +90,20 @@
 //--------------------------------------------------------------------------------
 class zz_light : public zz_node {
 public:
-	//int light_index_in_renderer;
-	vec4 ambient;
-	vec4 specular;
-	vec4 diffuse;
-	vec4 position;
-	
-	bool shadowable;
-	bool enabled;
+  //int light_index_in_renderer;
+  vec4 ambient;
+  vec4 specular;
+  vec4 diffuse;
+  vec4 position;
 
-	zz_light(void);
-	virtual ~zz_light(void);
+  bool shadowable;
+  bool enabled;
 
-	ZZ_DECLARE_DYNAMIC(zz_light)
-//	virtual void set_light ();
+          zz_light(void );
+  virtual ~zz_light(void);
+
+ZZ_DECLARE_DYNAMIC(zz_light)
+  //	virtual void set_light ();
 };
 
 #endif //__ZZ_LIGHT_H__

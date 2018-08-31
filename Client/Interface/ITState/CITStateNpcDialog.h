@@ -2,8 +2,6 @@
 #define _CITStateNpcDialog_
 #include "citstate.h"
 
-
-
 /**
 * NPC대화시 인터페이스(IT_MGR)상태
 * - 2005/9/6일 현재 대만 버젼에서만 사용한다.
@@ -13,17 +11,16 @@
 *
 * @Date			2005/9/6
 */
-class CITStateNpcDialog : public CITState
-{
+class CITStateNpcDialog : public CITState {
 public:
-	CITStateNpcDialog(void);
-	virtual ~CITStateNpcDialog(void);
+          CITStateNpcDialog(void );
+  virtual ~CITStateNpcDialog(void);
 
-	virtual void Enter();
-	virtual void Leave();
+  void Enter() override;
+  void Leave() override;
 
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void Update( POINT ptMouse );
-	virtual bool Draw();
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     Update(POINT     ptMouse) override;
+  bool     Draw() override;
 };
 #endif

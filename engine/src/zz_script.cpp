@@ -48,6 +48,4 @@
 
 ZZ_IMPLEMENT_DYNAMIC(zz_script, zz_node)
 
-zz_script::zz_script (const char * filename) : zz_node()
-{
-}
+zz_script::zz_script(const char* filename) : zz_node() {}

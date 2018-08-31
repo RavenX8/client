@@ -1,44 +1,43 @@
 #ifndef	__IO_MORPHER_H
 #define	__IO_MORPHER_H
+
 //-------------------------------------------------------------------------------------------------
 
 struct tagMORPHER {
-	tagMORPHER ();
-	~tagMORPHER ();
+  tagMORPHER();
+  ~tagMORPHER();
 
-	t_HASHKEY	m_HashMESH;
-	t_HASHKEY	m_HashANI;
-	t_HASHKEY	m_HashMAT;
+  t_HASHKEY m_HashMESH;
+  t_HASHKEY m_HashANI;
+  t_HASHKEY m_HashMAT;
 
-	short		m_nAlphaTest;
-	short		m_nZTest;
-	short		m_nZWrite;
+  short m_nAlphaTest;
+  short m_nZTest;
+  short m_nZWrite;
 
-	short		m_nSrcBlend;
-	short		m_nDestBlend;
-	short		m_nBlendOP;
-} ;
+  short m_nSrcBlend;
+  short m_nDestBlend;
+  short m_nBlendOP;
+};
 
-class CMorpherDATA
-{
+class CMorpherDATA {
 private:
-	tagMORPHER	*m_pMorpher;
-	short		 m_nDataCNT;
+  tagMORPHER* m_pMorpher;
+  short       m_nDataCNT;
 
 public :
-	CMorpherDATA ();
-	~CMorpherDATA ();
+  CMorpherDATA();
+  ~CMorpherDATA();
 
-	bool Load (char *szSTBFile);
-	void Free (void);
+  bool Load(char* szSTBFile);
+  void Free(void  );
 
-	tagMORPHER* Get(short nIndex) 
-	{
-		if ( nIndex > 0 && nIndex < m_nDataCNT )
-			return &m_pMorpher[ nIndex ];
-		return NULL;
-	}
-} ;
+  tagMORPHER* Get(short nIndex) {
+    if ( nIndex > 0 && nIndex < m_nDataCNT )
+      return &m_pMorpher[nIndex];
+    return nullptr;
+  }
+};
 
 //-------------------------------------------------------------------------------------------------
 #endif

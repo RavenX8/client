@@ -50,22 +50,20 @@
 
 ZZ_IMPLEMENT_DYNAMIC(zz_light, zz_node)
 
-zz_light::zz_light(void) : zz_node()
-{
-	enabled = true;
-	shadowable = true;
-	position = vec4(0, 0, 100, 0);
-	diffuse = vec4(0, 0, 0, 0);
-	ambient = vec4(0, 0, 0, 0);
-	specular = vec4(0, 0, 0, 0);
-	//light_index_in_renderer = znzin->renderer->create_light(this);
+zz_light::zz_light(void) : zz_node() {
+  enabled    = true;
+  shadowable = true;
+  position   = vec4( 0, 0, 100, 0 );
+  diffuse    = vec4( 0, 0, 0, 0 );
+  ambient    = vec4( 0, 0, 0, 0 );
+  specular   = vec4( 0, 0, 0, 0 );
+  //light_index_in_renderer = znzin->renderer->create_light(this);
 }
 
-zz_light::~zz_light(void)
-{
-	//if (system && renderer) {
-	//	znzin->renderer->enable_light(light_index_in_renderer, false);
-	//}
+zz_light::~zz_light(void) {
+  //if (system && renderer) {
+  //	znzin->renderer->enable_light(light_index_in_renderer, false);
+  //}
 }
 
 //void zz_light::set_light ()

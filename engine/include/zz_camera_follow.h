@@ -124,109 +124,107 @@ class zz_model;
 //--------------------------------------------------------------------------------
 class zz_camera_follow : public zz_camera {
 public:
-	enum zz_follow_mode {
-		LOOK_MODE = 0,
-		BACK_MODE = 1
-	};
+  enum zz_follow_mode {
+    LOOK_MODE = 0,
+    BACK_MODE = 1
+  };
 
 private:
-	struct zz_camera_follow_state {
-		vec3 target_pos; // target position
-		vec3 target_dir; // target lookat vector
-		vec3 camera_pos; // camera eye position
-		vec3 camera_dir; // camera to target direction
-		float yaw; // left-right angle
-		float pitch; // up-down angle
-		float distance; // camera to target distance
-	};
+  struct zz_camera_follow_state {
+    vec3  target_pos; // target position
+    vec3  target_dir; // target lookat vector
+    vec3  camera_pos; // camera eye position
+    vec3  camera_dir; // camera to target direction
+    float yaw;        // left-right angle
+    float pitch;      // up-down angle
+    float distance;   // camera to target distance
+  };
 
-	// for internal use in update()
-	float time_weight_;       // time weight
+  // for internal use in update()
+  float time_weight_; // time weight
 
-	// distance range
-	float distance_range_min, distance_range_max; // min/max
+  // distance range
+  float distance_range_min, distance_range_max; // min/max
 
-	// camera state
-	zz_camera_follow_state last_;
-	zz_camera_follow_state current_;
-	zz_camera_follow_state final_;
+  // camera state
+  zz_camera_follow_state last_;
+  zz_camera_follow_state current_;
+  zz_camera_follow_state final_;
 
-	zz_model * target_; // target node to follow
-	zz_follow_mode follow_mode_; // 0 : back mode, 1 : look mode
-	float height_added_; // camera focus height
-	bool newly_attached_; // true if camera attached now. false when the other frames. set by attch_target()
-	bool is_dirty_; // whether camera property has been updated or not. set by set_yaw(), set_distance(), set_pidth(), attach_target(), set_follow_mode()...
-	bool now_following_;
+  zz_model*      target_;         // target node to follow
+  zz_follow_mode follow_mode_;    // 0 : back mode, 1 : look mode
+  float          height_added_;   // camera focus height
+  bool           newly_attached_; // true if camera attached now. false when the other frames. set by attch_target()
+  bool           is_dirty_;       // whether camera property has been updated or not. set by set_yaw(), set_distance(), set_pidth(), attach_target(), set_follow_mode()...
+  bool           now_following_;
 
-	zz_time shake_lifetime;
-	vec3 shake_min, shake_max;
+  zz_time shake_lifetime;
+  vec3    shake_min, shake_max;
 
-	bool camera_effect_onoff;
-    float final_time;
-	float accumulate_time;
+  bool  camera_effect_onoff;
+  float final_time;
+  float accumulate_time;
 
-	bool apply_shake (zz_time diff_time); // return true if it is now shakeing
+  bool apply_shake(zz_time diff_time); // return true if it is now shakeing
 
-	float calc_yaw();
-	bool update_backmode ();
-	bool update_lookmode (float follow_yaw_last);
-	void interpolate_camera (zz_time diff_time); // adjust camera properties by time
-    void update_camera_collision();
+  float calc_yaw();
+  bool  update_backmode();
+  bool  update_lookmode(float      follow_yaw_last);
+  void  interpolate_camera(zz_time diff_time); // adjust camera properties by time
+  void  update_camera_collision() override;
 
-	// get distance from camera bottom to contacted point
-	// @return true if contacted, and false if not contacted
-	bool get_distance_by_contact_point (float& adjusted_distance);
+  // get distance from camera bottom to contacted point
+  // @return true if contacted, and false if not contacted
+  bool get_distance_by_contact_point(float& adjusted_distance);
 
-	float get_yaw_by_eye (const vec3& eye_pos);
-	float get_pitch_by_eye (const vec3& eye_pos);
-	float get_distance_by_eye (const vec3& eye_pos);
-	void get_adjusted (float& adjusted_pitch, float& adjusted_distance, float& adjusted_yaw);
+  float get_yaw_by_eye(const vec3&      eye_pos);
+  float get_pitch_by_eye(const vec3&    eye_pos);
+  float get_distance_by_eye(const vec3& eye_pos);
+  void  get_adjusted(float&             adjusted_pitch, float& adjusted_distance, float& adjusted_yaw);
 
-    
 public:
-	zz_camera_follow ();
-	virtual ~zz_camera_follow ();
+          zz_camera_follow();
+  virtual ~zz_camera_follow();
 
-	bool attach_target (zz_model * target_vis);
-	bool detach_target (void);
+  bool attach_target(zz_model* target_vis);
+  bool detach_target(void      );
 
-	virtual zz_model * get_target ();
+  zz_model* get_target() override;
 
-	void get_target_pos (vec3& pos_out);
-	bool get_target_dir (vec3& dir);
+  void get_target_pos(vec3& pos_out);
+  bool get_target_dir(vec3& dir);
 
-	void set_yaw (float new_yaw);
-	void set_pitch (float new_pitch);
-	void set_distance (float new_dist);
+  void set_yaw(float      new_yaw);
+  void set_pitch(float    new_pitch);
+  void set_distance(float new_dist);
 
-	void set_distance_range (float min_in, float max_in);
+  void set_distance_range(float min_in, float max_in);
 
-	float get_yaw ();
-	float get_pitch ();
-	float get_distance ();
+  float get_yaw();
+  float get_pitch();
+  float get_distance();
 
-	void set_height_added (float height);
+  void set_height_added(float height);
 
-	static void apply_yaw (vec3& new_camera_dir_out, float follow_yaw_in, const vec3& target_dir_in);
-	static const vec3& apply_pitch (vec3& new_camera_dir_inout, float follow_pitch_in);
+  static void        apply_yaw(vec3&   new_camera_dir_out, float   follow_yaw_in, const vec3& target_dir_in);
+  static const vec3& apply_pitch(vec3& new_camera_dir_inout, float follow_pitch_in);
 
-	void set_follow_mode (zz_follow_mode mode);
+  void set_follow_mode(zz_follow_mode mode);
 
-	virtual void update_time (bool recursive, zz_time diff_time);
+  void update_time(bool recursive, zz_time diff_time) override;
 
-	void set_shake (zz_time lifetime_in, const vec3& min_in, const vec3& max_in);
+  void set_shake(zz_time lifetime_in, const vec3& min_in, const vec3& max_in);
 
-	bool get_camera_effect_onoff();
-	void interpolate_camera_effect(zz_time diff_time);
-	void play_camera_effect(float yaw, float pitch, float length, float time);
-	void stop_camera_effect();
+  bool get_camera_effect_onoff();
+  void interpolate_camera_effect(zz_time diff_time);
+  void play_camera_effect(float          yaw, float pitch, float length, float time);
+  void stop_camera_effect();
 
-	ZZ_DECLARE_DYNAMIC(zz_camera_follow)
+ZZ_DECLARE_DYNAMIC(zz_camera_follow)
 };
 
-inline zz_model * zz_camera_follow::get_target ()
-{
-	return target_;
+inline zz_model* zz_camera_follow::get_target() {
+  return target_;
 }
 
 #endif // __ZZ_CAMERA_FOLLOW_H__

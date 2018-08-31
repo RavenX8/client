@@ -82,52 +82,51 @@
 // every text mode file should start by "version" string
 //
 
-class zz_script_simple
-{
+class zz_script_simple {
 private:
-	zz_vfs file_system;
-	bool text_mode;
-	char word_buffer[ZZ_MAX_STRING];
+  zz_vfs file_system;
+  bool   text_mode;
+  char   word_buffer[ZZ_MAX_STRING];
 
-	bool check_element (const char * element_name);
-	void preload ();
-	void skip_line (void);
+  bool check_element(const char* element_name);
+  void preload();
+  void skip_line(void);
 
 public:
-	zz_script_simple (void);
-	zz_script_simple (const char * file_name,
-		zz_vfs::zz_vfs_mode mode = zz_vfs::ZZ_VFS_READ,
-		bool text_mode = true);
-	~zz_script_simple (void);
-	
-	// file_system_in should already be opened
-	bool open (const char * file_name,
-		zz_vfs::zz_vfs_mode open_mode = zz_vfs::ZZ_VFS_READ,
-		bool text_mode = true);
-	void close ();
-	
-	// If we have any data named element_name, then return true
-	// and if we do not have one, or meet the EOF, then return false.
-	// These functions are for easy use. Thus, does not guarantee performance
-	// (internally, auto-rewind one word that has been read).
-	bool read_uint32 (const char * element_name, uint32& data_out);
-	bool read_int32 (const char * element_name, int32& data_out);
-	bool read_string (const char * element_name, char * string_out = NULL);
-	bool read_float (const char * element_name, float& data_out);
-	bool read_float2 (const char * element_name, float& data1_out, float& data2_out);
-	bool read_float3 (const char * element_name, float& data1_out, float& data2_out, float& data3_out);
-	bool read_float4 (const char * element_name, float& data1_out, float& data2_out, float& data3_out, float& data4_out);
+  zz_script_simple(void                );
+  zz_script_simple(const char*         file_name,
+                   zz_vfs::zz_vfs_mode mode      = zz_vfs::ZZ_VFS_READ,
+                   bool                text_mode = true);
+  ~zz_script_simple(void               );
 
-	bool write_int16 (const char * element_name, int16 data_in);
-	bool write_uint16 (const char * element_name, uint16 data_in);
-	bool write_uint32 (const char * element_name, uint32 data_in);
-	bool write_int32 (const char * element_name, int32 data_in);
-	bool write_string (const char * element_name, const char * string_in = NULL);
-	bool write_float (const char * element_name, float data_in);
-	bool write_float2 (const char * element_name, float data1_in, float data2_in);
-	bool write_float3 (const char * element_name, float data1_in, float data2_in, float data3_in);
-	bool write_float4 (const char * element_name, float data1_in, float data2_in, float data3_in, float data4_in);
-	bool write_endl (void);
+  // file_system_in should already be opened
+  bool open(const char*         file_name,
+            zz_vfs::zz_vfs_mode open_mode = zz_vfs::ZZ_VFS_READ,
+            bool                text_mode = true);
+  void close();
+
+  // If we have any data named element_name, then return true
+  // and if we do not have one, or meet the EOF, then return false.
+  // These functions are for easy use. Thus, does not guarantee performance
+  // (internally, auto-rewind one word that has been read).
+  bool read_uint32(const char* element_name, uint32& data_out);
+  bool read_int32(const char*  element_name, int32&  data_out);
+  bool read_string(const char* element_name, char*   string_out = nullptr);
+  bool read_float(const char*  element_name, float&  data_out);
+  bool read_float2(const char* element_name, float&  data1_out, float& data2_out);
+  bool read_float3(const char* element_name, float&  data1_out, float& data2_out, float& data3_out);
+  bool read_float4(const char* element_name, float&  data1_out, float& data2_out, float& data3_out, float& data4_out);
+
+  bool write_int16(const char*  element_name, int16       data_in);
+  bool write_uint16(const char* element_name, uint16      data_in);
+  bool write_uint32(const char* element_name, uint32      data_in);
+  bool write_int32(const char*  element_name, int32       data_in);
+  bool write_string(const char* element_name, const char* string_in = nullptr);
+  bool write_float(const char*  element_name, float       data_in);
+  bool write_float2(const char* element_name, float       data1_in, float data2_in);
+  bool write_float3(const char* element_name, float       data1_in, float data2_in, float data3_in);
+  bool write_float4(const char* element_name, float       data1_in, float data2_in, float data3_in, float data4_in);
+  bool write_endl(void          );
 };
 
 #endif // __ZZ_SCRIPT_SIMPLE_H__

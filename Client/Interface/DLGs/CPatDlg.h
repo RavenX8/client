@@ -5,12 +5,11 @@
 /////////////////////////////////////////////////////////////////////////////////
 /// @brief PAT용 DIALOG ( 장착창 & 인벤토리 )
 /////////////////////////////////////////////////////////////////////////////////
-class CPatDlg :	public CTDialog
-{
+class CPatDlg : public CTDialog {
 
 public:
-	CPatDlg();
-	virtual ~CPatDlg(void);
+          CPatDlg();
+  virtual ~CPatDlg(void);
 
 };
 #endif

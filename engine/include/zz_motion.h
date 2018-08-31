@@ -91,136 +91,132 @@ class zz_animatable;
 //--------------------------------------------------------------------------------
 class zz_motion : public zz_node {
 protected:
-	uint32 fps; // frame per second
-	uint32 num_frames;
-	bool do_loop; // does this motion have cycle
+  uint32 fps; // frame per second
+  uint32 num_frames;
+  bool   do_loop; // does this motion have cycle
 
-	zz_time interp_interval; // time delay to be interpolated between last motion and new motion
+  zz_time interp_interval; // time delay to be interpolated between last motion and new motion
 
-	// Any assigned value to owner variable means that this motion is temporary.
-	// This motion should be deallocated by owner animatable object after using it.
-	// If this motion is the shared motion, do not set the *owner* pointer. It should be NULL.
-	zz_animatable * owner;
+  // Any assigned value to owner variable means that this motion is temporary.
+  // This motion should be deallocated by owner animatable object after using it.
+  // If this motion is the shared motion, do not set the *owner* pointer. It should be NULL.
+  zz_animatable* owner;
 
-	// for initial motion transform
-	// determined at loading time (zz_motion::load())
-	vec3 initial_position;
-	quat initial_rotation;
-	
-	// animation moving direction vector (end_frame_position - start_frame_position)
-	// determined at loading time (zz_motion::load())
-	vec3 direction_vector; 
+  // for initial motion transform
+  // determined at loading time (zz_motion::load())
+  vec3 initial_position;
+  quat initial_rotation;
 
-	zz_string filename; // motion file name
-	unsigned int num_channels;
+  // animation moving direction vector (end_frame_position - start_frame_position)
+  // determined at loading time (zz_motion::load())
+  vec3 direction_vector;
+
+  zz_string    filename; // motion file name
+  unsigned int num_channels;
 
 public:
-	zz_channel ** channels; // stay in znzin->channels
-	
-	zz_motion(void);
-	virtual ~zz_motion(void);
+  zz_channel** channels; // stay in znzin->channels
 
-	bool load (const char * file_name, float scale_in_load = 1.0f);
-	virtual bool unload ();
+          zz_motion(void );
+  virtual ~zz_motion(void);
 
-	virtual int get_num_frames (void) { return num_frames; }
-	virtual zz_time get_total_time (int custum_fps = 0) {
-		if (custum_fps == 0) custum_fps = get_fps();
-		return zz_time(float(ZZ_TICK_PER_SEC)*(get_num_frames()-1)/custum_fps);
-	}
-	virtual int get_fps (void) { return fps; }
-	//void set_fps (int fps) { this->fps = fps; }
+  bool load(const char* file_name, float scale_in_load = 1.0f);
+  bool unload() override;
 
-	int get_num_channels ()
-	{
-		return num_channels;
-	}
+  virtual int get_num_frames(void) { return num_frames; }
 
-	void set_loop (bool is_loop);
-	bool get_loop (void);
+  virtual zz_time get_total_time(int custum_fps = 0) {
+    if ( custum_fps == 0 ) custum_fps = get_fps();
+    return zz_time( float( ZZ_TICK_PER_SEC ) * (get_num_frames() - 1) / custum_fps );
+  }
 
-	void set_channel_interp_style (zz_channel_format channel_format, zz_interp_style style);
-	const vec3& get_initial_position (void) { return initial_position; }
-	const quat& get_initial_rotation (void) { return initial_rotation; }
-	mat4& get_initialTM (mat4& initial_tm) {
-		initial_tm = mat4_id;
-		initial_tm.set_translation(initial_position);
-		initial_tm.set_rot(initial_rotation);
-		return initial_tm;
-	}
-	void set_owner (zz_animatable * owner) { this->owner = owner; }
-	zz_animatable * get_owner () { return this->owner; }
+  virtual int get_fps(void) { return fps; }
+  //void set_fps (int fps) { this->fps = fps; }
 
-	// get by frame
-	virtual void get_channel_data (int channel_index, int frame, void * data);
+  int get_num_channels() {
+    return num_channels;
+  }
 
-	// get by time
-	virtual void get_channel_data (int channel_index, zz_time time, void * data, int custum_fps = 0);
-	virtual void set_channel_data (int channel_index, zz_time time, void * data, int custum_fps = 0);
+  void set_loop(bool is_loop);
+  bool get_loop(void );
 
-	uint32 get_channel_type ( int channel_index );
-	
-	const vec3& get_direction_vector (void) { return direction_vector; }
+  void        set_channel_interp_style(zz_channel_format channel_format, zz_interp_style style);
+  const vec3& get_initial_position(void                  ) { return initial_position; }
+  const quat& get_initial_rotation(void                  ) { return initial_rotation; }
 
-	void set_interp_interval (zz_time interval_in);
-	zz_time get_interp_interval (void) { return interp_interval; }
-	
-	const char * get_path () { return filename.get(); }
+  mat4& get_initialTM(mat4& initial_tm) {
+    initial_tm = mat4_id;
+    initial_tm.set_translation( initial_position );
+    initial_tm.set_rot( initial_rotation );
+    return initial_tm;
+  }
 
-	// update mesh with motion
-	// @mesh mesh
-	// @current_frame current frame
-	// @num_verts number of vertices
-	// @alpha_out receives visibility value
-	// @return true if got alpha(visiblity) animation,
-	bool update_mesh (zz_mesh * mesh, int current_frame, int num_verts, float& alpha_out);
+  void           set_owner(zz_animatable* owner) { this->owner = owner; }
+  zz_animatable* get_owner() { return this->owner; }
 
-	ZZ_DECLARE_DYNAMIC(zz_motion)
+  // get by frame
+  virtual void get_channel_data(int channel_index, int frame, void* data);
+
+  // get by time
+  virtual void get_channel_data(int channel_index, zz_time time, void* data, int custum_fps = 0);
+  virtual void set_channel_data(int channel_index, zz_time time, void* data, int custum_fps = 0);
+
+  uint32 get_channel_type(int channel_index);
+
+  const vec3& get_direction_vector(void) { return direction_vector; }
+
+  void    set_interp_interval(zz_time interval_in);
+  zz_time get_interp_interval(void    ) { return interp_interval; }
+
+  const char* get_path() { return filename.get(); }
+
+  // update mesh with motion
+  // @mesh mesh
+  // @current_frame current frame
+  // @num_verts number of vertices
+  // @alpha_out receives visibility value
+  // @return true if got alpha(visiblity) animation,
+  bool update_mesh(zz_mesh* mesh, int current_frame, int num_verts, float& alpha_out);
+
+ZZ_DECLARE_DYNAMIC(zz_motion)
 };
 
-inline void zz_motion::get_channel_data (int channel_index, zz_time time, void * data, int custum_fps)
-{
-//	assert(channel_index < (int)num_channels);
-//	assert(channels[channel_index]);
-	
-	if(channel_index < (int)num_channels)
-	channels[channel_index]->get_by_time(time, custum_fps ? custum_fps : fps, data);
+inline void zz_motion::get_channel_data(int channel_index, zz_time time, void* data, int custum_fps) {
+  //	assert(channel_index < (int)num_channels);
+  //	assert(channels[channel_index]);
+
+  if ( channel_index < (int)num_channels )
+    channels[channel_index]->get_by_time( time, custum_fps ? custum_fps : fps, data );
 }
 
-inline void zz_motion::get_channel_data (int channel_index, int frame, void * data)
-{
-//	assert(frame <= get_num_frames());
-//	assert(channel_index < (int)num_channels);
-	
-	if(channel_index < (int)num_channels)
-	channels[channel_index]->get_by_frame(frame, data);
+inline void zz_motion::get_channel_data(int channel_index, int frame, void* data) {
+  //	assert(frame <= get_num_frames());
+  //	assert(channel_index < (int)num_channels);
+
+  if ( channel_index < (int)num_channels )
+    channels[channel_index]->get_by_frame( frame, data );
 }
 
-inline void zz_motion::set_channel_data (int channel_index, zz_time time, void * data, int custum_fps)
-{
-	assert(channel_index < (int)num_channels);
-	channels[channel_index]->set_by_frame(ZZ_TICK_TO_FRAME(time, custum_fps ? custum_fps : fps), data);
+inline void zz_motion::set_channel_data(int channel_index, zz_time time, void* data, int custum_fps) {
+  assert(channel_index < (int)num_channels);
+  channels[channel_index]->set_by_frame( ZZ_TICK_TO_FRAME(time, custum_fps ? custum_fps : fps), data );
 }
 
-inline uint32 zz_motion::get_channel_type ( int channel_index )
-{
-	assert(channel_index < (int)num_channels);
-	return channels[channel_index]->get_channel_type();
+inline uint32 zz_motion::get_channel_type(int channel_index) {
+  assert(channel_index < (int)num_channels);
+  return channels[channel_index]->get_channel_type();
 }
 
-inline void zz_motion::set_interp_interval (zz_time interval_in)
-{
-	interp_interval = interval_in;
+inline void zz_motion::set_interp_interval(zz_time interval_in) {
+  interp_interval = interval_in;
 }
 
-inline void zz_motion::set_loop (bool is_loop)
-{
-	do_loop = is_loop;
+inline void zz_motion::set_loop(bool is_loop) {
+  do_loop = is_loop;
 }
 
-inline bool zz_motion::get_loop (void)
-{
-	return do_loop;
+inline bool zz_motion::get_loop(void) {
+  return do_loop;
 }
 
 #endif // __ZZ_MOTION_H__

@@ -164,22 +164,21 @@
 //--------------------------------------------------------------------------------
 class zz_vfs_pkg_system {
 protected:
-	VHANDLE fsystem_; // TriggerVFS file system top handle
+  VHANDLE fsystem_; // TriggerVFS file system top handle
 
 public:
-	zz_vfs_pkg_system ();
-	~zz_vfs_pkg_system ();
+  zz_vfs_pkg_system();
+  ~zz_vfs_pkg_system();
 
-	// for TriggerVFS file system
-	bool set_filesystem (VHANDLE fsystem_in); // Returns false if hvfs == 0
-	VHANDLE get_filesystem (); // Retuns file system handle
-	bool open_filesystem (const char * filesystem_name); // Returns false if not found or failed to open
-	bool close_filesystem (); // Returns false if has invalid hvfs
+  // for TriggerVFS file system
+  bool   set_filesystem(VHANDLE fsystem_in);            // Returns false if hvfs == 0
+  VHANDLE get_filesystem();                             // Retuns file system handle
+  bool   open_filesystem(const char* filesystem_name); // Returns false if not found or failed to open
+  bool   close_filesystem();                           // Returns false if has invalid hvfs
 };
 
-inline VHANDLE zz_vfs_pkg_system::get_filesystem ()
-{
-	return fsystem_;
+inline VHANDLE zz_vfs_pkg_system::get_filesystem() {
+  return fsystem_;
 }
 
 //--------------------------------------------------------------------------------
@@ -189,70 +188,66 @@ inline VHANDLE zz_vfs_pkg_system::get_filesystem ()
 //--------------------------------------------------------------------------------
 class zz_vfs_pkg : public zz_vfs {
 protected:
-	// trigger vfs file system pointer
-	// The engine can have one more TriggerVFS handle. ex) one for main thread, and another for worker thread.
-	// For now, TriggerVFS is not thread-safe, and we should use different VHANDLE.
-	// To get different VHANDLE, we call OpenVFS() twice.
-	// OpenVFS() call is controlled by engine system class.
-	zz_vfs_pkg_system * pkg_system_;
-	VFileHandle * fp_; // TriggerVFS file pointer.
+  // trigger vfs file system pointer
+  // The engine can have one more TriggerVFS handle. ex) one for main thread, and another for worker thread.
+  // For now, TriggerVFS is not thread-safe, and we should use different VHANDLE.
+  // To get different VHANDLE, we call OpenVFS() twice.
+  // OpenVFS() call is controlled by engine system class.
+  zz_vfs_pkg_system* pkg_system_;
+  VFileHandle*       fp_; // TriggerVFS file pointer.
 
-	zz_string filename_;
+  zz_string filename_;
 
-	// buf : buffer to be read into
-	// size : maximum size of the buffer
-	// return : size of the data that was read
-	uint32 read_ (char * buf, uint32 size);
-	uint32 write_ (const char * buf, uint32 size);
-	
+  // buf : buffer to be read into
+  // size : maximum size of the buffer
+  // return : size of the data that was read
+  uint32 read_(char*        buf, uint32 size) override;
+  uint32 write_(const char* buf, uint32 size) override;
+
 public:
-	zz_vfs_pkg (zz_vfs_pkg_system * pkg_system_in = NULL);
-	~zz_vfs_pkg ();
+  zz_vfs_pkg(zz_vfs_pkg_system* pkg_system_in = nullptr);
+  ~zz_vfs_pkg();
 
-	// filename : ex) d:/cvs/znzin/haha/zho.txt or zho.txt
-	bool open (const char * filename, const zz_vfs_mode mode = ZZ_VFS_READ);
-	bool close ();
-	
-	// if file exist?
-	bool exist (const char * filename) const;
+  // filename : ex) d:/cvs/znzin/haha/zho.txt or zho.txt
+  bool open(const char* filename, zz_vfs_mode mode = ZZ_VFS_READ) override;
+  bool close() override;
 
-	// get file size in byte
-	uint32 get_size () const;
-	uint32 get_size (const char * file_name) const;
-	// get last modified time
-	bool get_mtime (const char * file_name, uint64 * t) const;
+  // if file exist?
+  bool exist(const char* filename) const override;
 
-	virtual uint32 read (void);
-	virtual uint32 read (const uint32 size) { return zz_vfs::read(size); }
-	virtual uint32 read (char * buf, uint32 size) { return zz_vfs::read(buf, size); }
+  // get file size in byte
+  uint32 get_size() const override;
+  uint32 get_size(const char* file_name) const override;
+  // get last modified time
+  bool get_mtime(const char* file_name, uint64* t) const override;
 
-	virtual int seek (long offset, zz_vfs_seek origin);
+  uint32 read(void         ) override;
+  uint32 read(const uint32 size) override { return zz_vfs::read( size ); }
+  uint32 read(char*        buf, uint32 size) override { return zz_vfs::read( buf, size ); }
 
-	const char * get_path () const;
+  int seek(long offset, zz_vfs_seek origin) override;
+
+  const char* get_path() const override;
 };
 
-inline const char * zz_vfs_pkg::get_path () const
-{
-	return filename_.get();
+inline const char* zz_vfs_pkg::get_path() const {
+  return filename_.get();
 }
 
-inline bool zz_vfs_pkg::get_mtime (const char * file_name, uint64 * t) const
-{
-	// not implemented yet
-	*t = 0;
-	return true;
+inline bool zz_vfs_pkg::get_mtime(const char* file_name, uint64* t) const {
+  // not implemented yet
+  *t = 0;
+  return true;
 }
 
-inline uint32 zz_vfs_pkg::read ()
-{
-	size_t size;
-	data_ = reinterpret_cast<char*>(vfgetdata(&size, fp_));
-	return size;
+inline uint32 zz_vfs_pkg::read() {
+  size_t      size;
+  data_ = reinterpret_cast<char*>(vfgetdata( &size, fp_ ));
+  return size;
 }
 
-inline int zz_vfs_pkg::seek (long offset, zz_vfs_seek origin)
-{
-	return vfseek(fp_, offset, origin);
+inline int zz_vfs_pkg::seek(long offset, zz_vfs_seek origin) {
+  return vfseek( fp_, offset, origin );
 }
 
 #endif // ZZ_USE_TRIGGERVFS

@@ -8,19 +8,18 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/6
 */
-class CITStateWaitDisconnect : public CITState
-{
+class CITStateWaitDisconnect : public CITState {
 public:
-	CITStateWaitDisconnect(void);
-	virtual ~CITStateWaitDisconnect(void);
+          CITStateWaitDisconnect(void );
+  virtual ~CITStateWaitDisconnect(void);
 
-	virtual void Enter();
-	virtual void Leave();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void Update( POINT ptMouse );
+  void     Enter() override;
+  void     Leave() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     Update(POINT     ptMouse) override;
 protected:
-	DWORD	m_dwEnterTime;
-	DWORD   m_dwPrevUpdateTime;
-	int		m_iWaitDisconnectedTime;
+  DWORD m_dwEnterTime;
+  DWORD m_dwPrevUpdateTime;
+  int   m_iWaitDisconnectedTime;
 };
 #endif

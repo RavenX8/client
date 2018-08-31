@@ -1,120 +1,108 @@
 #include "StdAfx.h"
-#include ".\resourcemgr.h"
-CResourceMgr* CResourceMgr::s_pInstance = NULL;
-CResourceMgr::CResourceMgr(void)
-{
+#include "./resourcemgr.h"
+CResourceMgr* CResourceMgr::s_pInstance = nullptr;
+              CResourceMgr::CResourceMgr(void) {}
+
+CResourceMgr::~CResourceMgr(void) {
+  m_ResourceTable.clear();
 }
 
-CResourceMgr::~CResourceMgr(void)
-{
-	m_ResourceTable.clear();
-}
-void CResourceMgr::Destroy()
-{
-	if( s_pInstance )
-	{
-		delete s_pInstance;
-		s_pInstance = NULL;
-	}
+void CResourceMgr::Destroy() {
+  if ( s_pInstance ) {
+    delete s_pInstance;
+    s_pInstance = nullptr;
+  }
 }
 
-CResourceMgr* CResourceMgr::GetInstance()
-{
-	if( s_pInstance == NULL)
-		s_pInstance = new CResourceMgr;
+CResourceMgr* CResourceMgr::GetInstance() {
+  if ( s_pInstance == nullptr )
+    s_pInstance = new CResourceMgr;
 
-	return s_pInstance;
+  return s_pInstance;
 }
 
-int CResourceMgr::GetImageNID( int iModuleID, const char* szSID )
-{
-	TABLE_MODULE_ITER	iterModule;
-	TABLE_IMAGE_ID_ITER iterImageID;
+int                   CResourceMgr::GetImageNID(int iModuleID, const char* szSID) {
+  TABLE_MODULE_ITER   iterModule;
+  TABLE_IMAGE_ID_ITER iterImageID;
 
-	iterModule = m_ResourceTable.find( iModuleID );
-	if( iterModule == m_ResourceTable.end() )
-		return -1;
+  iterModule = m_ResourceTable.find( iModuleID );
+  if ( iterModule == m_ResourceTable.end() )
+    return -1;
 
-//	char* pszSID = NULL;
-	char szBuff[256] = {0};
-	
-	int iSize = (int)strlen( szSID );
+  //	char* pszSID = NULL;
+  char szBuff[256] = { 0 };
 
-	memcpy( szBuff, szSID, iSize);
+  int iSize = (int)strlen( szSID );
 
-	strupr( szBuff );
+  memcpy( szBuff, szSID, iSize );
 
-	iterImageID = iterModule->second.find( szBuff );
-	if( iterImageID == iterModule->second.end() )
-		return -1;
-	
-	return iterImageID->second;
+  strupr( szBuff );
+
+  iterImageID = iterModule->second.find( szBuff );
+  if ( iterImageID == iterModule->second.end() )
+    return -1;
+
+  return iterImageID->second;
 }
 
-bool CResourceMgr::AddResource( char* szFileName,int iModuleID )
-{
-	TABLE_MODULE_ITER	iterModule;
-	iterModule = m_ResourceTable.find( iModuleID );
-	if( iterModule != m_ResourceTable.end() )
-	{
-		char Buff[256];
-		sprintf( Buff,"Duplicated Image Resource Module ID:[%d]",iModuleID );
-		MessageBox(NULL,Buff,"Load Error",MB_OK);
-		return false;
-	}
-	LoadResourceFile( szFileName, iModuleID );
-	return true;
-}
-void CResourceMgr::UnLoadResource( int iModuleID )
-{
-	TABLE_MODULE_ITER	iterModule;
-	iterModule = m_ResourceTable.find( iModuleID );
-	if( iterModule == m_ResourceTable.end() )
-	{
-//		char Buff[256];
-//		sprintf( Buff,"NotFound Image Resource Module ID:[%d]",iModuleID );
-//		MessageBox(NULL,Buff,"Load Error",MB_OK);
-		return;
-	}
-	iterModule->second.clear();
-	m_ResourceTable.erase( iterModule );
+bool                CResourceMgr::AddResource(char* szFileName, int iModuleID) {
+  TABLE_MODULE_ITER iterModule;
+  iterModule = m_ResourceTable.find( iModuleID );
+  if ( iterModule != m_ResourceTable.end() ) {
+    char Buff[256];
+    sprintf( Buff, "Duplicated Image Resource Module ID:[%d]", iModuleID );
+    MessageBox( nullptr, Buff, "Load Error",MB_OK );
+    return false;
+  }
+  LoadResourceFile( szFileName, iModuleID );
+  return true;
 }
 
-void CResourceMgr::LoadResourceFile( char* szFileName, int iModuleID )
-{
-	TABLE_IMAGE_ID Table;
-	
-	FILE* pFile = fopen( szFileName,"r" );
-	if( pFile == NULL )
-	{
-		char Buff[256];
-		sprintf( Buff,"Not Found Resource File [%s]",szFileName );
-		MessageBox(NULL,Buff,"Load Error",MB_OK);
-		return;
-	}
-	char*	p	= NULL;
-//	char*   pszSID = NULL;
-	char	Buff[256];
-	char	szBuf[512];
-	const char	sep[] = "\t ";
-	int		NID;
-	while( NULL != fgets( Buff, sizeof(Buff), pFile ))
-	{
-		///대문자로 변경
-		strupr( Buff );
-		p = strtok( Buff, sep );///문자열 ImageID;
+void                CResourceMgr::UnLoadResource(int iModuleID) {
+  TABLE_MODULE_ITER iterModule;
+  iterModule = m_ResourceTable.find( iModuleID );
+  if ( iterModule == m_ResourceTable.end() ) {
+    //		char Buff[256];
+    //		sprintf( Buff,"NotFound Image Resource Module ID:[%d]",iModuleID );
+    //		MessageBox(NULL,Buff,"Load Error",MB_OK);
+    return;
+  }
+  iterModule->second.clear();
+  m_ResourceTable.erase( iterModule );
+}
 
-		ZeroMemory( szBuf, sizeof( szBuf ));
-		strncpy( szBuf, p, strlen( p ) );
+void             CResourceMgr::LoadResourceFile(char* szFileName, int iModuleID) {
+  TABLE_IMAGE_ID Table;
 
-		p = strtok( NULL, sep );
-		if( p == NULL )
-			continue;
+  FILE* pFile = fopen( szFileName, "r" );
+  if ( pFile == nullptr ) {
+    char Buff[256];
+    sprintf( Buff, "Not Found Resource File [%s]", szFileName );
+    MessageBox( nullptr, Buff, "Load Error",MB_OK );
+    return;
+  }
+  char* p = nullptr;
+  //	char*   pszSID = NULL;
+  char       Buff[256];
+  char       szBuf[512];
+  const char sep[] = "\t ";
+  int        NID;
+  while ( nullptr != fgets( Buff, sizeof(Buff), pFile ) ) {
+    ///대문자로 변경
+    strupr( Buff );
+    p = strtok( Buff, sep ); ///문자열 ImageID;
 
-		NID = atoi( p );
+    ZeroMemory( szBuf, sizeof( szBuf ));
+    strncpy( szBuf, p, strlen( p ) );
 
-		Table.insert( TABLE_IMAGE_ID::value_type( szBuf,NID ));
-	}
-	m_ResourceTable.insert( TABLE_MODULE::value_type( iModuleID, Table ));
-	fclose( pFile );
+    p = strtok( nullptr, sep );
+    if ( p == nullptr )
+      continue;
+
+    NID = atoi( p );
+
+    Table.insert( TABLE_IMAGE_ID::value_type( szBuf, NID ) );
+  }
+  m_ResourceTable.insert( TABLE_MODULE::value_type( iModuleID, Table ) );
+  fclose( pFile );
 }

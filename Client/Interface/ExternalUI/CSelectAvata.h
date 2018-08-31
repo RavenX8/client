@@ -17,40 +17,37 @@ struct t_PACKET;
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/6
 */
-class CSelectAvata :  public CTDialog
-{
+class CSelectAvata : public CTDialog {
 public:
-	CExternalUIManager*			m_pEUIManager;
-
+  CExternalUIManager* m_pEUIManager;
 
 public:
-	CSelectAvata();
-	~CSelectAvata();
+  CSelectAvata();
+  ~CSelectAvata();
 
-	void	SetEUIObserver( CExternalUIManager* pObserver );
+  void SetEUIObserver(CExternalUIManager* pObserver);
 
-	virtual UINT	Process( UINT uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void	Show();
+  UINT Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void Show() override;
 
-	
-	void	SendSelectAvataReq();
-	void	RecvAvataList( t_PACKET* recvPacket );
+  void SendSelectAvataReq();
+  void RecvAvataList(t_PACKET* recvPacket);
 
-	enum{
-		IID_BTN_CREATE	= 10,
-		IID_BTN_DELETE	= 11,
-		IID_BTN_OK		= 12,
-		IID_BTN_CANCEL	= 13
-	};
+  enum {
+    IID_BTN_CREATE = 10,
+    IID_BTN_DELETE = 11,
+    IID_BTN_OK = 12,
+    IID_BTN_CANCEL = 13
+  };
 
-	enum{
-		MSG_TYPE_NORMAL,
-		MSG_TYPE_DELETECHAR
-	};
+  enum {
+    MSG_TYPE_NORMAL,
+    MSG_TYPE_DELETECHAR
+  };
 
 protected:
-	void	OnLButtonUp( unsigned iProcID );
-	bool	m_bWaitServerReply;
+  void OnLButtonUp(unsigned iProcID);
+  bool m_bWaitServerReply;
 
 };
 

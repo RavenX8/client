@@ -9,16 +9,15 @@
 * @Author	√÷¡æ¡¯
 * @Date		2005/9/12
 */
-class CIconSkillDummy :	public CIconSkill
-{
+class CIconSkillDummy : public CIconSkill {
 public:
-	CIconSkillDummy( void );
-	CIconSkillDummy( int skillindex );
-	virtual ~CIconSkillDummy(void);
-	virtual void Draw();
-	virtual int GetSkillIndex();
-	virtual int	GetSkillLevel();
+          CIconSkillDummy(void );
+          CIconSkillDummy(int  skillindex);
+  virtual ~CIconSkillDummy(void);
+  void    Draw() override;
+  int     GetSkillIndex() override;
+  int     GetSkillLevel() override;
 private:
-	int		m_skillindex;
+  int m_skillindex;
 };
 #endif

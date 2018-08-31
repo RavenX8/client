@@ -5,12 +5,10 @@
 
 class CMusicPlayer;
 
-
-enum PLAYER_TYPE
-{
-	DIRECT_MUSIC_TYPE = 0,
-	OGG_MUSIC_TYPE,
-	MSS_MUSIC_TYPE,
+enum PLAYER_TYPE {
+  DIRECT_MUSIC_TYPE = 0,
+  OGG_MUSIC_TYPE,
+  MSS_MUSIC_TYPE,
 };
 
 //---------------------------------------------------------------------------------------------
@@ -20,30 +18,29 @@ enum PLAYER_TYPE
 ///
 //---------------------------------------------------------------------------------------------
 
-class CMusicMgr : public CJSingleton< CMusicMgr >
-{
+class CMusicMgr : public CJSingleton<CMusicMgr> {
 private:
-	/// 현재 뮤직 플레이어.
-	CMusicPlayer*		m_pPlayer;
-	bool				m_bReadyDevice;
+  /// 현재 뮤직 플레이어.
+  CMusicPlayer* m_pPlayer;
+  bool          m_bReadyDevice;
 
 public:
-	CMusicMgr(void);
-	~CMusicMgr(void);	
+  CMusicMgr(void );
+  ~CMusicMgr(void);
 
-	bool	Init( PLAYER_TYPE playerType );
-	bool	bIsReady(){ return m_bReadyDevice; }
-	void	Clear();
+  bool Init(PLAYER_TYPE playerType);
+  bool bIsReady() { return m_bReadyDevice; }
+  void Clear();
 
-	bool	Play( const char* fName );
-	void	Stop();
+  bool Play(const char* fName);
+  void Stop();
 
-	void	Run();
-	void    Pause();
-	
-	void	SetVolume( long lVolume );
+  void Run();
+  void Pause();
 
-	void	HandleEvent();
+  void SetVolume(long lVolume);
+
+  void HandleEvent();
 };
 
 #endif //_MUSIC_MENAGER_

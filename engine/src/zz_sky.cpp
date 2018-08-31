@@ -90,96 +90,88 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_sky, zz_visible)
 
-zz_sky::zz_sky() : rot_angles_delta(10), rot_angles_current(10)
-{
-	delayed_load = false;
-	receive_fog = false;
-	receive_fog_now = false;
-	inscene = true;
-	bv_type = ZZ_BV_OBB;
-	collision_level = ZZ_CL_POLYGON;
-	ztest = false;
-	//glow_color = vec3(.3f, .3f, .3f);
+zz_sky::zz_sky() : rot_angles_delta( 10 ), rot_angles_current( 10 ) {
+  delayed_load    = false;
+  receive_fog     = false;
+  receive_fog_now = false;
+  inscene         = true;
+  bv_type         = ZZ_BV_OBB;
+  collision_level = ZZ_CL_POLYGON;
+  ztest           = false;
+  //glow_color = vec3(.3f, .3f, .3f);
 
-	runits.reserve(1);
+  runits.reserve( 1 );
 }
 
-void zz_sky::update_time (bool recursive, zz_time diff_time)
-{
-	float time_delta = static_cast<float>(diff_time)/ZZ_TICK_PER_SEC;
-	
-	// rotate angles
-	for (unsigned int i = 0; i < num_runits; ++i) {
-		rot_angles_current[i] += time_delta*rot_angles_delta[i];
-	}
+void    zz_sky::update_time(bool recursive, zz_time diff_time) {
+  float time_delta = static_cast<float>(diff_time) / ZZ_TICK_PER_SEC;
 
-	zz_camera * cam = znzin->get_camera();
-	
-	if (cam) {
-		set_position(cam->get_eye());
-		invalidate_transform();
-		//ZZ_LOG("sky: update() position(%f, %f, %f)\n", this->get_position().x, this->get_position().y, this->get_position().z);
-	}
+  // rotate angles
+  for ( unsigned int i = 0; i < num_runits; ++i ) {
+    rot_angles_current[i] += time_delta * rot_angles_delta[i];
+  }
 
-	// CAUTION: sky is not in the scene_octree, so you should update manually.
-	invalidate_tm_minmax();
+  zz_camera* cam = znzin->get_camera();
+
+  if ( cam ) {
+    set_position( cam->get_eye() );
+    invalidate_transform();
+    //ZZ_LOG("sky: update() position(%f, %f, %f)\n", this->get_position().x, this->get_position().y, this->get_position().z);
+  }
+
+  // CAUTION: sky is not in the scene_octree, so you should update manually.
+  invalidate_tm_minmax();
 }
 
-bool zz_sky::set_rotation_deltas (int index, float angle_degree_per_second)
-{
-	if (index > (int)rot_angles_delta.size()) { // index cannot be greater than size()+1
-		return false;
-	}
-	if (index == rot_angles_delta.size()) {
-		rot_angles_delta.push_back(angle_degree_per_second);
-	}
-	else {
-		rot_angles_delta[index] = angle_degree_per_second;
-	}
-	return true;
+bool zz_sky::set_rotation_deltas(int index, float angle_degree_per_second) {
+  if ( index > (int)rot_angles_delta.size() ) {
+    // index cannot be greater than size()+1
+    return false;
+  }
+  if ( index == rot_angles_delta.size() ) {
+    rot_angles_delta.push_back( angle_degree_per_second );
+  } else {
+    rot_angles_delta[index] = angle_degree_per_second;
+  }
+  return true;
 }
 
-void zz_sky::render (bool recursive)
-{
-	assert(is_visible());
-	
-	// save rotation
-	quat rot = this->get_rotation();
-	// rotation axis (z-axis)
-	const vec3 axis(0, 0, 1);
+void zz_sky::render(bool recursive) {
+  assert(is_visible());
 
-	// render the first object only
-	rotate_by_axis(this->rot_angles_current[0]*ZZ_TO_RAD, axis);
+  // save rotation
+  quat rot = this->get_rotation();
+  // rotation axis (z-axis)
+  const vec3 axis( 0, 0, 1 );
 
-	invalidate_transform();
+  // render the first object only
+  rotate_by_axis( this->rot_angles_current[0] * ZZ_TO_RAD, axis );
 
-	// TODO: extract this code out of render() call
-	zz_material * mat = runits[0].material;
-	if (mat) {
-		mat->set_alpha_test(true);
-		mat->set_receive_fog(receive_fog);			
-		mat->set_ztest(ztest);
-		mat->set_zwrite(false);
-	}
-	// render unit
-	render_runit(0);
-	// restore rotation
-	set_rotation(rot);
-	invalidate_transform();
+  invalidate_transform();
+
+  // TODO: extract this code out of render() call
+  zz_material* mat = runits[0].material;
+  if ( mat ) {
+    mat->set_alpha_test( true );
+    mat->set_receive_fog( receive_fog );
+    mat->set_ztest( ztest );
+    mat->set_zwrite( false );
+  }
+  // render unit
+  render_runit( 0 );
+  // restore rotation
+  set_rotation( rot );
+  invalidate_transform();
 }
 
+void           zz_sky::before_render() {
+  zz_material* mat;
 
-void zz_sky::before_render ()
-{
-	zz_material * mat;
+  zz_runit& ru = runits[0];
 
-	zz_runit& ru = runits[0];
+  mat = ru.material;
 
-	mat = ru.material;
-
-	mat->flush_device(true); // does not render immediately
+  mat->flush_device( true ); // does not render immediately
 }
 
-void zz_sky::after_render ()
-{
-}
+void zz_sky::after_render() {}

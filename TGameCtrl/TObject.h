@@ -4,15 +4,14 @@
 
 #include "itcontrol.h"
 
-class TGAMECTRL_API CTObject
-{
+class TGAMECTRL_API CTObject {
 public:
-	CTObject(void);
-	virtual ~CTObject(void);
-	virtual const char* toString() const { return m_strString.c_str(); }
+                      CTObject(void );
+  virtual             ~CTObject(void);
+  virtual const char* toString() const { return m_strString.c_str(); }
 
 protected:
-	std::string	m_strString;
+  std::string m_strString;
 
 };
 #endif

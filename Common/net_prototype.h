@@ -195,7 +195,7 @@
     . 소환수 명령 패킷 추가.( CLI_SUMMON_CMD, GSV_SUMMON_CMD )
   2005. 08. 22 추가
     . CLI_CART_RIDE / GSV_CART_RIDE 2인승카트 요청/응답 패킷 추가.
-*/		  
+*/
 #ifndef __NET_PROTOTYPE_H
 #define __NET_PROTOTYPE_H
 #include <cstdint>
@@ -205,16 +205,14 @@
   #include "PacketHEADER.h"
   #include "classHASH.h"
 #else
-  #include "../common/DataTYPE.h"
-  #include "../common/CUserDATA.h"
-  #include "../util/PacketHEADER.h"
-  #include "../util/classHASH.h"
+#include "../common/DataTYPE.h"
+#include "../common/CUserDATA.h"
+#include "../util/PacketHEADER.h"
+#include "../util/classHASH.h"
 #endif
 
 #define	__APPLY_04_10_15_TEAMNO			// 04.10.15일자 팀번호 변경 패킷 적용할래 ?
 #define	__INC_PLATINUM				// 유료화변경 적용여부..
-
-
 
 #pragma warning( disable:4200 )
 #pragma warning( disable:4201 )
@@ -256,7 +254,6 @@
 #define	CLI_JOIN_SERVER_REQ			0x070b		// 월드/존 서버로 접속을 요청한다.
 #define	SRV_JOIN_SERVER_REPLY		0x070c
 
-
 #define	GSV_GM_COMMAND				0x070d		// GM 명령어.
 
 #define	GSV_SET_GLOBAL_VAR			0x070e		// 서버 변수 설정.
@@ -276,14 +273,13 @@
 #define	CLI_SELECT_CHAR				0x0715
 #define	GSV_SELECT_CHAR				0x0715
 
-
 #define	GSV_INVENTORY_DATA			0x0716
 #define	GSV_SET_MONEYnINV			0x0717
 #define	GSV_SET_INV_ONLY			0x0718
 
 #define	GSV_SERVER_DATA				0x0719
 
-#define	GSV_RELAY_REQ				0x071a	
+#define	GSV_RELAY_REQ				0x071a
 #define	CLI_RELAY_REPLY				0x071a
 
 #define	GSV_QUEST_DATA				0x071b
@@ -303,14 +299,12 @@
 #define	GSV_QUEST_ONLY				0x0723
 #define	GSV_WISH_LIST				0x0724
 
-
 #define	CLI_QUEST_REQ				0x0730
 #define	GSV_QUEST_REPLY				0x0730
 
 #define	GSV_CHECK_NPC_EVENT			0x0731
 
 #define	GSV_CHEAT_CODE				0x0751
-
 
 #define	CLI_JOIN_ZONE				0x0753
 #define	GSV_JOIN_ZONE				0x0753
@@ -332,7 +326,6 @@
 #define	GSV_SET_WEIGHT_RATE			0x0762
 
 #define	GSV_ADJUST_POS				0x0770
-
 
 #define	CLI_CANTMOVE				0x0771
 #define	GSV_CANTMOVE				0x0771
@@ -451,12 +444,10 @@
 #define	CLI_CREATE_ITEM_REQ			0x07af
 #define	GSV_CREATE_ITEM_REPLY		0x07af
 
-
 #define GSV_SKILL_LEARN_REPLY		0x07b0
 
 #define	CLI_SKILL_LEVELUP_REQ		0x07b1
 #define GSV_SKILL_LEVELUP_REPLY		0x07b1
-
 
 #define	CLI_SELF_SKILL				0x07b2
 #define	GSV_SELF_SKILL				0x07b2
@@ -534,7 +525,6 @@
 
 #define	GSV_CHANGE_OBJIDX			0x07d5
 
-
 #define	GSV_ADD_EVENTOBJ			0x07d6
 // #define	GSV_SUB_EVENTOBJ			0x07d6
 
@@ -547,7 +537,6 @@
 #define	CLI_MALL_ITEM_REQ			0x07d9
 #define	GSV_MALL_ITEM_REPLY			0x07d9
 
-
 #define	CLI_MOVE_ZULY				0x07da
 #define	GSV_MOVE_ZULY				0x07da
 
@@ -555,14 +544,11 @@
 
 #define	GSV_GODDNESS_MODE			0x07dc
 
-
 #define	CLI_CART_RIDE				0x07dd
 #define	GSV_CART_RIDE				0x07dd
 
-
 #define	GSV_BILLING_MESSAGE_EXT		0x07de
 #define	GSV_BILLING_MESSAGE			0x07df
-
 
 #define CLI_CLAN_COMMAND			0x07e0
 #define	WSV_CLAN_COMMAND			0x07e0
@@ -572,10 +558,10 @@
 
 #define	CLI_MESSENGER_CHAT			0x07e2
 #define	WSV_MESSENGER_CHAT			0x07e2
-                     
+
 #define	CLI_CHATROOM				0x07e3
 #define	WSV_CHATROOM				0x07e3
-                     
+
 #define	CLI_CHATROOM_MSG			0x07e4
 #define	WSV_CHATROOM_MSG			0x07e4
 
@@ -594,14 +580,12 @@
 
 #define	GSV_CHARSTATE_CHANGE		0x07ea
 
-
 #define CLI_SCREEN_SHOT_TIME		0x07eb                          //스크린샷 찍을때 서버시간요청..(허재영 추가 2005.10.18)
 #define GSV_SCREEN_SHOT_TIME		0x07eb                          //스크린샷 찍을때필요한 서버 시간전송.. .(허재영 추가 2005.10.18)
 
 #define SRV_UPDATE_NAME				0x07ec
 #define PXY_UPDATE_NAME				0x07ed
 #define PXY_SET_RIGHTS				0x07ef
-
 
 //-------------------------------------------------------------------------------------------------
 
@@ -610,58 +594,58 @@ struct cli_CHECK_AUTH : public t_PACKETHEADER {
     각 모듈별 데이타...
     필리핀의 경우 GG_AUTH_DATA 구조체
   */
-} ;
+};
+
 #define	AUTH_MODULE_nPROTECT	0xf1
+
 struct srv_CHECK_AUTH : public t_PACKETHEADER {
-  uint8_t	m_btModuleTYPE;
+  uint8_t m_btModuleTYPE;
   /*
     각 모듈별 데이타...
     필리핀의 경우 GG_AUTH_DATA 구조체
   */
-} ;
+};
 
 struct srv_ERROR : public t_PACKETHEADER {
-  uint16_t	m_wErrorCODE;
+  uint16_t m_wErrorCODE;
   // szErrorMSG[]
-} ;
+};
 
+struct lsv_ERROR : public srv_ERROR {};
 
-struct lsv_ERROR : public srv_ERROR {
-} ;
-struct gsv_ERROR : public srv_ERROR {
-} ;
-
+struct gsv_ERROR : public srv_ERROR {};
 
 struct gsv_GM_COMMAND : public t_PACKETHEADER {
-  uint8_t	m_btCMD;
-  uint16_t	m_wBlockTIME;
-} ;
+  uint8_t  m_btCMD;
+  uint16_t m_wBlockTIME;
+};
+
 #define	GM_CMD_SHUT		0x00		//	채팅 금지..
 #define	GM_CMD_LOGOUT	0x01		//	접속 끊고 나가라...
 
-
-struct cli_ACCEPT_REQ : public t_PACKETHEADER {
-} ;
+struct cli_ACCEPT_REQ : public t_PACKETHEADER {};
 
 struct cli_LOGIN_REQ : public t_PACKETHEADER {
-//	uint32_t		m_dwBuildNo;							// 클라이언트 빌드 번호.
+  //	uint32_t		m_dwBuildNo;							// 클라이언트 빌드 번호.
   union {
-    uint8_t	m_MD5Password[ 32 ];
-    uint32_t	m_dwMD5[ 8 ];
-  } ;
-    // szAccount[];
-} ;
+    uint8_t  m_MD5Password[ 32 ];
+    uint32_t m_dwMD5[ 8 ];
+  };
+
+  // szAccount[];
+};
+
 struct srv_LOGIN_REPLY : public t_PACKETHEADER {
-    uint8_t    m_btResult;
-  uint16_t	m_wRight;
-  uint16_t	m_wPayType;
-    /*  m_cResult == RESULT_LOGIN_REPLY_OK 일경우
-        struct {
-            // szServerNAME[]
-      uint32_t dwServerID;
-        } ;
-    */
-} ;
+  uint8_t  m_btResult;
+  uint16_t m_wRight;
+  uint16_t m_wPayType;
+  /*  m_cResult == RESULT_LOGIN_REPLY_OK 일경우
+      struct {
+          // szServerNAME[]
+    uint32_t dwServerID;
+      } ;
+  */
+};
 
 #define RESULT_LOGIN_REPLY_OK                   0x00
 #define	RESULT_LOGIN_REPLY_KOREA_OK				RESULT_LOGIN_REPLY_OK
@@ -682,7 +666,6 @@ struct srv_LOGIN_REPLY : public t_PACKETHEADER {
 #define	RESULT_LOGIN_REPLY_TAIWAN_FAILED		0x11	// 타이완 과금서버 체계로 적용
 
 #define	RESULT_LOGIN_REPLY_JAPAN_OK				0x18	// m_wPayType 값은 일본 과금서버 체계
-
 
 /*
 일본 과금 서버 RESULT_LOGIN_REPLY_JAPAN_OK일경우 m_wPayType의 값과
@@ -747,38 +730,40 @@ PAY_FLAG_JP_???? 와 & 연산해서 TRUE이면 결제것
 101:	// Library버전과 Login Server 와 맞지 않음. (Connection State result)
 */
 
-
 struct cli_CHANNEL_LIST_REQ : public t_PACKETHEADER {
-  uint32_t	m_dwServerID;
-} ;
+  uint32_t m_dwServerID;
+};
 
 struct tagCHANNEL_SRV {
-  uint8_t	m_btChannelNO;		// 보여줄 채널 슬롯 번호
-  uint8_t	m_btLowAGE;			// 접속 가능한 최저 연령 0 이면 최저 연령 제한 없음
-  uint8_t	m_btHighAGE;		// 접속 가능한 최고 연령 0 이면 최고 연령 제한 없음
-  int16_t	m_nUserPERCENT;		// 현재 접속되어 있는 사용자양...
+  uint8_t m_btChannelNO;  // 보여줄 채널 슬롯 번호
+  uint8_t m_btLowAGE;     // 접속 가능한 최저 연령 0 이면 최저 연령 제한 없음
+  uint8_t m_btHighAGE;    // 접속 가능한 최고 연령 0 이면 최고 연령 제한 없음
+  int16_t m_nUserPERCENT; // 현재 접속되어 있는 사용자양...
   // char m_szChannenNAME[]	// m_szChannelsNAME == "" 이면 CHANNEL-채널번호 로 부혀함
-} ;
+};
+
 struct lsv_CHANNEL_LIST_REPLY : public t_PACKETHEADER {
-  uint32_t			m_dwServerID;
-  uint8_t			m_btChannelCNT;
+  uint32_t m_dwServerID;
+  uint8_t  m_btChannelCNT;
   /*
   {
     tagCHANNEL_SRV X m_btChannelCNT;
   }
   */
-} ;
+};
 
 struct cli_SELECT_SERVER : public t_PACKETHEADER {
-  uint32_t	m_dwServerID;
-  uint8_t	m_btChannelNO;
-} ;
+  uint32_t m_dwServerID;
+  uint8_t  m_btChannelNO;
+};
+
 struct lsv_SELECT_SERVER : public t_PACKETHEADER {
-  uint8_t	m_btResult;
-  uint32_t	m_dwIDs[2];
+  uint8_t  m_btResult;
+  uint32_t m_dwIDs[2];
   // szServerIP[];
   // uint16_t wServerPortNO;
-} ;
+};
+
 #define	RESULT_SELECT_SERVER_OK					0x00
 #define RESULT_SELECT_SERVER_FAILED				0x01
 #define	RESULT_SELECT_SERVER_FULL				0x02	// 인원 꽉참
@@ -787,21 +772,21 @@ struct lsv_SELECT_SERVER : public t_PACKETHEADER {
 #define	RESUTL_SELECT_SERVER_INVALID_AGE		0x05	// 연령이 맞지 않는다..
 #define	RESULT_SELECT_SERVER_NEED_CHARGE		0x06	// 과금이 안되어 있다
 
-
 struct tagVAR_GLOBAL {
-  int16_t	m_nWorld_PRODUCT;					// 제조 관련
-  uint32_t	m_dwUpdateTIME;						// 갱신된 시간.
-  int16_t	m_nWorld_RATE;						// 경제 관련 :: 세계물가 80~140
-  uint8_t	m_btTOWN_RATE;						// 마을 물가					80~140
-  uint8_t	m_btItemRATE[ MAX_PRICE_TYPE ];		// 아이템별 물가				1~127
-  uint32_t	m_dwGlobalFLAGS;
-} ;
-struct gsv_SET_GLOBAL_VAR : public t_PACKETHEADER, public tagVAR_GLOBAL {
-} ;
+  int16_t  m_nWorld_PRODUCT;               // 제조 관련
+  uint32_t m_dwUpdateTIME;                 // 갱신된 시간.
+  int16_t  m_nWorld_RATE;                  // 경제 관련 :: 세계물가 80~140
+  uint8_t  m_btTOWN_RATE;                  // 마을 물가					80~140
+  uint8_t  m_btItemRATE[ MAX_PRICE_TYPE ]; // 아이템별 물가				1~127
+  uint32_t m_dwGlobalFLAGS;
+};
+
+struct gsv_SET_GLOBAL_VAR : public t_PACKETHEADER, public tagVAR_GLOBAL {};
 
 struct gsv_SET_GLOBAL_FLAG : public t_PACKETHEADER {
-  uint32_t	m_dwGlobalFLAGS;
-} ;
+  uint32_t m_dwGlobalFLAGS;
+};
+
 #define	ZONE_FLAG_PK_ALLOWED		0x00000001
 
 /*
@@ -823,46 +808,45 @@ struct wsv_JOIN_WORLD : public t_PACKETHEADER {
 */
 
 // 월드/존 서버에 접속 요청
-struct cli_JOIN_SERVER_REQ	: public t_PACKETHEADER {
-  uint32_t	m_dwID;
-    uint8_t	m_MD5Password[ 32 ];
-} ;
+struct cli_JOIN_SERVER_REQ : public t_PACKETHEADER {
+  uint32_t m_dwID;
+  uint8_t  m_MD5Password[ 32 ];
+};
+
 struct srv_JOIN_SERVER_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btResult;
-  uint32_t	m_dwID;
-  uint32_t	m_dwPayFLAG;
-} ;
+  uint8_t  m_btResult;
+  uint32_t m_dwID;
+  uint32_t m_dwPayFLAG;
+};
+
 #define	RESULT_JOIN_SERVER_OK					0x00
 #define	RESULT_JOIN_SERVER_FAILED				0x01
 #define RESULT_JOIN_SERVER_TIME_OUT				0x02    // 시간 초과로 계정 없어져 다시 로그인 해야한다.
 #define RESULT_JOIN_SERVER_INVALID_PASSWORD		0x03    // 비번 오류
 #define RESULT_JOIN_SERVER_ALREADY_LOGGEDIN		0x04    // 이미 로그인 중이다
 
-
 // 클라이언트에게 존서버 이동 접속하라고 통보...
 struct wsv_MOVE_SERVER : public t_PACKETHEADER {
-  uint16_t	m_wPortNO;
-  uint32_t	m_dwIDs[2];
+  uint16_t m_wPortNO;
+  uint32_t m_dwIDs[2];
   // szServerIP[]
-} ;
+};
 
-
-struct cli_CHAR_LIST : public t_PACKETHEADER {
-} ;
-
+struct cli_CHAR_LIST : public t_PACKETHEADER {};
 
 // 성별, 레벨,직업, 파트 인덱스...
 struct tagCHARINFO {
-  uint8_t	m_btCharRACE;
-  int16_t	m_nLEVEL;
-  int16_t	m_nJOB;
-  uint32_t	m_dwRemainSEC;		// 0이 아닐경우 삭제될때까지 남은 시간(초단위)
+  uint8_t  m_btCharRACE;
+  int16_t  m_nLEVEL;
+  int16_t  m_nJOB;
+  uint32_t m_dwRemainSEC; // 0이 아닐경우 삭제될때까지 남은 시간(초단위)
 #ifdef	__INC_PLATINUM
-  uint8_t	m_btIsPlatinumCHAR;	// 0이 아닌경우는 플레티넘일 경우만 선택 가능한 케릭이다.
+  uint8_t m_btIsPlatinumCHAR; // 0이 아닌경우는 플레티넘일 경우만 선택 가능한 케릭이다.
 #endif
-} ;
+};
+
 struct wsv_CHAR_LIST : public t_PACKETHEADER {
-  uint8_t	m_btCharCNT;
+  uint8_t m_btCharCNT;
   /*
   {
     tagCHARINFO m_CharINFO;
@@ -870,22 +854,23 @@ struct wsv_CHAR_LIST : public t_PACKETHEADER {
     char		szCharName[]
   } x m_btCharCNT
   */
-} ;
-
+};
 
 struct cli_CREATE_CHAR : public t_PACKETHEADER {
-  uint8_t	m_btCharRACE;
-  int8_t	m_cBoneSTONE;
-  int8_t	m_cHairIDX;
-  int8_t	m_cFaceIDX;
-  int8_t	m_cWeaponTYPE;
-  int16_t	m_nZoneNO;
+  uint8_t m_btCharRACE;
+  int8_t  m_cBoneSTONE;
+  int8_t  m_cHairIDX;
+  int8_t  m_cFaceIDX;
+  int8_t  m_cWeaponTYPE;
+  int16_t m_nZoneNO;
   // char szCharName[]
-} ;
+};
+
 struct wsv_CREATE_CHAR : public t_PACKETHEADER {
-  uint8_t	m_btResult;
-  uint8_t	m_btIsPlatinumCHAR;
-} ;
+  uint8_t m_btResult;
+  uint8_t m_btIsPlatinumCHAR;
+};
+
 #define	RESULT_CREATE_CHAR_OK				0x00
 #define	RESULT_CREATE_CHAR_FAILED			0x01
 #define	RESULT_CREATE_CHAR_DUP_NAME			0x02
@@ -894,221 +879,212 @@ struct wsv_CREATE_CHAR : public t_PACKETHEADER {
 #define	RESULT_CREATE_CHAR_BLOCKED			0x05	// 서버에서 케릭터 생성이 금지되어 있는 상태다.
 
 struct cli_DELETE_CHAR : public t_PACKETHEADER {
-  uint8_t	m_btCharNO;
-  bool	m_bDelete;								// true면 삭제, false면 삭제대기 상태 케릭터 부활
+  uint8_t m_btCharNO;
+  bool    m_bDelete; // true면 삭제, false면 삭제대기 상태 케릭터 부활
   // char szCharName[]
-} ;
+};
+
 struct wsv_DELETE_CHAR : public t_PACKETHEADER {
-  uint32_t	m_dwDelRemainTIME;						// 0이면 삭제 취소...
+  uint32_t m_dwDelRemainTIME; // 0이면 삭제 취소...
   // char szCharName[]
-} ;
+};
 
+struct cli_LOGOUT_REQ : public t_PACKETHEADER {};
 
-
-
-struct cli_LOGOUT_REQ : public t_PACKETHEADER {
-} ;
 struct gsv_LOGOUT_REPLY : public t_PACKETHEADER {
-  uint16_t	m_wWaitSec;
-} ;
-
-
+  uint16_t m_wWaitSec;
+};
 
 struct gsv_INIT_DATA : public t_PACKETHEADER {
-  int32_t		m_iRandomSEED;
-  uint16_t	m_wRandomINDEX;
-} ;
-
+  int32_t  m_iRandomSEED;
+  uint16_t m_wRandomINDEX;
+};
 
 struct cli_SELECT_CHAR : public t_PACKETHEADER {
-  uint8_t	m_btCharNO;
-  uint8_t	m_btRunMODE;
-  uint8_t	m_btRideMODE;
+  uint8_t m_btCharNO;
+  uint8_t m_btRunMODE;
+  uint8_t m_btRideMODE;
   // char szCharName[]
-} ;
+};
 
 struct gsv_SELECT_CHAR : public t_PACKETHEADER {
-  uint8_t				m_btCharRACE;
-  int16_t				m_nZoneNO;
-  tPOINTF				m_PosSTART;
-  int16_t				m_nReviveZoneNO;
+  uint8_t m_btCharRACE;
+  int16_t m_nZoneNO;
+  tPOINTF m_PosSTART;
+  int16_t m_nReviveZoneNO;
 
-  tagPartITEM			m_PartITEM[ MAX_BODY_PART   ];
-//	tagPartITEM			m_RideITEM[ MAX_RIDING_PART ];
+  tagPartITEM m_PartITEM[ MAX_BODY_PART ];
+  //	tagPartITEM			m_RideITEM[ MAX_RIDING_PART ];
 
-  tagBasicINFO		m_BasicINFO;	
-  tagBasicAbility		m_BasicAbility;	
-  tagGrowAbility		m_GrowAbility;	
-  tagSkillAbility		m_Skill;
-  CHotICONS			m_HotICONS;
-  uint32_t				m_dwUniqueTAG;
-//	char				szCharName[];
-} ;
-
+  tagBasicINFO    m_BasicINFO;
+  tagBasicAbility m_BasicAbility;
+  tagGrowAbility  m_GrowAbility;
+  tagSkillAbility m_Skill;
+  CHotICONS       m_HotICONS;
+  uint32_t        m_dwUniqueTAG;
+  //	char				szCharName[];
+};
 
 struct gsv_INVENTORY_DATA : public t_PACKETHEADER {
   // 2004. 9.11 대체... CInventory	m_INV;
   struct {
-    int64_t		m_i64Money;
-    tagBaseITEM	m_ItemLIST[ INVENTORY_TOTAL_SIZE ];
-  } m_INV;
-} ;
+    int64_t     m_i64Money;
+    tagBaseITEM m_ItemLIST[ INVENTORY_TOTAL_SIZE ];
+  }             m_INV;
+};
 
 // 퀘스트 스위치 갯수 증가후 아래 2개의 패킷으로 분리후 사용안함.
 struct gsv_QUEST_DATA : public t_PACKETHEADER {
-  tagQuestData	m_Quests;
-  tagWishLIST		m_WishLIST;
-} ;
+  tagQuestData m_Quests;
+  tagWishLIST  m_WishLIST;
+};
 
 struct gsv_QUEST_ONLY : public t_PACKETHEADER {
-  tagQuestData	m_Quests;
-} ;
-struct gsv_WISH_LIST : public t_PACKETHEADER {
-  tagWishLIST		m_WishLIST;
-} ;
+  tagQuestData m_Quests;
+};
 
+struct gsv_WISH_LIST : public t_PACKETHEADER {
+  tagWishLIST m_WishLIST;
+};
 
 struct cli_JOIN_ZONE : public t_PACKETHEADER {
-  uint8_t			m_btWeightRate;
-  int16_t			m_nPosZ;
-} ;
-
-
+  uint8_t m_btWeightRate;
+  int16_t m_nPosZ;
+};
 
 struct gsv_JOIN_ZONE : public t_PACKETHEADER {
-  uint16_t			m_wServerObjectIndex;
-  int16_t			m_nCurHP;
-  int16_t			m_nCurMP;
-  int64_t			m_lCurEXP;
-  int64_t			m_lPenalEXP;
-  tagVAR_GLOBAL	m_VAR;
-  uint32_t			m_dwAccWorldTIME;		// 게임 서버 처음 동작후 누적된 월드 타임
+  uint16_t      m_wServerObjectIndex;
+  int16_t       m_nCurHP;
+  int16_t       m_nCurMP;
+  int64_t       m_lCurEXP;
+  int64_t       m_lPenalEXP;
+  tagVAR_GLOBAL m_VAR;
+  uint32_t      m_dwAccWorldTIME; // 게임 서버 처음 동작후 누적된 월드 타임
 #ifdef	__APPLY_04_10_15_TEAMNO
-  int32_t				m_iTeamNO;				// 서버에서 설정된 팀번호	:: 04.10.15 추가..
+  int32_t m_iTeamNO; // 서버에서 설정된 팀번호	:: 04.10.15 추가..
 #endif
 
-} ;
+};
 
-
-struct cli_SCREEN_SHOT_TIME:public t_PACKETHEADER
-{
+struct cli_SCREEN_SHOT_TIME : public t_PACKETHEADER {
   uint16_t wCnt;
 };
 
-struct gsv_SCREEN_SHOT_TIME:public t_PACKETHEADER
-{
+struct gsv_SCREEN_SHOT_TIME : public t_PACKETHEADER {
   uint16_t wYear;
-  uint8_t	btMonth;
-  uint8_t	btDay;
-  uint8_t	btHour;
+  uint8_t  btMonth;
+  uint8_t  btDay;
+  uint8_t  btHour;
   uint8_t  btMin;
 };
 
-
-
 struct cli_REVIVE_REQ : public t_PACKETHEADER {
-  uint8_t	m_btReviveTYPE;
-} ;
+  uint8_t m_btReviveTYPE;
+};
+
 #define	REVIVE_TYPE_REVIVE_POS		0x01
 #define REVIVE_TYPE_SAVE_POS		0x02
 #define	REVIVE_TYPE_START_POS		0x03
 #define	REVIVE_TYPE_CURRENT_POS		0x04
 
 struct gsv_REVIVE_REPLY : public t_PACKETHEADER {
-  int16_t	m_nZoneNO;
-} ;
+  int16_t m_nZoneNO;
+};
 
-struct cli_SET_REVIVE_POS : public t_PACKETHEADER {
-} ;
+struct cli_SET_REVIVE_POS : public t_PACKETHEADER {};
 
 struct cli_SET_VAR_REQ : public t_PACKETHEADER {
-  uint8_t	m_btVarTYPE;
-  int32_t		m_iValue;
-} ;
-struct gsv_SET_VAR_REPLY : public cli_SET_VAR_REQ {
-} ;
-#define	REPLY_GSV_SET_VAR_FAIL_BIT	0x080 
+  uint8_t m_btVarTYPE;
+  int32_t m_iValue;
+};
+
+struct gsv_SET_VAR_REPLY : public cli_SET_VAR_REQ {};
+
+#define	REPLY_GSV_SET_VAR_FAIL_BIT	0x080
 // #define	REPLY_GSV_SET_JOB_xxx
 
-
 #define	BIT_MOTION_STOP_CMD			0x080000
+
 struct cli_SET_MOTION : public t_PACKETHEADER {
-  int16_t		m_nMotionNO;
+  int16_t m_nMotionNO;
+
   union {
-    uint16_t	m_wValue;
+    uint16_t m_wValue;
+
     struct {
-      uint16_t	m_wETC : 15;
-      uint16_t	m_wIsSTOP :  1;
-    } ;
-  } ;
-} ;
+      uint16_t m_wETC : 15;
+      uint16_t m_wIsSTOP : 1;
+    };
+  };
+};
+
 struct gsv_SET_MOTION : public cli_SET_MOTION {
-  uint16_t		m_wObjectIDX;
-} ;
+  uint16_t m_wObjectIDX;
+};
 
 struct cli_TOGGLE : public t_PACKETHEADER {
-  uint8_t	m_btTYPE;
-} ;
+  uint8_t m_btTYPE;
+};
+
 #define	TOGGLE_TYPE_RUN		0x00
 #define	TOGGLE_TYPE_SIT		0x01
 #define	TOGGLE_TYPE_DRIVE	0x02
+
 struct gsv_TOGGLE : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  uint8_t	m_btTYPE;
-  int16_t	m_nRunSPEED[0];			// 팻 타고 내릴때만...
-} ;
+  uint16_t m_wObjectIDX;
+  uint8_t  m_btTYPE;
+  int16_t  m_nRunSPEED[0]; // 팻 타고 내릴때만...
+};
 
 struct cli_CHAT : public t_PACKETHEADER {
   // szChatMSG[]
-} ;
+};
+
 struct gsv_CHAT : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-} ;
+  uint16_t m_wObjectIDX;
+};
 
 struct cli_WHISPER : public t_PACKETHEADER {
   // szTargetAccount[]
   // szChatMSG[]
-} ;
+};
+
 struct gsv_WHISPER : public t_PACKETHEADER {
   // szFromAccount[]
   // szChatMSG[]
-} ;
+};
 
-struct cli_SHOUT : public cli_CHAT {
-} ;
-struct gsv_SHOUT : public t_PACKETHEADER {
-} ;
+struct cli_SHOUT : public cli_CHAT {};
 
-struct cli_ALLIED_CHAT : public t_PACKETHEADER {
-} ;
+struct gsv_SHOUT : public t_PACKETHEADER {};
+
+struct cli_ALLIED_CHAT : public t_PACKETHEADER {};
+
 struct gsv_ALLIED_CHAT : public gsv_CHAT {
-  int32_t	m_iTeamNO;
+  int32_t m_iTeamNO;
   // szChatMSG[]
-} ;
+};
 
-struct cli_ALLIED_SHOUT : public t_PACKETHEADER {
-} ;
+struct cli_ALLIED_SHOUT : public t_PACKETHEADER {};
+
 struct gsv_ALLIED_SHOUT : public t_PACKETHEADER {
-  int32_t	m_iTeamNO;
+  int32_t m_iTeamNO;
   // szFromAccount[]
   // szChatMSG[]
-} ;
+};
 
+struct cli_PARTY_CHAT : public cli_CHAT {};
 
-struct cli_PARTY_CHAT : public cli_CHAT {
-} ;
-struct gsv_PARTY_CHAT : public gsv_CHAT {
-} ;
+struct gsv_PARTY_CHAT : public gsv_CHAT {};
 
-struct cli_CLAN_CHAT : public cli_CHAT {
-} ;
-struct wsv_CLAN_CHAT : public gsv_SHOUT {
-} ;
+struct cli_CLAN_CHAT : public cli_CHAT {};
+
+struct wsv_CLAN_CHAT : public gsv_SHOUT {};
 
 struct gsv_SET_EVENT_STATUS : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nEventSTATUS;
-} ;
+  uint16_t m_wObjectIDX;
+  int16_t  m_nEventSTATUS;
+};
 
 #define	MOVE_MODE_WALK		0x00	// 걷기 모드
 #define	MOVE_MODE_RUN		0x01	// 뛰기 모드
@@ -1116,19 +1092,19 @@ struct gsv_SET_EVENT_STATUS : public t_PACKETHEADER {
 #define	MOVE_MODE_RIDEON	0x04	// 승차 모드 : 남의것에 타고 있다.
 
 struct tag_ADD_CHAR : public t_PACKETHEADER {
-    uint16_t		m_wObjectIDX;
-  tPOINTF		m_PosCUR;
-  tPOINTF		m_PosTO;
-  uint16_t		m_wCommand;
-  uint16_t		m_wTargetOBJ;
-  uint8_t		m_btMoveMODE;					// 0:걷기, 1:뛰기, 2:내 승용아이템에 타고있다, 3: m_wTargetOBJ의 승용아이템에 타고있다.
-  int32_t			m_iHP;
+  uint16_t m_wObjectIDX;
+  tPOINTF  m_PosCUR;
+  tPOINTF  m_PosTO;
+  uint16_t m_wCommand;
+  uint16_t m_wTargetOBJ;
+  uint8_t  m_btMoveMODE; // 0:걷기, 1:뛰기, 2:내 승용아이템에 타고있다, 3: m_wTargetOBJ의 승용아이템에 타고있다.
+  int32_t  m_iHP;
 #ifdef	__APPLY_04_10_15_TEAMNO
-  int32_t			m_iTeamNO;						//	char m_cTeamNO => int32_t로 변경 04.10.15 수정...
+  int32_t m_iTeamNO; //	char m_cTeamNO => int32_t로 변경 04.10.15 수정...
 #else
   int8_t		m_cTeamNO;
 #endif
-  uint32_t		m_dwStatusFALG;		
+  uint32_t m_dwStatusFALG;
   /*
   지속 스킬에 의해 바뀐 값...	2004.1.4
   if ( m_dwStatusFALG & ( ING_FLAG_MAX_HP | ING_FLAG_xxx_MOV_SPEED | ING_FLAG_xxx_ATK_SPEED ) ) {
@@ -1154,32 +1130,32 @@ struct tag_ADD_CHAR : public t_PACKETHEADER {
       owner_obj_idx = (uint16_t) pAdjSTATUS[ btIDX++ ];
   }
   */
-} ;
+};
 
 struct gsv_MOB_CHAR : public tag_ADD_CHAR {
-  int16_t			m_nCharIdx;					
-  int16_t			m_nQuestIDX;
+  int16_t m_nCharIdx;
+  int16_t m_nQuestIDX;
   // int16_t		m_nAdjSTATUS[];
-} ;
+};
 
 // gsv_NPC_CHAR패킷에서 m_nCharIdx < 0 이면 숨김상태(클라이언트에서 랜더링하지 않음)
 struct gsv_NPC_CHAR : public gsv_MOB_CHAR {
-  float			m_fModelDIR;
-  int16_t			m_nEventSTATUS;				// 2004. 3. 22 추가.., NPC인공지능에 의해 내부적으로 바뀌는 변수값..
+  float   m_fModelDIR;
+  int16_t m_nEventSTATUS; // 2004. 3. 22 추가.., NPC인공지능에 의해 내부적으로 바뀌는 변수값..
   // int16_t		m_nAdjSTATUS[];
-} ;
-
+};
 
 /// 현재 설정된 소모탄 
 struct tagShotDATA {
   union {
     struct {
-      uint16_t	m_cType			: 5;
-      uint16_t	m_nItemNo		: 10;
-    } ;
-    uint16_t	m_wShotITEM;
-  } ;
-} ;
+      uint16_t m_cType : 5;
+      uint16_t m_nItemNo : 10;
+    };
+
+    uint16_t m_wShotITEM;
+  };
+};
 
 /*
   계산 방법 
@@ -1187,30 +1163,33 @@ struct tagShotDATA {
   2. 이동속도 = 서버에서 받은값(패시브포함) + 지속 보정값으로 
 */
 struct tag_CLAN_ID {
-  uint32_t	m_dwClanID;
+  uint32_t m_dwClanID;
+
   union {
-    uint32_t	m_dwClanMARK;
-    uint16_t	m_wClanMARK[2];
-  } ;
-  uint8_t	m_btClanLEVEL;		// 클랜 레벨
-  uint8_t	m_btClanPOS;		// 클랜에서의 직위
-} ;
+    uint32_t m_dwClanMARK;
+    uint16_t m_wClanMARK[2];
+  };
+
+  uint8_t m_btClanLEVEL; // 클랜 레벨
+  uint8_t m_btClanPOS;   // 클랜에서의 직위
+};
+
 struct gsv_AVT_CHAR : public tag_ADD_CHAR {
-  uint8_t		m_btCharRACE;
-  int16_t		m_nRunSpeed;						// 패시브에 의해 보정된 값까지, 지속에 의해 보정된값 제외 ..
-  int16_t		m_nPsvAtkSpeed;						// 패시브 값만...  기본속도, 지속에 의해 보정된값 제외 ..
-  uint8_t		m_btWeightRate;						// 현재소지량/최대소지량*100
-  tagPartITEM m_PartITEM	  [ MAX_BODY_PART ];
-  tagShotDATA	m_sShotItem	  [ MAX_SHOT_TYPE ];
+  uint8_t     m_btCharRACE;
+  int16_t     m_nRunSpeed;    // 패시브에 의해 보정된 값까지, 지속에 의해 보정된값 제외 ..
+  int16_t     m_nPsvAtkSpeed; // 패시브 값만...  기본속도, 지속에 의해 보정된값 제외 ..
+  uint8_t     m_btWeightRate; // 현재소지량/최대소지량*100
+  tagPartITEM m_PartITEM [ MAX_BODY_PART ];
+  tagShotDATA m_sShotItem [ MAX_SHOT_TYPE ];
 
-  int16_t		m_nJOB;
-  uint8_t		m_btLEVEL;
+  int16_t m_nJOB;
+  uint8_t m_btLEVEL;
 
-//	int16_t		m_nRidingITEM [ MAX_RIDING_PART ];	// 승용 아이템 ..
-  tagPartITEM	m_RidingITEM  [ MAX_RIDING_PART ];	// 승용 아이템 ..
-  int16_t		m_nPosZ;
+  //	int16_t		m_nRidingITEM [ MAX_RIDING_PART ];	// 승용 아이템 ..
+  tagPartITEM m_RidingITEM [ MAX_RIDING_PART ]; // 승용 아이템 ..
+  int16_t     m_nPosZ;
 
-  uint32_t		m_dwSubFLAG;
+  uint32_t m_dwSubFLAG;
 
   // char		szUserID[]
   // int16_t	m_nAdjSTATUS[];
@@ -1220,135 +1199,135 @@ struct gsv_AVT_CHAR : public tag_ADD_CHAR {
   tag_CLAN_ID	m_CLAN;	== NULL이 아니면 클랜정보 있음
   // char m_szClanNAME[];
   */
-} ;
+};
 
 struct gsv_SUB_OBJECT : public t_PACKETHEADER {
-    uint16_t    m_wObjectIDX[ 1 ];
-} ;
+  uint16_t m_wObjectIDX[ 1 ];
+};
 
 struct cli_SET_WEIGHT_RATE : public t_PACKETHEADER {
-  uint8_t	m_btWeightRate;
-} ;
+  uint8_t m_btWeightRate;
+};
 
 struct gsv_SET_WEIGHT_RATE : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  uint8_t	m_btWeightRate;
-} ;
-
+  uint16_t m_wObjectIDX;
+  uint8_t  m_btWeightRate;
+};
 
 struct gsv_ADJUST_POS : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  tPOINTF	m_PosCUR;
-  int16_t	m_nPosZ;
-} ;
+  uint16_t m_wObjectIDX;
+  tPOINTF  m_PosCUR;
+  int16_t  m_nPosZ;
+};
 
 struct cli_CANTMOVE : public t_PACKETHEADER {
-    tPOINTF m_PosCUR;
-  int16_t	m_nPosZ;
-} ;
-struct cli_SETPOS : public t_PACKETHEADER {
-    tPOINTF m_PosCUR;
-} ;
+  tPOINTF m_PosCUR;
+  int16_t m_nPosZ;
+};
 
+struct cli_SETPOS : public t_PACKETHEADER {
+  tPOINTF m_PosCUR;
+};
 
 struct cli_STOP : public t_PACKETHEADER {
-    tPOINTF m_PosCUR;
-} ;
+  tPOINTF m_PosCUR;
+};
 
 struct gsv_STOP : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-    tPOINTF m_PosCUR;
-  int16_t	m_nPosZ;
-} ;
-
+  uint16_t m_wObjectIDX;
+  tPOINTF  m_PosCUR;
+  int16_t  m_nPosZ;
+};
 
 struct cli_MOUSECMD : public t_PACKETHEADER {
-    uint16_t	m_wTargetObjectIDX;
-    tPOINTF m_PosTO;
-  int16_t	m_nPosZ;
-} ;
+  uint16_t m_wTargetObjectIDX;
+  tPOINTF  m_PosTO;
+  int16_t  m_nPosZ;
+};
 
 struct gsv_MOUSECMD : public t_PACKETHEADER {
-  uint16_t	m_wSourObjIDX;
-  uint16_t	m_wDestObjIDX;
+  uint16_t m_wSourObjIDX;
+  uint16_t m_wDestObjIDX;
 
-//	tPOINTF	m_PosCUR;
-  uint16_t	m_wSrvDIST;
-    tPOINTF m_PosTO;
+  //	tPOINTF	m_PosCUR;
+  uint16_t m_wSrvDIST;
+  tPOINTF  m_PosTO;
 
-  int16_t	m_nPosZ;
-} ;
-
+  int16_t m_nPosZ;
+};
 
 struct cli_ATTACK : public t_PACKETHEADER {
-  uint16_t	m_wTargetObjectIndex;
-} ;
+  uint16_t m_wTargetObjectIndex;
+};
 
 struct gsv_ATTACK : public t_PACKETHEADER {
-  uint16_t	m_wAtkObjIDX;
-  uint16_t	m_wDefObjIDX;
+  uint16_t m_wAtkObjIDX;
+  uint16_t m_wDefObjIDX;
 
-//	tPOINTF	m_PosCUR;
-  uint16_t	m_wSrvDIST;
-    tPOINTF m_PosTO;
-} ;
+  //	tPOINTF	m_PosCUR;
+  uint16_t m_wSrvDIST;
+  tPOINTF  m_PosTO;
+};
 
 struct gsv_MOVE : public gsv_MOUSECMD {
-  uint8_t	m_btMoveMODE;		// tag_ADD_CHAR::m_btMoveMODE와 같은값
-} ;
-
+  uint8_t m_btMoveMODE; // tag_ADD_CHAR::m_btMoveMODE와 같은값
+};
 
 // tag_DROPITEM은 몹이 죽으면서 떨구는거...아이템 생성 시간은 고정이름 클라이어트가 ITEM_OBJ_LIVE_TIME 으로 설정.
 struct tag_DROPITEM {
-  tPOINTF		m_PosCUR;
-  tagBaseITEM	m_ITEM;
-  uint16_t		m_wServerItemIDX;
-  uint16_t		m_wOwnerObjIDX;
+  tPOINTF     m_PosCUR;
+  tagBaseITEM m_ITEM;
+  uint16_t    m_wServerItemIDX;
+  uint16_t    m_wOwnerObjIDX;
   // uint16_t m_wRemainTIME;		// 삭제 :: ITEM_OBJ_LIVE_TIME로 설정.
-} ;
+};
+
 struct gsv_ADD_FIELDITEM : public t_PACKETHEADER, public tag_DROPITEM {
-  uint16_t	m_wRemainTIME;
-} ;
+  uint16_t m_wRemainTIME;
+};
 
 struct gsv_SUB_FIELDITEM : public t_PACKETHEADER {
-  uint16_t	m_wServerItemIDX;
-} ;
+  uint16_t m_wServerItemIDX;
+};
 
 struct cli_GET_FIELDITEM_REQ : public t_PACKETHEADER {
-  uint16_t	m_wServerItemIDX;
-} ;
+  uint16_t m_wServerItemIDX;
+};
 
 struct gsv_GET_FIELDITEM_REPLY : public t_PACKETHEADER {
-  uint16_t		m_wServerItemIDX;
-  uint8_t		m_btResult;
-  int16_t		m_nInventoryListNO;
-  tagBaseITEM	m_ITEM;
-} ;
+  uint16_t    m_wServerItemIDX;
+  uint8_t     m_btResult;
+  int16_t     m_nInventoryListNO;
+  tagBaseITEM m_ITEM;
+};
+
 #define	REPLY_GET_FIELDITEM_REPLY_OK			0x00	// 획득했다.
 #define REPLY_GET_FIELDITEM_REPLY_NONE			0x01	// 사라진 아이템이다..
 #define REPLY_GET_FIELDITEM_REPLY_NO_RIGHT		0x02	// 가져갈 권한이 없다.
 #define	REPLY_GET_FIELDITEM_REPLY_TOO_MANY		0x03	// 더이상 아이템을 갖을수 없다.
 
-
 struct cli_DAMAGE : public t_PACKETHEADER {
-  uint16_t	m_wDefObjIDX;
-  uint16_t	m_wRandomIDX;
-} ;
+  uint16_t m_wDefObjIDX;
+  uint16_t m_wRandomIDX;
+};
 
 union uniDAMAGE {
-  int64_t	m_wDamage;
-  struct {
-    uint32_t	m_wVALUE;
-    uint32_t	m_wACTION;
-  } ;
-} ;
-struct gsv_DAMAGE : public t_PACKETHEADER {
-  uint16_t			m_wAtkObjIDX;
-  uint16_t			m_wDefObjIDX;
+  int64_t m_wDamage;
 
-  uniDAMAGE		m_Damage;
-  tag_DROPITEM	m_DropITEM[ 0 ];	// 죽는 데미지일경우에만 값이 들어 있다. 드롭된 아이템 인덱스
-} ;
+  struct {
+    uint32_t m_wVALUE;
+    uint32_t m_wACTION;
+  };
+};
+
+struct gsv_DAMAGE : public t_PACKETHEADER {
+  uint16_t m_wAtkObjIDX;
+  uint16_t m_wDefObjIDX;
+
+  uniDAMAGE    m_Damage;
+  tag_DROPITEM m_DropITEM[ 0 ]; // 죽는 데미지일경우에만 값이 들어 있다. 드롭된 아이템 인덱스
+};
+
 #define	MAX_DAMAGE			0x05F5E0FF
 
 // gsv_DAMAGE::m_wDamage와 연산되는 값.
@@ -1373,74 +1352,75 @@ struct gsv_DAMAGE : public t_PACKETHEADER {
 #define	DMG_ACT_DEAD		0x10
 
 struct gsv_CHANGE_NPC : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nNPCNo;
-} ;
+  uint16_t m_wObjectIDX;
+  int16_t  m_nNPCNo;
+};
 
 struct cli_SUMMON_CMD : public t_PACKETHEADER {
-  uint8_t	m_btCMD;
-} ;
+  uint8_t m_btCMD;
+};
+
 #define	SUMMON_CMD_ATTACK		0x00
 #define	SUMMON_CMD_DEFENSE		0x01
 #define	SUMMON_CMD_STANDING		0x02
 
-
 // 자신의 현재 경험치를 갱신한다.
 struct gsv_SETEXP : public t_PACKETHEADER {
-  int64_t	m_lCurEXP;
-  int16_t	m_nCurSTAMINA;
-  uint16_t	m_wFromObjIDX;
-} ;
+  int64_t  m_lCurEXP;
+  int16_t  m_nCurSTAMINA;
+  uint16_t m_wFromObjIDX;
+};
 
 struct gsv_LEVELUP : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nCurLevel;
-  int64_t	m_lCurEXP;
-  int16_t	m_nBonusPoint;
-  int16_t	m_nSkillPoint;
-} ;
-
+  uint16_t m_wObjectIDX;
+  int16_t  m_nCurLevel;
+  int64_t  m_lCurEXP;
+  int16_t  m_nBonusPoint;
+  int16_t  m_nSkillPoint;
+};
 
 struct cli_HP_REQ : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-} ;
-struct gsv_HP_REPLY : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int32_t		m_iHP;			// MOB hp를 전송하기는것이기 때문에...
-} ;
+  uint16_t m_wObjectIDX;
+};
 
+struct gsv_HP_REPLY : public t_PACKETHEADER {
+  uint16_t m_wObjectIDX;
+  int32_t  m_iHP; // MOB hp를 전송하기는것이기 때문에...
+};
 
 struct gsv_SET_HPnMP : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nHP;
-  int16_t	m_nMP;
-} ;
-
+  uint16_t m_wObjectIDX;
+  int16_t  m_nHP;
+  int16_t  m_nMP;
+};
 
 struct tag_BUY_ITEM {
-  int8_t	m_cTabNO;
-  int8_t	m_cColNO;
-  uint16_t	m_wDupCNT;		// 중복된 아이템일경우 구매할 갯수
-} ;
+  int8_t   m_cTabNO;
+  int8_t   m_cColNO;
+  uint16_t m_wDupCNT; // 중복된 아이템일경우 구매할 갯수
+};
+
 struct tag_SELL_ITEM {
-  uint8_t	m_btInvIDX;
-  uint16_t	m_wDupCNT;		// 중복된 아이템일경우 판매할 갯수
-} ;
+  uint8_t  m_btInvIDX;
+  uint16_t m_wDupCNT; // 중복된 아이템일경우 판매할 갯수
+};
+
 // 상점에서 거래...
 struct cli_STORE_TRADE_REQ : public t_PACKETHEADER {
-  uint16_t	m_wNPCObjIdx;
-  int8_t	m_cBuyCNT;
-  int8_t	m_cSellCNT;
-  uint32_t	m_dwEconomyTIME;
-/*
-  tag_BUY_ITEM	x m_cBuyCNT
-  tag_SELL_ITEM	x m_cSellCNT
-*/
-} ;
+  uint16_t m_wNPCObjIdx;
+  int8_t   m_cBuyCNT;
+  int8_t   m_cSellCNT;
+  uint32_t m_dwEconomyTIME;
+  /*
+    tag_BUY_ITEM	x m_cBuyCNT
+    tag_SELL_ITEM	x m_cSellCNT
+  */
+};
 
 struct gsv_STORE_TRADE_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btRESULT;
-} ;
+  uint8_t m_btRESULT;
+};
+
 #define	STORE_TRADE_RESULT_PRICE_DIFF		0x01
 #define	STORE_TRADE_RESULT_NPC_NOT_FOUND	0x02
 #define	STORE_TRADE_RESULT_TOO_FAR			0x03
@@ -1450,139 +1430,138 @@ struct gsv_STORE_TRADE_REPLY : public t_PACKETHEADER {
 
 // 변경된 인벤토리 정보...
 struct tag_SET_INVITEM {
-  uint8_t		m_btInvIDX;
-  tagBaseITEM	m_ITEM;
-} ;
+  uint8_t     m_btInvIDX;
+  tagBaseITEM m_ITEM;
+};
 
 // 변경된 인벤토리 정보가 들어감...
 struct gsv_SET_MONEYnINV : public t_PACKETHEADER {
-  int64_t			m_i64Money;
-  uint8_t			m_btItemCNT;
-  tag_SET_INVITEM	m_sInvITEM[ 0 ];		// 변경된 갯수 만큼 들어 있다...
-} ;
+  int64_t         m_i64Money;
+  uint8_t         m_btItemCNT;
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 변경된 갯수 만큼 들어 있다...
+};
 
 struct gsv_SET_INV_ONLY : public t_PACKETHEADER {
-  uint8_t			m_btItemCNT;
-  tag_SET_INVITEM	m_sInvITEM[ 0 ];		// 변경된 갯수 만큼 들어 있다...
-} ;
+  uint8_t         m_btItemCNT;
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 변경된 갯수 만큼 들어 있다...
+};
 
 struct gsv_SET_MONEY_ONLY : public t_PACKETHEADER {
-  int64_t			m_i64Money;
-} ;
+  int64_t m_i64Money;
+};
 
 struct gsv_SET_ABILITY : public t_PACKETHEADER {
-  uint16_t	m_wAbilityTYPE;
-  int32_t		m_iValue;
-} ;
+  uint16_t m_wAbilityTYPE;
+  int32_t  m_iValue;
+};
 
 #define	SERVER_DATA_ECONOMY		0
 #define	SERVER_DATA_NPC			1
+
 struct gsv_SERVER_DATA : public t_PACKETHEADER {
-  uint8_t	m_btDataTYPE;
-  uint8_t	m_pDATA[0];
-} ;
+  uint8_t m_btDataTYPE;
+  uint8_t m_pDATA[0];
+};
 
 #define	RELAY_TYPE_RECALL	0x00
+
 struct gsv_RELAY_REQ : public t_PACKETHEADER {
-  uint16_t	m_wRelayTYPE;
+  uint16_t m_wRelayTYPE;
+
   union {
-    uint8_t	m_pBODY[0];
+    uint8_t m_pBODY[0];
+
     struct {
-      int16_t	m_nCallZoneNO;
+      int16_t m_nCallZoneNO;
       tPOINTF m_PosCALL;
-    } ;
-  } ;
-} ;
-struct cli_RELAY_REPLY : public gsv_RELAY_REQ {
-} ;
+    };
+  };
+};
+
+struct cli_RELAY_REPLY : public gsv_RELAY_REQ {};
 
 struct cli_ITEM_SKILL : public t_PACKETHEADER {
-  int16_t	m_nInventoryIndex;
-} ;
+  int16_t m_nInventoryIndex;
+};
 
 struct cli_USE_ITEM : public t_PACKETHEADER {
-  int16_t	m_nInventoryIndex;
+  int16_t m_nInventoryIndex;
   // uint16_t		m_wDestObjIDX;		:: 소모 아이템으로 타켓 스킬 사용시
   // tPOINTF	m_PosTARGET;		:: 소모 아이템으로 위치 스킬 사용시
-} ;
+};
+
 struct gsv_USE_ITEM : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nUseItemNO;
-  uint8_t	m_btInvIDX[ 0 ];
-} ;
+  uint16_t m_wObjectIDX;
+  int16_t  m_nUseItemNO;
+  uint8_t  m_btInvIDX[ 0 ];
+};
 
 struct cli_DROP_ITEM : public t_PACKETHEADER {
-  uint8_t	m_btInventoryIndex;
-  uint32_t	m_uiQuantity;	
-} ;
-
+  uint8_t  m_btInventoryIndex;
+  uint32_t m_uiQuantity;
+};
 
 // m_nEquipInvIDX는 받드시 값이 들어 있어야함.
 // m_nWeaponInvIDX는 장비 탈거의 경우 0 !!
 struct cli_EQUIP_ITEM : public t_PACKETHEADER {
-  int16_t	m_nEquipInvIDX;		// 장착창 인벤토리 번호 :: m_nEquipInvIDX >= 1 && m_nEquipInvIDX < MAX_EQUIP_IDX
-  int16_t	m_nWeaponInvIDX;	// 장비 아이템이 위치하고 있는 인벤토리 번호...
-} ;
-
+  int16_t m_nEquipInvIDX;  // 장착창 인벤토리 번호 :: m_nEquipInvIDX >= 1 && m_nEquipInvIDX < MAX_EQUIP_IDX
+  int16_t m_nWeaponInvIDX; // 장비 아이템이 위치하고 있는 인벤토리 번호...
+};
 
 struct gsv_EQUIP_ITEM : public t_PACKETHEADER {
-  uint16_t		m_wObjectIDX;
-  int16_t		m_nEquipIndex;
-//	int16_t		m_nItemNO;
+  uint16_t m_wObjectIDX;
+  int16_t  m_nEquipIndex;
+  //	int16_t		m_nItemNO;
   tagPartITEM m_PartITEM;
-  int16_t		m_nRunSPEED[ 0 ];	// 패시브 스킬에의해 보정된 값까지 : 지속에 의해 보정된값 제외 :: 팻 미 탑승 안했을때..
-} ;
-
+  int16_t     m_nRunSPEED[ 0 ]; // 패시브 스킬에의해 보정된 값까지 : 지속에 의해 보정된값 제외 :: 팻 미 탑승 안했을때..
+};
 
 struct cli_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
-  int16_t	m_nRidingPartIDX;	// t_eRidePART의값.
-  int16_t	m_nRidingInvIDX;	// cli_EQUIP_ITEM::m_nWeaponInvIDX 처럼...
-} ;
+  int16_t m_nRidingPartIDX; // t_eRidePART의값.
+  int16_t m_nRidingInvIDX;  // cli_EQUIP_ITEM::m_nWeaponInvIDX 처럼...
+};
 
 struct gsv_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
-  uint16_t		m_wObjectIDX;
-  int16_t		m_nRidingPartIDX;
-//	int16_t		m_nItemNO;
-  tagPartITEM	m_RideITEM;
-  int16_t		m_nRunSPEED[ 0 ];	// 패시브 스킬에의해 보정된 값까지 : 지속에 의해 보정된값 제외 :: 팻 탑승 했을때...
-} ;
-
+  uint16_t m_wObjectIDX;
+  int16_t  m_nRidingPartIDX;
+  //	int16_t		m_nItemNO;
+  tagPartITEM m_RideITEM;
+  int16_t     m_nRunSPEED[ 0 ]; // 패시브 스킬에의해 보정된 값까지 : 지속에 의해 보정된값 제외 :: 팻 탑승 했을때...
+};
 
 struct cli_USE_ITEM_TO_REPAIR : public t_PACKETHEADER {
-  int16_t	m_nUseItemInvIDX;			// 수리에 사용할 아이템의 인벤 번호
-  int16_t	m_nRepairTargetInvIDX;		// 수리될 아이템의 인벤 번호
-} ;
+  int16_t m_nUseItemInvIDX;      // 수리에 사용할 아이템의 인벤 번호
+  int16_t m_nRepairTargetInvIDX; // 수리될 아이템의 인벤 번호
+};
 
 struct cli_REPAIR_FROM_NPC : public t_PACKETHEADER {
-  uint16_t	m_wNPCObjIDX;				// 수리 요청할 NPC 서버 인덱스
-  int16_t	m_nRepairTargetInvIDX;		// 수리될 아이템의 인벤 번호
-} ;
-
+  uint16_t m_wNPCObjIDX;          // 수리 요청할 NPC 서버 인덱스
+  int16_t  m_nRepairTargetInvIDX; // 수리될 아이템의 인벤 번호
+};
 
 struct gsv_SET_ITEM_LIFE : public t_PACKETHEADER {
-  int16_t	m_nInventoryIDX;			// 수명이 변경될 아이템의 인벤토리 번호
-  int16_t	m_nLife;					// 서버에서의 현재 수명
-} ;
-
+  int16_t m_nInventoryIDX; // 수명이 변경될 아이템의 인벤토리 번호
+  int16_t m_nLife;         // 서버에서의 현재 수명
+};
 
 //struct cli_CHANGE_SKIN : public t_PACKETHEADER {
 //	uint8_t	m_btBodyIDX;
 //	int16_t	m_nItemNO;
 //} ;
 struct gsv_CHANGE_SKIN : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  uint16_t	m_wAbilityTYPE;
-  int32_t		m_iValue;
-} ;
+  uint16_t m_wObjectIDX;
+  uint16_t m_wAbilityTYPE;
+  int32_t  m_iValue;
+};
 
 struct cli_MOVE_ITEM : public t_PACKETHEADER {
-  uint8_t		m_btMoveTYPE;
-  uint8_t		m_btFromIDX;
-  tagBaseITEM	m_MoveITEM;						// <<-- 옮길 갯수만 있어도.. uint16_t m_wQuantity;
+  uint8_t     m_btMoveTYPE;
+  uint8_t     m_btFromIDX;
+  tagBaseITEM m_MoveITEM; // <<-- 옮길 갯수만 있어도.. uint16_t m_wQuantity;
 #ifdef	__INC_PLATINUM
-  uint8_t		m_btUseSpecialTAB;				// 값이 1이면 .. 프레티넘 서비스로 추가된 탭에 아이템 넣기..
+  uint8_t m_btUseSpecialTAB; // 값이 1이면 .. 프레티넘 서비스로 추가된 탭에 아이템 넣기..
 #endif
-} ;
+};
 
 #define	MOVE_ITEM_TYPE_INV2BANK		0x00		// ITEM :: Inventory --> Bank
 #define	MOVE_ITEM_TYPE_BANK2INV		0x01		// ITEM :: Bank --> Inventory
@@ -1590,32 +1569,34 @@ struct cli_MOVE_ITEM : public t_PACKETHEADER {
 // 패킷 사이즈 == gsv_MOVE_ITEM 이면				창고=>인벤토리 이동
 // 패킷 사이즈 == gsv_MOVE_ITEM+sizeof(int64_t)면	인벤=>창고, m_iCurMoney[0]에 돈들어 있음
 struct gsv_MOVE_ITEM : public t_PACKETHEADER {
-  int16_t		m_nInvIDX;						// IDX == -1 실패
-  int16_t		m_nBankIDX;						// IDX == -1 실패
+  int16_t m_nInvIDX;  // IDX == -1 실패
+  int16_t m_nBankIDX; // IDX == -1 실패
 
-  tagBaseITEM	m_InvItem;
-  tagBaseITEM	m_BankITEM;
-  int64_t		m_iCurMoney[0];					// 보관료 빠진 결과돈...
-} ;
+  tagBaseITEM m_InvItem;
+  tagBaseITEM m_BankITEM;
+  int64_t     m_iCurMoney[0]; // 보관료 빠진 결과돈...
+};
 
 #define	MOVE_ZULY_TYPE_INV2BANK		0x10		// ZULY :: Inventory --> Bank
 #define MOVE_ZULY_TYPE_BANK2INV		0x11		// ZULY :: Bank --> Inventory
-struct cli_MOVE_ZULY : public t_PACKETHEADER {
-  uint8_t		m_btMoveTYPE;
-  int64_t		m_i64MoveZuly;					// 이동 할 줄리량
-} ;
-struct gsv_MOVE_ZULY : public t_PACKETHEADER {
-  int64_t		m_i64InvZuly;						// 이동후 소지한 줄리량
-  int64_t		m_i64BankZuly;					// 이동후 보관된 줄리량
-} ;
 
+struct cli_MOVE_ZULY : public t_PACKETHEADER {
+  uint8_t m_btMoveTYPE;
+  int64_t m_i64MoveZuly; // 이동 할 줄리량
+};
+
+struct gsv_MOVE_ZULY : public t_PACKETHEADER {
+  int64_t m_i64InvZuly;  // 이동후 소지한 줄리량
+  int64_t m_i64BankZuly; // 이동후 보관된 줄리량
+};
 
 #define	BANK_REQ_OPEN				0x00		// 창고 열때..
 #define	BANK_REQ_CHANGE_PASSWORD	0x01		// 창고 비번 바꿀때...반드시 창고가 열려 있는 상태에서...
+
 struct cli_BANK_LIST_REQ : public t_PACKETHEADER {
-  uint8_t	m_btREQ;
-  int8_t	m_szPassword[0];
-} ;
+  uint8_t m_btREQ;
+  int8_t  m_szPassword[0];
+};
 
 #define	BANK_REPLY_INIT_DATA		0x00		// 창고 데이타 초기화 & 보여준다
 #define	BANK_REPLY_SHOW_DATA		0x01		// 창고 보여 준다 m_btItemCNT == 0
@@ -1624,61 +1605,62 @@ struct cli_BANK_LIST_REQ : public t_PACKETHEADER {
 #define	BANK_REPLY_INVALID_PASSWORD	0x04		// 창고 비번이 틀림
 #define	BANK_REPLY_CLEARED_PASSWORD	0x05		// 창고 비번 삭제됨
 #define	BANK_REPLY_PLATINUM			0x06		// 플레티넘 창고 내용( BANK_REPLY_INIT_DATA뒤에 이어서 전송됨 )
+
 struct gsv_BANK_LIST_REPLY : public t_PACKETHEADER {
-  uint8_t			m_btREPLY;
-  uint8_t			m_btItemCNT;
-  tag_SET_INVITEM	m_sInvITEM[ 0 ];			// 변경된 갯수 만큼 들어 있다...
-} ;
+  uint8_t         m_btREPLY;
+  uint8_t         m_btItemCNT;
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 변경된 갯수 만큼 들어 있다...
+};
 
 struct cli_TELEPORT_REQ : public t_PACKETHEADER {
-  int16_t	m_nWarpIDX;
-  tPOINTF	m_PosCUR;							// 스핵 방지용 :: 클라이언트의 현재 좌표를 주면 서버 좌표와 비교
-} ;
-struct gsv_TELEPORT_REPLY : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nZoneNO;
-  tPOINTF	m_PosWARP;
-  uint8_t	m_btRunMODE;
-  uint8_t	m_btRideMODE;
-} ;
+  int16_t m_nWarpIDX;
+  tPOINTF m_PosCUR; // 스핵 방지용 :: 클라이언트의 현재 좌표를 주면 서버 좌표와 비교
+};
 
+struct gsv_TELEPORT_REPLY : public t_PACKETHEADER {
+  uint16_t m_wObjectIDX;
+  int16_t  m_nZoneNO;
+  tPOINTF  m_PosWARP;
+  uint8_t  m_btRunMODE;
+  uint8_t  m_btRideMODE;
+};
 
 // m_btAbilityNO >= 100	: 스킬 포인트 인덱스는 +100해서 전송...
 struct cli_USE_BPOINT_REQ : public t_PACKETHEADER {
-  uint8_t	m_btAbilityNO;	
-} ;
-struct gsv_USE_BPOINT_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btAbilityNO;
-  int16_t	m_nAbilityValue;
-} ;
+  uint8_t m_btAbilityNO;
+};
 
+struct gsv_USE_BPOINT_REPLY : public t_PACKETHEADER {
+  uint8_t m_btAbilityNO;
+  int16_t m_nAbilityValue;
+};
 
 struct cli_SET_HOTICON : public t_PACKETHEADER {
-  uint8_t		m_btListIDX;
-  tagHotICON	m_HotICON;
-} ;
-struct gsv_SET_HOTICON : public cli_SET_HOTICON {
-} ;
+  uint8_t    m_btListIDX;
+  tagHotICON m_HotICON;
+};
 
+struct gsv_SET_HOTICON : public cli_SET_HOTICON {};
 
 struct cli_SET_BULLET : public t_PACKETHEADER {
   struct {
-    uint16_t	m_wShotTYPE	: 2;
-    uint16_t	m_wInventoryIDX : 14;
-  } ;
-} ;
-struct gsv_SET_BULLET : public t_PACKETHEADER {
-  uint16_t		m_wObjectIDX;
-  tagShotDATA	m_sShot;		// m_sShot.m_wItemNO == 0 일경우 총알 다 썼다 !!!
-} ;
+    uint16_t m_wShotTYPE : 2;
+    uint16_t m_wInventoryIDX : 14;
+  };
+};
 
+struct gsv_SET_BULLET : public t_PACKETHEADER {
+  uint16_t    m_wObjectIDX;
+  tagShotDATA m_sShot; // m_sShot.m_wItemNO == 0 일경우 총알 다 썼다 !!!
+};
 
 struct gsv_SKILL_LEARN_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btResult;
-  uint8_t	m_btSkillSLOT;
-  int16_t	m_nSkillIDX;
-  int16_t	m_nSkillPOINT;
-} ;
+  uint8_t m_btResult;
+  uint8_t m_btSkillSLOT;
+  int16_t m_nSkillIDX;
+  int16_t m_nSkillPOINT;
+};
+
 #define	RESULT_SKILL_LEARN_FAILED			0x00		// 배우기 실패.
 #define	RESULT_SKILL_LEARN_SUCCESS			0x01		// 배우기 성공.
 #define	RESULT_SKILL_LEARN_NEED_JOB			0x02		// 직업이 일치하지 않는다.
@@ -1689,18 +1671,19 @@ struct gsv_SKILL_LEARN_REPLY : public t_PACKETHEADER {
 #define	RESULT_SKILL_LEARN_OUTOFPOINT		0x07		// 스킬 포인트 부족
 #define	RESULT_SKILL_LEARN_DELETE			0x08		// m_btSkillSLOT의 m_nSkillIDX번 스킬을 삭제해라..
 
-
 // 스킬 레벨업시...
 struct cli_SKILL_LEVELUP_REQ : public t_PACKETHEADER {
-  uint8_t	m_btSkillSLOT;
-  int16_t	m_nNextLevelSkillIDX;
-} ;
+  uint8_t m_btSkillSLOT;
+  int16_t m_nNextLevelSkillIDX;
+};
+
 struct gsv_SKILL_LEVELUP_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btResult;
-  uint8_t	m_btSkillSLOT;
-  int16_t	m_nSkillINDEX;
-  int16_t	m_nSkillPOINT;
-} ;
+  uint8_t m_btResult;
+  uint8_t m_btSkillSLOT;
+  int16_t m_nSkillINDEX;
+  int16_t m_nSkillPOINT;
+};
+
 #define	RESULT_SKILL_LEVELUP_SUCCESS		0x00
 #define	RESULT_SKILL_LEVELUP_FAILED			0x01
 #define	RESULT_SKILL_LEVELUP_OUTOFPOINT		0x02
@@ -1709,55 +1692,56 @@ struct gsv_SKILL_LEVELUP_REPLY : public t_PACKETHEADER {
 #define	RESULT_SKILL_LEVELUP_NEED_SKILL		0x05
 #define	RESULT_SKILL_LEVELUP_OUTOFZULY		0x06		// 05.05.25 줄리가 모자르다
 
-
 /// 스킬이 즉시 적용 : 적용후 정지됨
 struct cli_SELF_SKILL : public t_PACKETHEADER {
-  uint8_t	m_btSkillSLOT;
-} ;
+  uint8_t m_btSkillSLOT;
+};
+
 struct gsv_SELF_SKILL : public t_PACKETHEADER {
-  uint16_t	m_wSourObjIDX;
-  int16_t	m_nSkillIDX;
-  int8_t	cNpcSkillMOTION[ 0 ];
-} ;
+  uint16_t m_wSourObjIDX;
+  int16_t  m_nSkillIDX;
+  int8_t   cNpcSkillMOTION[ 0 ];
+};
 
 /// 스킬을 타겟에 적용 : 적용후 정지됨
 struct cli_TARGET_SKILL : public t_PACKETHEADER {
-  uint16_t	m_wDestObjIDX;
-  uint8_t	m_btSkillSLOT;
-} ;
+  uint16_t m_wDestObjIDX;
+  uint8_t  m_btSkillSLOT;
+};
+
 struct gsv_TARGET_SKILL : public t_PACKETHEADER {
-  uint16_t	m_wSourObjIDX;
-  uint16_t	m_wDestObjIDX;
-  int16_t	m_nSkillIDX;
+  uint16_t m_wSourObjIDX;
+  uint16_t m_wDestObjIDX;
+  int16_t  m_nSkillIDX;
 
-  uint16_t	m_wSrvDIST;
-  tPOINTF m_PosTO;				// 좌표 보정용	2004. 5. 1 추가
+  uint16_t m_wSrvDIST;
+  tPOINTF  m_PosTO; // 좌표 보정용	2004. 5. 1 추가
 
-  int8_t	cNpcSkillMOTION[ 0 ];
-} ;
-
+  int8_t cNpcSkillMOTION[ 0 ];
+};
 
 /// 스킬을 지역에 적용 : 적용후 정지됨
 struct cli_POSITION_SKILL : public t_PACKETHEADER {
-  uint8_t	m_btSkillSLOT;
-  tPOINTF	m_PosTARGET;
-} ;
+  uint8_t m_btSkillSLOT;
+  tPOINTF m_PosTARGET;
+};
+
 struct gsv_POSITION_SKILL : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nSkillIDX;
-  tPOINTF	m_PosTARGET;
-  int8_t	cNpcSkillMOTION[ 0 ];
-} ;
+  uint16_t m_wObjectIDX;
+  int16_t  m_nSkillIDX;
+  tPOINTF  m_PosTARGET;
+  int8_t   cNpcSkillMOTION[ 0 ];
+};
 
 struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
-  uint16_t			m_wObjectIDX;
-  uint16_t			m_wSpellObjIDX;
+  uint16_t m_wObjectIDX;
+  uint16_t m_wSpellObjIDX;
 
-// 홍근
+  // 홍근
 #ifdef _GBC
-  uint16_t	m_nSkillIDX;
-  uint16_t	m_nINT;
-  uint8_t			m_btSuccessBITS;
+  uint16_t m_nSkillIDX;
+  uint16_t m_nINT;
+  uint8_t  m_btSuccessBITS;
 #else
   union {
     struct {
@@ -1773,34 +1757,34 @@ struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
   } ;
 #endif
 
-} ;
-
-
-
+};
 
 struct gsv_DAMAGE_OF_SKILL : public gsv_EFFECT_OF_SKILL {
   union {
-    uniDAMAGE	m_Damage;				// 피해가 있을경우 값이 들어 있음.
-    uint16_t		m_wDamage;
-  } ;
-  tag_DROPITEM	m_DropITEM[ 0 ];		// 죽는 데미지일경우에만 값이 들어 있다. 드롭된 아이템 인덱스
-} ;
+    uniDAMAGE m_Damage; // 피해가 있을경우 값이 들어 있음.
+    uint16_t  m_wDamage;
+  };
+
+  tag_DROPITEM m_DropITEM[ 0 ]; // 죽는 데미지일경우에만 값이 들어 있다. 드롭된 아이템 인덱스
+};
+
 struct gsv_RESULT_OF_SKILL : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nSkillIDX;
-} ;
+  uint16_t m_wObjectIDX;
+  int16_t  m_nSkillIDX;
+};
 
 struct gsv_SKILL_START : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-} ;
+  uint16_t m_wObjectIDX;
+};
 
 #define	SKILL_CANCEL_NEED_ABILITY		0x01	// 능력치 부족
 #define	SKILL_CANCEL_NEED_TARGET		0x02	// 케스팅 시도전 타겟이 없어졌다... MP소모 없음
 #define	SKILL_CANCEL_TARGET_NOT_FOUND	0x03	// 케스팅후 실제동작전 타겟이 없어졌다... MP소모 있음
+
 struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  uint8_t	m_btWHY;
-} ;
+  uint16_t m_wObjectIDX;
+  uint8_t  m_btWHY;
+};
 
 /*
   **	서버에서 패킷에 값이 입력되는 방법... AND 시킬 플레그는 DataType.h에 선언된 값의 크기 순으로
@@ -1816,39 +1800,40 @@ struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
     clientMP = m_gsv_CLEAR_STATUS.m_nAdjVALUE[ btIDX++ ];
 */
 struct gsv_CLEAR_STATUS : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  uint32_t	m_dwStatusFLAG;		// 삭제된후 남은 플레그...
-  int16_t	m_nAdjVALUE[0];		// 삭제된후 보정된 값...
-} ;
+  uint16_t m_wObjectIDX;
+  uint32_t m_dwStatusFLAG; // 삭제된후 남은 플레그...
+  int16_t  m_nAdjVALUE[0]; // 삭제된후 보정된 값...
+};
 
 struct gsv_SPEED_CHANGED : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int16_t	m_nRunSPEED;			// 패시브 상태를 포함, 지속 상태 제외
-  int16_t	m_nPsvAtkSPEED;			// 패시브 값만...
-  uint8_t	m_btWeightRate;			// 현재소지량/최대소지량*100
-} ;
-
+  uint16_t m_wObjectIDX;
+  int16_t  m_nRunSPEED;    // 패시브 상태를 포함, 지속 상태 제외
+  int16_t  m_nPsvAtkSPEED; // 패시브 값만...
+  uint8_t  m_btWeightRate; // 현재소지량/최대소지량*100
+};
 
 // 장비 아이템의 감정의뢰 :: m_nInventoryIndex의 아이템 감정 요청 ..
-struct cli_APPRAISAL_REQ : public t_PACKETHEADER {			
-  uint16_t	m_wInventoryIndex;
-} ;
+struct cli_APPRAISAL_REQ : public t_PACKETHEADER {
+  uint16_t m_wInventoryIndex;
+};
+
 struct gsv_APPRAISAL_REPLY : public t_PACKETHEADER {
   struct {
-    uint16_t	m_wInventoryIndex : 12;
-    uint16_t	m_btResult : 4;
-  } ;
-} ;
+    uint16_t m_wInventoryIndex : 12;
+    uint16_t m_btResult : 4;
+  };
+};
+
 #define	RESULT_APPRAISAL_REPLY_OK		0	// 성공
 #define	RESULT_APPRAISAL_REPLY_FAILED	1	// 돈없다.
 
-
 /// 거래 대상 m_wObjectIDX에게 응답을 보낸다.
 struct cli_TRADE_P2P : public t_PACKETHEADER {
-  uint8_t	m_btRESULT;
-  uint16_t	m_wObjectIDX;
-  int8_t	m_cTradeSLOT;
-} ;
+  uint8_t  m_btRESULT;
+  uint16_t m_wObjectIDX;
+  int8_t   m_cTradeSLOT;
+};
+
 #define	RESULT_TRADE_REQUEST			0x00	// 거래 요구
 #define	RESULT_TRADE_ACCEPT				0x01	// 거래 승낙
 #define	RESULT_TRADE_REJECT				0x02	// 거래 거부
@@ -1864,29 +1849,29 @@ struct cli_TRADE_P2P : public t_PACKETHEADER {
 
 /// 서버에서 전송된 m_wObjectIDX의 거래에 응답.
 struct gsv_TRADE_P2P : public t_PACKETHEADER {
-  uint8_t	m_btRESULT;
-  uint16_t	m_wObjectIDX;
-  int8_t	m_cTradeSLOT;
-} ;
-
+  uint8_t  m_btRESULT;
+  uint16_t m_wObjectIDX;
+  int8_t   m_cTradeSLOT;
+};
 
 #define	MAX_TRADE_ITEM_SLOT		11
 #define	TRADE_MONEY_SLOT_NO		(MAX_TRADE_ITEM_SLOT-1)
-struct cli_TRADE_P2P_ITEM : public t_PACKETHEADER {
-  int8_t	m_cTradeSLOT;
-  int16_t	m_nInventoryIndex;				// 인벤토리 번호
-  uint32_t	m_uiQuantity;					// 수량
-} ;
-struct gsv_TRADE_P2P_ITEM : public t_PACKETHEADER {
-  int8_t		m_cTradeSLOT;
-  tagBaseITEM	m_ITEM;
-} ;
 
+struct cli_TRADE_P2P_ITEM : public t_PACKETHEADER {
+  int8_t   m_cTradeSLOT;
+  int16_t  m_nInventoryIndex; // 인벤토리 번호
+  uint32_t m_uiQuantity;      // 수량
+};
+
+struct gsv_TRADE_P2P_ITEM : public t_PACKETHEADER {
+  int8_t      m_cTradeSLOT;
+  tagBaseITEM m_ITEM;
+};
 
 struct cli_SET_WISHITEM : public t_PACKETHEADER {
-  uint8_t		m_btWishSLOT;
-  tagBaseITEM	m_ITEM;
-} ;
+  uint8_t     m_btWishSLOT;
+  tagBaseITEM m_ITEM;
+};
 
 // 개인 상점 관련....
 #define	MAX_P_STORE_ITEM_SLOT	31
@@ -1894,80 +1879,86 @@ struct cli_SET_WISHITEM : public t_PACKETHEADER {
 // 판매할 아이템
 struct tagPS_ITEM {
   union {
-    uint8_t	m_btInvIDX;						// 판매시 인벤번호
-    uint8_t	m_btWishIDX;					// 구매시 WishList 슬롯 번호
-  } ;
-  tagBaseITEM	m_ITEM;							// 아이템( 중복갯수 아이템일경우 팔려는 갯수 포함)
-  uint32_t		m_dwPricePerEA;					// 1개당 판매 희망 가격
-} ;
+    uint8_t m_btInvIDX;  // 판매시 인벤번호
+    uint8_t m_btWishIDX; // 구매시 WishList 슬롯 번호
+  };
+
+  tagBaseITEM m_ITEM;         // 아이템( 중복갯수 아이템일경우 팔려는 갯수 포함)
+  uint32_t    m_dwPricePerEA; // 1개당 판매 희망 가격
+};
 
 #define	STORE_MODE_TO_SELL		0x01
 #define	STORE_MODE_TO_BUY		0x02
+
 struct cli_P_STORE_OPEN : public t_PACKETHEADER {
-  uint8_t	m_btSellItemCNT;	// 판매 희망 아이템 등록 갯수
-  uint8_t	m_btWishItemCNT;	// 구입 희망 아이템 등록 갯수
+  uint8_t m_btSellItemCNT; // 판매 희망 아이템 등록 갯수
+  uint8_t m_btWishItemCNT; // 구입 희망 아이템 등록 갯수
 
   // 등록할 아이템
-  tagPS_ITEM	m_ITEMs[ 0 ];	// 판매 3, 구매 2 일경우 0~2는 판매, 3~4는 구입희망 아이템
+  tagPS_ITEM m_ITEMs[ 0 ]; // 판매 3, 구매 2 일경우 0~2는 판매, 3~4는 구입희망 아이템
   // char	m_szStoreTITLE[0]
-} ;
+};
+
 struct gsv_P_STORE_OPENED : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int8_t	m_szStoreTITLE[0];
-} ;
+  uint16_t m_wObjectIDX;
+  int8_t   m_szStoreTITLE[0];
+};
 
+struct cli_P_STORE_CLOSE : public t_PACKETHEADER {};
 
-struct cli_P_STORE_CLOSE : public t_PACKETHEADER {
-} ;
 struct gsv_P_STORE_CLOSED : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-} ;
-
+  uint16_t m_wObjectIDX;
+};
 
 struct tagPS_SLOT_PRICE {
-  uint8_t		m_btSLOT;
-  tagBaseITEM	m_SlotITEM;
-  uint32_t		m_dwPRICE;
-} ;
-struct cli_P_STORE_LIST_REQ : public t_PACKETHEADER {		// 개인 상점 아이템 목록 요구
-  uint16_t				m_wStoreObjectIDX;
-} ;
-struct gsv_P_STORE_LIST_REPLY : public t_PACKETHEADER {
-  uint8_t				m_btSellItemCNT;
-  uint8_t				m_btWishItemCNT;
-  tagPS_SLOT_PRICE	m_SlotITEMs[0];
-} ;
+  uint8_t     m_btSLOT;
+  tagBaseITEM m_SlotITEM;
+  uint32_t    m_dwPRICE;
+};
 
+struct cli_P_STORE_LIST_REQ : public t_PACKETHEADER {
+  // 개인 상점 아이템 목록 요구
+  uint16_t m_wStoreObjectIDX;
+};
+
+struct gsv_P_STORE_LIST_REPLY : public t_PACKETHEADER {
+  uint8_t          m_btSellItemCNT;
+  uint8_t          m_btWishItemCNT;
+  tagPS_SLOT_PRICE m_SlotITEMs[0];
+};
 
 struct tagPS_SLOT_ITEM {
-  uint8_t		m_btSLOT;
-  tagBaseITEM	m_SlotITEM;
-} ;
+  uint8_t     m_btSLOT;
+  tagBaseITEM m_SlotITEM;
+};
+
 // 개인 상점에 구입 요청
 struct cli_P_STORE_BUY_REQ : public t_PACKETHEADER {
-  uint16_t				m_wStoreObjectIDX;
-  uint8_t				m_btItemCNT;
-  tagPS_SLOT_ITEM		m_BuyITEMs[0];
-} ;
-
-struct tagSELL_ITEM{
-    uint8_t		m_btInvIDX;			// 팔려는 아이템이 위치한 인벤토리 번호
-    uint8_t		m_btWishSLOT;		// 상점 주인이 원하는 아이템이 위치한 번호
-    tagBaseITEM	m_SellITEM;			// 팔려는 아이템(중복갯수 아이템의 경우 팔려는 갯수조정 가능)
+  uint16_t        m_wStoreObjectIDX;
+  uint8_t         m_btItemCNT;
+  tagPS_SLOT_ITEM m_BuyITEMs[0];
 };
+
+struct tagSELL_ITEM {
+  uint8_t     m_btInvIDX;   // 팔려는 아이템이 위치한 인벤토리 번호
+  uint8_t     m_btWishSLOT; // 상점 주인이 원하는 아이템이 위치한 번호
+  tagBaseITEM m_SellITEM;   // 팔려는 아이템(중복갯수 아이템의 경우 팔려는 갯수조정 가능)
+};
+
 // 개인 상점에 판매 요청
 struct cli_P_STORE_SELL_REQ : public t_PACKETHEADER {
-  uint16_t			m_wStoreObjectIDX;
-  uint8_t			m_btItemCNT;
-  tagSELL_ITEM	m_SellITEMs[0];
-} ;
+  uint16_t     m_wStoreObjectIDX;
+  uint8_t      m_btItemCNT;
+  tagSELL_ITEM m_SellITEMs[0];
+};
 
 struct gsv_P_STORE_RESULT : public t_PACKETHEADER {
-  uint16_t			m_wStoreObjectIDX;
-  uint8_t			m_btResult;
-  uint8_t			m_btItemCNT;
+  uint16_t        m_wStoreObjectIDX;
+  uint8_t         m_btResult;
+  uint8_t         m_btItemCNT;
   tagPS_SLOT_ITEM m_UpdatedITEM[0];
-} ;
+};
+
 #define	RESULT_P_STORE_CANCLED				0x01	// 거래 취소,
 #define	RESULT_P_STORE_TRADE_SOLD_OUT		0x02	// 물건이 품절
 #define	RESULT_P_STORE_TRADE_NO_MORE_NEED	0x03	// 상점 주인이 원하는 아이템을 누군가 먼저 팔았다.
@@ -1980,14 +1971,16 @@ struct gsv_P_STORE_RESULT : public t_PACKETHEADER {
   party structure ...
 */
 struct cli_PARTY_REQ : public t_PACKETHEADER {
-  uint8_t	m_btREQUEST;
-  uint32_t	m_dwDestIDXorTAG;
-} ;
+  uint8_t  m_btREQUEST;
+  uint32_t m_dwDestIDXorTAG;
+};
+
 struct gsv_PARTY_REQ : public t_PACKETHEADER {
-  uint8_t	m_btREQUEST;
-  uint32_t	m_dwFromIDXorTAG;
-//	int16_t	m_nZoneNO;
-} ;
+  uint8_t  m_btREQUEST;
+  uint32_t m_dwFromIDXorTAG;
+  //	int16_t	m_nZoneNO;
+};
+
 #define	PARTY_REQ_MAKE				0x00	// 파티 결성 요청 
 #define	PARTY_REQ_JOIN				0x01	// 파티 참가 요청
 #define	PARTY_REQ_LEFT				0x02	// 파티 탈퇴 요청
@@ -1996,13 +1989,15 @@ struct gsv_PARTY_REQ : public t_PACKETHEADER {
 #define	PARTY_REQ_BAN				0x81	// 파티 강퇴 요청
 
 struct cli_PARTY_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btREPLY;
-  uint32_t	m_dwDestIDXorTAG;
-} ;
+  uint8_t  m_btREPLY;
+  uint32_t m_dwDestIDXorTAG;
+};
+
 struct gsv_PARTY_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btREPLY;
-  uint32_t	m_dwFromIDXorTAG;
-} ;
+  uint8_t  m_btREPLY;
+  uint32_t m_dwFromIDXorTAG;
+};
+
 #define	PARTY_REPLY_NOT_FOUND				0x00	// 대상을 찾지 못했다.
 #define	PARTY_REPLY_BUSY					0x01	// 대상이 파티에 참가 할수 없는 상태다.
 #define	PARTY_REPLY_ACCEPT_MAKE				0x02
@@ -2030,66 +2025,72 @@ struct wsv_PARTY_USER : public t_PACKETHEADER {
 //	tag_PARTY_USER[ m_cUserCNT ];		// 파티원 추가일 경우 참조
 } ;
 */
-struct tag_PARTY_MEMBER {	// 존 서버에서 전송됨
-  uint32_t	m_dwUserTAG;
-  uint16_t	m_wObjectIDX;
-  uint32_t	m_nMaxHP;
-  uint32_t	m_nHP;
-  uint32_t	m_dwStatusFALG;
+struct tag_PARTY_MEMBER {
+  // 존 서버에서 전송됨
+  uint32_t m_dwUserTAG;
+  uint16_t m_wObjectIDX;
+  uint32_t m_nMaxHP;
+  uint32_t m_nHP;
+  uint32_t m_dwStatusFALG;
 
-  int16_t	m_nCON;						// uint8_t	m_btCON; //최대 스텟 범위가 300으로 증가됨 2004. 7. 21
+  int16_t m_nCON; // uint8_t	m_btCON; //최대 스텟 범위가 300으로 증가됨 2004. 7. 21
 
-  uint16_t	m_btRecoverHP;				// item_recover_hp + passive_recover_hp
-  uint16_t	m_btRecoverMP;				// item_recover_mp + passive_recover_mp
+  uint16_t m_btRecoverHP; // item_recover_hp + passive_recover_hp
+  uint16_t m_btRecoverMP; // item_recover_mp + passive_recover_mp
 
-  int16_t	m_nSTAMINA;
+  int16_t m_nSTAMINA;
 
   //char	m_szCharName[];				// ** PARTY_MEMBER_ADD일 경우만 값이 들어 있음
-} ;
+};
+
 struct gsv_PARTY_MEMBER : public t_PACKETHEADER {
-  uint8_t	m_btPartyRULE;				// 파티 규칙(아이템분배, 경험치분배방식)
-  int8_t	m_cUserCNT;					// -1이면 파티원에서 제외, 양수 m_cType은 추가될 사용자수, ObjTAG...
-  uint32_t	m_dwObjectTAG[0];			// 파티원 제외일 경우 참조...
+  uint8_t  m_btPartyRULE;    // 파티 규칙(아이템분배, 경험치분배방식)
+  int8_t   m_cUserCNT;       // -1이면 파티원에서 제외, 양수 m_cType은 추가될 사용자수, ObjTAG...
+  uint32_t m_dwObjectTAG[0]; // 파티원 제외일 경우 참조...
   /*
   tag_PARTY_MEMBER[ m_cUserCNT ];		// 파티원 추가일 경우 참조
   */
-} ;
+};
+
 #define	PARTY_MEMBER_SUB	(-1)
 
 struct gsv_PARTY_LEVnEXP : public t_PACKETHEADER {
-  uint8_t				m_btLEVEL;
+  uint8_t m_btLEVEL;
+
   struct {
-    uint32_t	m_iEXP		 : 31;
-    uint32_t	m_bitLevelUP : 1;
-  } ;
-} ;
+    uint32_t m_iEXP : 31;
+    uint32_t m_bitLevelUP : 1;
+  };
+};
 
 struct gsv_CHANGE_OBJIDX : public t_PACKETHEADER {
-  tag_PARTY_MEMBER	m_Member;
-} ;
+  tag_PARTY_MEMBER m_Member;
+};
 
 struct gsv_PARTY_ITEM : public t_PACKETHEADER {
-  uint16_t		m_wObjectIDX;
+  uint16_t    m_wObjectIDX;
   tagBaseITEM m_ITEM;
-} ;
+};
 
 #define	BIT_PARTY_RULE_EXP_PER_PLAYER		0x001	// 경험치를 레벨비례로 나눈다...
 #define	BIT_PARTY_RULE_ITEM_TO_ORDER		0x080	// 순서대로 우선권 부여...
-struct cli_PARTY_RULE : public t_PACKETHEADER {
-  uint8_t	m_btPartyRUEL;
-} ;
-struct gsv_PARTY_RULE : public t_PACKETHEADER {
-  uint8_t	m_btPartyRULE;
-} ;
 
+struct cli_PARTY_RULE : public t_PACKETHEADER {
+  uint8_t m_btPartyRUEL;
+};
+
+struct gsv_PARTY_RULE : public t_PACKETHEADER {
+  uint8_t m_btPartyRULE;
+};
 
 struct gsv_ADD_EVENTOBJ : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  int8_t	m_cMapX;
-  int8_t	m_cMapY;
-  uint16_t	m_wMapEventID;
-  int16_t	m_nEventSTATUS;
-} ;
+  uint16_t m_wObjectIDX;
+  int8_t   m_cMapX;
+  int8_t   m_cMapY;
+  uint16_t m_wMapEventID;
+  int16_t  m_nEventSTATUS;
+};
+
 /*
 struct gsv_SUB_EVENTOBJ : public t_PACKETHEADER {
   uint16_t	m_wObjectIDX;
@@ -2097,10 +2098,9 @@ struct gsv_SUB_EVENTOBJ : public t_PACKETHEADER {
 */
 
 struct gsv_SET_NPC_SHOW : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  bool	m_bShow;						// m_bShow == true이면 보임/false이면 숨김
-} ;
-
+  uint16_t m_wObjectIDX;
+  bool     m_bShow; // m_bShow == true이면 보임/false이면 숨김
+};
 
 //--------------------------- CLAN 관련 패킷
 #define	GCMD_CREATE				0x000		//길드생성, /guildcreate [길드명]
@@ -2132,25 +2132,27 @@ struct gsv_SET_NPC_SHOW : public t_PACKETHEADER {
 #define	GCMD_CLANMARK_GET		0x0f5
 #define GCMD_CLANMARK_REGTIME	0x0f6
 
-
 struct cli_CLAN_COMMAND : public t_PACKETHEADER {
-  uint8_t	m_btCMD;
-} ;
+  uint8_t m_btCMD;
+};
+
 struct cli_CLAN_CREATE : public cli_CLAN_COMMAND {
-  uint16_t	m_wMarkIDX[2];
+  uint16_t m_wMarkIDX[2];
   // char	m_szName[];
   // char m_szDesc[];
-} ;
+};
+
 struct cli_CLAN_MEMBER_JOBnLEV : public cli_CLAN_COMMAND {
-  int16_t	m_nLEVEL;
-  int16_t	m_nJOB;
-} ;
+  int16_t m_nLEVEL;
+  int16_t m_nJOB;
+};
+
 struct wsv_CLAN_MEMBER_JOBnLEV : public t_PACKETHEADER {
-  uint8_t	m_btRESULT;
-  int16_t	m_nLEVEL;
-  int16_t	m_nJOB;
+  uint8_t m_btRESULT;
+  int16_t m_nLEVEL;
+  int16_t m_nJOB;
   // char m_szCharNAME[]
-} ;
+};
 
 //struct tag_CLAN_INFO {
 //	int16_t		m_nClanLEVEL;
@@ -2164,45 +2166,47 @@ struct wsv_CLAN_MEMBER_JOBnLEV : public t_PACKETHEADER {
 
 #define	MAX_CLAN_SKILL_SLOT		20
 #ifdef	MAX_CLAN_SKILL_SLOT
-  struct tagClanSKILL {
-    int16_t	m_nSkillIDX;
-    uint32_t	m_dwExpiredAbsSEC;	// 사용 만료 시간
+struct tagClanSKILL {
+  int16_t  m_nSkillIDX;
+  uint32_t m_dwExpiredAbsSEC; // 사용 만료 시간
   //	int16_t	m_nCount;			// 사용 가능 횟수 -> 누가 사용가능한 횟수?? 마스터만??
-  } ;
-  struct tagClanBIN {
-    union {
-      uint8_t			m_pDATA[ 0 ];
-      tagClanSKILL	m_SKILL[ MAX_CLAN_SKILL_SLOT ];
-    } ;
-  } ;
+};
+
+struct tagClanBIN {
+  union {
+    uint8_t      m_pDATA[ 0 ];
+    tagClanSKILL m_SKILL[ MAX_CLAN_SKILL_SLOT ];
+  };
+};
 
 #endif
 
 struct tag_MY_CLAN : public tag_CLAN_ID {
-  int32_t				m_iClanSCORE;		// 클랜 포인트
-  int32_t				m_iClanRATE;		// 창고효율
-  int64_t			m_biClanMONEY;
-  int16_t			m_nMemberCNT;		// 멤버 수
-  int32_t				m_iClanCONT;		// 클랜 기여도
+  int32_t m_iClanSCORE; // 클랜 포인트
+  int32_t m_iClanRATE;  // 창고효율
+  int64_t m_biClanMONEY;
+  int16_t m_nMemberCNT; // 멤버 수
+  int32_t m_iClanCONT;  // 클랜 기여도
 #ifdef	MAX_CLAN_SKILL_SLOT
-  tagClanBIN		m_ClanBIN;			// 클랜 바이너리 데이타..
+  tagClanBIN m_ClanBIN; // 클랜 바이너리 데이타..
 #endif
   // char m_szClanName[];
   // char m_szClanDESC[];
   // char m_szClanMOTD[];
-} ;
+};
 
 struct tag_CLAN_MEMBER {
-  uint8_t	m_btClanPOS;
-  uint8_t	m_btChannelNO;		// 값이 0xff이면 접속하지 않는 유저다...
-  int32_t		m_iClanCONTRIBUTE;
-  int16_t	m_nLEVEL;
-  int16_t	m_nJOB;
+  uint8_t m_btClanPOS;
+  uint8_t m_btChannelNO; // 값이 0xff이면 접속하지 않는 유저다...
+  int32_t m_iClanCONTRIBUTE;
+  int16_t m_nLEVEL;
+  int16_t m_nJOB;
   // char m_szCharNAME[]
-} ;
+};
+
 struct wsv_CLAN_COMMAND : public t_PACKETHEADER {
-  uint8_t	m_btRESULT;
-  char	m_szStr[0];
+  uint8_t m_btRESULT;
+  char    m_szStr[0];
 
   /*
   // m_btRESULT == RESULT_CLAN_MY_DATA
@@ -2238,12 +2242,13 @@ struct wsv_CLAN_COMMAND : public t_PACKETHEADER {
     tag_CLAN_ID	;
   } ;
   */
-} ;
+};
+
 struct wsv_RESULT_CLAN_SET : public t_PACKETHEADER {
-  uint8_t		m_btRESULT;
-  uint16_t		m_wObjIDX;
-  tag_CLAN_ID	m_ClanID;
-} ;
+  uint8_t     m_btRESULT;
+  uint16_t    m_wObjIDX;
+  tag_CLAN_ID m_ClanID;
+};
 
 #define	RESULT_CLAN_CREATE_OK			0x030		// 내가 창설 했다.
 #define RESULT_CLAN_JOIN_OK				0x031		// 내가 신규 가입됐다
@@ -2280,63 +2285,69 @@ struct wsv_RESULT_CLAN_SET : public t_PACKETHEADER {
 #define	RESULT_CLAN_POSITION			0x083		// 클랜에서의 등급이 조정됐다.
 #define	RESULT_CLAN_MEMBER_JOBnLEV		0x084		// 로그인된 멤버의 레벨/직업
 
-
 // m_dwClanID의 클랜 마크를 서버에 요청
-struct cli_CLANMARK_REQ	: public t_PACKETHEADER {
-  uint32_t	m_dwClanID;
-} ;
+struct cli_CLANMARK_REQ : public t_PACKETHEADER {
+  uint32_t m_dwClanID;
+};
+
 // m_btMARK데이타를 자신의 클랜 마크로 설정
 struct cli_CLANMARK_SET : public t_PACKETHEADER {
-  uint16_t	m_wMarkCRC16;
-//	uint8_t	m_btMARK[ 0 ];
-} ;
+  uint16_t m_wMarkCRC16;
+  //	uint8_t	m_btMARK[ 0 ];
+};
+
 // m_dwClanID클랜의 클랜마크 데이타
 #define	RESULT_CLANMARK_TOO_MANY_UPDATE		0x0001	// 마크 갱신은 일정시간 후에 해야 한다...
 #define	RESULT_CLANMARK_DB_ERROR			0x0002	// 디비 갱신 오류
 #define	RESULT_CLANMAKR_SP_ERROR			0x0003	// 디비 SP 오류
-struct wsv_CLANMARK_REPLY : public t_PACKETHEADER {
-  uint32_t		m_dwClanID;
-  union {
-    uint16_t	m_wMarkCRC16;
-    uint16_t	m_wFailedReason;	// m_dwClanID == 0 일경우 실패 원인 들어 있음.
-  } ;
-//	uint8_t	m_btMARK[ 0 ];
-} ;
 
-struct cli_CLANMARK_REG_TIME : public t_PACKETHEADER {
-} ;
+struct wsv_CLANMARK_REPLY : public t_PACKETHEADER {
+  uint32_t m_dwClanID;
+
+  union {
+    uint16_t m_wMarkCRC16;
+    uint16_t m_wFailedReason; // m_dwClanID == 0 일경우 실패 원인 들어 있음.
+  };
+
+  //	uint8_t	m_btMARK[ 0 ];
+};
+
+struct cli_CLANMARK_REG_TIME : public t_PACKETHEADER {};
+
 struct wsv_CLANMARK_REG_TIME : public t_PACKETHEADER {
-  uint16_t	m_wYear;
-  uint8_t	m_btMon;
-  uint8_t	m_btDay;
-  uint8_t	m_btHour;
-  uint8_t	m_btMin;
-  uint8_t	m_btSec;
-} ;
+  uint16_t m_wYear;
+  uint8_t  m_btMon;
+  uint8_t  m_btDay;
+  uint8_t  m_btHour;
+  uint8_t  m_btMin;
+  uint8_t  m_btSec;
+};
 
 struct gsv_CHEAT_CODE : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  char	m_szCheatCODE[0];
-} ;
-
+  uint16_t m_wObjectIDX;
+  char     m_szCheatCODE[0];
+};
 
 /*
   아이템 제조 관련...
 */
 #define	CREATE_ITEM_STEP	4
+
 struct cli_CREATE_ITEM_REQ : public t_PACKETHEADER {
-  uint8_t	m_btSkillSLOT;							// 사용할 제조 스킬
-  int8_t	m_cTargetItemTYPE;						// 제조할 아이템 타입( t_eITEM의 값 )
-  int16_t	m_nTargetItemNO;						// 제조할 아이템 번호
-  int16_t	m_nUseItemINV[ CREATE_ITEM_STEP ];		// 제조시 소모할 아이템 인벤토리 번호
-//	int16_t	m_nUseItemCNT[ CREATE_ITEM_STEP ];		// 제조시 소모할 아이템 갯수
-} ;
+  uint8_t m_btSkillSLOT;                     // 사용할 제조 스킬
+  int8_t  m_cTargetItemTYPE;                 // 제조할 아이템 타입( t_eITEM의 값 )
+  int16_t m_nTargetItemNO;                   // 제조할 아이템 번호
+  int16_t m_nUseItemINV[ CREATE_ITEM_STEP ]; // 제조시 소모할 아이템 인벤토리 번호
+  //	int16_t	m_nUseItemCNT[ CREATE_ITEM_STEP ];		// 제조시 소모할 아이템 갯수
+};
+
 struct gsv_CREATE_ITEM_REPLY : public t_PACKETHEADER {
-  uint8_t		m_btRESULT;								// 결과...
-  int16_t		m_nStepORInvIDX;						// 제조 실패시 실패된 스텝, 성공시 들어간 인벤토리번호
-  int16_t		m_nPRO_POINT[ CREATE_ITEM_STEP ];		// 진행 포인트
-  tagBaseITEM	m_CreatedITEM;							// 제조 성공시 제조된 아이템
-} ;
+  uint8_t     m_btRESULT;                       // 결과...
+  int16_t     m_nStepORInvIDX;                  // 제조 실패시 실패된 스텝, 성공시 들어간 인벤토리번호
+  int16_t     m_nPRO_POINT[ CREATE_ITEM_STEP ]; // 진행 포인트
+  tagBaseITEM m_CreatedITEM;                    // 제조 성공시 제조된 아이템
+};
+
 #define	RESULT_CREATE_ITEM_SUCCESS				0x00	// 성공
 #define	RESULT_CREATE_ITEM_FAILED				0x01	// 실패
 #define	RESULT_CREATE_ITEM_INVALID_CONDITION	0x02	// 마나가 부족하다.
@@ -2355,16 +2366,17 @@ struct gsv_CREATE_ITEM_REPLY : public t_PACKETHEADER {
 #define	REPORT_ITEM_UPGRADE_FAILED				0x05	// 아이템 제련 실패
 
 struct cli_ITEM_RESULT_REPORT : public t_PACKETHEADER {
-  uint8_t	m_btREPORT;
-  uint8_t	m_btItemType;
-  int16_t	m_nItemNO;
-} ;
+  uint8_t m_btREPORT;
+  uint8_t m_btItemType;
+  int16_t m_nItemNO;
+};
+
 struct gsv_ITEM_RESULT_REPORT : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  uint8_t	m_btREPORT;
-  uint8_t	m_btItemType;
-  int16_t	m_nItemNO;
-} ;
+  uint16_t m_wObjectIDX;
+  uint8_t  m_btREPORT;
+  uint8_t  m_btItemType;
+  int16_t  m_nItemNO;
+};
 
 //---------------------------------------------------------
 #define	CRAFT_GEMMING_REQ			0x01			// 재밍
@@ -2374,23 +2386,26 @@ struct gsv_ITEM_RESULT_REPORT : public t_PACKETHEADER {
 #define	CRAFT_UPGRADE_FROM_NPC		0x05			// npc 통해 재련
 
 struct cli_CRAFT_ITEM_REQ : public t_PACKETHEADER {
-  uint8_t	m_btTYPE;
-} ;
-struct cli_CRAFT_GEMMING_REQ : public cli_CRAFT_ITEM_REQ {
-  uint8_t	m_btEquipInvIDX;						// 장착된 무기 아이템 인벤 번호
-  uint8_t	m_btJemInvIDX;							// 보석 아이템 인벤 번호
-} ;
-struct cli_CRAFT_BREAKUP_REQ : public cli_CRAFT_ITEM_REQ {
-  int16_t	m_nSkillSLOTorNpcIDX;					// 사용 스킬슬롯 번호또는 npc번호
-  uint8_t	m_btTargetInvIDX;						// 분리할 아이템 인벤 번호
-} ;
-#define	UPGRADE_ITEM_STEP		3
-struct cli_CRAFT_UPGRADE_REQ : public cli_CRAFT_ITEM_REQ {
-  int16_t	m_nSkillSLOTorNpcIDX;					// 사용 스킬슬롯 번호또는 npc번호
-  uint8_t	m_btTargetInvIDX;						// 재련할 아이템 인벤 번호
-  uint8_t	m_btUseItemINV[ UPGRADE_ITEM_STEP ];	// 재련시 소모할 아이템 인벤토리 번호
-} ;
+  uint8_t m_btTYPE;
+};
 
+struct cli_CRAFT_GEMMING_REQ : public cli_CRAFT_ITEM_REQ {
+  uint8_t m_btEquipInvIDX; // 장착된 무기 아이템 인벤 번호
+  uint8_t m_btJemInvIDX;   // 보석 아이템 인벤 번호
+};
+
+struct cli_CRAFT_BREAKUP_REQ : public cli_CRAFT_ITEM_REQ {
+  int16_t m_nSkillSLOTorNpcIDX; // 사용 스킬슬롯 번호또는 npc번호
+  uint8_t m_btTargetInvIDX;     // 분리할 아이템 인벤 번호
+};
+
+#define	UPGRADE_ITEM_STEP		3
+
+struct cli_CRAFT_UPGRADE_REQ : public cli_CRAFT_ITEM_REQ {
+  int16_t m_nSkillSLOTorNpcIDX;                // 사용 스킬슬롯 번호또는 npc번호
+  uint8_t m_btTargetInvIDX;                    // 재련할 아이템 인벤 번호
+  uint8_t m_btUseItemINV[ UPGRADE_ITEM_STEP ]; // 재련시 소모할 아이템 인벤토리 번호
+};
 
 #define	CRAFT_GEMMING_SUCCESS		0x01
 #define	CRAFT_GEMMING_NEED_SOCKET	0x02	// 소켓없다.
@@ -2407,38 +2422,40 @@ struct cli_CRAFT_UPGRADE_REQ : public cli_CRAFT_ITEM_REQ {
 #define	CRAFT_UPGRADE_INVALID_MAT	0x12	// 재료 아이템이 잘못됐다.
 
 struct gsv_CRAFT_ITEM_REPLY : public t_PACKETHEADER {
-  uint8_t			m_btRESULT;
-  uint8_t			m_btOutCNT;			// 변경된 아이템 갯수
-  tag_SET_INVITEM	m_sInvITEM[ 0 ];	// 변경된 갯수 만큼 들어 있다... 
-                    // 예외) CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED 일경우
-                    // m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity에 성공도 계산된값이 들어있음
-} ;
-
+  uint8_t         m_btRESULT;
+  uint8_t         m_btOutCNT;      // 변경된 아이템 갯수
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 변경된 갯수 만큼 들어 있다... 
+  // 예외) CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED 일경우
+  // m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity에 성공도 계산된값이 들어있음
+};
 
 /*
 ///	퀘스트 관련 ...
 */
 struct cli_QUEST_REQ : public t_PACKETHEADER {
-  uint8_t	m_btTYPE;
-  uint8_t	m_btQuestSLOT;
+  uint8_t m_btTYPE;
+  uint8_t m_btQuestSLOT;
+
   union {
-    int32_t			m_iQuestID;
-    t_HASHKEY	m_TriggerHash;
-  } ;
-} ;
+    int32_t   m_iQuestID;
+    t_HASHKEY m_TriggerHash;
+  };
+};
+
 #define	TYPE_QUEST_REQ_ADD						0x01
 #define	TYPE_QUEST_REQ_DEL						0x02
 #define	TYPE_QUEST_REQ_DO_TRIGGER				0x03
 
-
 struct gsv_QUEST_REPLY : public t_PACKETHEADER {
-  uint8_t	m_btResult;
-  uint8_t	m_btQuestSLOT;
+  uint8_t m_btResult;
+  uint8_t m_btQuestSLOT;
+
   union {
-    int32_t			m_iQuestID;
-    t_HASHKEY	m_TriggerHash;
-  } ;
-} ;
+    int32_t   m_iQuestID;
+    t_HASHKEY m_TriggerHash;
+  };
+};
+
 #define	RESULT_QUEST_REPLY_ADD_SUCCESS			0x01
 #define	RESULT_QUEST_REPLY_ADD_FAILED			0x02
 #define	RESULT_QUEST_REPLY_DEL_SUCCESS			0x03
@@ -2448,9 +2465,8 @@ struct gsv_QUEST_REPLY : public t_PACKETHEADER {
 
 // 서버가 클라이언트에게 NPC가 갖고 있는 이벤트를 체크해 봐라....
 struct gsv_CHECK_NPC_EVENT : public t_PACKETHEADER {
-  int16_t	m_nNpcIDX;
-} ;
-
+  int16_t m_nNpcIDX;
+};
 
 //--------------------------- Messenger 관련 패킷
 // 패킷 타입은 CLI_MESSENGER, WSV_MESSENGER로 통일, 세부 타입 m_btCMD에 의해 패킷 구조가 결정됨.
@@ -2467,7 +2483,6 @@ struct gsv_CHECK_NPC_EVENT : public t_PACKETHEADER {
 #define	FRIEND_STATUS_REFUSED		0x080		// 내 대화를 차단했다
 #define	FRIEND_STATUS_DELETED		0x081		// 나를 친구목록에서 삭제했다
 
-
 #define	MSGR_CMD_APPEND_REQ			0x001		// 친구 추가 요청	: 대상은 반드시 접속해 있어야 함
 #define MSGR_CMD_APPEND_ACCEPT		0x002		// 친구 추가 요청 승낙
 #define	MSGR_CMD_APPEND_REJECT		0x003		// 친구 추가 요청 거절
@@ -2480,61 +2495,69 @@ struct gsv_CHECK_NPC_EVENT : public t_PACKETHEADER {
 #define	MSGR_CMD_LOGIN				0x080		// 서버에서만 사용
 #define	MSGR_CMD_LOGOUT				0x081		// 서버에서만 사용
 
-
 struct tag_MCMD_HEADER : public t_PACKETHEADER {
-  uint8_t	m_btCMD;
-} ;
-struct cli_MCMD_APPEND_REQ : public tag_MCMD_HEADER {		// 친구 추가 요청할때
-  char	m_szName[0];
-} ;
-struct cli_MCMD_APPEND_REPLY : public tag_MCMD_HEADER {		// 친구 추가 요청에 대한 응답
-  uint16_t	m_wUserIDX;
-} ;
-struct cli_MCMD_TAG : public tag_MCMD_HEADER {				// 삭제, 차단 요청
-  uint32_t	m_dwUserTAG;
-} ;
-struct cli_MCMD_STATUS_REQ : public tag_MCMD_HEADER {		// 내 상태 변경 요청
-  uint8_t	m_btStatus;
-} ;
+  uint8_t m_btCMD;
+};
 
+struct cli_MCMD_APPEND_REQ : public tag_MCMD_HEADER {
+  // 친구 추가 요청할때
+  char m_szName[0];
+};
 
-struct wsv_MCMD_APPEND_REQ : public tag_MCMD_HEADER {		// 친구 추가 요청받았을때
-  uint16_t	m_wUserIDX;
-  char	m_szName[0];
-} ;
-struct wsv_MCMD_APPEND_ACCEPT : public tag_MCMD_HEADER {	// 친구 추가 승낙일경우 리스트에 추가함
-  uint32_t	m_dwUserTAG;
-  uint8_t	m_btStatus;
-  char	m_szName[0];
-} ;
-struct wsv_MCMD_STATUS_REPLY : public tag_MCMD_HEADER {		// 서버에서의 응답:: m_dwUserTAG상태 변경 통보
-  uint32_t	m_dwUserTAG;
-  uint8_t	m_btStatus;
-} ;
+struct cli_MCMD_APPEND_REPLY : public tag_MCMD_HEADER {
+  // 친구 추가 요청에 대한 응답
+  uint16_t m_wUserIDX;
+};
 
-struct wsv_MCMD_LIST : public tag_MCMD_HEADER {			// 친구 목록
-  uint8_t	m_btFriendCNT;
+struct cli_MCMD_TAG : public tag_MCMD_HEADER {
+  // 삭제, 차단 요청
+  uint32_t m_dwUserTAG;
+};
+
+struct cli_MCMD_STATUS_REQ : public tag_MCMD_HEADER {
+  // 내 상태 변경 요청
+  uint8_t m_btStatus;
+};
+
+struct wsv_MCMD_APPEND_REQ : public tag_MCMD_HEADER {
+  // 친구 추가 요청받았을때
+  uint16_t m_wUserIDX;
+  char     m_szName[0];
+};
+
+struct wsv_MCMD_APPEND_ACCEPT : public tag_MCMD_HEADER {
+  // 친구 추가 승낙일경우 리스트에 추가함
+  uint32_t m_dwUserTAG;
+  uint8_t  m_btStatus;
+  char     m_szName[0];
+};
+
+struct wsv_MCMD_STATUS_REPLY : public tag_MCMD_HEADER {
+  // 서버에서의 응답:: m_dwUserTAG상태 변경 통보
+  uint32_t m_dwUserTAG;
+  uint8_t  m_btStatus;
+};
+
+struct wsv_MCMD_LIST : public tag_MCMD_HEADER {
+  // 친구 목록
+  uint8_t m_btFriendCNT;
   /*
   {
     wsv_MCMD_STATUS_REPLY
     m_szName[]
   } X m_btFriendCNT
   */
-} ;
-
-
-
-
+};
 
 struct cli_MESSENGER_CHAT : public t_PACKETHEADER {
-  uint32_t	m_dwUserTAG;
-  char	m_szMSG[0];
-} ;
-struct wsv_MESSENGER_CHAT : public t_PACKETHEADER {
-  uint32_t	m_dwUserTAG;
-  char	m_szMSG[0];
-} ;
+  uint32_t m_dwUserTAG;
+  char     m_szMSG[0];
+};
 
+struct wsv_MESSENGER_CHAT : public t_PACKETHEADER {
+  uint32_t m_dwUserTAG;
+  char     m_szMSG[0];
+};
 
 //--------------------------- Chatting room 관련 패킷
 #define	CHAT_REQ_ROOM_LIST		0x001
@@ -2546,38 +2569,43 @@ struct wsv_MESSENGER_CHAT : public t_PACKETHEADER {
 #define	MAX_CHAT_ROOM_USERS		64
 
 struct tag_CHAT_HEADER : public t_PACKETHEADER {
-  uint8_t	m_btCMD;
-} ;
+  uint8_t m_btCMD;
+};
 
 struct cli_CHAT_ROOM_MAKE : public tag_CHAT_HEADER {
-  uint8_t	m_btRoomTYPE;
-  uint8_t	m_btMaxUSER;		// 최대 수용인원
+  uint8_t m_btRoomTYPE;
+  uint8_t m_btMaxUSER; // 최대 수용인원
   // szTitle[]
   // szPassword[]
-} ;
+};
+
 struct cli_CHAT_ROOM_JOIN : public tag_CHAT_HEADER {
-  uint8_t	m_btRoomTYPE;
-  uint16_t	m_wRoomID;
+  uint8_t  m_btRoomTYPE;
+  uint16_t m_wRoomID;
   // szPassword[]
-} ;
+};
+
 struct cli_CHAT_ROOM_LIST : public tag_CHAT_HEADER {
-  uint8_t	m_btRoomTYPE;
-  uint16_t	m_wFromRoomID;
-} ;
+  uint8_t  m_btRoomTYPE;
+  uint16_t m_wFromRoomID;
+};
+
 struct cli_CHAT_ROOM_KICK : public tag_CHAT_HEADER {
-  t_HASHKEY	m_HashUSER;
-} ;
+  t_HASHKEY m_HashUSER;
+};
 
 struct tag_CHAT_ROOM {
-  uint8_t	m_btRoomTYPE;
-  int16_t	m_nRoomIDX;
-  int8_t	m_cUserCNT;
+  uint8_t m_btRoomTYPE;
+  int16_t m_nRoomIDX;
+  int8_t  m_cUserCNT;
   // szTitle[]
-} ;
+};
+
 struct wsv_CHAT_ROOM_USER : public tag_CHAT_HEADER {
-  uint16_t	m_wUserID;
+  uint16_t m_wUserID;
   // szName[]
-} ;
+};
+
 /*
 struct wsv_CHAT_ROOM_JOIN : public tag_CHAT_HEADER {
   uint16_t	m_wUserID;	// 자신
@@ -2589,9 +2617,9 @@ struct wsv_CHAT_ROOM_JOIN : public tag_CHAT_HEADER {
 } ;
 */
 struct wsv_CHAT_ROOM_LIST : public tag_CHAT_HEADER {
-  int8_t	m_cRoomCNT;
+  int8_t m_cRoomCNT;
   // tag_CHAT_ROOM[]
-} ;
+};
 
 #define	CHAT_REPLY_ROOM_MAKED		0x001	// 만들기 성공			m_wUserID(자신)
 #define	CHAT_REPLY_MAKE_FAILED		0x002
@@ -2610,12 +2638,12 @@ struct wsv_CHAT_ROOM_LIST : public tag_CHAT_HEADER {
 
 struct cli_CHATROOM_MSG : public t_PACKETHEADER {
   char m_szMSG[0];
-} ;
+};
+
 struct wsv_CHATROOM_MSG : public t_PACKETHEADER {
   uint16_t m_wObjectID;
-  char m_szMSG[0];
-} ;
-
+  char     m_szMSG[0];
+};
 
 //--------------------------- 쪽지 관련 패킷
 #define	MEMO_REQ_CONTENTS			0x001	// 수신된 전체 쪽지 내용 요구
@@ -2630,7 +2658,7 @@ struct cli_MEMO : public t_PACKETHEADER {
     // szMemoContent[]			// 255자 미만
   } ;
   */
-} ;
+};
 
 #define	MEMO_REPLY_RECEIVED_CNT			0x001	// 보관된 쪽지 갯수
 #define	MEMO_REPLY_CONTENTS				0x002	// 쪽지 내용들...
@@ -2640,9 +2668,10 @@ struct cli_MEMO : public t_PACKETHEADER {
 #define	MEMO_REPLY_SEND_REFUSED			0x006	// 쪽지 수신 거부 상태로 보내기 실패
 #define MEMO_REPLY_SEND_FULL_MEMO		0x007	// 상대방 수신함이 꽉차서 보내기 실패
 #define MEMO_REPLY_SEND_INVALID_CONTENT	0x008	// 내용오류
+
 struct wsv_MEMO : public t_PACKETHEADER {
-  uint8_t	m_btTYPE;
-  int16_t	m_nRecvCNT[0];						//  m_btTYPE == MEMO_REPLY_RECEIVED_CNT 일경우 받은 쪽지 갯수
+  uint8_t m_btTYPE;
+  int16_t m_nRecvCNT[0]; //  m_btTYPE == MEMO_REPLY_RECEIVED_CNT 일경우 받은 쪽지 갯수
   /*
   struct tagReplyMemoCONTENTS {
     // uint32_t dwReceivedDATE			// classTIME::GetCurrentAbsSecond()함수로 얻어진 시간임.
@@ -2650,20 +2679,20 @@ struct wsv_MEMO : public t_PACKETHEADER {
     // szMemo[]						// 내용
   } ;
   */
-} ;
-
+};
 
 #define	REQ_MALL_ITEM_LIST					0x01	// 리스트 요청
 #define	REQ_MALL_ITEM_FIND_CHAR				0x02	// 케릭 이름 체크
 #define	REQ_MALL_ITEM_BRING					0x03	// 꺼내오기
 #define	REQ_MALL_ITEM_GIVE					0x04	// 선물하기
+
 struct cli_MALL_ITEM_REQ : public t_PACKETHEADER {
-  uint8_t	m_btReqTYPE;
-  int16_t	m_nDupCnt;								// REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE시에 갯수..
-  uint8_t	m_btInvIDX[0];							// REQ_MALL_ITEM_GIVE일경우 0~39 사이의 인벤토리 번호
+  uint8_t m_btReqTYPE;
+  int16_t m_nDupCnt;     // REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE시에 갯수..
+  uint8_t m_btInvIDX[0]; // REQ_MALL_ITEM_GIVE일경우 0~39 사이의 인벤토리 번호
   // char m_szCharName[]							// REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE 요청시
   // char m_szDesc[]								// REQ_MALL_ITEM_GIVE 요청시 덧붙일말(선물할때 메세지)::최대 80자
-} ;
+};
 
 #define	REPLY_MALL_ITEM_CHECK_CHAR_FOUND	0x01	// 대상 찾았다
 #define	REPLY_MALL_ITEM_CHECK_CHAR_NONE		0x02	// 대상 없다.
@@ -2678,8 +2707,8 @@ struct cli_MALL_ITEM_REQ : public t_PACKETHEADER {
 #define	REPLY_MALL_ITEM_NOT_FOUND			0x0b
 
 struct gsv_MALL_ITEM_REPLY : public t_PACKETHEADER {
-  uint8_t				m_btReplyTYPE;
-  uint8_t				m_btCntOrIdx;				// 갯수 / 몰 인벤토리 인덱스
+  uint8_t m_btReplyTYPE;
+  uint8_t m_btCntOrIdx; // 갯수 / 몰 인벤토리 인덱스
 
   /* MALL_ITEM_REQ_LIST 응답 :: m_nCntOrIdx 갯수만큼..
     m_btReplyTYPE == REPLY_MALL_ITEM_LIST_START
@@ -2699,10 +2728,9 @@ struct gsv_MALL_ITEM_REPLY : public t_PACKETHEADER {
   */
   // REPLY_MALL_ITEM_BRING_SUCCESS응답 :: m_nCntOrIdx에는 몰 인벤토리 인덱스 m_BringITEM[0]에는 추가된 아이템
   union {
-    tag_SET_INVITEM	m_BringITEM[0];				// MALL_ITEM_REQ_BRING에 대한 응답(변경된 인벤토리 정보) :: m_btCntOrIdx의 몰 인벤토리 아이템이 이동
-  } ;
-} ;
-
+    tag_SET_INVITEM m_BringITEM[0]; // MALL_ITEM_REQ_BRING에 대한 응답(변경된 인벤토리 정보) :: m_btCntOrIdx의 몰 인벤토리 아이템이 이동
+  };
+};
 
 #define	BILLING_MSG_FREE_USER				0x00	//
 
@@ -2716,7 +2744,6 @@ struct gsv_MALL_ITEM_REPLY : public t_PACKETHEADER {
 #define	BILLING_MSG_PAY_GU					0x05	// GU	로그인 된 사용자는 게임방 사용자임을 나타낸다.
 #define	BILLING_MSG_PAY_GQ					0x06	// GQ	게임방에서 로그인을 시도하였으나 게임방의 과금기간(시간)이 만료되어 개인정량으로 로그인 되었음을 나타낸다.
 #define	BILLING_MSG_PAY_IQ					0x07	// IQ	게임방에서 로그인을 시도하였으나 이미 계약된 IP 숫자를 모두 사용하고 있어 개인정량으로 로그인 되었음을 나타낸다.
-
 
 #define	BILLING_MSG_KICKOUT_CHEAT_DETECT	0x21	// 스핵등 치트 발견되서 종료
 #define	BILLING_MSG_KICKOUT_ALREADY_LOGIN	0x22	// 이미 접속된 계정이라 접속 종료
@@ -2738,16 +2765,16 @@ struct gsv_MALL_ITEM_REPLY : public t_PACKETHEADER {
 #define	BILLING_MSG_KICKOUT_TAIWAN			0xf0	// 대만 과금서버에서 짤라라 통보 받았을때..
 #define	BILLING_MSG_TYPE_TAIWAN				0xf1	// 대만 과금서버에서 받은 메세지.. 보여주기만 하면 됨
 
-
 struct gsv_BILLING_MESSAGE : public t_PACKETHEADER {
-  uint8_t	m_btTYPE;
+  uint8_t m_btTYPE;
   // char m_szMsg[];
-} ;
-struct gsv_BILLING_MESSAGE2: public t_PACKETHEADER {
-  uint8_t	m_btTYPE;
-  int8_t	m_cFunctionTYPE;						// 소분류( A ~ R )
-  uint32_t	m_dwPayFlag;
-} ;
+};
+
+struct gsv_BILLING_MESSAGE2 : public t_PACKETHEADER {
+  uint8_t  m_btTYPE;
+  int8_t   m_cFunctionTYPE; // 소분류( A ~ R )
+  uint32_t m_dwPayFlag;
+};
 
 // 한국 과금 결제 비트~
 #define	PAY_FLAG_KR_FU				(0x01 << BILLING_MSG_PAY_FU)	// FU	로그인 된 사용자는 무료 아이디 사용자임을 나타낸다.
@@ -2773,7 +2800,6 @@ struct gsv_BILLING_MESSAGE2: public t_PACKETHEADER {
 
 #define	PAY_FLAG_JP_ALL				(0xff << 0)						//      모든 과금 결제~
 
-
 // 과금형태에 따라 플레이 가능여부를 체크할 비트...
 // 한국 과금중 FLAG_PAY_FAP,FLAG_PAY_GU의 경우는 아래 모든 비트 on 
 // 이외 한국 과금은 PLAY_FLAG_EXTRA_STOCK, PLAY_FLAG_EXTRA_CHAR 비트 off
@@ -2790,7 +2816,6 @@ struct gsv_BILLING_MESSAGE2: public t_PACKETHEADER {
 #define	PLAY_FLAG_KOREA_DEFAULT		( PLAY_FLAG_BATTLE | PLAY_FLAG_COMMUNITY | PLAY_FLAG_TRADE | PLAY_FLAG_STOCK_SPACE | PLAY_FLAG_STARSHIP_PASS | PLAY_FLAG_DUNGEON_ADV )
 #define	PLAY_FLAG_TAIWAN_DEFAULT	PLAY_FLAG_KOREA_DEFAULT
 
-
 #define	EXT_BILLING_MSG_PAY_KOREA			0x1001	// 한국 과금 정보
 #define	EXT_BILLING_MSG_PAY_JAPAN			0x1002	// 일본 과금 플래그
 #define	EXT_BILLING_MSG_PAY_TAIWAN			0x1003	// 대만 과금 타입번호
@@ -2801,44 +2826,41 @@ struct gsv_BILLING_MESSAGE2: public t_PACKETHEADER {
 #define EXT_BILLING_MSG_TYPE_TIME_ALERT		0x1013	// PayType=0이고 m_dwPlayingFlag[0]에 시간경고되는 과금 플레그있음
 
 struct gsv_BILLING_MESSAGE_EXT : public t_PACKETHEADER {
-  uint16_t	m_wMsgTYPE;
-  uint32_t	m_dwPayType;
-  uint32_t	m_dwPlayingFlag[ 4 ];	// 여유있게~ :: 32 * 4 = 128
+  uint16_t m_wMsgTYPE;
+  uint32_t m_dwPayType;
+  uint32_t m_dwPlayingFlag[ 4 ]; // 여유있게~ :: 32 * 4 = 128
   // char m_szMsg[];
-} ;
-
-
+};
 
 //-------------------------------------------------------------------------------------------------
 struct gsv_GODDNESS_MODE : public t_PACKETHEADER {
-  uint8_t	m_btOnOff;								// 적용/삭제
-  uint16_t	m_wObjectIDX;							// 대상 서버 케릭터 인덱스
-} ;
+  uint8_t  m_btOnOff;    // 적용/삭제
+  uint16_t m_wObjectIDX; // 대상 서버 케릭터 인덱스
+};
 
 //-------------------------------------------------------------------------------------------------
-struct gsv_PATSTATE_CHANGE : public t_PACKETHEADER { // GSV_PATSTATE_CHANGE
-  uint8_t	m_btOnOff;								// 카트 소환 가능/불가능(1/0) 
-  uint32_t	m_dwCoolTIME;							// 카트 소환 불가능 상태이면 여기에 쿨타임 값
-  int16_t	m_nMaxPatHP;							// 카트 체력
-  uint16_t	m_wObjectIDX;							// 사용할 카트 체력 
-} ;
-
+struct gsv_PATSTATE_CHANGE : public t_PACKETHEADER {
+  // GSV_PATSTATE_CHANGE
+  uint8_t  m_btOnOff;    // 카트 소환 가능/불가능(1/0) 
+  uint32_t m_dwCoolTIME; // 카트 소환 불가능 상태이면 여기에 쿨타임 값
+  int16_t  m_nMaxPatHP;  // 카트 체력
+  uint16_t m_wObjectIDX; // 사용할 카트 체력 
+};
 
 //-------------------------------------------------------------------------------------------------
 struct gsv_CHARSTATE_CHANGE : public t_PACKETHEADER {
-  uint16_t	m_wObjectIDX;
-  uint32_t	m_dwFLAG;
+  uint16_t m_wObjectIDX;
+  uint32_t m_dwFLAG;
 };
 
-
 struct cli_CART_RIDE : public t_PACKETHEADER {
-  uint8_t	m_btType;
-  uint16_t	m_wOwnerObjIDX;				// 태울 아바타
-  uint16_t	m_wGuestObjIDX;				// 탈 아바타
-} ;
-struct gsv_CART_RIDE : public cli_CART_RIDE {
+  uint8_t  m_btType;
+  uint16_t m_wOwnerObjIDX; // 태울 아바타
+  uint16_t m_wGuestObjIDX; // 탈 아바타
+};
 
-} ;
+struct gsv_CART_RIDE : public cli_CART_RIDE {};
+
 #define	CART_RIDE_REQ				0x01	// 탈래 ?	m_wGuestObjIDX에게만 전송됨
 #define	CART_RIDE_ACCEPT			0x02	// 탈께		주변 모든 케릭에 전송됨
 #define	CART_RIDE_REFUSE			0x03	// 안탈래	m_wOwnerObjIDX에게만 전송됨
@@ -2853,9 +2875,7 @@ struct gsv_UPDATE_NAME : public t_PACKETHEADER {
   // new name;
 };
 
-struct pxy_UPDATE_NAME : public t_PACKETHEADER {
-
-};
+struct pxy_UPDATE_NAME : public t_PACKETHEADER {};
 
 struct pxy_SET_RIGHTS : public t_PACKETHEADER {
   uint32_t wRIGHT;
@@ -2869,372 +2889,368 @@ struct pxy_SET_RIGHTS : public t_PACKETHEADER {
 
 //-------------------------------------------------------------------------------------------------
 #define	__T_PACKET
+
 struct t_PACKET {
   union {
-    t_PACKETHEADER				m_HEADER;
-    uint8_t						m_pDATA[ MAX_PACKET_SIZE ];
-    t_NETWORK_STATUS			m_NetSTATUS;
+    t_PACKETHEADER   m_HEADER;
+    uint8_t          m_pDATA[ MAX_PACKET_SIZE ];
+    t_NETWORK_STATUS m_NetSTATUS;
 
-    cli_CHECK_AUTH				m_cli_CHECK_AUTH;
-    srv_CHECK_AUTH				m_srv_CHECK_AUTH;
+    cli_CHECK_AUTH m_cli_CHECK_AUTH;
+    srv_CHECK_AUTH m_srv_CHECK_AUTH;
 
-    lsv_ERROR					m_lsv_ERROR;
-    gsv_ERROR					m_gsv_ERROR;
+    lsv_ERROR m_lsv_ERROR;
+    gsv_ERROR m_gsv_ERROR;
 
-    gsv_GM_COMMAND				m_gsv_GM_COMMAND;
+    gsv_GM_COMMAND m_gsv_GM_COMMAND;
 
-    gsv_SET_GLOBAL_VAR			m_gsv_SET_GLOBAL_VAR;
-    gsv_SET_GLOBAL_FLAG			m_gsv_SET_GLOBAL_FLAG;
+    gsv_SET_GLOBAL_VAR  m_gsv_SET_GLOBAL_VAR;
+    gsv_SET_GLOBAL_FLAG m_gsv_SET_GLOBAL_FLAG;
 
-    cli_LOGOUT_REQ				m_cli_LOGOUT_REQ;
-    gsv_LOGOUT_REPLY			m_gsv_LOGOUT_REPLY;
+    cli_LOGOUT_REQ   m_cli_LOGOUT_REQ;
+    gsv_LOGOUT_REPLY m_gsv_LOGOUT_REPLY;
 
     // CLI <-> LSV
-    cli_ACCEPT_REQ				m_cli_ACCEPT_REQ;
-        cli_LOGIN_REQ				m_cli_LOGIN_REQ;
-        srv_LOGIN_REPLY				m_srv_LOGIN_REPLY;
+    cli_ACCEPT_REQ  m_cli_ACCEPT_REQ;
+    cli_LOGIN_REQ   m_cli_LOGIN_REQ;
+    srv_LOGIN_REPLY m_srv_LOGIN_REPLY;
 
-    cli_CHANNEL_LIST_REQ		m_cli_CHANNEL_LIST_REQ;
-    lsv_CHANNEL_LIST_REPLY		m_lsv_CHANNEL_LIST_REPLY;
+    cli_CHANNEL_LIST_REQ   m_cli_CHANNEL_LIST_REQ;
+    lsv_CHANNEL_LIST_REPLY m_lsv_CHANNEL_LIST_REPLY;
 
-    cli_SELECT_SERVER			m_cli_SELECT_SERVER;
-    lsv_SELECT_SERVER			m_lsv_SELECT_SERVER;
-
+    cli_SELECT_SERVER m_cli_SELECT_SERVER;
+    lsv_SELECT_SERVER m_lsv_SELECT_SERVER;
 
     // CLI <-> WSV/GSV
-    cli_JOIN_SERVER_REQ			m_cli_JOIN_SERVER_REQ;
-    srv_JOIN_SERVER_REPLY		m_srv_JOIN_SERVER_REPLY;
+    cli_JOIN_SERVER_REQ   m_cli_JOIN_SERVER_REQ;
+    srv_JOIN_SERVER_REPLY m_srv_JOIN_SERVER_REPLY;
     /*
     cli_JOIN_WORLD				m_cli_JOIN_WORLD;
     wsv_JOIN_WORLD				m_wsv_JOIN_WORLD;
     */
 
     // CLI <-> WSV
-    wsv_MOVE_SERVER				m_wsv_MOVE_SERVER;
+    wsv_MOVE_SERVER m_wsv_MOVE_SERVER;
 
-    cli_CHAR_LIST				m_cli_CHAR_LIST;
-    wsv_CHAR_LIST				m_wsv_CHAR_LIST;
+    cli_CHAR_LIST m_cli_CHAR_LIST;
+    wsv_CHAR_LIST m_wsv_CHAR_LIST;
 
-    cli_CREATE_CHAR				m_cli_CREATE_CHAR;
-    wsv_CREATE_CHAR				m_wsv_CREATE_CHAR;
+    cli_CREATE_CHAR m_cli_CREATE_CHAR;
+    wsv_CREATE_CHAR m_wsv_CREATE_CHAR;
 
-    cli_DELETE_CHAR				m_cli_DELETE_CHAR;
-    wsv_DELETE_CHAR				m_wsv_DELETE_CHAR;
+    cli_DELETE_CHAR m_cli_DELETE_CHAR;
+    wsv_DELETE_CHAR m_wsv_DELETE_CHAR;
 
-    gsv_INIT_DATA				m_gsv_INIT_DATA;
+    gsv_INIT_DATA m_gsv_INIT_DATA;
 
-    cli_SELECT_CHAR				m_cli_SELECT_CHAR;
-    gsv_SELECT_CHAR				m_gsv_SELECT_CHAR;
-
+    cli_SELECT_CHAR m_cli_SELECT_CHAR;
+    gsv_SELECT_CHAR m_gsv_SELECT_CHAR;
 
     // CLI <-> GSV
-    gsv_SERVER_DATA				m_gsv_SERVER_DATA;
-    gsv_RELAY_REQ				m_gsv_RELAY_REQ;
-    cli_RELAY_REPLY				m_cli_RELAY_REPLY;
+    gsv_SERVER_DATA m_gsv_SERVER_DATA;
+    gsv_RELAY_REQ   m_gsv_RELAY_REQ;
+    cli_RELAY_REPLY m_cli_RELAY_REPLY;
 
-    cli_JOIN_ZONE				m_cli_JOIN_ZONE;
-    gsv_JOIN_ZONE				m_gsv_JOIN_ZONE;
+    cli_JOIN_ZONE m_cli_JOIN_ZONE;
+    gsv_JOIN_ZONE m_gsv_JOIN_ZONE;
 
-    cli_REVIVE_REQ				m_cli_REVIVE_REQ;
-    gsv_REVIVE_REPLY			m_gsv_REVIVE_REPLY;
-    cli_SET_REVIVE_POS			m_cli_SET_REVIVE_POS;
+    cli_REVIVE_REQ     m_cli_REVIVE_REQ;
+    gsv_REVIVE_REPLY   m_gsv_REVIVE_REPLY;
+    cli_SET_REVIVE_POS m_cli_SET_REVIVE_POS;
 
-    cli_SET_VAR_REQ				m_cli_SET_VAR_REQ;
-    gsv_SET_VAR_REPLY			m_gsv_SET_VAR_REPLY;
+    cli_SET_VAR_REQ   m_cli_SET_VAR_REQ;
+    gsv_SET_VAR_REPLY m_gsv_SET_VAR_REPLY;
 
-    gsv_INVENTORY_DATA			m_gsv_INVENTORY_DATA;
-    gsv_QUEST_DATA				m_gsv_QUEST_DATA;
+    gsv_INVENTORY_DATA m_gsv_INVENTORY_DATA;
+    gsv_QUEST_DATA     m_gsv_QUEST_DATA;
 
-    gsv_QUEST_ONLY				m_gsv_QUEST_ONLY;
-    gsv_WISH_LIST				m_gsv_WISH_LIST;
+    gsv_QUEST_ONLY m_gsv_QUEST_ONLY;
+    gsv_WISH_LIST  m_gsv_WISH_LIST;
 
-    gsv_CHEAT_CODE				m_gsv_CHEAT_CODE;
+    gsv_CHEAT_CODE m_gsv_CHEAT_CODE;
 
-    cli_SET_MOTION				m_cli_SET_MOTION;
-    gsv_SET_MOTION				m_gsv_SET_MOTION;
+    cli_SET_MOTION m_cli_SET_MOTION;
+    gsv_SET_MOTION m_gsv_SET_MOTION;
 
-    cli_TOGGLE					m_cli_TOGGLE;
-    gsv_TOGGLE					m_gsv_TOGGLE;
+    cli_TOGGLE m_cli_TOGGLE;
+    gsv_TOGGLE m_gsv_TOGGLE;
 
-    cli_CHAT					m_cli_CHAT;
-    gsv_CHAT					m_gsv_CHAT;
+    cli_CHAT m_cli_CHAT;
+    gsv_CHAT m_gsv_CHAT;
 
-    cli_WHISPER					m_cli_WHISPER;
-    gsv_WHISPER					m_gsv_WHISPER;
+    cli_WHISPER m_cli_WHISPER;
+    gsv_WHISPER m_gsv_WHISPER;
 
-    cli_SHOUT					m_cli_SHOUT;
-    gsv_SHOUT					m_gsv_SHOUT;
+    cli_SHOUT m_cli_SHOUT;
+    gsv_SHOUT m_gsv_SHOUT;
 
-    cli_PARTY_CHAT				m_cli_PARTY_CHAT;
-    gsv_PARTY_CHAT				m_gsv_PARTY_CHAT;
+    cli_PARTY_CHAT m_cli_PARTY_CHAT;
+    gsv_PARTY_CHAT m_gsv_PARTY_CHAT;
 
-    cli_CLAN_CHAT				m_cli_CLAN_CHAT;
-    wsv_CLAN_CHAT				m_wsv_CLAN_CHAT;
+    cli_CLAN_CHAT m_cli_CLAN_CHAT;
+    wsv_CLAN_CHAT m_wsv_CLAN_CHAT;
 
-    cli_ALLIED_CHAT				m_cli_ALLIED_CHAT;
-    gsv_ALLIED_CHAT				m_gsv_ALLIED_CHAT;
+    cli_ALLIED_CHAT m_cli_ALLIED_CHAT;
+    gsv_ALLIED_CHAT m_gsv_ALLIED_CHAT;
 
-    cli_ALLIED_SHOUT			m_cli_ALLIED_SHOUT;
-    gsv_ALLIED_SHOUT			m_gsv_ALLIED_SHOUT;
+    cli_ALLIED_SHOUT m_cli_ALLIED_SHOUT;
+    gsv_ALLIED_SHOUT m_gsv_ALLIED_SHOUT;
 
-    gsv_SET_EVENT_STATUS		m_gsv_SET_EVENT_STATUS;
+    gsv_SET_EVENT_STATUS m_gsv_SET_EVENT_STATUS;
 
-    tag_ADD_CHAR				m_tag_ADD_CHAR;
-    gsv_MOB_CHAR				m_gsv_MOB_CHAR;
-    gsv_NPC_CHAR				m_gsv_NPC_CHAR;
-    gsv_AVT_CHAR				m_gsv_AVT_CHAR;
-    gsv_SUB_OBJECT				m_gsv_SUB_OBJECT;
+    tag_ADD_CHAR   m_tag_ADD_CHAR;
+    gsv_MOB_CHAR   m_gsv_MOB_CHAR;
+    gsv_NPC_CHAR   m_gsv_NPC_CHAR;
+    gsv_AVT_CHAR   m_gsv_AVT_CHAR;
+    gsv_SUB_OBJECT m_gsv_SUB_OBJECT;
 
-    cli_SET_WEIGHT_RATE			m_cli_SET_WEIGHT_RATE;
-    gsv_SET_WEIGHT_RATE			m_gsv_SET_WEIGHT_RATE;
+    cli_SET_WEIGHT_RATE m_cli_SET_WEIGHT_RATE;
+    gsv_SET_WEIGHT_RATE m_gsv_SET_WEIGHT_RATE;
 
-    gsv_ADJUST_POS				m_gsv_ADJUST_POS;
+    gsv_ADJUST_POS m_gsv_ADJUST_POS;
 
-    cli_CANTMOVE				m_cli_CANTMOVE;
-    cli_SETPOS					m_cli_SETPOS;
+    cli_CANTMOVE m_cli_CANTMOVE;
+    cli_SETPOS   m_cli_SETPOS;
 
-    cli_STOP					m_cli_STOP;
-    gsv_STOP					m_gsv_STOP;
+    cli_STOP m_cli_STOP;
+    gsv_STOP m_gsv_STOP;
 
-    cli_ATTACK					m_cli_ATTACK;
-    gsv_ATTACK					m_gsv_ATTACK;
+    cli_ATTACK m_cli_ATTACK;
+    gsv_ATTACK m_gsv_ATTACK;
 
-    cli_DAMAGE					m_cli_DAMAGE;
-    gsv_DAMAGE					m_gsv_DAMAGE;
+    cli_DAMAGE m_cli_DAMAGE;
+    gsv_DAMAGE m_gsv_DAMAGE;
 
-    gsv_SETEXP					m_gsv_SETEXP;
-    gsv_LEVELUP					m_gsv_LEVELUP;
+    gsv_SETEXP  m_gsv_SETEXP;
+    gsv_LEVELUP m_gsv_LEVELUP;
 
-    cli_HP_REQ					m_cli_HP_REQ;
-    gsv_HP_REPLY				m_gsv_HP_REPLY;
+    cli_HP_REQ   m_cli_HP_REQ;
+    gsv_HP_REPLY m_gsv_HP_REPLY;
 
-    gsv_SET_HPnMP				m_gsv_SET_HPnMP;
+    gsv_SET_HPnMP m_gsv_SET_HPnMP;
 
-    cli_MOUSECMD				m_cli_MOUSECMD;
-    gsv_MOUSECMD				m_gsv_MOUSECMD;
+    cli_MOUSECMD m_cli_MOUSECMD;
+    gsv_MOUSECMD m_gsv_MOUSECMD;
 
-    gsv_MOVE					m_gsv_MOVE;
+    gsv_MOVE m_gsv_MOVE;
 
-    gsv_CHANGE_NPC				m_gsv_CHANGE_NPC;
+    gsv_CHANGE_NPC m_gsv_CHANGE_NPC;
 
-    cli_STORE_TRADE_REQ			m_cli_STORE_TRADE_REQ;
-    gsv_STORE_TRADE_REPLY		m_gsv_STORE_TRADE_REPLY;
+    cli_STORE_TRADE_REQ   m_cli_STORE_TRADE_REQ;
+    gsv_STORE_TRADE_REPLY m_gsv_STORE_TRADE_REPLY;
 
-    gsv_SET_MONEYnINV			m_gsv_SET_MONEYnINV;
-    gsv_SET_INV_ONLY			m_gsv_SET_INV_ONLY;
+    gsv_SET_MONEYnINV m_gsv_SET_MONEYnINV;
+    gsv_SET_INV_ONLY  m_gsv_SET_INV_ONLY;
 
-    cli_USE_ITEM				m_cli_USE_ITEM;
-    gsv_USE_ITEM				m_gsv_USE_ITEM;
+    cli_USE_ITEM m_cli_USE_ITEM;
+    gsv_USE_ITEM m_gsv_USE_ITEM;
 
-    cli_EQUIP_ITEM				m_cli_EQUIP_ITEM;
-    gsv_EQUIP_ITEM				m_gsv_EQUIP_ITEM;
+    cli_EQUIP_ITEM m_cli_EQUIP_ITEM;
+    gsv_EQUIP_ITEM m_gsv_EQUIP_ITEM;
 
-    cli_ASSEMBLE_RIDE_ITEM		m_cli_ASSEMBLE_RIDE_ITEM;
-    gsv_ASSEMBLE_RIDE_ITEM		m_gsv_ASSEMBLE_RIDE_ITEM;
+    cli_ASSEMBLE_RIDE_ITEM m_cli_ASSEMBLE_RIDE_ITEM;
+    gsv_ASSEMBLE_RIDE_ITEM m_gsv_ASSEMBLE_RIDE_ITEM;
 
+    cli_USE_ITEM_TO_REPAIR m_cli_USE_ITEM_TO_REPAIR;
+    gsv_SET_INV_ONLY       m_gsv_USED_ITEM_TO_REPAIR;
 
-    cli_USE_ITEM_TO_REPAIR		m_cli_USE_ITEM_TO_REPAIR;
-    gsv_SET_INV_ONLY			m_gsv_USED_ITEM_TO_REPAIR;
+    cli_REPAIR_FROM_NPC m_cli_REPAIR_FROM_NPC;
+    gsv_SET_MONEYnINV   m_gsv_REPAIRED_FROM_NPC;
 
-    cli_REPAIR_FROM_NPC			m_cli_REPAIR_FROM_NPC;
-    gsv_SET_MONEYnINV			m_gsv_REPAIRED_FROM_NPC;
-
-    gsv_SET_ITEM_LIFE			m_gsv_SET_ITEM_LIFE;
+    gsv_SET_ITEM_LIFE m_gsv_SET_ITEM_LIFE;
 
     //cli_CHANGE_SKIN				m_cli_CHANGE_SKIN;
-    gsv_CHANGE_SKIN				m_gsv_CHANGE_SKIN;
+    gsv_CHANGE_SKIN m_gsv_CHANGE_SKIN;
 
-    cli_DROP_ITEM				m_cli_DROP_ITEM;
+    cli_DROP_ITEM m_cli_DROP_ITEM;
 
-    cli_MOVE_ITEM				m_cli_MOVE_ITEM;
-    gsv_MOVE_ITEM				m_gsv_MOVE_ITEM;
+    cli_MOVE_ITEM m_cli_MOVE_ITEM;
+    gsv_MOVE_ITEM m_gsv_MOVE_ITEM;
 
-    cli_MOVE_ZULY				m_cli_MOVE_ZULY;
-    gsv_MOVE_ZULY				m_gsv_MOVE_ZULY;
+    cli_MOVE_ZULY m_cli_MOVE_ZULY;
+    gsv_MOVE_ZULY m_gsv_MOVE_ZULY;
 
-    cli_CREATE_ITEM_REQ			m_cli_CREATE_ITEM_REQ;
-    gsv_CREATE_ITEM_REPLY		m_gsv_CREATE_ITEM_REPLY;
+    cli_CREATE_ITEM_REQ   m_cli_CREATE_ITEM_REQ;
+    gsv_CREATE_ITEM_REPLY m_gsv_CREATE_ITEM_REPLY;
 
     //cli_CREATE_ITEM_EXP_REQ		m_cli_CREATE_ITEM_EXP_REQ;
 
-    cli_ITEM_RESULT_REPORT		m_cli_ITEM_RESULT_REPORT;
-    gsv_ITEM_RESULT_REPORT		m_gsv_ITEM_RESULT_REPORT;
+    cli_ITEM_RESULT_REPORT m_cli_ITEM_RESULT_REPORT;
+    gsv_ITEM_RESULT_REPORT m_gsv_ITEM_RESULT_REPORT;
 
-    cli_BANK_LIST_REQ			m_cli_BANK_LIST_REQ;
-    gsv_BANK_LIST_REPLY			m_gsv_BANK_LIST_REPLY;
+    cli_BANK_LIST_REQ   m_cli_BANK_LIST_REQ;
+    gsv_BANK_LIST_REPLY m_gsv_BANK_LIST_REPLY;
 
-    gsv_ADD_FIELDITEM			m_gsv_ADD_FIELDITEM;
-    gsv_SUB_FIELDITEM			m_gsv_SUB_FIELDITEM;
+    gsv_ADD_FIELDITEM m_gsv_ADD_FIELDITEM;
+    gsv_SUB_FIELDITEM m_gsv_SUB_FIELDITEM;
 
-    cli_GET_FIELDITEM_REQ		m_cli_GET_FIELDITEM_REQ;
-    gsv_GET_FIELDITEM_REPLY		m_gsv_GET_FIELDITEM_REPLY;
+    cli_GET_FIELDITEM_REQ   m_cli_GET_FIELDITEM_REQ;
+    gsv_GET_FIELDITEM_REPLY m_gsv_GET_FIELDITEM_REPLY;
 
-    cli_TELEPORT_REQ			m_cli_TELEPORT_REQ;
-    gsv_TELEPORT_REPLY			m_gsv_TELEPORT_REPLY;
+    cli_TELEPORT_REQ   m_cli_TELEPORT_REQ;
+    gsv_TELEPORT_REPLY m_gsv_TELEPORT_REPLY;
 
-    cli_USE_BPOINT_REQ			m_cli_USE_BPOINT_REQ;
-    gsv_USE_BPOINT_REPLY		m_gsv_USE_BPOINT_REPLY;
+    cli_USE_BPOINT_REQ   m_cli_USE_BPOINT_REQ;
+    gsv_USE_BPOINT_REPLY m_gsv_USE_BPOINT_REPLY;
 
-    cli_SET_HOTICON				m_cli_SET_HOTICON;
-    gsv_SET_HOTICON				m_gsv_SET_HOTICON;
+    cli_SET_HOTICON m_cli_SET_HOTICON;
+    gsv_SET_HOTICON m_gsv_SET_HOTICON;
 
-    cli_SET_BULLET				m_cli_SET_BULLET;
-    gsv_SET_BULLET				m_gsv_SET_BULLET;
+    cli_SET_BULLET m_cli_SET_BULLET;
+    gsv_SET_BULLET m_gsv_SET_BULLET;
 
+    cli_TRADE_P2P m_cli_TRADE_P2P;
+    gsv_TRADE_P2P m_gsv_TRADE_P2P;
 
-    cli_TRADE_P2P				m_cli_TRADE_P2P;
-    gsv_TRADE_P2P				m_gsv_TRADE_P2P;
+    cli_TRADE_P2P_ITEM m_cli_TRADE_P2P_ITEM;
+    gsv_TRADE_P2P_ITEM m_gsv_TRADE_P2P_ITEM;
 
-    cli_TRADE_P2P_ITEM			m_cli_TRADE_P2P_ITEM;
-    gsv_TRADE_P2P_ITEM			m_gsv_TRADE_P2P_ITEM;
+    cli_SET_WISHITEM m_cli_SET_WISHITEM;
 
-    cli_SET_WISHITEM			m_cli_SET_WISHITEM;
+    cli_P_STORE_OPEN   m_cli_P_STORE_OPEN;
+    gsv_P_STORE_OPENED m_gsv_P_STORE_OPENED;
 
-    cli_P_STORE_OPEN			m_cli_P_STORE_OPEN;
-    gsv_P_STORE_OPENED			m_gsv_P_STORE_OPENED;
+    cli_P_STORE_CLOSE  m_cli_P_STORE_CLOSE;
+    gsv_P_STORE_CLOSED m_gsv_P_STORE_CLOSED;
 
-    cli_P_STORE_CLOSE			m_cli_P_STORE_CLOSE;
-    gsv_P_STORE_CLOSED			m_gsv_P_STORE_CLOSED;
+    cli_P_STORE_LIST_REQ   m_cli_P_STORE_LIST_REQ;
+    gsv_P_STORE_LIST_REPLY m_gsv_P_STORE_LIST_REPLY;
 
-    cli_P_STORE_LIST_REQ		m_cli_P_STORE_LIST_REQ;
-    gsv_P_STORE_LIST_REPLY		m_gsv_P_STORE_LIST_REPLY;
+    cli_P_STORE_BUY_REQ  m_cli_P_STORE_BUY_REQ;
+    cli_P_STORE_SELL_REQ m_cli_P_STORE_SELL_REQ;
 
-    cli_P_STORE_BUY_REQ			m_cli_P_STORE_BUY_REQ;
-    cli_P_STORE_SELL_REQ		m_cli_P_STORE_SELL_REQ;
+    gsv_P_STORE_RESULT m_gsv_P_STORE_RESULT;
 
-    gsv_P_STORE_RESULT			m_gsv_P_STORE_RESULT;
+    gsv_SKILL_LEARN_REPLY m_gsv_SKILL_LEARN_REPLY;
 
-    gsv_SKILL_LEARN_REPLY		m_gsv_SKILL_LEARN_REPLY;
+    cli_SKILL_LEVELUP_REQ   m_cli_SKILL_LEVELUP_REQ;
+    gsv_SKILL_LEVELUP_REPLY m_gsv_SKILL_LEVELUP_REPLY;
 
-    cli_SKILL_LEVELUP_REQ		m_cli_SKILL_LEVELUP_REQ;
-    gsv_SKILL_LEVELUP_REPLY		m_gsv_SKILL_LEVELUP_REPLY;
+    cli_SELF_SKILL m_cli_SELF_SKILL;
+    gsv_SELF_SKILL m_gsv_SELF_SKILL;
 
-    cli_SELF_SKILL				m_cli_SELF_SKILL;
-    gsv_SELF_SKILL				m_gsv_SELF_SKILL;
+    cli_TARGET_SKILL m_cli_TARGET_SKILL;
+    gsv_TARGET_SKILL m_gsv_TARGET_SKILL;
 
-    cli_TARGET_SKILL			m_cli_TARGET_SKILL;
-    gsv_TARGET_SKILL			m_gsv_TARGET_SKILL;
+    cli_POSITION_SKILL m_cli_POSITION_SKILL;
+    gsv_POSITION_SKILL m_gsv_POSITION_SKILL;
 
-    cli_POSITION_SKILL			m_cli_POSITION_SKILL;
-    gsv_POSITION_SKILL			m_gsv_POSITION_SKILL;
+    gsv_EFFECT_OF_SKILL m_gsv_EFFECT_OF_SKILL;
+    gsv_DAMAGE_OF_SKILL m_gsv_DAMAGE_OF_SKILL;
+    gsv_RESULT_OF_SKILL m_gsv_RESULT_OF_SKILL;
+    gsv_SKILL_START     m_gsv_SKILL_START;
 
-    gsv_EFFECT_OF_SKILL			m_gsv_EFFECT_OF_SKILL;
-    gsv_DAMAGE_OF_SKILL			m_gsv_DAMAGE_OF_SKILL;
-    gsv_RESULT_OF_SKILL			m_gsv_RESULT_OF_SKILL;
-    gsv_SKILL_START				m_gsv_SKILL_START;
-  
-    gsv_SKILL_CANCEL			m_gsv_SKILL_CANCEL;
+    gsv_SKILL_CANCEL m_gsv_SKILL_CANCEL;
 
-    gsv_CLEAR_STATUS			m_gsv_CLEAR_STATUS;
-    gsv_SPEED_CHANGED			m_gsv_SPEED_CHANGED;
+    gsv_CLEAR_STATUS  m_gsv_CLEAR_STATUS;
+    gsv_SPEED_CHANGED m_gsv_SPEED_CHANGED;
 
-    cli_APPRAISAL_REQ			m_cli_APPRAISAL_REQ;
-    gsv_APPRAISAL_REPLY			m_gsv_APPRAISAL_REPLY;
+    cli_APPRAISAL_REQ   m_cli_APPRAISAL_REQ;
+    gsv_APPRAISAL_REPLY m_gsv_APPRAISAL_REPLY;
 
-    cli_QUEST_REQ				m_cli_QUEST_REQ;
-    gsv_QUEST_REPLY				m_gsv_QUEST_REPLY;
+    cli_QUEST_REQ   m_cli_QUEST_REQ;
+    gsv_QUEST_REPLY m_gsv_QUEST_REPLY;
 
-    gsv_CHECK_NPC_EVENT			m_gsv_CHECK_NPC_EVENT;
+    gsv_CHECK_NPC_EVENT m_gsv_CHECK_NPC_EVENT;
 
-    cli_PARTY_REQ				m_cli_PARTY_REQ;
-    gsv_PARTY_REQ				m_gsv_PARTY_REQ;
+    cli_PARTY_REQ m_cli_PARTY_REQ;
+    gsv_PARTY_REQ m_gsv_PARTY_REQ;
 
-    cli_PARTY_REPLY				m_cli_PARTY_REPLY;
-    gsv_PARTY_REPLY				m_gsv_PARTY_REPLY;
+    cli_PARTY_REPLY m_cli_PARTY_REPLY;
+    gsv_PARTY_REPLY m_gsv_PARTY_REPLY;
 
-//		wsv_PARTY_USER				m_wsv_PARTY_USER;
+    //		wsv_PARTY_USER				m_wsv_PARTY_USER;
 
-    gsv_PARTY_MEMBER			m_gsv_PARTY_MEMBER;
-    gsv_PARTY_LEVnEXP			m_gsv_PARTY_LEVnEXP;
-    gsv_CHANGE_OBJIDX			m_gsv_CHANGE_OBJIDX;
-    gsv_PARTY_ITEM				m_gsv_PARTY_ITEM;
-    cli_PARTY_RULE				m_cli_PARTY_RULE;
-    gsv_PARTY_RULE				m_gsv_PARTY_RULE;
+    gsv_PARTY_MEMBER  m_gsv_PARTY_MEMBER;
+    gsv_PARTY_LEVnEXP m_gsv_PARTY_LEVnEXP;
+    gsv_CHANGE_OBJIDX m_gsv_CHANGE_OBJIDX;
+    gsv_PARTY_ITEM    m_gsv_PARTY_ITEM;
+    cli_PARTY_RULE    m_cli_PARTY_RULE;
+    gsv_PARTY_RULE    m_gsv_PARTY_RULE;
 
+    gsv_ADD_EVENTOBJ m_gsv_ADD_EVENTOBJ;
+    //		gsv_SUB_EVENTOBJ			m_gsv_SUB_EVENTOBJ;
 
-    gsv_ADD_EVENTOBJ			m_gsv_ADD_EVENTOBJ;
-//		gsv_SUB_EVENTOBJ			m_gsv_SUB_EVENTOBJ;
+    cli_CLAN_COMMAND        m_cli_CLAN_COMMAND;
+    cli_CLAN_CREATE         m_cli_CLAN_CREATE;
+    cli_CLAN_MEMBER_JOBnLEV m_cli_CLAN_MEMBER_JOBnLEV;
+    wsv_CLAN_MEMBER_JOBnLEV m_wsv_CLAN_MEMBER_JOBnLEV;
+    wsv_CLAN_COMMAND        m_wsv_CLAN_COMMAND;
+    wsv_RESULT_CLAN_SET     m_wsv_RESULT_CLAN_SET;
 
-    cli_CLAN_COMMAND			m_cli_CLAN_COMMAND;
-    cli_CLAN_CREATE				m_cli_CLAN_CREATE;
-    cli_CLAN_MEMBER_JOBnLEV		m_cli_CLAN_MEMBER_JOBnLEV;
-    wsv_CLAN_MEMBER_JOBnLEV		m_wsv_CLAN_MEMBER_JOBnLEV;
-    wsv_CLAN_COMMAND			m_wsv_CLAN_COMMAND;
-    wsv_RESULT_CLAN_SET			m_wsv_RESULT_CLAN_SET;
+    tag_CHAT_HEADER m_tag_CHAT_HEADER;
 
-    tag_CHAT_HEADER				m_tag_CHAT_HEADER;
+    cli_CHAT_ROOM_MAKE m_cli_CHAT_ROOM_MAKE;
+    cli_CHAT_ROOM_JOIN m_cli_CHAT_ROOM_JOIN;
+    cli_CHAT_ROOM_LIST m_cli_CHAT_ROOM_LIST;
+    cli_CHAT_ROOM_KICK m_cli_CHAT_ROOM_KICK;
 
-    cli_CHAT_ROOM_MAKE			m_cli_CHAT_ROOM_MAKE;
-    cli_CHAT_ROOM_JOIN			m_cli_CHAT_ROOM_JOIN;
-    cli_CHAT_ROOM_LIST			m_cli_CHAT_ROOM_LIST;
-    cli_CHAT_ROOM_KICK			m_cli_CHAT_ROOM_KICK;
-                  
-    wsv_CHAT_ROOM_USER			m_wsv_CHAT_ROOM_USER;
-    wsv_CHAT_ROOM_LIST			m_wsv_CHAT_ROOM_LIST;
+    wsv_CHAT_ROOM_USER m_wsv_CHAT_ROOM_USER;
+    wsv_CHAT_ROOM_LIST m_wsv_CHAT_ROOM_LIST;
 
-    cli_CHATROOM_MSG			m_cli_CHATROOM_MSG;
-    wsv_CHATROOM_MSG			m_wsv_CHATROOM_MSG;
+    cli_CHATROOM_MSG m_cli_CHATROOM_MSG;
+    wsv_CHATROOM_MSG m_wsv_CHATROOM_MSG;
 
-    cli_MEMO					m_cli_MEMO;
-    wsv_MEMO					m_wsv_MEMO;
+    cli_MEMO m_cli_MEMO;
+    wsv_MEMO m_wsv_MEMO;
 
-    tag_MCMD_HEADER				m_tag_MCMD_HEADER;
+    tag_MCMD_HEADER m_tag_MCMD_HEADER;
 
-    cli_MCMD_APPEND_REQ			m_cli_MCMD_APPEND_REQ;
-    cli_MCMD_APPEND_REPLY		m_cli_MCMD_APPEND_REPLY;
-    cli_MCMD_TAG				m_cli_MCMD_TAG;	
-    cli_MCMD_STATUS_REQ			m_cli_MCMD_STATUS_REQ;
-                  
-    wsv_MCMD_APPEND_REQ			m_wsv_MCMD_APPEND_REQ;
-    wsv_MCMD_APPEND_ACCEPT		m_wsv_MCMD_APPEND_ACCEPT;
-    wsv_MCMD_STATUS_REPLY		m_wsv_MCMD_STATUS_REPLY;
-    wsv_MCMD_LIST				m_wsv_MCMD_LIST;	
+    cli_MCMD_APPEND_REQ   m_cli_MCMD_APPEND_REQ;
+    cli_MCMD_APPEND_REPLY m_cli_MCMD_APPEND_REPLY;
+    cli_MCMD_TAG          m_cli_MCMD_TAG;
+    cli_MCMD_STATUS_REQ   m_cli_MCMD_STATUS_REQ;
 
-    cli_MESSENGER_CHAT			m_cli_MESSENGER_CHAT;
-    wsv_MESSENGER_CHAT			m_wsv_MESSENGER_CHAT;
+    wsv_MCMD_APPEND_REQ    m_wsv_MCMD_APPEND_REQ;
+    wsv_MCMD_APPEND_ACCEPT m_wsv_MCMD_APPEND_ACCEPT;
+    wsv_MCMD_STATUS_REPLY  m_wsv_MCMD_STATUS_REPLY;
+    wsv_MCMD_LIST          m_wsv_MCMD_LIST;
 
-    cli_CRAFT_ITEM_REQ			m_cli_CRAFT_ITEM_REQ;
-    cli_CRAFT_GEMMING_REQ		m_cli_CRAFT_GEMMING_REQ;
-    cli_CRAFT_BREAKUP_REQ		m_cli_CRAFT_BREAKUP_REQ;
-    cli_CRAFT_UPGRADE_REQ		m_cli_CRAFT_UPGRADE_REQ;
-                  
-    gsv_CRAFT_ITEM_REPLY		m_gsv_CRAFT_ITEM_REPLY;
+    cli_MESSENGER_CHAT m_cli_MESSENGER_CHAT;
+    wsv_MESSENGER_CHAT m_wsv_MESSENGER_CHAT;
 
-    gsv_SET_MONEY_ONLY			m_gsv_SET_MONEY_ONLY;
-    gsv_SET_ABILITY				m_gsv_SET_ABILITY;
+    cli_CRAFT_ITEM_REQ    m_cli_CRAFT_ITEM_REQ;
+    cli_CRAFT_GEMMING_REQ m_cli_CRAFT_GEMMING_REQ;
+    cli_CRAFT_BREAKUP_REQ m_cli_CRAFT_BREAKUP_REQ;
+    cli_CRAFT_UPGRADE_REQ m_cli_CRAFT_UPGRADE_REQ;
 
-    cli_MALL_ITEM_REQ			m_cli_MALL_ITEM_REQ;
-    gsv_MALL_ITEM_REPLY			m_gsv_MALL_ITEM_REPLY;
+    gsv_CRAFT_ITEM_REPLY m_gsv_CRAFT_ITEM_REPLY;
 
-    gsv_BILLING_MESSAGE			m_gsv_BILLING_MESSAGE;
-    gsv_BILLING_MESSAGE_EXT		m_gsv_BILLING_MESSAGE_EXT;
-    gsv_BILLING_MESSAGE2		m_gsv_BILLING_MESSAGE2;
+    gsv_SET_MONEY_ONLY m_gsv_SET_MONEY_ONLY;
+    gsv_SET_ABILITY    m_gsv_SET_ABILITY;
 
-    gsv_SET_NPC_SHOW			m_gsv_SET_NPC_SHOW;
+    cli_MALL_ITEM_REQ   m_cli_MALL_ITEM_REQ;
+    gsv_MALL_ITEM_REPLY m_gsv_MALL_ITEM_REPLY;
 
-    cli_CLANMARK_SET			m_cli_CLANMARK_SET;
-    cli_CLANMARK_REQ			m_cli_CLANMARK_REQ;
-    wsv_CLANMARK_REPLY			m_wsv_CLANMARK_REPLY;
+    gsv_BILLING_MESSAGE     m_gsv_BILLING_MESSAGE;
+    gsv_BILLING_MESSAGE_EXT m_gsv_BILLING_MESSAGE_EXT;
+    gsv_BILLING_MESSAGE2    m_gsv_BILLING_MESSAGE2;
 
-    cli_CLANMARK_REG_TIME		m_cli_CLANMARK_REG_TIME;
-    wsv_CLANMARK_REG_TIME		m_wsv_CLANMARK_REG_TIME;
+    gsv_SET_NPC_SHOW m_gsv_SET_NPC_SHOW;
 
-    gsv_GODDNESS_MODE			m_gsv_GODDNESS_MODE;
+    cli_CLANMARK_SET   m_cli_CLANMARK_SET;
+    cli_CLANMARK_REQ   m_cli_CLANMARK_REQ;
+    wsv_CLANMARK_REPLY m_wsv_CLANMARK_REPLY;
 
-    cli_SCREEN_SHOT_TIME		m_cli_SCREEN_SHOT_TIME;
-    gsv_SCREEN_SHOT_TIME		m_gsv_SCREEN_SHOT_TIME;
+    cli_CLANMARK_REG_TIME m_cli_CLANMARK_REG_TIME;
+    wsv_CLANMARK_REG_TIME m_wsv_CLANMARK_REG_TIME;
 
-    cli_SUMMON_CMD				m_cli_SUMMON_CMD;
+    gsv_GODDNESS_MODE m_gsv_GODDNESS_MODE;
+
+    cli_SCREEN_SHOT_TIME m_cli_SCREEN_SHOT_TIME;
+    gsv_SCREEN_SHOT_TIME m_gsv_SCREEN_SHOT_TIME;
+
+    cli_SUMMON_CMD m_cli_SUMMON_CMD;
     // gsv_SUMMON_CMD			m_gsv_SUMMON_CMD;
-    gsv_PATSTATE_CHANGE			m_gsv_PATSTATE_CHANGE;
+    gsv_PATSTATE_CHANGE m_gsv_PATSTATE_CHANGE;
 
-    gsv_CHARSTATE_CHANGE		m_gsv_CHARSTATE_CHANGE;
-    cli_CART_RIDE				m_cli_CART_RIDE;
-    gsv_CART_RIDE				m_gsv_CART_RIDE;
+    gsv_CHARSTATE_CHANGE m_gsv_CHARSTATE_CHANGE;
+    cli_CART_RIDE        m_cli_CART_RIDE;
+    gsv_CART_RIDE        m_gsv_CART_RIDE;
 
-    gsv_UPDATE_NAME				m_gsv_UPDATE_NAME;
-    pxy_UPDATE_NAME				m_pxy_UPDATE_NAME;
-    pxy_SET_RIGHTS				m_pxy_SET_RIGHTS;
+    gsv_UPDATE_NAME m_gsv_UPDATE_NAME;
+    pxy_UPDATE_NAME m_pxy_UPDATE_NAME;
+    pxy_SET_RIGHTS  m_pxy_SET_RIGHTS;
 
 #if defined(__SERVER) && !defined(__SKIP_SRV_PROTOTYPE)
     gsv_LOG_SQL					m_gsv_LOG_SQL;
@@ -3321,12 +3337,11 @@ struct t_PACKET {
     wsv_PARTY_CMD				m_wsv_PARTY_CMD;
   */
 #endif
-  } ;
-} ;
+  };
+};
 
 //-------------------------------------------------------------------------------------------------
 #pragma pack (pop)
 #pragma warning( default:4201 )
 #pragma warning( default:4200 )
 #endif	// __NET_PROTOTYPE_H
-

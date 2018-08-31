@@ -9,8 +9,6 @@ const int c_deliverystore_slot_count = 48;
 class CDragItem;
 struct tagBaseITEM;
 
-
-
 /**
 * 한국에서의 마일리지 아이템 창고( 몰아이템 창고) 용 다이얼로그
 *
@@ -18,40 +16,39 @@ struct tagBaseITEM;
 * @Author		최종진
 * @Date			2005/9/14
 */
-class CDeliveryStoreDlg : public CTDialog
-{
+class CDeliveryStoreDlg : public CTDialog {
 public:
-	CDeliveryStoreDlg(void);
-	virtual ~CDeliveryStoreDlg(void);
-	virtual bool Create( const char* IDD );
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void Update( POINT ptMouse );
-	virtual void MoveWindow( POINT pt );
-	virtual void Draw();
-	virtual void Show();
-	virtual void Hide();
+           CDeliveryStoreDlg(void );
+  virtual  ~CDeliveryStoreDlg(void);
+  bool     Create(const char*     IDD) override;
+  unsigned Process(unsigned       uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     Update(POINT           ptMouse) override;
+  void     MoveWindow(POINT       pt) override;
+  void     Draw() override;
+  void     Show() override;
+  void     Hide() override;
 
-	void	AddItem( tagBaseITEM* pItem, const char* pszFrom, const char* pszDesc, const char* pszTo );
-	void	SetItem( int slotindex, tagBaseITEM& Item );
-	void	ClearItem(  );
+  void AddItem(tagBaseITEM* pItem, const char*      pszFrom, const char* pszDesc, const char* pszTo);
+  void SetItem(int          slotindex, tagBaseITEM& Item);
+  void ClearItem();
 
-	void	save_receiver_name( const char* pszName );
-	int		get_selecteditem_slotindex();
-	const char* GetSelectedItemName();
-	const char* get_receiver_name();
+  void        save_receiver_name(const char* pszName);
+  int         get_selecteditem_slotindex();
+  const char* GetSelectedItemName();
+  const char* get_receiver_name();
 
 private:
-	enum{
-		IID_BTN_CLOSE   = 20,
-		IID_BTN_GIFT	= 21
-	};
+  enum {
+    IID_BTN_CLOSE = 20,
+    IID_BTN_GIFT = 21
+  };
 
-	CDragItem*					m_pDragItem;
-	CSlot						m_Slots[c_deliverystore_slot_count];
-	int							m_emptyslot;
+  CDragItem* m_pDragItem;
+  CSlot      m_Slots[c_deliverystore_slot_count];
+  int        m_emptyslot;
 
-	std::string					m_receiver_name;						/// 다른 유저에게 
-	short						m_npc_client_object_index;
+  std::string m_receiver_name; /// 다른 유저에게 
+  short       m_npc_client_object_index;
 };
 
 #endif

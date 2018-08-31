@@ -38,36 +38,32 @@
 class zz_critical_section {
 private:
 #ifdef WIN32
-	CRITICAL_SECTION csection_; // critical section object
+  CRITICAL_SECTION csection_; // critical section object
 #endif
 
 public:
-	zz_critical_section();
-	~zz_critical_section();
+  zz_critical_section();
+  ~zz_critical_section();
 
-	void enter ();
-	void leave ();
+  void enter();
+  void leave();
 };
 
 #ifdef WIN32
-inline zz_critical_section::zz_critical_section()
-{
-	InitializeCriticalSection(&csection_);
+inline zz_critical_section::zz_critical_section() {
+  InitializeCriticalSection( &csection_ );
 }
 
-inline zz_critical_section::~zz_critical_section()
-{
-	DeleteCriticalSection(&csection_);
+inline zz_critical_section::~zz_critical_section() {
+  DeleteCriticalSection( &csection_ );
 }
 
-inline void zz_critical_section::enter ()
-{
-	EnterCriticalSection(&csection_);
+inline void zz_critical_section::enter() {
+  EnterCriticalSection( &csection_ );
 }
 
-inline void zz_critical_section::leave ()
-{
-	LeaveCriticalSection(&csection_);
+inline void zz_critical_section::leave() {
+  LeaveCriticalSection( &csection_ );
 }
 #endif // WIN32
 

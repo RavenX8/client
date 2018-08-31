@@ -5,9 +5,8 @@
 #ifdef	DLL_BUGGUARD_EXPORTS
 	#define DLL_BUGGUARD	__declspec(dllexport)
 #else
-	#define DLL_BUGGUARD	__declspec(dllimport)
+#define DLL_BUGGUARD	__declspec(dllimport)
 #endif
-
 
 /*
 	1.	LONG __stdcall UnhandledExceptionFilter ( EXCEPTION_POINTERS* pExPtrs);
@@ -48,10 +47,10 @@
 	}
 */
 ///*
-LPCSTR DLL_BUGGUARD __stdcall GetExceptionReason( EXCEPTION_POINTERS* pExPtrs );
-LPCSTR DLL_BUGGUARD __stdcall GetRegisters		( EXCEPTION_POINTERS* pExPtrs );
-LPCSTR DLL_BUGGUARD __stdcall GetFirstCallStack ( EXCEPTION_POINTERS* pExPtrs );
-LPCSTR DLL_BUGGUARD __stdcall GetNextCallStack	( EXCEPTION_POINTERS* pExPtrs );
+LPCSTR DLL_BUGGUARD __stdcall GetExceptionReason(EXCEPTION_POINTERS* pExPtrs);
+LPCSTR DLL_BUGGUARD __stdcall GetRegisters(EXCEPTION_POINTERS*       pExPtrs);
+LPCSTR DLL_BUGGUARD __stdcall GetFirstCallStack(EXCEPTION_POINTERS*  pExPtrs);
+LPCSTR DLL_BUGGUARD __stdcall GetNextCallStack(EXCEPTION_POINTERS*   pExPtrs);
 //*/
 /*
 LPCSTR DLL_BUGGUARD __stdcall _		( EXCEPTION_POINTERS* pExPtrs );	// GetExceptionReason
@@ -68,4 +67,3 @@ LPCSTR DLL_BUGGUARD __stdcall ____	( EXCEPTION_POINTERS* pExPtrs );	// GetNextCa
 
 //-------------------------------------------------------------------------------------------------
 #endif
-

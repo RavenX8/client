@@ -9,20 +9,19 @@
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CMakeStateWait :public CMakeState
-{
+class CMakeStateWait : public CMakeState {
 public:
 
-	CMakeStateWait( CMakeDLG* pParent);
-	virtual ~CMakeStateWait();
+          CMakeStateWait(CMakeDLG* pParent);
+  virtual ~CMakeStateWait();
 
-	virtual void Draw();
-	virtual void Update( POINT ptMouse);
-	virtual void Show();
-	virtual void Hide();
-	virtual void Init();
-	virtual unsigned int Process(UINT uiMsg,WPARAM wParam,LPARAM lParam);
-	virtual void MoveWindow(POINT ptPos ){}
-	virtual bool IsModal();
+  void         Draw() override;
+  void         Update(POINT ptMouse) override;
+  void         Show() override;
+  void         Hide() override;
+  void         Init() override;
+  unsigned int Process(UINT     uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void         MoveWindow(POINT ptPos) override {}
+  bool         IsModal() override;
 };
 #endif

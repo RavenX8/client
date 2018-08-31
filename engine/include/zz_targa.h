@@ -43,14 +43,14 @@
 
 // targa header
 struct zz_targa_header {
-	uchar id_length, colormap_type, image_type;
-    uint16 colormap_index, colormap_length;
-    uchar colormap_size;
-    uint16 x_origin, y_origin, width, height;
-    uchar pixel_size, attributes;
+  uchar  id_length,      colormap_type, image_type;
+  uint16 colormap_index, colormap_length;
+  uchar  colormap_size;
+  uint16 x_origin,   y_origin, width, height;
+  uchar  pixel_size, attributes;
 };
 
 // "pixels" will be allocated in this function, and you have to free it manually later.
-bool zz_targa_load (const char * name, byte **pixels, int * width, int * height, int * format);
+bool zz_targa_load(const char* name, byte** pixels, int* width, int* height, int* format);
 
 #endif __ZZ_TARGA_H__

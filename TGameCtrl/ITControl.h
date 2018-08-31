@@ -11,11 +11,11 @@ using namespace std;
 
 class ITControl;
 
-typedef list< ITControl* >				CONTROL_LIST;	
-typedef CONTROL_LIST::iterator			CONTROL_LIST_ITOR;
+typedef list<ITControl*>       CONTROL_LIST;
+typedef CONTROL_LIST::iterator CONTROL_LIST_ITOR;
 
-typedef map< int,ITControl* >			CONTROL_MAP;	
-typedef CONTROL_MAP::iterator			CONTROL_MAP_ITOR;
+typedef map<int, ITControl*>  CONTROL_MAP;
+typedef CONTROL_MAP::iterator CONTROL_MAP_ITOR;
 
 //--------------------------------------------------------------------------------------------------------
 ///	Game control interface class - super parent class
@@ -24,17 +24,15 @@ typedef CONTROL_MAP::iterator			CONTROL_MAP_ITOR;
 /// @Date	2005/08/23
 //--------------------------------------------------------------------------------------------------------
 
-class TGAMECTRL_API ITControl
-{
+class TGAMECTRL_API ITControl {
 public:
-	ITControl(void);
-	virtual ~ITControl(void);
+          ITControl(void );
+  virtual ~ITControl(void);
 
 public:
-	virtual unsigned int Process( UINT uiMsg,WPARAM wParam,LPARAM lParam ) = 0;
-	virtual	void Update( POINT ptMouse ) = 0;
-	virtual void Draw() = 0;
+  virtual unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) = 0;
+  virtual void         Update(POINT ptMouse) = 0;
+  virtual void         Draw() = 0;
 };
-
 
 #endif // _ITCONTROL_	

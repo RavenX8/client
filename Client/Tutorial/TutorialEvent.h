@@ -3,7 +3,6 @@
 
 #include "../Common/IO_STB.h"
 
-
 //-----------------------------------------------------------------------------------
 ///
 /// CTutorialEvent
@@ -11,17 +10,15 @@
 ///
 //-----------------------------------------------------------------------------------
 
-class CTutorialEvent
-{
+class CTutorialEvent {
 public:
-	CTutorialEvent(void);
-	~CTutorialEvent(void);
+  CTutorialEvent(void );
+  ~CTutorialEvent(void);
 
-	bool			Init();
-	void			Release();
+  bool Init();
+  void Release();
 
-	void			CheckEvent();
+  void CheckEvent();
 };
-
 
 #endif _TUTORIAL_EVENT_

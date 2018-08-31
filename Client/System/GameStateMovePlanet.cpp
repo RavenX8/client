@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include ".\gamestatemoveplanet.h"
+#include "./gamestatemoveplanet.h"
 #include "CCamera.h"
 #include "IO_Terrain.h"
 #include "CGame.h"
@@ -11,76 +11,60 @@
 
 #include "SFX/SFXManager.h"
 
+const int CUTSCENE_ZONE_NO                      = 19;
+int       CGameStateMovePlanet::m_iTargetPlanet = 1;
 
-const int CUTSCENE_ZONE_NO = 19;
-int CGameStateMovePlanet::m_iTargetPlanet = 1;
+CGameStateMovePlanet::CGameStateMovePlanet(void) {}
 
-
-CGameStateMovePlanet::CGameStateMovePlanet(void)
-{
-}
-
-CGameStateMovePlanet::CGameStateMovePlanet( int iStateID )
-{
+CGameStateMovePlanet::CGameStateMovePlanet(int iStateID) {
   m_iStateID = iStateID;
 }
 
-CGameStateMovePlanet::~CGameStateMovePlanet(void)
-{
-}
+CGameStateMovePlanet::~CGameStateMovePlanet(void) {}
 
-int CGameStateMovePlanet::Update( bool bLostFocus )
-{
-  
+int CGameStateMovePlanet::Update(bool bLostFocus) {
 
-  g_pCamera->Update ();
+  g_pCamera->Update();
   ///D3DVECTOR PosENZIN = g_pCamera->Get_Position ();	
   ///g_pTerrain->SetCenterPosition( PosENZIN.x, PosENZIN.y );
   g_pTerrain->SetCenterPosition( 520000.0f, 520000.0f );
 
-
-  g_pEffectLIST->Proc ();
-
+  g_pEffectLIST->Proc();
 
   /// SFX
   CSFXManager::GetSingleton().Update();
-
 
   g_DayNNightProc.Proc();
 
   CSystemProcScript::GetSingleton().CallLuaFunction( "ProcMovePlanetCutScene", ZZ_PARAM_INT, g_DayNNightProc.GetZoneTime(), ZZ_PARAM_END );
   CLiveCheck::GetSingleton().Check();
 
-  ::updateScene ();
+  updateScene();
 
   // processing  ...
-  if ( !bLostFocus ) 
-  {
-    if ( ::beginScene() ) //  디바이스가 손실된 상태라면 0을 리턴하므로, 모든 렌더링 스킵
+  if ( !bLostFocus ) {
+    if ( beginScene() ) //  디바이스가 손실된 상태라면 0을 리턴하므로, 모든 렌더링 스킵
     {
-      ::setClearColor( 0.0f, 0.0f, 0.0f );
-      ::clearScreen();
-      ::renderScene();
-      
-      
+      setClearColor( 0.0f, 0.0f, 0.0f );
+      clearScreen();
+      renderScene();
+
       /// 스프라이트 출력..
 
-      ::beginSprite( D3DXSPRITE_ALPHABLEND );
+      beginSprite( D3DXSPRITE_ALPHABLEND );
 
       /// 현재 sFX 들은 대부분 스프라이트 출력으로 구성되어 있다.
       /// 그러니 요 사이에..
       /// SFX
-      CSFXManager::GetSingleton().Draw();			
-      
-      ::endSprite();	
+      CSFXManager::GetSingleton().Draw();
 
-
+      endSprite();
 
       /// for test
       ///Render_GameMENU();
 
-      ::endScene ();
-      ::swapBuffers();
+      endScene();
+      swapBuffers();
     }
   }
 
@@ -89,9 +73,8 @@ int CGameStateMovePlanet::Update( bool bLostFocus )
   return 0;
 }
 
-int CGameStateMovePlanet::Enter( int iPrevStateID )
-{
-  ::SetOceanSFXOnOff( false );
+int CGameStateMovePlanet::Enter(int iPrevStateID) {
+  SetOceanSFXOnOff( false );
 
   /// 현재 존데이터 풀고 새로운 존 데이터 로드
   g_pTerrain->FreeZONE();
@@ -102,23 +85,20 @@ int CGameStateMovePlanet::Enter( int iPrevStateID )
   g_pTerrain->LoadZONE( CUTSCENE_ZONE_NO );
   g_pTerrain->InitZONE( 0, 0 );
 
-
-  HNODE hCameraMotion = ::findNode( "MovePlanet_Camera01" );
+  HNODE hCameraMotion = findNode( "MovePlanet_Camera01" );
   if ( hCameraMotion == 0 )
-    hCameraMotion = ::loadMotion( "MovePlanet_Camera01", "3DData\\CUTSCENE\\WARP01\\Camera01.ZMO",1, 4, 3, 1, 0 );
-  
-  HNODE motion_camera = ::findNode( "MovePlanet_camera" );
-  if( motion_camera == 0 )
-    motion_camera = ::loadCamera( "MovePlanet_camera", "cameras\\camera01.zca", hCameraMotion );
+    hCameraMotion = loadMotion( "MovePlanet_Camera01", "3DData\\CUTSCENE\\WARP01\\Camera01.ZMO", 1, 4, 3, 1, 0 );
 
-  
-    
+  HNODE motion_camera = findNode( "MovePlanet_camera" );
+  if ( motion_camera == 0 )
+    motion_camera = loadCamera( "MovePlanet_camera", "cameras\\camera01.zca", hCameraMotion );
+
   CSkyDOME::Init( g_GameDATA.m_hShader_sky, g_GameDATA.m_hLight, ZONE_BG_IMAGE( g_pTerrain->GetZoneNO() ) );
 
   g_pCamera->Init( motion_camera );
 
   CSystemProcScript::GetSingleton().CallLuaFunction( "InitPlanetMoveWorld", ZZ_PARAM_INT, 1, ZZ_PARAM_END );
-  
+
   ///
   /// 카메라 모션은 32_32 기준으로 만들어졌다.. 모션적용을 위해서 보정한다.
   ///
@@ -127,53 +107,48 @@ int CGameStateMovePlanet::Enter( int iPrevStateID )
   PosENZIN.y = 520000.0f;
   PosENZIN.z = 0.0f;
 
-  g_pCamera->Set_Position ( PosENZIN );
+  g_pCamera->Set_Position( PosENZIN );
 
   /// 포그를 멀리..
-  ::setFogRange( 70000, 80000 );	
+  setFogRange( 70000, 80000 );
   setAlphaFogRange( 70000, 80000 );
 
   ///setCameraPerspective( motion_camera, CAMERA_FOV(0), atof(CAMERA_ASPECT_RATIO(0)), CAMERA_NEAR_PLANE(0) * 100, CAMERA_FAR_PLANE(0) * 10000);
 
-
-  g_DayNNightProc.SetWorldTime( g_pTerrain->GetZoneNO(), 0 );	
+  g_DayNNightProc.SetWorldTime( g_pTerrain->GetZoneNO(), 0 );
   g_DayNNightProc.SetDayEnviTick( 100 );
-  
+
   D3DXVECTOR3 posAVATAR;
   posAVATAR.x = 0;
   posAVATAR.y = 0;
   posAVATAR.z = 0.0f;
   g_pAVATAR->ResetCUR_POS( posAVATAR );
 
-
   ///SFX
   CSFXManager::GetSingleton().StartWideScreenEffect();
-  
+
   return 0;
 }
 
 /// 별로 할건없고.. 일반워프처럼 Warp 을 호출해 버린다.
-int CGameStateMovePlanet::Leave( int iNextStateID )
-{
+int CGameStateMovePlanet::Leave(int iNextStateID) {
 
   g_pCamera->ResetToAvatarCamera();
-    
+
   g_GameDATA.m_bJustObjectLoadMode = false;
 
   g_DayNNightProc.ResetDayEnviTick();
 
   CSystemProcScript::GetSingleton().CallLuaFunction( "ClearMovePlanetCutScene", ZZ_PARAM_END );
-//  StopScreenFadeInOut();
+  //  StopScreenFadeInOut();
 
-  ::SetOceanSFXOnOff( true );
-
+  SetOceanSFXOnOff( true );
 
   ///<--------------------------------------------------
   ///사용자가 저장한 시야옵션을 재설정해준다.
   t_OptionVideo option;
-  g_ClientStorage.GetVideoOption(option);
+  g_ClientStorage.GetVideoOption( option );
   g_ClientStorage.ApplyCameraOption( option.iCamera );
-
 
   ///SFX
   CSFXManager::GetSingleton().StopWideScreenEffect();
@@ -181,15 +156,11 @@ int CGameStateMovePlanet::Leave( int iNextStateID )
   return 0;
 }
 
-
-int CGameStateMovePlanet::ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lParam )
-{
+int     CGameStateMovePlanet::ProcMouseInput(UINT uiMsg, WPARAM wParam, LPARAM lParam) {
   POINT ptMouse = { LOWORD( lParam ), HIWORD( lParam ) };
-  switch( uiMsg )
-  {
-    case WM_MOUSEMOVE:
-      {
-  #ifdef _DEBUG
+  switch ( uiMsg ) {
+    case WM_MOUSEMOVE: {
+#ifdef _DEBUG
         if( g_GameDATA.m_bObserverCameraMode )
         {
           if ( ( wParam & MK_RBUTTON ) ) 
@@ -204,69 +175,57 @@ int CGameStateMovePlanet::ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lPar
             m_PosRButtonClick.m_nY = (short)ptMouse.y; 					
           }
         }else
-  #endif
-        if ( ( wParam & MK_RBUTTON ) ) 
-        {
-          if ( ptMouse.x - m_PosRButtonClick.m_nX ) 
-            g_pCamera->Add_YAW( (short)(ptMouse.x - m_PosRButtonClick.m_nX) );
-          if ( ptMouse.y - m_PosRButtonClick.m_nY ) 
-            g_pCamera->Add_PITCH( (short)(ptMouse.y - m_PosRButtonClick.m_nY) );
+#endif
+      if ( (wParam & MK_RBUTTON) ) {
+        if ( ptMouse.x - m_PosRButtonClick.m_nX )
+          g_pCamera->Add_YAW( (short)(ptMouse.x - m_PosRButtonClick.m_nX) );
+        if ( ptMouse.y - m_PosRButtonClick.m_nY )
+          g_pCamera->Add_PITCH( (short)(ptMouse.y - m_PosRButtonClick.m_nY) );
 
-          m_PosRButtonClick.m_nX = (short)ptMouse.x;
-          m_PosRButtonClick.m_nY = (short)ptMouse.y; 
-        }				
-        break;
+        m_PosRButtonClick.m_nX = (short)ptMouse.x;
+        m_PosRButtonClick.m_nY = (short)ptMouse.y;
       }
-    case WM_RBUTTONDOWN:
-      m_PosRButtonClick.m_nX = (short)ptMouse.x;
-      m_PosRButtonClick.m_nY = (short)ptMouse.y; 
+      break;
+    }
+    case WM_RBUTTONDOWN: m_PosRButtonClick.m_nX = (short)ptMouse.x;
+      m_PosRButtonClick.m_nY                    = (short)ptMouse.y;
       break;
 
-    case WM_MOUSEWHEEL:
-      On_WM_MOUSEWHEEL( wParam, lParam);
+    case WM_MOUSEWHEEL: On_WM_MOUSEWHEEL( wParam, lParam );
       break;
-    default:
-      break;
+    default: break;
   }
   return 0;
 }
 
-int CGameStateMovePlanet::ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM lParam )
-{
-  switch( uiMsg )
-  {
-    case WM_SYSKEYDOWN:
-      {
-        unsigned int oemScan = int( lParam & (0xff << 16) ) >> 16; 
-        UINT vk = MapVirtualKey( oemScan, 1 );
+int CGameStateMovePlanet::ProcKeyboardInput(UINT uiMsg, WPARAM wParam, LPARAM lParam) {
+  switch ( uiMsg ) {
+    case WM_SYSKEYDOWN: {
+      unsigned int oemScan = int( lParam & (0xff << 16) ) >> 16;
+      UINT         vk      = MapVirtualKey( oemScan, 1 );
 
-        switch( vk )
-        {
+      switch ( vk ) {
           ///'0'
-          case 0x30:
+        case 0x30:
 #ifdef _DEBUG
             g_GameDATA.m_bObserverCameraMode = !g_GameDATA.m_bObserverCameraMode;
             SetObserverCameraOnOff();
 #endif
-            break;
-        }
+          break;
       }
-      break;
+    }
+    break;
 
-    case WM_KEYDOWN:
-      {
-        switch( wParam )
-        {
-          case VK_ESCAPE:
-            {
-              CGame::GetInstance().ChangeState( CGame::GS_WARP );
-            }
-            break;
+    case WM_KEYDOWN: {
+      switch ( wParam ) {
+        case VK_ESCAPE: {
+          CGame::GetInstance().ChangeState( CGame::GS_WARP );
         }
+        break;
       }
-      break;
-    default:
-      break;
+    }
+    break;
+    default: break;
   }
   return 0;
 }
@@ -276,8 +235,7 @@ int CGameStateMovePlanet::ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM l
 /// @brief
 //----------------------------------------------------------------------------------------------------
 
-bool CGameStateMovePlanet::On_WM_MOUSEWHEEL (WPARAM wParam, LPARAM lParam)
-{
+bool    CGameStateMovePlanet::On_WM_MOUSEWHEEL(WPARAM wParam, LPARAM lParam) {
   short zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 
 #ifdef _DEBUG
@@ -286,12 +244,11 @@ bool CGameStateMovePlanet::On_WM_MOUSEWHEEL (WPARAM wParam, LPARAM lParam)
     ObserverCameraZoomInOut( (float)-(zDelta) );
   }
 #endif
-  
+
   return true;
 }
 
-void CGameStateMovePlanet::Render_GameMENU()	
-{	
+void CGameStateMovePlanet::Render_GameMENU() {
 #ifdef _DEBUG
   {
       ::drawFontf( g_GameDATA.m_hFONT[ FONT_LARGE_BOLD ], 
@@ -299,7 +256,7 @@ void CGameStateMovePlanet::Render_GameMENU()
             g_pAVATAR->m_bCastingSTART, g_pAVATAR->m_nDoingSkillIDX, g_pAVATAR->Get_COMMAND() );
 
       //----------------------------------------------------------------------------------------------------
-      /// 임시 소환몹 개수
+  /// 임시 소환몹 개수
       //----------------------------------------------------------------------------------------------------
       if( g_pAVATAR->GetCur_SummonCNT() > 0 )
       {

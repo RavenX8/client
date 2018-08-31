@@ -19,10 +19,6 @@
 ZZ_IMPLEMENT_DYNCREATE(zz_light_point, zz_light)
 
 zz_light_point::zz_light_point(void) : zz_light(),
-	attenuation(0, 0, 0, 0)
-{
-}
+                                       attenuation( 0, 0, 0, 0 ) {}
 
-zz_light_point::~zz_light_point(void)
-{
-}
+zz_light_point::~zz_light_point(void) {}

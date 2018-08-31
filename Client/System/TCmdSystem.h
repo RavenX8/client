@@ -3,13 +3,12 @@
 #include "tcommand.h"
 
 /// 사용안함
-class CTCmdChangeGameState : public CTCommand
-{
+class CTCmdChangeGameState : public CTCommand {
 public:
-	CTCmdChangeGameState( int iState );
-	virtual ~CTCmdChangeGameState(void){};
-	virtual bool Exec( CTObject* );
+          CTCmdChangeGameState(int  iState);
+  virtual ~CTCmdChangeGameState(void) {};
+  bool    Exec(CTObject*            ) override;
 protected:
-	int		m_iState;
+  int m_iState;
 };
 #endif

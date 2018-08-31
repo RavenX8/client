@@ -101,88 +101,81 @@
 #include <io.h> // for _access
 
 class zz_vfs_local : public zz_vfs {
-	FILE * _fp;
-	zz_string _filename;
+  FILE*     _fp;
+  zz_string _filename;
 
-	// buf : buffer to be read into
-	// size : maximum size of the buffer
-	// return : size of the data that was read
-	uint32 read_ (char * buf, uint32 size);
-	
-	// buf : buffer to be written
-	// size : maximum size of the buffer
-	// return : size of the data that was written
-	uint32 write_ (const char * buf, uint32 size);
+  // buf : buffer to be read into
+  // size : maximum size of the buffer
+  // return : size of the data that was read
+  uint32 read_(char* buf, uint32 size) override;
+
+  // buf : buffer to be written
+  // size : maximum size of the buffer
+  // return : size of the data that was written
+  uint32 write_(const char* buf, uint32 size) override;
 
 public:
-	zz_vfs_local(void);
-	~zz_vfs_local(void);
+  zz_vfs_local(void );
+  ~zz_vfs_local(void);
 
-	// filename : ex) d:/cvs/znzin/haha/zho.txt or zho.txt
-	bool open (const char * filename, const zz_vfs_mode mode = ZZ_VFS_READ);
-	bool close (void);
-	
-	bool exist (const char * filename) const;
+  // filename : ex) d:/cvs/znzin/haha/zho.txt or zho.txt
+  bool open(const char* filename, zz_vfs_mode mode = ZZ_VFS_READ) override;
+  bool close(void       ) override;
 
-	const char * get_path () const;
+  bool exist(const char* filename) const override;
 
-	// get file size in byte
-	uint32 get_size () const;
-	uint32 get_size (const char * file_name) const;
+  const char* get_path() const override;
 
-	static uint32 s_get_size (const char * file_name);
+  // get file size in byte
+  uint32 get_size() const override;
+  uint32 get_size(const char* file_name) const override;
 
-	// get last modified time
-	bool get_mtime (const char * file_name, uint64 * t) const;
+  static uint32 s_get_size(const char* file_name);
 
-	virtual int seek (long offset, zz_vfs_seek origin);
+  // get last modified time
+  bool get_mtime(const char* file_name, uint64* t) const override;
+
+  int seek(long offset, zz_vfs_seek origin) override;
 };
 
-inline uint32 zz_vfs_local::write_ (const char * buf, const uint32 size)
-{
-	if (_fp) {
-		return uint32(fwrite(buf, 1, size, _fp));
-	}
-	return 0;
+inline uint32 zz_vfs_local::write_(const char* buf, const uint32 size) {
+  if ( _fp ) {
+    return uint32( fwrite( buf, 1, size, _fp ) );
+  }
+  return 0;
 }
 
-inline uint32 zz_vfs_local::get_size () const
-{
-	return get_size(_filename.get());
+inline uint32 zz_vfs_local::get_size() const {
+  return get_size( _filename.get() );
 }
 
-inline uint32 zz_vfs_local::s_get_size (const char * file_name)
-{
-	//ZZ_PROFILER_INSTALL(Pget_size); // about 0.1ms!!! so big
-	struct _stat file_stat;
-	
-	if (!file_name) return 0;
+inline uint32 zz_vfs_local::s_get_size(const char* file_name) {
+  //ZZ_PROFILER_INSTALL(Pget_size); // about 0.1ms!!! so big
+  struct _stat file_stat;
 
-	if (_stat(file_name, &file_stat) == 0) {
-		return file_stat.st_size;
-	}
-	return 0;
+  if ( !file_name ) return 0;
+
+  if ( _stat( file_name, &file_stat ) == 0 ) {
+    return file_stat.st_size;
+  }
+  return 0;
 }
 
-inline uint32 zz_vfs_local::get_size (const char * file_name) const
-{
-	return s_get_size(file_name);
+inline uint32 zz_vfs_local::get_size(const char* file_name) const {
+  return s_get_size( file_name );
 }
 
-inline const char * zz_vfs_local::get_path () const
-{
-	return _filename.get();
+inline const char* zz_vfs_local::get_path() const {
+  return _filename.get();
 }
 
-inline bool zz_vfs_local::exist (const char * filename) const
-{
-	assert(filename);
-	return (_access(filename, 0) != -1);
+inline bool zz_vfs_local::exist(const char* filename) const {
+  assert(filename);
+  return (_access( filename, 0 ) != -1);
 }
 
-inline int zz_vfs_local::seek (long offset, zz_vfs_seek origin)
-{
-	return fseek(_fp, offset, origin);
+inline int zz_vfs_local::seek(long offset, zz_vfs_seek origin) {
+  return fseek( _fp, offset, origin );
 }
 
 #endif // __ZZ_VFS_LOCAL_H__

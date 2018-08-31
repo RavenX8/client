@@ -139,357 +139,325 @@
 // interface zz_vfs
 class zz_vfs {
 public:
-	typedef enum { 
-		ZZ_VFS_READ   = (1 << 0), 
-		ZZ_VFS_WRITE  = (1 << 1),
-	} zz_vfs_mode;
+  typedef enum {
+    ZZ_VFS_READ = (1 << 0),
+    ZZ_VFS_WRITE = (1 << 1),
+  } zz_vfs_mode;
 
-	// file name specification
-	// http://192.168.0.1/test.zmd
-	// ftp://192.168.0.1/test.zmd
-	// http://192.168.0.1/my.zmd
-	// zip://d:/temp/test.zip/my.zmd
-	// c:/temp/test.zmd
-	typedef enum {
-		ZZ_VFS_LOCAL = 0, // ignore for now
-		ZZ_VFS_HTTP,
-		ZZ_VFS_FTP,
-		ZZ_VFS_ZIP,		// all zip file is local
-		ZZ_VFS_MEM,		// memory file system
-		ZZ_VFS_PKG, // TriggerVFS package file system. default
-	} zz_vfs_protocol;
+  // file name specification
+  // http://192.168.0.1/test.zmd
+  // ftp://192.168.0.1/test.zmd
+  // http://192.168.0.1/my.zmd
+  // zip://d:/temp/test.zip/my.zmd
+  // c:/temp/test.zmd
+  typedef enum {
+    ZZ_VFS_LOCAL = 0,
+    // ignore for now
+    ZZ_VFS_HTTP,
+    ZZ_VFS_FTP,
+    ZZ_VFS_ZIP,
+    // all zip file is local
+    ZZ_VFS_MEM,
+    // memory file system
+    ZZ_VFS_PKG,
+    // TriggerVFS package file system. default
+  } zz_vfs_protocol;
 
-	typedef enum {
-		ZZ_VFS_SEEK_CUR = SEEK_CUR,
-		ZZ_VFS_SEEK_END = SEEK_END,
-		ZZ_VFS_SEEK_SET = SEEK_SET,
-	} zz_vfs_seek;
+  typedef enum {
+    ZZ_VFS_SEEK_CUR = SEEK_CUR,
+    ZZ_VFS_SEEK_END = SEEK_END,
+    ZZ_VFS_SEEK_SET = SEEK_SET,
+  } zz_vfs_seek;
 
-	typedef enum {
-		ZZ_VFS_INI = 0, // initialized, before reading
-		ZZ_VFS_ING,     // is now reading
-		ZZ_VFS_EOF,      // nothing to read. end of file
-		ZZ_VFS_FILENOTFOUND
-	} zz_vfs_status;
+  typedef enum {
+    ZZ_VFS_INI = 0,
+    // initialized, before reading
+    ZZ_VFS_ING,
+    // is now reading
+    ZZ_VFS_EOF,
+    // nothing to read. end of file
+    ZZ_VFS_FILENOTFOUND
+  } zz_vfs_status;
 
 protected:
-	 // derived classes should not use these members and methods.
-	static zz_vfs_protocol parse_protocol_ (const char * filename, const char * &real_filename);
-	zz_vfs * real_filesystem_; // set by set_real_filesystem() in constructor
-	char * data_;
-	zz_vfs_status status_;
-	void dump_ (const char * path_in, const char * data_in, uint32 size_in) const;
+  // derived classes should not use these members and methods.
+  static zz_vfs_protocol parse_protocol_(const char* filename, const char* & real_filename);
+  zz_vfs*                real_filesystem_; // set by set_real_filesystem() in constructor
+  char*                  data_;
+  zz_vfs_status          status_;
+  void                   dump_(const char* path_in, const char* data_in, uint32 size_in) const;
 
-	// set real_filesystem. used in derived class' constructor
-	void set_real_filesystem(zz_vfs * real_filesystem_in);
-	// set current status
-	void set_status(zz_vfs_status status_in);
-	virtual uint32 read_ (char * buf, uint32 size);
-	virtual uint32 write_ (const char * buf, uint32 size);
-	
+  // set real_filesystem. used in derived class' constructor
+  void set_real_filesystem(zz_vfs* real_filesystem_in);
+  // set current status
+  void           set_status(zz_vfs_status status_in);
+  virtual uint32 read_(char*              buf, uint32 size);
+  virtual uint32 write_(const char*       buf, uint32 size);
+
 public:
-	
-	zz_vfs();
-	zz_vfs(const char * filename, const zz_vfs_mode mode = ZZ_VFS_READ);
-	virtual ~zz_vfs();
-	
-	// some virtual functions to be overrided in derived class
-	virtual bool open (const char * filename, const zz_vfs_mode mode = ZZ_VFS_READ);
-	virtual bool close (void);
-	virtual int seek (long offset, zz_vfs_seek origin = ZZ_VFS_SEEK_CUR);	// does not support backward seek
-	virtual uint32 get_size () const;
-	virtual uint32 get_size (const char * file_name) const;
-	virtual bool exist (const char * filename) const;
-	virtual void * get_data (); // get read data pointer
-	virtual zz_vfs_status get_status (); // view current status
-	virtual const char * get_path () const; // get full path
-	virtual bool get_mtime (const char * file_name, uint64 * t) const; // get last modified time
-	
-	virtual uint32 read (void);
-	virtual uint32 read (const uint32 size);
-	virtual uint32 read (char * buf, uint32 size);
-	virtual uint32 write (const char * buf, uint32 size);
-	
-	char read_char (char& data_out);
-	uchar read_uchar (uchar& data_out);
-	float read_float (float& data_out);
-	uint32 read_float2 (float data_out[2]);
-	uint32 read_float3 (float data_out[3]);
-	uint32 read_float4 (float data_out[4]);
-	uint32 read_uint323 (uint32 data_out[3]);
-	uint32 read_uint324 (uint32 data_out[4]);
-	uint16 read_uint163 (uint16 data_out[3]);
-	uint16 read_uint164 (uint16 data_out[4]);
 
-	uint32 read_uint32 (uint32& data_out);
-	uint32 read_uint32 (int& data_out);
-	uint16 read_uint16 (uint16& data_out);
-	int32 read_int16 (int16& data_out);
-	int32 read_int32 (int32& data_out);
-	char * read_string (char * string_out, uint32 size = 0);
-	char * read_string_without_whitespace (char * string_out, bool ignore_whitespace = true);
+          zz_vfs();
+          zz_vfs(const char* filename, zz_vfs_mode mode = ZZ_VFS_READ);
+  virtual ~zz_vfs();
 
-	void write_char (char data_in);
-	void write_uchar (uchar data_in);
-	void write_float (float data_in);
-	void write_uint32 (uint32 data_in);
-	void write_int16 (int16 data_in);
-	void write_uint16 (uint16 data_in);
-	void write_int32 (int32 data_in);
-	void write_string (const char * string_in, uint32 size = 0);
+  // some virtual functions to be overrided in derived class
+  virtual bool          open(const char* filename, zz_vfs_mode mode = ZZ_VFS_READ);
+  virtual bool          close(void       );
+  virtual int           seek(long        offset, zz_vfs_seek origin = ZZ_VFS_SEEK_CUR); // does not support backward seek
+  virtual uint32        get_size() const;
+  virtual uint32        get_size(const char* file_name) const;
+  virtual bool          exist(const char*    filename) const;
+  virtual void*         get_data();                                        // get read data pointer
+  virtual zz_vfs_status get_status();                                      // view current status
+  virtual const char*   get_path() const;                                  // get full path
+  virtual bool          get_mtime(const char* file_name, uint64* t) const; // get last modified time
 
-	// read data by filesize.
-	// returns size read. read data can be obtained by get_data()
-	uint32 readall ();
-	
-	// open file, read all data, and return data pointer and file size
-	void * open_read_get_data (const char * path_in, uint32 * filesize_out);
+  virtual uint32 read(void         );
+  virtual uint32 read(uint32       size);
+  virtual uint32 read(char*        buf, uint32 size);
+  virtual uint32 write(const char* buf, uint32 size);
 
-	// dump file content to another file to check.
-	void dump () const;
+  char   read_char(char&     data_out);
+  uchar  read_uchar(uchar&   data_out);
+  float  read_float(float&   data_out);
+  uint32 read_float2(float   data_out[2]);
+  uint32 read_float3(float   data_out[3]);
+  uint32 read_float4(float   data_out[4]);
+  uint32 read_uint323(uint32 data_out[3]);
+  uint32 read_uint324(uint32 data_out[4]);
+  uint16 read_uint163(uint16 data_out[3]);
+  uint16 read_uint164(uint16 data_out[4]);
 
-	// extract path name from full path name
-	// ex) "c:\\temp\\abc.txt" -> "c:\\temp\\"
-	static bool extract_path (char * extracted_path, const char * fullpath);
+  uint32 read_uint32(uint32&                  data_out);
+  uint32 read_uint32(int&                     data_out);
+  uint16 read_uint16(uint16&                  data_out);
+  int32  read_int16(int16&                    data_out);
+  int32  read_int32(int32&                    data_out);
+  char*  read_string(char*                    string_out, uint32 size              = 0);
+  char*  read_string_without_whitespace(char* string_out, bool   ignore_whitespace = true);
 
-	// extract file name from full path name
-	// ex) "c:\\temp\\abc.txt" -> "abc.txt"
-	static bool extract_name_and_extension (char * extracted_name, const char * fullpath);
+  void write_char(char          data_in);
+  void write_uchar(uchar        data_in);
+  void write_float(float        data_in);
+  void write_uint32(uint32      data_in);
+  void write_int16(int16        data_in);
+  void write_uint16(uint16      data_in);
+  void write_int32(int32        data_in);
+  void write_string(const char* string_in, uint32 size = 0);
 
-	// extract file name only from full path name
-	// ex) "c:\\temp\\abc.txt" -> "abc.txt"
-	bool extract_name_only (char * extracted_name, const char * fullpath);
+  // read data by filesize.
+  // returns size read. read data can be obtained by get_data()
+  uint32 readall();
 
-	// extract file name extension from full path name
-	// ex) "c:\\temp\\abc.txt" -> "abc.txt"
-	static bool extract_extension_only (char * extracted_ext, const char * fullpath);
+  // open file, read all data, and return data pointer and file size
+  void* open_read_get_data(const char* path_in, uint32* filesize_out);
 
-	// convert slash to backslash
-	// *to* and *from* must have the same size
-	static bool to_backslash (char * filename);
+  // dump file content to another file to check.
+  void dump() const;
+
+  // extract path name from full path name
+  // ex) "c:\\temp\\abc.txt" -> "c:\\temp\\"
+  static bool extract_path(char* extracted_path, const char* fullpath);
+
+  // extract file name from full path name
+  // ex) "c:\\temp\\abc.txt" -> "abc.txt"
+  static bool extract_name_and_extension(char* extracted_name, const char* fullpath);
+
+  // extract file name only from full path name
+  // ex) "c:\\temp\\abc.txt" -> "abc.txt"
+  bool extract_name_only(char* extracted_name, const char* fullpath);
+
+  // extract file name extension from full path name
+  // ex) "c:\\temp\\abc.txt" -> "abc.txt"
+  static bool extract_extension_only(char* extracted_ext, const char* fullpath);
+
+  // convert slash to backslash
+  // *to* and *from* must have the same size
+  static bool to_backslash(char* filename);
 };
 
-
-inline uint32 zz_vfs::write_ (const char * buf, uint32 size)
-{
-	assert(real_filesystem_);
-	return real_filesystem_->write_(buf, size);
+inline uint32 zz_vfs::write_(const char* buf, uint32 size) {
+  assert(real_filesystem_);
+  return real_filesystem_->write_( buf, size );
 }
 
-inline void zz_vfs::set_real_filesystem(zz_vfs * real_filesystem_in)
-{
-	real_filesystem_ = real_filesystem_in;
+inline void zz_vfs::set_real_filesystem(zz_vfs* real_filesystem_in) {
+  real_filesystem_ = real_filesystem_in;
 }
 
-inline const char * zz_vfs::get_path () const
-{
-	return real_filesystem_->get_path();
+inline const char* zz_vfs::get_path() const {
+  return real_filesystem_->get_path();
 }
 
-inline zz_vfs::zz_vfs_status zz_vfs::get_status()
-{
-	return status_;
+inline zz_vfs::zz_vfs_status zz_vfs::get_status() {
+  return status_;
 }
 
-inline void zz_vfs::set_status (zz_vfs_status status_in)
-{
-	status_ = status_in;
+inline void zz_vfs::set_status(zz_vfs_status status_in) {
+  status_ = status_in;
 }
 
-inline uint32 zz_vfs::get_size () const
-{
-	uint32 size = real_filesystem_->get_size();
-	return size;
+inline uint32 zz_vfs::get_size() const {
+  uint32      size = real_filesystem_->get_size();
+  return size;
 }
 
-
-inline void zz_vfs::write_char (char data_in)
-{
-	assert(real_filesystem_);
-	real_filesystem_->write_(&data_in, 1);
+inline void zz_vfs::write_char(char data_in) {
+  assert(real_filesystem_);
+  real_filesystem_->write_( &data_in, 1 );
 }
 
-inline void zz_vfs::write_uchar (uchar data_in)
-{
-	assert(real_filesystem_);
-	real_filesystem_->write_(reinterpret_cast<char *>(&data_in), 1);
+inline void zz_vfs::write_uchar(uchar data_in) {
+  assert(real_filesystem_);
+  real_filesystem_->write_( reinterpret_cast<char *>(&data_in), 1 );
 }
 
-inline void zz_vfs::write_float (float data_in)
-{
-	assert(real_filesystem_);
-	real_filesystem_->write_(reinterpret_cast<char *>(&data_in), sizeof(float));
+inline void zz_vfs::write_float(float data_in) {
+  assert(real_filesystem_);
+  real_filesystem_->write_( reinterpret_cast<char *>(&data_in), sizeof( float ) );
 }
 
-inline void zz_vfs::write_uint32 (uint32 data_in)
-{
-	assert(real_filesystem_);
-	real_filesystem_->write_(reinterpret_cast<char *>(&data_in), sizeof(uint32));
+inline void zz_vfs::write_uint32(uint32 data_in) {
+  assert(real_filesystem_);
+  real_filesystem_->write_( reinterpret_cast<char *>(&data_in), sizeof( uint32 ) );
 }
 
-inline void zz_vfs::write_int16 (int16 data_in)
-{
-	assert(real_filesystem_);
-	real_filesystem_->write_(reinterpret_cast<char *>(&data_in), sizeof(int16));
+inline void zz_vfs::write_int16(int16 data_in) {
+  assert(real_filesystem_);
+  real_filesystem_->write_( reinterpret_cast<char *>(&data_in), sizeof( int16 ) );
 }
 
-inline void zz_vfs::write_uint16 (uint16 data_in)
-{
-	assert(real_filesystem_);
-	real_filesystem_->write_(reinterpret_cast<char *>(&data_in), sizeof(uint16));
+inline void zz_vfs::write_uint16(uint16 data_in) {
+  assert(real_filesystem_);
+  real_filesystem_->write_( reinterpret_cast<char *>(&data_in), sizeof( uint16 ) );
 }
 
-
-inline void zz_vfs::write_int32 (int32 data_in)
-{
-	assert(real_filesystem_);
-	real_filesystem_->write_(reinterpret_cast<char *>(&data_in), sizeof(int32));
+inline void zz_vfs::write_int32(int32 data_in) {
+  assert(real_filesystem_);
+  real_filesystem_->write_( reinterpret_cast<char *>(&data_in), sizeof( int32 ) );
 }
 
-
-inline void * zz_vfs::get_data ()
-{
-	return data_;
+inline void* zz_vfs::get_data() {
+  return data_;
 }
 
-inline float zz_vfs::read_float (float& data_out)
-{
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(reinterpret_cast<char *>(&data_out), sizeof(float)) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out;
+inline float zz_vfs::read_float(float& data_out) {
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( reinterpret_cast<char *>(&data_out), sizeof( float ) ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out;
 }
 
-inline uint32 zz_vfs::read_uint32 (uint32& data_out)
-{
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(reinterpret_cast<char *>(&data_out), sizeof(uint32)) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out;
+inline uint32 zz_vfs::read_uint32(uint32& data_out) {
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( reinterpret_cast<char *>(&data_out), sizeof( uint32 ) ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out;
 }
 
-inline uint32 zz_vfs::read_uint32 (int& data_out)
-{
-	uint32 data_uint32;
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(reinterpret_cast<char *>(&data_uint32), sizeof(uint32)) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out = static_cast<int>(data_uint32);
+inline uint32 zz_vfs::read_uint32(int& data_out) {
+  uint32      data_uint32;
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( reinterpret_cast<char *>(&data_uint32), sizeof( uint32 ) ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out = static_cast<int>(data_uint32);
 }
 
-inline uint16 zz_vfs::read_uint16 (uint16& data_out)
-{
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(reinterpret_cast<char *>(&data_out), sizeof(uint16)) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out;
+inline uint16 zz_vfs::read_uint16(uint16& data_out) {
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( reinterpret_cast<char *>(&data_out), sizeof( uint16 ) ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out;
 }
 
-inline int32 zz_vfs::read_int16 (int16& data_out)
-{
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(reinterpret_cast<char *>(&data_out), sizeof(int16)) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out;
+inline int32 zz_vfs::read_int16(int16& data_out) {
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( reinterpret_cast<char *>(&data_out), sizeof( int16 ) ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out;
 }
 
-inline int32 zz_vfs::read_int32 (int32& data_out)
-{
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(reinterpret_cast<char *>(&data_out), sizeof(int32)) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out;
+inline int32 zz_vfs::read_int32(int32& data_out) {
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( reinterpret_cast<char *>(&data_out), sizeof( int32 ) ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out;
 }
 
-inline char zz_vfs::read_char (char& data_out)
-{
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(&data_out, 1) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out;
+inline char zz_vfs::read_char(char& data_out) {
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( &data_out, 1 ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out;
 }
 
-inline uchar zz_vfs::read_uchar (uchar& data_out)
-{
-	assert(real_filesystem_);
-	if (real_filesystem_->read_(reinterpret_cast<char *>(&data_out), 1) == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return data_out;
+inline uchar zz_vfs::read_uchar(uchar& data_out) {
+  assert(real_filesystem_);
+  if ( real_filesystem_->read_( reinterpret_cast<char *>(&data_out), 1 ) == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return data_out;
 }
 
-
-inline uint32 zz_vfs::read(void)
-{
-	uint32 size = get_size();
-	uint32 read_count = read(size);
-	if (read_count == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return read_count;
+inline uint32 zz_vfs::read(void) {
+  uint32      size       = get_size();
+  uint32      read_count = read( size );
+  if ( read_count == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return read_count;
 }
 
-
-inline uint32 zz_vfs::read_ (char * buf, uint32 size)
-{
-	assert(real_filesystem_);
-	uint32 read_count = real_filesystem_->read_(buf, size);
-	if (read_count == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	return read_count;
+inline uint32 zz_vfs::read_(char* buf, uint32 size) {
+  assert(real_filesystem_);
+  uint32 read_count = real_filesystem_->read_( buf, size );
+  if ( read_count == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  return read_count;
 }
 
-inline uint32 zz_vfs::read (char * buf, uint32 size)
-{
-	return read_(buf, size);
+inline uint32 zz_vfs::read(char* buf, uint32 size) {
+  return read_( buf, size );
 }
 
-inline uint32 zz_vfs::write (const char * buf, uint32 size)
-{
-	return write_(buf, size);
+inline uint32 zz_vfs::write(const char* buf, uint32 size) {
+  return write_( buf, size );
 }
 
-inline uint32 zz_vfs::read_float2 (float data_out[2])
-{
-	return read(reinterpret_cast<char*>(data_out), sizeof(float)*2);
+inline uint32 zz_vfs::read_float2(float data_out[2]) {
+  return read( reinterpret_cast<char*>(data_out), sizeof( float ) * 2 );
 }
 
-inline uint32 zz_vfs::read_float3 (float data_out[3])
-{
-	return read(reinterpret_cast<char*>(data_out), sizeof(float)*3);
+inline uint32 zz_vfs::read_float3(float data_out[3]) {
+  return read( reinterpret_cast<char*>(data_out), sizeof( float ) * 3 );
 }
 
-inline uint32 zz_vfs::read_float4 (float data_out[4])
-{
-	return read(reinterpret_cast<char*>(data_out), sizeof(float)*4);
+inline uint32 zz_vfs::read_float4(float data_out[4]) {
+  return read( reinterpret_cast<char*>(data_out), sizeof( float ) * 4 );
 }
 
-inline uint32 zz_vfs::read_uint323 (uint32 data_out[3])
-{
-	return read(reinterpret_cast<char*>(data_out), sizeof(uint32)*3);
+inline uint32 zz_vfs::read_uint323(uint32 data_out[3]) {
+  return read( reinterpret_cast<char*>(data_out), sizeof( uint32 ) * 3 );
 }
 
-inline uint32 zz_vfs::read_uint324 (uint32 data_out[4])
-{
-	return read(reinterpret_cast<char*>(data_out), sizeof(uint32)*4);
+inline uint32 zz_vfs::read_uint324(uint32 data_out[4]) {
+  return read( reinterpret_cast<char*>(data_out), sizeof( uint32 ) * 4 );
 }
 
-inline uint16 zz_vfs::read_uint163 (uint16 data_out[3])
-{
-	return read(reinterpret_cast<char*>(data_out), sizeof(uint16)*3);
+inline uint16 zz_vfs::read_uint163(uint16 data_out[3]) {
+  return read( reinterpret_cast<char*>(data_out), sizeof( uint16 ) * 3 );
 }
 
-inline uint16 zz_vfs::read_uint164 (uint16 data_out[4])
-{
-	return read(reinterpret_cast<char*>(data_out), sizeof(uint16)*4);
+inline uint16 zz_vfs::read_uint164(uint16 data_out[4]) {
+  return read( reinterpret_cast<char*>(data_out), sizeof( uint16 ) * 4 );
 }
 
 #endif // __ZZ_VFS_H__

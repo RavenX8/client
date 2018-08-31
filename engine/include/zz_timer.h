@@ -51,38 +51,37 @@
 // 1 second = ZZ_TICK_PER_SEC timer unit (ZZ_TICK_PER_SEC is defined in zz_type.h)
 // timer class is used only in zz_system class
 class zz_system;
+
 class zz_timer {
 private:
-	uint64 ticks_per_second; // in engine ticks
-	uint64 initial_ticks_per_second;
+  uint64 ticks_per_second; // in engine ticks
+  uint64 initial_ticks_per_second;
 
-	// real private members
-	uint64 start_time_filetime; // safe systemtimer in filetime unit(100-nanosecs)
-	uint64 last_ticks; // last timer ticks. this is updated in every get_time()
-	uint64 new_ticks; // new time ticks
-	uint64 last_ticks_excess;
-	zz_time last_time; // last engine ticks. this is updated in every get_time()
-	zz_time compare_time; // time to compare the difference with system timer in 1 sec
-	zz_time compare_safetime; // filetime for compare
-	bool running; // whether time is running or not
+  // real private members
+  uint64  start_time_filetime; // safe systemtimer in filetime unit(100-nanosecs)
+  uint64  last_ticks;          // last timer ticks. this is updated in every get_time()
+  uint64  new_ticks;           // new time ticks
+  uint64  last_ticks_excess;
+  zz_time last_time;        // last engine ticks. this is updated in every get_time()
+  zz_time compare_time;     // time to compare the difference with system timer in 1 sec
+  zz_time compare_safetime; // filetime for compare
+  bool    running;          // whether time is running or not
 
-	zz_time get_safe_time (); // get safe system time in engine ticks
-	void sync_to_safe_time (const zz_time& new_time); // synchronize to system safe timer by changing the ticks_per_second
-
+  zz_time get_safe_time();                            // get safe system time in engine ticks
+  void    sync_to_safe_time(const zz_time& new_time); // synchronize to system safe timer by changing the ticks_per_second
 
 public:
-	zz_timer(void);
-	~zz_timer(void);
-	void start (void);
-	void stop (void);
-	void reset (void);
+       zz_timer(void );
+       ~zz_timer(void);
+  void start(void    );
+  void stop(void     );
+  void reset(void    );
 
-	bool is_running ()
-	{
-		return running;
-	}
+  bool is_running() {
+    return running;
+  }
 
-	zz_time get_time (void);
+  zz_time get_time(void);
 };
 
 #endif // __ZZ_TIMER_H__

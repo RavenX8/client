@@ -23,12 +23,12 @@
 //--------------------------------------------------------------------------------
 class zz_light_point : public zz_light {
 public:
-	vec4 attenuation; // point_light = 1/(a.x + a.y*distance + a.z*distance^2)
+  vec4 attenuation; // point_light = 1/(a.x + a.y*distance + a.z*distance^2)
 
-	zz_light_point(void);
-	virtual ~zz_light_point(void);
+          zz_light_point(void );
+  virtual ~zz_light_point(void);
 
-	ZZ_DECLARE_DYNAMIC(zz_light_point)
+ZZ_DECLARE_DYNAMIC(zz_light_point)
 };
 
 #endif //__ZZ_LIGHT_POINT_H__

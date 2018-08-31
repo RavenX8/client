@@ -96,38 +96,38 @@
 //--------------------------------------------------------------------------------
 class zz_log {
 protected:
-	static char _file_name[ZZ_MAX_STRING];
-	static FILE * _fp;
-	static unsigned long _error_index; // for debugging
-	static bool _active; 
-	static zz_critical_section * _cs; // critical section for logging
-	static bool _started;
+  static char                 _file_name[ZZ_MAX_STRING];
+  static FILE*                _fp;
+  static unsigned long        _error_index; // for debugging
+  static bool                 _active;
+  static zz_critical_section* _cs; // critical section for logging
+  static bool                 _started;
 
-	static void begin ();
-	static void end ();
+  static void begin();
+  static void end();
 
 public:
-	zz_log ();
-	~zz_log ();
+  zz_log();
+  ~zz_log();
 
-	// if false, do not log on file, default to true
-	// returns old value
-	static bool activate (bool true_or_false);
+  // if false, do not log on file, default to true
+  // returns old value
+  static bool activate(bool true_or_false);
 
-	/*
-	enum {
-		ZZ_ERR_NOERROR, // no error
-		ZZ_ERR_NOTENOUGHMEMORY, // not enough memory
-		ZZ_ERR_UNKNOWN // unknown error
-	} zz_error_id;
-	*/
+  /*
+  enum {
+    ZZ_ERR_NOERROR, // no error
+    ZZ_ERR_NOTENOUGHMEMORY, // not enough memory
+    ZZ_ERR_UNKNOWN // unknown error
+  } zz_error_id;
+  */
 
-	// do message log
-	// exam) log("error : file not found (%s).\n", filename);
-	static void log (const char * format, ...);
-	static void flush ();
+  // do message log
+  // exam) log("error : file not found (%s).\n", filename);
+  static void log(const char* format, ...);
+  static void flush();
 
-	static const char * read_latest_log (int num_latest, const char * linebreaking);
+  static const char* read_latest_log(int num_latest, const char* linebreaking);
 };
 
 #ifndef ZZ_LOG_DISABLE

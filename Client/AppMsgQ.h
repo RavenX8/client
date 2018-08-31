@@ -1,10 +1,8 @@
 #ifndef _APPMSGQ_
 #define _APPMSGQ_
 
-
 #include "Util/WndMsgQ.h"
 #include <deque>
-
 
 /*struct tagWNDMSG 
 {
@@ -21,36 +19,30 @@
 } ;
 */
 
-class CAppMsgQ
-{
+class CAppMsgQ {
 private:
-	std::deque< tagWNDMSG >		m_KeyboardMsgQ;
-	std::deque< tagWNDMSG >		m_MouseMsgQ;
+  std::deque<tagWNDMSG> m_KeyboardMsgQ;
+  std::deque<tagWNDMSG> m_MouseMsgQ;
 
-
-	bool					AddMsgToMouseQ( UINT uiMsg, WPARAM wParam, LPARAM lParam );
-	bool					AddMsgToKeyboardQ( UINT uiMsg, WPARAM wParam, LPARAM lParam );
+  bool AddMsgToMouseQ(UINT    uiMsg, WPARAM wParam, LPARAM lParam);
+  bool AddMsgToKeyboardQ(UINT uiMsg, WPARAM wParam, LPARAM lParam);
 
 public:
-	CAppMsgQ(void);
-	~CAppMsgQ(void);
+  CAppMsgQ(void );
+  ~CAppMsgQ(void);
 
+  ///
+  ///	Add app msg to suitable queue
+  ///
 
-	///
-	///	Add app msg to suitable queue
-	///
+  bool AddMsgToQ(UINT uiMsg, WPARAM wParam, LPARAM lParam);
 
-
-	bool					AddMsgToQ( UINT uiMsg, WPARAM wParam, LPARAM lParam );
-
-
-	///
-	/// get specific msg from queue
-	///
-	bool					GetMouseMsgFromQ( tagWNDMSG& WndMsg );
-	bool					GetKeyboardMsgFromQ( tagWNDMSG& WndMsg );
-	void					Clear();
+  ///
+  /// get specific msg from queue
+  ///
+  bool GetMouseMsgFromQ(tagWNDMSG&    WndMsg);
+  bool GetKeyboardMsgFromQ(tagWNDMSG& WndMsg);
+  void Clear();
 };
-
 
 #endif //_APPMSGQ_

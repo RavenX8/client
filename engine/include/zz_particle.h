@@ -60,74 +60,72 @@
 #include "zz_type.h"
 
 // d3d point sprite version
-typedef struct 
-{
-    vec3 position;        
-	float       pointsize;
-	D3DCOLOR    color;
-} VERTEX_PARTICLE_POINT;
+typedef struct {
+  vec3     position;
+  float    pointsize;
+  D3DCOLOR color;
+}          VERTEX_PARTICLE_POINT;
+
 #define D3DFVF_PARTICLE_POINT (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_PSIZE)
 
 // billboard version (non pointsprite)
-typedef struct 
-{
-    vec3 position;        
-	D3DCOLOR    color;
-	vec2 uv;
-} VERTEX_PARTICLE;
+typedef struct {
+  vec3     position;
+  D3DCOLOR color;
+  vec2     uv;
+}          VERTEX_PARTICLE;
+
 #define D3DFVF_PARTICLE (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 class zz_particle_event;
 
-class zz_particle
-{
+class zz_particle {
 public:
-	zz_particle();
-	virtual ~zz_particle();
+          zz_particle();
+  virtual ~zz_particle();
 
-	int							m_CurEvent;
+  int m_CurEvent;
 
-	float						m_fWeight;
-	  
-	vec3						m_vSize;
-	vec3						m_vSizeStep;
+  float m_fWeight;
 
-	float						m_fLifetime; // in seconds
-	float						m_fAge; // in seconds
-	  
-	float						m_fEventTimer; // different from age
+  vec3 m_vSize;
+  vec3 m_vSizeStep;
 
-	float m_fTextureIdx;    // texture index
-	float m_fTextureIdxStep; // texture index step
-	  
-	vec4 m_Color;
-	vec4 m_ColorStep;
-	  
-	vec3 m_vPos; // current position of particle
-	  
-	vec3 m_vDir; // position per 1 second
-	vec3 m_vDirStep;
+  float m_fLifetime; // in seconds
+  float m_fAge;      // in seconds
 
-	float m_fAngle;
-	float m_fAngleStep;
-	bool m_bAngleOnOff;
-	
-	// @diff_time diff time in system timer's metric
-	virtual bool update (zz_time diff_time);
+  float m_fEventTimer; // different from age
+
+  float m_fTextureIdx;     // texture index
+  float m_fTextureIdxStep; // texture index step
+
+  vec4 m_Color;
+  vec4 m_ColorStep;
+
+  vec3 m_vPos; // current position of particle
+
+  vec3 m_vDir; // position per 1 second
+  vec3 m_vDirStep;
+
+  float m_fAngle;
+  float m_fAngleStep;
+  bool  m_bAngleOnOff;
+
+  // @diff_time diff time in system timer's metric
+  virtual bool update(zz_time diff_time);
 };
 
 // world aligned particle
-class zz_particle_world : public zz_particle
-{
+class zz_particle_world : public zz_particle {
 public:
-	zz_particle_world();
-	virtual ~zz_particle_world();
+          zz_particle_world();
+  virtual ~zz_particle_world();
 
-	vec3 gravity_local; // gravity in local coordsys. set in CreateNewParticle
-	mat3 rot_world; // ratation_to_world. set in CreateNewParticle
+  vec3 gravity_local; // gravity in local coordsys. set in CreateNewParticle
+  mat3 rot_world;     // ratation_to_world. set in CreateNewParticle
 
-	// @diff_time diff time in system timer's metric
-	virtual bool update (zz_time diff_time);  
+  // @diff_time diff time in system timer's metric
+  bool update(zz_time diff_time) override;
 };
 
 #endif // __ZZ_PARTICLE_H__

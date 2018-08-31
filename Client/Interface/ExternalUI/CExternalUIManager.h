@@ -14,34 +14,32 @@
 /// !! This class is observer class for all EUIS.
 ///
 class CTDialog;
-class CExternalUIManager
-{
+
+class CExternalUIManager {
 public:
 
-private:	
+private:
 
-	CTDialog*		m_ExternalUI[ EUI_MAX ];	
+  CTDialog* m_ExternalUI[ EUI_MAX ];
 
 public:
-	CExternalUIManager();
-	~CExternalUIManager();
+  CExternalUIManager();
+  ~CExternalUIManager();
 
-	///
-	/// add External UI in EUI manager
-	///
-	bool	AddEUI( unsigned int iType, CTDialog* pEUI );
+  ///
+  /// add External UI in EUI manager
+  ///
+  bool AddEUI(unsigned int iType, CTDialog* pEUI);
 
-	///
-	/// get External UI from EUI manager
-	///
-	CTDialog*	GetEUI( int iType );
+  ///
+  /// get External UI from EUI manager
+  ///
+  CTDialog* GetEUI(int iType);
 
-
-	///
-	/// InitAll EUIs
-	///
-	bool	InitExternalUIs();
+  ///
+  /// InitAll EUIs
+  ///
+  bool InitExternalUIs();
 };
-
 
 #endif //_EXTERNALUIMANAGER_

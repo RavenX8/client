@@ -61,14 +61,13 @@
 //#define _T
 //#define _TCHAR	char
 
-static int	m_nType;
-static char	m_szMessage[255];
-static char	m_szDump[255];
-static BOOL	m_bExceptionHandling;
+static int  m_nType;
+static char m_szMessage[255];
+static char m_szDump[255];
+static BOOL m_bExceptionHandling;
 
-
-static  LPCTSTR    g_logOut                = _T("로그 2.0");
-static  LPCTSTR    g_logOutwindowClassName = _T("ISKIM Frameworks LogWnd2");
+static LPCTSTR g_logOut                = _T("로그 2.0");
+static LPCTSTR g_logOutwindowClassName = _T("ISKIM Frameworks LogWnd2");
 
 // iType
 #define LIT_ADVANCE	0
@@ -82,166 +81,151 @@ static  LPCTSTR    g_logOutwindowClassName = _T("ISKIM Frameworks LogWnd2");
 #define _MAX_DUMP		2048
 
 typedef struct _LOGITEM {
-	int		iType;
-	TCHAR	pszFrom[_MAX_FROM];
-	TCHAR	pszWhere[_MAX_WHERE];
-	TCHAR	pszMessage[_MAX_MESSAGE];
-	TCHAR	pszDump[_MAX_DUMP];
-} LOGITEM, FAR* LPLOGITEM;
+  int   iType;
+  TCHAR pszFrom[_MAX_FROM];
+  TCHAR pszWhere[_MAX_WHERE];
+  TCHAR pszMessage[_MAX_MESSAGE];
+  TCHAR pszDump[_MAX_DUMP];
+}       LOGITEM, FAR*LPLOGITEM;
 
-inline void _LogOut (int nType, LPCTSTR pFrom, LPCTSTR pWhere, LPCTSTR pMessage, LPCTSTR pDump)
-{
-    COPYDATASTRUCT cd; 
-    HWND hWnd = ::FindWindow (g_logOutwindowClassName, g_logOut); 
-    if (hWnd)
-    {  
-		LOGITEM li;
-		::memset(&li, NULL, sizeof(LOGITEM));
+inline void      _LogOut(int nType, LPCTSTR pFrom, LPCTSTR pWhere, LPCTSTR pMessage, LPCTSTR pDump) {
+  COPYDATASTRUCT cd;
+  HWND           hWnd = ::FindWindow( g_logOutwindowClassName, g_logOut );
+  if ( hWnd ) {
+    LOGITEM li;
+    memset( &li, NULL, sizeof( LOGITEM ) );
 
-		li.iType = nType;
-		if (pFrom)
-		{
+    li.iType = nType;
+    if ( pFrom ) {
 #ifdef _UNICODE
 			::lstrcpynW(li.pszFrom, pFrom, _MAX_FROM);
 #else
-			::lstrcpyn(li.pszFrom, pFrom, _MAX_FROM);
+      ::lstrcpyn( li.pszFrom, pFrom, _MAX_FROM );
 #endif
-		}
+    }
 
-		if (pWhere)
-		{
+    if ( pWhere ) {
 #ifdef _UNICODE
 			::lstrcpynW(li.pszWhere, pWhere, _MAX_WHERE);
 #else
-			::lstrcpyn(li.pszWhere, pWhere, _MAX_WHERE);
+      ::lstrcpyn( li.pszWhere, pWhere, _MAX_WHERE );
 #endif
-		}
+    }
 
-		if (pMessage)
-		{
+    if ( pMessage ) {
 #ifdef _UNICODE
 			::lstrcpynW(li.pszMessage, pMessage, _MAX_MESSAGE);
 #else
-			::lstrcpyn(li.pszMessage, pMessage, _MAX_MESSAGE);
+      ::lstrcpyn( li.pszMessage, pMessage, _MAX_MESSAGE );
 #endif
-		}
+    }
 
-		if (pDump)
-		{
+    if ( pDump ) {
 #ifdef _UNICODE
 			::lstrcpynW(li.pszDump, pDump, _MAX_DUMP);
 #else
-			::lstrcpyn(li.pszDump, pDump, _MAX_DUMP);
+      ::lstrcpyn( li.pszDump, pDump, _MAX_DUMP );
 #endif
-		}
+    }
 
 #ifdef _UNICODE
         cd.dwData = 0xFEFF;
 #else
-		cd.dwData = 0;
+    cd.dwData = 0;
 #endif
-        cd.cbData = sizeof(LOGITEM);
-        cd.lpData = (void *)&li;
-        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);
-    } 
+    cd.cbData = sizeof( LOGITEM );
+    cd.lpData = (void *)&li;
+    ::SendMessage( hWnd, WM_COPYDATA, 0, (LPARAM)&cd );
+  }
 }
 
-inline LPCTSTR LogFormat (LPCTSTR pFormat, ...)
-{
-	va_list args;
-	va_start(args, pFormat);
+inline LPCTSTR LogFormat(LPCTSTR pFormat, ...) {
+  va_list      args;
+  va_start(args, pFormat);
 
-	static _TCHAR buffer[2048];
-	wvsprintf(buffer, pFormat, args);
+  static _TCHAR buffer[2048];
+  wvsprintf( buffer, pFormat, args );
 
-    va_end(args);
+  va_end(args);
 
-	return buffer;
+  return buffer;
 }
 
-inline void LogOut (int iType, void* pFilename, unsigned int lineno, LPCTSTR pszMessage, LPCTSTR pDump = NULL)
-{
-    TCHAR where[1024];
-	wsprintf(where, _T("%d line in %s"), lineno, pFilename);
-    _LogOut (iType, /*::GetModuleName()*/"asfddas", where, pszMessage, pDump);
+inline void LogOut(int iType, void* pFilename, unsigned int lineno, LPCTSTR pszMessage, LPCTSTR pDump = nullptr) {
+  TCHAR     where[1024];
+  wsprintf( where, _T("%d line in %s"), lineno, pFilename );
+  _LogOut( iType, /*::GetModuleName()*/"asfddas", where, pszMessage, pDump );
 }
 
-inline DWORD LogOutLastError (void* pFilename, unsigned int lineno, LPCTSTR pszMessage)
-{
-   if (::GetLastError() == 0) 
-        return 0;
-   
-    LPVOID pDump;
-    DWORD  result;
-    result = ::FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-                             NULL,
-                             GetLastError(),
-                             MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
-                             (LPTSTR)&pDump,
-                             0,
-                             NULL);
-  
-    ::LogOut(LIT_ERROR, pFilename, lineno, pszMessage, (LPCTSTR)pDump);
-    
-    if(result)
-        ::LocalFree(pDump);
-   
-    return result;
+inline DWORD LogOutLastError(void* pFilename, unsigned int lineno, LPCTSTR pszMessage) {
+  if ( GetLastError() == 0 )
+    return 0;
+
+  LPVOID pDump;
+  DWORD  result;
+  result = ::FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+                            nullptr,
+                            GetLastError(),
+                            MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
+                            (LPTSTR)&pDump,
+                            0,
+                            nullptr );
+
+  LogOut( LIT_ERROR, pFilename, lineno, pszMessage, (LPCTSTR)pDump );
+
+  if ( result )
+    LocalFree( pDump );
+
+  return result;
 }
 
 class CLogSystem {
 public:
-	CLogSystem(int nType, void* pFrom, int nLineno, LPCTSTR pDump = NULL)
-		: m_pFrom(pFrom), m_nLineno(nLineno), m_nType(nType), m_pDump(pDump), m_nLastError(0)
-	{
-	}
-	CLogSystem(int nType, void* pFrom, int nLineno, int nLastError)
-		: m_pFrom(pFrom), m_nLineno(nLineno), m_nType(nType), 
-		m_pDump(NULL), m_nLastError(nLastError)
-	{
-	}
+  CLogSystem(int nType, void* pFrom, int nLineno, LPCTSTR pDump = nullptr) : m_nLastError( 0 ), m_nType( nType ), m_nLineno( nLineno ), m_pFrom( pFrom ), m_pDump( pDump ) { }
 
-	inline void Trace(LPCTSTR pFormat, ...)
-	{
-		va_list args;
-		va_start(args, pFormat);
+  CLogSystem(int nType, void* pFrom, int nLineno, int nLastError) : m_nLastError( nLastError ), m_nType( nType ), m_nLineno( nLineno ),
+                                                                    m_pFrom( pFrom ), m_pDump( nullptr ) { }
 
-		static _TCHAR buffer[2048];
-		wvsprintf(buffer, pFormat, args);
+  void      Trace(LPCTSTR pFormat, ...) {
+    va_list args;
+    va_start(args, pFormat);
 
-		va_end(args);
-		LogOut(m_nType, m_pFrom, m_nLineno, buffer, m_pDump);
-	}
-	inline void TraceLastError()
-	{
-		if (m_nLastError == 0)
-			return;
+    static _TCHAR buffer[2048];
+    wvsprintf( buffer, pFormat, args );
 
-		static _TCHAR buffer[2048];
-		wsprintf(buffer, _T(" %d : the calling thread's last-error code value"), m_nLastError);
+    va_end(args);
+    LogOut( m_nType, m_pFrom, m_nLineno, buffer, m_pDump );
+  }
 
-		LPVOID pDump;
-		DWORD  result;
-		result = ::FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-								 NULL,
-								 m_nLastError,
-								 MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
-								 (LPTSTR)&pDump,
-								 0,
-								 NULL);
+  void TraceLastError() {
+    if ( m_nLastError == 0 )
+      return;
 
-		::LogOut(LIT_ERROR, m_pFrom, m_nLineno, buffer, (LPCTSTR)pDump);
+    static _TCHAR buffer[2048];
+    wsprintf( buffer, _T(" %d : the calling thread's last-error code value"), m_nLastError );
 
-		if(result)
-			::LocalFree(pDump);
-	}
+    LPVOID pDump;
+    DWORD  result;
+    result = ::FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+                              nullptr,
+                              m_nLastError,
+                              MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
+                              (LPTSTR)&pDump,
+                              0,
+                              nullptr );
+
+    LogOut( LIT_ERROR, m_pFrom, m_nLineno, buffer, (LPCTSTR)pDump );
+
+    if ( result )
+      LocalFree( pDump );
+  }
 
 protected:
-	int m_nLastError;
-	int m_nType;
-	int m_nLineno;
-	void* m_pFrom;
-	LPCTSTR m_pDump;
+  int     m_nLastError;
+  int     m_nType;
+  int     m_nLineno;
+  void*   m_pFrom;
+  LPCTSTR m_pDump;
 };
 
 #ifndef __SERVER

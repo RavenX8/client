@@ -19,14 +19,14 @@ class ITDraw;
 class ITSound;
 class ITFont;
 /// √ ±‚»≠
-TGAMECTRL_API bool it_Init( HWND hWnd ,ITDraw* pDrawMgr , ITSound* pSoundMgr , ITFont* pFontMgr );
+TGAMECTRL_API bool it_Init(HWND hWnd, ITDraw* pDrawMgr, ITSound* pSoundMgr, ITFont* pFontMgr);
 
 TGAMECTRL_API void it_Destroy();
 
-TGAMECTRL_API void it_SetCodePage( unsigned uiCodePage );
+TGAMECTRL_API void it_SetCodePage(unsigned uiCodePage);
 
-TGAMECTRL_API void it_SetKeyboardInputType( short nInputType );
+TGAMECTRL_API void  it_SetKeyboardInputType(short nInputType);
 TGAMECTRL_API short it_GetKeyboardInputType();
 
-TGAMECTRL_API bool	it_IsVisibleImeCandidateWindow();
+TGAMECTRL_API bool it_IsVisibleImeCandidateWindow();
 //void	TWriteConsole(const char *fmt,...);

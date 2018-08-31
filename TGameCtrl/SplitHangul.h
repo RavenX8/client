@@ -14,7 +14,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-
 #ifndef _SPLITHANGUL_
 #define _SPLITHANGUL_
 #include "TGameCtrl.h"
@@ -23,24 +22,23 @@
 
 using namespace std;
 
-class TGAMECTRL_API CSplitHangul
-{
-	vector< string >	m_StringList;	
-	std::string			m_strNull;
+class TGAMECTRL_API CSplitHangul {
+  vector<string> m_StringList;
+  std::string    m_strNull;
 public:
-	CSplitHangul();
-	CSplitHangul( char* Str, int iLength ,unsigned uiCodePage );
+  CSplitHangul();
+  CSplitHangul(char* Str, int iLength, unsigned uiCodePage);
 
-	~CSplitHangul();
-	
-	int	GetLineCount();
-	const char* GetString( int iIndex );
+  ~CSplitHangul();
 
-	bool DoSplit( char* pStr, int iLength ,unsigned uiCodePage);
+  int         GetLineCount();
+  const char* GetString(int iIndex);
 
-	// 한글을 주어진 크기로 자른다..
-	bool SplitHangul( char* pStr, int iLength ,unsigned uiCodePage);
-	void Clear();
+  bool DoSplit(char* pStr, int iLength, unsigned uiCodePage);
+
+  // 한글을 주어진 크기로 자른다..
+  bool SplitHangul(char* pStr, int iLength, unsigned uiCodePage);
+  void Clear();
 };
 
 #endif //_SPLITHANGUL_

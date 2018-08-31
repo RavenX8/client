@@ -47,14 +47,10 @@
 #include "zz_algebra.h"
 #include "zz_light_direct.h"
 
-
 ZZ_IMPLEMENT_DYNCREATE(zz_light_direct, zz_light)
 
-zz_light_direct::zz_light_direct(void) : zz_light()
-{
-	direction = vec4(0, 0, 0, 0);
+zz_light_direct::zz_light_direct(void) : zz_light() {
+  direction = vec4( 0, 0, 0, 0 );
 }
 
-zz_light_direct::~zz_light_direct(void)
-{
-}
+zz_light_direct::~zz_light_direct(void) {}

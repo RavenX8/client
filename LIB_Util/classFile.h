@@ -9,49 +9,45 @@
 
 #define		FILELOG_MAX_LENGTH	255
 
-struct LogMSG
-{
-	char m_szMSG[ FILELOG_MAX_LENGTH ];
+struct LogMSG {
+  char m_szMSG[ FILELOG_MAX_LENGTH ];
 };
 
-class classLogFILE : public classTHREAD 
-{
+class classLogFILE : public classTHREAD {
 private:
-	CRITICAL_SECTION	m_csLOCK;
-	FILE *				m_FP;
-	// char *				m_StrBUFF;
+  CRITICAL_SECTION m_csLOCK;
+  FILE*            m_FP;
+  // char *				m_StrBUFF;
 
-	classDLLIST< LogMSG * >    m_LogLIST;
-	classDLLIST< LogMSG * >    m_AddList;
-	classEVENT			* m_pEvent;
+  classDLLIST<LogMSG *> m_LogLIST;
+  classDLLIST<LogMSG *> m_AddList;
+  classEVENT*           m_pEvent;
 
-	void Lock( void )
-	{
-		::EnterCriticalSection( &m_csLOCK );
-	}
+  void Lock(void) {
+    EnterCriticalSection( &m_csLOCK );
+  }
 
-	void UnLock( void )
-	{
-		::LeaveCriticalSection( &m_csLOCK );
-	}
-	bool WriteAllString( void );
-	void ClearAllLogLIST( void );
+  void UnLock(void) {
+    LeaveCriticalSection( &m_csLOCK );
+  }
+
+  bool WriteAllString(void );
+  void ClearAllLogLIST(void);
 
 public:
-	classLogFILE();
-	~classLogFILE();
+  classLogFILE();
+  ~classLogFILE();
 
-	bool Open( const char * szPrefix /*, short nBufferSIZE = 1024*/ );
-	void Close( void );
+  bool Open(const char* szPrefix /*, short nBufferSIZE = 1024*/);
+  void Close(void       );
 
-	bool QueueString( const char * fmt , ... );
+  bool QueueString(const char* fmt, ...);
 
-	virtual void Execute ( void );
+  void Execute(void) override;
 
-	bool IsOpened( void )
-	{
-		return (m_FP != NULL);
-	}
+  bool IsOpened(void) {
+    return (m_FP != nullptr);
+  }
 
 };
 

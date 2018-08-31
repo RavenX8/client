@@ -1,25 +1,24 @@
 #include "stdafx.h"
-#include ".\wideterrain.h"
+#include "./wideterrain.h"
 #include "IO_TERRAIN.h"
 #include "../CClientStorage.h"
 
-
-static tPOINT16 s_WideSecAdjPos[  25 ] = 
+static tPOINT16 s_WideSecAdjPos[ 25 ] =
 {
-	{ -2, -2 }, { -1, -2 }, { 0, -2 }, { 1, -2 }, { 2, -2 },	// 0  ~ 4
-	{ -2, -1 }, { -1, -1 }, { 0, -1 }, { 1, -1 }, { 2, -1 },	// 5  ~ 9
-	{ -2,  0 }, { -1,  0 }, { 0,  0 }, { 1,  0 }, { 2,  0 },	// 10 ~ 14
-	{ -2,  1 }, { -1,  1 }, { 0,  1 }, { 1,  1 }, { 2,  1 },	// 15 ~ 19
-	{ -2,  2 }, { -1,  2 }, { 0,  2 }, { 1,  2 }, { 2,  2 },	// 20 ~ 24
-/*
-	0	1	2	3	4
-	5	6	7	8	9
-	10	11	12	13	14
-	15	16	17	18	19
-	20	21	22	23	24
-*/
+  { -2, -2 }, { -1, -2 }, { 0, -2 }, { 1, -2 }, { 2, -2 }, // 0  ~ 4
+  { -2, -1 }, { -1, -1 }, { 0, -1 }, { 1, -1 }, { 2, -1 }, // 5  ~ 9
+  { -2, 0 }, { -1, 0 }, { 0, 0 }, { 1, 0 }, { 2, 0 },      // 10 ~ 14
+  { -2, 1 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 2, 1 },      // 15 ~ 19
+  { -2, 2 }, { -1, 2 }, { 0, 2 }, { 1, 2 }, { 2, 2 },      // 20 ~ 24
+  /*
+    0	1	2	3	4
+    5	6	7	8	9
+    10	11	12	13	14
+    15	16	17	18	19
+    20	21	22	23	24
+  */
 
-} ;
+};
 
 //static char	s_WideAddSecIdx[ 11 ][ 27 ] = 
 //{
@@ -51,35 +50,35 @@ static tPOINT16 s_WideSecAdjPos[  25 ] =
 //	{	0,  1,  2,  3,  4,  5, 10, 15, 20, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x0a		right & down	
 //} ;
 
-static char	s_WideAddSecIdx[ 11 ][ 26 ] = 
+static char s_WideAddSecIdx[ 11 ][ 26 ] =
 {
-	{	0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, -1 },	// 0x00		all
-	{	0,  5, 10, 15, 20, 13  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x01		left
-	{	4,  9, 14, 19, 24, 11  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x02		right
-	{  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x03	
-	{	0,  1,  2,  3,  4, 17, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x04		up
-	{	0,  1,  2,  3,  4,  5, 10, 15, 20, 18, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x05		left & up
-	{	0,  1,  2,  3,  4,  9, 14, 19, 24, 16, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x06		right & up	
-	{  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x07
-	{  20, 21, 22, 23, 24,  7, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x08		down
-	{   0,  5, 10, 15, 20, 21, 22, 23, 24,  6, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x09		left & down
-	{	4,  9, 14, 19, 20, 21, 22, 23, 24,  8, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x0a		right & down	
-} ;
+  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, -1 }, // 0x00		all
+  { 0, 5, 10, 15, 20, 13 - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x01		left
+  { 4, 9, 14, 19, 24, 11 - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x02		right
+  { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },              // 0x03	
+  { 0, 1, 2, 3, 4, 17, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },             // 0x04		up
+  { 0, 1, 2, 3, 4, 5, 10, 15, 20, 18, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x05		left & up
+  { 0, 1, 2, 3, 4, 9, 14, 19, 24, 16, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x06		right & up	
+  { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },              // 0x07
+  { 20, 21, 22, 23, 24, 7, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },         // 0x08		down
+  { 0, 5, 10, 15, 20, 21, 22, 23, 24, 6, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },       // 0x09		left & down
+  { 4, 9, 14, 19, 20, 21, 22, 23, 24, 8, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },       // 0x0a		right & down	
+};
 
-static char s_WideSubSecIdx[ 11 ][ 26 ] = 
+static char s_WideSubSecIdx[ 11 ][ 26 ] =
 {
-	{	0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, -1 },	// 0x00		all
-	{	4,  9, 14, 19, 24, 11  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x01		left	
-	{	0,  5, 10, 15, 20, 13  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x02		right
-	{  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x03	
-	{  20, 21, 22, 23, 24,  7, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x04		up
-	{	4,  9, 14, 19, 20, 21, 22, 23, 24,  8, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x05		left & up
-	{   0,  5, 10, 15, 20, 21, 22, 23, 24,  6, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x06		right & up
-	{  -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x07
-	{	0,  1,  2,  3,  4, 17, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x08		down
-	{	0,  1,  2,  3,  4,  9, 14, 19, 24, 16, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x09		left & down
-	{	0,  1,  2,  3,  4,  5, 10, 15, 20, 18, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1 },	// 0x0a		right & down	
-} ;
+  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, -1 }, // 0x00		all
+  { 4, 9, 14, 19, 24, 11 - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x01		left	
+  { 0, 5, 10, 15, 20, 13 - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x02		right
+  { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },              // 0x03	
+  { 20, 21, 22, 23, 24, 7, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },         // 0x04		up
+  { 4, 9, 14, 19, 20, 21, 22, 23, 24, 8, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },       // 0x05		left & up
+  { 0, 5, 10, 15, 20, 21, 22, 23, 24, 6, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },       // 0x06		right & up
+  { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },              // 0x07
+  { 0, 1, 2, 3, 4, 17, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },             // 0x08		down
+  { 0, 1, 2, 3, 4, 9, 14, 19, 24, 16, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x09		left & down
+  { 0, 1, 2, 3, 4, 5, 10, 15, 20, 18, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1 },          // 0x0a		right & down	
+};
 
 //static char	s_WideAddSecIdx[ 11 ][ 17 ] = 
 //{
@@ -111,20 +110,15 @@ static char s_WideSubSecIdx[ 11 ][ 26 ] =
 //	{	0,  1,  2,  3,  4,  5, 10, 15, 20, 14, 19, 22, 23, 24, -1,  0, -1 },	// 0x0a		right & down	
 //} ;
 
-
-CWideTerrain::CWideTerrain(void)
-{
-	m_nCenterMapXIDX = 0;
-	m_nCenterMapYIDX = 0;
+CWideTerrain::CWideTerrain(void) {
+  m_nCenterMapXIDX = 0;
+  m_nCenterMapYIDX = 0;
 }
 
-CWideTerrain::~CWideTerrain(void)
-{
-}
+CWideTerrain::~CWideTerrain(void) {}
 
-void CWideTerrain::SetZoneDir( char* pZoneDir )
-{
-	m_ZoneDIR.Set( pZoneDir );
+void CWideTerrain::SetZoneDir(char* pZoneDir) {
+  m_ZoneDIR.Set( pZoneDir );
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -132,17 +126,16 @@ void CWideTerrain::SetZoneDir( char* pZoneDir )
 /// @brief 주어진 위치로 맵이름을 구합니다.
 //----------------------------------------------------------------------------------------------------
 
-char* CWideTerrain::GetMapFILE( short nMapX, short nMapY )
-{
-	if ( nMapX < 0 || nMapX >= MAP_COUNT_PER_ZONE_AXIS )
-		return NULL;
-	if ( nMapY < 0 || nMapY >= MAP_COUNT_PER_ZONE_AXIS )
-		return NULL;
+char* CWideTerrain::GetMapFILE(short nMapX, short nMapY) {
+  if ( nMapX < 0 || nMapX >= MAP_COUNT_PER_ZONE_AXIS )
+    return nullptr;
+  if ( nMapY < 0 || nMapY >= MAP_COUNT_PER_ZONE_AXIS )
+    return nullptr;
 
-	char *szMapFile = CStr::Printf ("%s%d_%d", m_ZoneDIR.Get(), nMapX, MAP_COUNT_PER_ZONE_AXIS-nMapY);
-	m_MapFileName.Set( szMapFile );
+  char* szMapFile = CStr::Printf( "%s%d_%d", m_ZoneDIR.Get(), nMapX, MAP_COUNT_PER_ZONE_AXIS - nMapY );
+  m_MapFileName.Set( szMapFile );
 
-	return m_MapFileName.Get();
+  return m_MapFileName.Get();
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -151,26 +144,24 @@ char* CWideTerrain::GetMapFILE( short nMapX, short nMapY )
 ///        없다면 새로 만들어서 풀에 집어 넣어라( 예약된 개수보다 많아질 경우겠지.. )
 //----------------------------------------------------------------------------------------------------
 
-ROUGHMAP_DATA*  CWideTerrain::GetEmptyRoughMap()
-{
-	ROUGHMAP_DATA* pMapData = NULL;
+ROUGHMAP_DATA*   CWideTerrain::GetEmptyRoughMap() {
+  ROUGHMAP_DATA* pMapData = nullptr;
 
-	std::list< ROUGHMAP_DATA* >::iterator		begin = m_RoughMapVec.begin();
-	for( ; begin != m_RoughMapVec.end() ; ++begin )
-	{
-		pMapData = *begin;
-		
-		if( pMapData->m_bLoaded == false )
-			return pMapData;		
-	}
+  std::list<ROUGHMAP_DATA*>::iterator begin = m_RoughMapVec.begin();
+  for ( ; begin != m_RoughMapVec.end(); ++begin ) {
+    pMapData = *begin;
 
-	/// 현재 비어있는 노드가 없다면
-	pMapData = new ROUGHMAP_DATA;
-	pMapData->m_bLoaded = false;
+    if ( pMapData->m_bLoaded == false )
+      return pMapData;
+  }
 
-	m_RoughMapVec.push_back( pMapData );
+  /// 현재 비어있는 노드가 없다면
+  pMapData            = new ROUGHMAP_DATA;
+  pMapData->m_bLoaded = false;
 
-	return pMapData;
+  m_RoughMapVec.push_back( pMapData );
+
+  return pMapData;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -178,27 +169,25 @@ ROUGHMAP_DATA*  CWideTerrain::GetEmptyRoughMap()
 /// @brief 이미 로드된 맵인지 확인합니다.
 //----------------------------------------------------------------------------------------------------
 
-ROUGHMAP_DATA*	CWideTerrain::FindLoadedMAP( char* szMapFile )
-{
-	if( szMapFile == NULL )
-		return NULL;
+ROUGHMAP_DATA* CWideTerrain::FindLoadedMAP(char* szMapFile) {
+  if ( szMapFile == nullptr )
+    return nullptr;
 
-	char* strMapName = NULL;
+  char* strMapName = nullptr;
 
-	std::list< ROUGHMAP_DATA* >::iterator		begin = m_RoughMapVec.begin();
-	for( ; begin != m_RoughMapVec.end() ; ++begin )
-	{
-		ROUGHMAP_DATA* pMapData = *begin;
-		strMapName = (char*)( pMapData->m_strMapFileName.c_str() );
+  std::list<ROUGHMAP_DATA*>::iterator begin = m_RoughMapVec.begin();
+  for ( ; begin != m_RoughMapVec.end(); ++begin ) {
+    ROUGHMAP_DATA* pMapData = *begin;
+    strMapName              = (char*)(pMapData->m_strMapFileName.c_str());
 
-		if( strMapName == NULL )
-			continue;
+    if ( strMapName == nullptr )
+      continue;
 
-		if( strcmp( strMapName, szMapFile ) == 0 )
-			return pMapData;
-	}
+    if ( strcmp( strMapName, szMapFile ) == 0 )
+      return pMapData;
+  }
 
-	return NULL;
+  return nullptr;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -206,58 +195,48 @@ ROUGHMAP_DATA*	CWideTerrain::FindLoadedMAP( char* szMapFile )
 /// @brief  적절한 RoughMap 을 추가한다.
 //----------------------------------------------------------------------------------------------------
 
-void CWideTerrain::AddRoughMap( short nCenterMapXIDX, short nCenterMapYIDX, WORD wUpdateFLAG )
-{
-	if( g_ClientStorage.GetVideoPerformance() < 5 )
-		return;
+void CWideTerrain::AddRoughMap(short nCenterMapXIDX, short nCenterMapYIDX, WORD wUpdateFLAG) {
+  if ( g_ClientStorage.GetVideoPerformance() < 5 )
+    return;
 
-	m_nCenterMapXIDX = nCenterMapXIDX;
-	m_nCenterMapYIDX = nCenterMapYIDX;
+  m_nCenterMapXIDX = nCenterMapXIDX;
+  m_nCenterMapYIDX = nCenterMapYIDX;
 
-	short nZoneMapXIDX			= 0;
-	short nZoneMapYIDX			= 0;
+  short nZoneMapXIDX = 0;
+  short nZoneMapYIDX = 0;
 
-	char* szMapFile				= NULL;
-	ROUGHMAP_DATA*	pMapData	= NULL;
+  char*          szMapFile = nullptr;
+  ROUGHMAP_DATA* pMapData  = nullptr;
 
-	for ( short nI=0; s_WideAddSecIdx[ wUpdateFLAG ][ nI ] >= 0; nI++ ) 
-	{
-		nZoneMapXIDX = nCenterMapXIDX + s_WideSecAdjPos[ s_WideAddSecIdx[ wUpdateFLAG ][ nI ] ].m_nX;
-		nZoneMapYIDX = nCenterMapYIDX + s_WideSecAdjPos[ s_WideAddSecIdx[ wUpdateFLAG ][ nI ] ].m_nY;
+  for ( short nI = 0; s_WideAddSecIdx[wUpdateFLAG][nI] >= 0; nI++ ) {
+    nZoneMapXIDX = nCenterMapXIDX + s_WideSecAdjPos[s_WideAddSecIdx[wUpdateFLAG][nI]].m_nX;
+    nZoneMapYIDX = nCenterMapYIDX + s_WideSecAdjPos[s_WideAddSecIdx[wUpdateFLAG][nI]].m_nY;
 
-		if ( nZoneMapXIDX >= 0 && nZoneMapXIDX < MAP_COUNT_PER_ZONE_AXIS &&
-				nZoneMapYIDX >= 0 && nZoneMapYIDX < MAP_COUNT_PER_ZONE_AXIS ) 
-		{
-			szMapFile = GetMapFILE( nZoneMapXIDX, nZoneMapYIDX );
-			if ( szMapFile ) 
-			{
-				pMapData = this->FindLoadedMAP ( szMapFile );			
-				/// 맵이 로드되지 않았다면..
-				if ( pMapData == NULL ) 
-				{				
-					pMapData = this->GetEmptyRoughMap ();
-					if ( pMapData ) 
-					{						
-						if ( szMapFile ) 
-						{		
-							if( pMapData->m_RoughMap.Load( szMapFile, nZoneMapXIDX, nZoneMapYIDX ) )
-							{
-								pMapData->m_strMapFileName = std::string( szMapFile );
-								pMapData->m_bLoaded = true;
+    if ( nZoneMapXIDX >= 0 && nZoneMapXIDX < MAP_COUNT_PER_ZONE_AXIS &&
+         nZoneMapYIDX >= 0 && nZoneMapYIDX < MAP_COUNT_PER_ZONE_AXIS ) {
+      szMapFile = GetMapFILE( nZoneMapXIDX, nZoneMapYIDX );
+      if ( szMapFile ) {
+        pMapData = this->FindLoadedMAP( szMapFile );
+        /// 맵이 로드되지 않았다면..
+        if ( pMapData == nullptr ) {
+          pMapData = this->GetEmptyRoughMap();
+          if ( pMapData ) {
+            if ( szMapFile ) {
+              if ( pMapData->m_RoughMap.Load( szMapFile, nZoneMapXIDX, nZoneMapYIDX ) ) {
+                pMapData->m_strMapFileName = std::string( szMapFile );
+                pMapData->m_bLoaded        = true;
 
-								LogString ( LOG_NORMAL, "Wide AddMAP: (%d, %d) --> ( %d, %d ) \n", s_WideSecAdjPos[ s_WideAddSecIdx[ wUpdateFLAG ][ nI ] ].m_nX, s_WideSecAdjPos[ s_WideAddSecIdx[ wUpdateFLAG ][ nI ] ].m_nY, nZoneMapXIDX, nZoneMapYIDX);
-							}else
-								LogString ( LOG_NORMAL, "FAILED Wide AddMAP: (%d, %d) --> ( %d, %d ) \n", s_WideSecAdjPos[ s_WideAddSecIdx[ wUpdateFLAG ][ nI ] ].m_nX, s_WideSecAdjPos[ s_WideAddSecIdx[ wUpdateFLAG ][ nI ] ].m_nY, nZoneMapXIDX, nZoneMapYIDX);
-						} 
-					}
-					else
-					{
-						assert( 0 && "GetEmptyMAP() returns invalid map[ AddMap ]" );
-					}
-				}
-			}
-		}
-	}
+                LogString (LOG_NORMAL, "Wide AddMAP: (%d, %d) --> ( %d, %d ) \n", s_WideSecAdjPos[s_WideAddSecIdx[wUpdateFLAG][nI]].m_nX, s_WideSecAdjPos[s_WideAddSecIdx[wUpdateFLAG][nI]].m_nY, nZoneMapXIDX, nZoneMapYIDX);
+              } else
+              LogString (LOG_NORMAL, "FAILED Wide AddMAP: (%d, %d) --> ( %d, %d ) \n", s_WideSecAdjPos[s_WideAddSecIdx[wUpdateFLAG][nI]].m_nX, s_WideSecAdjPos[s_WideAddSecIdx[wUpdateFLAG][nI]].m_nY, nZoneMapXIDX, nZoneMapYIDX);
+            }
+          } else {
+            assert( 0 && "GetEmptyMAP() returns invalid map[ AddMap ]" );
+          }
+        }
+      }
+    }
+  }
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -265,39 +244,34 @@ void CWideTerrain::AddRoughMap( short nCenterMapXIDX, short nCenterMapYIDX, WORD
 /// @brief Expired된 맵들을 내린다.
 //----------------------------------------------------------------------------------------------------
 
-void CWideTerrain::SubRoughMap( WORD wUpdateFLAG )
-{
-	short nI					= 0;
-	short nZoneMapXIDX			= 0;
-	short nZoneMapYIDX			= 0;
+void    CWideTerrain::SubRoughMap(WORD wUpdateFLAG) {
+  short nI           = 0;
+  short nZoneMapXIDX = 0;
+  short nZoneMapYIDX = 0;
 
-	char* szMapFile				= NULL;
-	ROUGHMAP_DATA *pMapData		= NULL;
+  char*          szMapFile = nullptr;
+  ROUGHMAP_DATA* pMapData  = nullptr;
 
-	for (nI=0; s_WideSubSecIdx[ wUpdateFLAG ][ nI ]>=0; nI++) 
-	{
-		nZoneMapXIDX = m_nCenterMapXIDX + s_WideSecAdjPos[ s_WideSubSecIdx[ wUpdateFLAG ][ nI ] ].m_nX;
-		nZoneMapYIDX = m_nCenterMapYIDX + s_WideSecAdjPos[ s_WideSubSecIdx[ wUpdateFLAG ][ nI ] ].m_nY;
+  for ( nI       = 0; s_WideSubSecIdx[wUpdateFLAG][nI] >= 0; nI++ ) {
+    nZoneMapXIDX = m_nCenterMapXIDX + s_WideSecAdjPos[s_WideSubSecIdx[wUpdateFLAG][nI]].m_nX;
+    nZoneMapYIDX = m_nCenterMapYIDX + s_WideSecAdjPos[s_WideSubSecIdx[wUpdateFLAG][nI]].m_nY;
 
-		if ( nZoneMapXIDX >= 0 && nZoneMapXIDX < MAP_COUNT_PER_ZONE_AXIS &&
-			 nZoneMapYIDX >= 0 && nZoneMapYIDX < MAP_COUNT_PER_ZONE_AXIS ) 
-		{
+    if ( nZoneMapXIDX >= 0 && nZoneMapXIDX < MAP_COUNT_PER_ZONE_AXIS &&
+         nZoneMapYIDX >= 0 && nZoneMapYIDX < MAP_COUNT_PER_ZONE_AXIS ) {
 
-			szMapFile = GetMapFILE( nZoneMapXIDX, nZoneMapYIDX );
-			if ( szMapFile ) 
-			{
-				pMapData = this->FindLoadedMAP ( szMapFile );
-				if ( pMapData ) 
-				{
-					LogString (LOG_NORMAL, "	Wide FreeRoughMAP: (%d, %d) --> ( %d, %d )\n", 
-											s_WideSecAdjPos[ s_WideSubSecIdx[ wUpdateFLAG ][ nI ] ].m_nX, 
-											s_WideSecAdjPos[ s_WideSubSecIdx[ wUpdateFLAG ][ nI ] ].m_nY, 
-											nZoneMapXIDX, nZoneMapYIDX);
-					pMapData->m_RoughMap.Free ();
+      szMapFile = GetMapFILE( nZoneMapXIDX, nZoneMapYIDX );
+      if ( szMapFile ) {
+        pMapData = this->FindLoadedMAP( szMapFile );
+        if ( pMapData ) {
+          LogString (LOG_NORMAL, "	Wide FreeRoughMAP: (%d, %d) --> ( %d, %d )\n",
+                     s_WideSecAdjPos[s_WideSubSecIdx[wUpdateFLAG][nI]].m_nX,
+                     s_WideSecAdjPos[s_WideSubSecIdx[wUpdateFLAG][nI]].m_nY,
+                     nZoneMapXIDX, nZoneMapYIDX);
+          pMapData->m_RoughMap.Free();
 
-					pMapData->m_bLoaded = false;
-				}			
-			}
-		}
-	}	
+          pMapData->m_bLoaded = false;
+        }
+      }
+    }
+  }
 }

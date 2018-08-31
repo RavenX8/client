@@ -1,8 +1,6 @@
 #ifndef _MOUSETARGETEFFECT_
 #define _MOUSETARGETEFFECT_
 
-
-
 class CEffect;
 
 //------------------------------------------------------------------------------------------------
@@ -10,20 +8,18 @@ class CEffect;
 /// @brief 마우스 타겟에 출력할 이펙트 처리 클래스
 //-------------------------------------------------------------------------------------------------
 
-class CMouseTargetEffect
-{
+class CMouseTargetEffect {
 private:
-	CEffect*			m_pEffect;
+  CEffect* m_pEffect;
 public:
-	CMouseTargetEffect(void);
-	~CMouseTargetEffect(void);
+  CMouseTargetEffect(void );
+  ~CMouseTargetEffect(void);
 
-	void				Init();
-	void				Clear();
+  void Init();
+  void Clear();
 
-	void				Start( float x, float y, float z );
-	void				Proc();
+  void Start(float x, float y, float z);
+  void Proc();
 };
-
 
 #endif // _MOUSETARGETEFFECT_

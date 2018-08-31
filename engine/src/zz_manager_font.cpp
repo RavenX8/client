@@ -14,25 +14,20 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_manager_font, zz_manager)
 
-zz_manager_font::zz_manager_font ()
-{
-}
+zz_manager_font::zz_manager_font() {}
 
-zz_manager_font::~zz_manager_font ()
-{
-}
+zz_manager_font::~zz_manager_font() {}
 
 // traverse all childe nodes and call prepare_font()
-void zz_manager_font::prepare_font ()
-{
-	zz_hash_table<zz_node*>::iterator it, it_end;
-	zz_hash_table<zz_node*> * nodes = get_hash_table();
-	zz_font * font;
+void                                zz_manager_font::prepare_font() {
+  zz_hash_table<zz_node*>::iterator it, it_end;
+  zz_hash_table<zz_node*>*          nodes = get_hash_table();
+  zz_font*                          font;
 
-	if (!nodes) return;
+  if ( !nodes ) return;
 
-	for (it = nodes->begin(), it_end = nodes->end(); it != it_end; ++it) {
-		font = static_cast<zz_font*>(*it);
-		font->prepare_font();
-	}
+  for ( it = nodes->begin(), it_end = nodes->end(); it != it_end; ++it ) {
+    font   = static_cast<zz_font*>(*it);
+    font->prepare_font();
+  }
 }

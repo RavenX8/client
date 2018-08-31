@@ -15,35 +15,33 @@ class CDragItem;
 * @Date			2005/9/15
 */
 
-class CSkillListItem : public CWinCtrl
-{
+class CSkillListItem : public CWinCtrl {
 public:
-	CSkillListItem(void);
-	virtual ~CSkillListItem(void);
-	virtual void Draw();
-	virtual void MoveWindow( POINT pt );
-	virtual void Update( POINT ptMouse );
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void Show();
-	virtual void Hide();
-	
-	void		SetIcon( CIconSkill* pIcon );
-	CIconSkill*	GetIcon();
+           CSkillListItem(void );
+  virtual  ~CSkillListItem(void);
+  void     Draw() override;
+  void     MoveWindow(POINT pt) override;
+  void     Update(POINT     ptMouse) override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     Show() override;
+  void     Hide() override;
 
-	void		Update();
+  void        SetIcon(CIconSkill* pIcon);
+  CIconSkill* GetIcon();
+
+  void Update();
 
 protected:
-	bool	IsValidLevelUp( int iSkillSlotIdx );
-	bool	IsHasNextLevel( int iSkillSlotIdx );
+  bool IsValidLevelUp(int iSkillSlotIdx);
+  bool IsHasNextLevel(int iSkillSlotIdx);
 protected:
-	CSlot		m_Slot;
-	CTButton*	m_pButton;
-	CDragItem*	m_pDragItem;
-	std::string m_error_msg;
+  CSlot       m_Slot;
+  CTButton*   m_pButton;
+  CDragItem*  m_pDragItem;
+  std::string m_error_msg;
 
-
-	std::vector<CSinglelineString>	m_vecSingleString;
-	CSinglelineString				m_strUseAbility;
+  std::vector<CSinglelineString> m_vecSingleString;
+  CSinglelineString              m_strUseAbility;
 
 };
 #endif

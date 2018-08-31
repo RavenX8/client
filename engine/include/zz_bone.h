@@ -98,149 +98,142 @@ class zz_model;
 
 class zz_dummy : public zz_visible {
 public:
-	virtual void unlink_child (zz_node * node_to_remove);
+  void unlink_child(zz_node* node_to_remove) override;
 
-	// debugging only
-	virtual void insert_scene ();
-	virtual void remove_scene ();
+  // debugging only
+  void insert_scene() override;
+  void remove_scene() override;
 
-	// not recursive insert/remove scene 
-	void insert_scene_one () { inscene = true; }
-	void remove_scene_one () { inscene = false; }
+  // not recursive insert/remove scene 
+  void insert_scene_one() { inscene = true; }
+  void remove_scene_one() { inscene = false; }
 
-	zz_dummy ();
-	virtual ~zz_dummy ();
+          zz_dummy();
+  virtual ~zz_dummy();
 };
 
 //--------------------------------------------------------------------------------
 class zz_bone : public zz_visible {
 private:
-	// bone_offsetTM = worldTM.inverse()
-	// from model_space to bone_space
-	// new_vertex_world = [new_world_TM] * bone_offsetTM * vertex_in_model_space
-	// , where [new_world_TM] is varying in time.
-	mat4 bone_offsetTM;
+  // bone_offsetTM = worldTM.inverse()
+  // from model_space to bone_space
+  // new_vertex_world = [new_world_TM] * bone_offsetTM * vertex_in_model_space
+  // , where [new_world_TM] is varying in time.
+  mat4 bone_offsetTM;
 
-	// boneTM caching
-	bool use_cached_boneTM;
-	mat4 boneTM; // = worldTM * bone_offsetTM
+  // boneTM caching
+  bool use_cached_boneTM;
+  mat4 boneTM; // = worldTM * bone_offsetTM
 
-	// map index to motion's channel
-	// channel_index range = [0, motion->channels.size() )
-	int position_channel_index; // positive value if mapped to position channel
-	int rotation_channel_index; // positive value if mapped to rotation channel
+  // map index to motion's channel
+  // channel_index range = [0, motion->channels.size() )
+  int position_channel_index; // positive value if mapped to position channel
+  int rotation_channel_index; // positive value if mapped to rotation channel
 
-	bool forced_rotation_onoff;
-	D3DXVECTOR3  forced_rotation_axis;
-	float forced_rotation_angle_;
-	float forced_rotation_angle; 
-	bool forced_rotation_calculate_onoff;
-	quat forcde_rotation_quat;  
-	float local_picking_position[3];
+  bool        forced_rotation_onoff;
+  D3DXVECTOR3 forced_rotation_axis;
+  float       forced_rotation_angle_;
+  float       forced_rotation_angle;
+  bool        forced_rotation_calculate_onoff;
+  quat        forcde_rotation_quat;
+  float       local_picking_position[3];
 
-	zz_model * model;
+  zz_model* model;
 
 public:
-	enum zz_joint_type {
-		ZZ_JOINT_FREE,
-		ZZ_JOINT_SOCKET,
-		ZZ_JOINT_HINGE // ...
-	};
+  enum zz_joint_type {
+    ZZ_JOINT_FREE,
+    ZZ_JOINT_SOCKET,
+    ZZ_JOINT_HINGE // ...
+  };
 
-	zz_bone ();
-	virtual ~zz_bone ();
+          zz_bone();
+  virtual ~zz_bone();
 
-	// invalidate tm and bvolume
-	bool invalidate_tm_minmax ()
-	{
-		use_cached_boneTM = false;
-		return zz_visible::invalidate_tm_minmax();
-	}
+  // invalidate tm and bvolume
+  bool invalidate_tm_minmax() override {
+    use_cached_boneTM = false;
+    return zz_visible::invalidate_tm_minmax();
+  }
 
-	void set_position_channel_index (int index);
-	void set_rotation_channel_index (int index);
+  void set_position_channel_index(int index);
+  void set_rotation_channel_index(int index);
 
-	// faster than apply_channel_by_time()
-	void apply_channel_by_frame (int frame, zz_motion * motion, float blend_weight = 1.0f);
-	// @time = local time after motion start
-	void apply_channel_by_time (zz_time time, zz_motion * motion, int custum_fps = 0, float flend_weight = 1.0f);
-	void modify_channel_by_time (zz_time time, zz_motion * motion, int custum_fps = 0);
+  // faster than apply_channel_by_time()
+  void apply_channel_by_frame(int frame, zz_motion* motion, float blend_weight = 1.0f);
+  // @time = local time after motion start
+  void apply_channel_by_time(zz_time  time, zz_motion* motion, int custum_fps = 0, float flend_weight = 1.0f);
+  void modify_channel_by_time(zz_time time, zz_motion* motion, int custum_fps = 0);
 
-	void calculate_bone_offsetTM ();
-	const mat4& get_bone_offsetTM ();
-	const mat4& get_boneTM ();
+  void        calculate_bone_offsetTM();
+  const mat4& get_bone_offsetTM();
+  const mat4& get_boneTM();
 
-	// boneTM = modelview * worldTM * bone_offsetTM
-	// new_vertex_in_modelview_world_space = boneTM * vertex_in_model_space
-	void set_boneTM_to_shader (int bone_index);
-	void set_boneTM_to_modelviewTM (void);
+  // boneTM = modelview * worldTM * bone_offsetTM
+  // new_vertex_in_modelview_world_space = boneTM * vertex_in_model_space
+  void set_boneTM_to_shader(int      bone_index);
+  void set_boneTM_to_modelviewTM(void);
 
-	// We did not defined zz_bone::link_child(zz_node *), because bone->link_child(non-bone) is always done
-	// in zz_model by zz_model::link_bone() that adds visible node into their items list.
-	// When we unlink child from bone without zz_model::unlink_bone(),
-	// we should check if the to-be-unlinked node is visible-type, and, if it is, 
-	// we should do zz_model::del_item().
-	virtual void unlink_child (zz_node * node_in);
+  // We did not defined zz_bone::link_child(zz_node *), because bone->link_child(non-bone) is always done
+  // in zz_model by zz_model::link_bone() that adds visible node into their items list.
+  // When we unlink child from bone without zz_model::unlink_bone(),
+  // we should check if the to-be-unlinked node is visible-type, and, if it is, 
+  // we should do zz_model::del_item().
+  void unlink_child(zz_node* node_in) override;
 
-	// overloading thing for bone
-	void link_child (zz_bone * bone_child);
-	void link_child (zz_dummy * dummy_child);
-	void link_child (zz_visible * vis_child);
+  // overloading thing for bone
+  void link_child(zz_bone*    bone_child);
+  void link_child(zz_dummy*   dummy_child);
+  void link_child(zz_visible* vis_child);
 
-	zz_model * get_model ();
-	bool set_model (zz_model * model_in); // return false if already set by another model.
+  zz_model* get_model();
+  bool      set_model(zz_model* model_in); // return false if already set by another model.
 
-	virtual void gather_collidable (std::vector<zz_visible*>& collidable_holder);
+  void gather_collidable(std::vector<zz_visible*>& collidable_holder) override;
 
-	virtual void gather_visible (std::vector<zz_visible*>& visible_holder);
+  void gather_visible(std::vector<zz_visible*>& visible_holder) override;
 
-	// debugging only
-	virtual void insert_scene ();
-	virtual void remove_scene ();
+  // debugging only
+  void insert_scene() override;
+  void remove_scene() override;
 
-	// not recursive insert/remove scene
-	void insert_scene_one () { inscene = true; }
-	void remove_scene_one () { inscene = false; }
+  // not recursive insert/remove scene
+  void insert_scene_one() { inscene = true; }
+  void remove_scene_one() { inscene = false; }
 
-	void input_forced_rotation_mode(vec4 &position);
-	void set_forced_rotation_mode_off();
-	
-	ZZ_DECLARE_DYNAMIC(zz_bone);
+  void input_forced_rotation_mode(vec4& position);
+  void set_forced_rotation_mode_off();
+
+ZZ_DECLARE_DYNAMIC(zz_bone);
 };
 
-inline bool zz_bone::set_model (zz_model * model_in)
-{
-	// returns false if model was already set.
-	// returns true after assigning the model.
-	return (model) ? false : (model = model_in, true);
+inline bool zz_bone::set_model(zz_model* model_in) {
+  // returns false if model was already set.
+  // returns true after assigning the model.
+  return (model) ? false : (model = model_in, true);
 }
 
-inline zz_model * zz_bone::get_model ()
-{
-	return model;
+inline zz_model* zz_bone::get_model() {
+  return model;
 }
 
-inline void zz_bone::set_position_channel_index (int index)
-{
-	position_channel_index = index;
+inline void zz_bone::set_position_channel_index(int index) {
+  position_channel_index = index;
 }
 
-inline void zz_bone::set_rotation_channel_index (int index)
-{
-	rotation_channel_index = index;
+inline void zz_bone::set_rotation_channel_index(int index) {
+  rotation_channel_index = index;
 }
 
 // call this before any animation is applied
-inline void zz_bone::calculate_bone_offsetTM ()
-{
-	bone_offsetTM = zz_bone::get_world_inverseTM();
-	// worldTM * Vertex_bonespace = Vertex_world
-	// Vertex_bonespace = worldTM.inverse() * Vertex_world
+inline void zz_bone::calculate_bone_offsetTM() {
+  bone_offsetTM = get_world_inverseTM();
+  // worldTM * Vertex_bonespace = Vertex_world
+  // Vertex_bonespace = worldTM.inverse() * Vertex_world
 }
 
-inline const mat4& zz_bone::get_bone_offsetTM ()
-{
-	return bone_offsetTM;
+inline const mat4& zz_bone::get_bone_offsetTM() {
+  return bone_offsetTM;
 }
 
 // list of bones

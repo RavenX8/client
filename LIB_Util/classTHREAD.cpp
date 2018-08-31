@@ -1,9 +1,7 @@
-
 #include <windows.h>
 #include <process.h>
 #include "classLOG.h"
 #include "classTHREAD.h"
-
 
 //-------------------------------------------------------------------------------------------------
 /*
@@ -78,71 +76,68 @@ THREAD_PRIORITY_TIME_CRITICAL   Indicates a base priority level of 15 for IDLE_P
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //DWORD WINAPI ThreadFunc (LPVOID lpParameter)
-unsigned __stdcall ThreadFunc( void* lpParameter )
-{
-	classTHREAD *pCThread = (classTHREAD*)lpParameter;
+unsigned __stdcall ThreadFunc(void* lpParameter) {
+  classTHREAD*     pCThread = (classTHREAD*)lpParameter;
 
-	if ( !pCThread->Terminated )
-		pCThread->Execute ();
+  if ( !pCThread->Terminated )
+    pCThread->Execute();
 
-	pCThread->m_bFinished = true;
-	return 0;
+  pCThread->m_bFinished = true;
+  return 0;
 
-//	DWORD dwResult;		// 아래 함수들을 사용해서 삽질을 -_-;
-//	::GetExitCodeThread( pCThread->m_hThread, &dwResult );
-//	::ExitThread ( dwResult );
-//	return dwResult;
-}
-
-
-//-------------------------------------------------------------------------------------------------
-classTHREAD::classTHREAD (bool bCreateSuspended)
-{
-	m_hThread = INVALID_HANDLE_VALUE;
-
-	this->m_bFinished = false;
-	this->Terminated  = true;
-
-	DWORD dwCreationFlags=0;
-	m_bSuspended = bCreateSuspended;
-	if ( bCreateSuspended )
-		dwCreationFlags = CREATE_SUSPENDED;
-
-//	m_hThread = ::CreateThread(NULL, 0, ThreadFunc, this, dwCreationFlags, &this->ThreadID);
-	m_hThread = (HANDLE)_beginthreadex(NULL, 0, ThreadFunc, this, dwCreationFlags, &this->ThreadID);
-	if ( m_hThread != NULL ) {
-        ::SetThreadPriority (m_hThread, THREAD_PRIORITY_NORMAL);
-        this->Terminated = false;
-        return;
-	}
-
-        // Log_String ("CreateThread failed to create socket accept thread: ERROR_CODE[ %d ]\n", GetLastError());
-	if ( m_hThread != INVALID_HANDLE_VALUE ) 
-		::CloseHandle( m_hThread ); 
-
-	m_hThread = INVALID_HANDLE_VALUE;
-}
-classTHREAD::~classTHREAD ()
-{
-	if ( !m_bFinished && !m_bSuspended ) {
-		this->Terminate ();
-		this->WaitFor ();
-	}
-
-	if ( m_hThread ) {
-		::CloseHandle( m_hThread );
-		m_hThread = INVALID_HANDLE_VALUE;
-	}
+  //	DWORD dwResult;		// 아래 함수들을 사용해서 삽질을 -_-;
+  //	::GetExitCodeThread( pCThread->m_hThread, &dwResult );
+  //	::ExitThread ( dwResult );
+  //	return dwResult;
 }
 
 //-------------------------------------------------------------------------------------------------
-void classTHREAD::Terminate ()
-{
-	this->Terminated = true;
-	if ( m_bSuspended ) {
-		this->Resume ();
-	}
+classTHREAD::classTHREAD(bool bCreateSuspended) {
+  m_hThread = INVALID_HANDLE_VALUE;
+
+  this->m_bFinished = false;
+  this->Terminated  = true;
+
+  DWORD dwCreationFlags = 0;
+  m_bSuspended          = bCreateSuspended;
+  if ( bCreateSuspended )
+    dwCreationFlags = CREATE_SUSPENDED;
+
+  //	m_hThread = ::CreateThread(NULL, 0, ThreadFunc, this, dwCreationFlags, &this->ThreadID);
+  m_hThread = (HANDLE)_beginthreadex( nullptr, 0, ThreadFunc, this, dwCreationFlags, &this->ThreadID );
+  if ( m_hThread != nullptr ) {
+    SetThreadPriority( m_hThread, THREAD_PRIORITY_NORMAL );
+    this->Terminated = false;
+    return;
+  }
+
+  // Log_String ("CreateThread failed to create socket accept thread: ERROR_CODE[ %d ]\n", GetLastError());
+  if ( m_hThread != INVALID_HANDLE_VALUE )
+    CloseHandle( m_hThread );
+
+  m_hThread = INVALID_HANDLE_VALUE;
 }
+
+classTHREAD::~classTHREAD() {
+  if ( !m_bFinished && !m_bSuspended ) {
+    this->Terminate();
+    this->WaitFor();
+  }
+
+  if ( m_hThread ) {
+    CloseHandle( m_hThread );
+    m_hThread = INVALID_HANDLE_VALUE;
+  }
+}
+
+//-------------------------------------------------------------------------------------------------
+void classTHREAD::Terminate() {
+  this->Terminated = true;
+  if ( m_bSuspended ) {
+    this->Resume();
+  }
+}
+
 /*
 function TThread.WaitFor: LongWord;
 var
@@ -157,37 +152,35 @@ begin
   GetExitCodeThread(H, Result);
 end;
 */
-int	classTHREAD::WaitFor ()
-{
-	DWORD dwExitCode;
+int     classTHREAD::WaitFor() {
+  DWORD dwExitCode;
 
-	::WaitForSingleObject( m_hThread, INFINITE );
-	::GetExitCodeThread( m_hThread, &dwExitCode );
-	return 0;
+  WaitForSingleObject( m_hThread, INFINITE );
+  GetExitCodeThread( m_hThread, &dwExitCode );
+  return 0;
 }
 
-DWORD classTHREAD::Suspend ()
-{	
-	m_bSuspended = true;
-	return	::SuspendThread( m_hThread );
+DWORD classTHREAD::Suspend() {
+  m_bSuspended = true;
+  return SuspendThread( m_hThread );
 }
-DWORD classTHREAD::Resume ()
-{	
-	DWORD dwReturn = ::ResumeThread( m_hThread );
 
-	if ( dwReturn == 1 )
-		m_bSuspended = false;
+DWORD   classTHREAD::Resume() {
+  DWORD dwReturn = ResumeThread( m_hThread );
 
-	return dwReturn;
+  if ( dwReturn == 1 )
+    m_bSuspended = false;
+
+  return dwReturn;
 }
-void classTHREAD::SetSuspended (bool bValue)
-{
-	if ( bValue != m_bSuspended ) {
-	    if ( bValue )
-			this->Suspend ();
-		else
-			this->Resume ();
-	}
+
+void classTHREAD::SetSuspended(bool bValue) {
+  if ( bValue != m_bSuspended ) {
+    if ( bValue )
+      this->Suspend();
+    else
+      this->Resume();
+  }
 }
 #endif      // __BORLANDC__
 //-------------------------------------------------------------------------------------------------

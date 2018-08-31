@@ -28,9 +28,9 @@
 
 class zz_event : public zz_oskernel {
 public:
-	zz_event ();
-	bool set ();
-	bool reset ();
+       zz_event();
+  bool set();
+  bool reset();
 };
 
 #endif // __ZZ_EVENT_H__

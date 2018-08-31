@@ -55,26 +55,26 @@
 
 //--------------------------------------------------------------------------------
 class zz_motion_mixer : public zz_motion {
-	float blend_weight;
+  float blend_weight;
 
-public:	
-	zz_motion_mixer(void);
-	virtual ~zz_motion_mixer(void);
+public:
+          zz_motion_mixer(void );
+  virtual ~zz_motion_mixer(void);
 
-	// these methods use just first argument motion's.
-	virtual int get_num_frames (void);
-	virtual zz_time get_total_time (void);
-	virtual int get_fps (void);
-	virtual void get_channel_data (int channel_index, zz_time time, void * data);
+  // these methods use just first argument motion's.
+  int             get_num_frames(void  ) override;
+  virtual zz_time get_total_time(void  );
+  int             get_fps(void         ) override;
+  virtual void    get_channel_data(int channel_index, zz_time time, void* data);
 
-	void set_blend_weight (float blend_weight) { this->blend_weight = blend_weight; }
+  void set_blend_weight(float blend_weight) { this->blend_weight = blend_weight; }
 
-	zz_motion * get_motion_arg (int index); // get argument motion by index (0-1)
+  zz_motion* get_motion_arg(int index); // get argument motion by index (0-1)
 
-	const vec3& get_initial_position (void);
-	const quat& get_initial_rotation (void);
+  const vec3& get_initial_position(void);
+  const quat& get_initial_rotation(void);
 
-	ZZ_DECLARE_DYNAMIC(zz_motion_mixer)
+ZZ_DECLARE_DYNAMIC(zz_motion_mixer)
 };
 
 #endif // __ZZ_MOTION_MIXER_H__

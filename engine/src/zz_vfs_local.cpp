@@ -105,85 +105,77 @@
 #include <windows.h>
 #endif
 
-zz_vfs_local::zz_vfs_local(void) : _fp(NULL)
-{
-	set_real_filesystem(this);
+zz_vfs_local::zz_vfs_local(void) : _fp( nullptr ) {
+  set_real_filesystem( this );
 }
 
-zz_vfs_local::~zz_vfs_local(void)
-{
-	close();
-	set_real_filesystem(NULL);
+zz_vfs_local::~zz_vfs_local(void) {
+  close();
+  set_real_filesystem( nullptr );
 }
 
-bool zz_vfs_local::open (const char * filename, const zz_vfs_mode mode)
-{
-	//ZZ_LOG("vfs_pkg:open(%s)\n", filename);
-	//ZZ_PROFILER_INSTALL(vfs_local_open);
+bool zz_vfs_local::open(const char* filename, const zz_vfs_mode mode) {
+  //ZZ_LOG("vfs_pkg:open(%s)\n", filename);
+  //ZZ_PROFILER_INSTALL(vfs_local_open);
 
-	if (_fp) {
-		close(); // close first
-	}
+  if ( _fp ) {
+    close(); // close first
+  }
 
-	switch (mode) {
-		case zz_vfs::ZZ_VFS_READ:
-			_fp = fopen(filename, "rb");
-			if (_fp) 	_filename.set(filename);
-			break;
-		case zz_vfs::ZZ_VFS_WRITE:
-			_fp = fopen(filename, "wb");
-			if (_fp) _filename.set(filename);
-			break;
-	}
+  switch ( mode ) {
+    case ZZ_VFS_READ: _fp = fopen( filename, "rb" );
+      if ( _fp ) _filename.set( filename );
+      break;
+    case ZZ_VFS_WRITE: _fp = fopen( filename, "wb" );
+      if ( _fp ) _filename.set( filename );
+      break;
+  }
 
-	return (_fp) ? true : false;
+  return (_fp) ? true : false;
 }
 
-bool zz_vfs_local::close (void)
-{
-	//ZZ_LOG("vfs_pkg:close(%s)\n", _filename.get());
-	//ZZ_PROFILER_INSTALL(vfs_local_close);
+bool zz_vfs_local::close(void) {
+  //ZZ_LOG("vfs_pkg:close(%s)\n", _filename.get());
+  //ZZ_PROFILER_INSTALL(vfs_local_close);
 
-	set_status(zz_vfs::ZZ_VFS_INI);
+  set_status( ZZ_VFS_INI );
 
-	if (_fp) {
-		if (fclose(_fp) == 0) {
-            _fp = NULL;
-			return true;
-		}
-		else return false;
-	}
-	return true;
+  if ( _fp ) {
+    if ( fclose( _fp ) == 0 ) {
+      _fp = nullptr;
+      return true;
+    }
+    return false;
+  }
+  return true;
 }
 
-bool zz_vfs_local::get_mtime (const char * file_name, uint64 * t) const
-{
-	struct __stat64 st;
+bool              zz_vfs_local::get_mtime(const char* file_name, uint64* t) const {
+  struct __stat64 st;
 
-	if (_stat64(file_name, &st) != 0) {
-		return false;
-	}
-	*t = st.st_mtime;
-	return true;
+  if ( _stat64( file_name, &st ) != 0 ) {
+    return false;
+  }
+  *t = st.st_mtime;
+  return true;
 }
 
-uint32 zz_vfs_local::read_ (char * buf, uint32 size)
-{
-	//static zz_profiler p("Pvfs_local_read");
-	//if (size > 1000) {
-	//	ZZ_LOG("vfs_local: read_(%s, %d)\n", this->_filename.get(), size);
-	//	p.begin();
-	//}
-	//ZZ_PROFILER_INSTALL(Pvfs_local_read); // 0.000131ms
-	int read_count = 0;
-	if (_fp) {
-		read_count = uint32(fread(buf, 1, size, _fp));
-	}
-	if (read_count == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
-	//if (size > 1000) {
-	//	p.end();
-	//}
-	return read_count;
+uint32 zz_vfs_local::read_(char* buf, uint32 size) {
+  //static zz_profiler p("Pvfs_local_read");
+  //if (size > 1000) {
+  //	ZZ_LOG("vfs_local: read_(%s, %d)\n", this->_filename.get(), size);
+  //	p.begin();
+  //}
+  //ZZ_PROFILER_INSTALL(Pvfs_local_read); // 0.000131ms
+  int read_count = 0;
+  if ( _fp ) {
+    read_count = uint32( fread( buf, 1, size, _fp ) );
+  }
+  if ( read_count == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+  //if (size > 1000) {
+  //	p.end();
+  //}
+  return read_count;
 }

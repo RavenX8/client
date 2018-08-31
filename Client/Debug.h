@@ -15,6 +15,5 @@ void SendDebugMsgToWeb( const char* pStrMsg );
 
 #endif
 
-
 #endif //_DEBUG_HEADER_
 //-------------------------------------------------------------------------------------------------

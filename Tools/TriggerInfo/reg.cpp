@@ -10,17 +10,16 @@
  *
  */
 
-DWORD GetRegistryValue (HKEY hKey, const char * KeyPath)
-{
-	HKEY hResKey;
+DWORD  GetRegistryValue(HKEY hKey, const char* KeyPath) {
+  HKEY hResKey;
 
-	LONG lRet = RegOpenKeyEx (hKey
-							, KeyPath
-							, 0
-							, KEY_QUERY_VALUE
-							, &hResKey );
+  LONG lRet = RegOpenKeyEx( hKey
+                            , KeyPath
+                            , 0
+                            , KEY_QUERY_VALUE
+                            , &hResKey );
 
-	RegCloseKey( hKey );
+  RegCloseKey( hKey );
 
-	return 0;
+  return 0;
 }

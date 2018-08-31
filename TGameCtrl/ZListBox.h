@@ -3,54 +3,53 @@
 #include "winctrl.h"
 #include "IScrollModel.h"
 #include <deque>
+
 //*------------------------------------------------------------------//
 ///
 //*------------------------------------------------------------------//
-class TGAMECTRL_API CZListBox : public CWinCtrl, public IScrollModel
-{
+class TGAMECTRL_API CZListBox : public CWinCtrl, public IScrollModel {
 public:
-	CZListBox(void);
-	virtual ~CZListBox(void);
-	
-	virtual void Draw();
-	virtual void MoveWindow( POINT pt );
-	virtual void Update( POINT ptMouse );
-	virtual void Show();
-	virtual void Hide();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
+          CZListBox(void );
+  virtual ~CZListBox(void);
 
-	void	Add( CWinCtrl* pCtrl );
-	void	Clear();
-	void	SetSelected( int iIndex );
-	void	DeselectAll();
-	int		GetSelectedItemIndex();
-	CWinCtrl* GetItem( int iIndex );
-	void	InsertItem( int iIndex, CWinCtrl* pCtrl );
-	bool	DelItem( int iIndex );
-	bool	DelItemByControlID( int iID );
-	int		GetSize();
-	
-	
-	//*---------------------------------------------------//
-	/// implemented from IScrollModel
-	virtual int GetValue();
-	virtual int GetExtent();
-	virtual int GetMaximum();
-	virtual int GetMinimum();
-	
-	virtual void SetValue( int );
-	virtual void SetExtent( int );
-	virtual void SetMaximum( int );
-	virtual void SetMinimum( int );
+  void     Draw() override;
+  void     MoveWindow(POINT pt) override;
+  void     Update(POINT     ptMouse) override;
+  void     Show() override;
+  void     Hide() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	virtual RECT GetWindowRect();
-	//*---------------------------------------------------//
+  void      Add(CWinCtrl* pCtrl);
+  void      Clear();
+  void      SetSelected(int iIndex);
+  void      DeselectAll();
+  int       GetSelectedItemIndex();
+  CWinCtrl* GetItem(int            iIndex);
+  void      InsertItem(int         iIndex, CWinCtrl* pCtrl);
+  bool      DelItem(int            iIndex);
+  bool      DelItemByControlID(int iID);
+  int       GetSize();
+
+  //*---------------------------------------------------//
+  /// implemented from IScrollModel
+  int GetValue() override;
+  int GetExtent() override;
+  int GetMaximum() override;
+  int GetMinimum() override;
+
+  void SetValue(int  ) override;
+  void SetExtent(int ) override;
+  void SetMaximum(int) override;
+  void SetMinimum(int) override;
+
+  RECT GetWindowRect() override;
+  //*---------------------------------------------------//
 
 protected:
 
-	int							m_iValue;
-	int							m_iExtent;
+  int m_iValue;
+  int m_iExtent;
 
-	std::deque<CWinCtrl*>		m_Items;
+  std::deque<CWinCtrl*> m_Items;
 };
 #endif

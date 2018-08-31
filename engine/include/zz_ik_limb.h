@@ -50,31 +50,31 @@ class zz_bone;
 //--------------------------------------------------------------------------------
 class zz_ik_limb : public zz_node {
 private:
-	zz_bone * root;
-	zz_bone * mid;
-	zz_bone * end;
-	mat4 originTM; // TM of parent-of-root
-	mat4 originITM; // inverse TM of parent-of-root
-	vec3 pos_root;
-	vec3 pos_mid;
-	vec3 pos_end;
-	vec3 pos_target;
-	vec3 root_to_mid, mid_to_end, root_to_end;
-	vec3 root_to_target;
-	float L1, L2, L3;
+  zz_bone* root;
+  zz_bone* mid;
+  zz_bone* end;
+  mat4     originTM;  // TM of parent-of-root
+  mat4     originITM; // inverse TM of parent-of-root
+  vec3     pos_root;
+  vec3     pos_mid;
+  vec3     pos_end;
+  vec3     pos_target;
+  vec3     root_to_mid, mid_to_end, root_to_end;
+  vec3     root_to_target;
+  float    L1, L2, L3;
 
-	float get_mid_angle_rad (void); // get mid segment angle by radian
+  float get_mid_angle_rad(void); // get mid segment angle by radian
 
 public:
-	zz_ik_limb ();
-	~zz_ik_limb () {}
+  zz_ik_limb();
+  ~zz_ik_limb() {}
 
-	void set_chain (zz_bone * root, zz_bone * middle, zz_bone * end);
-	void set_target (vec3 target_world);
-	bool reachable (vec3 target_world);
-	zz_bone * get_chain (int index);
+  void     set_chain(zz_bone* root, zz_bone* middle, zz_bone* end);
+  void     set_target(vec3    target_world);
+  bool     reachable(vec3     target_world);
+  zz_bone* get_chain(int      index);
 
-	ZZ_DECLARE_DYNAMIC(zz_ik_limb)
+ZZ_DECLARE_DYNAMIC(zz_ik_limb)
 };
 
 #endif // __ZZ_IK_LIMB_H__

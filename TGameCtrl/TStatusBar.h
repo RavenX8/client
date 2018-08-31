@@ -8,18 +8,17 @@ class CTImage;
 * @Author	√÷¡æ¡¯
 * @Date		2005/8/30
 */
-class TGAMECTRL_API CTStatusBar :	public CWinCtrl
-{
+class TGAMECTRL_API CTStatusBar : public CWinCtrl {
 public:
-	CTStatusBar(void);
-	virtual ~CTStatusBar(void);
-	virtual void Draw();
-	virtual void Update( POINT pt );
-	virtual void MoveWindow( POINT pt );
+          CTStatusBar(void );
+  virtual ~CTStatusBar(void);
+  void    Draw() override;
+  void    Update(POINT     pt) override;
+  void    MoveWindow(POINT pt) override;
 
-	void	SetImage( CTImage* pImage );
+  void SetImage(CTImage* pImage);
 protected:
 
-	CTImage*	m_pImage;
+  CTImage* m_pImage;
 };
 #endif

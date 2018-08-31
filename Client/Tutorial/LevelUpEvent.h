@@ -12,24 +12,22 @@
 /// 
 //--------------------------------------------------------------------------------------
 
-class CLevelUpEvent
-{
+class CLevelUpEvent {
 private:
-	STBDATA					m_TblLevelEvent;	/// 레벨업 알림버튼 이벤트
+  STBDATA m_TblLevelEvent; /// 레벨업 알림버튼 이벤트
 
-	std::map< int, int >	m_LevelUpEventTbl;	/// < 레벨, 알림버튼번호 >
+  std::map<int, int> m_LevelUpEventTbl; /// < 레벨, 알림버튼번호 >
 
 public:
-	CLevelUpEvent(void);
-	~CLevelUpEvent(void);
+  CLevelUpEvent(void );
+  ~CLevelUpEvent(void);
 
-	bool		Init();
-	void		Release();
+  bool Init();
+  void Release();
 
-	void		CheckLevelEvent( int iLevel );
+  void CheckLevelEvent(int iLevel);
 
-	void		Proc();
+  void Proc();
 };
-
 
 #endif //_LEVELUP_EVENT_

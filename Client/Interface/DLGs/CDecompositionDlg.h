@@ -3,10 +3,9 @@
 
 #include "tdialog.h"
 
-class CDecompositionDlg : public CTDialog
-{
+class CDecompositionDlg : public CTDialog {
 public:
-	CDecompositionDlg(void);
-	virtual ~CDecompositionDlg(void);
+          CDecompositionDlg(void );
+  virtual ~CDecompositionDlg(void);
 };
 #endif

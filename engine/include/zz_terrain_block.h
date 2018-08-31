@@ -96,65 +96,64 @@
 #endif
 
 class zz_mesh_tool;
+
 class zz_terrain_block : public zz_visible {
-	zz_mesh_terrain * terrain_mesh;
+  zz_mesh_terrain* terrain_mesh;
 
 public:
-	zz_terrain_block();
-	virtual ~zz_terrain_block();
+          zz_terrain_block();
+  virtual ~zz_terrain_block();
 
-	static bool first_render; // if this render is the first time.
-	static void begin_state (bool blended);
-	static void end_state ();
+  static bool first_render; // if this render is the first time.
+  static void begin_state(bool blended);
+  static void end_state();
 
-	// for zonly
-	static bool begin_state_zonly (); // return false if not support color enable
-	static void end_state_zonly ();
-	void render_zonly ();
+  // for zonly
+  static bool begin_state_zonly(); // return false if not support color enable
+  static void end_state_zonly();
+  void        render_zonly();
 
-	virtual void render (bool recursive);
+  void render(bool recursive) override;
 
-	virtual bool get_transparent () { return false; }
+  bool get_transparent() override { return false; }
 
-	virtual const vec3& get_com_position_world ();
+  const vec3& get_com_position_world() override;
 
-	virtual void update_bvolume (void);
+  void update_bvolume(void) override;
 
-	virtual void reset_bvolume (void);
+  void reset_bvolume(void) override;
 
-	void add_runit (zz_mesh_terrain * mesh, zz_material * material, zz_light * light);
+  void add_runit(zz_mesh_terrain* mesh, zz_material* material, zz_light* light);
 
-	virtual void update_time (bool recursive, zz_time diff_time);
+  void update_time(bool recursive, zz_time diff_time) override;
 
-	virtual void insert_scene ();
-	virtual void remove_scene ();
+  void insert_scene() override;
+  void remove_scene() override;
 
-	void set_index_order (int index_order_in)
-	{
-		assert(terrain_mesh);
-		terrain_mesh->set_index_order(index_order_in);
-	}
+  void set_index_order(int index_order_in) {
+    assert(terrain_mesh);
+    terrain_mesh->set_index_order( index_order_in );
+  }
 
-	int get_index_order ()
-	{
-		assert(terrain_mesh);
-		terrain_mesh->get_index_order();
-	}
+  int get_index_order() {
+    assert(terrain_mesh);
+    terrain_mesh->get_index_order();
+  }
 
-	virtual void before_render ();
-	virtual void after_render ();
+  void before_render() override;
+  void after_render() override;
 
-	ZZ_DECLARE_DYNAMIC(zz_terrain_block);
+ZZ_DECLARE_DYNAMIC(zz_terrain_block);
 };
 
 class zz_terrain_block_rough : public zz_terrain_block {
 public:
-	zz_terrain_block_rough();
+  zz_terrain_block_rough();
 
-	static void begin_state (bool blended);
-	static void end_state ();
+  static void begin_state(bool blended);
+  static void end_state();
 
-	ZZ_DECLARE_DYNAMIC(zz_terrain_block_rough);
+ZZ_DECLARE_DYNAMIC(zz_terrain_block_rough);
 };
 
 #endif // __ZZ_TERRAIN_BLOCK_H__

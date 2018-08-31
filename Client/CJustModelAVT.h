@@ -6,176 +6,165 @@
 #include "TCommandQ.h"
 
 class CAvatarState;
+
 ///
 /// This is a class for viewing char model
 ///
 /// Init->SetRace->UpdateModel->LoadModelVisible ... ->InsertToScene
 ///
-class CJustModelAVT
-{
+class CJustModelAVT {
 private:
-	std::string					m_strName;
+  std::string m_strName;
 
-	BYTE						m_btRace;
-	BYTE						m_bIsFemale;
+  BYTE m_btRace;
+  BYTE m_bIsFemale;
 
-	int							m_iJob;
-	int							m_iLevel;
-	short						m_nZoneNO;
-	DWORD						m_dwDeleteRemainSEC;
+  int   m_iJob;
+  int   m_iLevel;
+  short m_nZoneNO;
+  DWORD m_dwDeleteRemainSEC;
 
-	/// Model nodes..
-	HNODE						m_hNodeMODEL;
-	union 
-	{
-		HNODE					*m_phPartVIS[ MAX_BODY_PART ];
-		struct 
-		{
-			// 순서는 t_CharPART에 따라서...
-			HNODE				*m_phFaceVIS;
-			HNODE				*m_phHairVIS;
-			HNODE				*m_phHelmetVIS;
+  /// Model nodes..
+  HNODE m_hNodeMODEL;
 
-			HNODE				*m_phArmorVIS;
-			HNODE				*m_phGauntletVIS;
-			HNODE				*m_phBootsVIS;
+  union {
+    HNODE* m_phPartVIS[ MAX_BODY_PART ];
 
-			HNODE				*m_phGoggleVIS;
-			HNODE				*m_phKnapsackVIS;
+    struct {
+      // 순서는 t_CharPART에 따라서...
+      HNODE* m_phFaceVIS;
+      HNODE* m_phHairVIS;
+      HNODE* m_phHelmetVIS;
 
-			HNODE				*m_phRWeaponVIS;
-			HNODE				*m_phLWeaponVIS;
-		} ;
-	} ;
+      HNODE* m_phArmorVIS;
+      HNODE* m_phGauntletVIS;
+      HNODE* m_phBootsVIS;
 
-	/// Model Index
-	union 
-	{
-		int						m_nPartItemIDX[ MAX_BODY_PART ];
-		struct 
-		{
-			// 순서는 t_CharPART에 따라서...
-			int					m_nFaceIDX;
-			int					m_nHairIDX;
-			int					m_nHelmetIDX;
+      HNODE* m_phGoggleVIS;
+      HNODE* m_phKnapsackVIS;
 
-			int					m_nArmorIDX;
-			int					m_nGauntletIDX;
-			int					m_nBootsIDX;
+      HNODE* m_phRWeaponVIS;
+      HNODE* m_phLWeaponVIS;
+    };
+  };
 
-			int					m_nGoggleIDX;
-			int					m_nKnapsackIDX;
+  /// Model Index
+  union {
+    int m_nPartItemIDX[ MAX_BODY_PART ];
 
-			int					m_nRWeaponIDX;
-			int					m_nLWeaponIDX;
-		} ;
-	} ;
+    struct {
+      // 순서는 t_CharPART에 따라서...
+      int m_nFaceIDX;
+      int m_nHairIDX;
+      int m_nHelmetIDX;
 
+      int m_nArmorIDX;
+      int m_nGauntletIDX;
+      int m_nBootsIDX;
 
-	/// 실제 캐릭터 파트 정보( ModelMerger 로부터 생성된 데이터 )
-	CCharMODEL					m_CharMODEL;
-	bool						m_bIsVisible;
+      int m_nGoggleIDX;
+      int m_nKnapsackIDX;
 
+      int m_nRWeaponIDX;
+      int m_nLWeaponIDX;
+    };
+  };
 
-
+  /// 실제 캐릭터 파트 정보( ModelMerger 로부터 생성된 데이터 )
+  CCharMODEL m_CharMODEL;
+  bool       m_bIsVisible;
 
 public:
-	CJustModelAVT(void);
-	~CJustModelAVT(void);
+  CJustModelAVT(void );
+  ~CJustModelAVT(void);
 
+  void SwitchState(int iID);
 
-	void SwitchState( int iID );
-	
-	enum{
-		STATE_NORMAL,
-		STATE_SITDOWN,
-		STATE_SIT,
-		STATE_STANDUP,
-		STATE_MAX
-	};
+  enum {
+    STATE_NORMAL,
+    STATE_SITDOWN,
+    STATE_SIT,
+    STATE_STANDUP,
+    STATE_MAX
+  };
 
+  /// Load Model Node
+  bool LoadModelNODE(const char* szName);
+  void UnloadModelNODE();
 
-	/// Load Model Node
-	bool						LoadModelNODE( const char *szName );
-	void						UnloadModelNODE ();
+  /// Init
 
+  void Init(const char* strName              = nullptr,
+            int         iBODY_PART_FACE      = 0, // 0 link to bone
+            int         iBODY_PART_HAIR      = 0,
+            int         iBODY_PART_HELMET    = 0,
+            int         iBODY_PART_ARMOR     = 0, // 3 skinning
+            int         iBODY_PART_GAUNTLET  = 0,
+            int         iBODY_PART_BOOTS     = 0,
+            int         iBODY_PART_FACE_ITEM = 0, // 6 link to dummy
+            int         iBODY_PART_KNAPSACK  = 0,
+            // 오른손, 왼손 순서 주의 !!!
+            int iBODY_PART_WEAPON_R = 0, // 8 link to dummy	
+            int iBODY_PART_WEAPON_L = 0);
 
-	/// Init
+  void Init(int iPartsArray[ MAX_BODY_PART ]);
 
-	void						Init(	const char* strName = NULL,
-										int iBODY_PART_FACE = 0,	// 0 link to bone
-										int iBODY_PART_HAIR = 0,
-										int iBODY_PART_HELMET = 0,
-										int iBODY_PART_ARMOR = 0,	// 3 skinning
-										int iBODY_PART_GAUNTLET = 0,
-										int iBODY_PART_BOOTS = 0,
-										int iBODY_PART_FACE_ITEM = 0,// 6 link to dummy
-										int iBODY_PART_KNAPSACK = 0,
-										// 오른손, 왼손 순서 주의 !!!
-										int iBODY_PART_WEAPON_R = 0,		// 8 link to dummy	
-										int iBODY_PART_WEAPON_L = 0	);
+  void Update();
+  void PushBackCommand(CTCommand*  pCmd);
+  void PushFrontCommand(CTCommand* pCmd);
 
-	void						Init( int iPartsArray[ MAX_BODY_PART ] );
+  /// set race and sex
+  void SetRace(BYTE btRace);
+  void SetSex(int   iSex);
 
-	void						Update();
-	void						PushBackCommand( CTCommand* pCmd );
-	void						PushFrontCommand( CTCommand* pCmd );
+  /// set body part
+  bool SetPart(int iPartType, int iPartIDX);
 
-	/// set race and sex
-	void						SetRace( BYTE btRace );
-	void						SetSex( int iSex );
+  /// Load visible
+  bool LoadModelVisible();
 
-	/// set body part
-	bool						SetPart( int iPartType, int iPartIDX );
+  /// Delete model visible
+  void UnloadModelVisible();
 
-	/// Load visible
-	bool						LoadModelVisible();
+  /// update model
+  bool UpdateModel();
 
-	/// Delete model visible
-	void						UnloadModelVisible();
+  /// 
+  /// scene...
+  ///
+  void SetVisible(bool bShow) { m_bIsVisible = bShow; }
 
-	/// update model
-	bool						UpdateModel();
+  void InsertToScene();
+  void RemoveFromScene();
 
+  void               SetPosition(float     x, float        y, float z);
+  bool               SetMotion(int         iMotionIDX, int iRepeatCount = 0);
+  bool               SetMotion(const char* strMotion, int  iRepeatCount = 0);
+  const std::string& GetName() { return m_strName; }
+  HNODE              GetModelNode() { return m_hNodeMODEL; }
 
-	/// 
-	/// scene...
-	///
-	void						SetVisible( bool bShow ){ m_bIsVisible = bShow; }
+  void  SetJob(int               iJob) { m_iJob                     = iJob; }
+  void  SetLevel(int             iLevel) { m_iLevel                 = iLevel; }
+  void  SetZone(short            iZone) { m_nZoneNO                 = iZone; }
+  void  SetDeleteRemainSEC(DWORD dwRemainSEC) { m_dwDeleteRemainSEC = dwRemainSEC; }
+  bool  IsPlatinum();
+  void  SetPlatinum(bool platinum);
+  int   GetJob() { return m_iJob; }
+  int   GetLevel() { return m_iLevel; }
+  int   GetZone() { return m_nZoneNO; }
+  DWORD GetDeleteRemainSEC() { return m_dwDeleteRemainSEC; }
 
-	void						InsertToScene();
-	void						RemoveFromScene();
-
-	void						SetPosition( float x, float y, float z );
-	bool						SetMotion( int iMotionIDX ,int iRepeatCount = 0 );
-	bool						SetMotion( const char* strMotion ,int iRepeatCount = 0 );						
-	const std::string&			GetName(){ return m_strName; }
-	HNODE						GetModelNode(){ return m_hNodeMODEL; } 
-
-
-	void SetJob( int iJob ){ m_iJob = iJob; }
-	void SetLevel( int iLevel ){ m_iLevel = iLevel; }
-	void SetZone( short iZone ){ m_nZoneNO = iZone; }
-	void SetDeleteRemainSEC( DWORD dwRemainSEC ){ m_dwDeleteRemainSEC = dwRemainSEC; }
-	bool IsPlatinum();
-	void SetPlatinum(bool platinum);
-	int  GetJob(){ return m_iJob; }
-	int  GetLevel(){ return m_iLevel; }
-	int  GetZone(){ return m_nZoneNO; }
-	DWORD GetDeleteRemainSEC(){ return m_dwDeleteRemainSEC; }
-
-	bool	IsFemale(){ return m_bIsFemale?true:false; }
-	void	SetIndex( int index );
-	int		GetIndex();
+  bool IsFemale() { return m_bIsFemale ? true : false; }
+  void SetIndex(int index);
+  int  GetIndex();
 
 private:
-	bool			m_bPlatinum;
-	CTCommandQ		m_CommandQ;
-	CAvatarState*	m_pState[STATE_MAX];
-	CAvatarState*	m_pCurrState;
-	int				m_iIndex;
+  bool          m_bPlatinum;
+  CTCommandQ    m_CommandQ;
+  CAvatarState* m_pState[STATE_MAX];
+  CAvatarState* m_pCurrState;
+  int           m_iIndex;
 
 };
-
 
 #endif // _JUSTMODELAVT_

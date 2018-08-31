@@ -96,222 +96,199 @@
 template <class T>
 class zz_list {
 private:
-	struct _node {
-		_node * prev, * next;
-		T data;
+  struct _node {
+    _node *prev, *next;
+    T      data;
 
-		_node () : prev(NULL), next(NULL) {}
-		~_node ()
-		{
-			if (prev) {
-				prev->next = next;
-			}
-			if (next) {
-				next->prev = prev;
-			}
-		}
+    _node() : prev( nullptr ), next( nullptr ) {}
 
-		// insert to back
-		// this->next => this->new_node->next
-		void insert (_node * new_node)
-		{
-			assert(new_node);
+    ~_node() {
+      if ( prev ) {
+        prev->next = next;
+      }
+      if ( next ) {
+        next->prev = prev;
+      }
+    }
 
-			if (next) {
-				next->prev = new_node;
-				new_node->next = next;
-			}
-			next = new_node;
-			new_node->prev = this;
-		}
-	};
+    // insert to back
+    // this->next => this->new_node->next
+    void insert(_node* new_node) {
+      assert(new_node);
 
-	_node * _head, * _tail;
-	int _count;
+      if ( next ) {
+        next->prev     = new_node;
+        new_node->next = next;
+      }
+      next           = new_node;
+      new_node->prev = this;
+    }
+  };
+
+  _node *_head, *_tail;
+  int    _count;
 
 public:
-	class iterator {
-		friend zz_list;
-	private:
-		_node * _current;
-		T _nil;
+  class iterator {
+    friend zz_list;
+  private:
+    _node* _current;
+    T      _nil;
 
-	public:
-		iterator() : _current(NULL) {}
-		iterator(_node * current_in) : _current(current_in) {}
-		iterator(const iterator& rhs) : _current(rhs._current) {}
-		~iterator() {}
+  public:
+    iterator() : _current( nullptr ) {}
+    iterator(_node*          current_in) : _current( current_in ) {}
+    iterator(const iterator& rhs) : _current( rhs._current ) {}
+    ~iterator() {}
 
-		iterator& operator=(const iterator& rhs)
-		{
-			if (this == &rhs) return *this;
-			this->_current = rhs._current;
-			return *this;
-		}
+    iterator& operator=(const iterator& rhs) {
+      if ( this == &rhs ) return *this;
+      this->_current = rhs._current;
+      return *this;
+    }
 
-		iterator& operator++()
-		{
-			if (_current) {
-				_current = _current->next;
-			}
-			return *this;
-		}
+    iterator& operator++() {
+      if ( _current ) {
+        _current = _current->next;
+      }
+      return *this;
+    }
 
-		iterator& operator++(int i)
-		{
-			if (_current) {
-				_current = _current->next;
-			}
-			return *this;
-		}
+    iterator& operator++(int i) {
+      if ( _current ) {
+        _current = _current->next;
+      }
+      return *this;
+    }
 
-		iterator& operator--()
-		{
-			if (_current) {
-				_current = _current->prev;
-			}
-			return *this;
-		}
+    iterator& operator--() {
+      if ( _current ) {
+        _current = _current->prev;
+      }
+      return *this;
+    }
 
-		iterator& operator--(int i)
-		{
-			if (_current) {
-				_current = _current->prev;
-			}
-			return *this;
-		}
+    iterator& operator--(int i) {
+      if ( _current ) {
+        _current = _current->prev;
+      }
+      return *this;
+    }
 
-		bool operator!=(iterator& it)
-		{
-			return (it._current != _current);
-		}
+    bool operator!=(iterator& it) {
+      return (it._current != _current);
+    }
 
-		bool operator==(iterator& it)
-		{
-			return (it._current == _current);
-		}	
+    bool operator==(iterator& it) {
+      return (it._current == _current);
+    }
 
-		T operator*()
-		{
-			assert(_current);
+    T operator*() {
+      assert(_current);
 
-			return _current->data;
-			// We should throw exception?
-			//throw "list: nil data refered";
-			//return _nil; // We cannot provide *operator for nil iterator. But, we should provide any one for now.
-		}
-	};
+      return _current->data;
+      // We should throw exception?
+      //throw "list: nil data refered";
+      //return _nil; // We cannot provide *operator for nil iterator. But, we should provide any one for now.
+    }
+  };
 
 private:
 
-	// from -> next
-	//   |
-	//   V
-	// from -> new_node -> next
-	_node * insert (_node * from, T& data)
-	{
-		// build content
-		_node * new_node = zz_new _node;
-		new_node->data = data;
+  // from -> next
+  //   |
+  //   V
+  // from -> new_node -> next
+  _node* insert(_node* from, T& data) {
+    // build content
+    _node* new_node = zz_new _node;
+    new_node->data  = data;
 
-		++_count;
-		// if this is the first
-		if (from == NULL) { // it become head node
-			_head = _tail = new_node;
-			return new_node;
-		}
+    ++_count;
+    // if this is the first
+    if ( from == nullptr ) {
+      // it become head node
+      _head = _tail = new_node;
+      return new_node;
+    }
 
-		from->insert(new_node);
+    from->insert( new_node );
 
-		if (_tail == from) {
-			_tail = new_node;
-		}
-		return new_node;
-	}
-
+    if ( _tail == from ) {
+      _tail = new_node;
+    }
+    return new_node;
+  }
 
 public:
-	zz_list () : _head(NULL), _tail(NULL), _count(0) 
-	{
-	}
+  zz_list() : _head( nullptr ), _tail( nullptr ), _count( 0 ) { }
 
-	~zz_list ()
-	{
-		clear();
-	}
+  ~zz_list() {
+    clear();
+  }
 
-	void erase (iterator it)
-	{
-		_node * node_to_remove = it._current;
+  void     erase(iterator it) {
+    _node* node_to_remove = it._current;
 
-		if (_head == node_to_remove) {
-			_head = node_to_remove->next;
-		}
-		if (_tail == node_to_remove) {
-			_tail = node_to_remove->prev;
-		}
-		if (node_to_remove) {
-			zz_delete (node_to_remove);
-		}
-		--_count;
-	}
+    if ( _head == node_to_remove ) {
+      _head = node_to_remove->next;
+    }
+    if ( _tail == node_to_remove ) {
+      _tail = node_to_remove->prev;
+    }
+    if ( node_to_remove ) {
+      zz_delete (node_to_remove);
+    }
+    --_count;
+  }
 
-	void clear (void)
-	{
-		iterator it = begin();
+  void       clear(void) {
+    iterator it = begin();
 
-		while (it != end()) {
-			erase(it);
-			it = begin();
-		}
-		assert(_count == 0);
-		assert(!_tail && !_head);
-	}
+    while ( it != end() ) {
+      erase( it );
+      it = begin();
+    }
+    assert(_count == 0);
+    assert(!_tail && !_head);
+  }
 
-	int size () const
-	{
-		return _count;
-	}
+  int size() const {
+    return _count;
+  }
 
-	iterator push_back (T data)
-	{
-		return iterator(insert(_tail, data));
-	}
+  iterator push_back(T data) {
+    return iterator( insert( _tail, data ) );
+  }
 
-	iterator begin ()
-	{
-		return iterator(_head);
-	}
+  iterator begin() {
+    return iterator( _head );
+  }
 
-	iterator begin () const
-	{
-		return iterator(_head);
-	}
+  iterator begin() const {
+    return iterator( _head );
+  }
 
-	iterator end (void)
-	{
-		return iterator(NULL);
-	}
+  iterator end(void) {
+    return iterator( NULL );
+  }
 
-	iterator end (void) const
-	{
-		return iterator(NULL);
-	}
+  iterator end(void) const {
+    return iterator( NULL );
+  }
 
-	iterator find (T data)
-	{
-		for (iterator it = begin(), it_end = end(); it != it_end; ++it) {
-			if (data == *it) {
-				return it;
-			}
-		}
-		return end();
-	}
+  iterator         find(T data) {
+    for ( iterator it = begin(), it_end = end(); it != it_end; ++it ) {
+      if ( data == *it ) {
+        return it;
+      }
+    }
+    return end();
+  }
 
-	bool empty () const
-	{
-		return (_count == 0);
-	}
+  bool empty() const {
+    return (_count == 0);
+  }
 };
 
 #endif // __ZZ_LIST_H__

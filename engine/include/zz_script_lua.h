@@ -56,56 +56,54 @@
 #include "zz_script.h"
 #endif
 
-
 extern "C" {
 #include "lua.h"
 #include "lualib.h"
 #include "lauxlib.h"
-//#include "c:/code/tolua/include/tolua.h"
+  //#include "c:/code/tolua/include/tolua.h"
 }
 
 class zz_script_lua : public zz_script {
 private:
-	lua_State *L;
-	int param_count;
+  lua_State* L;
+  int        param_count;
 
-	void set_initial_globals ();
+  void set_initial_globals();
 
 public:
-	zz_script_lua (const char * filename = NULL);
-	virtual ~zz_script_lua ();
+          zz_script_lua(const char* filename = nullptr);
+  virtual ~zz_script_lua();
 
-	virtual bool do_script (const char * filename = NULL, const char * buffer = NULL);
-	
-	virtual bool get_global (const char * variable_name, int& variable_to_set);
-	virtual bool get_global (const char * variable_name, char * variable_to_set);
-	virtual bool get_global (const char * variable_name, float& variable_to_set);
+  bool do_script(const char* filename = nullptr, const char* buffer = nullptr) override;
 
-	void set_global (const char * variable_name, int value);
-	void set_global (const char * variable_name, float value);
-	void set_global (const char * variable_name, const char * value);
+  virtual bool get_global(const char* variable_name, int&   variable_to_set);
+  virtual bool get_global(const char* variable_name, char*  variable_to_set);
+  virtual bool get_global(const char* variable_name, float& variable_to_set);
 
-	//bool get_table_size (const char * table_name, int& size) = 0;
-	//bool get_table_item_string (const char * table_name, int index, char * string_to_set) = 0;
-	
-	virtual void set_param_uint (unsigned int val);
-	virtual void set_param_int (int val);
-	virtual void set_param_float (float val);
-	virtual void set_param_float3 (const float * val);
-	virtual void set_param_string (const char * val);
-	virtual void set_param_hnode (void * val);
+  void set_global(const char* variable_name, int         value);
+  void set_global(const char* variable_name, float       value);
+  void set_global(const char* variable_name, const char* value);
 
-	virtual bool call (const char * function_name, va_list va);
+  //bool get_table_size (const char * table_name, int& size) = 0;
+  //bool get_table_item_string (const char * table_name, int index, char * string_to_set) = 0;
 
-	// get return value after lua call for callXXX interface
-	virtual int get_return_int (void);
-	virtual unsigned int get_return_uint (void);
-	virtual float get_return_float (void);
-	virtual const float * get_return_float3 (void);
-	virtual const char * get_return_string (void);
+  virtual void set_param_uint(unsigned int   val);
+  void         set_param_int(int             val) override;
+  void         set_param_float(float         val) override;
+  void         set_param_float3(const float* val) override;
+  void         set_param_string(const char*  val) override;
+  virtual void set_param_hnode(void*         val);
 
-	ZZ_DECLARE_DYNAMIC(zz_script_lua);
+  bool call(const char* function_name, va_list va) override;
+
+  // get return value after lua call for callXXX interface
+  int          get_return_int(void   ) override;
+  unsigned int get_return_uint(void  ) override;
+  float        get_return_float(void ) override;
+  const float* get_return_float3(void) override;
+  const char*  get_return_string(void) override;
+
+ZZ_DECLARE_DYNAMIC(zz_script_lua);
 };
-
 
 #endif //__ZZ_SCRIPT_LUA_H__

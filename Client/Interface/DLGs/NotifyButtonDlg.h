@@ -11,23 +11,21 @@ class CTButton;
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/15
 */
-class CNotifyButtonDlg : public CTDialog
-{
+class CNotifyButtonDlg : public CTDialog {
 public:
-	CNotifyButtonDlg(void);
-	virtual ~CNotifyButtonDlg(void);
+          CNotifyButtonDlg(void );
+  virtual ~CNotifyButtonDlg(void);
 
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam ,LPARAM lParam );
-	virtual void Draw();
-	virtual void Update( POINT ptMouse );
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     Draw() override;
+  void     Update(POINT ptMouse) override;
 
-	void    Clear();
-	void	AddButton( CTButton* pBtn );
-	void	UpdatePosition();
+  void Clear();
+  void AddButton(CTButton* pBtn);
+  void UpdatePosition();
 
 protected:
 
-
-	std::list< CTButton* > m_Children;
+  std::list<CTButton*> m_Children;
 };
 #endif

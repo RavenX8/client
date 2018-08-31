@@ -13,16 +13,15 @@
 *
 * @Date			2005/8/30		
 */
-class CTCandidateWindowHanja : public CTCandidateWindow
-{
+class CTCandidateWindowHanja : public CTCandidateWindow {
 public:
-	CTCandidateWindowHanja(void);
-	virtual ~CTCandidateWindowHanja(void);
-	virtual void Draw();
-	virtual void AddCandidate( const char* pszCandidate );
-	virtual void Clear();
+          CTCandidateWindowHanja(void );
+  virtual ~CTCandidateWindowHanja(void);
+  void    Draw() override;
+  void    AddCandidate(const char* pszCandidate) override;
+  void    Clear() override;
 
 protected:
-	std::vector< std::string >	m_Candidates;
+  std::vector<std::string> m_Candidates;
 };
 #endif

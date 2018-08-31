@@ -52,20 +52,20 @@ class zz_motion_mixer;
 //--------------------------------------------------------------------------------
 class zz_motion_tool {
 public:
-	zz_motion_tool();
-	~zz_motion_tool();
+  zz_motion_tool();
+  ~zz_motion_tool();
 
-	zz_motion_mixer * create_blend_motion (const char * name, zz_motion * motion_arg1, zz_motion * motion_arg2, float blend_weight);
-	vec3 blend_position (const vec3& pos1, const vec3& pos2, float t_0_to_1);
-	quat blend_rotation (const quat& rot1, const quat& rot2, float t_0_to_1);
+  zz_motion_mixer* create_blend_motion(const char* name, zz_motion*  motion_arg1, zz_motion* motion_arg2, float blend_weight);
+  vec3             blend_position(const vec3&      pos1, const vec3& pos2, float             t_0_to_1);
+  quat             blend_rotation(const quat&      rot1, const quat& rot2, float             t_0_to_1);
 
-	// sigmoid-like functions
-	// x = (0...1) -> (0..1). start slow. reach fast
-	float scurve (float x) { return (3.0f*x*x - 2.0f*x*x*x); }
-	float sinusoid (float x) { return float(sin(ZZ_PI*(x - .5f))); }
-	// sigmoid ()
+  // sigmoid-like functions
+  // x = (0...1) -> (0..1). start slow. reach fast
+  float scurve(float   x) { return (3.0f * x * x - 2.0f * x * x * x); }
+  float sinusoid(float x) { return float( sin( ZZ_PI * (x - .5f) ) ); }
+  // sigmoid ()
 
-	bool load_motion (zz_motion * motion, const char * motion_file_name, bool use_loop, int interp_position, int interp_rotation, float scale);
+  bool load_motion(zz_motion* motion, const char* motion_file_name, bool use_loop, int interp_position, int interp_rotation, float scale);
 };
 
 #endif __ZZ_MOTION_TOOL_H__

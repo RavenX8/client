@@ -51,21 +51,17 @@
 
 //#define ZZ_MULTI_THREAD
 
-zz_thread::zz_thread ()
-{
+zz_thread::zz_thread() {}
+
+unsigned _stdcall zz_thread::call_thread_proc(void* thread_pointer) {
+  zz_thread*      thread = static_cast<zz_thread *>(thread_pointer);
+
+  if ( !thread ) return 0;
+
+  return thread->thread_proc();
 }
 
-unsigned _stdcall zz_thread::call_thread_proc (void * thread_pointer)
-{
-	zz_thread * thread = static_cast<zz_thread *>(thread_pointer);
-	
-	if (!thread) return 0;
-
-	return thread->thread_proc();
-}
-
-bool zz_thread::thread_start ()
-{
+bool zz_thread::thread_start() {
 #ifdef ZZ_MULTI_THREAD
 	if (is_valid_handle(handle_)) return true;
 
@@ -73,44 +69,40 @@ bool zz_thread::thread_start ()
 	assert(is_valid_handle(handle_));
 	return is_valid_handle(handle_);
 #else
-	return false;
+  return false;
 #endif
 }
 
-bool zz_thread::thread_suspend ()
-{
+bool zz_thread::thread_suspend() {
 #ifdef ZZ_MULTI_THREAD
 	if (!is_valid_handle(handle_)) return false; // not started
 	return (::SuspendThread(handle_) != ((DWORD)-1));
 #else
-	return false;
+  return false;
 #endif
 }
 
-bool zz_thread::thread_resume () {
+bool zz_thread::thread_resume() {
 #ifdef ZZ_MULTI_THREAD
 	if (!is_valid_handle(handle_)) return false; // not started
 	return (::ResumeThread(handle_) != ((DWORD)-1));
 #else
-	return false;
+  return false;
 #endif
 }
 
-bool zz_thread::set_thread_priority (zz_priority priority)
-{
+bool zz_thread::set_thread_priority(zz_priority priority) {
 #ifdef ZZ_MULTI_THREAD
 	return (::SetThreadPriority(handle_, static_cast<int>(priority)) == TRUE);
 #else
-	return false;
+  return false;
 #endif
 }
 
-zz_thread::zz_priority zz_thread::get_thread_priority ()
-{
+zz_thread::zz_priority zz_thread::get_thread_priority() {
 #ifdef ZZ_MULTI_THREAD
 	return static_cast<zz_priority>(::GetThreadPriority(handle_));
 #else
-	return NORMAL;
+  return NORMAL;
 #endif
 }
-

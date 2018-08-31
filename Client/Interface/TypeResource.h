@@ -4,16 +4,11 @@
 #include <map>
 #include <string>
 
-#include "..\\Common\\IO_STB.h"
+#include "..//Common//IO_STB.h"
 #include "../GameCommon/StringManager.h"
 
 // Resource String
 #define RES_MINIMAP_ARROW			"3DData\\Control\\Res\\MiniMap_Arrow.tga"
-
-
-
-
-
 
 #define STR_RESULT_SELECT_SERVER_FAILED					CStringManager::GetSingleton().GetString( 5 )
 #define	STR_RESULT_SELECT_SERVER_FULL					CStringManager::GetSingleton().GetString( 6 )
@@ -48,17 +43,10 @@
 #define STR_TOTAL_TRADEMONEY_PRIVATESTORE				CStringManager::GetSingleton().GetString( 35 )
 #define STR_CLAN										CStringManager::GetSingleton().GetString( 36 )
 
-
-
-
-
-
-
 #define STR_TOO_NEAR_NPC								CStringManager::GetSingleton().GetString( 40 )
 #define STR_RESULT_LOGIN_REPLY_NO_REAL_NAME				CStringManager::GetSingleton().GetString( 41 )
 #define	STR_NOT_ENOUGH_MONEY_PRIVATESTORE				CStringManager::GetSingleton().GetString( 42 )
 #define	STR_CANTUSE_WARPSCROLL_CURRENTZONE				CStringManager::GetSingleton().GetString( 43 )
-
 
 #define STR_CLAN_NAME									CStringManager::GetSingleton().GetString( 44 )
 #define STR_CLAN_LEV									CStringManager::GetSingleton().GetString( 45 )
@@ -71,45 +59,45 @@
 #define STR_CHANGE_TRADEITEM_IN_MYREADY					CStringManager::GetSingleton().GetString( 52 )///1:1 거래중 내가 확인 버튼을 누른 상태에서 상대방의 물품이 변경되었다.
 #define STR_CLAN_MEMBER_COUNT							CStringManager::GetSingleton().GetString( 53 )
 #define STR_CLAN_CANT_PROMOTE							CStringManager::GetSingleton().GetString( 54 )
-#define STR_CLAN_ORGANIZED								CStringManager::GetSingleton().GetString( 55 )	
-#define STR_CLAN_RESULT_CLAN_JOIN_OK					CStringManager::GetSingleton().GetString( 56 )	
-#define STR_CLAN_RESULT_CLAN_DESTROY_OK					CStringManager::GetSingleton().GetString( 57 )	
-#define STR_CLAN_RESULT_CLAN_CREATE_FAILED				CStringManager::GetSingleton().GetString( 58 )	
-#define STR_CLAN_RESULT_CLAN_CREATE_DUP_NAME			CStringManager::GetSingleton().GetString( 59 )	
-#define STR_CLAN_RESULT_CLAN_CREATE_NO_RIGHT			CStringManager::GetSingleton().GetString( 60 )	
-#define STR_CLAN_RESULT_CLAN_DESTROYED					CStringManager::GetSingleton().GetString( 61 )	
-#define STR_CLAN_RESULT_CLAN_DESTROY_FAILED				CStringManager::GetSingleton().GetString( 62 )	
-#define STR_CLAN_RESULT_CLAN_DESTROY_NO_RIGHT			CStringManager::GetSingleton().GetString( 63 )	
-#define STR_CLAN_RESULT_CLAN_JOIN						CStringManager::GetSingleton().GetString( 64 )	
-#define STR_CLAN_RESULT_CLAN_JOIN_FAILED				CStringManager::GetSingleton().GetString( 65 )	
-#define STR_CLAN_RESULT_CLAN_JOIN_NO_RIGHT				CStringManager::GetSingleton().GetString( 66 )	
-#define STR_CLAN_RESULT_CLAN_JOIN_HAS_CLAN				CStringManager::GetSingleton().GetString( 67 )	
-#define STR_CLAN_RESULT_CLAN_KICK						CStringManager::GetSingleton().GetString( 68 )	
-#define STR_CLAN_RESULT_CLAN_KICK_ME					CStringManager::GetSingleton().GetString( 69 )	
-#define STR_CLAN_RESULT_CLAN_QUIT						CStringManager::GetSingleton().GetString( 70 )	
-#define STR_CLAN_GCMD_INVITE_REQ						CStringManager::GetSingleton().GetString( 71 )	
-#define STR_CLAN_GCMD_INVITE_REPLY_NO					CStringManager::GetSingleton().GetString( 72 )	
-#define STR_CLAN_RESULT_CLAN_POSITION					CStringManager::GetSingleton().GetString( 73 )	
-#define STR_CLAN_CANT_DELETE_CLANMASTER					CStringManager::GetSingleton().GetString( 74 )	
-#define STR_CLAN_CANT_QUIT_CLANMASTER					CStringManager::GetSingleton().GetString( 75 )	
-#define STR_CLAN_NO_RIGHT								CStringManager::GetSingleton().GetString( 76 )	
-#define STR_CLAN_RESULT_CLAN_CREATE_NO_CONDITION		CStringManager::GetSingleton().GetString( 77 )	
-#define STR_CLAN_INPUT_SLOGAN							CStringManager::GetSingleton().GetString( 78 )	
+#define STR_CLAN_ORGANIZED								CStringManager::GetSingleton().GetString( 55 )
+#define STR_CLAN_RESULT_CLAN_JOIN_OK					CStringManager::GetSingleton().GetString( 56 )
+#define STR_CLAN_RESULT_CLAN_DESTROY_OK					CStringManager::GetSingleton().GetString( 57 )
+#define STR_CLAN_RESULT_CLAN_CREATE_FAILED				CStringManager::GetSingleton().GetString( 58 )
+#define STR_CLAN_RESULT_CLAN_CREATE_DUP_NAME			CStringManager::GetSingleton().GetString( 59 )
+#define STR_CLAN_RESULT_CLAN_CREATE_NO_RIGHT			CStringManager::GetSingleton().GetString( 60 )
+#define STR_CLAN_RESULT_CLAN_DESTROYED					CStringManager::GetSingleton().GetString( 61 )
+#define STR_CLAN_RESULT_CLAN_DESTROY_FAILED				CStringManager::GetSingleton().GetString( 62 )
+#define STR_CLAN_RESULT_CLAN_DESTROY_NO_RIGHT			CStringManager::GetSingleton().GetString( 63 )
+#define STR_CLAN_RESULT_CLAN_JOIN						CStringManager::GetSingleton().GetString( 64 )
+#define STR_CLAN_RESULT_CLAN_JOIN_FAILED				CStringManager::GetSingleton().GetString( 65 )
+#define STR_CLAN_RESULT_CLAN_JOIN_NO_RIGHT				CStringManager::GetSingleton().GetString( 66 )
+#define STR_CLAN_RESULT_CLAN_JOIN_HAS_CLAN				CStringManager::GetSingleton().GetString( 67 )
+#define STR_CLAN_RESULT_CLAN_KICK						CStringManager::GetSingleton().GetString( 68 )
+#define STR_CLAN_RESULT_CLAN_KICK_ME					CStringManager::GetSingleton().GetString( 69 )
+#define STR_CLAN_RESULT_CLAN_QUIT						CStringManager::GetSingleton().GetString( 70 )
+#define STR_CLAN_GCMD_INVITE_REQ						CStringManager::GetSingleton().GetString( 71 )
+#define STR_CLAN_GCMD_INVITE_REPLY_NO					CStringManager::GetSingleton().GetString( 72 )
+#define STR_CLAN_RESULT_CLAN_POSITION					CStringManager::GetSingleton().GetString( 73 )
+#define STR_CLAN_CANT_DELETE_CLANMASTER					CStringManager::GetSingleton().GetString( 74 )
+#define STR_CLAN_CANT_QUIT_CLANMASTER					CStringManager::GetSingleton().GetString( 75 )
+#define STR_CLAN_NO_RIGHT								CStringManager::GetSingleton().GetString( 76 )
+#define STR_CLAN_RESULT_CLAN_CREATE_NO_CONDITION		CStringManager::GetSingleton().GetString( 77 )
+#define STR_CLAN_INPUT_SLOGAN							CStringManager::GetSingleton().GetString( 78 )
 
 #define STR_SKILLPOWER_EFFECT_0							CStringManager::GetSingleton().GetString( 80 )	///계산식에 따른 스킬파워에 영향을 미치는 것
-#define STR_SKILLPOWER_EFFECT_1							CStringManager::GetSingleton().GetString( 81 )	
-#define STR_SKILLPOWER_EFFECT_2							CStringManager::GetSingleton().GetString( 82 )	
-#define STR_SKILLPOWER_EFFECT_3							CStringManager::GetSingleton().GetString( 83 )	
+#define STR_SKILLPOWER_EFFECT_1							CStringManager::GetSingleton().GetString( 81 )
+#define STR_SKILLPOWER_EFFECT_2							CStringManager::GetSingleton().GetString( 82 )
+#define STR_SKILLPOWER_EFFECT_3							CStringManager::GetSingleton().GetString( 83 )
 
-#define STR_CLAN_CANT_ENTRUST_TO_LOW_CLASS				CStringManager::GetSingleton().GetString( 90 )	
-#define STR_CLAN_QUERY_ENTRUST							CStringManager::GetSingleton().GetString( 91 )	
-#define STR_CLAN_QUERY_BAN								CStringManager::GetSingleton().GetString( 92 )	
-#define STR_CLAN_QUERY_PROMOTE							CStringManager::GetSingleton().GetString( 93 )	
-#define STR_CLAN_QUERY_DEMOTE							CStringManager::GetSingleton().GetString( 94 )	
-#define STR_CLAN_QUERY_DISORGANIZE						CStringManager::GetSingleton().GetString( 95 )	
-#define STR_CLAN_CANT_MORE_JOINMEMBER					CStringManager::GetSingleton().GetString( 96 )	
-#define STR_CLAN_CANT_DISORGANIZE_MEMBERCOUNT			CStringManager::GetSingleton().GetString( 97 )	
-#define STR_CLAN_CREATE_CONDITION						CStringManager::GetSingleton().GetString( 98 )	
+#define STR_CLAN_CANT_ENTRUST_TO_LOW_CLASS				CStringManager::GetSingleton().GetString( 90 )
+#define STR_CLAN_QUERY_ENTRUST							CStringManager::GetSingleton().GetString( 91 )
+#define STR_CLAN_QUERY_BAN								CStringManager::GetSingleton().GetString( 92 )
+#define STR_CLAN_QUERY_PROMOTE							CStringManager::GetSingleton().GetString( 93 )
+#define STR_CLAN_QUERY_DEMOTE							CStringManager::GetSingleton().GetString( 94 )
+#define STR_CLAN_QUERY_DISORGANIZE						CStringManager::GetSingleton().GetString( 95 )
+#define STR_CLAN_CANT_MORE_JOINMEMBER					CStringManager::GetSingleton().GetString( 96 )
+#define STR_CLAN_CANT_DISORGANIZE_MEMBERCOUNT			CStringManager::GetSingleton().GetString( 97 )
+#define STR_CLAN_CREATE_CONDITION						CStringManager::GetSingleton().GetString( 98 )
 
 ////////////////////////////////////////////////////////////////////////////////////
 ///  전역 스트링 변수들
@@ -152,13 +140,12 @@
 #define STR_MOVE_SPEED						CStringManager::GetSingleton().GetString( 171 )			// 이동속도
 #define STR_CARRY_WEIGHT					CStringManager::GetSingleton().GetString( 172 )			// 휴대무게
 
-
 #define FORMAT_STR_CANCEL_BLOCK_CHAT				CStringManager::GetSingleton().GetString( 173 )
 #define	STR_CANCEL_BLOCK_CHAT						CStringManager::GetSingleton().GetString( 174 )
 #define	FORMAT_STR_BLOCK_CHAT						CStringManager::GetSingleton().GetString( 175 )
 #define STR_GM_BAN_USER								CStringManager::GetSingleton().GetString( 176 )
 #define	FORMAT_STR_GM_BAN_USER						CStringManager::GetSingleton().GetString( 177 )
-#define FORMAT_STR_RECEIVE_TRADE_REQ				CStringManager::GetSingleton().GetString( 178 ) 
+#define FORMAT_STR_RECEIVE_TRADE_REQ				CStringManager::GetSingleton().GetString( 178 )
 #define STR_OTHER_CANCEL_TRADE						CStringManager::GetSingleton().GetString( 179 )
 #define STR_NOT_ENOUGH_OTHER_INVENTORY_SPACE		CStringManager::GetSingleton().GetString( 180 )
 #define STR_OTHER_CANT_RECEIVE_TRADE_REQ			CStringManager::GetSingleton().GetString( 181 )
@@ -200,10 +187,6 @@
 /// 명령, 스킬 사용시
 #define STR_ACTION_COMMAND_STOP_STATE_FAILED		CStringManager::GetSingleton().GetString( 210 ) /// 정지상태 에서만 사용가능합니다.
 
-
-
-
-
 ///파티 관련 
 #define FORMAT_STR_PARTY_MAKE_REQ					CStringManager::GetSingleton().GetString( 211 ) ///%s님이 파티 결성을 요청했습니다
 #define FORMAT_STR_PARTY_INVITE						CStringManager::GetSingleton().GetString( 212 ) ///%s님이 파티에 초대하였습니다
@@ -226,8 +209,8 @@
 #define STR_SKILL_APPLY_FAILED						CStringManager::GetSingleton().GetString( 227 ) ///스킬 적용에 실패 했습니다.
 #define STR_UNKNOWN_STATE_FLAG						CStringManager::GetSingleton().GetString( 228 ) ///알수 없는 상태 플래그.
 
-#define STR_SEND									CStringManager::GetSingleton().GetString( 230 ) 
-#define STR_DELETE									CStringManager::GetSingleton().GetString( 231 ) 
+#define STR_SEND									CStringManager::GetSingleton().GetString( 230 )
+#define STR_DELETE									CStringManager::GetSingleton().GetString( 231 )
 
 #define STR_CANT_CASTING_STATE						CStringManager::GetSingleton().GetString( 245 ) ///스킬을 사용할수 없는 상태입니다..
 #define STR_NOT_ENOUGH_PROPERTY						CStringManager::GetSingleton().GetString( 246 ) ///필요한 에너지가 부족합니다.
@@ -241,20 +224,18 @@
 #define STR_WANT_UNIONPOINT							CStringManager::GetSingleton().GetString( 252 ) ///조합포인트가 부족하다.
 #define STR_ALLIED									CStringManager::GetSingleton().GetString( 253 ) ///조합포인트가 부족하다.
 
+#define STR_CANT_EXITGAME							CStringManager::GetSingleton().GetString( 260 )
+#define STR_WAITTIME_EXITGAME						CStringManager::GetSingleton().GetString( 261 )
+#define STR_AVATARSTORE_CANT_SELL_OPTION			CStringManager::GetSingleton().GetString( 262 )
+#define STR_AVATARSTORE_CANT_SELL_UPGRADE			CStringManager::GetSingleton().GetString( 263 )
+#define STR_AVATARSTORE_CANT_SELL_DURABILITY		CStringManager::GetSingleton().GetString( 264 )
+#define STR_AVATARSTORE_CANT_SELL_SOCKET			CStringManager::GetSingleton().GetString( 265 )
+#define STR_AVATARSTORE_CANT_SELL_LIFE				CStringManager::GetSingleton().GetString( 266 )
 
-#define STR_CANT_EXITGAME							CStringManager::GetSingleton().GetString( 260 ) 
-#define STR_WAITTIME_EXITGAME						CStringManager::GetSingleton().GetString( 261 ) 
-#define STR_AVATARSTORE_CANT_SELL_OPTION			CStringManager::GetSingleton().GetString( 262 ) 
-#define STR_AVATARSTORE_CANT_SELL_UPGRADE			CStringManager::GetSingleton().GetString( 263 ) 
-#define STR_AVATARSTORE_CANT_SELL_DURABILITY		CStringManager::GetSingleton().GetString( 264 ) 
-#define STR_AVATARSTORE_CANT_SELL_SOCKET			CStringManager::GetSingleton().GetString( 265 ) 
-#define STR_AVATARSTORE_CANT_SELL_LIFE				CStringManager::GetSingleton().GetString( 266 ) 
-
-#define STR_FUEL									CStringManager::GetSingleton().GetString( 270 ) 
-#define STR_WASTE_FUEL								CStringManager::GetSingleton().GetString( 271 ) 
-#define STR_RECOVERY_EXP							CStringManager::GetSingleton().GetString( 272 ) 
+#define STR_FUEL									CStringManager::GetSingleton().GetString( 270 )
+#define STR_WASTE_FUEL								CStringManager::GetSingleton().GetString( 271 )
+#define STR_RECOVERY_EXP							CStringManager::GetSingleton().GetString( 272 )
 #define STR_SUMMON_CAPACITY							CStringManager::GetSingleton().GetString( 273 )
-
 
 #define STR_NPC_TRADE_PRICE							CStringManager::GetSingleton().GetString( 275 )
 
@@ -276,15 +257,12 @@
 #define STR_REQUIRE_SKILL							CStringManager::GetSingleton().GetString( 322 ) ///필수스킬
 #define STR_REQUIRE_ABILITY							CStringManager::GetSingleton().GetString( 323 ) ///조건능력
 
-
 #define	STR_START_MAKE_ITEM							CStringManager::GetSingleton().GetString( 324 ) ///아이템 제조 시작
 #define STR_NOT_ENOUGH_MATERIAL						CStringManager::GetSingleton().GetString( 325 ) ///재료가 부족합니다
 #define STR_NOT_EXIST_MATERIAL						CStringManager::GetSingleton().GetString( 326 ) ///재료가 없습니다.
 #define	STR_SUCCESS_MAKE_ITEM						CStringManager::GetSingleton().GetString( 327 ) ///아이템 제조에 성공했습니다
 #define STR_FAIL_MAKE_ITEM							CStringManager::GetSingleton().GetString( 328 ) ///아이템 제조에 실패했습니다
 #define STR_NOT_ENOUGH_MAKE_SKILL_LEVEL				CStringManager::GetSingleton().GetString( 329 ) ///제조 스킬 레벨이 부족합니다
-
-
 
 ///<- 2004 / 3 / 4 : 추가 nAvy
 #define STR_BANK_NOT_ENOUGH_MONEY					CStringManager::GetSingleton().GetString( 330 ) ///보관료가 부족해서 더 이상 보관할 수 없습니다
@@ -315,7 +293,6 @@
 #define STR_FAIL_SKILL_LEVELUP						CStringManager::GetSingleton().GetString( 354 ) ///스킬 레벨업이 실패했습니다
 #define STR_NOT_ENOUGH_SKILLPOINT					CStringManager::GetSingleton().GetString( 355 ) ///스킬포인트가 모자랍니다
 
-
 #define TT_PARTY_ENTRUST							CStringManager::GetSingleton().GetString( 357 ) ///파티장 위임
 #define TT_PARTY_LEAVE								CStringManager::GetSingleton().GetString( 358 ) ///파티 탈퇴
 #define TT_PARTY_BAN								CStringManager::GetSingleton().GetString( 359 ) ///강퇴
@@ -323,7 +300,6 @@
 #define TT_AVATAR_MENU_BTN_EXCHANGE					CStringManager::GetSingleton().GetString( 360 ) ///"교환 신청" 버튼
 #define TT_AVATAR_MENU_BTN_PARTY					CStringManager::GetSingleton().GetString( 361 ) ///"파티 신청" 버튼
 ///->
-
 
 #define TT_MINIMAP_BTN_ZOOM_MAX						CStringManager::GetSingleton().GetString( 139 )
 #define TT_MINIMAP_BTN_ZOOM_MIN						CStringManager::GetSingleton().GetString( 140 )
@@ -356,8 +332,6 @@
 #define TT_SLOT_NECKLACE							CStringManager::GetSingleton().GetString( 167 )
 #define TT_SLOT_EARING								CStringManager::GetSingleton().GetString( 168 )
 
-
-
 #define STR_SKILL_TARGET_FILTER_NOTIFY_01			CStringManager::GetSingleton().GetString( 363 )			/// 같은 그룹원이 아닙니다.
 #define STR_SKILL_TARGET_FILTER_NOTIFY_02			CStringManager::GetSingleton().GetString( 364 )			/// 같은 길드원이 아닙니다.
 #define STR_SKILL_TARGET_FILTER_NOTIFY_03			CStringManager::GetSingleton().GetString( 365 )			/// 우호적인 플레이어가 아닙니다.
@@ -370,11 +344,9 @@
 #define STR_SO_FAR_DISTANCE							CStringManager::GetSingleton().GetString( 371 )			/// 너무 멀리 떨어져 있습니다.
 #define STR_CANT_SKILL_IN_AGIT						CStringManager::GetSingleton().GetString( 372 )			/// 아지트에선 사용할수 없습니다.
 
-
 /*
 371~380 아이템 타입 추가 및 예약
 */
-
 
 ///
 /// PAT
@@ -383,20 +355,15 @@
 #define STR_PAT_ERROR_NOT_EQUIP_BODY				CStringManager::GetSingleton().GetString( 382 )			/// 바디부품을 먼저 장착하세요
 #define STR_PAT_ERROR_NOT_EQUAL_CLASS				CStringManager::GetSingleton().GetString( 383 )			/// 바디와 부품종류가 틀립니다
 #define STR_PAT_ERROR_NOT_VERSION					CStringManager::GetSingleton().GetString( 384 )			/// 부품의 버전수치가 바디보다 높습니다
-#define STR_CLAN_LEVELUP							CStringManager::GetSingleton().GetString( 385 )	
-
+#define STR_CLAN_LEVELUP							CStringManager::GetSingleton().GetString( 385 )
 
 ///#define STR_CANT_CASTING_STATE_CART					CStringManager::GetSingleton().GetString( 456 )			/// 탑승중에는 시전할수 없습니다.
 
-
 ///386 ~ 407 : 능력속성이름 
-
-
 
 /// 추가 경고 메세지들
 #define STR_CANT_SUMMON_NPC							CStringManager::GetSingleton().GetString( 411 )
 #define STR_CANT_DOUBLE_USE							CStringManager::GetSingleton().GetString( 412 )
-
 
 /// 재밍 관련
 #define STR_GEMMING_SUCCESS							CStringManager::GetSingleton().GetString( 413 )
@@ -438,7 +405,6 @@
 #define STR_NONAME									CStringManager::GetSingleton().GetString( 447 )//이름없음
 #define STR_ITEM_CANT_SEPARATED						CStringManager::GetSingleton().GetString( 448 )//분리/분해 할 수 없는 아이템입니다
 #define STR_ITEM_CANT_UPGRADED						CStringManager::GetSingleton().GetString( 449 )//제련 할 수 없는 아이템입니다
-
 
 /// 450 ~ 480 : 직업 이름
 
@@ -506,7 +472,6 @@
 #define STR_CHAT_REPLY_INVALIED_PASS				CStringManager::GetSingleton().GetString( 539 )//비밀번호가 틀립니다
 #define STR_CHAT_REPLY_ROOM_NOT_FOUND				CStringManager::GetSingleton().GetString( 540 )//없어진 채팅방입니다
 
-
 #define STR_CHAT_REPLY_FULL_USERS					CStringManager::GetSingleton().GetString( 541 )//더이상 참여할수 없습니다
 #define STR_CHAT_REPLY_KICKED						CStringManager::GetSingleton().GetString( 542 )//채팅방에서 강퇴 당했습니다
 #define F_STR_QUERY_APPEND_FRIEND_REQ				CStringManager::GetSingleton().GetString( 543 )//%s가 친구로 등록하려고 합니다. 승낙하시겠습니까?
@@ -543,11 +508,7 @@
 #define STR_SERVERSTATE_CONFUSION					CStringManager::GetSingleton().GetString( 577 )
 #define STR_SERVERSTATE_EXCESS						CStringManager::GetSingleton().GetString( 578 )
 
-
 #define STR_SKILLTREE								CStringManager::GetSingleton().GetString( 580 )
-
-
-
 
 #define STR_RECEIVER								CStringManager::GetSingleton().GetString( 581 )
 #define STR_SENDING_ITEM							CStringManager::GetSingleton().GetString( 582 )
@@ -585,7 +546,6 @@
 #define STR_ONLY_PLATINUM_SELECT_CHAR			CStringManager::GetSingleton().GetString( 609 )
 #define STR_SHOW_PARTYMEMBER_HPGUAGE			CStringManager::GetSingleton().GetString( 610 )
 
-
 #define STR_PARTYLEVEL							CStringManager::GetSingleton().GetString( 611 )
 #define STR_PARTYEXP_DISTRIBUTE_FORM			CStringManager::GetSingleton().GetString( 612 )
 #define STR_OK									CStringManager::GetSingleton().GetString( 613 )
@@ -618,7 +578,6 @@
 #define STR_SAVED_CHAT							CStringManager::GetSingleton().GetString( 636 )
 #define STR_CRASH_MSG							CStringManager::GetSingleton().GetString( 637 )
 
-
 #define STR_BANK_WITHDRAW_FAIL					CStringManager::GetSingleton().GetString( 638 )
 #define STR_BANK_SAVE_FAIL						CStringManager::GetSingleton().GetString( 639 )
 #define STR_QUERY_BANK_SAVE						CStringManager::GetSingleton().GetString( 640 )
@@ -638,8 +597,6 @@
 #define STR_EARN_SP								CStringManager::GetSingleton().GetString( 652 )
 #define STR_SERVER_EXAMINE						CStringManager::GetSingleton().GetString( 653 )
 #define STR_SERVER_INFO							CStringManager::GetSingleton().GetString( 654 )
-
-
 
 #define STR_JP_PAY_FREEPLAY						CStringManager::GetSingleton().GetString( 655 )
 #define STR_JP_PAY_ENTRY						CStringManager::GetSingleton().GetString( 656 )
@@ -684,13 +641,12 @@
 #define STR_CHANGED_STOREDTOWN_POS				CStringManager::GetSingleton().GetString( 692 )
 #define STR_RECOVERD_STOREDTOWN_POS				CStringManager::GetSingleton().GetString( 693 )
 
-
 //TAIWAN BILLING MSG
 #define STR_TW_BILL_TYPE_1HOUR					CStringManager::GetSingleton().GetString( 695 )
 #define STR_TW_BILL_TYPE_MONTH					CStringManager::GetSingleton().GetString( 696 )
 #define STR_TW_BILL_TYPE_12HOUR					CStringManager::GetSingleton().GetString( 697 )
 #define STR_TW_BILL_TYPE_3MONTH					CStringManager::GetSingleton().GetString( 698 )
-					
+
 #define STR_TW_BILL_TYPE_HONGKONG_MONTH			CStringManager::GetSingleton().GetString( 699 )
 #define STR_TW_BILL_TYPE_HONGKONG_3MONTH		CStringManager::GetSingleton().GetString( 600 )
 #define STR_TW_BILL_TYPE_HONGKONG_HOUR			CStringManager::GetSingleton().GetString( 701 )
@@ -714,7 +670,6 @@
 #define STR_REFUSE_BOARD						CStringManager::GetSingleton().GetString( 715 )
 #define STR_BOARDING_CANT_USE					CStringManager::GetSingleton().GetString( 716 )
 #define STR_CANT_BOARD							CStringManager::GetSingleton().GetString( 717 )
-
 
 //kor, ph billing msg
 #define STR_FREE_ACCOUNT_USER					CStringManager::GetSingleton().GetString( 718 )
@@ -746,11 +701,6 @@
 #define SOUND_EQUIP_ITEM_METAL						403
 
 #define SOUND_WALK_AVT01							651
-
-
-
-
-
 
 #define SOUND_LEVEL_UP								16
 #define SOUND_BUTTON_CLICK01						1

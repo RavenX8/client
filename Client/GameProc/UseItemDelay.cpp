@@ -1,16 +1,16 @@
 #include "stdafx.h"
-#include ".\useitemdelay.h"
+#include "./useitemdelay.h"
 #include "../Game.h"
 
 //USEITEM
-CUseItemDelay	g_UseItemDelay,
-				g_CurUseItemDelayTick,
-				g_SoloUseItemDelayTick;
+CUseItemDelay g_UseItemDelay,
+              g_CurUseItemDelayTick,
+              g_SoloUseItemDelayTick;
 
 //SKILL
-CUseItemDelay	g_UseSkillDelay,
-				g_CurSkillDelayTick,
-				g_SoloSkillDelayTick;
+CUseItemDelay g_UseSkillDelay,
+              g_CurSkillDelayTick,
+              g_SoloSkillDelayTick;
 
 ////----------------------------------------------------------------------------------------------------
 ///// @param
@@ -61,74 +61,58 @@ CUseItemDelay	g_UseSkillDelay,
 //	}
 //}
 
-
 //생성자 
-CUseItemDelay::CUseItemDelay()
-{
+CUseItemDelay::CUseItemDelay() {
 
-	m_nCount	= 0;
+  m_nCount = 0;
 
 }
 
 //소멸자 
-CUseItemDelay::~CUseItemDelay()
-{
+CUseItemDelay::~CUseItemDelay() {
 
-	Release();
+  Release();
 
 }
 
 //자원 해제 
-void CUseItemDelay::Release(void)
-{
+void CUseItemDelay::Release(void) {
 
-	m_nCount	= 0;
-	m_UseItemDelay.clear();
-
-}
-
-void CUseItemDelay::SetUseItemDelay(int iUseItemType, float iDelayTime)
-{
-
-	m_UseItemDelay[iUseItemType] = iDelayTime;
-
-	m_nCount = m_UseItemDelay.size();
+  m_nCount = 0;
+  m_UseItemDelay.clear();
 
 }
 
+void CUseItemDelay::SetUseItemDelay(int iUseItemType, float iDelayTime) {
 
-float	CUseItemDelay::GetUseItemDelay(int iUseItemType)
-{
+  m_UseItemDelay[iUseItemType] = iDelayTime;
 
-	USERITEMDELAYITR itr = m_UseItemDelay.find(iUseItemType);
-
-	if(itr == m_UseItemDelay.end())
-		return 0;
-
-	return itr->second;
+  m_nCount = m_UseItemDelay.size();
 
 }
 
+float CUseItemDelay::GetUseItemDelay(int iUseItemType) {
 
+  USERITEMDELAYITR itr = m_UseItemDelay.find( iUseItemType );
 
-void CUseItemDelay::Proc(void)
-{
+  if ( itr == m_UseItemDelay.end() )
+    return 0;
 
-	for(USERITEMDELAYITR itr = m_UseItemDelay.begin();itr != m_UseItemDelay.end();itr++)
-	{
-
-		if(itr->second <= 0.0f)
-			continue;
-		
-
-		itr->second-=(float)g_GameDATA.GetElapsedFrameTime();
-		
-		if(itr->second < 0.0f)
-			itr->second = 0.0f;
-	}
+  return itr->second;
 
 }
 
+void CUseItemDelay::Proc(void) {
 
+  for ( USERITEMDELAYITR itr = m_UseItemDelay.begin(); itr != m_UseItemDelay.end(); ++itr ) {
 
+    if ( itr->second <= 0.0f )
+      continue;
 
+    itr->second -= (float)g_GameDATA.GetElapsedFrameTime();
+
+    if ( itr->second < 0.0f )
+      itr->second = 0.0f;
+  }
+
+}

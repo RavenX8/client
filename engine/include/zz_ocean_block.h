@@ -59,22 +59,22 @@
 #endif
 
 class zz_ocean_block : public zz_visible {
-	zz_time time_interval;
+  zz_time time_interval;
 
 public:
-	zz_ocean_block();
-	virtual ~zz_ocean_block();
+          zz_ocean_block();
+  virtual ~zz_ocean_block();
 
-	virtual void update_animation (bool recursive, zz_time diff_time);
-	virtual void render_runit (unsigned int runit_index);
+  void update_animation(bool     recursive, zz_time diff_time) override;
+  void render_runit(unsigned int runit_index) override;
 
-	void set_interval (zz_time interval);
-	zz_time get_interval (void);
+  void    set_interval(zz_time interval);
+  zz_time get_interval(void    );
 
-	virtual void before_render ();
-	virtual void after_render ();
+  void before_render() override;
+  void after_render() override;
 
-	ZZ_DECLARE_DYNAMIC(zz_ocean_block);
+ZZ_DECLARE_DYNAMIC(zz_ocean_block);
 };
 
 #endif // __ZZ_OCEAN_BLOCK_H__

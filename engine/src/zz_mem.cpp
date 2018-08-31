@@ -168,9 +168,9 @@ void * zz_mem::malloc (size_t size)
 
 	p = ::malloc(size);
 #endif
-	
-	//ZZ_LOG("mem: allocated %d bytes (0x%x)\n", size, p);
-	//status();
+
+//ZZ_LOG("mem: allocated %d bytes (0x%x)\n", size, p);
+//status();
 
 	// CAUTION: break on here to catch memory leak by index ( _count == XXX )
 	_mem_info info;
@@ -219,7 +219,7 @@ void zz_mem::free (void * p)
 	size = int(the_iterator.value()->size);
 	//size = (*the_iterator).second;
 
-	//ZZ_LOG("mem: freed %d bytes\n", size);
+//ZZ_LOG("mem: freed %d bytes\n", size);
 	//ZZ_LOG("mem: freed %d[index = %d] bytes\n", size, the_iterator.value()->index);
 	_used -= size;
 
@@ -241,13 +241,13 @@ void zz_mem::begin ()
 	ZZ_LOG("mem: begin. total %d byte available.\n", _total);
 
 #ifdef ZZ_WIN32_CRTDBG
-	//// crt debug flag setting
-	//_CrtSetDbgFlag(
-	//	_CRTDBG_ALLOC_MEM_DF
-	//	| _CRTDBG_LEAK_CHECK_DF
-	//	// | _CRTDBG_CHECK_ALWAYS_DF
-	//	// | _CRTDBG_CHECK_EVERY_16_DF
-	//	);
+//// crt debug flag setting
+//_CrtSetDbgFlag(
+//	_CRTDBG_ALLOC_MEM_DF
+//	| _CRTDBG_LEAK_CHECK_DF
+//	// | _CRTDBG_CHECK_ALWAYS_DF
+//	// | _CRTDBG_CHECK_EVERY_16_DF
+//	);
 #endif // ZZ_WIN32_CRTDBG
 }
 

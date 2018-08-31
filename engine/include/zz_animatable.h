@@ -74,99 +74,88 @@ class zz_channel_rotation;
 //--------------------------------------------------------------------------------
 class zz_animatable : public zz_visible {
 protected:
-	zz_motion * motion; // copied snapshot from motion_controller
-	zz_motion_controller motion_controller;
+  zz_motion*           motion; // copied snapshot from motion_controller
+  zz_motion_controller motion_controller;
 
 public:
-	zz_animatable(void);
-	virtual ~zz_animatable(void);
+          zz_animatable(void );
+  virtual ~zz_animatable(void);
 
-	// apply motion
-	virtual bool apply_motion (void); // returns true if motion was successfully applied.
-	virtual void attach_motion (zz_motion * motion_to_attach);
-	virtual void detach_motion ();
-	virtual void update_time (bool recursive, zz_time diff_time);
-	virtual void update_animation (bool recursive, zz_time diff_time);
+  // apply motion
+  virtual bool apply_motion(void        ); // returns true if motion was successfully applied.
+  virtual void attach_motion(zz_motion* motion_to_attach);
+  virtual void detach_motion();
+  void         update_time(bool      recursive, zz_time diff_time) override;
+  void         update_animation(bool recursive, zz_time diff_time) override;
 
-	zz_time get_motion_time ();
-	unsigned int get_motion_frame ();
+  zz_time      get_motion_time();
+  unsigned int get_motion_frame();
 
-	bool set_motion_time (zz_time set_time);
-	bool set_motion_frame (int frame);
+  bool set_motion_time(zz_time set_time);
+  bool set_motion_frame(int    frame);
 
-	zz_motion * get_motion (void);
-	zz_motion_mixer * blend_motion (zz_motion * motion_arg1, zz_motion * motion_arg2);
-	
-	virtual void set_repeat_count (int count);
-	virtual int get_repeat_count ();
-	
-	float get_motion_speed ();
-	void set_motion_speed (float speed_in);
+  zz_motion*       get_motion(void         );
+  zz_motion_mixer* blend_motion(zz_motion* motion_arg1, zz_motion* motion_arg2);
 
-	virtual void play ();
-	virtual void stop ();
-	virtual void pause ();
-	virtual int get_motion_state();
+  virtual void set_repeat_count(int count);
+  virtual int  get_repeat_count();
 
-	zz_time get_start_delay ();
-	void set_start_delay (zz_time delay_in);
+  float get_motion_speed();
+  void  set_motion_speed(float speed_in);
 
-	ZZ_DECLARE_DYNAMIC(zz_animatable)
+  virtual void play();
+  virtual void stop();
+  virtual void pause();
+  virtual int  get_motion_state();
+
+  zz_time get_start_delay();
+  void    set_start_delay(zz_time delay_in);
+
+ZZ_DECLARE_DYNAMIC(zz_animatable)
 };
 
-inline zz_motion * zz_animatable::get_motion (void)
-{
-	return motion;
+inline zz_motion* zz_animatable::get_motion(void) {
+  return motion;
 }
 
-inline void zz_animatable::set_repeat_count (int count)
-{
-	motion_controller.repeat_count = count;
+inline void zz_animatable::set_repeat_count(int count) {
+  motion_controller.repeat_count = count;
 }
 
-inline int zz_animatable::get_repeat_count ()
-{
-	return motion_controller.repeat_count;
+inline int zz_animatable::get_repeat_count() {
+  return motion_controller.repeat_count;
 }
 
-inline float zz_animatable::get_motion_speed ()
-{
-	return motion_controller.get_speed();
+inline float zz_animatable::get_motion_speed() {
+  return motion_controller.get_speed();
 }
 
-inline void zz_animatable::set_motion_speed (float speed_in)
-{
-	motion_controller.set_speed(speed_in);
+inline void zz_animatable::set_motion_speed(float speed_in) {
+  motion_controller.set_speed( speed_in );
 }
 
-inline void zz_animatable::play ()
-{
-	motion_controller.play();
+inline void zz_animatable::play() {
+  motion_controller.play();
 }
 
-inline void zz_animatable::stop ()
-{
-	motion_controller.stop();
+inline void zz_animatable::stop() {
+  motion_controller.stop();
 }
 
-inline void zz_animatable::pause ()
-{
-	motion_controller.pause();
+inline void zz_animatable::pause() {
+  motion_controller.pause();
 }
 
-inline int zz_animatable::get_motion_state()
-{
-	return motion_controller.get_motion_state();
+inline int zz_animatable::get_motion_state() {
+  return motion_controller.get_motion_state();
 }
 
-inline zz_time zz_animatable::get_start_delay ()
-{
-	return motion_controller.get_start_delay();
+inline zz_time zz_animatable::get_start_delay() {
+  return motion_controller.get_start_delay();
 }
 
-inline void zz_animatable::set_start_delay (zz_time delay_in)
-{
-	motion_controller.set_start_delay(delay_in);
+inline void zz_animatable::set_start_delay(zz_time delay_in) {
+  motion_controller.set_start_delay( delay_in );
 }
 
 #endif //__ZZ_ANIMATABLE_H__

@@ -94,103 +94,87 @@
 
 struct zz_string {
 private:
-	char * name;
-	int length;
+  char* name;
+  int   length;
 
 public:
-	zz_string(void) : name(NULL), length(0)
-	{
-	}
+  zz_string(void) : name( nullptr ), length( 0 ) { }
 
-	explicit zz_string (const char * source_string) : name(NULL), length(0)
-	{
-		set(source_string);
-	}
+  explicit zz_string(const char* source_string) : name( nullptr ), length( 0 ) {
+    set( source_string );
+  }
 
-	zz_string (const zz_string& src_string) : name(NULL), length(0)
-	{
-		if (src_string.size() == 0) {
-			name = NULL;
-			length = 0;
-			return;
-		}
-		set(src_string.get());
-	}
+  zz_string(const zz_string& src_string) : name( nullptr ), length( 0 ) {
+    if ( src_string.size() == 0 ) {
+      name   = nullptr;
+      length = 0;
+      return;
+    }
+    set( src_string.get() );
+  }
 
-	zz_string::~zz_string(void)
-	{
-		reset();
-	}
+  zz_string::~zz_string(void) {
+    reset();
+  }
 
-	void reset (void)
-	{
-		if (name) {
-			zz_delete[] name; // do not ZZ_SAFE_DELETE
-			name = NULL;
-			length = 0;
-		}
-	}
+  void reset(void) {
+    if ( name ) {
+      zz_delete[] name; // do not ZZ_SAFE_DELETE
+      name   = nullptr;
+      length = 0;
+    }
+  }
 
-	int size (void) const
-	{
-		return length;
-	}
+  int size(void) const {
+    return length;
+  }
 
-	void set (const char * source_string);
+  void set(const char* source_string);
 
-	void set ( zz_string& source_string )
-	{
-		set(source_string.get());
-	}
+  void set(zz_string& source_string) {
+    set( source_string.get() );
+  }
 
-	const char * get (void) const
-	{
-		return name;
-	}
+  const char* get(void) const {
+    return name;
+  }
 
-	zz_string& operator=( const char * source_string)
-	{
-		set(source_string);
-		return *this;
-	}
+  zz_string& operator=(const char* source_string) {
+    set( source_string );
+    return *this;
+  }
 
-	zz_string& operator=( const zz_string& rhs)
-	{
-		if (&rhs != this) {
-			set(rhs.get());
-		}
-		else {
-			int i = 0;
-		}
-		return *this;
-	}
+  zz_string& operator=(const zz_string& rhs) {
+    if ( &rhs != this ) {
+      set( rhs.get() );
+    } else {
+      int i = 0;
+    }
+    return *this;
+  }
 
-	zz_string& operator+=( const char * source_string );
-	zz_string& operator+=( const zz_string& rhs );
+  zz_string& operator+=(const char*      source_string);
+  zz_string& operator+=(const zz_string& rhs);
 
-	bool operator== (const zz_string& rhs) const
-	{
-		if (!name) return (rhs.get() == NULL);
-		return (strcmp(name, rhs.get()) == 0);
-	}
+  bool operator==(const zz_string& rhs) const {
+    if ( !name ) return (rhs.get() == nullptr);
+    return (strcmp( name, rhs.get() ) == 0);
+  }
 
-	bool operator!= (const zz_string& rhs) const
-	{
-		if (!name) return (rhs.get() != NULL);
-		return (strcmp(name, rhs.get()) != 0);
-	}
+  bool operator!=(const zz_string& rhs) const {
+    if ( !name ) return (rhs.get() != nullptr);
+    return (strcmp( name, rhs.get() ) != 0);
+  }
 
-	bool operator== (const char * rhs) const
-	{
-		if (!name) return (rhs == NULL);
-		return (strcmp(name, rhs) == 0);
-	}
+  bool operator==(const char* rhs) const {
+    if ( !name ) return (rhs == nullptr);
+    return (strcmp( name, rhs ) == 0);
+  }
 
-	bool operator!= (const char * rhs) const
-	{
-		if (!name) return (rhs != NULL);
-		return (strcmp(name, rhs) != 0);
-	}
+  bool operator!=(const char* rhs) const {
+    if ( !name ) return (rhs != nullptr);
+    return (strcmp( name, rhs ) != 0);
+  }
 };
 
 // Following is not recommended for its performance.
@@ -206,53 +190,51 @@ public:
 // This filters double-backslash, also.
 class zz_slash_converter {
 protected:
-	char _str [ZZ_MAX_STRING];
-	enum {
-		SLASH = '/',
-		BACKSLASH = '\\'
-	};
+  char _str [ZZ_MAX_STRING];
+
+  enum {
+    SLASH = '/',
+    BACKSLASH = '\\'
+  };
 
 public:
-	zz_slash_converter(const char * str, bool to_backslash = true, int lower1_upper2 = 0) {
-		uint32 size = (uint32)strlen(str);
-		uint32 current;
-		uint32 i;
-		bool last_slashed = false;
+           zz_slash_converter(const char* str, bool to_backslash = true, int lower1_upper2 = 0) {
+    uint32 size = (uint32)strlen( str );
+    uint32 current;
+    uint32 i;
+    bool   last_slashed = false;
 
-		for (i = 0, current = 0; i < size; i++) {
-			if (str[i] == SLASH || str[i] == BACKSLASH) {
-				if (last_slashed) {
-					continue;
-				}
-				_str[current++] = to_backslash ? BACKSLASH : SLASH;
-				last_slashed = true;
-			}
-			else { // non-slash
-				_str[current++] = str[i];
-				last_slashed = false;
-			}
-		}
-		_str[current] = '\0';
-	}
+    for ( i = 0, current = 0; i < size; i++ ) {
+      if ( str[i] == SLASH || str[i] == BACKSLASH ) {
+        if ( last_slashed ) {
+          continue;
+        }
+        _str[current++] = to_backslash ? BACKSLASH : SLASH;
+        last_slashed    = true;
+      } else {
+        // non-slash
+        _str[current++] = str[i];
+        last_slashed    = false;
+      }
+    }
+    _str[current] = '\0';
+  }
 
-	~zz_slash_converter()
-	{
-		_str[0] = '\0'; // verification not to use this invalid string
-	}
+  ~zz_slash_converter() {
+    _str[0] = '\0'; // verification not to use this invalid string
+  }
 
-	operator const char * () const
-	{
-		return _str;
-	}
-	operator char * () const
-	{
-		return (char *)_str;
-	}
-	char * get () const
-	{
-		return (char *)_str;
-	}
+  operator const char *() const {
+    return _str;
+  }
+
+  operator char *() const {
+    return (char *)_str;
+  }
+
+  char* get() const {
+    return (char *)_str;
+  }
 };
-
 
 #endif // __ZZ_STRING_H__

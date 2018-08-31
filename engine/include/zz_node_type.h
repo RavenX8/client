@@ -58,7 +58,6 @@
 #include "zz_mem.h"
 #endif
 
-
 class zz_node;
 
 #define ZZ_RUNTIME_TYPE(type_name) ((zz_node_type*)(&type_name::type_##type_name))
@@ -66,47 +65,42 @@ class zz_node;
 public: \
 	static const zz_node_type type_##type_name; \
 	virtual zz_node_type * get_node_type() const; \
-	static zz_node * create_instance(); \
-
+	static zz_node * create_instance();
 #define ZZ_IMPLEMENT_RUNTIME_TYPE(type_name, base_type_name, pfn_create) \
 	const zz_node_type type_name::type_##type_name = { \
 #type_name, ZZ_RUNTIME_TYPE(base_type_name), pfn_create }; \
 	zz_node_type * type_name::get_node_type() const \
-		{ return ZZ_RUNTIME_TYPE(type_name); } \
-
+		{ return ZZ_RUNTIME_TYPE(type_name); }
 #define ZZ_IMPLEMENT_DYNAMIC(type_name, base_type_name) \
-	ZZ_IMPLEMENT_RUNTIME_TYPE(type_name, base_type_name, NULL) \
-
+	ZZ_IMPLEMENT_RUNTIME_TYPE(type_name, base_type_name, NULL)
 #define ZZ_IMPLEMENT_DYNCREATE(type_name, base_type_name) \
 	zz_node * type_name::create_instance() \
 		{ zz_node * new_type = zz_new type_name; return new_type; } \
-	ZZ_IMPLEMENT_RUNTIME_TYPE(type_name, base_type_name, type_name::create_instance) \
+	ZZ_IMPLEMENT_RUNTIME_TYPE(type_name, base_type_name, type_name::create_instance)
 
 struct zz_node_type {
-	char * type_name;
+  char* type_name;
 
-	zz_node_type * base_type;
+  zz_node_type* base_type;
 
-	zz_node * (* pfn_create_instance)();
+  zz_node* (*pfn_create_instance)();
 
-	bool is_a (const zz_node_type * const base_type) const;
+  bool is_a(const zz_node_type* base_type) const;
 
-	zz_node * create_instance () const
-	{
-		return (pfn_create_instance)();
-	}
+  zz_node* create_instance() const {
+    return (pfn_create_instance)();
+  }
 };
 
-inline bool zz_node_type::is_a (const zz_node_type * const base_type) const
-{
-	const zz_node_type * start_type = this;
-	while (start_type) {
-		if (start_type == base_type) {
-			return true;
-		}
-		start_type = start_type->base_type;
-	}
-	return false;
+inline bool           zz_node_type::is_a(const zz_node_type* const base_type) const {
+  const zz_node_type* start_type = this;
+  while ( start_type ) {
+    if ( start_type == base_type ) {
+      return true;
+    }
+    start_type = start_type->base_type;
+  }
+  return false;
 }
 
 #define IS_A(INSTANCEPOINTER, CLASSNAME) (INSTANCEPOINTER->is_a(ZZ_RUNTIME_TYPE(CLASSNAME)))

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include ".\cexchange.h"
+#include "./cexchange.h"
 #include "event/CTEventExchange.h"
 #include "../gamecommon/item.h"
 #include "../Network/CNetwork.h"
@@ -11,148 +11,127 @@
 #include "../gamecommon/item.h"
 #include "Event/CTEventItem.h"
 
-CExchange::CExchange(void)
-{
-	m_bExchange = false;
-	for( int iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot )
-	{
-		m_MyItems[iSlot] = NULL;
-		m_OtherItems[iSlot] = NULL;
-	}
-	m_pEventExchange = new CTEventExchange;
+CExchange::CExchange(void) {
+  m_bExchange           = false;
+  for ( int iSlot       = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot ) {
+    m_MyItems[iSlot]    = nullptr;
+    m_OtherItems[iSlot] = nullptr;
+  }
+  m_pEventExchange = new CTEventExchange;
 }
 
-CExchange::~CExchange(void)
-{
-	SAFE_DELETE( m_pEventExchange );
-	for( int iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot )
-	{
-		SAFE_DELETE( m_MyItems[iSlot] );
-		SAFE_DELETE( m_OtherItems[iSlot] );
-	}
+CExchange::~CExchange(void) {
+  SAFE_DELETE( m_pEventExchange );
+  for ( int iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot ) {
+    SAFE_DELETE( m_MyItems[iSlot] );
+    SAFE_DELETE( m_OtherItems[iSlot] );
+  }
 }
 
-CExchange& CExchange::GetInstance()
-{
-	static CExchange s_Instance;
-	return s_Instance;
+CExchange&         CExchange::GetInstance() {
+  static CExchange s_Instance;
+  return s_Instance;
 }
 
 ///교환을 요청하는 Packet
-bool CExchange::SendCliTradeReq( WORD wObjSvrIdx )
-{
-	return g_pNet->Send_cli_TRADE_P2P( wObjSvrIdx, RESULT_TRADE_REQUEST );
+bool CExchange::SendCliTradeReq(WORD wObjSvrIdx) {
+  return g_pNet->Send_cli_TRADE_P2P( wObjSvrIdx, RESULT_TRADE_REQUEST );
 }
 
-const std::string&	CExchange::GetOtherName()
-{
-	return m_strTargetAvatarName;
-}
-__int64 CExchange::GetMyTradeMoney()
-{
-	return m_i64MyTradeMoney;
+const std::string& CExchange::GetOtherName() {
+  return m_strTargetAvatarName;
 }
 
-__int64 CExchange::GetOtherTradeMoney()
-{
-	return m_i64OtherTradeMoney;
+__int64 CExchange::GetMyTradeMoney() {
+  return m_i64MyTradeMoney;
 }
 
-void CExchange::SetReadyMe( bool bReady )
-{
-	m_bReadyMe = bReady;
+__int64 CExchange::GetOtherTradeMoney() {
+  return m_i64OtherTradeMoney;
 }
 
-void CExchange::SetReadyOther( bool bReady )
-{
-	m_bReadyOther = bReady;
-	m_pEventExchange->SetID( CTEventExchange::EID_CHANGE_READYOTHER );
-	m_pEventExchange->SetReadyOther( bReady );
-	SetChanged();
-	NotifyObservers( m_pEventExchange );
+void CExchange::SetReadyMe(bool bReady) {
+  m_bReadyMe = bReady;
 }
 
-bool CExchange::IsReadyMe()
-{
-	return m_bReadyMe;
+void CExchange::SetReadyOther(bool bReady) {
+  m_bReadyOther = bReady;
+  m_pEventExchange->SetID( CTEventExchange::EID_CHANGE_READYOTHER );
+  m_pEventExchange->SetReadyOther( bReady );
+  SetChanged();
+  NotifyObservers( m_pEventExchange );
 }
 
-bool CExchange::IsReadyOther()
-{
-	return m_bReadyOther;
+bool CExchange::IsReadyMe() {
+  return m_bReadyMe;
 }
 
-bool CExchange::IsReadyAll()
-{
-	return ( m_bReadyMe && m_bReadyOther );
+bool CExchange::IsReadyOther() {
+  return m_bReadyOther;
+}
+
+bool CExchange::IsReadyAll() {
+  return (m_bReadyMe && m_bReadyOther);
 }
 
 /////////////////////////////////////////////////////////////////
 /// @brief 교환이 시작될때와 교환이 끝났을때 Data를 Clear
 /////////////////////////////////////////////////////////////////
-void CExchange::Clear()
-{
-	m_bReadyMe		= false;
-	m_bReadyOther	= false;
-	m_i64MyTradeMoney	= 0;
-	m_i64OtherTradeMoney = 0;
+void CExchange::Clear() {
+  m_bReadyMe           = false;
+  m_bReadyOther        = false;
+  m_i64MyTradeMoney    = 0;
+  m_i64OtherTradeMoney = 0;
 
+  for ( int iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot ) {
+    if ( m_MyItems[iSlot] ) {
+      m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_MYITEM );
+      m_pEventExchange->SetSlotIndex( iSlot );
+      SetChanged();
+      NotifyObservers( m_pEventExchange );
 
+      delete m_MyItems[iSlot];
+      m_MyItems[iSlot] = nullptr;
+    }
 
-	for( int iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot )
-	{
-		if( m_MyItems[iSlot] )
-		{
-			m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_MYITEM );
-			m_pEventExchange->SetSlotIndex( iSlot );
-			SetChanged();
-			NotifyObservers( m_pEventExchange );
+    if ( m_OtherItems[iSlot] ) {
+      m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_OTHERITEM );
+      m_pEventExchange->SetSlotIndex( iSlot );
+      SetChanged();
+      NotifyObservers( m_pEventExchange );
 
-			delete m_MyItems[iSlot];
-			m_MyItems[iSlot] = NULL;
-		}
-
-		if( m_OtherItems[iSlot] )
-		{
-			m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_OTHERITEM );
-			m_pEventExchange->SetSlotIndex( iSlot );
-			SetChanged();
-			NotifyObservers( m_pEventExchange );
-
-			delete m_OtherItems[iSlot];
-			m_OtherItems[iSlot] = NULL;
-		}
-	}
+      delete m_OtherItems[iSlot];
+      m_OtherItems[iSlot] = nullptr;
+    }
+  }
 }
 
-void CExchange::StartExchange( WORD wServerObjectIdx, const char* pszName )
-{
-	m_bExchange = true;
-	assert( pszName );
-	m_wOtherServerObjectIdx = wServerObjectIdx;
-	m_strTargetAvatarName = pszName;
-	Clear();
+void CExchange::StartExchange(WORD wServerObjectIdx, const char* pszName) {
+  m_bExchange = true;
+  assert( pszName );
+  m_wOtherServerObjectIdx = wServerObjectIdx;
+  m_strTargetAvatarName   = pszName;
+  Clear();
 }
 
-void CExchange::EndExchange()
-{
-	Clear();
-	m_bExchange = false;
-	m_wOtherServerObjectIdx = 0;
-	m_strTargetAvatarName.clear();
+void CExchange::EndExchange() {
+  Clear();
+  m_bExchange             = false;
+  m_wOtherServerObjectIdx = 0;
+  m_strTargetAvatarName.clear();
 }
+
 //////////////////////////////////////////////////////////////////////////////
 /// @brief 현재 교환중인가?
-bool CExchange::IsExchange()
-{
-	return m_bExchange;
+bool CExchange::IsExchange() {
+  return m_bExchange;
 }
 
-void CExchange::SendTradePacket( BYTE btResult, char cSlotIdx )
-{
-	g_pNet->Send_cli_TRADE_P2P( m_wOtherServerObjectIdx, btResult, cSlotIdx );
+void CExchange::SendTradePacket(BYTE btResult, char cSlotIdx) {
+  g_pNet->Send_cli_TRADE_P2P( m_wOtherServerObjectIdx, btResult, cSlotIdx );
 
 }
+
 //
 //bool CExchange::IsItemInTradeList( short iItemInvenIdx )
 //{
@@ -174,29 +153,24 @@ void CExchange::SendTradePacket( BYTE btResult, char cSlotIdx )
 //
 
 ///인벤타입별로 상대방의 아이템갯수에서 내아이템 갯수( ItemNo가 같을경우만 )뺀다
-int CExchange::GetCountTradeItem(t_InvTYPE InvenType )
-{
-	int iCount = 0;
-	for( int i = 0; i < TOTAL_EXCHANGE_INVENTORY ; ++i)
-	{
-		if( m_OtherItems[i] )
-		{
-			tagITEM& Item = m_OtherItems[i]->GetItem();
-			if( CInventory::GetInvPageTYPE( Item ) == InvenType )
-				++iCount;
-		}
-	}
+int         CExchange::GetCountTradeItem(t_InvTYPE InvenType) {
+  int       iCount = 0;
+  for ( int i      = 0; i < TOTAL_EXCHANGE_INVENTORY; ++i ) {
+    if ( m_OtherItems[i] ) {
+      tagITEM& Item = m_OtherItems[i]->GetItem();
+      if ( CInventory::GetInvPageTYPE( Item ) == InvenType )
+        ++iCount;
+    }
+  }
 
-	for( int i = 0; i < TOTAL_EXCHANGE_INVENTORY; ++i )
-	{
-		if( m_MyItems[i] )
-		{
-			tagITEM& Item = m_MyItems[i]->GetItem();
-			if( CInventory::GetInvPageTYPE( Item ) == InvenType )
-				--iCount;
-		}
-	}
-	return iCount;
+  for ( int i = 0; i < TOTAL_EXCHANGE_INVENTORY; ++i ) {
+    if ( m_MyItems[i] ) {
+      tagITEM& Item = m_MyItems[i]->GetItem();
+      if ( CInventory::GetInvPageTYPE( Item ) == InvenType )
+        --iCount;
+    }
+  }
+  return iCount;
 }
 
 /// 인벤토리의 빈슬롯 - 내교환아이템갯수 >= 상대방교환아이템갯수가 되는가?
@@ -212,199 +186,175 @@ int CExchange::GetCountTradeItem(t_InvTYPE InvenType )
 //	return false;
 //}
 
-void CExchange::SetMyTradeMoney( __int64 i64Money )
-{
-	m_i64MyTradeMoney = i64Money;
-	g_pNet->Send_cli_TRADE_P2P_ITEM( TRADE_MONEY_SLOT_NO, 0, (DWORD)i64Money );
+void CExchange::SetMyTradeMoney(__int64 i64Money) {
+  m_i64MyTradeMoney = i64Money;
+  g_pNet->Send_cli_TRADE_P2P_ITEM( TRADE_MONEY_SLOT_NO, 0, (DWORD)i64Money );
 }
 
-void CExchange::AddMyItem( CItem* pItem, int iQuantity )
-{
-	assert( pItem );
-	
-	tagITEM& Item = pItem->GetItem();
+void CExchange::AddMyItem(CItem* pItem, int iQuantity) {
+  assert( pItem );
 
-	if( !Item.IsEnableExchange() )
-	{
-		g_itMGR.AppendChatMsg(STR_DONT_EXCHANGE_ITEM, IT_MGR::CHAT_TYPE_SYSTEM );
-		return;
-	}
+  tagITEM& Item = pItem->GetItem();
 
-	if(  IsReadyMe() ) 
-		return;
+  if ( !Item.IsEnableExchange() ) {
+    g_itMGR.AppendChatMsg( STR_DONT_EXCHANGE_ITEM, IT_MGR::CHAT_TYPE_SYSTEM );
+    return;
+  }
 
-	//if( CInventory::GetInvPageTYPE( Item ) == INV_WEAPON )
-	//{
-	int iSlot = 0;
-	///같은 아이템일경우 무시
-	for( iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY ; ++iSlot)
-		if( m_MyItems[iSlot] && m_MyItems[iSlot]->GetIndex() == pItem->GetIndex() )
-			return ;
+  if ( IsReadyMe() )
+    return;
 
-	for( iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY ; ++iSlot)
-	{
-		if( m_MyItems[iSlot] == NULL )
-		{
-			CItemFragment* pFragmentItem = new CItemFragment( pItem );
-			pFragmentItem->SetQuantity( iQuantity );
+  //if( CInventory::GetInvPageTYPE( Item ) == INV_WEAPON )
+  //{
+  int iSlot = 0;
+  ///같은 아이템일경우 무시
+  for ( iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot )
+    if ( m_MyItems[iSlot] && m_MyItems[iSlot]->GetIndex() == pItem->GetIndex() )
+      return;
 
-			m_pEventExchange->SetID( CTEventExchange::EID_ADD_MYITEM );
-			m_pEventExchange->SetItem( pFragmentItem );
-			m_pEventExchange->SetSlotIndex( iSlot );
-			
-			m_MyItems[iSlot] = pFragmentItem;
+  for ( iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot ) {
+    if ( m_MyItems[iSlot] == nullptr ) {
+      CItemFragment* pFragmentItem = new CItemFragment( pItem );
+      pFragmentItem->SetQuantity( iQuantity );
 
-			SetChanged();
-			NotifyObservers( m_pEventExchange );
+      m_pEventExchange->SetID( CTEventExchange::EID_ADD_MYITEM );
+      m_pEventExchange->SetItem( pFragmentItem );
+      m_pEventExchange->SetSlotIndex( iSlot );
 
-			g_pNet->Send_cli_TRADE_P2P_ITEM( (char)iSlot, pItem->GetIndex(), iQuantity );
-			return;
-		}
-	}
-	//}
-	//else
-	//{
-	//	int i;
-	//	///같은 종류의 아이템이 있을경우
-	//	for( i = 0; i < TOTAL_EXCHANGE_INVENTORY ; ++i)
-	//	{
-	//		if( pExchangeDlg->m_MySlots[i].m_nInvenIdx == m_ExchangeItem.m_nInvenIdx )
-	//		{
-	//			pExchangeDlg->m_MySlots[i].m_sItem.m_iQuantity += m_iNumber;
-	//			pExchangeDlg->SetMeReadyState( false );
-	//			g_pNet->Send_cli_TRADE_P2P_ITEM( (char)i, m_ExchangeItem.m_nInvenIdx, pExchangeDlg->m_MySlots[i].m_sItem.m_iQuantity );
-	//			return true;
-	//		}
-	//	}
+      m_MyItems[iSlot] = pFragmentItem;
 
+      SetChanged();
+      NotifyObservers( m_pEventExchange );
 
-	//	for( i = 0; i < TOTAL_EXCHANGE_INVENTORY ; ++i)
-	//	{
-	//		if( pExchangeDlg->m_MySlots[i].m_sItem.GetItemNO() <= 0 )
-	//		{
-	//			m_ExchangeItem.m_iQuantity	= (int)m_iNumber;
-	//			pExchangeDlg->m_MySlots[i]  = m_ExchangeItem;
-	//			pExchangeDlg->SetMeReadyState( false );
-	//			g_pNet->Send_cli_TRADE_P2P_ITEM( (char)i, m_ExchangeItem.m_nInvenIdx, m_ExchangeItem.m_iQuantity );
-	//			break;
-	//		}
-	//	}
-	//}
-	//
-	//
+      g_pNet->Send_cli_TRADE_P2P_ITEM( (char)iSlot, pItem->GetIndex(), iQuantity );
+      return;
+    }
+  }
+  //}
+  //else
+  //{
+  //	int i;
+  //	///같은 종류의 아이템이 있을경우
+  //	for( i = 0; i < TOTAL_EXCHANGE_INVENTORY ; ++i)
+  //	{
+  //		if( pExchangeDlg->m_MySlots[i].m_nInvenIdx == m_ExchangeItem.m_nInvenIdx )
+  //		{
+  //			pExchangeDlg->m_MySlots[i].m_sItem.m_iQuantity += m_iNumber;
+  //			pExchangeDlg->SetMeReadyState( false );
+  //			g_pNet->Send_cli_TRADE_P2P_ITEM( (char)i, m_ExchangeItem.m_nInvenIdx, pExchangeDlg->m_MySlots[i].m_sItem.m_iQuantity );
+  //			return true;
+  //		}
+  //	}
+
+  //	for( i = 0; i < TOTAL_EXCHANGE_INVENTORY ; ++i)
+  //	{
+  //		if( pExchangeDlg->m_MySlots[i].m_sItem.GetItemNO() <= 0 )
+  //		{
+  //			m_ExchangeItem.m_iQuantity	= (int)m_iNumber;
+  //			pExchangeDlg->m_MySlots[i]  = m_ExchangeItem;
+  //			pExchangeDlg->SetMeReadyState( false );
+  //			g_pNet->Send_cli_TRADE_P2P_ITEM( (char)i, m_ExchangeItem.m_nInvenIdx, m_ExchangeItem.m_iQuantity );
+  //			break;
+  //		}
+  //	}
+  //}
+  //
+  //
 }
 
-void CExchange::RemoveMyItemByInvenIndex( int iInvenIndex )
-{
-	for( int iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot )
-	{
-		if( m_MyItems[iSlot] && m_MyItems[iSlot]->GetIndex() == iInvenIndex )
-		{
-			RemoveMyItemBySlotIndex( iSlot );
-			return;
-		}
-	}
+void        CExchange::RemoveMyItemByInvenIndex(int iInvenIndex) {
+  for ( int iSlot = 0; iSlot < TOTAL_EXCHANGE_INVENTORY; ++iSlot ) {
+    if ( m_MyItems[iSlot] && m_MyItems[iSlot]->GetIndex() == iInvenIndex ) {
+      RemoveMyItemBySlotIndex( iSlot );
+      return;
+    }
+  }
 }
 
-void CExchange::RemoveMyItemBySlotIndex( int iSlotIndex , bool bSendPacket )
-{
-	if( iSlotIndex < 0 || iSlotIndex >= TOTAL_EXCHANGE_INVENTORY )
-	{
-		assert( 0 && "Invalid SlotIndex @CExchange::RemoveMyItem" );	
-		return;
-	}
+void CExchange::RemoveMyItemBySlotIndex(int iSlotIndex, bool bSendPacket) {
+  if ( iSlotIndex < 0 || iSlotIndex >= TOTAL_EXCHANGE_INVENTORY ) {
+    assert( 0 && "Invalid SlotIndex @CExchange::RemoveMyItem" );
+    return;
+  }
 
-	if( m_MyItems[iSlotIndex] == NULL )
-	{
-		assert( m_MyItems[iSlotIndex] && "빈슬롯의 아이템을 빼려고 합니다 @CExchange::RemoveMyItem" );
-		return;
-	}
-	
-	m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_MYITEM );
-	m_pEventExchange->SetSlotIndex( iSlotIndex );
+  if ( m_MyItems[iSlotIndex] == nullptr ) {
+    assert( m_MyItems[iSlotIndex] && "빈슬롯의 아이템을 빼려고 합니다 @CExchange::RemoveMyItem" );
+    return;
+  }
 
-	SetChanged();
-	NotifyObservers( m_pEventExchange );///혹은 Event사용
-	
-	if( bSendPacket )
-		g_pNet->Send_cli_TRADE_P2P_ITEM( (char)iSlotIndex, m_MyItems[iSlotIndex]->GetIndex(), 0 );
+  m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_MYITEM );
+  m_pEventExchange->SetSlotIndex( iSlotIndex );
 
-	delete m_MyItems[iSlotIndex];
-	m_MyItems[iSlotIndex] = NULL;
+  SetChanged();
+  NotifyObservers( m_pEventExchange ); ///혹은 Event사용
+
+  if ( bSendPacket )
+    g_pNet->Send_cli_TRADE_P2P_ITEM( (char)iSlotIndex, m_MyItems[iSlotIndex]->GetIndex(), 0 );
+
+  delete m_MyItems[iSlotIndex];
+  m_MyItems[iSlotIndex] = nullptr;
 }
 
-bool CExchange::UpdateOtherItem( int iIndex, tagITEM& item )
-{
-	if( iIndex < 0 || iIndex >= MAX_TRADE_ITEM_SLOT )
-		return false;
+bool CExchange::UpdateOtherItem(int iIndex, tagITEM& item) {
+  if ( iIndex < 0 || iIndex >= MAX_TRADE_ITEM_SLOT )
+    return false;
 
-	if( iIndex == TRADE_MONEY_SLOT_NO )//돈
-	{
-		if( item.GetTYPE() == 0 )
-			m_i64OtherTradeMoney = 0;
-		else
-			m_i64OtherTradeMoney = item.GetMoney();
-	}
-	else
-	{
-		if( item.GetTYPE() == 0 )
-		{
-			///삭제
-			if( m_OtherItems[ iIndex ] )
-			{
-				///UI에게 알린다
-				m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_OTHERITEM );
-				m_pEventExchange->SetSlotIndex( iIndex );
-				SetChanged();
-				NotifyObservers( m_pEventExchange );
+  if ( iIndex == TRADE_MONEY_SLOT_NO ) //돈
+  {
+    if ( item.GetTYPE() == 0 )
+      m_i64OtherTradeMoney = 0;
+    else
+      m_i64OtherTradeMoney = item.GetMoney();
+  } else {
+    if ( item.GetTYPE() == 0 ) {
+      ///삭제
+      if ( m_OtherItems[iIndex] ) {
+        ///UI에게 알린다
+        m_pEventExchange->SetID( CTEventExchange::EID_REMOVE_OTHERITEM );
+        m_pEventExchange->SetSlotIndex( iIndex );
+        SetChanged();
+        NotifyObservers( m_pEventExchange );
 
-				delete m_OtherItems[iIndex];
-				m_OtherItems[iIndex] = NULL;
-			}
-			else
-			{
-				assert( m_OtherItems[ iIndex ] && "없는 아이템을 빼려고 합니다 @CExchange::UpdateOtherItem " );
-			}
-		}
-		else
-		{
-			if( m_OtherItems[ iIndex ] )
-			{
-				assert( m_OtherItems[ iIndex ] && "비어 있지 않은 슬롯에 아이템을 넣으려고 합니다 @CExchange::UpdateOtherItem " );
-			}
-			else
-			{
-				CItem*	pItem = new CItem;
-				pItem->SetItem( item );
-				pItem->SetIndex( iIndex );
+        delete m_OtherItems[iIndex];
+        m_OtherItems[iIndex] = nullptr;
+      } else {
+        assert( m_OtherItems[ iIndex ] && "없는 아이템을 빼려고 합니다 @CExchange::UpdateOtherItem " );
+      }
+    } else {
+      if ( m_OtherItems[iIndex] ) {
+        assert( m_OtherItems[ iIndex ] && "비어 있지 않은 슬롯에 아이템을 넣으려고 합니다 @CExchange::UpdateOtherItem " );
+      } else {
+        CItem* pItem = new CItem;
+        pItem->SetItem( item );
+        pItem->SetIndex( iIndex );
 
-				m_OtherItems[ iIndex ] = pItem;
-				///UI에게 알린다.
-				m_pEventExchange->SetID( CTEventExchange::EID_ADD_OTHERITEM );
-				m_pEventExchange->SetItem( pItem );
-				m_pEventExchange->SetSlotIndex( iIndex );
+        m_OtherItems[iIndex] = pItem;
+        ///UI에게 알린다.
+        m_pEventExchange->SetID( CTEventExchange::EID_ADD_OTHERITEM );
+        m_pEventExchange->SetItem( pItem );
+        m_pEventExchange->SetSlotIndex( iIndex );
 
-				SetChanged();
-				NotifyObservers( m_pEventExchange );
+        SetChanged();
+        NotifyObservers( m_pEventExchange );
 
-				///만약 상대방이 올린 품목의 갯수 - 내가 올린 품목의 갯수가 현재 인벤토리의 빈 슬롯갯수보다 클경우
-				///상대방에게 내 인벤이 꽉찼다고 알려주고 이미 올린것을 빼라고 한다.
-//				if( !(CExchange::GetInstance().IsEnoughEmptyInvenSlots( item )) )
+        ///만약 상대방이 올린 품목의 갯수 - 내가 올린 품목의 갯수가 현재 인벤토리의 빈 슬롯갯수보다 클경우
+        ///상대방에게 내 인벤이 꽉찼다고 알려주고 이미 올린것을 빼라고 한다.
+        //				if( !(CExchange::GetInstance().IsEnoughEmptyInvenSlots( item )) )
 
-				std::list< tagITEM > appendItems;
-				appendItems.push_back( item );
+        std::list<tagITEM> appendItems;
+        appendItems.push_back( item );
 
-				if( g_pAVATAR && g_pAVATAR->IsInventoryFull( appendItems ) )
-				{	
-					SendTradePacket( RESULT_TRADE_OUT_OF_INV,iIndex );
-					g_itMGR.OpenMsgBox(STR_NOT_ENOUGH_INVENTORY_SPACE);
-				}
-			}
-		}
-	}
-	///SetOtherReadyState( false ); 흠 이걸 해주어야 하나 ??????
-	return true;
+        if ( g_pAVATAR && g_pAVATAR->IsInventoryFull( appendItems ) ) {
+          SendTradePacket( RESULT_TRADE_OUT_OF_INV, iIndex );
+          g_itMGR.OpenMsgBox( STR_NOT_ENOUGH_INVENTORY_SPACE );
+        }
+      }
+    }
+  }
+  ///SetOtherReadyState( false ); 흠 이걸 해주어야 하나 ??????
+  return true;
 }
+
 //
 //CItem* CExchange::CreateItem( tagITEM& Item )
 //{
@@ -441,49 +391,37 @@ bool CExchange::UpdateOtherItem( int iIndex, tagITEM& item )
 //
 //}
 
-void CExchange::Update( CObservable* pObservable, CTObject* pObj )
-{
-	assert( pObservable );
-	if( pObj && strcmp( pObj->toString(), "CTEventItem") == 0 )
-	{
+void CExchange::Update(CObservable* pObservable, CTObject* pObj) {
+  assert( pObservable );
+  if ( pObj && strcmp( pObj->toString(), "CTEventItem" ) == 0 ) {
 
-		CTEventItem* pEvent = (CTEventItem*)pObj;
-		int iIndex = pEvent->GetIndex();
-		switch( pEvent->GetID() )
-		{
-		case CTEventItem::EID_DEL_ITEM:
-			{
-				for( int i = 0 ;i < TOTAL_EXCHANGE_INVENTORY; ++i )
-				{
-					if( m_MyItems[i] && m_MyItems[i]->GetIndex() == iIndex )
-					{
-						RemoveMyItemBySlotIndex( i , false );
-						return;
-					}
-				}
-				break;
-			}
-		case CTEventItem::EID_CHANGE_ITEM :
-			{
-				CItem* pItem = pEvent->GetItem();
-				for( int i = 0 ;i < TOTAL_EXCHANGE_INVENTORY; ++i )
-				{
-					if( m_MyItems[i] && m_MyItems[i]->GetIndex() == iIndex )
-					{
-						if( pItem->GetQuantity() < m_MyItems[i]->GetQuantity() )
-							RemoveMyItemBySlotIndex( i );
-						return;
-					}
-				}
-				break;
-			}
-		default:
-			break;
-		}
-	}
-	else
-	{
-		assert( 0 && "pObj is NULL or Invalid Type@CExchange::Update" );
-	}
+    CTEventItem* pEvent = (CTEventItem*)pObj;
+    int          iIndex = pEvent->GetIndex();
+    switch ( pEvent->GetID() ) {
+      case CTEventItem::EID_DEL_ITEM: {
+        for ( int i = 0; i < TOTAL_EXCHANGE_INVENTORY; ++i ) {
+          if ( m_MyItems[i] && m_MyItems[i]->GetIndex() == iIndex ) {
+            RemoveMyItemBySlotIndex( i, false );
+            return;
+          }
+        }
+        break;
+      }
+      case CTEventItem::EID_CHANGE_ITEM: {
+        CItem*    pItem = pEvent->GetItem();
+        for ( int i     = 0; i < TOTAL_EXCHANGE_INVENTORY; ++i ) {
+          if ( m_MyItems[i] && m_MyItems[i]->GetIndex() == iIndex ) {
+            if ( pItem->GetQuantity() < m_MyItems[i]->GetQuantity() )
+              RemoveMyItemBySlotIndex( i );
+            return;
+          }
+        }
+        break;
+      }
+      default: break;
+    }
+  } else {
+    assert( 0 && "pObj is NULL or Invalid Type@CExchange::Update" );
+  }
 
 }

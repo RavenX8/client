@@ -50,9 +50,8 @@
 #include "zz_algebra.h"
 #endif
 
-
-void draw_aabb (const vec3& pmin, const vec3& pmax, vec3 rgb);
-void draw_box (const vec3& center, const vec3& half_length, const mat3& rotation, vec3 rgb);
-void draw_sphere (const vec3& center, float radius, vec3 rgb);
+void draw_aabb(const vec3&   pmin, const vec3&   pmax, vec3               rgb);
+void draw_box(const vec3&    center, const vec3& half_length, const mat3& rotation, vec3 rgb);
+void draw_sphere(const vec3& center, float       radius, vec3             rgb);
 
 #endif // __ZZ_PRIMITIVE_H__

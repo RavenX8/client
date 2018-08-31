@@ -14,11 +14,6 @@
 
 ZZ_IMPLEMENT_DYNCREATE(zz_manager_visible, zz_manager)
 
-zz_manager_visible::zz_manager_visible ()
-{
-}
+zz_manager_visible::zz_manager_visible() {}
 
-zz_manager_visible::~zz_manager_visible ()
-{
-}
-
+zz_manager_visible::~zz_manager_visible() {}

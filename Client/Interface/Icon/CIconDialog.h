@@ -10,33 +10,30 @@ class CDragItem;
 * @Author		√÷¡æ¡¯
 * @Date			2005/9/6
 */
-class CIconDialog : public CIcon
-{
+class CIconDialog : public CIcon {
 public:
-	CIconDialog();
-	virtual ~CIconDialog(void);
+          CIconDialog();
+  virtual ~CIconDialog(void);
 
+  void                Update(POINT     ptMouse) override;
+  unsigned            Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void                ExecuteCommand() override;
+  CIcon*              Clone() override;
+  void                GetToolTip(CInfo& ToolTip, DWORD dwDialogType, DWORD dwType) override;
+  void                SetPosition(POINT pt) override;
+  int                 GetIndex() override;
+  static CIconDialog* CreateIcon(int iDialogType, bool bCreateDragItem);
 
-	virtual void	Update( POINT ptMouse );
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void ExecuteCommand();
-	virtual CIcon*	Clone();	
-	virtual void GetToolTip( CInfo& ToolTip,  DWORD dwDialogType, DWORD dwType );
-	virtual void	SetPosition( POINT pt );
-	virtual int		GetIndex();
-	static CIconDialog* CreateIcon( int iDialogType , bool bCreateDragItem );
-	
-	
-	void SetDialogType( int iDialogType );
-	int  GetDialogType();
+  void SetDialogType(int iDialogType);
+  int  GetDialogType();
 
-	void SetDragItem( CDragItem* pDragItem );
-	CDragItem*	GetDragItem();
+  void       SetDragItem(CDragItem* pDragItem);
+  CDragItem* GetDragItem();
 
 protected:
-	int			m_iDialogType;
-	CDragItem*	m_pDragItem;
-	bool		m_bClicked;
-	POINT		m_ptClicked;
+  int        m_iDialogType;
+  CDragItem* m_pDragItem;
+  bool       m_bClicked;
+  POINT      m_ptClicked;
 };
 #endif

@@ -3,46 +3,37 @@
 
 #include "../Util/JSingleton.h"
 
-
 ///
 /// class CSkillCommandDelay 
 /// 
 /// Managing delay of casting time
 ///
 
-class CSkillCommandDelay : public CJSingleton< CSkillCommandDelay >
-{
+class CSkillCommandDelay : public CJSingleton<CSkillCommandDelay> {
 private:
-	const DWORD		m_dwCastingTimeDelay;
+  const DWORD m_dwCastingTimeDelay;
 
+  DWORD m_dwCastingStartTime;
+  bool  m_bCanCastSkill;
+  int   m_iProgressRatio;
 
-	DWORD			m_dwCastingStartTime;
-	bool			m_bCanCastSkill;
-	int				m_iProgressRatio;
-		
-
-
-	HNODE			m_hCoverTexture;
-	int				m_iAnimationFrame;
-
+  HNODE m_hCoverTexture;
+  int   m_iAnimationFrame;
 
 public:
-	CSkillCommandDelay(void);
-	~CSkillCommandDelay(void);
+  CSkillCommandDelay(void );
+  ~CSkillCommandDelay(void);
 
-	
-	bool			Init();
-	void			Release();
+  bool Init();
+  void Release();
 
+  void StartSkill();
+  bool CanCastSkill();
 
-	void			StartSkill();
-	bool			CanCastSkill();
+  void Proc();
+  void Draw(int x, int y);
 
-	void			Proc();
-	void			Draw( int x, int y );
-
-
-	int				GetSkillCommandDelayProgressRatio(){ return m_iProgressRatio; }
+  int GetSkillCommandDelayProgressRatio() { return m_iProgressRatio; }
 };
 
 #endif //_SKILL_COMMAND_DELAY_

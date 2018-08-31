@@ -14,4 +14,4 @@
 #define DX_VERSION_9B		0x00090002
 #define DX_VERSION_9C		0x00090003
 
-ulong get_dx_version ( void );
+ulong get_dx_version(void);

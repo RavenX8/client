@@ -81,153 +81,149 @@ class zz_texture;
 class zz_vfs;
 
 ///--------------------------------------------------------------------------------
-class zz_particle_event_sequence
-{
+class zz_particle_event_sequence {
 public:
 
-	// update coordinates with [world or local]
-	enum {
-		ZZ_UPDATE_COORD_WORLD = 0, // rotation is updated by parent node, and position is not updated by parent node. (position is updated by world)
-		ZZ_UPDATE_COORD_LOCAL_WORLD = 1, // rotation is not update by parent node, and position is updated by parent node. (local rotation == world rotation)
-		ZZ_UPDATE_COORD_LOCAL = 2, // rotation and position is updated by parent node. 
-	};
+  // update coordinates with [world or local]
+  enum {
+    ZZ_UPDATE_COORD_WORLD = 0,
+    // rotation is updated by parent node, and position is not updated by parent node. (position is updated by world)
+    ZZ_UPDATE_COORD_LOCAL_WORLD = 1,
+    // rotation is not update by parent node, and position is updated by parent node. (local rotation == world rotation)
+    ZZ_UPDATE_COORD_LOCAL = 2,
+    // rotation and position is updated by parent node. 
+  };
 
-	zz_particle_event_sequence();
-	virtual ~zz_particle_event_sequence();
+          zz_particle_event_sequence();
+  virtual ~zz_particle_event_sequence();
 
-	HRESULT RestoreDeviceObjects( LPDIRECT3DDEVICE9 pDev );
-	HRESULT InvalidateDeviceObjects();
+  HRESULT RestoreDeviceObjects(LPDIRECT3DDEVICE9 pDev);
+  HRESULT InvalidateDeviceObjects();
 
+  int Reset(void);
 
-	int Reset(void);
+  // returns false if no particles are alive and no new particles are to be created
+  bool update(zz_time diff_time, vec3 m_vPartSysPos);
 
-	// returns false if no particles are alive and no new particles are to be created
-	bool update (zz_time diff_time, vec3 m_vPartSysPos);
+  bool Render(LPDIRECT3DVERTEXBUFFER9 pVB, int iVBSize);
 
-	bool Render(LPDIRECT3DVERTEXBUFFER9 pVB, int iVBSize );
+  void CreateNewParticle(vec3 m_vPartSysPos);
+  void CreateFadeLists();
 
+  void SortEvents(void         );
+  void NailDownRandomTimes(void);
 
-	void CreateNewParticle(vec3 m_vPartSysPos);
-	void CreateFadeLists();
+  static zz_particle_event* zz_particle_event_sequence::EventFactory(int iEventType);
 
+  // Attributes
 
-	void SortEvents(void);
-	void NailDownRandomTimes(void);
+  zz_minmax<float> GetLifetime(void                   ) const { return (m_Lifetime); }
+  void             SetLifetime(const zz_minmax<float> data) { m_Lifetime = data; }
 
+  int  GetSrcBlendMode(void      ) const { return (m_iSrcBlendMode); }
+  void SetSrcBlendMode(const int data) { m_iSrcBlendMode = data; }
 
-	static zz_particle_event *zz_particle_event_sequence::EventFactory( int iEventType );
+  int  GetDestBlendMode(void      ) const { return (m_iDestBlendMode); }
+  void SetDestBlendMode(const int data) { m_iDestBlendMode = data; }
 
-	
-	// Attributes
+  int  GetBlendOperation(void      ) const { return (m_iBlendOperation); }
+  void SetBlendOperation(const int data) { m_iBlendOperation = data; }
 
-	zz_minmax<float>		GetLifetime(void) const { return(m_Lifetime); }
-	void				SetLifetime(const zz_minmax<float> data) { m_Lifetime = data; }
+  zz_minmax<float> GetEmitRate(void                   ) const { return (m_EmitRate); }
+  void             SetEmitRate(const zz_minmax<float> data) { m_EmitRate = data; }
 
-	int					GetSrcBlendMode(void) const { return(m_iSrcBlendMode); }
-	void				SetSrcBlendMode(const int data) { m_iSrcBlendMode = data; }
+  zz_minmax<vec3> GetEmitRadius(void                   ) const { return (m_vEmitRadius); }
+  void            SetEmitRadius(const zz_minmax<vec3>& data) { m_vEmitRadius = data; }
 
-	int					GetDestBlendMode(void) const { return(m_iDestBlendMode); }
-	void				SetDestBlendMode(const int data) { m_iDestBlendMode = data; }
+  zz_minmax<vec3> GetGravity(void                   ) const { return (m_vGravity); }
+  void            SetGravity(const zz_minmax<vec3>& data) { m_vGravity = data; }
 
-	int					GetBlendOperation(void) const { return(m_iBlendOperation); }
-	void				SetBlendOperation(const int data) { m_iBlendOperation = data; }
+  std::string GetName(void               ) const { return (m_strName); }
+  void        SetName(const std::string& data) { m_strName = data; }
 
-	zz_minmax<float>		GetEmitRate(void) const { return(m_EmitRate); }
-	void				SetEmitRate(const zz_minmax<float> data) { m_EmitRate = data; }
+  int   GetNumActiveParticles(void) {
+    int num = (m_Particles) ? m_Particles->GetNumUsedElements() : 0;
+    num     = (m_WorldParticles) ? m_WorldParticles->GetNumUsedElements() : num;
+    return num;
+  }
 
-	zz_minmax<vec3> GetEmitRadius(void) const { return(m_vEmitRadius); }
-	void				SetEmitRadius(const zz_minmax<vec3> &data) { m_vEmitRadius = data; }
+  int  GetNumParticles(void      ) const { return (m_iNumParticles); }
+  void SetNumParticles(const int data) { m_iNumParticles = data; }
 
-	zz_minmax<vec3> GetGravity(void) const { return(m_vGravity); }
-	void				SetGravity(const zz_minmax<vec3> &data) { m_vGravity = data; }
+  int  GetLoops(void      ) { return (m_Loops); }
+  void SetLoops(const int data) { m_Loops = data; }
 
-	std::string			GetName(void) const { return(m_strName); }
-	void				SetName(const std::string &data) { m_strName = data; }
-	  
-	int					GetNumActiveParticles(void)
-	{
-		int num = (m_Particles) ? m_Particles->GetNumUsedElements() : 0;
-		num = (m_WorldParticles) ? m_WorldParticles->GetNumUsedElements() : num;
-		return num;
-	}
+  zz_minmax<vec3> GetSpawnDir(void                   ) const { return (m_vSpawnDir); }
+  void            SetSpawnDir(const zz_minmax<vec3>& data) { m_vSpawnDir = data; }
 
-	int					GetNumParticles(void) const { return(m_iNumParticles); }
-	void				SetNumParticles(const int data) { m_iNumParticles = data; }
+  std::string GetTextureFilename(void) const { return (m_strTexFilename); }
+  zz_texture* GetTexture(void        ) const { return (m_texParticle); }
+  void        SetTexture(const char* strTexFilename);
 
-	int					GetLoops(void) { return(m_Loops); }
-	void				SetLoops(const int data) { m_Loops = data; }
+  int GetTextureSizeWidth(void ) const { return (m_iTextureSizeWidth); }
+  int GetTextureSizeHeight(void) const { return (m_iTextureSizeHeight); }
 
-	zz_minmax<vec3> GetSpawnDir(void) const { return(m_vSpawnDir); }
-	void				SetSpawnDir(const zz_minmax<vec3> &data) { m_vSpawnDir = data; }
+  int GetImplementType(void) const { return (m_iImplementType); }
+  int GetUpdateCoord(void  ) const { return (m_iUpdateCoord); }
 
-	std::string			GetTextureFilename(void) const { return(m_strTexFilename); }
-	zz_texture *	    GetTexture(void) const { return(m_texParticle); }
-	void				SetTexture(const char *strTexFilename);
+  void RunEvents(zz_particle& part);
 
-	int					GetTextureSizeWidth(void) const { return (m_iTextureSizeWidth); }
-	int					GetTextureSizeHeight(void) const { return (m_iTextureSizeHeight); }
+  int DeleteAllParticles(void) {
+    if ( m_Particles ) m_Particles->DeleteAll();
+    if ( m_WorldParticles ) m_WorldParticles->DeleteAll();
+    m_iTotalParticleLives = 0;
+    return 0;
+  }
 
-	int					GetImplementType(void) const { return (m_iImplementType); }
-	int					GetUpdateCoord(void) const { return (m_iUpdateCoord); }
-	
-	void RunEvents( zz_particle &part );
-	int DeleteAllParticles(void)
-	{
-		if (m_Particles) m_Particles->DeleteAll();
-		if (m_WorldParticles) m_WorldParticles->DeleteAll();
-		m_iTotalParticleLives = 0; return 0;
-	}
-
-	bool reset_render_state ();
-	void set_world_tm(const mat4 * world_tm_in) { world_tm = world_tm_in; }
-	void set_scale_world(float scale_in) { world_scale = scale_in; }
-	void before_render ();
-	//void after_render ();
+  bool reset_render_state();
+  void set_world_tm(const mat4* world_tm_in) { world_tm = world_tm_in; }
+  void set_scale_world(float    scale_in) { world_scale = scale_in; }
+  void before_render();
+  //void after_render ();
 
 private:
-	std::vector<zz_particle_event *>		m_Events;
-	zz_recycling_array<zz_particle>		*m_Particles;
-	zz_recycling_array<zz_particle_world> *m_WorldParticles;
+  std::vector<zz_particle_event *>       m_Events;
+  zz_recycling_array<zz_particle>*       m_Particles;
+  zz_recycling_array<zz_particle_world>* m_WorldParticles;
 
-	zz_minmax<float>						m_Lifetime;
-	zz_minmax<float>						m_EmitRate; // in particles/sec
-	int m_Loops;
-	zz_minmax<vec3>				m_vSpawnDir;
-	zz_minmax<vec3>				m_vEmitRadius;
-	zz_minmax<vec3>				m_vGravity;
+  zz_minmax<float> m_Lifetime;
+  zz_minmax<float> m_EmitRate; // in particles/sec
+  int              m_Loops;
+  zz_minmax<vec3>  m_vSpawnDir;
+  zz_minmax<vec3>  m_vEmitRadius;
+  zz_minmax<vec3>  m_vGravity;
 
-	std::string							m_strTexFilename;
+  std::string m_strTexFilename;
 
-	zz_texture *                        m_texParticle;
-	LPDIRECT3DDEVICE9					m_pd3dDevice;
-	const mat4 *						world_tm; // world transform
-	float								world_scale; // globally applied scale
+  zz_texture*       m_texParticle;
+  LPDIRECT3DDEVICE9 m_pd3dDevice;
+  const mat4*       world_tm;    // world transform
+  float             world_scale; // globally applied scale
 
+  int m_iNumParticles;
+  int m_iDestBlendMode;
+  int m_iSrcBlendMode;
+  int m_iBlendOperation; // added
 
-	int									m_iNumParticles;
-	int									m_iDestBlendMode;
-	int									m_iSrcBlendMode;
-	int									m_iBlendOperation; // added
+  int m_iAlignType; // 0 : Normal billboard, 1 : World mesh(non-billboard, non-aligned), 2 :  Z Axis aligned
+  int m_iTextureSizeWidth;
+  int m_iTextureSizeHeight;
 
-	int									m_iAlignType;	// 0 : Normal billboard, 1 : World mesh(non-billboard, non-aligned), 2 :  Z Axis aligned
-	int									m_iTextureSizeWidth;
-	int									m_iTextureSizeHeight;
+  long int m_iTotalParticleLives;
 
-	long int							m_iTotalParticleLives;
-	
-	// use PointSprite when does not use billboarding, non-texture animation, 
-	int									m_iImplementType; // 0 : PointSprite, 1 : Billboard
-	
-	// problem(applying gravity and adapting billboard)
-	int									m_iUpdateCoord; // ZZ_UPDATE_COORD_WORLD | LOCAL
+  // use PointSprite when does not use billboarding, non-texture animation, 
+  int m_iImplementType; // 0 : PointSprite, 1 : Billboard
 
-	std::string							m_strName;
-	  
-	float								m_fNumNewPartsExcess;
+  // problem(applying gravity and adapting billboard)
+  int m_iUpdateCoord; // ZZ_UPDATE_COORD_WORLD | LOCAL
+
+  std::string m_strName;
+
+  float m_fNumNewPartsExcess;
 
 public:
-	bool Save( zz_vfs * fs );
-	bool Load( zz_vfs * fs );
+  bool Save(zz_vfs* fs);
+  bool Load(zz_vfs* fs);
 };
 
 #endif // __ZZ_PARTICLE_EVENT_SEQUENCE_H__

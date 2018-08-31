@@ -13,20 +13,19 @@
 /// @Date				2005/08/30
 //------------------------------------------------------------------------------------------------------------------------
 
-class TGAMECTRL_API CJString
-{
+class TGAMECTRL_API CJString {
 public:
-	CJString(void);
-	~CJString(void);
-	void	AddString( const char* pszString, SIZE sizeString, int iFont, DWORD dwColor );
-	void    Clear();
-	void	Draw( int x, int y , bool bTransform, DWORD force_text_color = 0);
-	bool	IsEmpty();
-	int		GetStringHeight();
+       CJString(void         );
+       ~CJString(void        );
+  void AddString(const char* pszString, SIZE sizeString, int iFont, DWORD dwColor);
+  void Clear();
+  void Draw(int x, int y, bool bTransform, DWORD force_text_color = 0);
+  bool IsEmpty();
+  int  GetStringHeight();
 
 protected:
-	int						m_iMaxHeight;													/// 문자열의 최대 높이 , AddString시에 주어진 sizeString을 비교해서 최대값을 저장한다.
-	std::list< CJLetter >	m_Letters;
+  int                 m_iMaxHeight; /// 문자열의 최대 높이 , AddString시에 주어진 sizeString을 비교해서 최대값을 저장한다.
+  std::list<CJLetter> m_Letters;
 
 };
 #endif

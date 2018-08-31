@@ -30,7 +30,7 @@
 
 #define CPUID_AWARE_COMPILER
 #ifdef CPUID_AWARE_COMPILER
-	#define CPUID_INSTRUCTION		cpuid
+#define CPUID_INSTRUCTION		cpuid
 #else
 	#define CPUID_INSTRUCTION		_asm _emit 0x0f _asm _emit 0xa2
 #endif
@@ -60,8 +60,8 @@
 #define VOLTAGEID_FREQUENCY			0x00400000
 
 #ifdef _WIN32
-	// Include Windows header files.
-	#include <windows.h>
+// Include Windows header files.
+#include <windows.h>
 #endif // _WIN32
 
 // Include generic C / C++ header files.
@@ -69,130 +69,139 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef	void (*DELAY_FUNC)(unsigned int uiMS);
+typedef void (*DELAY_FUNC)(unsigned int uiMS);
 
 class CPUSpeed {
 public:
-	CPUSpeed ();
-	~CPUSpeed ();
-		
-	// Variables.
-	int CPUSpeedInMHz;
+  CPUSpeed();
+  ~CPUSpeed();
 
-	// Functions.
-	__int64 __cdecl GetCyclesDifference (DELAY_FUNC, unsigned int);
-		
+  // Variables.
+  int CPUSpeedInMHz;
+
+  // Functions.
+  __int64 __cdecl GetCyclesDifference(DELAY_FUNC, unsigned int);
+
 private:
-	// Functions.
-	static void Delay (unsigned int);
-	static void DelayOverhead (unsigned int);
+  // Functions.
+  static void Delay(unsigned int        );
+  static void DelayOverhead(unsigned int);
 
 protected:
-	
+
 };
 
 class CPUInfo {
 public:
-	CPUInfo ();
-	~CPUInfo ();
+  CPUInfo();
+  ~CPUInfo();
 
-	char * GetVendorString ();
-	char * GetVendorID ();
-	char * GetTypeID ();
-	char * GetFamilyID ();
-	char * GetModelID ();
-	char * GetSteppingCode ();
-	char * GetExtendedProcessorName ();
-	char * GetProcessorSerialNumber ();
-	int GetLogicalProcessorsPerPhysical ();
-	int GetProcessorClockFrequency ();
-	int GetProcessorAPICID ();
-	int GetProcessorCacheXSize (DWORD);
-	bool DoesCPUSupportFeature (DWORD);
+  char* GetVendorString();
+  char* GetVendorID();
+  char* GetTypeID();
+  char* GetFamilyID();
+  char* GetModelID();
+  char* GetSteppingCode();
+  char* GetExtendedProcessorName();
+  char* GetProcessorSerialNumber();
+  int   GetLogicalProcessorsPerPhysical();
+  int   GetProcessorClockFrequency();
+  int   GetProcessorAPICID();
+  int   GetProcessorCacheXSize(DWORD);
+  bool  DoesCPUSupportFeature(DWORD );
 
-	bool __cdecl DoesCPUSupportCPUID ();
+  bool __cdecl DoesCPUSupportCPUID();
 
 private:
-	typedef struct tagID {
-		int Type;
-		int Family;
-		int Model;
-		int Revision;
-		int ExtendedFamily;
-		int ExtendedModel;
-		char ProcessorName[CHIPNAME_STRING_LENGTH];
-		char Vendor[VENDOR_STRING_LENGTH];
-		char SerialNumber[SERIALNUMBER_STRING_LENGTH];
-	} ID;
+  typedef struct tagID {
+    int  Type;
+    int  Family;
+    int  Model;
+    int  Revision;
+    int  ExtendedFamily;
+    int  ExtendedModel;
+    char ProcessorName[CHIPNAME_STRING_LENGTH];
+    char Vendor[VENDOR_STRING_LENGTH];
+    char SerialNumber[SERIALNUMBER_STRING_LENGTH];
+  }      ID;
 
-	typedef struct tagCPUPowerManagement {
-		bool HasVoltageID;
-		bool HasFrequencyID;
-		bool HasTempSenseDiode;
-	} CPUPowerManagement;
+  typedef struct tagCPUPowerManagement {
+    bool HasVoltageID;
+    bool HasFrequencyID;
+    bool HasTempSenseDiode;
+  }      CPUPowerManagement;
 
-	typedef struct tagCPUExtendedFeatures {
-		bool Has3DNow;
-		bool Has3DNowPlus;
-		bool SupportsMP;
-		bool HasMMXPlus;
-		bool HasSSEMMX;
-		bool SupportsHyperthreading;
-		int LogicalProcessorsPerPhysical;
-		int APIC_ID;
-		CPUPowerManagement PowerManagement;
-	} CPUExtendedFeatures;	
-	
-	typedef struct CPUtagFeatures {
-		bool HasFPU;
-		bool HasTSC;
-		bool HasMMX;
-		bool HasSSE;
-		bool HasSSEFP;
-		bool HasSSE2;
-		bool HasIA64;
-		bool HasAPIC;
-		bool HasCMOV;
-		bool HasMTRR;
-		bool HasACPI;
-		bool HasSerial;
-		bool HasThermal;
-		int CPUSpeed;
-		int L1CacheSize;
-		int L2CacheSize;
-		int L3CacheSize;
-		CPUExtendedFeatures ExtendedFeatures;
-	} CPUFeatures;
-    
-	enum Manufacturer {
-		AMD, Intel, NSC, UMC, Cyrix, NexGen, IDT, Rise, Transmeta, UnknownManufacturer
-	};
+  typedef struct tagCPUExtendedFeatures {
+    bool               Has3DNow;
+    bool               Has3DNowPlus;
+    bool               SupportsMP;
+    bool               HasMMXPlus;
+    bool               HasSSEMMX;
+    bool               SupportsHyperthreading;
+    int                LogicalProcessorsPerPhysical;
+    int                APIC_ID;
+    CPUPowerManagement PowerManagement;
+  }                    CPUExtendedFeatures;
 
-	// Functions.
-	bool __cdecl RetrieveCPUFeatures ();
-	bool __cdecl RetrieveCPUIdentity ();
-	bool __cdecl RetrieveCPUCacheDetails ();
-	bool __cdecl RetrieveClassicalCPUCacheDetails ();
-	bool __cdecl RetrieveCPUClockSpeed ();
-	bool __cdecl RetrieveClassicalCPUClockSpeed ();
-	bool __cdecl RetrieveCPUExtendedLevelSupport (int);
-	bool __cdecl RetrieveExtendedCPUFeatures ();
-	bool __cdecl RetrieveProcessorSerialNumber ();
-	bool __cdecl RetrieveCPUPowerManagement ();
-	bool __cdecl RetrieveClassicalCPUIdentity ();
-	bool __cdecl RetrieveExtendedCPUIdentity ();
-	
-	// Variables.
-	Manufacturer ChipManufacturer;
-	CPUFeatures Features;
-	CPUSpeed * Speed;
-	ID ChipID;
-	
+  typedef struct CPUtagFeatures {
+    bool                HasFPU;
+    bool                HasTSC;
+    bool                HasMMX;
+    bool                HasSSE;
+    bool                HasSSEFP;
+    bool                HasSSE2;
+    bool                HasIA64;
+    bool                HasAPIC;
+    bool                HasCMOV;
+    bool                HasMTRR;
+    bool                HasACPI;
+    bool                HasSerial;
+    bool                HasThermal;
+    int                 CPUSpeed;
+    int                 L1CacheSize;
+    int                 L2CacheSize;
+    int                 L3CacheSize;
+    CPUExtendedFeatures ExtendedFeatures;
+  }                     CPUFeatures;
+
+  enum Manufacturer {
+    AMD,
+    Intel,
+    NSC,
+    UMC,
+    Cyrix,
+    NexGen,
+    IDT,
+    Rise,
+    Transmeta,
+    UnknownManufacturer
+  };
+
+  // Functions.
+  bool __cdecl RetrieveCPUFeatures();
+  bool __cdecl RetrieveCPUIdentity();
+  bool __cdecl RetrieveCPUCacheDetails();
+  bool __cdecl RetrieveClassicalCPUCacheDetails();
+  bool __cdecl RetrieveCPUClockSpeed();
+  bool __cdecl RetrieveClassicalCPUClockSpeed();
+  bool __cdecl RetrieveCPUExtendedLevelSupport(int);
+  bool __cdecl RetrieveExtendedCPUFeatures();
+  bool __cdecl RetrieveProcessorSerialNumber();
+  bool __cdecl RetrieveCPUPowerManagement();
+  bool __cdecl RetrieveClassicalCPUIdentity();
+  bool __cdecl RetrieveExtendedCPUIdentity();
+
+  // Variables.
+  Manufacturer ChipManufacturer;
+  CPUFeatures  Features;
+  CPUSpeed*    Speed;
+  ID           ChipID;
+
 protected:
 
 };
 
-unsigned long ProcSpeedCalc (void);
-unsigned long GetCpuNormSpeed (int clocks);
+unsigned long ProcSpeedCalc(void  );
+unsigned long GetCpuNormSpeed(int clocks);
 
 #endif // _CPUINFO_H_

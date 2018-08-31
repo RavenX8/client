@@ -1,6 +1,5 @@
 // Client.cpp : Defines the entry point for the application.
 
-
 //*-------------------------------------------------------------------------------------------------------------------*
 // 2005 / 06 / 20 : nAvy 
 // 사용자 정의 전처리기 설명 : 
@@ -30,9 +29,9 @@ extern "C" {
 #include "Game.h"
 //#include "CMouse.h"
 //#include "CKeyboard.h"
-#include "Network\\CNetwork.h"
-#include "Util\\VFSManager.h"
-#include "Util\\SystemInfo.h"
+#include "Network//CNetwork.h"
+#include "Util//VFSManager.h"
+#include "Util//SystemInfo.h"
 #include "CClientStorage.h"
 #include "System/CGame.h"
 #include "Interface/ExternalUI/CLogin.h"
@@ -50,8 +49,6 @@ extern "C" {
 #include "MiniDumper.h"
 
 //MiniDumper g_MiniDump;
-
-
 
 //*--------------------------------------------------------------------------------------*/
 // 95,98, me에서 Unicode관련 Api Wrapper dll Load
@@ -74,93 +71,82 @@ extern "C" {
 //}
 //*--------------------------------------------------------------------------------------*/
 
-
 //-------------------------------------------------------------------------------------------------
-bool Init_DEVICE (void)
-{
+bool   Init_DEVICE(void) {
   bool bRet = false;
 
   //--------------------------[ engine related ]-----------------------//
-  ::initZnzin();	
-  ::openFileSystem("data.idx");
+  initZnzin();
+  openFileSystem( "data.idx" );
 
-
-  ::doScript("scripts/init.lua");
+  doScript( "scripts/init.lua" );
 
   t_OptionResolution Resolution = g_ClientStorage.GetResolution();
-  ::setDisplayQualityLevel( c_iPeformances[g_ClientStorage.GetVideoPerformance()] );
+  setDisplayQualityLevel( c_iPeformances[g_ClientStorage.GetVideoPerformance()] );
   t_OptionVideo Video;
-  g_ClientStorage.GetVideoOption(Video);
+  g_ClientStorage.GetVideoOption( Video );
   setFullSceneAntiAliasing( Video.iAntiAlising );
 
-
-  if(!g_pCApp->IsFullScreenMode()) 
-  {
+  if ( !g_pCApp->IsFullScreenMode() ) {
     RECT ClientRt;
-    GetClientRect(g_pCApp->GetHWND(),&ClientRt);
-    ::setScreen(ClientRt.right, ClientRt.bottom, Resolution.iDepth, g_pCApp->IsFullScreenMode() );		
-  }
-  else
-    ::setScreen(g_pCApp->GetWIDTH(), g_pCApp->GetHEIGHT(), Resolution.iDepth, g_pCApp->IsFullScreenMode() );
+    GetClientRect( g_pCApp->GetHWND(), &ClientRt );
+    setScreen( ClientRt.right, ClientRt.bottom, Resolution.iDepth, g_pCApp->IsFullScreenMode() );
+  } else
+    setScreen( g_pCApp->GetWIDTH(), g_pCApp->GetHEIGHT(), Resolution.iDepth, g_pCApp->IsFullScreenMode() );
 
+  bRet = attachWindow( (const void*)g_pCApp->GetHWND() );
 
-  bRet = ::attachWindow((const void*)g_pCApp->GetHWND());
-
-
-  CD3DUtil::Init( );
+  CD3DUtil::Init();
 
   g_pSoundLIST = new CSoundLIST( g_pCApp->GetHWND() );
-  g_pSoundLIST->Load ( "3DDATA\\STB\\FILE_SOUND.stb" );
+  g_pSoundLIST->Load( "3DDATA\\STB\\FILE_SOUND.stb" );
 
   return bRet;
 }
 
 //-------------------------------------------------------------------------------------------------
-void Free_DEVICE (void)
-{	
+void Free_DEVICE(void) {
   delete g_pSoundLIST;
 
-  CD3DUtil::Free ();
+  CD3DUtil::Free();
 
   //--------------------------[ engine related ]-----------------------//
-  ::detachWindow();
+  detachWindow();
 
-  ::closeFileSystem();
-  ::destZnzin();  
+  closeFileSystem();
+  destZnzin();
 }
+
 //------------------------------------------------------------------------------------------------
 // 2005. 5. 6. 조호동
 // 중복 실행 체크용 소켓 해제
 SOCKET listener;
 
-void CloseDuplicateAppSocket (void)
-{
-  closesocket(listener);
-  ::WSACleanup();
+void CloseDuplicateAppSocket(void) {
+  closesocket( listener );
+  WSACleanup();
 }
 
 // 중복 실행 체크 : 특정 포트가 중복 생성 안되는 점을 이용.
-bool IsDuplicateApp (void)
-{
+bool      IsDuplicateApp(void) {
   WSADATA wsadata;
-  ::WSAStartup( MAKEWORD( 2, 2 ), &wsadata );
+  WSAStartup( MAKEWORD( 2, 2 ), &wsadata );
 
   // socket 생성
-  listener = ::socket(AF_INET, SOCK_STREAM, 0);
+  listener = socket( AF_INET, SOCK_STREAM, 0 );
   // listening
   sockaddr_in addr;
-  memset(&addr, 0, sizeof(sockaddr_in));
-  addr.sin_family = AF_INET;
+  memset( &addr, 0, sizeof( sockaddr_in ) );
+  addr.sin_family           = AF_INET;
   addr.sin_addr.S_un.S_addr = INADDR_ANY;
-  addr.sin_port = htons(7777);
+  addr.sin_port             = htons( 7777 );
 
-  int result = ::bind(listener, (sockaddr*) &addr, sizeof(sockaddr_in));
-  result = ::listen(listener, 5);
+  int result = ::bind( listener, (sockaddr*)&addr, sizeof( sockaddr_in ) );
+  result     = listen( listener, 5 );
 
-  if( result == SOCKET_ERROR )
-  {
+  if ( result == SOCKET_ERROR ) {
     CloseDuplicateAppSocket();
-    MessageBox(NULL, "이미 게임이 실행 중입니다 !", "에러", MB_OK );
+    MessageBox( nullptr, "이미 게임이 실행 중입니다 !", "에러", MB_OK );
     return TRUE;
   }
 
@@ -168,8 +154,7 @@ bool IsDuplicateApp (void)
 }
 
 //-------------------------------------------------------------------------------------------------
-int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
-{
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
 #ifdef _DEBUG
   // This will check for memory leaks.  They will show up in your
   // output window along with the line number.  Replace the 
@@ -184,11 +169,11 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
   SetExceptionReport();
 #endif
 
-// #ifdef AROSE
-// #define initval 5465463
-// 	if(!InitVFS(0x536577))
-// 		MessageBox(NULL, "Init Error", "VFS Init Error", 0);
-// #endif // AROSE
+  // #ifdef AROSE
+  // #define initval 5465463
+  // 	if(!InitVFS(0x536577))
+  // 		MessageBox(NULL, "Init Error", "VFS Init Error", 0);
+  // #endif // AROSE
 
   // *-------------------------------------------------------------------* //
   // 2005. 5. 6. 조호동
@@ -205,7 +190,6 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
   ///	if( CCheckHack::GetSingleton().Check() == false )
   ///		return 0;
 
-
   /*
   _CrtSetDbgFlag (
   _CRTDBG_ALLOC_MEM_DF |
@@ -213,7 +197,6 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
   _CrtSetReportMode ( _CRT_ERROR,
   _CRTDBG_MODE_DEBUG);
   //*/
-
 
   //-------------------------------------------------------------------------------
   /// 국가코드 인식
@@ -232,40 +215,35 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
   //	return 0;
   ///m_npKeyCrypt.IsGetUse() = FALSE;
 
-
   g_SystemInfo.CollectingSystemInfo();
   int iWindowVersion = g_SystemInfo.GetWindowsVersion();
 
   //-------------------------------------------------------------------------------
   /// Init Trigger VFS
   //-------------------------------------------------------------------------------
-  VHANDLE hVFS = OpenVFS( "data.idx", (iWindowVersion == WINDOWS_98)?"r":"mr" );	
+  VHANDLE hVFS = OpenVFS( "data.idx", (iWindowVersion == WINDOWS_98) ? "r" : "mr" );
   (CVFSManager::GetSingleton()).SetVFS( hVFS );
-  (CVFSManager::GetSingleton()).InitVFS( VFS_TRIGGER_VFS );	
-
+  (CVFSManager::GetSingleton()).InitVFS( VFS_TRIGGER_VFS );
 
   //-------------------------------------------------------------------------------
   /// Get Time
   //-------------------------------------------------------------------------------
-  GetLocalTime(	&g_GameDATA.m_SystemTime );	
-
+  GetLocalTime( &g_GameDATA.m_SystemTime );
 
   //-------------------------------------------------------------------------------
   /// Init System object
   //-------------------------------------------------------------------------------
-  g_pCApp		= CApplication::Instance ();
-  g_pNet		= CNetwork::Instance (hInstance);
-  g_pCRange	= CRangeTBL::Instance ();
-
+  g_pCApp   = CApplication::Instance();
+  g_pNet    = CNetwork::Instance( hInstance );
+  g_pCRange = CRangeTBL::Instance();
 
   //-------------------------------------------------------------------------------
   /// Load Range table
   //-------------------------------------------------------------------------------
-  if ( !g_pCRange->Load_TABLE ("3DDATA\\TERRAIN\\O_Range.TBL") ) {
-    g_pCApp->ErrorBOX ( "3DDATA\\TERRAIN\\O_Range.TBL file open error", CUtil::GetCurrentDir (), MB_OK);
+  if ( !g_pCRange->Load_TABLE( "3DDATA\\TERRAIN\\O_Range.TBL" ) ) {
+    g_pCApp->ErrorBOX( "3DDATA\\TERRAIN\\O_Range.TBL file open error", CUtil::GetCurrentDir(), MB_OK );
     return 0;
-  }	
-
+  }
 
   //-------------------------------------------------------------------------------
   /// IP/Port Setting
@@ -279,8 +257,8 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
   //-------------------------------------------------------------------------------
   /// 윈도우 생성시 해상도에 관한 Data가 필요하여 이곳에서 로드한다.
   //-------------------------------------------------------------------------------	
-  g_TblResolution.Load2( "3DDATA\\STB\\RESOLUTION.STB",	false, false );
-  g_TblCamera.Load2( "3DDATA\\STB\\LIST_CAMERA.STB" ,false, false );
+  g_TblResolution.Load2( "3DDATA\\STB\\RESOLUTION.STB", false, false );
+  g_TblCamera.Load2( "3DDATA\\STB\\LIST_CAMERA.STB", false, false );
 
   //-------------------------------------------------------------------------------
   ///클라이언트에 저장된 Data를 로드한다.
@@ -297,19 +275,16 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
   UINT iFullScreen = g_ClientStorage.GetVideoFullScreen();
 
   g_pCApp->SetFullscreenMode( iFullScreen );
-  g_pCApp->CreateWND ("classCLIENT", "RoseOnline", Resolution.iWidth, Resolution.iHeight,Resolution.iDepth, hInstance);
-
-
+  g_pCApp->CreateWND( "classCLIENT", "RoseOnline", Resolution.iWidth, Resolution.iHeight, Resolution.iDepth, hInstance );
 
 #ifndef _DEBUG
   // 시스템 정보를 모음
-  TI_ReadSysInfoFile ();
+  TI_ReadSysInfoFile();
 
 #endif
 
-
   // *-------------------------------------------------------------------* //
-  g_pObjMGR = CObjectMANAGER::Instance ();
+  g_pObjMGR = CObjectMANAGER::Instance();
   g_pCApp->ResetExitGame();
 
   bool bDeviceInitialized = Init_DEVICE();
@@ -321,8 +296,7 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 
     ///중복실행가능 버젼	
     CGame::GetInstance().GameLoop();
-  }
-  else {
+  } else {
 #ifdef _USE_BG
     ReportZnzinLog( "초기화에 실패하였습니다. 오류원인을 전송하시겠습니까?", 10 );
 #endif
@@ -336,22 +310,21 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 #endif
   // *-------------------------------------------------------------------* //
 
-  Free_DEVICE ();
-
+  Free_DEVICE();
 
   // *-------------------------------------------------------------------* //
   g_TblCamera.Free();
   g_TblResolution.Free();
   // *-------------------------------------------------------------------* //
 
-  g_pCApp->Destroy ();
-  g_pNet->Destroy ();
+  g_pCApp->Destroy();
+  g_pNet->Destroy();
 
-    //-------------------------------------------------------------------------------
-    ///2004/3/26/nAvy:Release 구성에서 Debug Mode(F5로실행)로 실행시 로그인 화면에서 취소하면
-    ///Error난다. 이유 모름 , 하지만 그냥 실행시에는 (bat파일로 혹은 ctrl+f5) Error가 안난다.
-    //-------------------------------------------------------------------------------		
-    g_pCRange->Destroy ();
+  //-------------------------------------------------------------------------------
+  ///2004/3/26/nAvy:Release 구성에서 Debug Mode(F5로실행)로 실행시 로그인 화면에서 취소하면
+  ///Error난다. 이유 모름 , 하지만 그냥 실행시에는 (bat파일로 혹은 ctrl+f5) Error가 안난다.
+  //-------------------------------------------------------------------------------		
+  g_pCRange->Destroy();
 
   return 0;
 }

@@ -1,11 +1,12 @@
 #ifndef	__CECONOMY_H
 #define	__CECONOMY_H
 #include "CItem.h"
+
 //-------------------------------------------------------------------------------------------------
 struct tagECONOMY {
-	// 입력 데이터...
-	union {
-		struct {
+  // 입력 데이터...
+  union {
+    struct {
 #if	defined( __SERVER ) || defined( __VIRTUAL_SERVER )
 			DWORD	m_dwTown_COUNTER;					// 카운터 1분에 1씩 감소.		50~100
 
@@ -28,53 +29,53 @@ struct tagECONOMY {
 				BYTE	m_btSave_DATA[ MAX_PRICE_TYPE+sizeof(BYTE)+sizeof(short)*2 ];
 			} ;
 #endif
-			DWORD	m_dwUpdateTIME;
-			union {
-				struct {
-					BYTE	m_btTOWN_RATE;						// 마을 물가					80~140
-					BYTE	m_btItemRATE[ MAX_PRICE_TYPE ];		// 아이템별 물가				1~127
-					short	m_nCur_WorldPROD;
-					short	m_nCur_WorldRATE;
-				} ;
-				BYTE	m_btCur_DATA[ MAX_PRICE_TYPE+sizeof(BYTE)+sizeof(short)*2 ];
-			} ;
-		} ;
+      DWORD m_dwUpdateTIME;
 
-		BYTE	m_pEconomy[ 1 ];
-	} ;
-} ;
+      union {
+        struct {
+          BYTE  m_btTOWN_RATE;                  // 마을 물가					80~140
+          BYTE  m_btItemRATE[ MAX_PRICE_TYPE ]; // 아이템별 물가				1~127
+          short m_nCur_WorldPROD;
+          short m_nCur_WorldRATE;
+        };
 
-class CEconomy : public tagECONOMY
-{
+        BYTE m_btCur_DATA[ MAX_PRICE_TYPE + sizeof( BYTE ) + sizeof( short ) * 2 ];
+      };
+    };
+
+    BYTE m_pEconomy[ 1 ];
+  };
+};
+
+class CEconomy : public tagECONOMY {
 private:
-	int m_iTownCounter;
+  int m_iTownCounter;
 public :
-	// 마을 물가...
-	static bool IsEssentialGoods (int iItemTYPE);
+  // 마을 물가...
+  static bool IsEssentialGoods(int iItemTYPE);
 
-	CEconomy ();
-	~CEconomy ();
+  CEconomy();
+  ~CEconomy();
 
-	void	Init (void);
+  void Init(void);
 
-	void	SetTownRATE (int iValue);
-	void	SetItemRATE(int iPriceType, int iValue);
+  void SetTownRATE(int iValue);
+  void SetItemRATE(int iPriceType, int iValue);
 
-	BYTE	Get_TownRATE (void)				{ return m_btTOWN_RATE; }
-	int		Get_ItemRATE (short nItemTYPE)	{ return nItemTYPE < MAX_PRICE_TYPE ? m_btItemRATE[ nItemTYPE ] : -1; }
+  BYTE Get_TownRATE(void  ) { return m_btTOWN_RATE; }
+  int  Get_ItemRATE(short nItemTYPE) { return nItemTYPE < MAX_PRICE_TYPE ? m_btItemRATE[nItemTYPE] : -1; }
 
-	int		Get_ItemBuyPRICE  (short nItemTYPE, short nItemNO, short nBuySkillVALUE);
-	int		Get_ItemSellPRICE (tagITEM &sITEM, short nSellSkillVALUE);
+  int Get_ItemBuyPRICE(short     nItemTYPE, short nItemNO, short nBuySkillVALUE);
+  int Get_ItemSellPRICE(tagITEM& sITEM, short     nSellSkillVALUE);
 
-	int		Get_EconomyVAR(short nVarIDX)
-	{
-		switch( nVarIDX ) {
-			case 1 :	return Get_TownRATE();
+  int Get_EconomyVAR(short nVarIDX) {
+    switch ( nVarIDX ) {
+      case 1: return Get_TownRATE();
 #if	defined( __SERVER ) || defined( __VIRTUAL_SERVER )
 			case 2 :	return m_iTownPOP;
 			case 3 :	return m_nTownDEV;
 #endif
-		} 
+    }
 
 #if	defined( __SERVER ) || defined( __VIRTUAL_SERVER )
 		if ( nVarIDX >= 11 && nVarIDX <= 30 ) {
@@ -87,15 +88,15 @@ public :
 			}
 		}
 #endif
-		return 0;
-	}
+    return 0;
+  }
 
 #if	defined( __SERVER ) || defined( __VIRTUAL_SERVER )
-	#ifdef	__SERVER
+#ifdef	__SERVER
 	bool	Load (FILE *fp);
-	#else
+#else
 	bool	Load ( CFileSystem* pFileSystem );
-	#endif
+#endif
 
 	void	BuyITEM  (tagITEM &sITEM);
 	void	SellITEM (tagITEM &sITEM, int iQuantity);
@@ -104,13 +105,13 @@ public :
 
 	bool	Proc (DWORD dwCurTIME);
 #endif
-} ;
+};
 
-extern short Get_WorldRATE ();
-extern void  Set_WorldRATE (short nWorldRate);
+extern short Get_WorldRATE();
+extern void  Set_WorldRATE(short nWorldRate);
 
-extern short Get_WorldPROD ();					// 제조시 사용되는 WORLD_PRODUCT
-extern void  Set_WorldPROD (short nWorldProd);
+extern short Get_WorldPROD(); // 제조시 사용되는 WORLD_PRODUCT
+extern void  Set_WorldPROD(short nWorldProd);
 
 //-------------------------------------------------------------------------------------------------
 #endif

@@ -2,12 +2,11 @@
 #define _CSkillListCellRenderer_
 #include "IListcellrenderer.h"
 
-class CSkillListCellRenderer : public IListCellRenderer
-{
+class CSkillListCellRenderer : public IListCellRenderer {
 public:
-	CSkillListCellRenderer(void);
-	virtual ~CSkillListCellRenderer(void);
-	virtual CWinCtrl* GetListCellRendererComponent( const CTObject* pObject, bool selected, bool mouseover );
+            CSkillListCellRenderer(void                  );
+  virtual   ~CSkillListCellRenderer(void                 );
+  CWinCtrl* GetListCellRendererComponent(const CTObject* pObject, bool selected, bool mouseover) override;
 
 };
 #endif

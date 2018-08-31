@@ -43,32 +43,32 @@
 
 //--------------------------------------------------------------------------------
 class zz_gamma {
-	float gamma_value;
+  float gamma_value;
 
 public:
-    uint16 red[256];
-    uint16 green[256];
-    uint16 blue[256];
+  uint16 red[256];
+  uint16 green[256];
+  uint16 blue[256];
 
-	zz_gamma (int type = 0); // type 0 : normal, 1 : white, 2 : black
-	~zz_gamma ();
+  zz_gamma(int type = 0); // type 0 : normal, 1 : white, 2 : black
+  ~zz_gamma();
 
-	// load()
-	// save()
-	void reset ();
+  // load()
+  // save()
+  void reset();
 
-	// change to black ramp
-	void to_black ();
+  // change to black ramp
+  void to_black();
 
-	// change to white ramp
-	void to_white ();
+  // change to white ramp
+  void to_white();
 
-	void copy_from (const zz_gamma& from);
+  void copy_from(const zz_gamma& from);
 
-	void interpolate (const zz_gamma& from, const zz_gamma& to, float t);
+  void interpolate(const zz_gamma& from, const zz_gamma& to, float t);
 
-	void set_gamma_value (float gamma_value_in);
-	float get_gamma_value ();
+  void  set_gamma_value(float gamma_value_in);
+  float get_gamma_value();
 };
 
 #endif // __ZZ_GAMMA_H__

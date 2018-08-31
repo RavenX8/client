@@ -36,53 +36,47 @@
 //--------------------------------------------------------------------------------
 class zz_oskernel {
 protected:
-	HANDLE handle_;
+  HANDLE handle_;
 
-	zz_oskernel () : handle_(NULL) {}
+  zz_oskernel() : handle_( nullptr ) {}
 
 public:
-	virtual ~zz_oskernel () = 0
-	{
-		if (is_valid_handle(handle_)) {
-			::CloseHandle(handle_);
-			handle_ = NULL;
-		}
-	}
+  virtual ~zz_oskernel() = 0 {
+    if ( is_valid_handle( handle_ ) ) {
+      CloseHandle( handle_ );
+      handle_ = nullptr;
+    }
+  }
 
-	bool is_valid_handle (HANDLE handle) const
-	{
-		return (handle && (handle != INVALID_HANDLE_VALUE));
-	}
+  bool is_valid_handle(HANDLE handle) const {
+    return (handle && (handle != INVALID_HANDLE_VALUE));
+  }
 
-	// returns false if it is timed out or abanded.
-	bool wait ( dword milliseconds = INFINITE)
-	{
-		return (::WaitForSingleObject(handle_, milliseconds) == WAIT_OBJECT_0);
-	}
+  // returns false if it is timed out or abanded.
+  bool wait(dword milliseconds = INFINITE) {
+    return (WaitForSingleObject( handle_, milliseconds ) == WAIT_OBJECT_0);
+  }
 
-	HANDLE get_handle () const
-	{
-		if (this == NULL)
-			return NULL;
-		return handle_;
-	}
+  HANDLE get_handle() const {
+    if ( this == nullptr )
+      return nullptr;
+    return handle_;
+  }
 
-	operator HANDLE() const
-	{
-		return get_handle();
-	}
+  operator HANDLE() const {
+    return get_handle();
+  }
 
-	// wait for this object and other object
-	bool wait_for_two ( zz_oskernel * other, dword milliseconds )
-	{
-		HANDLE handles[2];
-		handles[0] = handle_;
-		handles[1] = other->get_handle();
+  // wait for this object and other object
+  bool     wait_for_two(zz_oskernel* other, dword milliseconds) {
+    HANDLE handles[2];
+    handles[0] = handle_;
+    handles[1] = other->get_handle();
 
-		DWORD ret = ::WaitForMultipleObjects(2, handles, true /* waitall */, milliseconds);
+    DWORD ret = WaitForMultipleObjects( 2, handles, true /* waitall */, milliseconds );
 
-		return ((WAIT_OBJECT_0 <= ret) && (ret <= WAIT_OBJECT_0 + 1));
-	}
+    return ((WAIT_OBJECT_0 <= ret) && (ret <= WAIT_OBJECT_0 + 1));
+  }
 };
 
 #endif // WIN32

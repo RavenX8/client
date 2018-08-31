@@ -116,181 +116,174 @@
 
 struct zz_node_type;
 
-
 // converted from the nebula engine (noctree.h)
 //--------------------------------------------------------------------------------
 class zz_octree {
-	friend class zz_visible;
-private:	
-	enum {
-        ZZ_OCTREE_CLIPX0 = (1<<0),
-        ZZ_OCTREE_CLIPX1 = (1<<1),
-        ZZ_OCTREE_CLIPY0 = (1<<2),
-        ZZ_OCTREE_CLIPY1 = (1<<3),
-        ZZ_OCTREE_CLIPZ0 = (1<<4),
-		ZZ_OCTREE_CLIPZ1 = (1<<5),
-	}; 
+  friend class zz_visible;
+private:
+  enum {
+    ZZ_OCTREE_CLIPX0 = (1 << 0),
+    ZZ_OCTREE_CLIPX1 = (1 << 1),
+    ZZ_OCTREE_CLIPY0 = (1 << 2),
+    ZZ_OCTREE_CLIPY1 = (1 << 3),
+    ZZ_OCTREE_CLIPZ0 = (1 << 4),
+    ZZ_OCTREE_CLIPZ1 = (1 << 5),
+  };
 
-	// octree node data structure
-	class _octree_node {
-	public:
-		_octree_node * child[8]; // 8 children node pointer
-		_octree_node * parent;
-		_octree_node * root;
-		int all_num_objs; // to get the number of objects that this node and its children have
-		vec3 pmin, pmax; // axis aligned bounding volume corner point by world coordsys
-		zz_list<zz_visible *> objects; // object list in this octree node
+  // octree node data structure
+  class _octree_node {
+  public:
+    _octree_node*         child[8]; // 8 children node pointer
+    _octree_node*         parent;
+    _octree_node*         root;
+    int                   all_num_objs; // to get the number of objects that this node and its children have
+    vec3                  pmin, pmax;   // axis aligned bounding volume corner point by world coordsys
+    zz_list<zz_visible *> objects;      // object list in this octree node
 
-		zz_octree::_octree_node () : parent(NULL), root(NULL), all_num_objs(0),
-			pmin(ZZ_OCTREE_MINX, ZZ_OCTREE_MINY, ZZ_OCTREE_MINZ),
-			pmax(ZZ_OCTREE_MAXX, ZZ_OCTREE_MAXY, ZZ_OCTREE_MAXZ)
-		{
-				// memset
-				for (int i = 0; i < 8; ++i) {
-					child[i] = NULL;
-				}
-		}
+    zz_octree::_octree_node() : parent( nullptr ), root( nullptr ), all_num_objs( 0 ),
+                                pmin( ZZ_OCTREE_MINX, ZZ_OCTREE_MINY, ZZ_OCTREE_MINZ ),
+                                pmax( ZZ_OCTREE_MAXX, ZZ_OCTREE_MAXY, ZZ_OCTREE_MAXZ ) {
+      // memset
+      for ( int i = 0; i < 8; ++i ) {
+        child[i]  = nullptr;
+      }
+    }
 
-		~_octree_node () {
-		}
+    ~_octree_node() { }
 
-		void add (zz_visible * obj) {
-			_octree_node * node = this;
-			do {
-                node->all_num_objs++;
-			} while (node = node->parent);
+    void            add(zz_visible* obj) {
+      _octree_node* node = this;
+      do {
+        node->all_num_objs++;
+      }
+      while ( node = node->parent );
 
-			//ZZ_LOG("octree: node:add() node(%f:%f,%f:%f,%f:%f)\n",
-			//	this->pmin.x, this->pmax.x,
-			//	this->pmin.y, this->pmax.y,
-			//	this->pmin.z, this->pmax.z
-			//	);
+      //ZZ_LOG("octree: node:add() node(%f:%f,%f:%f,%f:%f)\n",
+      //	this->pmin.x, this->pmax.x,
+      //	this->pmin.y, this->pmax.y,
+      //	this->pmin.z, this->pmax.z
+      //	);
 
-			this->objects.push_back(obj);
-		}
+      this->objects.push_back( obj );
+    }
 
-		void del (zz_visible * obj) {
-			zz_list<zz_visible *>::iterator it;
-			it = objects.find(obj);
-			
-			assert(it != objects.end());
-			objects.erase(it);
+    void                              del(zz_visible* obj) {
+      zz_list<zz_visible *>::iterator it;
+      it = objects.find( obj );
 
-			_octree_node * node = this;
-			// decrease all_num_objs upto the root
-			do {
-				node->all_num_objs--;
-				assert(node->all_num_objs >= 0);
-			} while (node = node->parent);
-			//this->objects.erase
-		}
+      assert(it != objects.end());
+      objects.erase( it );
 
-		void cull_planes (bool insert_onoff,zz_octree& octree, const zz_viewfrustum& view);
+      _octree_node* node = this;
+      // decrease all_num_objs upto the root
+      do {
+        node->all_num_objs--;
+        assert(node->all_num_objs >= 0);
+      }
+      while ( node = node->parent );
+      //this->objects.erase
+    }
 
-		// sync to collect_by_minmax()
-		void collect (
-			std::vector<zz_visible *>& nodes,
-			bool skip_no_collision
-		);
+    void cull_planes(bool insert_onoff, zz_octree& octree, const zz_viewfrustum& view);
 
-		// sync to collect()
-		void collect_by_minmax (
-			std::vector<zz_visible*>& nodes,
-			const vec3 minmax[2],
-			bool skip_no_collision // if it is true, skip none collision objects.
-		);
-	};
+    // sync to collect_by_minmax()
+    void collect(
+      std::vector<zz_visible *>& nodes,
+      bool                       skip_no_collision
+    );
+
+    // sync to collect()
+    void collect_by_minmax(
+      std::vector<zz_visible*>& nodes,
+      const vec3                minmax[2],
+      bool                      skip_no_collision // if it is true, skip none collision objects.
+    );
+  };
 
 protected:
-	_octree_node * root;
+  _octree_node* root;
 
-	bool is_inside_node (_octree_node * node, const vec3& pmin, const vec3& pmax);
-	_octree_node * find_downward (zz_visible * obj, _octree_node * node);
-	void balance (_octree_node * node);
+  bool          is_inside_node(_octree_node* node, const vec3&  pmin, const vec3& pmax);
+  _octree_node* find_downward(zz_visible*    obj, _octree_node* node);
+  void          balance(_octree_node*        node);
 
-	void subdivide (_octree_node * node);
-	// void collapse (_octree_node * object);
+  void subdivide(_octree_node* node);
+  // void collapse (_octree_node * object);
 
-	_octree_node * alloc_node(_octree_node * p,
-                             float x0, float x1,
-                             float y0, float y1,
-                             float z0, float z1);
-	
-	void free_node (_octree_node * p);
-	void free_children (_octree_node *p);
+  _octree_node* alloc_node(_octree_node* p,
+                           float         x0, float x1,
+                           float         y0, float y1,
+                           float         z0, float z1);
 
-//	void collect (_octree_node * node, std::vector<zz_visible *>& nodes);
-	void collect_by_minmax_recurse (
-		_octree_node * node,
-		std::vector<zz_visible *>& nodes,
-		const vec3 minmax[2],
-		bool skip_no_collision
-	);
+  void free_node(_octree_node*     p);
+  void free_children(_octree_node* p);
 
-	void trace (_octree_node * node);
+  //	void collect (_octree_node * node, std::vector<zz_visible *>& nodes);
+  void collect_by_minmax_recurse(
+    _octree_node*              node,
+    std::vector<zz_visible *>& nodes,
+    const vec3                 minmax[2],
+    bool                       skip_no_collision
+  );
 
-	std::vector<zz_visible *> infrustum_nodes; // visible nodes in viewfrustum. 
+  void trace(_octree_node* node);
+
+  std::vector<zz_visible *> infrustum_nodes; // visible nodes in viewfrustum. 
 
 public:
-	zz_octree ();
-	~zz_octree ();
+  zz_octree();
+  ~zz_octree();
 
-	const std::vector<zz_visible *>& get_infrustum_nodes ()
-	{
-		return infrustum_nodes;
-	}
+  const std::vector<zz_visible *>& get_infrustum_nodes() {
+    return infrustum_nodes;
+  }
 
-	// return true if succeeded
-	bool insert (zz_visible * object);
+  // return true if succeeded
+  bool insert(zz_visible* object);
 
-	// return true if succeeded
-	bool remove (zz_visible * object);
+  // return true if succeeded
+  bool remove(zz_visible* object);
 
-	bool refresh (zz_visible * object);
+  bool refresh(zz_visible* object);
 
-	void clear (void)
-	{
-		free_node(root);
-		infrustum_nodes.clear();
-	}
+  void clear(void) {
+    free_node( root );
+    infrustum_nodes.clear();
+  }
 
-	//void balance_tree (void);
+  //void balance_tree (void);
 
-	void cull_planes (const zz_viewfrustum& view);
+  void cull_planes(const zz_viewfrustum& view);
 
-	// collects all nodes, and returns the number of collected nodes
-	//int collect_by_viewfrustum (std::vector<zz_visible *>& nodes, const mat4& view_matrix);
-	void zz_octree::collect_by_minmax (std::vector<zz_visible *>& nodes, const vec3 minmax[2], bool skip_no_collision)
-	{
-		collect_by_minmax_recurse(root, nodes, minmax, skip_no_collision);
-	}
+  // collects all nodes, and returns the number of collected nodes
+  //int collect_by_viewfrustum (std::vector<zz_visible *>& nodes, const mat4& view_matrix);
+  void zz_octree::collect_by_minmax(std::vector<zz_visible *>& nodes, const vec3 minmax[2], bool skip_no_collision) {
+    collect_by_minmax_recurse( root, nodes, minmax, skip_no_collision );
+  }
 
-	// trace octree node information for debugging purpose
-	void trace_tree()
-	{
-		trace(root);
-	}
+  // trace octree node information for debugging purpose
+  void trace_tree() {
+    trace( root );
+  }
 };
 
-
 // Is pmin-pmax inside the octree node?
-inline bool zz_octree::is_inside_node (_octree_node * node, const vec3& pmin, const vec3& pmax)
-{
-    int clip = 0;
-	assert(node);
+inline bool zz_octree::is_inside_node(_octree_node* node, const vec3& pmin, const vec3& pmax) {
+  int       clip = 0;
+  assert(node);
 
-	assert(pmin.x <= pmax.x);
-	assert(pmin.y <= pmax.y);
-	assert(pmin.z <= pmax.z);
+  assert(pmin.x <= pmax.x);
+  assert(pmin.y <= pmax.y);
+  assert(pmin.z <= pmax.z);
 
-	// [min, max)
-	if (pmin.x < node->pmin.x) clip |= ZZ_OCTREE_CLIPX0;
-	if (pmax.x > node->pmax.x) clip |= ZZ_OCTREE_CLIPX1;
-	if (pmin.y < node->pmin.y) clip |= ZZ_OCTREE_CLIPY0;
-	if (pmax.y > node->pmax.y) clip |= ZZ_OCTREE_CLIPY1;
-	if (pmin.z < node->pmin.z) clip |= ZZ_OCTREE_CLIPZ0;
-	if (pmax.z > node->pmax.z) clip |= ZZ_OCTREE_CLIPZ1;
-	return (0 == clip);
+  // [min, max)
+  if ( pmin.x < node->pmin.x ) clip |= ZZ_OCTREE_CLIPX0;
+  if ( pmax.x > node->pmax.x ) clip |= ZZ_OCTREE_CLIPX1;
+  if ( pmin.y < node->pmin.y ) clip |= ZZ_OCTREE_CLIPY0;
+  if ( pmax.y > node->pmax.y ) clip |= ZZ_OCTREE_CLIPY1;
+  if ( pmin.z < node->pmin.z ) clip |= ZZ_OCTREE_CLIPZ0;
+  if ( pmax.z > node->pmax.z ) clip |= ZZ_OCTREE_CLIPZ1;
+  return (0 == clip);
 }
 
 #endif // __ZZ_OCTREE_H__

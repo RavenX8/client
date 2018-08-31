@@ -12,17 +12,16 @@
 #include "../../TGameCtrl/TMsgBox.h"
 
 static bool tDone = false;
-CGameStatePrepareSelectAvatar::CGameStatePrepareSelectAvatar( int iID )
-{ 
-	m_iStateID = iID; 
+
+CGameStatePrepareSelectAvatar::CGameStatePrepareSelectAvatar(int iID) {
+  m_iStateID = iID;
 }
-CGameStatePrepareSelectAvatar::~CGameStatePrepareSelectAvatar(void)
-{
-}
-int	CGameStatePrepareSelectAvatar::Update( bool bLostFocus )
-{
+
+CGameStatePrepareSelectAvatar::~CGameStatePrepareSelectAvatar(void) {}
+
+int CGameStatePrepareSelectAvatar::Update(bool bLostFocus) {
 #ifdef __THREADED_LOADING
-	///*
+  ///*
 	//Draw();	
 	DWORD ret = WaitForSingleObject( m_hThread, 100 );
 
@@ -42,12 +41,11 @@ int	CGameStatePrepareSelectAvatar::Update( bool bLostFocus )
 	}
 	//*/
 #endif
-	return 0;
+  return 0;
 }
 
-int CGameStatePrepareSelectAvatar::Enter( int iPrevStateID )
-{
-	CSystemProcScript::GetSingleton().CallLuaFunction( "EnterLoadSelectAvatar", ZZ_PARAM_END );
+int CGameStatePrepareSelectAvatar::Enter(int iPrevStateID) {
+  CSystemProcScript::GetSingleton().CallLuaFunction( "EnterLoadSelectAvatar", ZZ_PARAM_END );
 #ifdef __THREADED_LOADING
 	Draw();
 
@@ -61,92 +59,84 @@ int CGameStatePrepareSelectAvatar::Enter( int iPrevStateID )
 	}
 	else///Thread 생성 실패시 메인쓰레드에서 로딩하고 State를 바꾸어 준다.
 #endif
-	{
+  {
 #ifndef __THREADED_LOADING
-		Draw();
+    Draw();
 #endif
-		ThreadFunc(NULL);
-		CGame::GetInstance().ChangeState( CGame::GS_SELECTAVATAR );
-	}
-	return 0;
+    ThreadFunc( nullptr );
+    CGame::GetInstance().ChangeState( CGame::GS_SELECTAVATAR );
+  }
+  return 0;
 }
 
-int CGameStatePrepareSelectAvatar::Leave( int iNextStateID )
-{
-	g_EUILobby.HideMsgBox();
-	::setDeltaTime( 0 ); // 데이터 로딩 때문에, 프레임간 시간차가 너무 많이 나서, 카메라 애니메이션이 종료될 수 있다. 따라서, 프레임간 시간차를 0으로 함.
-	CSystemProcScript::GetSingleton().CallLuaFunction( "LeaveLoadSelectAvatar", ZZ_PARAM_END );
-	return 0;
+int CGameStatePrepareSelectAvatar::Leave(int iNextStateID) {
+  g_EUILobby.HideMsgBox();
+  setDeltaTime( 0 ); // 데이터 로딩 때문에, 프레임간 시간차가 너무 많이 나서, 카메라 애니메이션이 종료될 수 있다. 따라서, 프레임간 시간차를 0으로 함.
+  CSystemProcScript::GetSingleton().CallLuaFunction( "LeaveLoadSelectAvatar", ZZ_PARAM_END );
+  return 0;
 }
 
-unsigned __stdcall CGameStatePrepareSelectAvatar::ThreadFunc( void* pArguments )
-{
-//	::setDelayedLoad( 0 );
-//	::setDelayedLoad( 1 );
-	CGame::GetInstance().Load_BasicDATA2();
-	return 0;
+unsigned __stdcall CGameStatePrepareSelectAvatar::ThreadFunc(void* pArguments) {
+  //	::setDelayedLoad( 0 );
+  //	::setDelayedLoad( 1 );
+  CGame::GetInstance().Load_BasicDATA2();
+  return 0;
 }
 
-void CGameStatePrepareSelectAvatar::Draw()
-{
-	//bool bLostFocus = g_pCApp->GetMessage ();
+void CGameStatePrepareSelectAvatar::Draw() {
+  //bool bLostFocus = g_pCApp->GetMessage ();
 
-//	g_EUILobby.Update();
-	
-//	g_pCamera->Update ();
+  //	g_EUILobby.Update();
 
-//	D3DVECTOR PosENZIN = g_pCamera->Get_Position ();	
-//	g_pTerrain->SetCenterPosition( PosENZIN.x, PosENZIN.y );
+  //	g_pCamera->Update ();
 
-	::updateScene ();
+  //	D3DVECTOR PosENZIN = g_pCamera->Get_Position ();	
+  //	g_pTerrain->SetCenterPosition( PosENZIN.x, PosENZIN.y );
 
-	// processing  ...
-	//if ( !bLostFocus ) 
-	
-	if( g_pCApp->IsActive() )
-	{
-		if ( !::beginScene() )
-		{
-			return;
-		}
-		::clearScreen();
-		::renderScene();
-		
-	
-		::beginSprite( D3DXSPRITE_ALPHABLEND );
+  updateScene();
 
+  // processing  ...
+  //if ( !bLostFocus ) 
 
-		g_UIMed.Draw();
+  if ( g_pCApp->IsActive() ) {
+    if ( !beginScene() ) {
+      return;
+    }
+    clearScreen();
+    renderScene();
 
-		/// UI display
-//		g_EUILobby.Draw();
+    beginSprite( D3DXSPRITE_ALPHABLEND );
 
-		::endSprite();		
-	
+    g_UIMed.Draw();
 
-		::endScene ();
-		::swapBuffers();
-	}
+    /// UI display
+    //		g_EUILobby.Draw();
 
-/*
+    endSprite();
 
-	g_EUILobby.Update();
+    endScene();
+    swapBuffers();
+  }
 
-	if( !bLostFocus )
-	{
-		if ( !::beginScene() )
-		{
-			return;
-		}
-		::clearScreen();
-
-		::beginSprite( D3DXSPRITE_ALPHABLEND );	
-
-//		g_Loading.DrawBackground();
-
-		::endSprite();
-
-		::endScene();
-		::swapBuffers();
-	}		*/
+  /*
+  
+    g_EUILobby.Update();
+  
+    if( !bLostFocus )
+    {
+      if ( !::beginScene() )
+      {
+        return;
+      }
+      ::clearScreen();
+  
+      ::beginSprite( D3DXSPRITE_ALPHABLEND );	
+  
+  //		g_Loading.DrawBackground();
+  
+      ::endSprite();
+  
+      ::endScene();
+      ::swapBuffers();
+    }		*/
 }

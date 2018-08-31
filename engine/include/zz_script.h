@@ -45,28 +45,27 @@
 #include "zz_node.h"
 #endif
 
-
 class zz_script : public zz_node {
 public:
-	zz_script (const char * filename = NULL);
-	virtual ~zz_script () {}
+          zz_script(const char* filename = nullptr);
+  virtual ~zz_script() {}
 
-	virtual bool do_script (const char * filename = NULL, const char * buffer = NULL) = 0;
+  virtual bool do_script(const char* filename = nullptr, const char* buffer = nullptr) = 0;
 
-	virtual void set_param_int (int val) = 0;
-	virtual void set_param_float (float val) = 0;
-	virtual void set_param_float3 (const float * val) = 0;
-	virtual void set_param_string (const char * val) = 0;
-	virtual bool call (const char * function_name, va_list arg_list) = 0;
+  virtual void set_param_int(int             val) = 0;
+  virtual void set_param_float(float         val) = 0;
+  virtual void set_param_float3(const float* val) = 0;
+  virtual void set_param_string(const char*  val) = 0;
+  virtual bool call(const char*              function_name, va_list arg_list) = 0;
 
-	// get return value after lua call for callXXX interface
-	virtual int get_return_int (void) = 0;
-	virtual unsigned int get_return_uint (void) = 0;
-	virtual float get_return_float (void) = 0;
-	virtual const float * get_return_float3 (void) = 0;
-	virtual const char * get_return_string (void) = 0;
+  // get return value after lua call for callXXX interface
+  virtual int          get_return_int(void   ) = 0;
+  virtual unsigned int get_return_uint(void  ) = 0;
+  virtual float        get_return_float(void ) = 0;
+  virtual const float* get_return_float3(void) = 0;
+  virtual const char*  get_return_string(void) = 0;
 
-	ZZ_DECLARE_DYNAMIC(zz_script);
+ZZ_DECLARE_DYNAMIC(zz_script);
 };
 
 #endif // __ZZ_SCRIPT_H__

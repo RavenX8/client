@@ -61,174 +61,167 @@
 #include "zz_renderer.h"
 #include "zz_system.h"
 
-void draw_box (const vec3& center, const vec3& half_length, const mat3& rotation, vec3 rgb)
-{
-	vec3 points[2][4];
+void   draw_box(const vec3& center, const vec3& half_length, const mat3& rotation, vec3 rgb) {
+  vec3 points[2][4];
 
-	points[0][0].x = -half_length.x;
-	points[0][0].y = -half_length.y;
-	points[0][0].z = -half_length.z;
+  points[0][0].x = -half_length.x;
+  points[0][0].y = -half_length.y;
+  points[0][0].z = -half_length.z;
 
-	points[0][1].x = half_length.x;
-	points[0][1].y = -half_length.y;
-	points[0][1].z = -half_length.z;
+  points[0][1].x = half_length.x;
+  points[0][1].y = -half_length.y;
+  points[0][1].z = -half_length.z;
 
-	points[0][2].x = half_length.x;
-	points[0][2].y = half_length.y;
-	points[0][2].z = -half_length.z;
+  points[0][2].x = half_length.x;
+  points[0][2].y = half_length.y;
+  points[0][2].z = -half_length.z;
 
-	points[0][3].x = -half_length.x;
-	points[0][3].y = half_length.y;
-	points[0][3].z = -half_length.z;
+  points[0][3].x = -half_length.x;
+  points[0][3].y = half_length.y;
+  points[0][3].z = -half_length.z;
 
-	points[1][0].x = -half_length.x;
-	points[1][0].y = -half_length.y;
-	points[1][0].z = half_length.z;
+  points[1][0].x = -half_length.x;
+  points[1][0].y = -half_length.y;
+  points[1][0].z = half_length.z;
 
-	points[1][1].x = half_length.x;
-	points[1][1].y = -half_length.y;
-	points[1][1].z = half_length.z;
+  points[1][1].x = half_length.x;
+  points[1][1].y = -half_length.y;
+  points[1][1].z = half_length.z;
 
-	points[1][2].x = half_length.x;
-	points[1][2].y = half_length.y;
-	points[1][2].z = half_length.z;
+  points[1][2].x = half_length.x;
+  points[1][2].y = half_length.y;
+  points[1][2].z = half_length.z;
 
-	points[1][3].x = -half_length.x;
-	points[1][3].y = half_length.y;
-	points[1][3].z = half_length.z;
+  points[1][3].x = -half_length.x;
+  points[1][3].y = half_length.y;
+  points[1][3].z = half_length.z;
 
-	int i, j;
-	vec3 temp;
-	//ZZ_LOG("\n");
-	for (i = 0; i < 2; i++) {
-		for (j = 0; j < 4; j++) {
-			temp = mult(temp, rotation, points[i][j]);
-			points[i][j] = temp + center;
-		}
-	}
+  int  i, j;
+  vec3 temp;
+  //ZZ_LOG("\n");
+  for ( i          = 0; i < 2; i++ ) {
+    for ( j        = 0; j < 4; j++ ) {
+      temp         = mult( temp, rotation, points[i][j] );
+      points[i][j] = temp + center;
+    }
+  }
 
-	static zz_renderer * r = znzin->renderer;
+  static zz_renderer* r = znzin->renderer;
 
-	r->draw_line(points[0][0], points[0][1], rgb);
-	r->draw_line(points[0][1], points[0][2], rgb);
-	r->draw_line(points[0][2], points[0][3], rgb);
-	r->draw_line(points[0][3], points[0][0], rgb);
+  r->draw_line( points[0][0], points[0][1], rgb );
+  r->draw_line( points[0][1], points[0][2], rgb );
+  r->draw_line( points[0][2], points[0][3], rgb );
+  r->draw_line( points[0][3], points[0][0], rgb );
 
-	r->draw_line(points[1][0], points[1][1], rgb);
-	r->draw_line(points[1][1], points[1][2], rgb);
-	r->draw_line(points[1][2], points[1][3], rgb);
-	r->draw_line(points[1][3], points[1][0], rgb);
+  r->draw_line( points[1][0], points[1][1], rgb );
+  r->draw_line( points[1][1], points[1][2], rgb );
+  r->draw_line( points[1][2], points[1][3], rgb );
+  r->draw_line( points[1][3], points[1][0], rgb );
 
-	r->draw_line(points[0][0], points[1][0], rgb);
-	r->draw_line(points[0][1], points[1][1], rgb);
-	r->draw_line(points[0][2], points[1][2], rgb);
-	r->draw_line(points[0][3], points[1][3], rgb);
+  r->draw_line( points[0][0], points[1][0], rgb );
+  r->draw_line( points[0][1], points[1][1], rgb );
+  r->draw_line( points[0][2], points[1][2], rgb );
+  r->draw_line( points[0][3], points[1][3], rgb );
 }
 
-void draw_aabb (const vec3& pmin, const vec3& pmax, vec3 rgb)
-{
-	vec3 points[2][4];
+void   draw_aabb(const vec3& pmin, const vec3& pmax, vec3 rgb) {
+  vec3 points[2][4];
 
-	points[0][0].x = pmin.x;
-	points[0][0].y = pmin.y;
-	points[0][0].z = pmin.z;
+  points[0][0].x = pmin.x;
+  points[0][0].y = pmin.y;
+  points[0][0].z = pmin.z;
 
-	points[0][1].x = pmax.x;
-	points[0][1].y = pmin.y;
-	points[0][1].z = pmin.z;
+  points[0][1].x = pmax.x;
+  points[0][1].y = pmin.y;
+  points[0][1].z = pmin.z;
 
-	points[0][2].x = pmax.x;
-	points[0][2].y = pmax.y;
-	points[0][2].z = pmin.z;
+  points[0][2].x = pmax.x;
+  points[0][2].y = pmax.y;
+  points[0][2].z = pmin.z;
 
-	points[0][3].x = pmin.x;
-	points[0][3].y = pmax.y;
-	points[0][3].z = pmin.z;
+  points[0][3].x = pmin.x;
+  points[0][3].y = pmax.y;
+  points[0][3].z = pmin.z;
 
-	points[1][0].x = pmin.x;
-	points[1][0].y = pmin.y;
-	points[1][0].z = pmax.z;
+  points[1][0].x = pmin.x;
+  points[1][0].y = pmin.y;
+  points[1][0].z = pmax.z;
 
-	points[1][1].x = pmax.x;
-	points[1][1].y = pmin.y;
-	points[1][1].z = pmax.z;
+  points[1][1].x = pmax.x;
+  points[1][1].y = pmin.y;
+  points[1][1].z = pmax.z;
 
-	points[1][2].x = pmax.x;
-	points[1][2].y = pmax.y;
-	points[1][2].z = pmax.z;
+  points[1][2].x = pmax.x;
+  points[1][2].y = pmax.y;
+  points[1][2].z = pmax.z;
 
-	points[1][3].x = pmin.x;
-	points[1][3].y = pmax.y;
-	points[1][3].z = pmax.z;
-			
-	static zz_renderer * r = znzin->renderer;
-	
-	r->draw_line(points[0][0], points[0][1], rgb);
-	r->draw_line(points[0][1], points[0][2], rgb);
-	r->draw_line(points[0][2], points[0][3], rgb);
-	r->draw_line(points[0][3], points[0][0], rgb);
+  points[1][3].x = pmin.x;
+  points[1][3].y = pmax.y;
+  points[1][3].z = pmax.z;
 
-	r->draw_line(points[1][0], points[1][1], rgb);
-	r->draw_line(points[1][1], points[1][2], rgb);
-	r->draw_line(points[1][2], points[1][3], rgb);
-	r->draw_line(points[1][3], points[1][0], rgb);
+  static zz_renderer* r = znzin->renderer;
 
-	r->draw_line(points[0][0], points[1][0], rgb);
-	r->draw_line(points[0][1], points[1][1], rgb);
-	r->draw_line(points[0][2], points[1][2], rgb);
-	r->draw_line(points[0][3], points[1][3], rgb);
-     
-	
-    
+  r->draw_line( points[0][0], points[0][1], rgb );
+  r->draw_line( points[0][1], points[0][2], rgb );
+  r->draw_line( points[0][2], points[0][3], rgb );
+  r->draw_line( points[0][3], points[0][0], rgb );
+
+  r->draw_line( points[1][0], points[1][1], rgb );
+  r->draw_line( points[1][1], points[1][2], rgb );
+  r->draw_line( points[1][2], points[1][3], rgb );
+  r->draw_line( points[1][3], points[1][0], rgb );
+
+  r->draw_line( points[0][0], points[1][0], rgb );
+  r->draw_line( points[0][1], points[1][1], rgb );
+  r->draw_line( points[0][2], points[1][2], rgb );
+  r->draw_line( points[0][3], points[1][3], rgb );
+
 }
 
-void draw_sphere (const vec3& center, float radius, vec3 rgb)
-{
-	const int num_points = 12;
+void        draw_sphere(const vec3& center, float radius, vec3 rgb) {
+  const int num_points = 12;
 
-	vec3 start, end, last;
+  vec3 start, end, last;
 
-	float theta;
-	float i;
-	zz_renderer * r = znzin->renderer;
+  float        theta;
+  float        i;
+  zz_renderer* r = znzin->renderer;
 
-	if (!r) return;
+  if ( !r ) return;
 
-	// x-y plane
-	start = center;
-	start.y = center.y + radius;
-	for (i = 1.0f; i <= num_points; i += 1.0f) {
-		theta = float(i) / num_points * ZZ_TWO_PI;
-		end.x = center.x + radius*sinf(theta);
-		end.y = center.y + radius*cosf(theta);
-		end.z = center.z;
-		r->draw_line(start, end, rgb);
-		start = end;
-	}
+  // x-y plane
+  start   = center;
+  start.y = center.y + radius;
+  for ( i = 1.0f; i <= num_points; i += 1.0f ) {
+    theta = float( i ) / num_points * ZZ_TWO_PI;
+    end.x = center.x + radius * sinf( theta );
+    end.y = center.y + radius * cosf( theta );
+    end.z = center.z;
+    r->draw_line( start, end, rgb );
+    start = end;
+  }
 
-	// y-z plane
-	start = center;
-	start.y = center.y + radius;
-	for (i = 1.0f; i <= num_points; i += 1.0f) {
-		theta = float(i) / num_points * ZZ_TWO_PI;
-		end.x = center.x;
-		end.y = center.y + radius*cosf(theta);
-		end.z = center.z + radius*sinf(theta);
-		r->draw_line(start, end, rgb);
-		start = end;
-	}
+  // y-z plane
+  start   = center;
+  start.y = center.y + radius;
+  for ( i = 1.0f; i <= num_points; i += 1.0f ) {
+    theta = float( i ) / num_points * ZZ_TWO_PI;
+    end.x = center.x;
+    end.y = center.y + radius * cosf( theta );
+    end.z = center.z + radius * sinf( theta );
+    r->draw_line( start, end, rgb );
+    start = end;
+  }
 
-	// x-z plane
-	start = center;
-	start.x = center.x + radius;
-	for (i = 1.0f; i <= num_points; i += 1.0f) {
-		theta = float(i) / num_points * ZZ_TWO_PI;
-		end.x = center.x + radius*cosf(theta);
-		end.y = center.y;
-		end.z = center.z + radius*sinf(theta);
-		r->draw_line(start, end, rgb);
-		start = end;
-	}
+  // x-z plane
+  start   = center;
+  start.x = center.x + radius;
+  for ( i = 1.0f; i <= num_points; i += 1.0f ) {
+    theta = float( i ) / num_points * ZZ_TWO_PI;
+    end.x = center.x + radius * cosf( theta );
+    end.y = center.y;
+    end.z = center.z + radius * sinf( theta );
+    r->draw_line( start, end, rgb );
+    start = end;
+  }
 }
-
-

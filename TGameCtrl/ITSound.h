@@ -10,9 +10,8 @@
 /// @Author			√÷¡æ¡¯
 /// @Date			2005/08/23
 //------------------------------------------------------------------------------------------------------------------------
-class TGAMECTRL_API ITSound
-{
+class TGAMECTRL_API ITSound {
 public:
-	virtual void Playsound( int iIndex ) = 0;/* { _ASSERT( 0 && "ITSound::PlaySound" );};*/
+  virtual void Playsound(int iIndex) = 0; /* { _ASSERT( 0 && "ITSound::PlaySound" );};*/
 };
 #endif

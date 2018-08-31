@@ -12,12 +12,11 @@
 /// @Date	2005/8/19 
 //---------------------------------------------------------------------------------------------------
 
-
 #include "TGameCtrl.h"
 class CActionEvent;
-class TGAMECTRL_API IActionListener
-{
+
+class TGAMECTRL_API IActionListener {
 public:
-	virtual unsigned ActionPerformed (CActionEvent*  e) = 0;
+  virtual unsigned ActionPerformed(CActionEvent* e) = 0;
 };
 #endif

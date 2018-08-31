@@ -15,28 +15,25 @@ class CTFrame;
 ///
 /// @Date				2005/8/30
 //---------------------------------------------------------------------------------------------------------------------
-class TGAMECTRL_API CTAnimation :	public CWinCtrl
-{
+class TGAMECTRL_API CTAnimation : public CWinCtrl {
 public:
-	CTAnimation(void);
-	virtual ~CTAnimation(void);
-	virtual void Show();
-	virtual void Hide();
-	virtual void Draw();
-	virtual void Update( POINT ptMouse );
+          CTAnimation(void );
+  virtual ~CTAnimation(void);
+  void    Show() override;
+  void    Hide() override;
+  void    Draw() override;
+  void    Update(POINT ptMouse) override;
 
-	void	SetPosition( int x, int y );									/// Draw 할 화면 좌표 Set
-	void	add_frame( CTFrame* frame );									/// Frame추가
-	void	set_loop( bool loop );											/// 애니메이션의 Loop 옵션 Set 
-	void	set_curr_frame( unsigned i );									/// Frame의 강제 이동
-
-		
+  void SetPosition(int         x, int y); /// Draw 할 화면 좌표 Set
+  void add_frame(CTFrame*      frame);    /// Frame추가
+  void set_loop(bool           loop);     /// 애니메이션의 Loop 옵션 Set 
+  void set_curr_frame(unsigned i);        /// Frame의 강제 이동
 
 protected:
-	 
-	std::deque< CTFrame* >::size_type						m_curr_frame;	/// 현재 Draw할 Frame의 인덱스
-	bool					m_loop;											/// 애니메이션의 Loop On/Off
-	std::deque< CTFrame* >	m_frames;										/// Frame Container
-	DWORD					m_prev_update_time;								/// Update된 바로 이전의 시간
+
+  std::deque<CTFrame*>::size_type m_curr_frame;       /// 현재 Draw할 Frame의 인덱스
+  bool                            m_loop;             /// 애니메이션의 Loop On/Off
+  std::deque<CTFrame*>            m_frames;           /// Frame Container
+  DWORD                           m_prev_update_time; /// Update된 바로 이전의 시간
 };
 #endif

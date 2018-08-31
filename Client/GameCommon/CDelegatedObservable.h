@@ -2,14 +2,13 @@
 #define _CDelegatedObservable_
 #include "cobservable.h"
 
-class CDelegatedObservable : public CObservable
-{
+class CDelegatedObservable : public CObservable {
 public:
-	CDelegatedObservable(void);
-	virtual ~CDelegatedObservable(void);
+          CDelegatedObservable(void );
+  virtual ~CDelegatedObservable(void);
 
-	void	NotifyObservers( CTObject* pObj );
-	void	SetChanged();
-	void	ClearChanged();
+  void NotifyObservers(CTObject* pObj);
+  void SetChanged();
+  void ClearChanged();
 };
 #endif

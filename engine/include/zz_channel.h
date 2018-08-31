@@ -15,21 +15,23 @@
 #include "zz_node.h"
 #endif
 
-enum  zz_channel_format {
-	ZZ_CFMT_NONE,
-	ZZ_CFMT_X,
-	ZZ_CFMT_XY,
-	ZZ_CFMT_XYZ,
-	ZZ_CFMT_WXYZ
+enum zz_channel_format {
+  ZZ_CFMT_NONE,
+  ZZ_CFMT_X,
+  ZZ_CFMT_XY,
+  ZZ_CFMT_XYZ,
+  ZZ_CFMT_WXYZ
 };
 
-enum  zz_interp_style {
-	ZZ_INTERP_NONE = 0,
-	ZZ_INTERP_LINEAR = 1,
-	ZZ_INTERP_SLERP = 2, // for rotation only. aka. LINEAR
-	ZZ_INTERP_SQUAD = 3, // for rotation only
-	ZZ_INTERP_CATMULLROM = 4,
-	ZZ_INTERP_TCB = 5 // not used yet
+enum zz_interp_style {
+  ZZ_INTERP_NONE = 0,
+  ZZ_INTERP_LINEAR = 1,
+  ZZ_INTERP_SLERP = 2,
+  // for rotation only. aka. LINEAR
+  ZZ_INTERP_SQUAD = 3,
+  // for rotation only
+  ZZ_INTERP_CATMULLROM = 4,
+  ZZ_INTERP_TCB = 5 // not used yet
 };
 
 // channel type
@@ -47,6 +49,7 @@ enum  zz_interp_style {
 #define ZZ_CTYPE_SCALE       (1 << 10)
 
 class zz_motion;
+
 /*
 channel : is compound of a list of rotation, position, tcb....
           A channel maintains the number of keys or frames in it.
@@ -55,77 +58,73 @@ channel : is compound of a list of rotation, position, tcb....
 */
 //--------------------------------------------------------------------------------
 class zz_channel {
-	friend zz_motion;
+  friend zz_motion;
 
 protected:
-	// referred index. used at bone_index or vertex_index
-	int refer_id;
-	uint32 channel_type;
+  // referred index. used at bone_index or vertex_index
+  int    refer_id;
+  uint32 channel_type;
 
 protected:
-	// interpolation type
-	zz_interp_style interp_style;
-		
+  // interpolation type
+  zz_interp_style interp_style;
+
 public:
-	zz_channel(zz_interp_style new_interp_style = ZZ_INTERP_NONE);
-	virtual ~zz_channel(void) {};
+          zz_channel(zz_interp_style new_interp_style = ZZ_INTERP_NONE);
+  virtual ~zz_channel(void           ) {};
 
-	int get_refer_id ()
-	{
-		return refer_id;
-	}
+  int get_refer_id() {
+    return refer_id;
+  }
 
-	void set_refer_id (int id);
+  void set_refer_id(int id);
 
-	uint32 get_channel_type ()
-	{
-		return channel_type;
-	}
+  uint32 get_channel_type() {
+    return channel_type;
+  }
 
-	void set_channel_type (uint32 type);
+  void set_channel_type(uint32 type);
 
-	zz_channel_format get_channel_format ()
-	{
-		switch( channel_type ) {
-			case ZZ_CTYPE_NONE: return ZZ_CFMT_NONE;
-			case ZZ_CTYPE_POSITION: return ZZ_CFMT_XYZ;
-			case ZZ_CTYPE_ROTATION: return ZZ_CFMT_WXYZ;
-			case ZZ_CTYPE_NORMAL: return ZZ_CFMT_XYZ;
-			case ZZ_CTYPE_ALPHA: return ZZ_CFMT_X;
-			case ZZ_CTYPE_UV0: return ZZ_CFMT_XY;
-			case ZZ_CTYPE_UV1: return ZZ_CFMT_XY;
-			case ZZ_CTYPE_UV2: return ZZ_CFMT_XY;
-			case ZZ_CTYPE_UV3: return ZZ_CFMT_XY;
-			case ZZ_CTYPE_TEXTUREANIM: return ZZ_CFMT_X;
-			case ZZ_CTYPE_SCALE: return ZZ_CFMT_X;
-			default: return ZZ_CFMT_NONE;
-		}
-	}
+  zz_channel_format get_channel_format() {
+    switch ( channel_type ) {
+      case ZZ_CTYPE_NONE: return ZZ_CFMT_NONE;
+      case ZZ_CTYPE_POSITION: return ZZ_CFMT_XYZ;
+      case ZZ_CTYPE_ROTATION: return ZZ_CFMT_WXYZ;
+      case ZZ_CTYPE_NORMAL: return ZZ_CFMT_XYZ;
+      case ZZ_CTYPE_ALPHA: return ZZ_CFMT_X;
+      case ZZ_CTYPE_UV0: return ZZ_CFMT_XY;
+      case ZZ_CTYPE_UV1: return ZZ_CFMT_XY;
+      case ZZ_CTYPE_UV2: return ZZ_CFMT_XY;
+      case ZZ_CTYPE_UV3: return ZZ_CFMT_XY;
+      case ZZ_CTYPE_TEXTUREANIM: return ZZ_CFMT_X;
+      case ZZ_CTYPE_SCALE: return ZZ_CFMT_X;
+      default: return ZZ_CFMT_NONE;
+    }
+  }
 
-	// array related
-	virtual void assign (int size) = 0;
-	virtual void clear (void) = 0;
-	virtual int size (void) = 0;
+  // array related
+  virtual void assign(int size) = 0;
+  virtual void clear(void ) = 0;
+  virtual int  size(void  ) = 0;
 
-	// get methods
-	virtual void get_by_frame (int frame, void * data_pointer) = 0;
-	virtual void get_by_time (zz_time time, int fps, void * data_pointer) = 0;
-	
-	// set methods
-	virtual void set_by_frame (int frame, void * data_pointer) = 0;
-	
-	void set_interp_style (zz_interp_style interp_style);
-	zz_interp_style get_interp_style (void);
+  // get methods
+  virtual void get_by_frame(int    frame, void* data_pointer) = 0;
+  virtual void get_by_time(zz_time time, int    fps, void* data_pointer) = 0;
 
-	// get frame number from time. 
-	// frame_to_time(start_frame) <= current < frame_to_time(next_frame)
-	static void time_to_frame
-		(zz_time current, int& start_frame, int& next_frame, float& ratio, int size, int fps);
+  // set methods
+  virtual void set_by_frame(int frame, void* data_pointer) = 0;
 
-	static zz_time frame_to_time (int frame, int fps)
-	{
-		return ZZ_FRAME_TO_TICK(frame, fps);
-	}
+  void            set_interp_style(zz_interp_style interp_style);
+  zz_interp_style get_interp_style(void            );
+
+  // get frame number from time. 
+  // frame_to_time(start_frame) <= current < frame_to_time(next_frame)
+  static void time_to_frame
+  (zz_time current, int& start_frame, int& next_frame, float& ratio, int size, int fps);
+
+  static zz_time frame_to_time(int frame, int fps) {
+    return ZZ_FRAME_TO_TICK(frame, fps);
+  }
 };
 
 /*

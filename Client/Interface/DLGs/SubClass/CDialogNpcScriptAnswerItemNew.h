@@ -11,26 +11,24 @@
 * @Date			2005/9/15
 */
 
-class CDialogNpcScriptAnswerItemNew : public CWinCtrl
-{
+class CDialogNpcScriptAnswerItemNew : public CWinCtrl {
 public:
-	CDialogNpcScriptAnswerItemNew(int iIndex,char* pszScript, int iEventID , void (*fpEventHandle)(int iEventID), int iWidth );
-	virtual ~CDialogNpcScriptAnswerItemNew(void);
+          CDialogNpcScriptAnswerItemNew(int  iIndex, char* pszScript, int iEventID, void (*fpEventHandle)(int iEventID), int iWidth);
+  virtual ~CDialogNpcScriptAnswerItemNew(void);
 
-	virtual void Draw();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void Update( POINT ptMouse );
+  void     Draw() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     Update(POINT     ptMouse) override;
 
 protected:
-	int				m_iLineHeight;
-	int				m_iIndent;
-	int				m_iIndex;
+  int m_iLineHeight;
+  int m_iIndent;
+  int m_iIndex;
 
+  CJStringParser m_Script;
 
-	CJStringParser	m_Script;
-	
-	int				m_iEventID;							//이벤트의 아이디
-	void			(*m_fpEventHandle)(int iEventID);		//예시 선택시 처리 함수 
-	bool			m_highlight;
+  int    m_iEventID;                     //이벤트의 아이디
+  void (*m_fpEventHandle)(int iEventID); //예시 선택시 처리 함수 
+  bool   m_highlight;
 };
 #endif

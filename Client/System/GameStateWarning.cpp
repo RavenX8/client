@@ -24,101 +24,78 @@
 #include "TTIme.h"
 #include "SystemProcScript.h"
 
-
-
-CGameStateWarning::CGameStateWarning(int iID)
-{
-	m_iStateID = iID;
+CGameStateWarning::CGameStateWarning(int iID) {
+  m_iStateID = iID;
 }
 
-CGameStateWarning::~CGameStateWarning(void)
-{	
-}
+CGameStateWarning::~CGameStateWarning(void) { }
 
+int CGameStateWarning::Update(bool bLostFocus) {
+  g_EUILobby.Update();
 
-int	CGameStateWarning::Update( bool bLostFocus )
-{
-	g_EUILobby.Update();	
+  updateScene();
 
-	::updateScene ();
+  // processing  ...
+  if ( !bLostFocus ) {
+    if ( !beginScene() ) //  디바이스가 손실된 상태라면 0을 리턴하므로, 모든 렌더링 스킵
+    {
+      return 0;
+    }
 
-	// processing  ...
-	if ( !bLostFocus ) 
-	{
-		if ( !::beginScene() ) //  디바이스가 손실된 상태라면 0을 리턴하므로, 모든 렌더링 스킵
-		{
-			return 0;
-		}
+    clearScreen();
+    renderScene();
 
-		::clearScreen();
-		::renderScene();
+    beginSprite( D3DXSPRITE_ALPHABLEND );
 
+    /// Screen message display
+    g_UIMed.Draw();
 
-		::beginSprite( D3DXSPRITE_ALPHABLEND );
+    /// UI display
+    g_EUILobby.Draw();
 
-		/// Screen message display
-		g_UIMed.Draw();
+    CTIme::GetInstance().Draw();
 
-		/// UI display
-		g_EUILobby.Draw();
+    endSprite();
 
-		CTIme::GetInstance().Draw();
-
-
-		::endSprite();		
-
-
-		::endScene ();
-		::swapBuffers();
-	}
-	return 0;
+    endScene();
+    swapBuffers();
+  }
+  return 0;
 
 }
 
-int CGameStateWarning::ProcMouseInput( UINT uiMsg, WPARAM wParam, LPARAM lParam )
-{
-	if( g_EUILobby.MsgProc( uiMsg ,wParam, lParam) )
-		return 1;
+int CGameStateWarning::ProcMouseInput(UINT uiMsg, WPARAM wParam, LPARAM lParam) {
+  if ( g_EUILobby.MsgProc( uiMsg, wParam, lParam ) )
+    return 1;
 
-	return 0;
+  return 0;
 }
 
-int CGameStateWarning::ProcKeyboardInput( UINT uiMsg, WPARAM wParam, LPARAM lParam )
-{
-	switch( uiMsg ) 
-	{
-	case WM_CHAR :
-		{
-			switch ( wParam )
-			{
-			case '1':
-				{
-				}
-				break;
-			case '2':
-				break;
-			}
-		}
-		break;
-	}
+int CGameStateWarning::ProcKeyboardInput(UINT uiMsg, WPARAM wParam, LPARAM lParam) {
+  switch ( uiMsg ) {
+    case WM_CHAR: {
+      switch ( wParam ) {
+        case '1': { }
+        break;
+        case '2': break;
+      }
+    }
+    break;
+  }
 
-	if( g_EUILobby.MsgProc( uiMsg ,wParam, lParam) )
-		return 1;	
+  if ( g_EUILobby.MsgProc( uiMsg, wParam, lParam ) )
+    return 1;
 
-	return 0;
+  return 0;
 }
 
-int CGameStateWarning::Enter( int iPrevStateID )
-{	
-	g_EUILobby.InitEUIManager();
-	g_EUILobby.CreateWarningDlg();
+int CGameStateWarning::Enter(int iPrevStateID) {
+  g_EUILobby.InitEUIManager();
+  g_EUILobby.CreateWarningDlg();
 
-	return 0;
+  return 0;
 }
 
-int CGameStateWarning::Leave( int iNextStateID )
-{
-	return 0;
+int CGameStateWarning::Leave(int iNextStateID) {
+  return 0;
 }
-
-

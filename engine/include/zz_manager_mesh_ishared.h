@@ -58,19 +58,20 @@
 
 //--------------------------------------------------------------------------------
 class zz_manager_mesh_ishared : public zz_manager {
-//--------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------
 protected:
 
 public:
-	zz_manager_mesh_ishared ();
-	virtual ~zz_manager_mesh_ishared ();
+          zz_manager_mesh_ishared();
+  virtual ~zz_manager_mesh_ishared();
 
-	// Creating/Restoring device
-	static bool s_restore_device_objects (); // create unmanaged objects
-	static bool s_invalidate_device_objects (); // destroy unmanaged objects
+  // Creating/Restoring device
+  static bool s_restore_device_objects();    // create unmanaged objects
+  static bool s_invalidate_device_objects(); // destroy unmanaged objects
 
-	ZZ_DECLARE_DYNAMIC(zz_manager_mesh_ishared);
+ZZ_DECLARE_DYNAMIC(zz_manager_mesh_ishared);
 };
+
 //
 ////--------------------------------------------------------------------------------
 //class zz_manager_mesh_terrain : public zz_manager_mesh_ishared {

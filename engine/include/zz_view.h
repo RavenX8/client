@@ -58,47 +58,45 @@
 #include "zz_node.h"
 #endif
 
-
 // display view base class
 // will be inherited by those classes
 // : zz_view_d3d, zz_view_ogl, zz_view_image...etc...
 //class zz_scene;
 class zz_view : public zz_node {
 protected:
-	bool is_active;
+  bool is_active;
 
 public:
-	zz_view ();
-	virtual ~zz_view () {};
-    
-	virtual bool attach_window (void) = 0;
-	virtual bool detach_window (void) = 0;
+          zz_view();
+  virtual ~zz_view() {};
 
-	//virtual void main_loop (void) = 0;
-	virtual bool begin_scene () = 0; // returns false if device is lost
-	virtual bool end_scene () = 0; // returns false if not began already
-	virtual void render () = 0;
-	
-	virtual void	set_handle (const void * handle_to_set) = 0;
-	virtual void *	get_handle () = 0;
-	virtual void	set_width (int width);
-	virtual int		get_width (void);
-	virtual void	set_height (int height);
-	virtual int		get_height (void);
-	virtual void	set_depth (int bpp);
-	virtual int		get_depth (void);
-	virtual void	set_fullscreen (bool true_or_false);
-	virtual bool	get_fullscreen (void);
-	virtual void	set_window_text (const char * title) = 0;
+  virtual bool attach_window(void) = 0;
+  virtual bool detach_window(void) = 0;
 
-	bool set_active (bool true_false)
-	{
-		bool saved = is_active;
-		is_active = true_false;
-		return saved;
-	}
+  //virtual void main_loop (void) = 0;
+  virtual bool begin_scene() = 0; // returns false if device is lost
+  virtual bool end_scene() = 0;   // returns false if not began already
+  virtual void render() = 0;
 
-	ZZ_DECLARE_DYNAMIC(zz_view)
+  virtual void  set_handle(const void* handle_to_set) = 0;
+  virtual void* get_handle() = 0;
+  virtual void  set_width(int               width);
+  virtual int   get_width(void              );
+  virtual void  set_height(int              height);
+  virtual int   get_height(void             );
+  virtual void  set_depth(int               bpp);
+  virtual int   get_depth(void              );
+  virtual void  set_fullscreen(bool         true_or_false);
+  virtual bool  get_fullscreen(void         );
+  virtual void  set_window_text(const char* title) = 0;
+
+  bool   set_active(bool true_false) {
+    bool saved = is_active;
+    is_active  = true_false;
+    return saved;
+  }
+
+ZZ_DECLARE_DYNAMIC(zz_view)
 };
 
 #endif // __ZZ_VIEW_H__

@@ -10,15 +10,14 @@
 * @Date			2005/9/6
 *
 */
-class CITStateAppraisal : public CITState
-{
+class CITStateAppraisal : public CITState {
 public:
-	CITStateAppraisal(void);
-	virtual ~CITStateAppraisal(void);
+          CITStateAppraisal(void );
+  virtual ~CITStateAppraisal(void);
 
-	virtual void Enter();
-	virtual void Leave();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
-	virtual void Update( POINT ptMouse ){}
+  void     Enter() override;
+  void     Leave() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void     Update(POINT     ptMouse) override {}
 };
 #endif

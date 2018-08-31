@@ -13,28 +13,24 @@ using namespace std;
 * @Date			2005/8/30
 */
 
-class TGAMECTRL_API CTSplitString
-{
-	vector< string >	m_StringList;	
-	std::string		m_strNull;
-	SIZE m_szStrSize;	
+class TGAMECTRL_API CTSplitString {
+  vector<string> m_StringList;
+  std::string    m_strNull;
+  SIZE           m_szStrSize;
 
 public:
-	CTSplitString(void);
-	CTSplitString( int iFont, char* pszStr, int iDisplayWidth ,unsigned uiCodePage );
-	~CTSplitString(void);
+  CTSplitString(void );
+  CTSplitString(int  iFont, char* pszStr, int iDisplayWidth, unsigned uiCodePage);
+  ~CTSplitString(void);
 
-	int	GetLineCount();
-	const char* GetString( int iIndex );
+  int         GetLineCount();
+  const char* GetString(int iIndex);
 
-	bool Split( int iFont, char* pszStr, int iDisplayWidth ,unsigned uiCodePage);
-	void Clear();
-	
-	SIZE & GetSizeText( int iFont, const char * szStr );
+  bool Split(int iFont, char* pszStr, int iDisplayWidth, unsigned uiCodePage);
+  void Clear();
+
+  SIZE& GetSizeText(int iFont, const char* szStr);
 
 };
-
-
-
 
 #endif

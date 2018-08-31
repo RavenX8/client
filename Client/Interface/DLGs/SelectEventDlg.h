@@ -3,7 +3,6 @@
 
 #include "TDialog.h"
 
-
 /**
 * 루나행성의 워프게이트 처럼 유저의 선택만을 입력받는 다이얼로그
 *	- 기본 동작은 CDialogDlg와 동일하다
@@ -12,31 +11,29 @@
 * @Author		최종진
 * @Date			2005/9/14
 */
-class CSelectEventDlg :	public CTDialog
-{
+class CSelectEventDlg : public CTDialog {
 public:
-	CSelectEventDlg(void);
-	virtual ~CSelectEventDlg(void);
-	virtual bool Create( const char* IDD );
-	virtual void Hide();
-	virtual void Show();
-	virtual void Update( POINT ptMouse );
-	virtual void Draw();
-	virtual unsigned Process( unsigned uiMsg, WPARAM wParam, LPARAM lParam );
+           CSelectEventDlg(void );
+  virtual  ~CSelectEventDlg(void);
+  bool     Create(const char*   IDD) override;
+  void     Hide() override;
+  void     Show() override;
+  void     Update(POINT ptMouse) override;
+  void     Draw() override;
+  unsigned Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	void	SetTitle( const char* pszTitle );
-	void	AddEvent( char* pszScript, int iEventID, void (*fpEventHandle)(int iEventID) );
-	void	SetTargetClientObjectIndex( short iIndex );
+  void SetTitle(const char*             pszTitle);
+  void AddEvent(char*                   pszScript, int iEventID, void (*fpEventHandle)(int iEventID));
+  void SetTargetClientObjectIndex(short iIndex);
 
 private:
-	enum{
-		IID_BG_IMAGE		= 1,
-		IID_BTN_CLOSE		= 10,
-		IID_ZLISTBOX_EVENT	= 20,
-	};
+  enum {
+    IID_BG_IMAGE = 1,
+    IID_BTN_CLOSE = 10,
+    IID_ZLISTBOX_EVENT = 20,
+  };
 
-
-	short		m_nTargetClientIdx;
-	std::string m_strTitle;
+  short       m_nTargetClientIdx;
+  std::string m_strTitle;
 };
 #endif

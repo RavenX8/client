@@ -51,37 +51,29 @@
 #include "zz_node.h"
 #include "zz_channel.h"
 
-zz_channel::zz_channel(zz_interp_style new_interp_style) : interp_style(new_interp_style)
-{
+zz_channel::zz_channel(zz_interp_style new_interp_style) : interp_style( new_interp_style ) {}
+
+void zz_channel::set_interp_style(zz_interp_style new_interp_style) {
+  interp_style = new_interp_style;
 }
 
-void zz_channel::set_interp_style (zz_interp_style new_interp_style)
-{
-	interp_style = new_interp_style;
+zz_interp_style zz_channel::get_interp_style(void) {
+  return interp_style;
 }
 
-zz_interp_style zz_channel::get_interp_style (void)
-{
-	return interp_style;
+void zz_channel::set_channel_type(uint32 type) {
+  channel_type = type;
 }
 
-void zz_channel::set_channel_type (uint32 type)
-{
-	channel_type = type;
+void zz_channel::time_to_frame(zz_time current, int& start_frame, int& next_frame, float& ratio, int size, int fps) {
+  assert(fps > 0);
+  start_frame = ZZ_TICK_TO_FRAME(current, fps);
+  next_frame  = start_frame + 1;
+  ratio       = float( current - ZZ_FRAME_TO_TICK(start_frame, fps) ) * fps / ZZ_TICK_PER_SEC;
+  start_frame = (start_frame >= size) ? start_frame - size : start_frame;
+  next_frame  = (next_frame >= size) ? next_frame - size : next_frame;
 }
 
-void zz_channel::time_to_frame (zz_time current, int& start_frame, int& next_frame, float& ratio, int size, int fps)
-{
-	assert(fps > 0);
-	start_frame = ZZ_TICK_TO_FRAME(current, fps);
-	next_frame = start_frame+1;
-	ratio = float(current - ZZ_FRAME_TO_TICK(start_frame, fps)) * fps / ZZ_TICK_PER_SEC;
-	start_frame = (start_frame >= size) ? start_frame - size : start_frame;
-	next_frame = (next_frame >= size) ? next_frame - size : next_frame;		
-}
-
-
-void zz_channel::set_refer_id (int id)
-{
-	refer_id = id;
+void zz_channel::set_refer_id(int id) {
+  refer_id = id;
 }

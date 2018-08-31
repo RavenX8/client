@@ -17,46 +17,46 @@ class ITFont;
 *
 * @Data				2005/8/30
 */
-class TGAMECTRL_API CTRadioButton :	public CWinCtrl
-{
+class TGAMECTRL_API CTRadioButton : public CWinCtrl {
 public:
-	CTRadioButton(void);
-	virtual ~CTRadioButton(void);
+          CTRadioButton(void );
+  virtual ~CTRadioButton(void);
 
-	bool	Create( int iScrX, int iScrY, int iWidth, int iHeight, int iNormalGraphicID, int iOverGraphicID, int iDownGraphicID ,int iModuleID);
-	virtual unsigned int Process( UINT uiMsg,WPARAM wParam,LPARAM lParam );
-	virtual	void Update( POINT ptMouse );
-	virtual void Draw();
+  bool         Create(int   iScrX, int    iScrY, int     iWidth, int iHeight, int iNormalGraphicID, int iOverGraphicID, int iDownGraphicID, int iModuleID);
+  unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
+  void         Update(POINT ptMouse) override;
+  void         Draw() override;
 
-	void	SetButtonState( int iState );
-	short	GetButtonState(){ return m_iButtonState; }
+  void  SetButtonState(int iState);
+  short GetButtonState() { return m_iButtonState; }
 
-	void    SetRadioBox( CTRadioBox* pRadioBox ){ m_pRadioBox = pRadioBox; }
-	enum{
-		BS_NORMAL,
-		BS_MOUSEOVER,
-		BS_CLICKED
-	};
+  void SetRadioBox(CTRadioBox* pRadioBox) { m_pRadioBox = pRadioBox; }
 
-	void				SetText( char* szText );
-	CSinglelineString&	GetText();
+  enum {
+    BS_NORMAL,
+    BS_MOUSEOVER,
+    BS_CLICKED
+  };
 
-	void		SetSoundDisableID( int i );
-	void		SetGhost();
+  void               SetText(char* szText);
+  CSinglelineString& GetText();
+
+  void SetSoundDisableID(int i);
+  void SetGhost();
 
 protected:
-	CSinglelineString	m_text;					/// 버튼위에 출력될 스트링
+  CSinglelineString m_text; /// 버튼위에 출력될 스트링
 
-	short			m_iButtonState;
+  short m_iButtonState;
 
-	int				m_iModuleID;
-	int				m_iNormalGraphicID;
-	int				m_iOverGraphicID;
-	int				m_iDownGraphicID;
+  int m_iModuleID;
+  int m_iNormalGraphicID;
+  int m_iOverGraphicID;
+  int m_iDownGraphicID;
 
-	int				m_iDisableSoundID;			/// Disable된 상태에서 클릭시 Play할 Sound ID
-	CTRadioBox*		m_pRadioBox;				/// 등록된 RadioBox
-	ITFont*			m_pFontImpl;
-	bool			m_bGhost;					/// 실제로 없지만 자리를 잡기 위한 용도로 사용될 경우 ( CTabbedPane에서 라디오 버튼이 있어야 Tab이 등록되어서 )
+  int         m_iDisableSoundID; /// Disable된 상태에서 클릭시 Play할 Sound ID
+  CTRadioBox* m_pRadioBox;       /// 등록된 RadioBox
+  ITFont*     m_pFontImpl;
+  bool        m_bGhost; /// 실제로 없지만 자리를 잡기 위한 용도로 사용될 경우 ( CTabbedPane에서 라디오 버튼이 있어야 Tab이 등록되어서 )
 };
 #endif

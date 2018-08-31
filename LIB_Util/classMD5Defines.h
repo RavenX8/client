@@ -95,5 +95,3 @@
 #define MD5_T62  0xbd3af235 //Transformation Constant 62
 #define MD5_T63  0x2ad7d2bb //Transformation Constant 63
 #define MD5_T64  0xeb86d391 //Transformation Constant 64
-
-

@@ -3,16 +3,15 @@
 
 #include "TriggerVFS.h"
 
-class CBlankInfo
-{
+class CBlankInfo {
 public:
-	static int iMaxCount;
-	static int iDealedCount;
-	static int iCurPercent;
+  static int iMaxCount;
+  static int iDealedCount;
+  static int iCurPercent;
 
-	static VCALLBACK_CLEARBLANKALL procCallBack;
-	static void DoStep ( void );
-	static void SetStep ( int iPos );
+  static VCALLBACK_CLEARBLANKALL procCallBack;
+  static void                    DoStep(void );
+  static void                    SetStep(int iPos);
 };
 
 #endif

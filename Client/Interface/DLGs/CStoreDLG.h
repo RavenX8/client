@@ -18,7 +18,6 @@
 //	SROTE_MAX_BTN_CNT
 //};
 
-
 class CTCmdNumberInput;
 class CTCmdOpenNumberInputDlg;
 
@@ -29,50 +28,48 @@ class CTCmdOpenNumberInputDlg;
 * @Author		최종진
 * @Date			2005/9/14
 **/
-class CStoreDLG : public CTDialog, public IObserver
-{
+class CStoreDLG : public CTDialog, public IObserver {
 private:
-	CSlot						m_Slots[MAX_INV_TYPE][c_iSlotCountPerTab];	/// 판매 아이템이 Attach될 Slot들
-	short						m_nInvType;									///< Item type[ wasting item, Equipment item, .. ]	
+  CSlot m_Slots[MAX_INV_TYPE][c_iSlotCountPerTab]; /// 판매 아이템이 Attach될 Slot들
+  short m_nInvType;                                ///< Item type[ wasting item, Equipment item, .. ]	
 
-	CTCmdNumberInput*			m_pCmdNumberInput;
-	CTCmdOpenNumberInputDlg*	m_pCmdOpenNumberInput;
+  CTCmdNumberInput*        m_pCmdNumberInput;
+  CTCmdOpenNumberInputDlg* m_pCmdOpenNumberInput;
 
-	CDragItem*					m_pDragItem;
+  CDragItem* m_pDragItem;
 
 public:
-	CStoreDLG( int iType );
-	virtual ~CStoreDLG();
+          CStoreDLG(int iType);
+  virtual ~CStoreDLG();
 
-	virtual void Draw();
-	virtual void Update( POINT ptMouse );
-	virtual void Show();
-	virtual void MoveWindow( POINT pt );
-	virtual int	 IsInValidShow();
-	
-	virtual unsigned int Process( UINT uiMsg, WPARAM wParam, LPARAM lParam );
+  void Draw() override;
+  void Update(POINT ptMouse) override;
+  void Show() override;
+  void MoveWindow(POINT pt) override;
+  int  IsInValidShow() override;
 
-	virtual void Update( CObservable* pObservable, CTObject* pObj );
+  unsigned int Process(UINT uiMsg, WPARAM wParam, LPARAM lParam) override;
 
-	void SetTab(short nInvType)			{ m_nInvType = nInvType; }
+  void Update(CObservable* pObservable, CTObject* pObj) override;
+
+  void SetTab(short nInvType) { m_nInvType = nInvType; }
 
 protected:
-	enum{
-		IID_BTN_CLOSE	= 20,
-		IID_RADIOBOX	= 30,
-		IID_BTN_TAB1	= 31,
-		IID_BTN_TAB2	= 32,
-		IID_BTN_TAB3	= 33,
-		IID_BTN_TAB4	= 34
-	};
+  enum {
+    IID_BTN_CLOSE = 20,
+    IID_RADIOBOX = 30,
+    IID_BTN_TAB1 = 31,
+    IID_BTN_TAB2 = 32,
+    IID_BTN_TAB3 = 33,
+    IID_BTN_TAB4 = 34
+  };
 
-	bool On_LButtonUP( unsigned iProcID, WPARAM wParam, LPARAM lParam );
+  bool On_LButtonUP(unsigned iProcID, WPARAM wParam, LPARAM lParam);
 
-	void SetEnableTabButton( int iInvType, bool bEnable );					
-	void SetTabButtonText( short iIndex, const char* szText );
-	void UpdateSlotPosition( int iType );
+  void SetEnableTabButton(int iInvType, bool      bEnable);
+  void SetTabButtonText(short iIndex, const char* szText);
+  void UpdateSlotPosition(int iType);
 
 };
-
 
 #endif //_STOREDLG_

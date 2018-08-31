@@ -10,51 +10,41 @@
 /// This is performed by LRU.
 ///
 
-template< class T >
-class CResourceCache
-{
+template <class T>
+class CResourceCache {
 public:
-	enum CACHING_HINT
-	{
-		USE_FIFO = 0,
-		USE_LRU,
-		USE_MRU,
-	};
-
+  enum CACHING_HINT {
+    USE_FIFO = 0,
+    USE_LRU,
+    USE_MRU,
+  };
 
 private:
-	struct RSC_CACHE_NODE
-	{
-		std::string		strName;
-		T*				data;
-	};
-
+  struct RSC_CACHE_NODE {
+    std::string strName;
+    T*          data;
+  };
 
 public:
-	CResourceCache(void);
-	CResourceCache( int iCachingPolicy );
-	~CResourceCache(void);
+  CResourceCache(void );
+  CResourceCache(int  iCachingPolicy);
+  ~CResourceCache(void);
 
+  void ClearPool();
+  T*   GetData(const char* pstrName);
 
-	void			ClearPool();
-	T*				GetData( const char* pstrName );
-	
-	
-	//-------------------------------------------------------------------------------
-	/// Template methods
-	//-------------------------------------------------------------------------------
-	virtual T*		LoadData( const char* pstrName ) = 0;
-	virtual void	FreeData( T& data ) = 0;
-
-
+  //-------------------------------------------------------------------------------
+  /// Template methods
+  //-------------------------------------------------------------------------------
+  virtual T*   LoadData(const char* pstrName) = 0;
+  virtual void FreeData(T&          data) = 0;
 
 private:
-	
-	int							m_iCacheSize;
-	int							m_iCachingPolicy;		/// default value is USE_LRU.
 
-	std::list< RSC_CACHE_NODE >	m_CachePool;
+  int m_iCacheSize;
+  int m_iCachingPolicy; /// default value is USE_LRU.
+
+  std::list<RSC_CACHE_NODE> m_CachePool;
 };
-
 
 #endif //_RESOURCE_CACHE_

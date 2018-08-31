@@ -75,54 +75,48 @@
 #include <sys/stat.h>
 #include <string.h>
 
-zz_vfs_mem::zz_vfs_mem(void) : zz_vfs()
-{
-	_mp = NULL;
-	_mem_size = 0;
-	set_real_filesystem(this);
+zz_vfs_mem::zz_vfs_mem(void) : zz_vfs() {
+  _mp       = nullptr;
+  _mem_size = 0;
+  set_real_filesystem( this );
 }
 
-zz_vfs_mem::~zz_vfs_mem(void)
-{
-	close();
-	set_real_filesystem(NULL);
+zz_vfs_mem::~zz_vfs_mem(void) {
+  close();
+  set_real_filesystem( nullptr );
 }
 
-bool zz_vfs_mem::open (const char * mem_pointer, uint32 mem_size)
-{
-	_mp = mem_pointer;
-	_mem_size = mem_size;
+bool zz_vfs_mem::open(const char* mem_pointer, uint32 mem_size) {
+  _mp       = mem_pointer;
+  _mem_size = mem_size;
 
-	return true;
+  return true;
 }
 
-bool zz_vfs_mem::close (void)
-{
-	_mp = NULL;
-	_mem_size = 0;
-	set_status(zz_vfs::ZZ_VFS_INI);
-	return true;
+bool zz_vfs_mem::close(void) {
+  _mp       = nullptr;
+  _mem_size = 0;
+  set_status( ZZ_VFS_INI );
+  return true;
 }
 
-uint32 zz_vfs_mem::get_size () const
-{
-	return _mem_size;
+uint32 zz_vfs_mem::get_size() const {
+  return _mem_size;
 }
 
-uint32 zz_vfs_mem::read_ (char * buf, const uint32 size)
-{
-	if (!_mp) return 0;
+uint32 zz_vfs_mem::read_(char* buf, const uint32 size) {
+  if ( !_mp ) return 0;
 
-	uint32 copy_size = ZZ_MIN(size, _mem_size);
+  uint32 copy_size = ZZ_MIN(size, _mem_size);
 
-	memcpy(buf, _mp, copy_size);
+  memcpy( buf, _mp, copy_size );
 
-	_mp += copy_size;
-	_mem_size -= copy_size;
-	
-	if (copy_size == 0) {
-		set_status(zz_vfs::ZZ_VFS_EOF);
-	}
+  _mp += copy_size;
+  _mem_size -= copy_size;
 
-	return copy_size;
+  if ( copy_size == 0 ) {
+    set_status( ZZ_VFS_EOF );
+  }
+
+  return copy_size;
 }

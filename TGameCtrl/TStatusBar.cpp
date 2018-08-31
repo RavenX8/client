@@ -1,43 +1,37 @@
 #include "StdAfx.h"
-#include ".\tstatusbar.h"
+#include "./tstatusbar.h"
 #include "TImage.h"
 #include "TButton.h"
-CTStatusBar::CTStatusBar(void)
-{
-	m_pImage = NULL;
+
+CTStatusBar::CTStatusBar(void) {
+  m_pImage = nullptr;
 }
 
-CTStatusBar::~CTStatusBar(void)
-{
-	if( m_pImage )
-	{
-		delete m_pImage;
-		m_pImage = NULL;
-	}
+CTStatusBar::~CTStatusBar(void) {
+  if ( m_pImage ) {
+    delete m_pImage;
+    m_pImage = nullptr;
+  }
 }
 
-void CTStatusBar::SetImage( CTImage* pImage )
-{
-	if( m_pImage )
-		delete m_pImage;
-	m_pImage = pImage;
+void CTStatusBar::SetImage(CTImage* pImage) {
+  if ( m_pImage )
+    delete m_pImage;
+  m_pImage = pImage;
 }
 
-void CTStatusBar::Draw()
-{
-	if( m_pImage )
-		m_pImage->Draw();
+void CTStatusBar::Draw() {
+  if ( m_pImage )
+    m_pImage->Draw();
 }
 
-void CTStatusBar::Update( POINT pt )
-{
-	if( m_pImage )
-		m_pImage->Update( pt );
+void CTStatusBar::Update(POINT pt) {
+  if ( m_pImage )
+    m_pImage->Update( pt );
 }
 
-void CTStatusBar::MoveWindow( POINT pt )
-{
-	CWinCtrl::MoveWindow( pt );
-	if( m_pImage )
-		m_pImage->MoveWindow( m_sPosition );
+void CTStatusBar::MoveWindow(POINT pt) {
+  CWinCtrl::MoveWindow( pt );
+  if ( m_pImage )
+    m_pImage->MoveWindow( m_sPosition );
 }
