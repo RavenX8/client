@@ -11,7 +11,7 @@
 #include "Game.h"
 #include "TGameCtrl.h"
 
-#include "Interface/it_mgr.hh
+#include "Interface/it_mgr.h"
 #include "System/CGame.h"
 #include "Interface/cursor/CCursor.h"
 #include "Sound/MusicMgr.h"

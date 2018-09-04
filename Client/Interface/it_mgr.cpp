@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "../OBJECT.hh
+#include "../OBJECT.h"
 #include "it_mgr.h"
 #include "IO_ImageRes.h"
 //#include "LookUpImageIndex.h"

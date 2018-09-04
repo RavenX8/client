@@ -3,7 +3,7 @@
 #include "CInventory.h"
 
 #ifndef	__SERVER
-#include "../OBJECT.hh
+#include "../OBJECT.h"
 #endif
 
 /*

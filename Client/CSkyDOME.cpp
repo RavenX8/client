@@ -2,7 +2,7 @@
 	$Header: /Client/CSkyDOME.cpp 23    04-10-11 6:15p Jeddli $
 */
 #include "StdAfx.h"
-#include "Common/io_stb.hh
+#include "Common/io_stb.h"
 #include "CSkyDOME.h"
 
 CSkyDOME* CSkyDOME::m_pInstance = nullptr;

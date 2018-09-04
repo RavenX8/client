@@ -9,7 +9,7 @@
 #include "Network/CNetwork.h"
 #include "IO_Terrain.h"
 #include "Game.h"
-#include "../Interfaceeit_mgr.h.
+#include "../Interface/it_mgr.h"
 #include "../GameData/CStore.h"
 
 //-------------------------------------------------------------------------------------------------

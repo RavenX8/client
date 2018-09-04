@@ -5,7 +5,7 @@
 #ifndef	__SERVER
 #include "Game.h"
 #include "..//Util//VFSManager.h"
-#include "../Commonnio_stb.h.
+#include "../Common/io_stb.h"
 #endif
 
 #ifndef SAFE_DELETE

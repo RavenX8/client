@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "CHotICON.h"
 #ifndef	__SERVER
-#include "../OBJECT.hh
+#include "../OBJECT.h"
 #endif
 
 //-------------------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@
 #include "IO_Event.h"
 #include "CCamera.h"
 #include "System/CGame.h"
-#include "Interface/it_mgr.hh
+#include "Interface/it_mgr.h"
 #include "Network/CNetwork.h"
 #include "Util//VFSManager.h"
 #include "Interface/DLGs/CMinimapDLG.h"

@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "CChatBox.h"
-#include "../OBJECT.hh
+#include "../OBJECT.h"
 #include "..//Game.h"
 
 #include "CNameBox.h"

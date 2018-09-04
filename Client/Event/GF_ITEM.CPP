@@ -7,7 +7,7 @@
 #include "TGameCtrl.h"
 #include "OBJECT.h"  /* <=== 이 파일을 인클루드 시켜 사용할 것 */
 #include "IO_Basic.h"
-#include "../Interfaceeit_mgr.h.
+#include "../Interface/it_mgr.h"
 
 //---------------------------------[ 아바타 소지 현금 관련 ]------------------------------------
 /* 아바타 소지현금 가져오기 */
