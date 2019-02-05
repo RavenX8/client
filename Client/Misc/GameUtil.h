@@ -14,7 +14,7 @@ public:
   static D3DXCOLOR GetRGBFromString(unsigned int iColor);
   static WORD      GetPrimaryLanguage();
   static WORD      GetSubLanguage();
-  static void      ConvertMoney2String(__int64 money, char* buffer, int buffer_size);
+  static void      ConvertMoney2String(int64_t money, char* buffer, int buffer_size);
 
 };
 

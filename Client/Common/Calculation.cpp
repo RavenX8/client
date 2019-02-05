@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 
 #ifdef __SERVER
-	#include "NET_Prototype.h"
+  #include "NET_Prototype.h"
 #else
 #include "Net_Prototype.h"
 #include "../CObjUSER.h"
@@ -33,7 +33,7 @@ extern bool IsTAIWAN();
 //extern bool IsIROSE ();
 
 //-------------------------------------------------------------------------------------------------
-__int64 CCal::Get_NeedRawEXP(int iLevel) {
+int64_t CCal::Get_NeedRawEXP(int iLevel) {
   // 필요 경험치
   if ( iLevel > MAX_LEVEL )
     iLevel = MAX_LEVEL;
@@ -41,22 +41,22 @@ __int64 CCal::Get_NeedRawEXP(int iLevel) {
   if ( IsTAIWAN() ) {
     // [레벨 15이하일 경우]   필요 경험치 = { (LV + 3) * (LV + 5 ) * (LV + 10) * 0.7 }
     if ( iLevel <= 15 )
-      return (__int64)((iLevel + 3) * (iLevel + 5) * (iLevel + 10) * 0.7);
+      return (int64_t)((iLevel + 3) * (iLevel + 5) * (iLevel + 10) * 0.7);
 
     // [레벨 50이하일 경우]   필요 경험치 = { (LV - 5) * (LV + 2 ) * (LV + 2) * 2.2 }
     if ( iLevel <= 50 )
-      return (__int64)((iLevel - 5) * (iLevel + 2) * (iLevel + 2) * 2.2);
+      return (int64_t)((iLevel - 5) * (iLevel + 2) * (iLevel + 2) * 2.2);
 
     // [레벨 100이하일 경우]  필요 경험치 = { (LV - 5) * ( LV +2 ) * (LV -38 ) * 9 }
     if ( iLevel <= 100 )
-      return (__int64)((iLevel - 5) * (iLevel + 2) * (iLevel - 38) * 9);
+      return (int64_t)((iLevel - 5) * (iLevel + 2) * (iLevel - 38) * 9);
 
     // [레벨 139이하일 경우]  필요 경험치 = { (LV + 27) * (LV +34 ) * (LV + 220) }
     if ( iLevel <= 139 )
-      return (__int64)((iLevel + 27) * (iLevel + 34) * (iLevel + 220));
+      return (int64_t)((iLevel + 27) * (iLevel + 34) * (iLevel + 220));
 
     // [레벨 200이하일 경우]  필요 경험치 = { (LV - 15) * (LV +7 ) * (LV - 126) * 41 }
-    return (__int64)((iLevel - 15) * (iLevel + 7) * (iLevel - 126) * 41);
+    return (int64_t)((iLevel - 15) * (iLevel + 7) * (iLevel - 126) * 41);
     /*
         // <대만 적용 계산식> 2005.04.25
         //²	[레벨 8이하일 경우] 필요 경험치 = ( (iLevel+3)*(iLevel+5)*(iLevel+10)*0.6 )
@@ -114,31 +114,31 @@ __int64 CCal::Get_NeedRawEXP(int iLevel) {
   if ( iLevel <= 60 ) {
     if ( iLevel <= 15 ) {
       // [레벨 15 이하일 경우]  필요 경험치 = { (LV + 3) * (LV + 5 ) * (LV + 10) * 0.7 } 
-      return (__int64)(((iLevel + 3) * (iLevel + 5) * (iLevel + 10) * 0.7f));
+      return (int64_t)(((iLevel + 3) * (iLevel + 5) * (iLevel + 10) * 0.7f));
     }
 
     // [레벨 60 이하일 경우]  필요 경험치 = { (LV - 5) * (LV + 2 ) * (LV + 2) * 2.2 } 
-    return (__int64)(((iLevel - 5) * (iLevel + 2) * (iLevel + 2) * 2.2f));
+    return (int64_t)(((iLevel - 5) * (iLevel + 2) * (iLevel + 2) * 2.2f));
   }
 
   if ( iLevel <= 113 ) {
     // [레벨 113이하일 경우]  필요 경험치 = { (LV - 11) * ( LV ) * (LV + 4) * 2.5 } 
-    return (__int64)(((iLevel - 11) * (iLevel) * (iLevel + 4) * 2.5f));
+    return (int64_t)(((iLevel - 11) * (iLevel) * (iLevel + 4) * 2.5f));
   }
 
   if ( iLevel <= 150 ) {
     // [레벨 150이하일 경우]  필요 경험치 = { (LV - 31) * (LV - 20 ) * (LV + 4) * 3.8 } 
-    return (__int64)(((iLevel - 31) * (iLevel - 20) * (iLevel + 4) * 3.8f));
+    return (int64_t)(((iLevel - 31) * (iLevel - 20) * (iLevel + 4) * 3.8f));
   }
 
   //	if ( iLevel <= 176 ) {
   if ( iLevel <= 189 ) {
     // [레벨 189이하일 경우]  필요 경험치 = { (LV - 67) * (LV - 20 ) * (LV - 10) * 6 } 
-    return (__int64)(((iLevel - 67) * (iLevel - 20) * (iLevel - 10) * 6.f));
+    return (int64_t)(((iLevel - 67) * (iLevel - 20) * (iLevel - 10) * 6.f));
   }
 
   // [레벨 200이하일 경우]  필요 경험치 = { (LV - 90) * (LV - 120) * (LV - 60) * (LV - 170) * (LV -188)}
-  return (__int64)((iLevel - 90) * (iLevel - 120) * (iLevel - 60) * (iLevel - 170) * (iLevel - 188));
+  return (int64_t)((iLevel - 90) * (iLevel - 120) * (iLevel - 60) * (iLevel - 170) * (iLevel - 188));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -355,32 +355,32 @@ bool  CCal::Get_DropITEM(int iLevelDiff, CObjMOB* pMobCHAR, tagITEM& sITEM, int 
 
 //-------------------------------------------------------------------------------------------------
 // iGiveDamage = 공격자가준 데미지
-__int64   CCal::Get_EXP(CObjCHAR* pAtkCHAR, CObjCHAR* pDefCHAR, int iGiveDamage) {
-  __int64 iGAB, iEXP;
+int64_t   CCal::Get_EXP(CObjCHAR* pAtkCHAR, CObjCHAR* pDefCHAR, int iGiveDamage) {
+  int64_t iGAB, iEXP;
 
   iGAB = pAtkCHAR->Get_LEVEL() - pDefCHAR->Get_LEVEL();
   if ( IsTAIWAN() ) // 대만 6-13 kchs
   {
     if ( iGiveDamage > pDefCHAR->Get_MaxHP() * 1.15f )
-      iGiveDamage = (__int64)(pDefCHAR->Get_MaxHP() * 1.15f);
+      iGiveDamage = (int64_t)(pDefCHAR->Get_MaxHP() * 1.15f);
 
     if ( iGAB <= 3 ) {
-      iEXP = (__int64)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
+      iEXP = (int64_t)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
                                (iGiveDamage + pDefCHAR->Get_MaxHP() / 15.f + 30)) * Get_WorldEXP() / (pDefCHAR->Get_MaxHP()) / 370.f);
     } else if ( iGAB >= 4 && iGAB < 9 ) {
-      iEXP = (__int64)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
+      iEXP = (int64_t)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
                                (iGiveDamage + pDefCHAR->Get_MaxHP() / 15.f + 30)) * Get_WorldEXP() / pDefCHAR->Get_MaxHP() / (iGAB + 3) / 60.f);
     } else {
       // 대만 6-13 kchs
-      iEXP = (__int64)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
+      iEXP = (int64_t)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
                                (iGiveDamage + pDefCHAR->Get_MaxHP() / 15.f + 30)) * Get_WorldEXP() / pDefCHAR->Get_MaxHP() / (iGAB + 3) / 180.f);
     }
   } else {
     if ( iGAB <= 3 ) {
-      iEXP = (__int64)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
+      iEXP = (int64_t)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
                                (iGiveDamage + pDefCHAR->Get_MaxHP() / 15.f + 30)) * Get_WorldEXP() / (pDefCHAR->Get_MaxHP()) / 370.f);
     } else {
-      iEXP = (__int64)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
+      iEXP = (int64_t)((float)((pDefCHAR->Get_LEVEL() + 3) * pDefCHAR->Get_GiveEXP() *
                                (iGiveDamage + pDefCHAR->Get_MaxHP() / 15.f + 30)) * Get_WorldEXP() / pDefCHAR->Get_MaxHP() / (iGAB + 3) / 60.f);
     }
 
@@ -871,7 +871,7 @@ int   CCal::Get_SkillAdjustVALUE(CObjUSER* pCHAR, short nSkillIDX, short nCol, i
 #ifndef	__SERVER
   iAbilityValue = pCHAR->GetCur_AbilityValue( SKILL_INCREASE_ABILITY(nSkillIDX, nCol) );
 #else
-	iAbilityValue = pCHAR->Get_AbilityValue   ( SKILL_INCREASE_ABILITY(nSkillIDX, nCol) );
+  iAbilityValue = pCHAR->Get_AbilityValue   ( SKILL_INCREASE_ABILITY(nSkillIDX, nCol) );
 #endif
 
   return (short)(iAbilityValue * SKILL_CHANGE_ABILITY_RATE(nSkillIDX, nCol) / 100.f + SKILL_INCREASE_ABILITY_VALUE(nSkillIDX, nCol) * (iSpellerINT + 300) / 315.f);

@@ -24,7 +24,7 @@ private:
 
 public :
 	static bool Get_DropITEM (int iLevelDiff, CObjMOB *pMobCHAR, tagITEM &sITEM, int iZoneNO, int iDropRate, int iCharm);
-	static __int64	Get_EXP (CObjCHAR *pAtkCHAR, CObjCHAR *pDefCHAR, int iGiveDamage);
+	static int64_t	Get_EXP (CObjCHAR *pAtkCHAR, CObjCHAR *pDefCHAR, int iGiveDamage);
 
 	static WORD Get_DAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, WORD wHitCNT);
 	static WORD Get_SkillDAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, short nSkillIDX, WORD wHitCNT);
@@ -85,7 +85,7 @@ public :
 		return ( (iCurPartyLEV+7) * (iCurPartyLEV+10)*5 ) + 200;
 	}
 
-	static __int64 Get_NeedRawEXP (int iLevel);
+	static int64_t Get_NeedRawEXP (int iLevel);
 } ;
 
 //-------------------------------------------------------------------------------------------------

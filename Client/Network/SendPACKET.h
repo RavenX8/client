@@ -173,8 +173,8 @@ public :
 
   void Send_cli_CLANMARK_REG_TIME();
 
-  void Send_cli_MOVE_ZULY_INV2BANK(__int64 i64MoveZuly);
-  void Send_cli_MOVE_ZULY_BANK2INV(__int64 i64MoveZuly);
+  void Send_cli_MOVE_ZULY_INV2BANK(int64_t i64MoveZuly);
+  void Send_cli_MOVE_ZULY_BANK2INV(int64_t i64MoveZuly);
 
   void Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuestObjIDX_);
 

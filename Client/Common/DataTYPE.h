@@ -1,102 +1,102 @@
 /*
-	** 모델 데이타 text 작성법.
-	numobj 1
-	obj 1
-		mesh 		3Ddata\????.ZMS		-- 메쉬 파일
-		mat 		3Ddata\????.tga		-- 텍스쳐 파일
-		isskin   	0					-- skinning		on:1, off:0		*주의 bonenumber 같이 사용안된다 !
-		alpha 		0					-- alpha		on:1, off:0
-		twoside 	0					-- twoside		on:1, off:0
-		alphatest	1                   -- 알파테스트 여부. on:1, off:0.              2003/10/10 추가됨.
-		alpharef	128                 -- 알파테스트시 비교값. 0-255.                2003/10/10 추가됨.
-		ztest		1                   -- Z테스트.  on:1, off:0.                     2003/10/10 추가됨.
-		zwrite		1                   -- Z값 쓰기. on:1, off:0.                     2003/10/10 추가됨.
-		blendtype	0                   -- 블렌딩타입. 기본:0, 밝게:1.                2003/10/10 추가됨.
-		specular	0                   -- 스페큘러 여부. on:1, off:0.				  2003/10/10 추가됨.
-		alphavalue 1.0				-- 재질 기본 전체 알파. 기본값 1.0		2004/07/23 추가됨.
-		glowtype 0					-- 재질 글로우 타입 기본값 0					2004/07/25 추가됨.
-		glowcolor 0.5 0.5 0.5    -- 글로우 컬러. 기본 1, 1, 1. 범위 0에서 1사이. 2004/07/22 추가됨.
-		pos	0.0 0.0 0.0					-- export에서 기록되는 정보 
-		rot -0.xxx 0.xxx -0.xxx -0.xxx	-- export에서 기록되는 정보 
-		scale 1.0 1.0 1.0				-- export에서 기록되는 정보 
-		linkdummy	?					-- 장착 아이템의 경우 위치할 더미 번호.
-		bonenumber	?					-- 위치할 본의 번호				*주의 isskin과 같이 사용안된다 !
-		parent		0					
-		collision	4					-- 충돌 체크, 필드 아이템, 건물 나무등은 4입력  풀, 나무잎등은 필요 없음.
+  ** 모델 데이타 text 작성법.
+  numobj 1
+  obj 1
+    mesh 		3Ddata\????.ZMS		-- 메쉬 파일
+    mat 		3Ddata\????.tga		-- 텍스쳐 파일
+    isskin   	0					-- skinning		on:1, off:0		*주의 bonenumber 같이 사용안된다 !
+    alpha 		0					-- alpha		on:1, off:0
+    twoside 	0					-- twoside		on:1, off:0
+    alphatest	1                   -- 알파테스트 여부. on:1, off:0.              2003/10/10 추가됨.
+    alpharef	128                 -- 알파테스트시 비교값. 0-255.                2003/10/10 추가됨.
+    ztest		1                   -- Z테스트.  on:1, off:0.                     2003/10/10 추가됨.
+    zwrite		1                   -- Z값 쓰기. on:1, off:0.                     2003/10/10 추가됨.
+    blendtype	0                   -- 블렌딩타입. 기본:0, 밝게:1.                2003/10/10 추가됨.
+    specular	0                   -- 스페큘러 여부. on:1, off:0.				  2003/10/10 추가됨.
+    alphavalue 1.0				-- 재질 기본 전체 알파. 기본값 1.0		2004/07/23 추가됨.
+    glowtype 0					-- 재질 글로우 타입 기본값 0					2004/07/25 추가됨.
+    glowcolor 0.5 0.5 0.5    -- 글로우 컬러. 기본 1, 1, 1. 범위 0에서 1사이. 2004/07/22 추가됨.
+    pos	0.0 0.0 0.0					-- export에서 기록되는 정보 
+    rot -0.xxx 0.xxx -0.xxx -0.xxx	-- export에서 기록되는 정보 
+    scale 1.0 1.0 1.0				-- export에서 기록되는 정보 
+    linkdummy	?					-- 장착 아이템의 경우 위치할 더미 번호.
+    bonenumber	?					-- 위치할 본의 번호				*주의 isskin과 같이 사용안된다 !
+    parent		0					
+    collision	4					-- 충돌 체크, 필드 아이템, 건물 나무등은 4입력  풀, 나무잎등은 필요 없음.
 
-		mob_stop	3DData\???.ZMO		-- 몬스터 모델중 메쉬 에니메이션이되는 경우 각 행동에 맞는 모션 파일을 기록	
-		mob_move	3DData\???.ZMO		-- 별도의 모션 파일이 지정이 필요 없을 경우는 없는 추가하지 않는다.
-		mob_attack	3DData\???.ZMO      -- 모션이 지정되지 않으면 정지 모션이 사용된다.
-		mob_die		3DData\???.ZMO
-		mob_hit		3DData\???.ZMO
-		mob_etc		3DData\???.ZMO
+    mob_stop	3DData\???.ZMO		-- 몬스터 모델중 메쉬 에니메이션이되는 경우 각 행동에 맞는 모션 파일을 기록	
+    mob_move	3DData\???.ZMO		-- 별도의 모션 파일이 지정이 필요 없을 경우는 없는 추가하지 않는다.
+    mob_attack	3DData\???.ZMO      -- 모션이 지정되지 않으면 정지 모션이 사용된다.
+    mob_die		3DData\???.ZMO
+    mob_hit		3DData\???.ZMO
+    mob_etc		3DData\???.ZMO
 
-		avt_walk	3DData\???.ZMO		-- 아바타 모델중 메쉬 에니메이션이 되는것은 각 동작에 맞는 모션 파일을 기록.
-		avt_attack  3DData\???.ZMO		-- 몬스터 모션 설정과 동일.
-		avt_stop1	3DData\???.ZMO
-		avt_stop2	3DData\???.ZMO
-		avt_run		3DData\???.ZMO
-		avt_sitting	3DData\???.ZMO
-		avt_sit		3DData\???.ZMO
-		avt_standup	3DData\???.ZMO
-		avt_stop3	3DData\???.ZMO
-		avt_hit		3DData\???.ZMO
-		avt_fall	3DData\???.ZMO
-		avt_die		3DData\???.ZMO
-		avt_raise	3DData\???.ZMO
-
-
-	numpoint 1
-	point 1
-		effect		3DDATA\????.eft		-- 포인트에 링크될 효과 파일 없으면 공백으로...
-		parent 1						-- 포인트가 위치한 obj 번호
-		pos	0.0 0.0 0.0					-- export에서 기록되는 정보 
-		rot -0.xxx 0.xxx -0.xxx -0.xxx	-- export에서 기록되는 정보 
-		scale 1.0 1.0 1.0				-- export에서 기록되는 정보 
+    avt_walk	3DData\???.ZMO		-- 아바타 모델중 메쉬 에니메이션이 되는것은 각 동작에 맞는 모션 파일을 기록.
+    avt_attack  3DData\???.ZMO		-- 몬스터 모션 설정과 동일.
+    avt_stop1	3DData\???.ZMO
+    avt_stop2	3DData\???.ZMO
+    avt_run		3DData\???.ZMO
+    avt_sitting	3DData\???.ZMO
+    avt_sit		3DData\???.ZMO
+    avt_standup	3DData\???.ZMO
+    avt_stop3	3DData\???.ZMO
+    avt_hit		3DData\???.ZMO
+    avt_fall	3DData\???.ZMO
+    avt_die		3DData\???.ZMO
+    avt_raise	3DData\???.ZMO
 
 
-	케릭터 :
-		isskin 과 bonenumber 가 동시에 1이 되면 않된다.
+  numpoint 1
+  point 1
+    effect		3DDATA\????.eft		-- 포인트에 링크될 효과 파일 없으면 공백으로...
+    parent 1						-- 포인트가 위치한 obj 번호
+    pos	0.0 0.0 0.0					-- export에서 기록되는 정보 
+    rot -0.xxx 0.xxx -0.xxx -0.xxx	-- export에서 기록되는 정보 
+    scale 1.0 1.0 1.0				-- export에서 기록되는 정보 
 
-	무기 :
-		-- 무기가 장창될 linkdummy를 반드시 기록한다.
+
+  케릭터 :
+    isskin 과 bonenumber 가 동시에 1이 되면 않된다.
+
+  무기 :
+    -- 무기가 장창될 linkdummy를 반드시 기록한다.
 
 
-	건물 & 지형물 :
-		-- 충돌 체크가 필요한 부분은 collision 을 기록한다.
-		-- 나뭇잎등 케릭터 위쪽에 위치하는것들의 경우 collision을 0으로 하거나 삭제한다.
+  건물 & 지형물 :
+    -- 충돌 체크가 필요한 부분은 collision 을 기록한다.
+    -- 나뭇잎등 케릭터 위쪽에 위치하는것들의 경우 collision을 0으로 하거나 삭제한다.
 
-	필드 아이템 :
-		-- 반드시 collision 값을 4로 설정한다.
+  필드 아이템 :
+    -- 반드시 collision 값을 4로 설정한다.
 */
 /*
-	** 캐릭터 더미 포인트 순서.
-		0 : 오른손
-		1 : 왼손
-		2 : 왼손 방패
-		3 : 등장비
-		4 : 입
-		5 : 눈
-		6 : 모자
-		7 : 타격 지점
-*/
-
-/*
-	** 무기 포인트 순서 ( 효과 장착 포인트는 3개를 만듦)
-		0 ~ 1 : 칼일 경우 잔상이 그려질 두점 
-		0 : 원거리 무기 총알 발사 위치.
-		1 ~ 나머지 : 기타 효과 장착 위치. 칼일경우 2번 포인트 부터.
+  ** 캐릭터 더미 포인트 순서.
+    0 : 오른손
+    1 : 왼손
+    2 : 왼손 방패
+    3 : 등장비
+    4 : 입
+    5 : 눈
+    6 : 모자
+    7 : 타격 지점
 */
 
 /*
-	** 아바타 본 인덱스.
-		0 :
-		1 :
-		2 :
-		3 :
-		4 : 머리
-		5 :
-		6 :
+  ** 무기 포인트 순서 ( 효과 장착 포인트는 3개를 만듦)
+    0 ~ 1 : 칼일 경우 잔상이 그려질 두점 
+    0 : 원거리 무기 총알 발사 위치.
+    1 ~ 나머지 : 기타 효과 장착 위치. 칼일경우 2번 포인트 부터.
+*/
+
+/*
+  ** 아바타 본 인덱스.
+    0 :
+    1 :
+    2 :
+    3 :
+    4 : 머리
+    5 :
+    6 :
 */
 
 /*
@@ -197,8 +197,8 @@ struct tPOINT16 {
 typedef CVec2 tPOINTF;
 /*
 struct tPOINTF {
-	float	m_fX;
-	float	m_fY;
+  float	m_fX;
+  float	m_fY;
 */
 #endif
 
@@ -225,7 +225,7 @@ typedef LPDIRECT3DVERTEXBUFFER9 LPD3DVERTEXBUFFER;
 
 typedef D3DVECTOR t_POSITION;
 #else
-	typedef	tPOINTF						t_POSITION;
+  typedef	tPOINTF						t_POSITION;
 #endif
 
 #define	MIN_PRICE_TYPE		1
@@ -334,7 +334,7 @@ enum t_eRidePART {
   RIDE_PART_ABIL,
   RIDE_PART_ARMS,
 #else
-	RIDE_PART_ARMS,		
+  RIDE_PART_ARMS,		
 #endif
 
   MAX_RIDING_PART
@@ -346,18 +346,18 @@ enum t_eRidePART {
 
 enum t_InvTYPE 
 {
-	INV_WEAPON			= 0,
-	INV_USE,
-	INV_ETC,
-	INV_MILEAGE_AVATA,	
+  INV_WEAPON			= 0,
+  INV_USE,
+  INV_ETC,
+  INV_MILEAGE_AVATA,	
 
-	INV_TYPE_SIZE,
+  INV_TYPE_SIZE,
 
-	INV_RIDING			= INV_TYPE_SIZE,
-	INV_ETC_PAT,
-	INV_MILEAGE_PAT,
+  INV_RIDING			= INV_TYPE_SIZE,
+  INV_ETC_PAT,
+  INV_MILEAGE_PAT,
 
-	MAX_INV_TYPE,
+  MAX_INV_TYPE,
 };
 #else
 */
@@ -881,14 +881,14 @@ enum eING_TYPE {
 #define	FLAG_ING_CHECK_PER_TICK		( 0xfffffff0 )									/// 매 틱마다 유지 시간만 체크하면됨 
 
 #define	FLAG_ING_BAD	(	FLAG_ING_POISONED		| FLAG_ING_DEC_MOV_SPEED| FLAG_ING_DEC_ATK_SPEED	\
-						  | FLAG_ING_DEC_APOWER		| FLAG_ING_DEC_DPOWER	| FLAG_ING_DEC_RES			\
-						  | FLAG_ING_DEC_HIT		| FLAG_ING_DEC_CRITICAL | FLAG_ING_DEC_AVOID		\
-						  |	FLAG_ING_DUMB			| FLAG_ING_SLEEP		| FLAG_ING_FAINTING	)
+              | FLAG_ING_DEC_APOWER		| FLAG_ING_DEC_DPOWER	| FLAG_ING_DEC_RES			\
+              | FLAG_ING_DEC_HIT		| FLAG_ING_DEC_CRITICAL | FLAG_ING_DEC_AVOID		\
+              |	FLAG_ING_DUMB			| FLAG_ING_SLEEP		| FLAG_ING_FAINTING	)
 #define	FLAG_ING_GOOD	(	FLAG_ING_MAX_HP			| FLAG_ING_MAX_MP		| FLAG_ING_INC_MOV_SPEED	\
-						  | FLAG_ING_INC_ATK_SPEED	| FLAG_ING_INC_APOWER	| FLAG_ING_INC_DPOWER		\
-						  | FLAG_ING_INC_RES		| FLAG_ING_INC_HIT		| FLAG_ING_INC_CRITICAL		\
-						  | FLAG_ING_INC_AVOID		| FLAG_ING_SHIELD_DAMAGE| FLAG_ING_DUMMY_DAMAGE		\
-						  | FLAG_ING_DISGUISE		| FLAG_ING_TRANSPARENT	)
+              | FLAG_ING_INC_ATK_SPEED	| FLAG_ING_INC_APOWER	| FLAG_ING_INC_DPOWER		\
+              | FLAG_ING_INC_RES		| FLAG_ING_INC_HIT		| FLAG_ING_INC_CRITICAL		\
+              | FLAG_ING_INC_AVOID		| FLAG_ING_SHIELD_DAMAGE| FLAG_ING_DUMMY_DAMAGE		\
+              | FLAG_ING_DISGUISE		| FLAG_ING_TRANSPARENT	)
 /// 모든 상태 삭제시 dwSTATUS & FLAG_ING_CLEAR로 삭제해야 됨...
 #define	FLAG_ING_CLEAR	(	FLAG_ING_DEC_LIFE_TIME | FLAG_ING_STORE_MODE | FLAG_ING_INTRO_CHAT )
 

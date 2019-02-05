@@ -35,7 +35,7 @@ WORD CGameUtil::GetSubLanguage() {
   return SUBLANGID( LOWORD( GetKeyboardLayout(0) ) );
 }
 
-void   CGameUtil::ConvertMoney2String(__int64 money, char* buffer, int buffer_size) {
+void   CGameUtil::ConvertMoney2String(int64_t money, char* buffer, int buffer_size) {
   char temp_buf[128];
 
   _i64toa( money, temp_buf, 10 );

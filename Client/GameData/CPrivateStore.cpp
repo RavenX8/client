@@ -409,7 +409,7 @@ bool CPrivateStore::Open() {
   int        iBuyItemCount = 0;
   tagPS_ITEM BuyItems[MAX_P_STORE_ITEM_SLOT];
 
-  __int64 i64RequireMoney = 0;
+  int64_t i64RequireMoney = 0;
 
   std::list<CItemFragment*>::iterator iterBuyList;
   for ( iterBuyList                        = m_BuyItems.begin(); iterBuyList != m_BuyItems.end(); ++iterBuyList, ++iBuyItemCount ) {

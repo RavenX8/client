@@ -158,8 +158,8 @@ public:
   void BeginAppraisal();
   void EndAppraisal();
 
-  __int64 GetAppraisalCost();
-  void    SetAppraisalCost(__int64 i64Cost);
+  int64_t GetAppraisalCost();
+  void    SetAppraisalCost(int64_t i64Cost);
 
   void SetUsingRepairItemInvenIdx(int iItemInvenIdx);
   int  GetUsingRepairItemInvenIdx();
@@ -280,7 +280,7 @@ private:
   int  m_iAppraisalMode;
 
   DWORD   m_dwRight; ///±ÇÇÑ
-  __int64 m_i64AppraisalCost;
+  int64_t m_i64AppraisalCost;
 
   bool m_bLoadedBasicData2;
   int  m_iJoinChannelNo;

@@ -1053,7 +1053,7 @@ void        IT_MGR::AppendChatMsg(const char* pszMsg, int iType, DWORD forceappl
 //}
 
 /// Invoker Dialog ID = iDlgID
-void        IT_MGR::ShowNumberInputDlg(CTCmdNumberInput* pCmd, CTObject* pCmdParam, __int64 iMaxNumber) {
+void        IT_MGR::ShowNumberInputDlg(CTCmdNumberInput* pCmd, CTObject* pCmdParam, int64_t iMaxNumber) {
   CTDialog* pDlg = nullptr;
   pDlg           = FindDlg( DLG_TYPE_N_INPUT );
   if ( pDlg ) {

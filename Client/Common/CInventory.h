@@ -9,7 +9,7 @@ class CInventory {
 public :
   static t_InvTYPE m_InvTYPE[ ITEM_TYPE_MONEY ];
 
-  __int64 m_i64Money;
+  int64_t m_i64Money;
 
   union {
     // m_ItemLIST[ 0 ]은 서버에서 돈아이템이다...

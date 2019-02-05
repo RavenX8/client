@@ -79,7 +79,7 @@ void CBankWindowDlg::OnLButtonUp(unsigned proc_id) {
       if ( pCtrl && pCtrl->GetControlType() == CTRL_EDITBOX ) {
         CTEditBox* pEditBox = (CTEditBox*)pCtrl;
         if ( char* text     = pEditBox->get_text() ) {
-          __int64  zuly     = _atoi64( text );
+          int64_t  zuly     = _atoi64( text );
           if ( zuly > 0 ) {
             switch ( m_Type ) {
               case TYPE_SAVE: if ( zuly <= g_pAVATAR->Get_MONEY() )

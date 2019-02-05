@@ -81,7 +81,7 @@ void CClan::SetStoreRate(int iRate) {
   m_iStoreRate = iRate;
 }
 
-void CClan::SetMoney(__int64 i64Money) {
+void CClan::SetMoney(int64_t i64Money) {
   m_i64Money = i64Money;
 }
 
@@ -137,7 +137,7 @@ int CClan::GetStoreRate() {
   return m_iStoreRate;
 }
 
-__int64 CClan::GetMoney() {
+int64_t CClan::GetMoney() {
   return m_i64Money;
 }
 

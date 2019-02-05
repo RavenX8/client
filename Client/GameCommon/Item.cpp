@@ -1210,11 +1210,11 @@ void        CItem::AddItemPrice(tagITEM& sItem, DWORD dwDlgType, DWORD dwType, C
     CGameUtil::ConvertMoney2String( iPrice, money_buffer, money_buffer_size );
     pszBuf = CStr::Printf( "%s:%s",STR_UNIT_PRICE, money_buffer );
   } else if ( dwType & INFO_ADD_PRICE_REPAIR ) {
-    __int64 iRepairPrice = 0;
+    int64_t iRepairPrice = 0;
     if ( (sItem.GetTYPE() == ITEM_TYPE_RIDE_PART || sItem.IsEquipITEM()) &&
          sItem.GetLife() < 1000 &&
          sItem.GetDurability() > 0 ) {
-      __int64 i64BasePrice = ITEM_BASE_PRICE( sItem.GetTYPE(), sItem.GetItemNO() );
+      int64_t i64BasePrice = ITEM_BASE_PRICE( sItem.GetTYPE(), sItem.GetItemNO() );
       iRepairPrice         = (i64BasePrice + 1000) * (sItem.GetDurability() + 10) * (1100 - sItem.GetLife()) / 400000;
     }
 

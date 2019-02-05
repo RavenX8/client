@@ -1875,7 +1875,7 @@ void CRecvPACKET::Recv_gsv_SETEXP() {
   /// 해당 몹이 죽는 타이밍에 경험치 획득 메세지를 출력하기 위해서
   if ( m_pRecvPacket->m_gsv_SETEXP.m_wFromObjIDX == 0 ) {
     /// 갱신된 내 경험치다...
-    long lDiff =
+    int64_t lDiff =
       m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
 
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
@@ -1905,7 +1905,7 @@ void CRecvPACKET::Recv_gsv_SETEXP() {
   } else {
     /// 현재 경험치를 넣었더니.. 처리 순서가 틀려지만 - 경험치를 얻을 경우가
     /// 있다..
-    long lDiff =
+    int64_t lDiff =
       m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
     if ( lDiff < 0 ) {
@@ -1946,7 +1946,7 @@ void       CRecvPACKET::Recv_gsv_LEVELUP() {
       if ( m_pRecvPacket->m_gsv_LEVELUP.m_nSize != sizeof( gsv_LEVELUP ) )
         return;
 
-      __int64 lDiffExp = g_pAVATAR->Get_NeedEXP( g_pAVATAR->Get_LEVEL() ) +
+      int64_t lDiffExp = g_pAVATAR->Get_NeedEXP( g_pAVATAR->Get_LEVEL() ) +
                          m_pRecvPacket->m_gsv_LEVELUP.m_lCurEXP -
                          g_GameDATA.m_iReceivedAvatarEXP;
 
@@ -3852,8 +3852,8 @@ void CRecvPACKET::Recv_gsv_BANK_LIST_REPLY() {
         m_pRecvPacket->m_gsv_BANK_LIST_REPLY.m_btItemCNT;
 
       if ( m_pRecvPacket->m_HEADER.m_nSize == Not_IncludeMoneyPacketSize + 8 ) {
-        __int64* money = (__int64 *)Packet_GetDataPtr(
-          m_pRecvPacket, Not_IncludeMoneyPacketSize, sizeof( __int64 ) );
+        int64_t* money = (int64_t *)Packet_GetDataPtr(
+          m_pRecvPacket, Not_IncludeMoneyPacketSize, sizeof( int64_t ) );
         CBank::GetInstance().SetMoney( *money );
       }
     }
@@ -3898,7 +3898,7 @@ void CRecvPACKET::Recv_gsv_MOVE_ITEM() {
                             m_pRecvPacket->m_gsv_MOVE_ITEM.m_BankITEM );
 
   // 패킷 사이즈 == gsv_MOVE_ITEM 이면				창고=>인벤토리
-  // 이동 패킷 사이즈 == gsv_MOVE_ITEM+sizeof(__int64)면	인벤=>창고,
+  // 이동 패킷 사이즈 == gsv_MOVE_ITEM+sizeof(int64_t)면	인벤=>창고,
   // m_iCurMoney[0]에 돈들어 있음
   if ( m_pRecvPacket->m_HEADER.m_nSize > sizeof( gsv_MOVE_ITEM ) )
     g_pAVATAR->Set_MONEY( m_pRecvPacket->m_gsv_MOVE_ITEM.m_iCurMoney[0] );
@@ -4760,7 +4760,7 @@ void CRecvPACKET::Recv_gsv_REPAIRED_FROM_NPC() {
 }
 
 void      CRecvPACKET::Recv_gsv_SET_MONEY_ONLY() {
-  __int64 i64Diff =
+  int64_t i64Diff =
     m_pRecvPacket->m_gsv_SET_MONEY_ONLY.m_i64Money - g_pAVATAR->Get_MONEY();
 
   if ( i64Diff > 0 )
@@ -4775,7 +4775,7 @@ void      CRecvPACKET::Recv_gsv_SET_MONEY_ONLY() {
 }
 
 void      CRecvPACKET::Recv_gsv_REWARD_MONEY() {
-  __int64 i64Diff =
+  int64_t i64Diff =
     m_pRecvPacket->m_gsv_SET_MONEY_ONLY.m_i64Money - g_pAVATAR->Get_MONEY();
 
   if ( i64Diff > 0 )

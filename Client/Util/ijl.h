@@ -57,8 +57,8 @@ extern "C" {
   /* Size of file I/O buffer (4K). */
 #define JBUFSIZE    4096
 
-#define IJL_INT64  __int64
-#define IJL_UINT64 unsigned IJL_INT64
+#define IJL_INT64  int64_t
+#define IJL_UINT64 uint64_t
 
 #ifndef IJLAPI
 #ifdef IJL_MSEXPORTS

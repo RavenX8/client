@@ -14,17 +14,17 @@ extern "C" {
 LUA에서 호출되도록 등록할 함수의 형태.
 int lua_Write (lua_State *L)
 {
-	int i, n = lua_gettop(L);	//
+  int i, n = lua_gettop(L);	//
 
-	printf ("-----> lua_Write ArgCnt: %d\n", n);
+  printf ("-----> lua_Write ArgCnt: %d\n", n);
 
-	char *pStr;
-	for (i=1; i<=n; i++) {
-		pStr = (char*)lua_tostring(L, i);
-		printf ("%s", pStr);
-	}
+  char *pStr;
+  for (i=1; i<=n; i++) {
+    pStr = (char*)lua_tostring(L, i);
+    printf ("%s", pStr);
+  }
 
-	return 0;
+  return 0;
 }
 */
 

@@ -280,7 +280,7 @@ public:
   void Set_JOB(int   iValue);
 
   void Set_LEVEL(int        iValue) { SetCur_LEVEL( iValue ); }
-  void Set_EXP(__int64      lValue) { SetCur_EXP( lValue ); }
+  void Set_EXP(int64_t      lValue) { SetCur_EXP( lValue ); }
   void Set_BonusPOINT(short nValue) { SetCur_BonusPOINT( nValue ); }
   void Set_SkillPOINT(short nValue) { SetCur_SkillPOINT( nValue ); }
 
@@ -309,8 +309,8 @@ public:
   short Get_MaxWEIGHT() { return GetCur_MaxWEIGHT(); }
   int   Get_MAG() { return GetCur_MAG(); } // ¸¶¹ý·Â
 
-  void    Set_MONEY(__int64 iMoney) { SetCur_MONEY( iMoney ); }
-  __int64 Get_MONEY() { return GetCur_MONEY(); } // µ·
+  void    Set_MONEY(int64_t iMoney) { SetCur_MONEY( iMoney ); }
+  int64_t Get_MONEY() { return GetCur_MONEY(); } // µ·
   void    Add_MONEY(int iMoney) { Add_CurMONEY( iMoney ); }
 
   short Add_ITEM(short nListRealNO, tagITEM& sITEM) override;

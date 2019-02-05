@@ -384,8 +384,8 @@ int CFileSystemNormal::ReadInt32(int* pValue) {
   return Read( pValue, sizeof( int ) );
 }
 
-int CFileSystemNormal::ReadInt64(__int64* pValue) {
-  return Read( pValue, sizeof( __int64 ) );
+int CFileSystemNormal::ReadInt64(int64_t* pValue) {
+  return Read( pValue, sizeof( int64_t ) );
 }
 
 int CFileSystemNormal::ReadUInt16(unsigned short* pValue) {
@@ -396,8 +396,8 @@ int CFileSystemNormal::ReadUInt32(unsigned int* pValue) {
   return Read( pValue, sizeof( unsigned int ) );
 }
 
-int CFileSystemNormal::ReadUInt64(unsigned __int64* pValue) {
-  return Read( pValue, sizeof( unsigned __int64 ) );
+int CFileSystemNormal::ReadUInt64(uint64_t* pValue) {
+  return Read( pValue, sizeof(uint64_t) );
 }
 
 // Specific write method
@@ -455,8 +455,8 @@ void CFileSystemNormal::WriteInt32(int* pValue, const char* strValueName) {
   Write( pValue, sizeof( int ) );
 }
 
-void CFileSystemNormal::WriteInt64(__int64* pValue, const char* strValueName) {
-  Write( pValue, sizeof( __int64 ) );
+void CFileSystemNormal::WriteInt64(int64_t* pValue, const char* strValueName) {
+  Write( pValue, sizeof( int64_t ) );
 }
 
 void CFileSystemNormal::WriteUInt16(unsigned short* pValue, const char* strValueName) {
@@ -467,6 +467,6 @@ void CFileSystemNormal::WriteUInt32(unsigned int* pValue, const char* strValueNa
   Write( pValue, sizeof( unsigned int ) );
 }
 
-void CFileSystemNormal::WriteUInt64(unsigned __int64* pValue, const char* strValueName) {
-  Write( pValue, sizeof( unsigned __int64 ) );
+void CFileSystemNormal::WriteUInt64(uint64_t* pValue, const char* strValueName) {
+  Write( pValue, sizeof(uint64_t) );
 }

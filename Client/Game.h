@@ -1,5 +1,5 @@
 /*
-	$Header: /Client/Game.h 98    05-08-25 1:50p Choo0219 $
+  $Header: /Client/Game.h 98    05-08-25 1:50p Choo0219 $
 */
 #ifndef	__GAME_H
 #define	__GAME_H
@@ -69,7 +69,7 @@ public:
   bool m_bShowDropItemInfo; // 드랍아이템 정보 보이기( 현재 alt 키가 눌릴경우 활성화 )
 
 #ifdef _DEBUG
-	bool				m_bShowCurPos;
+  bool				m_bShowCurPos;
 #endif
 
   int m_iPvPState; /// PvP State
@@ -149,13 +149,13 @@ public:
   bool m_bJustObjectLoadMode; /// 지형 블락을 등록하지 않을 것인가?
 
 #if defined( _DEBUG ) || defined( _D_RELEASE )
-	bool				m_bObserverCameraMode; /// 디버깅용 업져버 카메라..
+  bool				m_bObserverCameraMode; /// 디버깅용 업져버 카메라..
 #endif
 
   //--------------------------------------------------------------------------------------
   /// 경험치 획득 딜레이를 위한 변수
   //--------------------------------------------------------------------------------------
-  __int64 m_iReceivedAvatarEXP;
+  int64_t m_iReceivedAvatarEXP;
 
   //--------------------------------------------------------------------------------------
   /// 서버및 채널 정보

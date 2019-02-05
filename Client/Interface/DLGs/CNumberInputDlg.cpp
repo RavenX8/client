@@ -129,7 +129,7 @@ void CNumberInputDlg::AppendText(char* szText) {
   }
 }
 
-__int64 CNumberInputDlg::GetNumberFromEditBox() {
+int64_t CNumberInputDlg::GetNumberFromEditBox() {
 
   CWinCtrl* pCtrl = Find( IID_EDITBOX );
   if ( pCtrl && pCtrl->GetControlType() == CTRL_EDITBOX ) {
@@ -147,7 +147,7 @@ __int64 CNumberInputDlg::GetNumberFromEditBox() {
 
     strncpy( szText, pszText, iSize );
 
-    __int64 iRet = _atoi64( szText );
+    int64_t iRet = _atoi64( szText );
 
     ///맥스 제한이 걸렸고 입력값이 맥스보다 클경우
     if ( m_iMaxNumber >= 0 && m_iMaxNumber < iRet )

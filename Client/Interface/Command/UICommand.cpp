@@ -242,7 +242,7 @@ bool        CTCmdOpenNumberInputDlg::Exec(CTObject* pObj) {
   if ( pDlg ) {
     CNumberInputDlg* pNInputDlg = (CNumberInputDlg*)pDlg;
 
-    __int64   iMaxNumber = 0;
+    int64_t   iMaxNumber = 0;
     CTObject* pCmdParam  = nullptr;
     if ( pObj == nullptr ) ///µ·ÀÏ°æ¿ì
     {
@@ -295,7 +295,7 @@ void CTCmdOpenNumberInputDlg::SetCommand(CTCmdNumberInput* pCmd) {
   m_pCmd = pCmd;
 }
 
-void CTCmdOpenNumberInputDlg::SetMaximum(__int64 i64Maximum) {
+void CTCmdOpenNumberInputDlg::SetMaximum(int64_t i64Maximum) {
   m_i64Maximum = i64Maximum;
 }
 

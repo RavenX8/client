@@ -81,7 +81,7 @@ struct tagGrowAbility {
   short	m_nHP;				// 0~2000
   short	m_nMP;				// 0~1000
 
-  __int64	m_lEXP;				// 경험치 1~100000
+  int64_t	m_lEXP;				// 경험치 1~100000
   short	m_nLevel;			// 0~250
   short	m_nBonusPoint;		// 1~999
   short	m_nSkillPoint;		// 1~
@@ -540,7 +540,7 @@ public :
   virtual void  SetCur_JOB (short nValue)	{	this->m_BasicINFO.m_nClass=nValue;			}
 
   void  SetCur_LEVEL(WORD wValue)			{	this->m_GrowAbility.m_nLevel = ( wValue>MAX_LEVEL) ? MAX_LEVEL : wValue;	}
-  void  SetCur_EXP (__int64 lValue)			{	this->m_GrowAbility.m_lEXP=lValue;			}
+  void  SetCur_EXP (int64_t lValue)			{	this->m_GrowAbility.m_lEXP=lValue;			}
   void  SetCur_BonusPOINT(short nValue)	{	this->m_GrowAbility.m_nBonusPoint=nValue;	}
   void  SetCur_SkillPOINT(short nValue)	{	this->m_GrowAbility.m_nSkillPoint=nValue;	}
 
@@ -659,7 +659,7 @@ public :
   virtual short GetCur_PartITEM(short nPartIdx) = 0;
 
 public :
-  __int64	Get_NeedEXP (int iLevel)
+  int64_t	Get_NeedEXP (int iLevel)
   {
     return ( m_GrowAbility.m_lPenalEXP + CCal::Get_NeedRawEXP(iLevel) );
   }

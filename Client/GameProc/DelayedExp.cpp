@@ -12,7 +12,7 @@ CDelayedExp::CDelayedExp(void) {}
 
 CDelayedExp::~CDelayedExp(void) {}
 
-void       CDelayedExp::PushEXPData(int iOwnerIndex, int iAddExp, int iEXP, int iStamina) {
+void       CDelayedExp::PushEXPData(int iOwnerIndex, int64_t iAddExp, int64_t iEXP, int iStamina) {
   EXP_DATA data;
   data.iAddExp     = iAddExp;
   data.iExp        = iEXP;

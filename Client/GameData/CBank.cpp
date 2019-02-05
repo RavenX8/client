@@ -124,10 +124,10 @@ bool CBank::HasEmptySlot(bool bPlatinum) {
   return true;
 }
 
-void CBank::SetMoney(__int64 money) {
+void CBank::SetMoney(int64_t money) {
   m_Money = money;
 }
 
-__int64 CBank::GetMoney() {
+int64_t CBank::GetMoney() {
   return m_Money;
 }

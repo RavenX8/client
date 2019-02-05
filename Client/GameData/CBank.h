@@ -28,14 +28,14 @@ public:
   void    SetNpcClientIndex(int iIndex);
   int     GetNpcClientIndex();
   bool    HasEmptySlot(bool bPlatinum);
-  void    SetMoney(__int64  money);
-  __int64 GetMoney();
+  void    SetMoney(int64_t  money);
+  int64_t GetMoney();
 
 private:
   std::map<int, CItem*> m_Items;
 
   int     m_iNpcClientIndex;
-  __int64 m_Money;
+  int64_t m_Money;
 
   //CItem* CreateItem( tagITEM& Item );
 };

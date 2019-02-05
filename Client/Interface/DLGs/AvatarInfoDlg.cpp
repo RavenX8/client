@@ -161,13 +161,13 @@ void CAvatarInfoDlg::Update(POINT ptMouse) {
     }
   }
 
-  __int64 i64Per = 0;
+  int64_t i64Per = 0;
   pGuage         = (CTGuage*)Find( IID_GUAGE_EXP );
   if ( pGuage ) {
-    __int64 i64Value             = g_pAVATAR->Get_EXP();
+    int64_t i64Value             = g_pAVATAR->Get_EXP();
     if ( i64Value < 0 ) i64Value = 0;
 
-    __int64 i64Max = g_pAVATAR->Get_NeedEXP( g_pAVATAR->Get_LEVEL() );
+    int64_t i64Max = g_pAVATAR->Get_NeedEXP( g_pAVATAR->Get_LEVEL() );
     if ( i64Max != 0 ) {
 
       i64Per = i64Value * 1000 / i64Max;

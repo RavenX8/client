@@ -85,7 +85,7 @@ public :
 		return ( (iCurPartyLEV+7) * (iCurPartyLEV+10)*5 ) + 200;
 	}
 
-	static __int64 Get_NeedRawEXP (int iLevel);
+	static int64_t Get_NeedRawEXP (int iLevel);
 } ;
 
 //-------------------------------------------------------------------------------------------------

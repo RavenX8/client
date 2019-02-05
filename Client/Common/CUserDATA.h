@@ -80,13 +80,13 @@ struct tagGrowAbility {
   short m_nHP; // 0~2000
   short m_nMP; // 0~1000
 
-  __int64 m_lEXP;        // 경험치 1~100000
+  int64_t m_lEXP;        // 경험치 1~100000
   short   m_nLevel;      // 0~250
   short   m_nBonusPoint; // 1~999
   short   m_nSkillPoint; // 1~
   BYTE    m_btBodySIZE;  // 몸통크기
   BYTE    m_btHeadSIZE;  // 머리크기
-  __int64 m_lPenalEXP;   // 추가 경험치...
+  int64_t m_lPenalEXP;   // 추가 경험치...
 
   short m_nFameG;                         // 선행지수	: 퀘스트에 의해 증감됨	: 2004.5.27 추가
   short m_nFameB;                         // 선행지수 : 퀘스트에 의해 증감됨	: 2004.5.27 추가
@@ -263,7 +263,7 @@ public :
 
 struct tagBankData {
   tagITEM m_ItemLIST[ BANKSLOT_TOTAL_SIZE ];
-  __int64 m_i64ZULY;
+  int64_t m_i64ZULY;
 
   void Init() {
     ::ZeroMemory( m_ItemLIST, sizeof(tagITEM)*BANKSLOT_TOTAL_SIZE );
@@ -465,8 +465,8 @@ public :
 
   float GetCur_RateUseMP() { return this->m_Battle.m_fRateUseMP; }
 
-  void    SetCur_MONEY(__int64 iMoney) { this->m_Inventory.m_i64Money = iMoney; }
-  __int64 GetCur_MONEY() { return this->m_Inventory.m_i64Money; } // 돈
+  void    SetCur_MONEY(int64_t iMoney) { this->m_Inventory.m_i64Money = iMoney; }
+  int64_t GetCur_MONEY() { return this->m_Inventory.m_i64Money; } // 돈
   void    Add_CurMONEY(int iMoney) { this->m_Inventory.m_i64Money += iMoney; }
   void    Sub_CurMONEY(int iMoney) { this->m_Inventory.m_i64Money -= iMoney; }
   void    SetCur_HP(short  nValue); // 생명력
@@ -523,7 +523,7 @@ public :
   virtual void SetCur_JOB(short nValue) { this->m_BasicINFO.m_nClass = nValue; }
 
   void SetCur_LEVEL(WORD       wValue) { this->m_GrowAbility.m_nLevel      = (wValue > MAX_LEVEL) ? MAX_LEVEL : wValue; }
-  void SetCur_EXP(__int64      lValue) { this->m_GrowAbility.m_lEXP        = lValue; }
+  void SetCur_EXP(int64_t      lValue) { this->m_GrowAbility.m_lEXP        = lValue; }
   void SetCur_BonusPOINT(short nValue) { this->m_GrowAbility.m_nBonusPoint = nValue; }
   void SetCur_SkillPOINT(short nValue) { this->m_GrowAbility.m_nSkillPoint = nValue; }
 
@@ -640,7 +640,7 @@ public :
   virtual short GetCur_PartITEM(short nPartIdx) = 0;
 
 public :
-  __int64 Get_NeedEXP(int iLevel) {
+  int64_t Get_NeedEXP(int iLevel) {
     return (m_GrowAbility.m_lPenalEXP + CCal::Get_NeedRawEXP( iLevel ));
   }
 

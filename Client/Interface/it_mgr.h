@@ -165,7 +165,7 @@ public:
 
   void Close_store(); /// NPC상점을 닫는다 
 
-  void ShowNumberInputDlg(CTCmdNumberInput* pCmd, CTObject* pCmdParam, __int64 iMaxNumber = -1); /// 숫자 입력창 열기
+  void ShowNumberInputDlg(CTCmdNumberInput* pCmd, CTObject* pCmdParam, int64_t iMaxNumber = -1); /// 숫자 입력창 열기
 
   bool OpenMakeDlg(int iSkillSlotIdx); /// 제조창 열기
 

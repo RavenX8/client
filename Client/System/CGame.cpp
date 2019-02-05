@@ -1467,11 +1467,11 @@ void CGame::EndAppraisal() {
 
 }
 
-__int64 CGame::GetAppraisalCost() {
+int64_t CGame::GetAppraisalCost() {
   return m_i64AppraisalCost;
 }
 
-void CGame::SetAppraisalCost(__int64 i64Cost) {
+void CGame::SetAppraisalCost(int64_t i64Cost) {
   m_i64AppraisalCost = i64Cost;
 }
 

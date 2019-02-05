@@ -217,7 +217,7 @@ void CDealDLG::Draw() {
   D3DXMatrixTranslation( &mat, (float)m_sPosition.x, (float)m_sPosition.y, 0.0f );
   setTransformSprite( mat );
 
-  __int64 Price;
+  int64_t Price;
   //√—±∏¿‘∞° 
   Price = CDealData::GetInstance().GetTotal_BUY();
 

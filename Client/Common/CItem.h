@@ -176,7 +176,7 @@ struct tagBaseITEM {
 struct tagITEM : public tagBaseITEM {
 	union {
 		DWORD	m_dwSN[2];
-		__int64	m_iSN;
+		int64_t	m_iSN;
 	} ;
 
 	// 현재 아이템에서 주어진 아이템 만큼 뺀후, 빠진 무게를 리턴한다.

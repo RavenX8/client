@@ -9,10 +9,10 @@ public:
        CTCmdNumberInput(void ) {};
        ~CTCmdNumberInput(void) {};
   bool Exec(CTObject*        pObj) override { return true; }
-  void SetNumber(__int64     iNumber) { m_iNumber = iNumber; }
+  void SetNumber(int64_t     iNumber) { m_iNumber = iNumber; }
 
 protected:
-  __int64 m_iNumber;
+  int64_t m_iNumber;
 };
 
 /// 인벤토리에서 바닥으로 아이템 버린다

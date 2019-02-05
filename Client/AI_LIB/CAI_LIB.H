@@ -91,7 +91,7 @@ public :
       return false;
 
     if ( this->Get_TeamNO() == pDestOBJ->Get_TeamNO() ||
-         (__int64)(this->Get_TeamNO()) * (__int64)(pDestOBJ->Get_TeamNO()) <= 100 )
+         ((int64_t)(this->Get_TeamNO()) * (int64_t)(pDestOBJ->Get_TeamNO())) <= 100 )
       return true;
 
     return false;

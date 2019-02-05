@@ -30,7 +30,7 @@
 #include "../Country.h"
 #include "../System/CGame.h"
 
-const __int64 MAX_TRADE_MONEY = 1000000000; ///교환시 최대 거래 돈
+const int64_t MAX_TRADE_MONEY = 1000000000; ///교환시 최대 거래 돈
 
 /*----------------------------------------------------------------------------------------------------*/
 bool CTCmdDropItem::Exec(CTObject* pObj) {
@@ -124,7 +124,7 @@ bool CTCmdAddMyMoney2Exchange::Exec(CTObject* pObj) {
   if ( CExchange::GetInstance().IsReadyMe() )
     return true;
 
-  __int64 i64PrevTradeMoney = CExchange::GetInstance().GetMyTradeMoney();
+  int64_t i64PrevTradeMoney = CExchange::GetInstance().GetMyTradeMoney();
 
   if ( i64PrevTradeMoney + m_iNumber > MAX_TRADE_MONEY )
     CExchange::GetInstance().SetMyTradeMoney( MAX_TRADE_MONEY );
@@ -141,7 +141,7 @@ bool CTCmdRemoveMyMoneyFromExchange::Exec(CTObject* pObj) {
   if ( CExchange::GetInstance().IsReadyMe() )
     return true;
 
-  __int64 i64PrevTradeMoney = CExchange::GetInstance().GetMyTradeMoney();
+  int64_t i64PrevTradeMoney = CExchange::GetInstance().GetMyTradeMoney();
 
   if ( i64PrevTradeMoney <= m_iNumber )
     CExchange::GetInstance().SetMyTradeMoney( 0 );
@@ -496,7 +496,7 @@ bool CTCmdBuyItemAtAvatarStore::Exec(CTObject* pObj) {
       return true;
     }
     ///돈 체크 해주자..
-    __int64 i64RequireMoney = Item.m_SlotITEM.GetQuantity() * pItem->GetUnitPrice();
+    int64_t i64RequireMoney = Item.m_SlotITEM.GetQuantity() * pItem->GetUnitPrice();
 
     if ( g_pAVATAR->Get_MONEY() < i64RequireMoney ) {
       g_itMGR.AppendChatMsg( STR_NOT_ENOUGH_MONEY, IT_MGR::CHAT_TYPE_SYSTEM );
@@ -512,7 +512,7 @@ bool CTCmdBuyItemAtAvatarStore::Exec(CTObject* pObj) {
     //char buf[128];
     //_i64toa( pItem->GetUnitPrice() * Item.m_SlotITEM.GetQuantity(), buf, 10 );
 
-    __int64   total_trade_money = pItem->GetUnitPrice() * Item.m_SlotITEM.GetQuantity();
+    int64_t   total_trade_money = pItem->GetUnitPrice() * Item.m_SlotITEM.GetQuantity();
     const int money_buffer_size = 64;
     char      money_buffer[ money_buffer_size ];
     CGameUtil::ConvertMoney2String( total_trade_money, money_buffer, money_buffer_size );

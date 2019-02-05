@@ -42,11 +42,11 @@ const std::string& CExchange::GetOtherName() {
   return m_strTargetAvatarName;
 }
 
-__int64 CExchange::GetMyTradeMoney() {
+int64_t CExchange::GetMyTradeMoney() {
   return m_i64MyTradeMoney;
 }
 
-__int64 CExchange::GetOtherTradeMoney() {
+int64_t CExchange::GetOtherTradeMoney() {
   return m_i64OtherTradeMoney;
 }
 
@@ -186,7 +186,7 @@ int         CExchange::GetCountTradeItem(t_InvTYPE InvenType) {
 //	return false;
 //}
 
-void CExchange::SetMyTradeMoney(__int64 i64Money) {
+void CExchange::SetMyTradeMoney(int64_t i64Money) {
   m_i64MyTradeMoney = i64Money;
   g_pNet->Send_cli_TRADE_P2P_ITEM( TRADE_MONEY_SLOT_NO, 0, (DWORD)i64Money );
 }

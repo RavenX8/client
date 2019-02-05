@@ -104,23 +104,23 @@ bool    COptionDlg::Create(const char* szIDD) {
         pListBox->AppendText( "1", g_dwWHITE );
     }
 
-    // 		pCtrl = pContainer->Find( IID_LIST_ANTIALSING );
-    // 		assert( pCtrl );
-    // 		if( pCtrl && pCtrl->GetControlType() == CTRL_COMBOBOX )
-    // 		{
-    // 			CTComboBox* pComboBox = (CTComboBox*)pCtrl;
-    // 			pComboBox->AddItem( "0" );
-    // 		}
+ 		pCtrl = pContainer->Find( IID_LIST_ANTIALSING );
+ 		assert( pCtrl );
+ 		if( pCtrl && pCtrl->GetControlType() == CTRL_COMBOBOX )
+ 		{
+ 			CTComboBox* pComboBox = (CTComboBox*)pCtrl;
+ 			pComboBox->AddItem( "0" );
+ 		}
 
-    /*	pCtrl = pContainer->Find( IID_LIST_GAMMA );
-      assert( pCtrl );
-      if( pCtrl && pCtrl->GetControlType() == CTRL_LISTBOX )
-      {
-        CTListBox* pListBox = (CTListBox*)pCtrl;
-        pListBox->SetExtent( 1 );
-        for( int i = 0; i < 5; ++i )
-          pListBox->AppendText( "1" , g_dwWHITE );
-      }*/
+    // pCtrl = pContainer->Find( IID_LIST_GAMMA );
+    // assert( pCtrl );
+    // if( pCtrl && pCtrl->GetControlType() == CTRL_LISTBOX )
+    // {
+    //   CTListBox* pListBox = (CTListBox*)pCtrl;
+    //   pListBox->SetExtent( 1 );
+    //   for( int i = 0; i < 5; ++i )
+    //     pListBox->AppendText( "1" , g_dwWHITE );
+    // }
 
     ///AUDIO
     pContainer = pPane->GetTabContainer( IID_TABAUDIO );
@@ -273,7 +273,7 @@ void COptionDlg::Update(POINT ptMouse) {
       break;
     }
     case IID_TABVIDEO: {
-      /*CWinCtrl* pCtrl = Find( IID_TABBEDPANE );
+      CWinCtrl* pCtrl = Find( IID_TABBEDPANE );
       assert( pCtrl && pCtrl->GetControlType() == CTRL_TABBEDPANE );
       if( pCtrl && pCtrl->GetControlType() == CTRL_TABBEDPANE )
       {
@@ -284,14 +284,14 @@ void COptionDlg::Update(POINT ptMouse) {
           return;
 
 
-        pCtrl = pContainer->Find( IID_LIST_GAMMA );
-        assert( pCtrl && pCtrl->GetControlType() == CTRL_LISTBOX );
-        if( pCtrl && pCtrl->GetControlType() == CTRL_LISTBOX )
-        {
-          CTListBox* pListBox = ( CTListBox* )pCtrl;
-          setGammaValue( c_GammaValues[ pListBox->GetValue() ] );		
-        }
-      }					*/
+        // pCtrl = pContainer->Find( IID_LIST_GAMMA );
+        // assert( pCtrl && pCtrl->GetControlType() == CTRL_LISTBOX );
+        // if( pCtrl && pCtrl->GetControlType() == CTRL_LISTBOX )
+        // {
+        //   CTListBox* pListBox = ( CTListBox* )pCtrl;
+        //   setGammaValue( c_GammaValues[ pListBox->GetValue() ] );		
+        // }
+      }
       break;
     }
     default: break;
@@ -783,6 +783,20 @@ void COptionDlg::GetCurrentOption() {
       pScrollBar->SetValue( m_VideoOption.iPerformance );
     }
 
+    pCtrl = pContainer->Find(IID_SCROLLBAR_ANTIALSING);
+    assert(pCtrl);
+    if (pCtrl && pCtrl->GetControlType() == CTRL_SCROLLBAR) {
+      CTScrollBar* pScrollBar = (CTScrollBar*)pCtrl;
+      pScrollBar->SetValue(m_VideoOption.iAntiAlising);
+    }
+
+    // pCtrl = pContainer->Find(IID_SCROLLBAR_GAMMA);
+    // assert(pCtrl);
+    // if (pCtrl && pCtrl->GetControlType() == CTRL_SCROLLBAR) {
+    //   CTScrollBar* pScrollBar = (CTScrollBar*)pCtrl;
+    //   pScrollBar->SetValue(m_VideoOption.iGama);
+    // }
+
     pCtrl = pContainer->Find( IID_RADIOBOX_FULLSCREEN );
     assert( pCtrl );
     if ( pCtrl && pCtrl->GetControlType() == CTRL_RADIOBOX ) {
@@ -791,7 +805,6 @@ void COptionDlg::GetCurrentOption() {
         pRadioBox->SetPressedButton( IID_RADIOBUTTON_FULLSCREEN );
       else
         pRadioBox->SetPressedButton( IID_RADIOBUTTON_WINDOWMODE );
-
     }
 
     ///»ç¿îµå º¼·ý

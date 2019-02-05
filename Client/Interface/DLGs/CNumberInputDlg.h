@@ -40,9 +40,9 @@ public:
     IID_BTN_9 = 19,
   };
 
-  __int64 GetLastInputNumber() { return m_iLastInputNumber; }
+  int64_t GetLastInputNumber() { return m_iLastInputNumber; }
 
-  void SetMaxNumber(__int64         iMaxNumber) { m_iMaxNumber = iMaxNumber; }
+  void SetMaxNumber(int64_t         iMaxNumber) { m_iMaxNumber = iMaxNumber; }
   void SetCommand(CTCmdNumberInput* pCmd, CTObject* pObj);
 
 protected:
@@ -52,7 +52,7 @@ protected:
   void AppendText(char* szText);
   void DeleteOneChar();
 
-  __int64 GetNumberFromEditBox();
+  int64_t GetNumberFromEditBox();
 
   //void		ChangeButtonState( unsigned int iID, int iState ); 사용안함
   void SetFocusEditBox();
@@ -63,7 +63,7 @@ protected:
   CTCmdNumberInput* m_pCmd;          /// 입력 완료시 실행할 CTCommand
   CTObject*         m_pCommandParam; /// m_pCmd 처리에 필요한 인자를 임시 보관
 
-  __int64 m_iLastInputNumber; /// 마지막 입력된 숫자
-  __int64 m_iMaxNumber;       /// 최대 입력가능한 숫자
+  int64_t m_iLastInputNumber; /// 마지막 입력된 숫자
+  int64_t m_iMaxNumber;       /// 최대 입력가능한 숫자
 };
 #endif

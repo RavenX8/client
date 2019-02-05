@@ -1,5 +1,6 @@
 #ifndef _CFILESYSTEM_
 #define _CFILESYSTEM_
+#include <cstdint>
 
 enum FILESYSTEM_TYPE {
   FILE_SYSTEM_NORMAL = 1,
@@ -78,11 +79,11 @@ public:
 
   virtual int ReadInt16(short*   pValue) = 0 { *(int*)nullptr = 10; };
   virtual int ReadInt32(int*     pValue) = 0 { *(int*)nullptr = 10; };
-  virtual int ReadInt64(__int64* pValue) = 0 { *(int*)nullptr = 10; };
+  virtual int ReadInt64(int64_t* pValue) = 0 { *(int*)nullptr = 10; };
 
   virtual int ReadUInt16(unsigned short*   pValue) = 0 { *(int*)nullptr = 10; };
   virtual int ReadUInt32(unsigned int*     pValue) = 0 { *(int*)nullptr = 10; };
-  virtual int ReadUInt64(unsigned __int64* pValue) = 0 { *(int*)nullptr = 10; };
+  virtual int ReadUInt64(uint64_t* pValue) = 0 { *(int*)nullptr = 10; };
 
   // Specific write method
   virtual void WriteFloat(float*  pValue, const char* strValueName                                    = nullptr) = 0 { *(int*)nullptr = 10; };
@@ -99,11 +100,11 @@ public:
 
   virtual void WriteInt16(short*   pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
   virtual void WriteInt32(int*     pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
-  virtual void WriteInt64(__int64* pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
+  virtual void WriteInt64(int64_t* pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
 
   virtual void WriteUInt16(unsigned short*   pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
   virtual void WriteUInt32(unsigned int*     pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
-  virtual void WriteUInt64(unsigned __int64* pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
+  virtual void WriteUInt64(uint64_t* pValue, const char* strValueName = nullptr) = 0 { *(int*)nullptr = 10; };
 
 };
 

@@ -11,7 +11,7 @@ CClientStorage g_ClientStorage;
 const char     g_szIniFileName[]                     = "./Sevenhearts.ini";
 const long     g_ListBgmVolume[MAX_BGM_VOLUME]       = { -10000, -3000, -1000, -500, -100, -50, -10, -5, 0 };
 const long     g_ListEffectVolume[MAX_EFFECT_VOLUME] = { -10000, -3000, -1000, -500, -100, -50, -10, -5, 0 };
-//const   float	c_GammaValues[MAX_GAMMA_COUNT] = {0.5, 0.7, 1.0, 1.2, 1.5 };
+const   float	c_GammaValues[MAX_GAMMA_COUNT] = {0.5, 0.7, 1.0, 1.2, 1.5 };
 const int c_iPeformances[MAX_PERFORMANCE_COUNT] = { 5, 4, 3, 2, 1 };
 
 CClientStorage::CClientStorage(void) {

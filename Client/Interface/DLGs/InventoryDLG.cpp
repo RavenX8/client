@@ -206,7 +206,7 @@ bool CInventoryDLG::On_LButtonUP(unsigned iProcID, WPARAM wParam, LPARAM lParam)
         CTCmdOpenNumberInputDlg OpenCmd;
         OpenCmd.SetCommand( m_pCmdDropMoney );
 
-        __int64 i64MaxDropMoney;
+        int64_t i64MaxDropMoney;
         if ( MAX_DROP_MONEY >= g_pAVATAR->Get_MONEY() )
           i64MaxDropMoney = g_pAVATAR->Get_MONEY();
         else

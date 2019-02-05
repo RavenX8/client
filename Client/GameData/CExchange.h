@@ -43,9 +43,9 @@ public:
   void              Update(CObservable* pObservable, CTObject* pObj) override;
 
   const std::string& GetOtherName();
-  __int64            GetMyTradeMoney();
-  __int64            GetOtherTradeMoney();
-  void               SetMyTradeMoney(__int64 i64Money);
+  int64_t            GetMyTradeMoney();
+  int64_t            GetOtherTradeMoney();
+  void               SetMyTradeMoney(int64_t i64Money);
 
   void SetReadyMe(bool    bReady);
   void SetReadyOther(bool bReady);
@@ -91,8 +91,8 @@ private:
   bool m_bReadyMe;
   bool m_bReadyOther;
 
-  __int64 m_i64MyTradeMoney;
-  __int64 m_i64OtherTradeMoney;
+  int64_t m_i64MyTradeMoney;
+  int64_t m_i64OtherTradeMoney;
 
   WORD        m_wOtherServerObjectIdx;
   std::string m_strTargetAvatarName;

@@ -352,8 +352,8 @@ int CFileSystemTriggerVFS::ReadInt32(int* pValue) {
   return Read( pValue, sizeof( int ) );
 }
 
-int CFileSystemTriggerVFS::ReadInt64(__int64* pValue) {
-  return Read( pValue, sizeof( __int64 ) );
+int CFileSystemTriggerVFS::ReadInt64(int64_t* pValue) {
+  return Read( pValue, sizeof( int64_t ) );
 }
 
 int CFileSystemTriggerVFS::ReadUInt16(unsigned short* pValue) {
@@ -364,8 +364,8 @@ int CFileSystemTriggerVFS::ReadUInt32(unsigned int* pValue) {
   return Read( pValue, sizeof( unsigned int ) );
 }
 
-int CFileSystemTriggerVFS::ReadUInt64(unsigned __int64* pValue) {
-  return Read( pValue, sizeof( unsigned __int64 ) );
+int CFileSystemTriggerVFS::ReadUInt64(uint64_t* pValue) {
+  return Read( pValue, sizeof(uint64_t) );
 }
 
 // Specific write method
@@ -423,8 +423,8 @@ void CFileSystemTriggerVFS::WriteInt32(int* pValue, const char* strValueName) {
   Write( pValue, sizeof( int ) );
 }
 
-void CFileSystemTriggerVFS::WriteInt64(__int64* pValue, const char* strValueName) {
-  Write( pValue, sizeof( __int64 ) );
+void CFileSystemTriggerVFS::WriteInt64(int64_t* pValue, const char* strValueName) {
+  Write( pValue, sizeof( int64_t ) );
 }
 
 void CFileSystemTriggerVFS::WriteUInt16(unsigned short* pValue, const char* strValueName) {
@@ -435,6 +435,6 @@ void CFileSystemTriggerVFS::WriteUInt32(unsigned int* pValue, const char* strVal
   Write( pValue, sizeof( unsigned int ) );
 }
 
-void CFileSystemTriggerVFS::WriteUInt64(unsigned __int64* pValue, const char* strValueName) {
-  Write( pValue, sizeof( unsigned __int64 ) );
+void CFileSystemTriggerVFS::WriteUInt64(uint64_t* pValue, const char* strValueName) {
+  Write( pValue, sizeof(uint64_t) );
 }

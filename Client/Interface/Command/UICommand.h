@@ -61,10 +61,10 @@ public:
   bool    Exec(CTObject*               pObj) override;
 
   void SetCommand(CTCmdNumberInput* pCmd);
-  void SetMaximum(__int64           i64Maximum);
+  void SetMaximum(int64_t           i64Maximum);
 protected:
   CTCmdNumberInput* m_pCmd;
-  __int64           m_i64Maximum;
+  int64_t           m_i64Maximum;
 };
 
 /// 아이템창에서 다른 유저의 개인상점에 물풀을 팔때 사용되는 Command

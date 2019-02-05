@@ -55,9 +55,9 @@ void CDialogDlg::SetScript(char* pszScript) {
     CZListBox* pListBox       = (CZListBox*)pCtrl;
     pListBox->Clear();
 
-    int                   iWidth      = 350;
-    int                   iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_TOP" );
-    int                   iLineHeight = 16;
+    int iWidth      = 350;
+    int iImageID    = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "UI13_NPC_SCRIPT_IMAGE_TOP" );
+    int iLineHeight = 16;
     CDialogNpcScriptItem* pItem       = new CDialogNpcScriptItem( 0, nullptr, iImageID, iLineHeight, iWidth, 0 );
     pListBox->Add( pItem );
     iListBoxHeight += pItem->GetHeight();
@@ -177,8 +177,12 @@ unsigned CDialogDlg::Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) {
     return uiMsg;
   }
 
-  if ( CCountry::GetSingleton().IsApplyNewVersion() )
+  if (CCountry::GetSingleton().IsApplyNewVersion())
+  {
+    if (uiMsg == WM_KEYUP && wParam == VK_ESCAPE)
+      Hide();
     return uiMsg;
+  }
 
   return 0;
 }
@@ -357,33 +361,36 @@ void CDialogDlg::Show() {
 
 bool CDialogDlg::Create(const char* IDD) {
   if ( CTDialog::Create( IDD ) ) {
-    if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
-
-      CWinCtrl* pCtrl = Find( IID_BG_IMAGE );
-      if ( nullptr != pCtrl && CTRL_IMAGE == pCtrl->GetControlType() ) {
+    if (CCountry::GetSingleton().IsApplyNewVersion())
+    {
+      CWinCtrl* pCtrl = Find(IID_BG_IMAGE);
+      if (NULL != pCtrl && CTRL_IMAGE == pCtrl->GetControlType())
+      {
         CTImage* pImage = (CTImage*)pCtrl;
-        pImage->SetScaleWidth( g_pCApp->GetWIDTH() / pImage->GetWidth() );
+        pImage->SetScaleWidth(g_pCApp->GetWIDTH() / pImage->GetWidth());
       }
 
-      pCtrl = Find( IID_BTN_CLOSE );
-      if ( nullptr != pCtrl && CTRL_BUTTON == pCtrl->GetControlType() ) {
+      pCtrl = Find(IID_BTN_CLOSE);
+      if (NULL != pCtrl && CTRL_BUTTON == pCtrl->GetControlType())
+      {
         CTButton* pBtn = (CTButton*)pCtrl;
-        POINT     pt   = pBtn->GetOffset();
-        pt.x           = g_pCApp->GetWIDTH() - pBtn->GetWidth() - 10;
-        pBtn->SetOffset( pt );
-        //			pBtn->MoveWindow( m_sPosition );
+        POINT pt = pBtn->GetOffset();
+        pt.x = g_pCApp->GetWIDTH() - pBtn->GetWidth() - 10;
+        pBtn->SetOffset(pt);
+        pBtn->MoveWindow(m_sPosition);
       }
 
-      pCtrl = Find( IID_ZLISTBOX_ANSWER_EXAMPLE );
-      if ( nullptr != pCtrl ) {
-        pCtrl->SetOffset( 20, GetHeight() + 40 );
-        //			pCtrl->MoveWindow( m_sPosition );
+      pCtrl = Find(IID_ZLISTBOX_ANSWER_EXAMPLE);
+      if (NULL != pCtrl)
+      {
+        pCtrl->SetOffset(20, GetHeight() + 40);
+        pCtrl->MoveWindow(m_sPosition);
       }
 
       POINT pt = { 0, g_pCApp->GetHEIGHT() * 2 / 5 - GetHeight() };
 
-      MoveWindow( pt );
-      SetWidth( g_pCApp->GetWIDTH() );
+      MoveWindow(pt);
+      SetWidth(g_pCApp->GetWIDTH());
     }
     return true;
   }

@@ -56,11 +56,11 @@ public:
 
   int ReadInt16(short*   pValue) override;
   int ReadInt32(int*     pValue) override;
-  int ReadInt64(__int64* pValue) override;
+  int ReadInt64(int64_t* pValue) override;
 
   int ReadUInt16(unsigned short*   pValue) override;
   int ReadUInt32(unsigned int*     pValue) override;
-  int ReadUInt64(unsigned __int64* pValue) override;
+  int ReadUInt64(uint64_t* pValue) override;
 
   // Specific write method	
   void WriteFloat(float*  pValue, const char* strValueName                                    = nullptr) override;
@@ -77,11 +77,11 @@ public:
 
   void WriteInt16(short*   pValue, const char* strValueName = nullptr) override;
   void WriteInt32(int*     pValue, const char* strValueName = nullptr) override;
-  void WriteInt64(__int64* pValue, const char* strValueName = nullptr) override;
+  void WriteInt64(int64_t* pValue, const char* strValueName = nullptr) override;
 
   void WriteUInt16(unsigned short*   pValue, const char* strValueName = nullptr) override;
   void WriteUInt32(unsigned int*     pValue, const char* strValueName = nullptr) override;
-  void WriteUInt64(unsigned __int64* pValue, const char* strValueName = nullptr) override;
+  void WriteUInt64(uint64_t* pValue, const char* strValueName = nullptr) override;
 };
 
 #endif //_CFILESYSTEMNORMAL_

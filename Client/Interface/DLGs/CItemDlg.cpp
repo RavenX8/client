@@ -259,7 +259,7 @@ void CItemDlg::OnLButtonUp(unsigned uiProcID, WPARAM wParam, LPARAM lParam) {
         CTCmdOpenNumberInputDlg OpenCmd;
         OpenCmd.SetCommand( m_pCmdDropMoney );
 
-        __int64 i64MaxDropMoney;
+        int64_t i64MaxDropMoney;
         if ( MAX_DROP_MONEY >= g_pAVATAR->Get_MONEY() )
           i64MaxDropMoney = g_pAVATAR->Get_MONEY();
         else
@@ -769,7 +769,7 @@ unsigned CItemDlg::ActionPerformed(CActionEvent* e) {
                 CIconItem* pItemIcon = (CIconItem*)pIcon;
                 tagITEM&   Item      = pItemIcon->GetItem();
                 if ( Item.IsEnableAppraisal() ) {
-                  __int64 i64Price = (ITEM_BASE_PRICE( Item.GetTYPE(), Item.GetItemNO() ) + 10000) * (Item.GetDurability() + 50) / 10000;
+                  int64_t i64Price = (ITEM_BASE_PRICE( Item.GetTYPE(), Item.GetItemNO() ) + 10000) * (Item.GetDurability() + 50) / 10000;
                   if ( i64Price <= g_pAVATAR->Get_MONEY() ) {
                     CGame::GetInstance().SetAppraisalCost( i64Price );
                     CTCommand* pCmd = new CTCmdSendAppraisalReq( pItemIcon->GetIndex() );

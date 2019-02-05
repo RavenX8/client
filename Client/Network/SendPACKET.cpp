@@ -1910,7 +1910,7 @@ void CSendPACKET::Send_cli_CLANMARK_REG_TIME() {
   Send_PACKET( m_pSendPacket, true );
 }
 
-void CSendPACKET::Send_cli_MOVE_ZULY_INV2BANK(__int64 i64MoveZuly) {
+void CSendPACKET::Send_cli_MOVE_ZULY_INV2BANK(int64_t i64MoveZuly) {
   if ( CCountry::GetSingleton().IsJapan() ) {
     if ( !(CGame::GetInstance().GetPayType() & PLAY_FLAG_STOCK_SPACE) ) {
       g_itMGR.OpenMsgBox( STR_JP_BILL_CANT_USE_BANK_MONEY );
@@ -1925,7 +1925,7 @@ void CSendPACKET::Send_cli_MOVE_ZULY_INV2BANK(__int64 i64MoveZuly) {
   Send_PACKET( m_pSendPacket );
 }
 
-void CSendPACKET::Send_cli_MOVE_ZULY_BANK2INV(__int64 i64MoveZuly) {
+void CSendPACKET::Send_cli_MOVE_ZULY_BANK2INV(int64_t i64MoveZuly) {
 
   if ( CCountry::GetSingleton().IsJapan() ) {
     if ( !(CGame::GetInstance().GetPayType() & PLAY_FLAG_STOCK_SPACE) ) {

@@ -509,7 +509,7 @@ int tagBaseITEM::GetAppraisalCost() {
   if ( !IsEnableAppraisal() )
     return 0;
 
-  __int64 i64BasePrice = ITEM_BASE_PRICE( GetTYPE(), GetItemNO() );
+  int64_t i64BasePrice = ITEM_BASE_PRICE( GetTYPE(), GetItemNO() );
   return (int)((i64BasePrice + 10000) * (GetDurability() + 50) / 10000);
 }
 

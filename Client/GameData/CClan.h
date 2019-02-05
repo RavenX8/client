@@ -37,7 +37,7 @@ public:
   void SetPoint(int               iPoint);
   void SetAlly(int                iIndex, int iClanID, const char* pszName);
   void SetStoreRate(int           iRate);
-  void SetMoney(__int64           i64Money);
+  void SetMoney(int64_t           i64Money);
   void SetNotice(const char*      pszNotice);
   void SetClass(int               iClass);
   void SetMemberLevel(const char* pszName, short nLev);
@@ -54,7 +54,7 @@ public:
   int         GetAllyID(int   iIndex);
   const char* GetAllyName(int iIndex);
   int         GetStoreRate();
-  __int64     GetMoney();
+  int64_t     GetMoney();
   const char* GetNotice();
   int         GetClass();
   int         GetMemberCount();
@@ -114,7 +114,7 @@ private:
   std::string m_strNotice;
 
   int     m_iStoreRate;
-  __int64 m_i64Money;
+  int64_t m_i64Money;
 
   int m_iMyClanPoint;
 
