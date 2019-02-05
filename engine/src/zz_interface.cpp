@@ -1505,6 +1505,9 @@ int setCameraAspectRatio(HNODE hCamera, float AspectRatio) {
   zz_assert(cam);
 
   if ( cam ) {
+    if (AspectRatio == 0.0f) {
+      AspectRatio = (float)znzin->view->get_width() / (float)znzin->view->get_height();
+    }
     cam->set_aspect_ratio( AspectRatio );
   } else {
     return 0;

@@ -177,8 +177,8 @@ HNODE   SC_LoadCamera(ZSTRING pCameraName, ZSTRING pCameraPath, HNODE hCameraMot
   Log_String(LOG_NORMAL, "SC_LoadCamera failed(in system sript)[ %s ]", pCameraPath);
 
   controlAnimatable( hNode, 0 );
-  setCameraAspectRatio( hNode, 1.3333 );
-  setCameraPerspective( hNode, 50, 1.333, 100, 30000 );
+  setCameraAspectRatio(hNode, (float)::getScreenWidth() / (float)::getScreenHeight());
+  setCameraPerspective(hNode, 50, (float)::getScreenWidth() / (float)::getScreenHeight(), 100, 30000);
 
   return hNode;
 }

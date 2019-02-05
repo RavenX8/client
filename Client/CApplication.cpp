@@ -130,20 +130,26 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
       break;
     case WM_COMMAND: this->wm_COMMAND( wParam );
       break;
-      // 		case WM_SIZE:
-      // 			{
-      // 				if(!IsFullScreenMode() && ZnzninInit() && wParam == SIZE_RESTORED)
-      // 				{
-      // 					if( nWidth != m_nScrWidth && nHeight != m_nScrHeight )
-      // 					{
-      // 						nWidth = LOWORD(lParam);
-      // 						nHeight = HIWORD(lParam);
-      // 						UpdateWindowSize(nWidth, nHeight, m_iScrDepth, false);
-      // 						ResizeWindowByClientSize( nWidth, nHeight, m_iScrDepth, true );
-      // 					}
-      // 				}
-      // 			}
-      // 			break;
+    case WM_SIZE:
+    {
+      if (!IsFullScreenMode() &&  wParam == SIZE_RESTORED)
+      {
+        nWidth = LOWORD(lParam);
+        nHeight = HIWORD(lParam);
+        if (nWidth != m_nScrWidth || nHeight != m_nScrHeight)
+        {
+          UpdateWindowSize(nWidth, nHeight, m_iScrDepth, false);
+          ResizeWindowByClientSize(nWidth, nHeight, m_iScrDepth, true);
+          resetScreen();
+          CCursor::GetInstance().ReloadCursor();
+          SIZE sizeScreen = { nWidth, nHeight };
+          CTIme::GetInstance().ChangeScreenSize(sizeScreen);
+          g_itMGR.InitInterfacePos();
+        }
+        //return 0;
+      }
+    }
+    break;
   }
   return ::DefWindowProc( hWnd, uiMsg, wParam, lParam );
 }
@@ -380,12 +386,6 @@ void CApplication::ResizeWindowByClientSize(int& iClientWidth, int& iClientHeigh
     _RPT2( _CRT_WARN,"want rect %d %d\n", iClientWidth, iClientHeight );
     _RPT2( _CRT_WARN,"max rect %d %d\n", GetSystemMetrics (SM_CXSCREEN), GetSystemMetrics (SM_CYSCREEN) );
 
-    if ( iClientWidth > GetSystemMetrics( SM_CXSCREEN ) )
-      iClientWidth = GetSystemMetrics( SM_CXSCREEN );
-
-    if ( iClientHeight > GetSystemMetrics( SM_CYSCREEN ) )
-      iClientHeight = GetSystemMetrics( SM_CYSCREEN );
-
     RECT client_rect = { 0, 0, iClientWidth, iClientHeight };
     if ( AdjustWindowRect( &client_rect, DEFAULT_WINDOWED_STYLE, FALSE ) ) {
       int window_width  = client_rect.right - client_rect.left;
@@ -404,6 +404,7 @@ void CApplication::ResizeWindowByClientSize(int& iClientWidth, int& iClientHeigh
 
       SetWIDTH( iClientWidth );
       SetHEIGHT( iClientHeight );
+      SetDEPTH( iDepth );
     } else {
       assert( 0 && "AdjustWindowRect is Failed" );
     }

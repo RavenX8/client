@@ -165,55 +165,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #endif
   MiniDumper g_MiniDump;
 
-#ifdef _USE_BG
-  SetExceptionReport();
-#endif
-
-  // #ifdef AROSE
-  // #define initval 5465463
-  // 	if(!InitVFS(0x536577))
-  // 		MessageBox(NULL, "Init Error", "VFS Init Error", 0);
-  // #endif // AROSE
-
-  // *-------------------------------------------------------------------* //
-  // 2005. 5. 6. 조호동
-#if 0
-  //#ifndef _DE
-  if( IsDuplicateApp() )
-    return FALSE;
-#endif
-  // *-------------------------------------------------------------------* //
-
-  //-------------------------------------------------------------------------------
-  /// Hack check..
-  //-------------------------------------------------------------------------------	
-  ///	if( CCheckHack::GetSingleton().Check() == false )
-  ///		return 0;
-
-  /*
-  _CrtSetDbgFlag (
-  _CRTDBG_ALLOC_MEM_DF |
-  _CRTDBG_LEAK_CHECK_DF);
-  _CrtSetReportMode ( _CRT_ERROR,
-  _CRTDBG_MODE_DEBUG);
-  //*/
-
-  //-------------------------------------------------------------------------------
-  /// 국가코드 인식
-  //-------------------------------------------------------------------------------
   CCountry::GetSingleton().CheckCountry();
-
-  //nProtect 실행 
-  //홍근 : 디버깅시 게임가드 실행 시키지 않는다.
-  /*#ifndef _DEBUG
-  if( !m_nProtectSys.InitProtect() )
-  return 0; 
-  #endif*/
-
-  //KeyCrypt 실행 
-  //if( !m_npKeyCrypt.InitKeyCrypt() )
-  //	return 0;
-  ///m_npKeyCrypt.IsGetUse() = FALSE;
 
   g_SystemInfo.CollectingSystemInfo();
   int iWindowVersion = g_SystemInfo.GetWindowsVersion();
@@ -221,7 +173,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
   //-------------------------------------------------------------------------------
   /// Init Trigger VFS
   //-------------------------------------------------------------------------------
-  VHANDLE hVFS = OpenVFS( "data.idx", (iWindowVersion == WINDOWS_98) ? "r" : "mr" );
+  VHANDLE hVFS = OpenVFS( "data.idx", "mr" );
   (CVFSManager::GetSingleton()).SetVFS( hVFS );
   (CVFSManager::GetSingleton()).InitVFS( VFS_TRIGGER_VFS );
 
@@ -280,7 +232,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #ifndef _DEBUG
   // 시스템 정보를 모음
   TI_ReadSysInfoFile();
-
 #endif
 
   // *-------------------------------------------------------------------* //
@@ -296,19 +247,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     ///중복실행가능 버젼	
     CGame::GetInstance().GameLoop();
-  } else {
-#ifdef _USE_BG
-    ReportZnzinLog( "초기화에 실패하였습니다. 오류원인을 전송하시겠습니까?", 10 );
-#endif
   }
-
-  // *-------------------------------------------------------------------* //
-  // 2005. 5. 6. 조호동
-#if !defined(_DE) && !defined(_TAIWAN)
-  //#ifndef _DE
-  CloseDuplicateAppSocket();
-#endif
-  // *-------------------------------------------------------------------* //
 
   Free_DEVICE();
 
@@ -325,6 +264,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
   ///Error난다. 이유 모름 , 하지만 그냥 실행시에는 (bat파일로 혹은 ctrl+f5) Error가 안난다.
   //-------------------------------------------------------------------------------		
   g_pCRange->Destroy();
+
+  (CVFSManager::GetSingleton()).ReleaseAll();
+  CloseVFS(hVFS);
 
   return 0;
 }

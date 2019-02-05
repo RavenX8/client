@@ -15,16 +15,16 @@ void CSystemInfo::CollectingSystemInfo() {
                  m_szLanguageBuffer, sizeof(m_szLanguageBuffer) );
 
   GetVersionEx( &m_OSVerInfo );
-  if ( m_OSVerInfo.dwMajorVersion == 4 ) {
-    if ( m_OSVerInfo.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS )
-      m_iWindowsVersion = WINDOWS_98;
-    else
-      m_iWindowsVersion = WINDOWS_NT;
-  } else if ( m_OSVerInfo.dwMajorVersion == 5 ) {
-    if ( m_OSVerInfo.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS )
-      m_iWindowsVersion = WINDOWS_98;
-    else
-      m_iWindowsVersion = WINDOWS_2000;
+  
+  switch(m_OSVerInfo.dwMajorVersion) {
+  case 4: //windows 98/NT
+    m_iWindowsVersion = WINDOWS_98;
+  case 5: //windows 2000
+    m_iWindowsVersion = WINDOWS_2000;
+  case 6: //windows 8+
+  default:
+    m_iWindowsVersion = WINDOWS_2000;
+    break;
   }
 
   GetWindowsDirectory( m_szWindowsFolder, sizeof(m_szWindowsFolder) );

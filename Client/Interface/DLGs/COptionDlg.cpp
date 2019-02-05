@@ -316,6 +316,7 @@ void COptionDlg::ChangeResolution(t_OptionResolution Resolution) {
   if ( iWidth != m_VideoOption.tResolution.iWidth ||
        iHeight != m_VideoOption.tResolution.iHeight ||
        iDepth != m_VideoOption.tResolution.iDepth ) {
+    g_pCApp->UpdateWindowSize(iWidth, iHeight, iDepth, false);
     g_pCApp->ResizeWindowByClientSize( iWidth, iHeight, iDepth, true );
     m_VideoOption.tResolution.iWidth  = iWidth;
     m_VideoOption.tResolution.iHeight = iHeight;
