@@ -104,13 +104,13 @@ bool    COptionDlg::Create(const char* szIDD) {
         pListBox->AppendText( "1", g_dwWHITE );
     }
 
- 		pCtrl = pContainer->Find( IID_LIST_ANTIALSING );
- 		assert( pCtrl );
- 		if( pCtrl && pCtrl->GetControlType() == CTRL_COMBOBOX )
- 		{
- 			CTComboBox* pComboBox = (CTComboBox*)pCtrl;
- 			pComboBox->AddItem( "0" );
- 		}
+ 		// pCtrl = pContainer->Find( IID_LIST_ANTIALSING );
+ 		// assert( pCtrl );
+ 		// if( pCtrl && pCtrl->GetControlType() == CTRL_LISTBOX )
+ 		// {
+ 		// 	CTComboBox* pComboBox = (CTComboBox*)pCtrl;
+ 		// 	pComboBox->AddItem( "0" );
+ 		// }
 
     // pCtrl = pContainer->Find( IID_LIST_GAMMA );
     // assert( pCtrl );
@@ -479,18 +479,18 @@ void        COptionDlg::ChangeVideoOption() {
       }
     }
 
-    pCtrl = pContainer->Find( IID_LIST_ANTIALSING );
-    assert( pCtrl );
-    if ( pCtrl && pCtrl->GetControlType() == CTRL_COMBOBOX ) {
-      CTComboBox* pComboBox = (CTComboBox*)pCtrl;
-      //char* cID = pComboBox->GetSelectedItem();
-      short iID = atoi( pComboBox->GetSelectedItem() );
-      if ( m_VideoOption.iAntiAlising != iID ) {
-        setFullSceneAntiAliasing( iID );
-        m_VideoOption.iAntiAlising = iID;
-        resetScreen();
-      }
-    }
+    // pCtrl = pContainer->Find( IID_LIST_ANTIALSING );
+    // assert( pCtrl );
+    // if ( pCtrl && pCtrl->GetControlType() == CTRL_COMBOBOX ) {
+    //   CTComboBox* pComboBox = (CTComboBox*)pCtrl;
+    //   //char* cID = pComboBox->GetSelectedItem();
+    //   short iID = atoi( pComboBox->GetSelectedItem() );
+    //   if ( m_VideoOption.iAntiAlising != iID ) {
+    //     setFullSceneAntiAliasing( iID );
+    //     m_VideoOption.iAntiAlising = iID;
+    //     resetScreen();
+    //   }
+    // }
   }
 }
 
@@ -781,13 +781,6 @@ void COptionDlg::GetCurrentOption() {
     if ( pCtrl && pCtrl->GetControlType() == CTRL_SCROLLBAR ) {
       CTScrollBar* pScrollBar = (CTScrollBar*)pCtrl;
       pScrollBar->SetValue( m_VideoOption.iPerformance );
-    }
-
-    pCtrl = pContainer->Find(IID_SCROLLBAR_ANTIALSING);
-    assert(pCtrl);
-    if (pCtrl && pCtrl->GetControlType() == CTRL_SCROLLBAR) {
-      CTScrollBar* pScrollBar = (CTScrollBar*)pCtrl;
-      pScrollBar->SetValue(m_VideoOption.iAntiAlising);
     }
 
     // pCtrl = pContainer->Find(IID_SCROLLBAR_GAMMA);
