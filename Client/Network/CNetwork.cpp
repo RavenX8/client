@@ -574,6 +574,9 @@ void CNetwork::Proc_ZonePacket() {
     case SRV_UPDATE_NAME: Recv_gsv_UPDATE_NAME();
       break;
 
+    case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE();
+      break;
+
     default:
       //_ASSERT(0);
       LogString(LOG_NORMAL,
