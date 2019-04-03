@@ -12,7 +12,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGameCtrl", "TGameCtrl\TGam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TriggerVFS", "Tools\TriggerVFS\TriggerVFS.vcxproj", "{3D8FB37B-21F3-4DEF-9B78-6FE270C73494}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TriggerInfo", "Tools\TriggerInfo\TriggerInfo.vcxproj", "{DE7958CD-934E-4AF9-8A22-CCE329B364FB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "triggerinfo", "src\triggerinfo\triggerinfo.vcxproj", "{DE7958CD-934E-4AF9-8A22-CCE329B364FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

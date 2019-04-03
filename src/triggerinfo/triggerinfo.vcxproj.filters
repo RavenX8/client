@@ -30,9 +30,6 @@
     <ClCompile Include="src\Http.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="reg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,43 +39,43 @@
     <ClCompile Include="src\TriggerInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\reg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\__d3d9.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\reg.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AdapterInfo.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\AdapterInfo.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\CpuInfo.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\CpuInfo.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dispinfo.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\dispinfo.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\getdxver.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\getdxver.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Http.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\Http.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="reg.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\stdafx.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\SysInfo.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\SysInfo.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\SystemInfo.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\SystemInfo.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\TriggerInfo.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TriggerInfo.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\__d3d9.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
   </ItemGroup>
 </Project>

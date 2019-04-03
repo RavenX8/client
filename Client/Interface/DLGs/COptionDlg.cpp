@@ -23,7 +23,7 @@
 #include "TEditBox.h"
 
 #include "../../IO_Terrain.h"
-#include "TriggerInfo.h"
+#include "triggerinfo/TriggerInfo.h"
 
 COptionDlg::COptionDlg(void) {
   ZeroMemory(&m_VideoOption, sizeof( t_OptionVideo ));

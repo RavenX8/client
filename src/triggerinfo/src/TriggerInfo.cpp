@@ -60,22 +60,24 @@ TRIGGERINFO_API const char * TI_GatherSysInfo (void)
 
 	g_Info = SI.GetAllInfo ();
 
-	FILE * fp = fopen (SYSINFO_FILE, "wb");
+	FILE* fp;
+	fopen_s(&fp, SYSINFO_FILE, "wb");
+
 	if(fp)
 	{
 		short nLength = (short)g_Info.size ();
 		fwrite (&nLength, sizeof (short), 1, fp);
 		fwrite ((const void *)g_Info.c_str (), sizeof (char), (size_t)nLength, fp);
 		fclose (fp); fp = NULL;
-
-		
 	}
 
 	g_InfoForWeb = SI.MakeWebString();
 	if( g_InfoForWeb.size() > 0 )
 	{
 
-		FILE * fpWeb = fopen( SYSINFO_FILE_WEB , "wb" );
+		FILE* fpWeb;
+		fopen_s(&fpWeb, SYSINFO_FILE_WEB, "wb");
+
 		if( fpWeb )
 		{
 			short nLength = (short)g_InfoForWeb.size ();
@@ -95,7 +97,9 @@ TRIGGERINFO_API const char * TI_GatherSysInfo (void)
  */
 TRIGGERINFO_API const char * TI_ReadSysInfoFile (void)
 {
-	FILE * fp = fopen (SYSINFO_FILE, "rb");
+	FILE* fp;
+	fopen_s(&fp, SYSINFO_FILE, "rb");
+
 	if(fp)
 	{
 		short nLength = (short)g_Info.size ();

@@ -181,7 +181,7 @@ string CD3D9::ConvertDriverVersion (D3DADAPTER_IDENTIFIER9 * pDI)
 	WORD SubVersion = HIWORD(pDI->DriverVersion.LowPart);
 	WORD Build		= LOWORD(pDI->DriverVersion.LowPart);
 
-	sprintf (buff, "adapter(%s) version(%d.%d.%d.%d)",
+	sprintf_s (buff, "adapter(%s) version(%d.%d.%d.%d)",
 			pDI->Description, Product, Version, SubVersion, Build);
 
 	return std::string (buff);

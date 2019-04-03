@@ -36,7 +36,7 @@ extern "C" {
 #include "System/CGame.h"
 #include "Interface/ExternalUI/CLogin.h"
 #include "Debug.h"
-#include "TriggerInfo.h"
+#include "triggerinfo/TriggerInfo.h"
 
 #include "Util/CheckHack.h"
 #include "Country.h"

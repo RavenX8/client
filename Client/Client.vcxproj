@@ -86,7 +86,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <OmitFramePointers>false</OmitFramePointers>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)\TGameCtrl;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\tools\TriggerInfo\src;$(SolutionDir)\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)\TGameCtrl;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -114,7 +114,7 @@
       <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl_d.lib;Version.lib;urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d_TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)d_TRose.pdb</ProgramDatabaseFile>
       <GenerateMapFile>false</GenerateMapFile>
@@ -135,7 +135,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)\Common;$(SolutionDir)\TGameCtrl;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\tools\TriggerInfo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)\Common;$(SolutionDir)\TGameCtrl;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -160,7 +160,7 @@
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)TRose000.xxx</ProgramDatabaseFile>
@@ -187,7 +187,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)\Common;$(SolutionDir)\TGameCtrl;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\tools\TriggerInfo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)\Common;$(SolutionDir)\TGameCtrl;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_D_RELEASE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -212,7 +212,7 @@
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)TRose000.xxx</ProgramDatabaseFile>
@@ -1054,10 +1054,6 @@
     </ProjectReference>
     <ProjectReference Include="..\TGameCtrl\TGameCtrl.vcxproj">
       <Project>{25fc645b-a461-4fdd-848a-4f7c5522313a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools\TriggerInfo\TriggerInfo.vcxproj">
-      <Project>{de7958cd-934e-4af9-8a22-cce329b364fb}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\Tools\TriggerVFS\TriggerVFS.vcxproj">
