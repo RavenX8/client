@@ -1,6 +1,6 @@
 #ifndef _CFriendListItem_
 #define _CFriendListItem_
-#include "winctrl.h"
+#include "tgamectrl/WinCtrl.h"
 
 /**
 * Ŀ�´�Ƽ â���� ģ�� ����Ʈ�� ���Ǵ� Item Class

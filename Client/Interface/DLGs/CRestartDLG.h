@@ -1,7 +1,7 @@
 #ifndef _RESTARTDLG_
 #define _RESTARTDLG_
 
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 
 /**
 * 죽었을때 부활 지점을 선택하는 다이얼로그

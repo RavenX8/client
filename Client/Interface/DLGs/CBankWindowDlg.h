@@ -1,7 +1,7 @@
 #ifndef _CBankWindowDlg_
 #define _CBankWindowDlg_
-#include "tdialog.h"
-#include "SinglelineString.h"
+#include "tgamectrl/TDialog.h"
+#include "tgamectrl/SinglelineString.h"
 
 /**
 * 은행에서 돈을 보관하거나 찾을때 줄리양을 입력하는 다이얼로그

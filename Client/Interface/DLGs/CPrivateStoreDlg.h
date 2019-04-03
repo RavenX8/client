@@ -1,6 +1,6 @@
 #ifndef _CPrivateStoreDlg_
 #define _CPrivateStoreDlg_
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../GameCommon/IObserver.h"
 #include "../../GameData/CPrivateStore.h"
 #include "subclass/CSlot.h"

@@ -16,10 +16,10 @@
 #include "../../GameData/Event/CTEventItem.h"
 #include "../../GameData/CClan.h"
 
-#include "TabbedPane.h"
-#include "TGuage.h"
-#include "JContainer.h"
-#include "ResourceMgr.h"
+#include "tgamectrl/TabbedPane.h"
+#include "tgamectrl/TGuage.h"
+#include "tgamectrl/JContainer.h"
+#include "tgamectrl/ResourceMgr.h"
 
 CCharacterDLG::CCharacterDLG(int iType) {
   m_iGuageBlueGID   = 0;

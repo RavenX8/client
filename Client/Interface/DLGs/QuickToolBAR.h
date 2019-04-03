@@ -1,7 +1,7 @@
 #ifndef _QUICK_TOOL_BAR_H
 #define _QUICK_TOOL_BAR_H
 
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "SubClass/CSlot.h"
 #include "../Common/CHotICON.h"
 #include "../GameCommon/IObserver.h"

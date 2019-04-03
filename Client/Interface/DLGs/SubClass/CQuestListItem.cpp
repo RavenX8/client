@@ -6,7 +6,7 @@
 #include "../../IO_ImageRes.h"
 #include "../../CTDrawImpl.h"
 
-#include "ZListBox.h"
+#include "tgamectrl/ZListBox.h"
 
 CQuestListItem::CQuestListItem(int iQuestIndex) {
   m_iQuestIndex = iQuestIndex;

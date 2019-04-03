@@ -2,7 +2,7 @@
 #define _LOGIN_
 
 #include "CExternalUI.h"
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 
 const int MAX_ID_LENGTH       = 20;
 const int MAX_PASSWORD_LENGTH = 17;

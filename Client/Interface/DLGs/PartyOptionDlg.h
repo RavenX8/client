@@ -1,6 +1,6 @@
 #ifndef _CPartyOptionDlg_
 #define _CPartyOptionDlg_
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../GameCommon/IObserver.h"
 
 /**

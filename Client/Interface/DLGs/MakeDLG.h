@@ -1,15 +1,15 @@
 #ifndef _MAKE_DLG_H
 #define _MAKE_DLG_H
 
-#include "../../../TGameCtrl/TDialog.h"
-#include "../../../TGameCtrl/TContainerItem.h"
+#include "tgamectrl/TDialog.h"
+#include "tgamectrl/TContainerItem.h"
 #include "../../Common/CItem.h"
 #include "../../GameData/CManufacture.h"
 #include "../../Common/DataTYPE.h"
 #include "../../GameCommon/Item.h"
 #include "../../GameCommon/IObserver.h"
 #include "SubClass/CSlot.h"
-#include "SinglelineString.h"
+#include "tgamectrl/SinglelineString.h"
 
 class CMakeState;
 class CMakeStateNormal;
@@ -21,9 +21,11 @@ struct t_PACKET;
 class CDragItem;
 
 /**
-* 제조시에 사용되는 다이얼로그
+* 제조시에 사용되는 다이얼로그
+
 *
-* @Author		최종진
+* @Author		최종진
+
 * @Date			2005/9/14
 */
 class CMakeDLG : public CTDialog, public IObserver {

@@ -2,7 +2,7 @@
 #define _CICON_
 
 #include "../../Common/CItem.h"
-#include "../../../TGameCtrl/TObject.h"
+#include "tgamectrl/TObject.h"
 #include "../CInfo.h"
 //----------------------------------------------------------------------------------------------------
 /// 

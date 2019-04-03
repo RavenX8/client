@@ -1,6 +1,6 @@
 #ifndef _CCommDlg_
 #define _CCommDlg_
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 class CZListBox;
 class CFriendListItem;
 

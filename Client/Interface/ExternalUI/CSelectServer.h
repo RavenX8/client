@@ -7,7 +7,7 @@
 #include <vector>
 #include <deque>
 
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 
 struct ServerInfo {
   std::string  strServerName;

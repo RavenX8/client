@@ -4,7 +4,7 @@
 #include "CExternalUI.h"
 #include <vector>
 #include <string>
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 
 struct t_PACKET;
 

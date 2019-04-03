@@ -18,8 +18,8 @@
 #include "../../Misc/GameUtil.h"
 #include "../../Country.h"
 
-#include "ActionEvent.h"
-#include "TPane.h"
+#include "tgamectrl/ActionEvent.h"
+#include "tgamectrl/TPane.h"
 const int MAX_DROP_MONEY = 100000; ///돈을 바닥에 버릴경우 최대 10만까지
 
 const POINT c_ptEquipedSlotOffsets[] = {

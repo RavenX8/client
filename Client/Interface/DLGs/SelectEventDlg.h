@@ -1,7 +1,7 @@
 #ifndef _CSelectEventDlg_
 #define _CSelectEventDlg_
 
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 
 /**
 * 루나행성의 워프게이트 처럼 유저의 선택만을 입력받는 다이얼로그

@@ -16,12 +16,12 @@
 
 #include "SubClass/CQuestListItem.h"
 
-#include "SplitHangul.h"
-#include "ZListBox.h"
-#include "TScrollBar.h"
-#include "TPane.h"
-#include "TListBox.h"
-#include "ResourceMgr.h"
+#include "tgamectrl/SplitHangul.h"
+#include "tgamectrl/ZListBox.h"
+#include "tgamectrl/TScrollBar.h"
+#include "tgamectrl/TPane.h"
+#include "tgamectrl/TListBox.h"
+#include "tgamectrl/ResourceMgr.h"
 
 const short QUEST_SLOT_WIDTH                    = 40;
 const short QUEST_SLOT_HEIGHT                   = 40;

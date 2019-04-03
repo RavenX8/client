@@ -1,7 +1,7 @@
 #ifndef _CPARTYDLG_
 #define	_CPARTYDLG_
 
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "Net_Prototype.h"
 
 class CPartyMember;

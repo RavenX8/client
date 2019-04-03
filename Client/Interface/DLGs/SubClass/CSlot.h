@@ -1,7 +1,7 @@
 #ifndef _CSLOT_
 #define _CSLOT_
 
-#include "WinCtrl.h"
+#include "tgamectrl/WinCtrl.h"
 
 class CIcon;
 class CTCommand;

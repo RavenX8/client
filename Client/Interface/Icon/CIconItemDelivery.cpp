@@ -5,7 +5,7 @@
 #include "../IO_ImageRes.h"
 #include "../CTDrawImpl.h"
 #include "../TypeResource.h"
-#include "ResourceMgr.h"
+#include "tgamectrl/ResourceMgr.h"
 
 int CIconItemDelivery::s_selected_icon = 0;
 

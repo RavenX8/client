@@ -4,7 +4,7 @@
 #include "../CObjCHAR.h"
 #include "../OBJECT.h"
 
-#include "SplitHangul.h"
+#include "tgamectrl/SplitHangul.h"
 
 const int TITLE_TEXT_WIDTH = 28;
 

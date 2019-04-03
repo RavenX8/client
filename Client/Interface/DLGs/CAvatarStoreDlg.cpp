@@ -7,7 +7,7 @@
 #include "../Command/CTCmdNumberInput.h"
 #include "../CDragNDropMgr.h"
 #include "../../OBJECT.h"
-#include "TRadioBox.h"
+#include "tgamectrl/TRadioBox.h"
 #include "../it_mgr.h"
 #include "../CToolTipMgr.h"
 

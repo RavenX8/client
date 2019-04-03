@@ -14,14 +14,14 @@
 #include "../../CClientStorage.h"
 #include "../../Country.h"
 
-#include "TEditBox.h"
-#include "TMsgBox.h"
-#include "TCheckBox.h"
-#include "JComboBox.h"
-#include "JListBox.h"
-#include "TContainer.h"
-#include "TListCellRenderer.h"
-#include "TContainerItem.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TMsgBox.h"
+#include "tgamectrl/TCheckBox.h"
+#include "tgamectrl/JComboBox.h"
+#include "tgamectrl/JListBox.h"
+#include "tgamectrl/TContainer.h"
+#include "tgamectrl/TListCellRenderer.h"
+#include "tgamectrl/TContainerItem.h"
 
 #include "../Util/ClipboardUtil.h"
 

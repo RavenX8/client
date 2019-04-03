@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./NotifyDlg.h"
 
-#include "TButton.h"
+#include "tgamectrl/TButton.h"
 
 CNotifyDlg::CNotifyDlg(void) {
   m_iExtentLine = 4;

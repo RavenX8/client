@@ -1,13 +1,13 @@
 #ifndef _CItemDlg_
 #define _CItemDlg_
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 
 #include <map>
 #include "subclass/CSlot.h"
 #include "../../gamecommon/IObserver.h"
 #include "../../CClientStorage.h"
 
-#include "IActionListener.h"
+#include "tgamectrl/IActionListener.h"
 class CDragItem;
 class CTCmdNumberInput;
 

@@ -1,7 +1,7 @@
 #ifndef _CHARACTER_DLG_H
 #define _CHARACTER_DLG_H
 
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../Common/CItem.h"
 #include "../../Common/DataTYPE.h"
 

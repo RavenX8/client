@@ -15,14 +15,14 @@
 #include "../../GameData/Event/CTEventParty.h"
 #include "../../GameData/CParty.h"
 
-#include "ResourceMgr.h"
-#include "TListBox.h"
-#include "TEditBox.h"
-#include "TabbedPane.h"
-#include "JContainer.h"
-#include "TScrollBar.h"
-#include "TRadioBox.h"
-#include "TRadioButton.h"
+#include "tgamectrl/ResourceMgr.h"
+#include "tgamectrl/TListBox.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TabbedPane.h"
+#include "tgamectrl/JContainer.h"
+#include "tgamectrl/TScrollBar.h"
+#include "tgamectrl/TRadioBox.h"
+#include "tgamectrl/TRadioButton.h"
 
 #include <algorithm>
 

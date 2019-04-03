@@ -4,7 +4,7 @@
 
 #include "StdAfx.h"
 #include "Quest_FUNC.h"
-#include "TGameCtrl.h"
+#include "tgamectrl/TGameCtrl.h"
 #include "OBJECT.h"  /* <=== 이 파일을 인클루드 시켜 사용할 것 */
 #include "IO_Basic.h"
 #include "../Interface/it_mgr.h"

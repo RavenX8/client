@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../Common/CUserDATA.h"
 class CQuestListItem;
 

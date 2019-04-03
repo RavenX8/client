@@ -1,6 +1,6 @@
 #ifndef _CMenuDlg_
 #define _CMenuDlg_
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 
 /// 튜토리얼 스크립트에서 해당 버튼의 인덱스를 참조하기 위하여 전역으로 열거함
 enum {

@@ -18,9 +18,9 @@
 
 #include "../Country.h"
 
-#include "TRadioBox.h"
-#include "TRadioButton.h"
-#include "TButton.h"
+#include "tgamectrl/TRadioBox.h"
+#include "tgamectrl/TRadioButton.h"
+#include "tgamectrl/TButton.h"
 
 CBankDlg::CBankDlg(int iType) {
   SetDialogType( iType );

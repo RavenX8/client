@@ -1,7 +1,7 @@
 #ifndef _CTSOUNDIMPL_
 #define _CTSOUNDIMPL_
 
-#include "ITSound.h"
+#include "tgamectrl/ITSound.h"
 
 /**
 * 인터페이스 라이브러리(TGameCtrl)에게 알려줄 ITSound의 Implemented Class

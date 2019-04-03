@@ -12,8 +12,8 @@
 
 #include "../Command/CTCmdHotExec.h"
 #include "../../Debug.h"
-#include "TListBox.h"
-#include "TMsgBox.h"
+#include "tgamectrl/TListBox.h"
+#include "tgamectrl/TMsgBox.h"
 
 CSelectServer::CSelectServer() {
   m_ServerInfoList.clear();

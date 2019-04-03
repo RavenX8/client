@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "AvatarInfoDlg.h"
-#include "TGuage.h"
-#include "ResourceMgr.h"
+#include "tgamectrl/TGuage.h"
+#include "tgamectrl/ResourceMgr.h"
 
 #include "../it_mgr.h"
 #include "../CToolTipMgr.h"
@@ -16,7 +16,7 @@
 #include "../../GameData/Event/CTEventItem.h"
 
 #include "../Misc/GameUtil.h"
-#include "TStatic.h"
+#include "tgamectrl/TStatic.h"
 #include "CHelpMgr.h"
 #include "CMinimapDLG.h"
 #include "Network/CNetwork.h"

@@ -21,11 +21,11 @@
 #include "../../GameData/Event/CTEventItem.h"
 #include "../../Country.h"
 
-#include "TPane.h"
-#include "TEditBox.h"
-#include "TImage.h"
-#include "ResourceMgr.h"
-#include "TControlMgr.h"
+#include "tgamectrl/TPane.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TImage.h"
+#include "tgamectrl/ResourceMgr.h"
+#include "tgamectrl/TControlMgr.h"
 
 //#define TYPE1_BODY_SIZE		4	//¸öÅë
 //#define TYPE1_TAIL_SIZE		33	//½½·Ô¹Ú½º Å©±â 

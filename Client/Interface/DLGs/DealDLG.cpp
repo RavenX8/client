@@ -16,7 +16,7 @@
 #include "../../GameData/CStore.h"
 #include "../../Misc/GameUtil.h"
 
-#include "../../../TGameCtrl/ResourceMgr.h"
+#include "tgamectrl/ResourceMgr.h"
 
 #define DS_CAPTION_SX	31
 #define DS_CAPTION_SY	11

@@ -5,7 +5,7 @@
 #include "../it_mgr.h"
 #include "../../System/System_FUNC.h"
 
-#include "TButton.h"
+#include "tgamectrl/TButton.h"
 #include <algorithm>
 
 CNotifyButtonDlg::CNotifyButtonDlg(void) {

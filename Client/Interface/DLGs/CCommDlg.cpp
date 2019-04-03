@@ -10,9 +10,9 @@
 #include "../../Country.h"
 #include "../../System/CGame.h"
 
-#include "TabbedPane.h"
-#include "JContainer.h"
-#include "ZListBox.h"
+#include "tgamectrl/TabbedPane.h"
+#include "tgamectrl/JContainer.h"
+#include "tgamectrl/ZListBox.h"
 
 CCommDlg::CCommDlg(int iDlgType) {
   SetDialogType( iDlgType );

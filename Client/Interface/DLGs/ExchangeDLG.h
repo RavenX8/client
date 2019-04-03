@@ -1,7 +1,7 @@
 #ifndef _EXCHANGEDLG_
 #define _EXCHANGEDLG_
 
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../GameCommon/IObserver.h"
 #include "../../GameData/CExchange.h"
 #include "subclass/cslot.h"

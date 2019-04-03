@@ -1,7 +1,7 @@
 #ifndef _HELPDLG_
 #define _HELPDLG_
 
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 #include <map>
 #include <string>
 

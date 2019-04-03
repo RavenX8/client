@@ -5,7 +5,7 @@
 #include "../../InterfaceType.h"
 #include "../../CToolTipMgr.h"
 
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../../OBJECT.h"
 #include "../../CDragItem.h"
 #include "../../Command/DragCommand.h"

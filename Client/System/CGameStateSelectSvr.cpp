@@ -7,7 +7,7 @@
 
 #include "../Game.h"
 #include "../System/CGame.h"
-#include "../TGameCtrl/TMsgBox.h"
+#include "tgamectrl/TMsgBox.h"
 #include "../Network/CNetwork.h"
 
 #include "../Interface/ExternalUI/ExternalUILobby.h"
@@ -21,7 +21,7 @@
 #include "../Common/IO_Quest.h"
 
 #include "../CSkyDOME.h"
-#include "TTIme.h"
+#include "tgamectrl/TTIme.h"
 #include "SystemProcScript.h"
 
 CGameStateSelectSvr::CGameStateSelectSvr(int iID) {

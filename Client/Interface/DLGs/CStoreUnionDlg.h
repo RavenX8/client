@@ -1,6 +1,6 @@
 #ifndef _CStoreUnionDlg_
 #define _CStoreUnionDlg_
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 
 class CStoreUnionDlg : public CTDialog {
 public:

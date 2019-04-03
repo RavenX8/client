@@ -1,7 +1,7 @@
 #ifndef _DEAL_DLG_H
 #define _DEAL_DLG_H
 
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../GameCommon/IObserver.h"
 #include "SubClass/CSlot.h"
 #include "../../GameData/CDealData.h"

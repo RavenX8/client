@@ -10,7 +10,7 @@
 #include "../../Network/CNetwork.h"
 #include "CDialogDlg.h"
 
-#include "TButton.h"
+#include "tgamectrl/TButton.h"
 
 CDeliveryStoreDlg::CDeliveryStoreDlg(void) {
   m_pDragItem = nullptr;

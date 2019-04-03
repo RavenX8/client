@@ -1,6 +1,6 @@
 #ifndef _CSkillTreeDlg_
 #define _CSkillTreeDlg_
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../gamecommon/IObserver.h"
 class CIconSkill;
 

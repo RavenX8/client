@@ -7,7 +7,7 @@
 #include "../../Game.h"
 
 #include "../../JCommandState.h"
-#include "../../../TGameCtrl/ResourceMgr.h"
+#include "tgamectrl/ResourceMgr.h"
 
 CTargetObjectDLG::CTargetObjectDLG() {}
 

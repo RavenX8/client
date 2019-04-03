@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./InputNameDlg.h"
 #include "../Command/UICommand.h"
-#include "TEditBox.h"
+#include "tgamectrl/TEditBox.h"
 
 CInputNameDlg::CInputNameDlg(void) {
   m_command = nullptr;

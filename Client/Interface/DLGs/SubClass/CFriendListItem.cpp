@@ -11,8 +11,8 @@
 #include "../../../Game.h"
 #include "Net_Prototype.h"
 
-#include "ZListBox.h"
-#include "ResourceMgr.h"
+#include "tgamectrl/ZListBox.h"
+#include "tgamectrl/ResourceMgr.h"
 
 CFriendListItem::CFriendListItem(DWORD dwUserTag, BYTE btStatus, const char* pszName) {
   SetHeight( 20 );

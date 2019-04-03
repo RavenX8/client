@@ -1,7 +1,7 @@
 #ifndef _CInputNameDlg_
 #define _CInputNameDlg_
 
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 
 class CTCmdInputName;
 

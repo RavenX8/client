@@ -1,7 +1,7 @@
 #ifndef _CNUMBERINPUTDLG_
 #define _CNUMBERINPUTDLG_
 
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 class CTCmdNumberInput;
 
 /**

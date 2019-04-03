@@ -1,6 +1,6 @@
 #ifndef _CTFONTIMPL_
 #define _CTFONTIMPL_
-#include "../../TGameCtrl/ITFont.h"
+#include "tgamectrl/ITFont.h"
 
 /**
 * 인터페이스 라이브러리(TGameCtrl)에게 알려줄 ITFont의 Implemented Class

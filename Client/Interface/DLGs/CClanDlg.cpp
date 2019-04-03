@@ -18,11 +18,11 @@
 #include "../ClanMarkTransfer.h"
 #include "../../Country.h"
 
-#include "TButton.h"
-#include "TabbedPane.h"
-#include "ZListBox.h"
-#include "JContainer.h"
-#include "ResourceMgr.h"
+#include "tgamectrl/TButton.h"
+#include "tgamectrl/TabbedPane.h"
+#include "tgamectrl/ZListBox.h"
+#include "tgamectrl/JContainer.h"
+#include "tgamectrl/ResourceMgr.h"
 #include "../CClanMarkView.h"
 
 CClanDlg::CClanDlg(void) {

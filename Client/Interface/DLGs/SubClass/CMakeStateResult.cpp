@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./CMakeStateResult.h"
 #include "CGuage.h"
-#include "../../../../TGameCtrl/ResourceMgr.h"
+#include "tgamectrl/ResourceMgr.h"
 #include "../../IO_ImageRes.h"
 #include "../MakeDLG.h"
 #include "../../../Network/CNetwork.h"

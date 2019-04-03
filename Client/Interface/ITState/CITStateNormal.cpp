@@ -8,8 +8,8 @@
 #include "../Icon/CIconDialog.h"
 #include "../../System/CGame.h"
 
-#include "TEditBox.h"
-#include "TControlMgr.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TControlMgr.h"
 
 CITStateNormal::CITStateNormal(void) {
   m_iID = IT_MGR::STATE_NORMAL;

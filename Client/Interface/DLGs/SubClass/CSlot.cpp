@@ -14,10 +14,10 @@
 #include "../../../Network/CNetwork.h"
 #include "../../../GameCommon/Item.h"
 
-#include "TDialog.h"
-#include "TCommand.h"
-#include "ActionEvent.h"
-#include "IActionListener.h"
+#include "tgamectrl/TDialog.h"
+#include "tgamectrl/tcommand.h"
+#include "tgamectrl/ActionEvent.h"
+#include "tgamectrl/IActionListener.h"
 
 CSlot::CSlot(void) {
   m_bClicked       = false;

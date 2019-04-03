@@ -2,8 +2,8 @@
 #define _CHATTING_DLG_H
 #include <vector>
 #include <queue>
-#include "TDialog.h"
-#include "IActionListener.h"
+#include "tgamectrl/TDialog.h"
+#include "tgamectrl/IActionListener.h"
 
 /// 0: false, 1: true, 2:true(can't change)
 struct ChatFilter {

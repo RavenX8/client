@@ -9,7 +9,8 @@
 //#include "CKeyboard.h"
 #include "Network/CNetwork.h"
 #include "Game.h"
-#include "TGameCtrl.h"
+#include "tgamectrl/TGameCtrl.h"
+#include "tgamectrl/TTIme.h"
 
 #include "Interface/it_mgr.h"
 #include "System/CGame.h"
@@ -18,7 +19,7 @@
 #include "Sound/DirectMusicPlayer.h"
 #include "Util/classMD5.h"
 
-#include "TTIme.h"
+
 CApplication* CApplication::m_pInstance = nullptr;
 
 //#define DEFAULT_WINDOWED_STYLE ( WS_OVERLAPPEDWINDOW )

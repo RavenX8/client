@@ -1,7 +1,7 @@
 #ifndef _CTDRAWIMPL_
 #define _CTDRAWIMPL_
 
-#include "..//..//TGameCtrl//ITDraw.h"
+#include "tgamectrl/ITDraw.h"
 #include <d3dx9.h>
 
 /**

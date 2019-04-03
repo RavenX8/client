@@ -1,7 +1,7 @@
 #ifndef _TARGETOBJECTDLG_
 #define _TARGETOBJECTDLG_
 
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 
 /**
 * 예전 클베때 타겟에 대한 정보를 보여주는 다이얼로그

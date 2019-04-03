@@ -3,8 +3,8 @@
 //*------------------------------------------------------------------------------------
 #include "StdAfx.h"
 #include "./CNumberInputDlg.h"
-#include "../../../TGameCtrl/TEditBox.h"
-#include "../../../TGameCtrl/TButton.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TButton.h"
 #include "../Command/CTCmdNumberInput.h"
 
 #include "../../Game.h"

@@ -3,7 +3,7 @@
 #include "CGame.h"
 
 #include "../Game.h"
-#include "../TGameCtrl/TMsgBox.h"
+#include "tgamectrl/TMsgBox.h"
 #include "../Network/CNetwork.h"
 
 #include "../Interface/ExternalUI/ExternalUILobby.h"
@@ -21,7 +21,7 @@
 #include "../CSkyDOME.h"
 //#include "../nProtect/nProtect.h"
 #include "../Misc/GameUtil.h"
-#include "TTIme.h"
+#include "tgamectrl/TTIme.h"
 #include "SystemProcScript.h"
 
 CGameStateLogin::CGameStateLogin(int iID) {

@@ -1,7 +1,7 @@
 #ifndef _BASE_PAN_H
 #define _BASE_PAN_H
 
-#include "../../../TGameCtrl//TDialog.h"
+#include "tgamectrl//TDialog.h"
 
 // *--------------------------------------------------------------------* //
 // 기본판낼창 

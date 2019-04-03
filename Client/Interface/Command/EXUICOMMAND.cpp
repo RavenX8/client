@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "ExUICommand.h"
-#include "../../../TGameCtrl/TDialog.h"
+#include "tgamectrl/TDialog.h"
 #include "../../Network/CNetwork.h"
 
 CTCmdDeleteCharacter::CTCmdDeleteCharacter(int iSelectListID, const char* pszName) {

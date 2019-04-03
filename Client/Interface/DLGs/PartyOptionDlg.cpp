@@ -7,9 +7,9 @@
 #include "../../GameCommon/StringManager.h"
 #include "../../CClientStorage.h"
 
-#include "TButton.h"
-#include "TRadioBox.h"
-#include "TCheckBox.h"
+#include "tgamectrl/TButton.h"
+#include "tgamectrl/TRadioBox.h"
+#include "tgamectrl/TCheckBox.h"
 
 CPartyOptionDlg::CPartyOptionDlg(void) {
   m_party_rule = 0;

@@ -12,12 +12,12 @@
 #include "../../Util/Localizing.h"
 #include "../../GameProc/CaptureChatList.h"
 
-#include "TEditBox.h"
-#include "TListBox.h"
-#include "TRadioBox.h"
-#include "TScrollBar.h"
-#include "ActionEvent.h"
-#include "TControlMgr.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TListBox.h"
+#include "tgamectrl/TRadioBox.h"
+#include "tgamectrl/TScrollBar.h"
+#include "tgamectrl/ActionEvent.h"
+#include "tgamectrl/TControlMgr.h"
 
 #include <algorithm>
 

@@ -20,7 +20,7 @@
 #include "Util/classMD5.h"
 #include "Common/IO_AI.H"
 #include "Common/io_stb.h"
-#include "TGameCtrl.h"
+#include "tgamectrl/TGameCtrl.h"
 #include "Interface/it_mgr.h"
 #include "Interface/IO_ImageRes.h"
 
@@ -35,7 +35,7 @@
 #include "Interface/TypeResource.h"
 #include "Interface/CUIMediator.h"
 #include "Interface/ExternalUI/ExternalUILobby.h"
-#include "../TGameCtrl/ResourceMgr.h"
+#include "tgamectrl/ResourceMgr.h"
 #include "Interface/IO_ImageRes.h"
 #include "Interface/CTDrawImpl.h"
 #include "Interface/CTSoundImpl.h"

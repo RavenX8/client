@@ -5,14 +5,14 @@
 #include "../../Network/CNetwork.h"
 #include "../it_mgr.h"
 
-#include "TScrollBar.h"
-#include "TEditBox.h"
-#include "TListBox.h"
-#include "JContainer.h"
-#include "TabbedPane.h"
-#include "TComboBox.h"
-#include "TPane.h"
-#include "ActionEvent.h"
+#include "tgamectrl/TScrollBar.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TListBox.h"
+#include "tgamectrl/JContainer.h"
+#include "tgamectrl/TabbedPane.h"
+#include "tgamectrl/TComboBox.h"
+#include "tgamectrl/TPane.h"
+#include "tgamectrl/ActionEvent.h"
 
 const POINT c_ptDrawMemberName[] = {
   { 18, 60 }, { 18, 80 }, { 18, 100 }, { 18, 120 },

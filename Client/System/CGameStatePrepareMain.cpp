@@ -22,7 +22,7 @@
 #include "../Network/CNetwork.h"
 #include <crtdbg.h>
 
-#include "TControlMgr.h"
+#include "tgamectrl/TControlMgr.h"
 
 static bool tDone = false;
 

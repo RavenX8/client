@@ -15,7 +15,7 @@
 #include "../CJustModelAVT.h"
 #include "../Country.h"
 
-#include "TMsgBox.h"
+#include "tgamectrl/TMsgBox.h"
 
 CSelectAvata::CSelectAvata() {}
 

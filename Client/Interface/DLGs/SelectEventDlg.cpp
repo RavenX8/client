@@ -8,11 +8,11 @@
 #include "../../Country.h"
 #include "../it_mgr.h"
 
-#include "ResourceMgr.h"
-#include "ZListBox.h"
-#include "TCaption.h"
-#include "TImage.h"
-#include "TButton.h"
+#include "tgamectrl/ResourceMgr.h"
+#include "tgamectrl/ZListBox.h"
+#include "tgamectrl/TCaption.h"
+#include "tgamectrl/TImage.h"
+#include "tgamectrl/TButton.h"
 
 const int BG_IMAGE_HEIGHT = 150;
 

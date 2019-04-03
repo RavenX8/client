@@ -91,6 +91,9 @@
       <ImportLibrary>$(OutDir)TriggerInfo.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+     <PostBuildEvent>
+      <Command>xcopy $(OutDir)TriggerInfo.lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\ /s /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -112,6 +115,9 @@
       <ImportLibrary>$(OutDir)TriggerInfo.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy $(OutDir)TriggerInfo.lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\ /s /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
     <ClCompile>
@@ -133,6 +139,9 @@
       <ImportLibrary>$(OutDir)TriggerInfo.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+     <PostBuildEvent>
+      <Command>xcopy $(OutDir)TriggerInfo.lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\ /s /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\reg.cpp" />

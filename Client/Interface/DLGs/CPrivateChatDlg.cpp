@@ -8,10 +8,10 @@
 #include "CCommDlg.h"
 #include "SubClass/CFriendListItem.h"
 
-#include "TListBox.h"
-#include "TEditBox.h"
-#include "TScrollBar.h"
-#include "ActionEvent.h"
+#include "tgamectrl/TListBox.h"
+#include "tgamectrl/TEditBox.h"
+#include "tgamectrl/TScrollBar.h"
+#include "tgamectrl/ActionEvent.h"
 
 CPrivateChatDlg::CPrivateChatDlg(int iDlgType) {
   SetDialogType( iDlgType );

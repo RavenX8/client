@@ -9,7 +9,7 @@
 #include "../Interface/ExternalUI/ExternalUILobby.h"
 #include "../Interface/CLoading.h"
 #include "../Interface/CUIMediator.h"
-#include "../../TGameCtrl/TMsgBox.h"
+#include "tgamectrl/TMsgBox.h"
 
 static bool tDone = false;
 

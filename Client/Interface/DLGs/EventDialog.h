@@ -1,8 +1,8 @@
 #ifndef _CEventDialog_
 #define _CEventDialog_
 
-#include "TDialog.h"
-#include "JStringParser.h"
+#include "tgamectrl/TDialog.h"
+#include "tgamectrl/JStringParser.h"
 
 /**
 * 아이템사용시 열리는 대화창등 Event 로 열리는 다이얼로그

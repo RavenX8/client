@@ -6,7 +6,7 @@
 #include "../it_mgr.h"
 #include "CCommDlg.h"
 
-#include "TButton.h"
+#include "tgamectrl/TButton.h"
 CMemoViewDlg::CMemoViewDlg(void) {}
 
 CMemoViewDlg::~CMemoViewDlg(void) {}

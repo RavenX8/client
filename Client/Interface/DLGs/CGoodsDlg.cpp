@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./CGoodsDlg.h"
 #include "../Icon/CIconItem.h"
-#include "TEditBox.h"
+#include "tgamectrl/TEditBox.h"
 #include "../../GameData/CPrivateStore.h"
 #include "../../Common/io_stb.h"
 

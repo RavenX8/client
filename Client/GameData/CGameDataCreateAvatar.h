@@ -2,7 +2,7 @@
 #define _CGAMEDATACREATEAVATAR_
 #include <map>
 #include <vector>
-#include "../../TGameCtrl/TContainerItem.h"
+#include "tgamectrl/TContainerItem.h"
 
 class CJustModelAVT;
 

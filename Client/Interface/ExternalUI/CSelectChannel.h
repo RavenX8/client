@@ -1,6 +1,6 @@
 #ifndef _CSelectChannel_
 #define _CSelectChannel_
-#include "TDialog.h"
+#include "tgamectrl/TDialog.h"
 class CExternalUIManager;
 struct tagCHANNEL_SRV;
 

@@ -8,7 +8,7 @@
 #include "../it_mgr.h"
 #include "../CToolTipMgr.h"
 
-#include "TEditBox.h"
+#include "tgamectrl/TEditBox.h"
 
 CBankWindowDlg::CBankWindowDlg(void) {}
 

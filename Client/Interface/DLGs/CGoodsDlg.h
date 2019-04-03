@@ -1,6 +1,6 @@
 #ifndef _CGoodsDlg_
 #define _CGoodsDlg_
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 #include "subclass/CSlot.h"
 
 /**

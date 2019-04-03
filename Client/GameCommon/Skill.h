@@ -7,7 +7,7 @@
 #include <list>
 #include "BULLET.H"
 #include "Common//IO_Skill.h"
-#include "../../TGameCtrl/TObject.h"
+#include "tgamectrl/TObject.h"
 
 ///
 ///	Skill Apply type

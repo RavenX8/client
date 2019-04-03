@@ -8,7 +8,7 @@
 #include "../it_mgr.h"
 #include "../../Util/Localizing.h"
 
-#include "SplitHangul.h"
+#include "tgamectrl/SplitHangul.h"
 //----------------------------------------------------------------------------------------------------
 /// Class CIconSkill
 /// @brief	Skill ∞¥√ºø° ¥Î«— View Class

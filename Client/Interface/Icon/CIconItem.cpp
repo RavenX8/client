@@ -17,8 +17,8 @@
 #include "../IO_Event.h"
 #include "../Country.h"
 
-#include "ResourceMgr.h"
-#include "TCommand.h"
+#include "tgamectrl/ResourceMgr.h"
+#include "tgamectrl/tcommand.h"
 
 HNODE CIconItem::m_hSocketTexture         = NULL;
 int   CIconItem::m_iSocketTextureRefCount = 0;

@@ -13,7 +13,7 @@
 #include "../../TypeResource.h"
 #include "../../../OBJECT.h"
 #include "../../../Game_FUNC.h"
-#include "ResourceMgr.h"
+#include "tgamectrl/ResourceMgr.h"
 
 CUpgradeDlgStateResult::CUpgradeDlgStateResult(CUpgradeDlg* pParent) {
   m_pParent = pParent;

@@ -26,7 +26,7 @@
 #include "../../System/CGame.h"
 #include "../../CClientStorage.h"
 
-#include "../../../TGameCtrl/ResourceMgr.h"
+#include "tgamectrl/ResourceMgr.h"
 #include "../../GameCommon/Skill.h"
 #include "../../GameData/CExchange.h"
 #include "../../GameData/Event/CTEventItem.h"

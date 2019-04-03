@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./CDragItem.h"
 #include "Icon/CIcon.h"
-#include "../../TGameCtrl/TCommand.h"
+#include "tgamectrl/TCommand.h"
 
 CDragItem::CDragItem(void) {
   m_pIcon = nullptr;

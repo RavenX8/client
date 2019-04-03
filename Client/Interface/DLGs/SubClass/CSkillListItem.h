@@ -1,8 +1,8 @@
 #ifndef _CSkillListItem_
 #define _CSkillListItem_
-#include "WinCtrl.h"
+#include "tgamectrl/WinCtrl.h"
 #include "CSlot.h"
-#include "singlelinestring.h"
+#include "tgamectrl/SinglelineString.h"
 
 class CTButton;
 class CIconSkill;

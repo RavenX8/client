@@ -1,6 +1,6 @@
 #ifndef _CUpgradeDlg_
 #define _CUpgradeDlg_
-#include "tdialog.h"
+#include "tgamectrl/TDialog.h"
 #include "subclass/CSlot.h"
 #include "../../GameCommon/IObserver.h"
 
