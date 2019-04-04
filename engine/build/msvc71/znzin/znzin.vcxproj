@@ -57,21 +57,21 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <ExtensionsToDeleteOnClean>*.obj%3b*.ilk%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.pgc%3b*.pgd%3b</ExtensionsToDeleteOnClean>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
     <LinkIncremental />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <ExtensionsToDeleteOnClean>*.obj%3b*.ilk%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.pgc%3b*.pgd%3b</ExtensionsToDeleteOnClean>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <ExtensionsToDeleteOnClean>*.obj%3b*.ilk%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.pgc%3b*.pgd%3b</ExtensionsToDeleteOnClean>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
@@ -95,7 +95,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>lua500.lib;triggervfs.lib;Util_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua500.lib;triggervfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\lib\$(Platform);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\lib;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -142,7 +142,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <ResourceOutputFileName>$(IntDir)znzin.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>lua500.lib;triggervfs.lib;Util_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua500.lib;triggervfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)znzin.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\lib\$(Platform);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\lib;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -201,7 +201,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <ResourceOutputFileName>$(IntDir)znzin.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>lua500.lib;triggervfs.lib;Util_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua500.lib;triggervfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)znzin.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\lib\$(Platform);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\lib;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

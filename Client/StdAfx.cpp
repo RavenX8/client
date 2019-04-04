@@ -18,32 +18,10 @@
 #include "CCamera.h"
 #include "CViewMSG.h"
 
-///#include "Util/JDebugNew.h"
-
-//-------------------------------------------------------------------------------------------------
-
-// TODO: reference any additional headers you need in STDAFX.H
-// and not in this file
-
 #pragma comment (lib, "winmm.lib")
 #pragma	comment (lib, "d3dx9.lib")
-
 #pragma comment (lib, "znzin.lib")
-
-#ifdef _DEBUG
-	#pragma comment (lib, "util\\util_d.lib")
-#else
-#pragma comment (lib, "util\\util_r.lib")
-#endif
-
 #pragma comment (lib, "xmlparse.lib")
-
-#ifdef	_USE_BG
-#pragma comment (lib, "util\\BugGUARD.lib" )
-#endif
-
-// #pragma comment (lib, "E:\\Project\\3DOnLine\\ZnZin\\engine\\lib\\lua.lib")
-// #pragma comment (lib, "E:\\Project\\3DOnLine\\ZnZin\\engine\\lib\\lualib.lib")
 
 //-------------------------------------------------------------------------------------------------
 

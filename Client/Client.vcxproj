@@ -86,7 +86,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <OmitFramePointers>false</OmitFramePointers>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\engine\include;$(SolutionDir)\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\ijl-1.5;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\engine\include;$(SolutionDir)\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -111,10 +111,10 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;IJL15.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d_TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)\3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)d_TRose.pdb</ProgramDatabaseFile>
       <GenerateMapFile>false</GenerateMapFile>
@@ -135,7 +135,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\ijl-1.5;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -156,11 +156,11 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;IJL15.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)\3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)TRose000.xxx</ProgramDatabaseFile>
@@ -187,7 +187,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\ijl-1.5;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_D_RELEASE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -208,11 +208,11 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;IJL15.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)\3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)TRose000.xxx</ProgramDatabaseFile>
@@ -570,26 +570,50 @@
     <ClCompile Include="Tutorial\TutorialEventUtility.cpp" />
     <ClCompile Include="Util\ADSStream.cpp" />
     <ClCompile Include="Util\Arcfour\Arcfour.cpp" />
+    <ClCompile Include="Util\CBITArray.cpp" />
     <ClCompile Include="Util\CCheat.cpp" />
+    <ClCompile Include="Util\CClientSOCKET.cpp" />
     <ClCompile Include="Util\CD3DUtil.cpp" />
     <ClCompile Include="Util\CDSound.cpp" />
+    <ClCompile Include="Util\cdxHPC.cpp" />
     <ClCompile Include="Util\CFileSystemNormal.cpp" />
     <ClCompile Include="Util\CFileSystemTriggerVFS.cpp" />
     <ClCompile Include="Util\CGameSTB.cpp" />
     <ClCompile Include="Util\CGameStr.cpp" />
     <ClCompile Include="Util\CheckHack.cpp" />
     <ClCompile Include="Util\classCRC.cpp" />
+    <ClCompile Include="Util\classFile.cpp" />
+    <ClCompile Include="Util\classHASH.cpp" />
+    <ClCompile Include="Util\classHTTP.cpp" />
+    <ClCompile Include="Util\classIME.cpp" />
+    <ClCompile Include="Util\classLOG.cpp" />
     <ClCompile Include="Util\classLUA.cpp" />
+    <ClCompile Include="Util\classMD5.cpp" />
+    <ClCompile Include="Util\classSTB.cpp" />
+    <ClCompile Include="Util\classSTR.cpp" />
+    <ClCompile Include="Util\classSYNCOBJ.cpp" />
+    <ClCompile Include="Util\classTHREAD.cpp" />
     <ClCompile Include="Util\classTIME.cpp" />
+    <ClCompile Include="Util\classTRACE.cpp" />
+    <ClCompile Include="Util\classUTIL.cpp" />
     <ClCompile Include="Util\ClipboardUtil.cpp" />
     <ClCompile Include="Util\CMessageQ.cpp" />
     <ClCompile Include="Util\CMMPlayer.cpp" />
+    <ClCompile Include="Util\CPacketCODEC.cpp" />
+    <ClCompile Include="Util\CProcess.cpp" />
+    <ClCompile Include="Util\CRandom.cpp" />
     <ClCompile Include="Util\CRangeTBL.cpp" />
+    <ClCompile Include="Util\CRawSOCKET.cpp" />
+    <ClCompile Include="Util\CshoSOCKET.cpp" />
+    <ClCompile Include="Util\CSocket.cpp" />
+    <ClCompile Include="Util\CSocketWND.cpp" />
     <ClCompile Include="Util\CWaveFILE.cpp" />
     <ClCompile Include="Util\FileVersionInfo.cpp" />
     <ClCompile Include="Util\JDebugNew.cpp" />
     <ClCompile Include="Util\JResourceContainer.cpp" />
+    <ClCompile Include="Util\LIB_IJL.cpp" />
     <ClCompile Include="Util\Localizing.cpp" />
+    <ClCompile Include="Util\PacketHEADER.cpp" />
     <ClCompile Include="Util\ResourceCache.cpp" />
     <ClCompile Include="Util\SystemInfo.cpp" />
     <ClCompile Include="Util\SystemUtil.cpp" />
@@ -926,12 +950,12 @@
     <ClInclude Include="Tutorial\TutorialEventUtility.h" />
     <ClInclude Include="Util\ADSStream.h" />
     <ClInclude Include="Util\Arcfour\Arcfour.h" />
-    <ClInclude Include="Util\BugGUARD.h" />
     <ClInclude Include="Util\CBITArray.h" />
     <ClInclude Include="Util\CCheat.h" />
     <ClInclude Include="Util\CClientSOCKET.h" />
     <ClInclude Include="Util\CD3DUtil.h" />
     <ClInclude Include="Util\CDSound.h" />
+    <ClInclude Include="Util\CDXHPC.H" />
     <ClInclude Include="Util\CFileLIST.h" />
     <ClInclude Include="Util\CFileSystem.h" />
     <ClInclude Include="Util\CFileSystemNormal.h" />
@@ -940,20 +964,28 @@
     <ClInclude Include="Util\CGameStr.h" />
     <ClInclude Include="Util\CheckHack.h" />
     <ClInclude Include="Util\classCRC.h" />
+    <ClInclude Include="Util\classFile.h" />
     <ClInclude Include="Util\classHASH.h" />
     <ClInclude Include="Util\classHTTP.h" />
     <ClInclude Include="Util\classIME.h" />
     <ClInclude Include="Util\classLOG.h" />
     <ClInclude Include="Util\classLUA.h" />
     <ClInclude Include="Util\classMD5.h" />
+    <ClInclude Include="Util\classMD5Defines.h" />
     <ClInclude Include="Util\classQUEUE.h" />
     <ClInclude Include="Util\classSTB.h" />
     <ClInclude Include="Util\classSTR.h" />
+    <ClInclude Include="Util\classSYNCOBJ.h" />
+    <ClInclude Include="Util\classTHREAD.h" />
     <ClInclude Include="Util\classTIME.h" />
+    <ClInclude Include="Util\classTRACE.h" />
     <ClInclude Include="Util\classUTIL.h" />
     <ClInclude Include="Util\ClipboardUtil.h" />
     <ClInclude Include="Util\CMessageQ.h" />
     <ClInclude Include="Util\CMMPlayer.h" />
+    <ClInclude Include="Util\CPacketCODEC.h" />
+    <ClInclude Include="Util\CProcess.h" />
+    <ClInclude Include="Util\CRandom.h" />
     <ClInclude Include="Util\CRangeTBL.h" />
     <ClInclude Include="Util\CRawSOCKET.h" />
     <ClInclude Include="Util\CshoSOCKET.h" />
@@ -963,10 +995,11 @@
     <ClInclude Include="Util\CWaveFILE.h" />
     <ClInclude Include="Util\DLLIST.h" />
     <ClInclude Include="Util\FileVersionInfo.h" />
-    <ClInclude Include="Util\ijl.h" />
     <ClInclude Include="Util\JDebugNew.h" />
     <ClInclude Include="Util\JResourceContainer.h" />
     <ClInclude Include="Util\JSingleton.h" />
+    <ClInclude Include="Util\LIB_IJL.h" />
+    <ClInclude Include="Util\LIB_Util.h" />
     <ClInclude Include="Util\Localizing.h" />
     <ClInclude Include="Util\LogWnd.h" />
     <ClInclude Include="Util\PacketHEADER.h" />
@@ -977,9 +1010,6 @@
     <ClInclude Include="Util\SystemUtil.h" />
     <ClInclude Include="Util\VFSManager.h" />
     <ClInclude Include="Util\WndMsgQ.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="Util\Util_r.lib" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="export_GM.lua">

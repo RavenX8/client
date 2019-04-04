@@ -78,8 +78,7 @@
 #include "tgamectrl/ResourceMgr.h"
 #include "tgamectrl/TTIme.h"
 
-#include "Util/ijl.h"
-#pragma comment (lib, "util/ijl15.lib")
+#include "ijl/IJL.h"
 
 #include "../JCommandState.h"
 #include "GameCommon/LngTbl.h"

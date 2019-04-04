@@ -1,10 +1,10 @@
 #ifndef	__IO_STB_H
 #define	__IO_STB_H
-#include "classHASH.h"
+#include "Util/classHASH.h"
 #ifndef __SERVER
 	#include "StringManager.h"
 #endif
-#include "classstr.h"
+#include "util/classstr.h"
 //-------------------------------------------------------------------------------------------------
 
 class STBVALUE {

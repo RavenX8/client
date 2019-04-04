@@ -81,7 +81,7 @@
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y</Command>
+      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)lib\$(Platform)\$(Configuration)\ /s /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
@@ -100,7 +100,7 @@
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y</Command>
+      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)lib\$(Platform)\$(Configuration)\ /s /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -118,7 +118,7 @@
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y</Command>
+      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)lib\$(Platform)\$(Configuration)\ /s /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
