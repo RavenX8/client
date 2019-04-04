@@ -109,7 +109,7 @@ private:
 
 private:
 	/// 파일헤더와 엔트리를 읽는다
-	bool		__ReadFileEntry (void);
+	bool		__ReadFileEntry (bool);
 
 	/// map과 vector에서 엔트리를 지운다
 	void		__EraseMemEntry (const char *FileName, int iIndex);

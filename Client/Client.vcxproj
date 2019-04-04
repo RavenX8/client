@@ -59,19 +59,19 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <TargetName>d_TRose</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>TRose</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>TRose</TargetName>
   </PropertyGroup>
@@ -86,7 +86,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <OmitFramePointers>false</OmitFramePointers>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\engine\include;$(SolutionDir)\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -111,7 +111,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;Version.lib;urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d_TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -135,7 +135,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -156,7 +156,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -187,7 +187,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;$(SolutionDir)\tools\TriggerVFS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;.\;.\interface;.\GameCommon;$(SolutionDir)\LIB_Util;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)\Common;$(SolutionDir)\engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_D_RELEASE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -208,7 +208,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)TRose.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -1050,10 +1050,6 @@
   <ItemGroup>
     <ProjectReference Include="..\engine\build\msvc71\znzin\znzin.vcxproj">
       <Project>{423f6727-70c6-4d7a-97ba-97c72fbc169b}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools\TriggerVFS\TriggerVFS.vcxproj">
-      <Project>{3d8fb37b-21f3-4def-9b78-6fe270c73494}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

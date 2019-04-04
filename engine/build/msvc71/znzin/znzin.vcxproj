@@ -85,7 +85,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.\;$(SolutionDir)\engine\include;$(SolutionDir)\3rdParty\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\3rdParty\include\lua500;$(SolutionDir)\LIB_Util;$(SolutionDir)\3rdParty\dx90csdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;$(SolutionDir)\engine\include;$(SolutionDir)\3rdParty\include;$(SolutionDir)\src\triggervfs\include;$(SolutionDir)\3rdParty\include\lua500;$(SolutionDir)\LIB_Util;$(SolutionDir)\3rdParty\dx90csdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ZZ_DLL_EXPORT;XXXZZ_MEM_ON;D3D_DEBUG_INFO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -95,7 +95,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>lua500.lib;Util_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua500.lib;triggervfs.lib;Util_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\lib\$(Platform);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\lib;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -129,7 +129,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>.\;$(SolutionDir)\engine\include;$(SolutionDir)\3rdParty\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\3rdParty\include\lua500;$(SolutionDir)\LIB_Util;$(SolutionDir)\3rdParty\dx90csdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;$(SolutionDir)\engine\include;$(SolutionDir)\3rdParty\include;$(SolutionDir)\src\triggervfs\include;$(SolutionDir)\3rdParty\include\lua500;$(SolutionDir)\LIB_Util;$(SolutionDir)\3rdParty\dx90csdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ZZ_DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
@@ -142,7 +142,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <ResourceOutputFileName>$(IntDir)znzin.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>lua500.lib;Util_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua500.lib;triggervfs.lib;Util_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)znzin.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\lib\$(Platform);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\lib;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -186,7 +186,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>.\;$(SolutionDir)\engine\include;$(SolutionDir)\3rdParty\include;$(SolutionDir)\tools\TriggerVFS\include;$(SolutionDir)\3rdParty\include\lua500;$(SolutionDir)\LIB_Util;$(SolutionDir)\3rdParty\dx90csdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;$(SolutionDir)\engine\include;$(SolutionDir)\3rdParty\include;$(SolutionDir)\src\triggervfs\include;$(SolutionDir)\3rdParty\include\lua500;$(SolutionDir)\LIB_Util;$(SolutionDir)\3rdParty\dx90csdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_D_RELEASE;_WINDOWS;_USRDLL;ZZ_DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -201,7 +201,7 @@ $(SolutionDir)\3rdParty\bin\lua5.exe -e debug=1 zz_build_count.lua
       <ResourceOutputFileName>$(IntDir)znzin.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>lua500.lib;Util_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua500.lib;triggervfs.lib;Util_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)znzin.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\lib\$(Platform);$(SolutionDir)\lib\$(Platform)\$(Configuration);$(SolutionDir)\3rdParty\lib;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -964,16 +964,6 @@ $(SolutionDir)\3rdParty\bin\lua5.exe %(FullPath)
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\LIB_Util\LIB_Util.vcxproj">
-      <Project>{b4dde42e-8878-441e-87ae-62b2f0e5a9cf}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Tools\TriggerVFS\TriggerVFS.vcxproj">
-      <Project>{3d8fb37b-21f3-4def-9b78-6fe270c73494}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

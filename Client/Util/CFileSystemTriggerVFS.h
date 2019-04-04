@@ -2,7 +2,7 @@
 #define _CFileSystemTriggerVFS_
 
 #include "CFileSystem.h"
-#include "TriggerVFS.h"
+#include "triggervfs/TriggerVFS.h"
 
 class CFileSystemTriggerVFS : public CFileSystem {
 private:

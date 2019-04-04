@@ -55,21 +55,20 @@
     <_ProjectFileVersion>14.0.25431.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\objs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)/bin/$(Platform)/$(Configuration)/$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)/objs/$(Platform)/$(Configuration)/$(ProjectName)\</IntDir>
-    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>./src/lib;$(SolutionDir)\3rdParty\dx90csdk\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\triggervfs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;TRIGGERVFS_EXPORTS;__DLL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DebugInformationFormat />
@@ -82,15 +81,12 @@
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Message>Importing Borland Import Libraries.... end copying to RAW</Message>
-      <Command>implib $(SolutionDir)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
-xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y
-</Command>
+      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>./src/lib;$(SolutionDir)\3rdParty\dx90csdk\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\triggervfs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;TRIGGERVFS_EXPORTS;__DLL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DebugInformationFormat>
@@ -104,16 +100,13 @@ xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Message>Importing Borland Import Libraries.... end copying to RAW</Message>
-      <Command>implib $(SolutionDir)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
-xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y
-</Command>
+      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.\src;.\src\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\triggervfs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;TRIGGERVFS_EXPORTS;__DLL;_DEBUG;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -122,22 +115,12 @@ xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration
       <OutputFile>$(OutDir)TriggerVFS.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
-      <ImportLibrary>$(SolutionDir)/lib/$(Platform)/$(Configuration)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Message>Importing Borland Import Libraries....</Message>
-      <Command>implib $(SolutionDir)/bcb_libs/TriggerVFS_bcb.lib $(TargetPath)
-xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\
-</Command>
+      <Command>xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration) /s /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\LIB_Util\LIB_Util.vcxproj">
-      <Project>{b4dde42e-8878-441e-87ae-62b2f0e5a9cf}</Project>
-      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BlankInfo.cpp" />
     <ClCompile Include="src\classCRC.cpp" />
@@ -151,24 +134,20 @@ xcopy $(OutDir)$(ProjectName).lib $(SolutionDir)\lib\$(Platform)\$(Configuration
     <ClCompile Include="src\VFS_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Client\Util\classHASH.h" />
-    <ClInclude Include="include\TriggerVFS.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="src\BlankInfo.h" />
-    <ClInclude Include="src\classCRC.h" />
-    <ClInclude Include="src\ErrorEtc.h" />
-    <ClInclude Include="src\libCrc.h" />
-    <ClInclude Include="src\libFile.h" />
-    <ClInclude Include="src\libString.h" />
+    <ClInclude Include="include\triggervfs\BlankInfo.h" />
+    <ClInclude Include="include\triggervfs\classCRC.h" />
+    <ClInclude Include="include\triggervfs\ErrorEtc.h" />
+    <ClInclude Include="include\triggervfs\libCrc.h" />
+    <ClInclude Include="include\triggervfs\libFile.h" />
+    <ClInclude Include="include\triggervfs\libString.h" />
+    <ClInclude Include="include\triggervfs\TriggerVFS.h" />
+    <ClInclude Include="include\triggervfs\VFS.h" />
+    <ClInclude Include="include\triggervfs\VFS_Manager.h" />
+    <ClInclude Include="res\resource.h" />
     <ClInclude Include="src\stdafx.h" />
-    <ClInclude Include="src\VFS.h" />
-    <ClInclude Include="src\VFS_Manager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TriggerVFS1.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ResourceCompile Include="res\triggervfs.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

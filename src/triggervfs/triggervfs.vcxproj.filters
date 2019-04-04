@@ -13,9 +13,6 @@
       <UniqueIdentifier>{2d1ffd46-8ef2-4217-b431-d9003bd47745}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Sample">
-      <UniqueIdentifier>{a004b75c-5080-48a5-a8fe-913920c4011f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BlankInfo.cpp">
@@ -36,6 +33,9 @@
     <ClCompile Include="src\libString.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClInclude Include="src\stdafx.h">
+      <Filter>Source files</Filter>
+    </ClInclude>
     <ClCompile Include="src\stdafx.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
@@ -50,49 +50,40 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ErrorEtc.h">
-      <Filter>Source files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\libFile.h">
-      <Filter>Source files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\stdafx.h">
-      <Filter>Source files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VFS.h">
-      <Filter>Source files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BlankInfo.h">
+    <ClInclude Include="include\triggervfs\ErrorEtc.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="src\classCRC.h">
+    <ClInclude Include="include\triggervfs\libFile.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Client\Util\classHASH.h">
+    <ClInclude Include="include\triggervfs\VFS.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="src\libCrc.h">
+    <ClInclude Include="include\triggervfs\BlankInfo.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="src\libString.h">
+    <ClInclude Include="include\triggervfs\classCRC.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="resource1.h">
+    <ClInclude Include="include\triggervfs\libCrc.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TriggerVFS.h">
+    <ClInclude Include="include\triggervfs\libString.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="src\VFS_Manager.h">
+    <ClInclude Include="include\triggervfs\VFS_Manager.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\triggervfs\TriggerVFS.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TriggerVFS1.rc">
+    <ResourceCompile Include="res\triggervfs.rc">
       <Filter>Resource files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClInclude Include="res\resource.h">
+      <Filter>Resource files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

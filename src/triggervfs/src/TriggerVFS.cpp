@@ -16,7 +16,6 @@
 #include "VFS.h"
 #include "VFS_Manager.h"
 #include "ErrorEtc.h"
-#include "../../../Client/util/classHASH.h"
 
 //#define _ENCRYPTION
 char UseEncryption;
