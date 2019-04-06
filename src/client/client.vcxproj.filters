@@ -1,0 +1,2494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{95da4d59-bf35-4182-9984-9066ef5e9ae2}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{599ac07d-e632-4d80-ade5-3d15519dd526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util\Arcfour">
+      <UniqueIdentifier>{a60c9ca9-2c48-4e9a-8572-c1f15d730a52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameProc">
+      <UniqueIdentifier>{858a3087-b22a-427b-a945-9e17f78d3410}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{3384549e-65c5-49ac-a003-f5f04c179753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO_Data">
+      <UniqueIdentifier>{cd9cab32-e1de-4a6a-b876-8c1bf9a43751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Terrain">
+      <UniqueIdentifier>{52e465a3-f180-4a46-9360-d0c8f335fba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\winMAIN">
+      <UniqueIdentifier>{998714d5-07b0-46ad-a252-0c9cf8c23984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameCommon">
+      <UniqueIdentifier>{2ffa928a-2039-4e98-b37f-91386b6162aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameData">
+      <UniqueIdentifier>{79471412-46e4-4de9-a20c-239eb834a1f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameData\Event">
+      <UniqueIdentifier>{1b75962f-c3de-40fc-a48c-24403bfd7736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mouse &amp; Keyboard">
+      <UniqueIdentifier>{341b0941-6c86-4234-870a-2b23681f0750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OBJECT">
+      <UniqueIdentifier>{caa1a7b2-b4fa-45ff-9c98-a7ab348da3f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OBJECT\ObjectCommand">
+      <UniqueIdentifier>{6f2e92ef-8e90-4cad-9bdd-1de36fa81113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{b5b1d02e-6440-4fcf-8821-2bcee1579f66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface">
+      <UniqueIdentifier>{2a9eee7d-c985-4705-9b7b-76d3f3baf7c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\Command">
+      <UniqueIdentifier>{8c386e6a-a4f4-4add-abbb-52d875a727e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\ITState">
+      <UniqueIdentifier>{31009dfe-c0c6-4cb5-a0f0-e109c958971b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\Cursor">
+      <UniqueIdentifier>{11fa47ab-8b7d-433e-9167-4106d45b4ac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\ExternalUI">
+      <UniqueIdentifier>{14266cfb-df3a-4281-b252-792f46e0322e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\DLGs">
+      <UniqueIdentifier>{4c9bab12-3c9a-4f97-995c-2b6eee2efa83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\DLGs\SubClass">
+      <UniqueIdentifier>{78c35edf-1cd6-4cc3-a7b6-2cbc6beb8790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\SlotContainer">
+      <UniqueIdentifier>{928caf6c-8c0b-4946-9741-69f88e6249a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\Icon">
+      <UniqueIdentifier>{120077f5-89fa-46d4-a629-05e23fb6d0dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface\Controls">
+      <UniqueIdentifier>{4a2f1f84-8622-4cc8-80bb-f11409823763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Event">
+      <UniqueIdentifier>{0853b610-7eb5-4189-86f7-de6aae4480f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BULLET">
+      <UniqueIdentifier>{65b21079-bbeb-47b1-bf7a-c58a1be23d2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{9b4c63f5-d575-4c82-af32-fdc8b94ccc35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Common\AI_LIB">
+      <UniqueIdentifier>{a4ac1e3c-0c2d-4b7b-b54d-4da443c8f535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LUA">
+      <UniqueIdentifier>{a65a043e-23a7-436d-8b95-6a847b2d950a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{b8009c75-1f98-4adb-aab5-eb640f0f8518}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{b4abf12b-7038-4735-8411-a15b4ee6809d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SFX">
+      <UniqueIdentifier>{298e574b-8199-464d-b966-7756df57c59a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tutorial">
+      <UniqueIdentifier>{48946cc1-23bf-485c-9978-ef3a08aae674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ae1e0d18-b31a-4e85-acb5-a33ee891acf2}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\cursor">
+      <UniqueIdentifier>{6bf3febb-3036-49d7-b822-c1664ddf7170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{7d4b5b1f-b879-4d1a-9a91-ecc0465b723a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CClientStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CommandFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CViewMSG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\JCommandState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MiniDumper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SqliteDB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\ADSStream.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CCheat.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CD3DUtil.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CDSound.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CFileSystemNormal.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CFileSystemTriggerVFS.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CGameSTB.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CGameStr.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CheckHack.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classCRC.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classLUA.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classTIME.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\ClipboardUtil.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CMessageQ.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CMMPlayer.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CRangeTBL.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CWaveFILE.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\FileVersionInfo.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\JDebugNew.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\JResourceContainer.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\Localizing.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\ResourceCache.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\SystemInfo.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\SystemUtil.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\VFSManager.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\WndMsgQ.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\Arcfour\Arcfour.cpp">
+      <Filter>Source Files\Util\Arcfour</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\BGMManager.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\CallGM.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\CaptureChatList.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\CDayNNightProc.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\ChangeActionMode.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\ChangeVisibility.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\DelayedExp.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\ItemInfoView.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\LiveCheck.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\LoadingImageManager.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\MouseTargetEffect.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\ObjectTargetEffect.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\Objvibration.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\PreventDuplicatedCommand.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\SkillCommandDelay.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\TargetManager.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameProc\UseItemDelay.cpp">
+      <Filter>Source Files\GameProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGame.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameState.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateCreateAvatar.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateExitMain.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateLogin.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateLoginVirtual.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateMain.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateMoveMain.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateNull.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStatePrepareMain.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStatePrepareSelectAvatar.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateReLogin.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateSelectAvatar.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateSelectSvr.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateTitle.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CGameStateWarp.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\GameStateMovePlanet.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\GameStateWarning.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\System_FUNC.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\SystemProcScript.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\TCmdSystem.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_Basic.cpp">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_Effect.cpp">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_Event.cpp">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_MATERIAL.CPP">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_MESH.CPP">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_Model.cpp">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_Morpher.cpp">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_Skeleton.cpp">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO_Terrain.cpp">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Terrain\PatchManager.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Terrain\RoughMap.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Terrain\WideTerrain.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CApplication.cpp">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Country.cpp">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Debug.cpp">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StdAfx.cpp">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="src\winMAIN.cpp">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\CDelegatedObservable.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameCommon\CFilterWord.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\CItemEquip.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\CItemEtc.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\CItemPat.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\CItemUse.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\CObservable.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameCommon\CSkillCommand.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\iconcommand.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\IObserver.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\Item.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\itemcommand.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamecommon\LngTbl.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameCommon\ReloadProcess.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameCommon\Skill.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameCommon\StringManager.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CBank.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CChatRoom.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CClan.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CCommunity.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CDealData.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CDecomposition.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CExchange.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CGameDataCreateAvatar.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CManufacture.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CParty.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CPrivateStore.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CRequireMaterial.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CSeparate.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CStore.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CStoreUnion.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\CUpgrade.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\ServerList.cpp">
+      <Filter>Source Files\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEvenSkill.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEvent.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventAvatarStore.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventChatRoom.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventClan.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventClanSkill.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventDeal.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventExchange.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventItem.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventManufacture.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventParty.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventPrivateStore.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventSeparate.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventServerList.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventSkill.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventStoreUnion.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData\Event\CTEventUpgrade.cpp">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppMsgQ.cpp">
+      <Filter>Source Files\Mouse &amp; Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CAvatarState.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CGameOBJ.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CJustModelAVT.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CModelCHAR.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjCART.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjCHAR.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjCHAR_ActionFrame.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjCHAR_Collision.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjFIXED.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjGROUND.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjMORPH.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjUSER.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CSkyDOME.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjCastleGear.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OBJECT.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectActionProcessor.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjFixedEvent.cpp">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectCommand\ObjCommand.cpp">
+      <Filter>Source Files\OBJECT\ObjectCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\DirectMusicPlayer.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\IO_Sound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\MSSMusicPlayer.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\MusicMgr.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\MusicPlayer.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\OggMusicPlayer.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\SoundPlayer.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CChatBox.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CClanMarkUserDefined.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CClanMarkView.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CDigitEffect.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CDragItem.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CDragNDropMgr.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CEnduranceProperty.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CHelpMgr.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CIndicate.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CInfo.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CKeyMove.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ClanMarkManager.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ClanMarkTransfer.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CLoading.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CNameBox.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CTDrawImpl.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CTFontImpl.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CToolTipMgr.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CTSoundImpl.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CTString.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\CUIMediator.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DamageEffect.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\IO_ImageRes.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\it_mgr.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\PersonalStoreManager.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\TypeResource.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Command\CTCmdHotExec.cpp">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Command\CTCmdNumberInput.cpp">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Command\CTCmdOpenDlg.cpp">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Command\DragCommand.cpp">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Command\EXUICOMMAND.cpp">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Command\UICommand.cpp">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ITState\CITState.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ITState\CITStateAppraisal.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interface\itstate\CITStateDead.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ITState\CITStateNormal.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ITState\CITStateNpcDialog.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ITState\CITStateRepair.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ITState\CITStateRideCart.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ITState\CITStateWaitDisconnect.cpp">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\cursor\CCursor.cpp">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\cursor\CCursorState.cpp">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\cursor\CCursorStateDx.cpp">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\cursor\CCursorStateSprite.cpp">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\cursor\CCursorStateWindow.cpp">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ExternalUI\CCreateAvata.cpp">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ExternalUI\CExternalUIManager.cpp">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ExternalUI\CLogin.cpp">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ExternalUI\CSelectAvata.cpp">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ExternalUI\CSelectChannel.cpp">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ExternalUI\CSelectServer.cpp">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\ExternalUI\ExternalUILobby.cpp">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\AvatarInfoDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\BasePAN.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CAddFriendDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CAvatarStore.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CAvatarStoreDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CBankDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CBankWindowDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interface\dlgs\CChatFilterDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CChatRoomDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CClanDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CCommDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CDecompositionDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CDialogDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CGoodsDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CharacterDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\ChattingDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CItemDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\ClanOrganizeDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\ClanRegistNotice.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CMemoDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CMemoViewDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CMenuDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CMinimapDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CMsgBox.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CMsgBoxCartRide.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CMsgBoxSpecial.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CNumberInputDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\COptionDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CPartyDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CPartyMember.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CPatDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CPrivateChatDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CPrivateStoreDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CQuestDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CRestartDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CSeparateDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CSkillDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CStoreDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CStoreUnionDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CSystemDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CSystemMsgDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CTargetMenu.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\CUpgradeDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\DealDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\DeliveryStoreDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\EventDialog.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\ExchangeDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\HelpDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\InputNameDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\InventoryDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\MakeDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\NotifyButtonDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\NotifyDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\PartyOptionDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\QuickToolBAR.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SelectEventDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SkillTreeDlg.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\TargetObjectDLG.cpp">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CChatRoomListItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CClanSkillListItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItemNew.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CDialogNpcScriptItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CFriendListItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CGuage.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\ClanMark.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\ClanMemberItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMailBoxListItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeState.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeStateNormal.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeStateResult.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeStateWait.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CQuestListItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CSkillListCellRenderer.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CSkillListItem.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CSlot.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgState.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateNormal.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateResult.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateWait.cpp">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\slotcontainer\CItemSlot.cpp">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\SlotContainer\ClanSkillSlot.cpp">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\SlotContainer\CSkillSlot.cpp">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\SlotContainer\HotIconSlot.cpp">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIcon.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIconDialog.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIconItem.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIconItemDelivery.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIconQuick.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIconSkill.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIconSkillClan.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\Icon\CIconSkillDummy.cpp">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interface\controls\EffectString.cpp">
+      <Filter>Source Files\Interface\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\CEvent.cpp">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\Gf_effect.cpp">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\Gf_item.cpp">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\Gf_system.cpp">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\QF_CONVERSATION.CPP">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\QF_QUEST.CPP">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\QF_SKILL.CPP">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event\QuestRewardQueue.cpp">
+      <Filter>Source Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BULLET.CPP">
+      <Filter>Source Files\BULLET</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Calculation.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CAssertNew.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CEconomy.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CHotICON.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CInventory.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CItem.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CObjAI.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CQuest.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\cregenarea.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CUserDATA.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO_AI.CPP">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO_Motion.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO_PAT.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO_Quest.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO_Skill.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO_STB.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ai_lib\AI_Action.cpp">
+      <Filter>Source Files\Common\AI_LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ai_lib\AI_Condition.cpp">
+      <Filter>Source Files\Common\AI_LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ai_lib\cai_file.cpp">
+      <Filter>Source Files\Common\AI_LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game_FUNC.cpp">
+      <Filter>Source Files\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LUA_Func.cpp">
+      <Filter>Source Files\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LUA_Init.cpp">
+      <Filter>Source Files\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Network\CNetwork.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Network\RecvPACKET.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Network\SendPACKET.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Misc\GameUtil.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sfx\ISFX.cpp">
+      <Filter>Source Files\SFX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sfx\SFXFont.cpp">
+      <Filter>Source Files\SFX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sfx\SFXManager.cpp">
+      <Filter>Source Files\SFX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sfx\SFXWideScreen.cpp">
+      <Filter>Source Files\SFX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sfx\SmoothVisibility.cpp">
+      <Filter>Source Files\SFX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tutorial\LevelUpEvent.cpp">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tutorial\TutorialEvent.cpp">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tutorial\TutorialEventManager.cpp">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tutorial\TutorialEventUtility.cpp">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CBITArray.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CClientSOCKET.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\cdxHPC.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classFile.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classHASH.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classHTTP.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classIME.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classLOG.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classMD5.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classSTB.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classSTR.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classSYNCOBJ.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classTHREAD.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classTRACE.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\classUTIL.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CPacketCODEC.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CProcess.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CRandom.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CRawSOCKET.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CshoSOCKET.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CSocket.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\CSocketWND.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\LIB_IJL.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\PacketHEADER.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\CCamera.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CClientStorage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CommandFilter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CViewMSG.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\JCommandState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MiniDumper.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SqliteDB.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\ADSStream.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CBITArray.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CCheat.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CClientSOCKET.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CD3DUtil.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CDSound.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CFileLIST.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CFileSystem.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CFileSystemNormal.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CFileSystemTriggerVFS.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CGameSTB.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CGameStr.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CheckHack.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classCRC.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classHASH.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classHTTP.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classIME.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classLOG.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classLUA.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classMD5.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classQUEUE.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classSTB.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classSTR.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classTIME.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classUTIL.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\ClipboardUtil.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CMessageQ.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CMMPlayer.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CRangeTBL.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CRawSOCKET.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CshoSOCKET.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CSocket.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CSocketWND.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CVector.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CWaveFILE.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\DLLIST.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\FileVersionInfo.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\JDebugNew.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\JResourceContainer.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\JSingleton.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Localizing.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\LogWnd.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\PacketHEADER.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\ResourceCache.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\RTTI.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\SLLIST.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\SystemInfo.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\SystemUtil.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\VFSManager.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\WndMsgQ.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Arcfour\Arcfour.h">
+      <Filter>Source Files\Util\Arcfour</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\BGMManager.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\CallGM.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\CaptureChatList.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\CDayNNightProc.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\ChangeActionMode.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\ChangeVisibility.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\DelayedExp.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\ItemInfoView.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\LiveCheck.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\LoadingImageManager.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\MouseTargetEffect.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\ObjectTargetEffect.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\Objvibration.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\PreventDuplicatedCommand.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\SkillCommandDelay.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\TargetManager.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameProc\UseItemDelay.h">
+      <Filter>Source Files\GameProc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGame.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameState.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateCreateAvatar.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateExitMain.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateLogin.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateLoginVirtual.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateMain.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateMoveMain.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateNull.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStatePrepareMain.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStatePrepareSelectAvatar.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateReLogin.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateSelectAvatar.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateSelectSvr.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateTitle.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\CGameStateWarp.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\GameStateMovePlanet.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\GameStateWarning.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\System_FUNC.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\SystemProcScript.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\TCmdSystem.h">
+      <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_Basic.h">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_Effect.h">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_Event.h">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_MATERIAL.H">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_MESH.H">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_Model.h">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_Morpher.h">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_Skeleton.h">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO_Terrain.h">
+      <Filter>Source Files\IO_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Terrain\PatchManager.h">
+      <Filter>Source Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Terrain\RoughMap.h">
+      <Filter>Source Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Terrain\TerrainDef.h">
+      <Filter>Source Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Terrain\WideTerrain.h">
+      <Filter>Source Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CApplication.h">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Country.h">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Debug.h">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StdAfx.h">
+      <Filter>Source Files\winMAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\CDelegatedObservable.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameCommon\CFilterWord.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\CItemEquip.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\CItemEtc.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\CItemPat.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\CItemUse.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\CObservable.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameCommon\CSkillCommand.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\iconcommand.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\IObserver.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\Item.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\ItemCommand.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamecommon\LngTbl.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameCommon\ReloadProcess.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameCommon\Skill.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameCommon\StringManager.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CBank.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CChatRoom.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CClan.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CCommunity.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CDealData.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CDecomposition.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CExchange.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CGameDataCreateAvatar.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CManufacture.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CParty.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CPrivateStore.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CRequireMaterial.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CSeparate.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CStore.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CStoreUnion.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\CUpgrade.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\ServerList.h">
+      <Filter>Source Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEvenSkill.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEvent.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventAvatarStore.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventChatRoom.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventClan.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventClanSkill.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventDeal.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventExchange.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventItem.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventManufacture.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventParty.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventPrivateStore.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventSeparate.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventServerList.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventSkill.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventStoreUnion.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameData\Event\CTEventUpgrade.h">
+      <Filter>Source Files\GameData\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppMsgQ.h">
+      <Filter>Source Files\Mouse &amp; Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CAvatarState.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CGameOBJ.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CJustModelAVT.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CModelCHAR.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjCART.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjCHAR.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjCHAR_Collision.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjFIXED.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjGROUND.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjMORPH.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjUSER.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CSkyDOME.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObjCastleGear.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OBJECT.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObjectActionProcessor.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObjFixedEvent.h">
+      <Filter>Source Files\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObjectCommand\ObjCommand.h">
+      <Filter>Source Files\OBJECT\ObjectCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound\DirectMusicPlayer.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound\IO_Sound.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound\MSSMusicPlayer.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound\MusicMgr.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound\MusicPlayer.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound\OggMusicPlayer.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sound\SoundPlayer.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CChatBox.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CClanMarkUserDefined.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CClanMarkView.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CDigitEffect.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CDragItem.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CDragNDropMgr.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CEnduranceProperty.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CHelpMgr.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CIndicate.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CInfo.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CKeyMove.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ClanMarkManager.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ClanMarkTransfer.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CLoading.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CNameBox.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CTDrawImpl.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CTFontImpl.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CToolTipMgr.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CTSoundImpl.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CTString.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\CUIMediator.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DamageEffect.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\InterfaceType.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\IO_ImageRes.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\it_mgr.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\PersonalStoreManager.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\TypeResource.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Command\CTCmdHotExec.h">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Command\CTCmdNumberInput.h">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Command\CTCmdOpenDlg.h">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Command\DragCommand.h">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Command\ExUICommand.h">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Command\UICommand.h">
+      <Filter>Source Files\Interface\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ITState\CITState.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ITState\CITStateAppraisal.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interface\itstate\CITStateDead.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ITState\CITStateNormal.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ITState\CITStateNpcDialog.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ITState\CITStateRepair.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ITState\CITStateRideCart.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ITState\CITStateWaitDisconnect.h">
+      <Filter>Source Files\Interface\ITState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\cursor\CCursor.h">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\cursor\CCursorState.h">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\cursor\CCursorStateDx.h">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\cursor\CCursorStateSprite.h">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\cursor\CCursorStateWindow.h">
+      <Filter>Source Files\Interface\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\CCreateAvata.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\CExternalUI.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\CExternalUIManager.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\CLogin.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\CSelectAvata.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\CSelectChannel.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\CSelectServer.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\ExternalUI\ExternalUILobby.h">
+      <Filter>Source Files\Interface\ExternalUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\AvatarInfoDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\BasePAN.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CAddFriendDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CAvatarStore.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CAvatarStoreDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CBankDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CBankWindowDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interface\dlgs\CChatFilterDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CChatRoomDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CClanDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CCommDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CDecompositionDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CDialogDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CGoodsDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CharacterDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\ChattingDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CItemDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\ClanOrganizeDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\ClanRegistNotice.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CMemoDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CMemoViewDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CMenuDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CMinimapDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CMsgBox.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CMsgBoxCartRide.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CMsgBoxSpecial.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CNumberInputDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\COptionDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CPartyDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CPartyMember.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CPatDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CPrivateChatDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CPrivateStoreDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CQuestDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CRestartDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CSeparateDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CSkillDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CStoreDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CStoreUnionDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CSystemDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CSystemMsgDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CTargetMenu.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\CUpgradeDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\DealDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\DeliveryStoreDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\EventDialog.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\ExchangeDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\HelpDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\InputNameDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\InventoryDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\MakeDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\NotifyButtonDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\NotifyDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\PartyOptionDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\QuickToolBAR.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SelectEventDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SkillTreeDlg.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\TargetObjectDLG.h">
+      <Filter>Source Files\Interface\DLGs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CChatRoomListItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CClanSkillListItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItemNew.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CDialogNpcScriptItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CFriendListItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CGuage.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\ClanMark.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\ClanMemberItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMailBoxListItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeState.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeStateNormal.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeStateResult.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeStateWait.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CQuestListItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CSkillListCellRenderer.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CSkillListItem.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CSlot.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgState.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateNormal.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateResult.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateWait.h">
+      <Filter>Source Files\Interface\DLGs\SubClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\slotcontainer\CItemSlot.h">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\SlotContainer\ClanSkillSlot.h">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\SlotContainer\CSkillSlot.h">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\SlotContainer\HotIconSlot.h">
+      <Filter>Source Files\Interface\SlotContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIcon.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIconDialog.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIconItem.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIconItemDelivery.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIconQuick.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIconSkill.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIconSkillClan.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\Icon\CIconSkillDummy.h">
+      <Filter>Source Files\Interface\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\controls\EffectString.h">
+      <Filter>Source Files\Interface\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event\CEvent.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event\Quest_FUNC.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event\QuestRewardQueue.h">
+      <Filter>Source Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BULLET.H">
+      <Filter>Source Files\BULLET</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Calculation.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CAssertNew.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CEconomy.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CHotICON.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CInventory.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CItem.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CObjAI.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CQuest.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CRegenAREA.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\CUserDATA.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\DataTYPE.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO_AI.H">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO_Motion.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Io_pat.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO_Quest.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO_Skill.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO_STB.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ai_lib\Cai_lib.h">
+      <Filter>Source Files\Common\AI_LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game_FUNC.h">
+      <Filter>Source Files\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LUA_Func.h">
+      <Filter>Source Files\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Network\CNetwork.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Net_Prototype.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Network\RecvPACKET.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Network\SendPACKET.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Misc\GameUtil.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sfx\ISFX.h">
+      <Filter>Source Files\SFX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sfx\SFXFont.h">
+      <Filter>Source Files\SFX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sfx\SFXManager.h">
+      <Filter>Source Files\SFX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sfx\SFXWideScreen.h">
+      <Filter>Source Files\SFX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sfx\SmoothVisibility.h">
+      <Filter>Source Files\SFX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tutorial\LevelUpEvent.h">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tutorial\TutorialEvent.h">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tutorial\TutorialEventManager.h">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tutorial\TutorialEventUtility.h">
+      <Filter>Source Files\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CDXHPC.H">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classFile.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classMD5Defines.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classSYNCOBJ.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classTHREAD.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\classTRACE.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CProcess.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CRandom.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\LIB_Util.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\LIB_IJL.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\CPacketCODEC.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="res\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\GlobalScr.lua">
+      <Filter>Source Files\LUA</Filter>
+    </None>
+    <None Include="res\cursor\Attack.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\cursor1.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\cursor2.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\Default.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\identify.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\item_invem.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\Item_inven.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\Item_pick.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\Left.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\noui01.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\Npc.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\repair.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\Right.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\User.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\cursor\Wheel.cur">
+      <Filter>Resource Files\cursor</Filter>
+    </None>
+    <None Include="res\client.ver">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\client.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\export_GM.lua">
+      <Filter>Scripts</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\export_QF.lua">
+      <Filter>Scripts</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\export_System.lua">
+      <Filter>Scripts</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\client.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
