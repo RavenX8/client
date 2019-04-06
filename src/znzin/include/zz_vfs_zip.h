@@ -74,11 +74,15 @@
 #endif // _WINDOWS
 #endif // WIN32
 
+#define ZZ_IGNORE_ZLIB
+
 //#define ZLIB_DLL // for zlib dll use
 
 // zlib.dll download
 // http://sourceforge.net/project/showfiles.php?group_id=23617&release_id=79177
 // or the unzip library in http://www.gzip.org/zlib/
+
+#ifndef ZZ_IGNORE_ZLIB
 
 #include "unzip.h" // in /zlip121/contrib/minizip/
 
@@ -150,5 +154,7 @@ void main(int argc, char ** argv)
 	myzip.close();
 }
 */
+
+#endif // ZZ_IGNORE_ZLIB
 
 #endif // __ZZ_VFS_ZIP_H__

@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./CTFontImpl.h"
 #include "../Game.h"
-#include "../../engine/include/zz_interface.h"
+#include "zz_interface.h"
 
 CTFontImpl g_FontImpl;
 

@@ -10,7 +10,7 @@
 //
 
 #include "winver.h"			  // extract from windows header
-#include "..\..\..\include\zz_version_info.inc"
+#include "..\include\zz_version_info.inc"
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION ZZ_VERSION_NO_COMMA
@@ -29,7 +29,7 @@ BEGIN
     BEGIN
         BLOCK "041204B0"
         BEGIN
-            VALUE "CompanyName", "Æ®¸®°Å ¼ÒÇÁÆ®(ÁÖ)"
+            VALUE "CompanyName", "Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®(ï¿½ï¿½)"
 #ifdef _DEBUG
             VALUE "FileDescription", "znzin.dll debug"
 #else

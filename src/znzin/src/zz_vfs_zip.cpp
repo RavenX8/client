@@ -87,8 +87,6 @@
 #include "zz_log.h"
 #include "zz_vfs_zip.h"
 
-#define ZZ_IGNORE_ZLIB
-
 #ifndef ZZ_IGNORE_ZLIB
 
 #pragma comment (lib, "zlib121.lib")
