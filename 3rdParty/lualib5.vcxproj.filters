@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{ffab8996-119b-4230-8058-7c48e1e23235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\std">
+      <UniqueIdentifier>{76429aee-11b3-43d4-a8cf-a1f6ca5b119e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lua-5.0.0\src\lapi.c" />
+    <ClCompile Include="lua-5.0.0\src\lcode.c" />
+    <ClCompile Include="lua-5.0.0\src\ldebug.c" />
+    <ClCompile Include="lua-5.0.0\src\ldo.c" />
+    <ClCompile Include="lua-5.0.0\src\ldump.c" />
+    <ClCompile Include="lua-5.0.0\src\lfunc.c" />
+    <ClCompile Include="lua-5.0.0\src\lgc.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\lauxlib.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\lbaselib.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\ldblib.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\liolib.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\lmathlib.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\loadlib.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\lstrlib.c" />
+    <ClCompile Include="lua-5.0.0\src\lib\ltablib.c" />
+    <ClCompile Include="lua-5.0.0\src\llex.c" />
+    <ClCompile Include="lua-5.0.0\src\lmem.c" />
+    <ClCompile Include="lua-5.0.0\src\lobject.c" />
+    <ClCompile Include="lua-5.0.0\src\lopcodes.c" />
+    <ClCompile Include="lua-5.0.0\src\lparser.c" />
+    <ClCompile Include="lua-5.0.0\src\lstate.c" />
+    <ClCompile Include="lua-5.0.0\src\lstring.c" />
+    <ClCompile Include="lua-5.0.0\src\ltable.c" />
+    <ClCompile Include="lua-5.0.0\src\ltests.c" />
+    <ClCompile Include="lua-5.0.0\src\ltm.c" />
+    <ClCompile Include="lua-5.0.0\src\lundump.c" />
+    <ClCompile Include="lua-5.0.0\src\lvm.c" />
+    <ClCompile Include="lua-5.0.0\src\lzio.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lua-5.0.0\src\lapi.h" />
+    <ClInclude Include="lua-5.0.0\src\lcode.h" />
+    <ClInclude Include="lua-5.0.0\src\ldebug.h" />
+    <ClInclude Include="lua-5.0.0\src\ldo.h" />
+    <ClInclude Include="lua-5.0.0\src\lfunc.h" />
+    <ClInclude Include="lua-5.0.0\src\lgc.h" />
+    <ClInclude Include="lua-5.0.0\src\llex.h" />
+    <ClInclude Include="lua-5.0.0\src\llimits.h" />
+    <ClInclude Include="lua-5.0.0\src\lmem.h" />
+    <ClInclude Include="lua-5.0.0\src\lobject.h" />
+    <ClInclude Include="lua-5.0.0\src\lopcodes.h" />
+    <ClInclude Include="lua-5.0.0\src\lparser.h" />
+    <ClInclude Include="lua-5.0.0\src\lstate.h" />
+    <ClInclude Include="lua-5.0.0\src\lstring.h" />
+    <ClInclude Include="lua-5.0.0\src\ltable.h" />
+    <ClInclude Include="lua-5.0.0\src\ltm.h" />
+    <ClInclude Include="lua-5.0.0\src\lundump.h" />
+    <ClInclude Include="lua-5.0.0\src\lvm.h" />
+    <ClInclude Include="lua-5.0.0\src\lzio.h" />
+  </ItemGroup>
+</Project>
