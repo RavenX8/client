@@ -7,7 +7,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lua-5.0\src\lua\lua.c">
+    <ClCompile Include="lua-5.0.0\src\lua\lua.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

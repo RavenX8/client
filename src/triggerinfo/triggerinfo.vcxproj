@@ -84,15 +84,16 @@
     <Link>
       <AdditionalDependencies>d3d9.lib;wininet.lib;Version.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)TriggerInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)TriggerInfo.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <ImportLibrary>$(OutDir)TriggerInfo.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
-     <PostBuildEvent>
-      <Command>xcopy $(OutDir)TriggerInfo.lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\ /s /Y</Command>
+    <PostBuildEvent>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,7 +108,7 @@
     <Link>
       <AdditionalDependencies>winmm.lib;d3d9.lib;wininet.lib;Version.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)TriggerInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(DXSDK_DIR)\lib\x86;$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -116,7 +117,8 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(OutDir)TriggerInfo.lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\ /s /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
@@ -131,7 +133,7 @@
     <Link>
       <AdditionalDependencies>winmm.lib;d3d9.lib;wininet.lib;Version.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)TriggerInfo.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\lib;$(DXSDK_DIR)\lib\x86;$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\dx90csdk\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -139,8 +141,9 @@
       <ImportLibrary>$(OutDir)TriggerInfo.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
-     <PostBuildEvent>
-      <Command>xcopy $(OutDir)TriggerInfo.lib $(SolutionDir)\lib\$(Platform)\$(Configuration)\ /s /Y</Command>
+    <PostBuildEvent>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

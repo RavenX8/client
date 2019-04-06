@@ -114,15 +114,6 @@
 #include "zz_shader.h"
 
 #define ZZ_LUA500
-/*
-//#define ZZ_LUA500
-#ifdef ZZ_LUA500
-  #pragma comment (lib, "lua500.lib")
-#else // 401
-  #pragma comment (lib, "lua.lib")
-  #pragma comment (lib, "lualib.lib")
-#endif
-*/
 
 // file scope variables
 // for saved return type

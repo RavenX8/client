@@ -7,8 +7,6 @@
 #include "TControlMgr.h"
 #include "TEditBox.h"
 
-#pragma comment (lib, "IMM32.lib")
-
 HIMC CTIme::s_old_HIMC = nullptr;
 
 CTIme::CTIme(void) {

@@ -5,8 +5,6 @@
 #include "malloc.h"
 #include "CMMPlayer.h"
 
-#pragma comment( lib , "strmiids.lib")
-
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 
 //-------------------------------------------------------------------------------------------------

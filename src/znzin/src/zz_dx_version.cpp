@@ -16,7 +16,6 @@
 
 #include "zz_dx_version.h"
 
-#pragma comment(lib, "version.lib")
 
 HRESULT        GetDirectXVersionViaDxDiag(DWORD*      pdwDirectXVersionMajor, DWORD* pdwDirectXVersionMinor, TCHAR* pcDirectXVersionLetter);
 HRESULT        GetDirectXVerionViaFileVersions(DWORD* pdwDirectXVersionMajor, DWORD* pdwDirectXVersionMinor, TCHAR* pcDirectXVersionLetter);

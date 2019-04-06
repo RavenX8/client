@@ -4,8 +4,6 @@
 #include "classLOG.h"
 #include "classHTTP.h"
 
-#pragma	comment (lib, "winINet.lib")
-
 //-------------------------------------------------------------------------------------------------
 classHTTP::classHTTP() {
   m_hInternet = nullptr;

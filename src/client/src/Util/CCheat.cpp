@@ -13,7 +13,6 @@
 #include "../Interface/cursor/CCursor.h"
 #include "../System/CGame.h"
 #include "../Network/CNetwork.h"
-#pragma comment(lib,"shlwapi.lib")
 
 classPARSESTR g_Cheat;
 

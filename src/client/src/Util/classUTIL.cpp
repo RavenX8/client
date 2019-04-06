@@ -7,10 +7,6 @@
 #include "classSTR.h"
 #include "classUTIL.h"
 
-#pragma comment (lib, "Wininet.lib")
-//#pragma comment (lib, "WSOCK32.LIB")
-#pragma comment (lib, "ws2_32.lib")
-
 //-------------------------------------------------------------------------------------------------
 
 #define	STATIC_STR_LEN		512

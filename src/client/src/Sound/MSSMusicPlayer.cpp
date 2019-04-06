@@ -1,10 +1,6 @@
 #include "StdAfx.h"
 #include "./MSSMusicPlayer.h"
 
-#ifdef _USE_MSS
-#pragma comment( lib , "mss32.lib")
-#endif
-
 CMSSMusicPlayer::CMSSMusicPlayer(void) {
 #ifdef _USE_MSS
 

@@ -1,4 +1,6 @@
+# Compiled files
 *.[Dd][Ll][Ll] filter=lfs diff=lfs merge=lfs -text
+*.[Ee][Xx][Ee] filter=lfs diff=lfs merge=lfs -text
 *.[Ll][Ii][Bb] filter=lfs diff=lfs merge=lfs -text
 
 # Media files
@@ -6,4 +8,7 @@
 *.[Cc][Uu][Rr] filter=lfs diff=lfs merge=lfs -text
 *.[Gg][Ii][Ff] filter=lfs diff=lfs merge=lfs -text
 *.[Ii][Cc][Oo] filter=lfs diff=lfs merge=lfs -text
+*.[Pp][Nn][Gg] filter=lfs diff=lfs merge=lfs -text
 
+# Generated files
+*.[Tt][Ll][Bb] filter=lfs diff=lfs merge=lfs -text

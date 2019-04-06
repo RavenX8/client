@@ -18,11 +18,6 @@
 #include "CCamera.h"
 #include "CViewMSG.h"
 
-#pragma comment (lib, "winmm.lib")
-#pragma	comment (lib, "d3dx9.lib")
-#pragma comment (lib, "znzin.lib")
-#pragma comment (lib, "xmlparse.lib")
-
 //-------------------------------------------------------------------------------------------------
 
 CApplication*  g_pCApp = nullptr;

@@ -309,7 +309,7 @@ void         CCommDlg::AddChatRoom(const char* pszTitle, BYTE btRoomType, short 
 
 void CCommDlg::LoadMemoFromDB() {
   ClearMemoList();
-  CSqliteDB::GetInstance().LoadMemo( g_pAVATAR->Get_NAME(), callback );
+  // CSqliteDB::GetInstance().LoadMemo( g_pAVATAR->Get_NAME(), callback );
 }
 
 int CCommDlg::callback(void* NotUsed, int argc, char** argv, char** azColName) {

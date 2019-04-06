@@ -89,8 +89,6 @@
 
 #ifndef ZZ_IGNORE_ZLIB
 
-#pragma comment (lib, "zlib121.lib")
-
 zz_vfs_zip::zz_vfs_zip() : zz_vfs(), _uf(NULL)
 {
 	set_real_filesystem(this);

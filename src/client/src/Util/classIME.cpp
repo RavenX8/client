@@ -2,8 +2,6 @@
 #include <windows.h>
 #include "classIME.h"
 
-#pragma comment (lib, "IMM32.lib")				// For IME
-
 //-------------------------------------------------------------------------------------------------
 classIME::classIME() {
   m_bActive = false;

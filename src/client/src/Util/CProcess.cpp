@@ -6,9 +6,6 @@
 #include <assert.h>
 #include "CProcess.h"
 
-//#pragma comment ( lib, "Pdh.lib" )
-//#pragma comment ( lib, "psapi.lib" )
-
 //---------------------------------------------------------------------------
 DWORD           CProcess::FindThread(DWORD dwProcessID) {
   HANDLE        hSnapshot;

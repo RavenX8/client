@@ -6,8 +6,6 @@
 #include "CSocket.h"
 #include "classLOG.h"
 
-#pragma	comment	(lib, "WSock32.lib")
-
 //-------------------------------------------------------------------------------------------------
 
 bool  CSOCKET::Init(void) {

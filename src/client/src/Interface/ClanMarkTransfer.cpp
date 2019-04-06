@@ -7,7 +7,6 @@
 #include "it_mgr.h"
 
 #include "zlib.h"
-#pragma comment( lib,"zdll.lib" )
 
 CClanMarkTransfer _ClanMarkTransfer;
                   CClanMarkTransfer::CClanMarkTransfer(void) {}

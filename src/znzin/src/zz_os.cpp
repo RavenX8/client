@@ -85,8 +85,6 @@ void (*g_get_ticks_ptr)(uint64& clock_time) = nullptr;
 
 uint64 g_ticks_per_second = 1000; // default
 
-#pragma comment (lib, "Winmm.lib") // for timeGetTime()
-
 void zz_os::initialize() {
   if ( g_counter_initialized ) return; // do only once
 

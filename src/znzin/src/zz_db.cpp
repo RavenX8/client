@@ -28,8 +28,6 @@
 #include "zz_db.h"
 #include "zz_profiler.h"
 
-#pragma comment(lib, "sqlite.lib")
-
 zz_db::zz_db (const char * db_path)
 {
 	path.set(db_path);

@@ -5,7 +5,7 @@
 #include "../../OBJECT.h"
 #include "../../GameCommon/Skill.h"
 
-#include "xmlparse.h"
+#include "expat.h"
 #include "../CInfo.h"
 #include "../CToolTipMgr.h"
 #include "../InterfaceType.h"

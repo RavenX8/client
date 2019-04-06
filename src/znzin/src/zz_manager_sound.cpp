@@ -45,11 +45,6 @@
 #undef STRICT
 #include "dsutil.cpp"
 
-//comctl32.lib dxerr9.lib winmm.lib dsound.lib dxguid.lib odbc32.lib odbccp32.lib
-#pragma comment (lib, "dxguid.lib")
-#pragma comment (lib, "dxerr9.lib")
-#pragma comment (lib, "dsound.lib")
-
 ZZ_IMPLEMENT_DYNCREATE(zz_manager_sound, zz_manager)
 
 CSoundManager * g_pSoundManager = NULL;

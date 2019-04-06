@@ -30,9 +30,6 @@
 #include "zz_model.h"
 #include "zz_fast_reader.h"
 
-#pragma comment (lib, "d3d9.lib")
-#pragma comment (lib, "d3dx9.lib")
-
 #define ZZ_MESH_VERSION5	"ZMS0005"
 #define ZZ_MESH_VERSION6	"ZMS0006"
 #define ZZ_MESH_VERSION7	"ZMS0007"

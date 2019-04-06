@@ -86,8 +86,8 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <OmitFramePointers>false</OmitFramePointers>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\ijl-1.5;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\expat-2.0.1\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdparty\libogg-1.1.3\include;$(SolutionDir)3rdparty\libvorbis-1.2.0\include;$(SolutionDir)3rdparty\lua-4.0.1\include;$(SolutionDir)3rdparty\sqlite3;$(SolutionDir)3rdparty\zlib-1.2.3;$(SolutionDir)3rdParty\zlib-1.2.3\contrib\minizip;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;XML_STATIC;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -111,15 +111,16 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;IJL15.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;znzin.lib;IJL15.lib;expat.lib;dsound.lib;dxguid.lib;dxerr9.lib;d3dx9.lib;lualib4.lib;sqlite3.lib;ogg.lib;vorbis.lib;vorbisfile.lib;zlib.lib;imagehlp.lib;imm32.lib;legacy_stdio_definitions.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;strmiids.lib;unicows.lib;urlmon.lib;Version.lib;wininet.lib;winmm.lib;WSock32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)\3rdParty\dx90csdk\Lib;$(SolutionDir)lib\$(Platform)\$(Configuration);$(SolutionDir)lib\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)d_TRose.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
       <GenerateMapFile>false</GenerateMapFile>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
     </Link>
     <PostBuildEvent>
       <Command />
@@ -135,9 +136,9 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\ijl-1.5;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\expat-2.0.1\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdparty\libogg-1.1.3\include;$(SolutionDir)3rdparty\libvorbis-1.2.0\include;$(SolutionDir)3rdparty\lua-4.0.1\include;$(SolutionDir)3rdparty\sqlite3;$(SolutionDir)3rdparty\zlib-1.2.3;$(SolutionDir)3rdParty\zlib-1.2.3\contrib\minizip;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;XML_STATIC;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)Client.pch</PrecompiledHeaderOutputFile>
@@ -156,17 +157,18 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;IJL15.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;znzin.lib;IJL15.lib;expat.lib;dsound.lib;dxguid.lib;dxerr9.lib;d3dx9.lib;lualib4.lib;sqlite3.lib;ogg.lib;vorbis.lib;vorbisfile.lib;zlib.lib;imagehlp.lib;imm32.lib;legacy_stdio_definitions.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;strmiids.lib;unicows.lib;urlmon.lib;Version.lib;wininet.lib;winmm.lib;WSock32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)\3rdParty\dx90csdk\Lib;$(SolutionDir)lib\$(Platform)\$(Configuration);$(SolutionDir)lib\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)TRose000.xxx</ProgramDatabaseFile>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>$(OutDir)TRose000.map</MapFileName>
-      <MapExports>true</MapExports>
+      <GenerateDebugInformation>
+      </GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <MapExports>false</MapExports>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences />
       <EnableCOMDATFolding />
@@ -187,9 +189,9 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\include;$(SolutionDir)\3rdParty\include\lua401;$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\ijl-1.5;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_D_RELEASE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\expat-2.0.1\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdparty\libogg-1.1.3\include;$(SolutionDir)3rdparty\libvorbis-1.2.0\include;$(SolutionDir)3rdparty\lua-4.0.1\include;$(SolutionDir)3rdparty\sqlite3;$(SolutionDir)3rdparty\zlib-1.2.3;$(SolutionDir)3rdParty\zlib-1.2.3\contrib\minizip;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;XML_STATIC;NDEBUG;_D_RELEASE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)Client.pch</PrecompiledHeaderOutputFile>
@@ -208,16 +210,16 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>unicows.lib;odbc32.lib;odbccp32.lib;Version.lib;urlmon.lib;TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;IJL15.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;znzin.lib;IJL15.lib;expat.lib;dsound.lib;dxguid.lib;dxerr9.lib;d3dx9.lib;lualib4.lib;sqlite3.lib;ogg.lib;vorbis.lib;vorbisfile.lib;zlib.lib;imagehlp.lib;imm32.lib;legacy_stdio_definitions.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;strmiids.lib;unicows.lib;urlmon.lib;Version.lib;wininet.lib;winmm.lib;WSock32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)\3rdParty\dx90csdk\Lib;$(SolutionDir)lib\$(Platform)\$(Configuration);$(SolutionDir)lib\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)TRose000.xxx</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
       <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>$(OutDir)TRose000.map</MapFileName>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
       <MapExports>true</MapExports>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>

@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "./SqliteDB.h"
 
+/*
 #pragma comment(lib, "sqlite.lib")
 
 CSqliteDB::CSqliteDB(void) {
@@ -57,30 +58,6 @@ int CSqliteDB::Exec(const char* sql, sqlite_callback callback) {
   return 0;
 }
 
-//
-//int CSqliteDB::ExecPrintf( const char* sqlFormat, sqlite_callback callback, ... )
-//{
-//	assert( m_db );
-//	assert( sqlFormat );
-//	if( m_db == NULL )
-//		return 1;
-//	if( sqlFormat == NULL )
-//		return 1;
-//
-//	char* zErrMsg;
-//	va_list ap;
-//	va_start(ap, zErrMsg);
-//	int rc = sqlite_exec_printf( m_db, sqlFormat, callback, 0, &zErrMsg, ap );
-//	va_end(ap);
-//	if( rc != SQLITE_OK )
-//	{
-////		g_itMGR.OpenMsgBox( zErrMsg );
-//		sqlite_freemem( zErrMsg );
-//		return 1;
-//	}
-//	return 0;
-//}
-
 int CSqliteDB::AddMemo(const char* pszName, const char* pszSender, const char* pszContent, DWORD time) {
   assert( m_db );
   if ( m_db == nullptr )
@@ -125,3 +102,5 @@ int CSqliteDB::DeleteMemo(int iRowid) {
   }
   return 0;
 }
+
+*/

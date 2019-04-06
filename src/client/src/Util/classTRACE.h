@@ -22,8 +22,6 @@
 	#include <windows.h>
 	#include <tchar.h>
 
-	#pragma comment( lib, "imagehlp.lib" )
-
 #if defined(_AFX) || defined(_AFXDLL)
 	#define TRACEF									         TRACE
 #else

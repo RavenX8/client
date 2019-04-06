@@ -17,11 +17,6 @@
 #include "zz_renderer.h"
 #include "zz_mesh.h"
 
-#ifdef __NV_TRI_STRIP
-#	include "nvtristrip.h"
-#	pragma comment (lib, "nvtristrip.lib")
-#endif
-
 ZZ_IMPLEMENT_DYNCREATE(zz_mesh, zz_node)
 
 zz_mesh::zz_mesh(bool create_buffer_in) :

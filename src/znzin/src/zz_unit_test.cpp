@@ -38,8 +38,6 @@
 #include <time.h>
 #include <stdio.h>
 
-#pragma comment (lib, "Winmm.lib") // for timeGetTime()
-
 zz_unit_test_function::zz_unit_test_function (const std::string& name)
 : result_ (eNotRun), name_ (name), verbose_ (false), elapsed_ (0)
 {}

@@ -9,9 +9,6 @@
 #include "OBJECT.h"
 #include "CObjCHAR.h"
 
-#pragma comment (lib, "dsound.lib")
-#pragma comment (lib, "dxguid.lib")
-#pragma comment (lib, "dxerr9.lib")
 
 LPDIRECTSOUND3DLISTENER CD3DSOUND::m_pDSListener = nullptr;
 DS3DLISTENER            CD3DSOUND::m_dsListenerParams;

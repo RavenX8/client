@@ -4443,8 +4443,7 @@ void CRecvPACKET::Recv_wsv_MEMO() {
 
           ///파일에 저장
           // pCommDlg->AddMemo( pszFromName, pszMemo, *pdwRecvTime );
-          CSqliteDB::GetInstance().AddMemo( g_pAVATAR->Get_NAME(), pszFromName,
-                                            pszMemo, *pdwRecvTime );
+          //CSqliteDB::GetInstance().AddMemo( g_pAVATAR->Get_NAME(), pszFromName,pszMemo, *pdwRecvTime );
 
           if ( g_pAVATAR )
             g_pAVATAR->DecreaseServerSavedMemoCount();
