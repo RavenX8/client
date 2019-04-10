@@ -7,13 +7,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lua-5.0\src\luac\luac.c">
+    <ClCompile Include="lua-5.0.0\src\lopcodes.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lua-5.0\src\luac\print.c">
+    <ClCompile Include="lua-5.0.0\src\luac\luac.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lua-5.0\src\lopcodes.c">
+    <ClCompile Include="lua-5.0.0\src\luac\print.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
