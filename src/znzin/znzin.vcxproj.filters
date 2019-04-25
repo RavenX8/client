@@ -1,0 +1,898 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="shader\bumpmap.psh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\bumpmap.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\bumpmap_skin.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\bumpmap_tangentspace.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\bumpmap_tangentspace_specular.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\glow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\glow_skin.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\irradiance.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\irradiance_skin.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lightmap_nolit.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lightmap_nolit_first.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lightmap_nolit_first_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lightmap_nolit_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lightmap_nolit_shadow1.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lightmap_nolit_shadow2.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lit_skin.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\lit_skin1.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\ocean.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\shadowmap.psh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\shadowmap.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\shadowmap_skin.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple.psh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple_lit.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple_lit_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple_nolit.psh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple_nolit.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple_nolit_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple_skin.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\simple_skin2.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\sky.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\specular.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\specular_skin.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain.psh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_light.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_light_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_light_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_light_shadow_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second_light.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second_light_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second_light_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second_light_shadow_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_second_shadow_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_first_shadow_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_light.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_light_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_light_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_light_shadow_fog.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_plight.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_pos.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_rough.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\terrain_shadow.vsh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\test.psh">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\zz_algebra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_animatable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_assert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_bone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_bvolume.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_bvolume_obb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_camera_follow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_channel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_channel_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_channel_rotation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_channel_x.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_channel_xy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_cursor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_db.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_dx_version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_font_d3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_font_texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_font_texture_d3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_gamma.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_ik_limb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_index_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_light_direct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_light_omni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_light_point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_lod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_manager_font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_manager_mesh_ishared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_manager_sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_manager_texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_manager_visible.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_material_colormap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_material_ocean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_material_sky.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_material_terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_mem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_mesh_ishared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_mesh_ocean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_mesh_terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_mesh_tool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_morpher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_motion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_motion_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_motion_mixer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_motion_tool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_node_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_ocean_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_octree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_os.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_particle_emitter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_particle_event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_particle_event_sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_path.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_primitive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_profiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_render_state.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_renderer_d3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_scene_octree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_script.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_script_lua.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_script_simple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_sfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_sky.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_targa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_terrain_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_trail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_unit_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_vertex_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_vfs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_vfs_local.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_vfs_mem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_vfs_pkg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_vfs_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_vfs_zip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_view_d3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_visible.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zz_waiting_line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="res/resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_algebra.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_animatable.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_array.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_assert.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_autolock.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_bone.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_bvolume.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_bvolume_obb.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_camera.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_camera_follow.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_channel.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_channel_position.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_channel_rotation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_channel_x.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_channel_xy.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_critical_section.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_cursor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_db.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_device_resource.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_dx_version.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_error.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_event.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_font.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_font_d3d.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_font_texture.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_font_texture_d3d.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_gamma.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_hash_table.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_ik_limb.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_index_buffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_interface.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_light.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_light_direct.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_light_omni.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_light_point.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_list.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_lod.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_log.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_macro.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_manager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_manager_font.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_manager_mesh_ishared.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_manager_sound.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_manager_texture.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_manager_visible.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_material.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_material_colormap.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_material_ocean.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_material_sky.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_material_terrain.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_mem.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_mesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_mesh_ishared.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_mesh_ocean.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_mesh_terrain.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_mesh_tool.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_minmax.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_misc.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_model.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_morpher.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_motion.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_motion_controller.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_motion_mixer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_motion_tool.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_node.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_node_type.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_ocean_block.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_octree.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_os.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_oskernel.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_particle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_particle_emitter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_particle_event.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_particle_event_sequence.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_path.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_pointer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_pool.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_primitive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_profiler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_recycling_array.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_refcount.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_render_state.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_renderer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_renderer_d3d.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_scene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_scene_octree.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_script.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_script_lua.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_script_simple.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_sfx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_shader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_skeleton.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_sky.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_sound.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_string.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_system.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_targa.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_terrain.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_terrain_block.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_texture.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_thread.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_tier0.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_timer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_trail.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_tree.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_type.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_unit_test.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vertex_buffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vertex_format.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vfs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vfs_local.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vfs_mem.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vfs_pkg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vfs_thread.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_vfs_zip.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_view.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_view_d3d.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_viewfrustum.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_visible.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zz_waiting_line.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\version_info.rc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\zz_script_lua.lua">
+      <Filter>Scripts</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\Makefile">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="include\zz_build_count.lua">
+      <Filter>Scripts</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{fa644db3-8e09-4b2d-bb46-623a3181b67e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{c468eac1-7b83-4715-ab36-a24c84dcf2ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{21fe9dd9-1108-47e2-8c78-c3facfc7fa17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{af8c53cb-85e1-435c-b8d5-87519acecd78}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\dialog.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

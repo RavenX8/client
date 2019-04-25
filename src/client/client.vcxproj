@@ -1,0 +1,1066 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Debug|Win32">
+      <Configuration>Release_Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{98F25AF9-BDDD-462D-9514-9A18FE2E2692}</ProjectGuid>
+    <RootNamespace>Client</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.25431.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>trose</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>trose</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>trose</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\..\data/Client.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <OmitFramePointers>false</OmitFramePointers>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\expat-2.0.1\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdparty\libogg-1.1.3\include;$(SolutionDir)3rdparty\libvorbis-1.2.0\include;$(SolutionDir)3rdparty\lua-4.0.1\include;$(SolutionDir)3rdparty\sqlite3;$(SolutionDir)3rdparty\zlib-1.2.3;$(SolutionDir)3rdParty\zlib-1.2.3\contrib\minizip;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;XML_STATIC;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Client.pch</PrecompiledHeaderOutputFile>
+      <AssemblerOutput />
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0412</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;znzin.lib;IJL15.lib;expat.lib;dsound.lib;dxguid.lib;dxerr9.lib;d3dx9.lib;lualib4.lib;sqlite3.lib;ogg.lib;vorbis.lib;vorbisfile.lib;zlib.lib;imagehlp.lib;imm32.lib;legacy_stdio_definitions.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;strmiids.lib;unicows.lib;urlmon.lib;Version.lib;wininet.lib;winmm.lib;WSock32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>false</GenerateMapFile>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+    </Link>
+    <PostBuildEvent>
+      <Command />
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\..\data/Client.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\expat-2.0.1\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdparty\libogg-1.1.3\include;$(SolutionDir)3rdparty\libvorbis-1.2.0\include;$(SolutionDir)3rdparty\lua-4.0.1\include;$(SolutionDir)3rdparty\sqlite3;$(SolutionDir)3rdparty\zlib-1.2.3;$(SolutionDir)3rdParty\zlib-1.2.3\contrib\minizip;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;XML_STATIC;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Client.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0412</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;znzin.lib;IJL15.lib;expat.lib;dsound.lib;dxguid.lib;dxerr9.lib;d3dx9.lib;lualib4.lib;sqlite3.lib;ogg.lib;vorbis.lib;vorbisfile.lib;zlib.lib;imagehlp.lib;imm32.lib;legacy_stdio_definitions.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;strmiids.lib;unicows.lib;urlmon.lib;Version.lib;wininet.lib;winmm.lib;WSock32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>
+      </GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <MapExports>false</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences />
+      <EnableCOMDATFolding />
+      <ImportLibrary>$(OutDir)TRose.lib</ImportLibrary>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command />
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\..\data/Client.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\dx90csdk\Include;$(SolutionDir)3rdparty\expat-2.0.1\lib;$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdparty\libogg-1.1.3\include;$(SolutionDir)3rdparty\libvorbis-1.2.0\include;$(SolutionDir)3rdparty\lua-4.0.1\include;$(SolutionDir)3rdparty\sqlite3;$(SolutionDir)3rdparty\zlib-1.2.3;$(SolutionDir)3rdParty\zlib-1.2.3\contrib\minizip;$(ProjectDir)src;$(ProjectDir)src\interface;$(ProjectDir)src\GameCommon;$(ProjectDir)res;$(SolutionDir)src\triggerinfo\include;$(SolutionDir)src\tgamectrl\include;$(SolutionDir)src\triggervfs\include;$(SolutionDir)src\znzin\include;$(SolutionDir)src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;XML_STATIC;NDEBUG;_D_RELEASE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Client.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0412</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386  %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>TriggerVFS.lib;TriggerInfo.lib;TGameCtrl.lib;znzin.lib;IJL15.lib;expat.lib;dsound.lib;dxguid.lib;dxerr9.lib;d3dx9.lib;lualib4.lib;sqlite3.lib;ogg.lib;vorbis.lib;vorbisfile.lib;zlib.lib;imagehlp.lib;imm32.lib;legacy_stdio_definitions.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;strmiids.lib;unicows.lib;urlmon.lib;Version.lib;wininet.lib;winmm.lib;WSock32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\ijl-1.5;$(SolutionDir)3rdParty\dx90csdk\Lib;$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+      <ImportLibrary>$(OutDir)TRose.lib</ImportLibrary>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\CAssertNew.cpp" />
+    <ClCompile Include="..\Common\MiniDumper.cpp" />
+    <ClCompile Include="src\Ai_lib\AI_Action.cpp" />
+    <ClCompile Include="src\Ai_lib\AI_Condition.cpp" />
+    <ClCompile Include="src\Ai_lib\cai_file.cpp" />
+    <ClCompile Include="src\AppMsgQ.cpp" />
+    <ClCompile Include="src\BULLET.CPP" />
+    <ClCompile Include="src\CApplication.cpp" />
+    <ClCompile Include="src\CAvatarState.cpp" />
+    <ClCompile Include="src\CCamera.cpp" />
+    <ClCompile Include="src\CClientStorage.cpp" />
+    <ClCompile Include="src\CGameOBJ.cpp" />
+    <ClCompile Include="src\CJustModelAVT.cpp" />
+    <ClCompile Include="src\CModelCHAR.cpp" />
+    <ClCompile Include="src\CObjCART.cpp" />
+    <ClCompile Include="src\CObjCHAR.cpp" />
+    <ClCompile Include="src\CObjCHAR_ActionFrame.cpp" />
+    <ClCompile Include="src\CObjCHAR_Collision.cpp" />
+    <ClCompile Include="src\CObjFIXED.cpp" />
+    <ClCompile Include="src\CObjGROUND.cpp" />
+    <ClCompile Include="src\CObjMORPH.cpp" />
+    <ClCompile Include="src\CObjUSER.cpp" />
+    <ClCompile Include="src\CommandFilter.cpp" />
+    <ClCompile Include="src\Common\Calculation.cpp" />
+    <ClCompile Include="src\Common\CEconomy.cpp" />
+    <ClCompile Include="src\Common\CHotICON.cpp" />
+    <ClCompile Include="src\Common\CInventory.cpp" />
+    <ClCompile Include="src\Common\CItem.cpp" />
+    <ClCompile Include="src\Common\CObjAI.cpp" />
+    <ClCompile Include="src\Common\CQuest.cpp" />
+    <ClCompile Include="src\Common\cregenarea.cpp" />
+    <ClCompile Include="src\Common\CUserDATA.cpp" />
+    <ClCompile Include="src\Common\IO_AI.CPP" />
+    <ClCompile Include="src\Common\IO_Motion.cpp" />
+    <ClCompile Include="src\Common\IO_PAT.cpp" />
+    <ClCompile Include="src\Common\IO_Quest.cpp" />
+    <ClCompile Include="src\Common\IO_Skill.cpp" />
+    <ClCompile Include="src\Common\IO_STB.cpp" />
+    <ClCompile Include="src\Country.cpp" />
+    <ClCompile Include="src\CSkyDOME.cpp" />
+    <ClCompile Include="src\CViewMSG.cpp" />
+    <ClCompile Include="src\Debug.cpp" />
+    <ClCompile Include="src\Event\CEvent.cpp" />
+    <ClCompile Include="src\Event\Gf_effect.cpp" />
+    <ClCompile Include="src\Event\Gf_item.cpp" />
+    <ClCompile Include="src\Event\Gf_system.cpp" />
+    <ClCompile Include="src\Event\QF_CONVERSATION.CPP" />
+    <ClCompile Include="src\Event\QF_QUEST.CPP" />
+    <ClCompile Include="src\Event\QF_SKILL.CPP" />
+    <ClCompile Include="src\Event\QuestRewardQueue.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\gamecommon\CDelegatedObservable.cpp" />
+    <ClCompile Include="src\GameCommon\CFilterWord.cpp" />
+    <ClCompile Include="src\gamecommon\CItemEquip.cpp" />
+    <ClCompile Include="src\gamecommon\CItemEtc.cpp" />
+    <ClCompile Include="src\gamecommon\CItemPat.cpp" />
+    <ClCompile Include="src\gamecommon\CItemUse.cpp" />
+    <ClCompile Include="src\gamecommon\CObservable.cpp" />
+    <ClCompile Include="src\GameCommon\CSkillCommand.cpp" />
+    <ClCompile Include="src\gamecommon\iconcommand.cpp" />
+    <ClCompile Include="src\gamecommon\IObserver.cpp" />
+    <ClCompile Include="src\gamecommon\Item.cpp" />
+    <ClCompile Include="src\gamecommon\itemcommand.cpp" />
+    <ClCompile Include="src\gamecommon\LngTbl.cpp" />
+    <ClCompile Include="src\GameCommon\ReloadProcess.cpp" />
+    <ClCompile Include="src\GameCommon\Skill.cpp" />
+    <ClCompile Include="src\GameCommon\StringManager.cpp" />
+    <ClCompile Include="src\GameData\CBank.cpp" />
+    <ClCompile Include="src\GameData\CChatRoom.cpp" />
+    <ClCompile Include="src\GameData\CClan.cpp" />
+    <ClCompile Include="src\GameData\CCommunity.cpp" />
+    <ClCompile Include="src\GameData\CDealData.cpp" />
+    <ClCompile Include="src\GameData\CDecomposition.cpp" />
+    <ClCompile Include="src\GameData\CExchange.cpp" />
+    <ClCompile Include="src\GameData\CGameDataCreateAvatar.cpp" />
+    <ClCompile Include="src\GameData\CManufacture.cpp" />
+    <ClCompile Include="src\GameData\CParty.cpp" />
+    <ClCompile Include="src\GameData\CPrivateStore.cpp" />
+    <ClCompile Include="src\GameData\CRequireMaterial.cpp" />
+    <ClCompile Include="src\GameData\CSeparate.cpp" />
+    <ClCompile Include="src\GameData\CStore.cpp" />
+    <ClCompile Include="src\GameData\CStoreUnion.cpp" />
+    <ClCompile Include="src\GameData\CUpgrade.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEvenSkill.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEvent.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventAvatarStore.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventChatRoom.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventClan.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventClanSkill.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventDeal.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventExchange.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventItem.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventManufacture.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventParty.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventPrivateStore.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventSeparate.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventServerList.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventSkill.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventStoreUnion.cpp" />
+    <ClCompile Include="src\GameData\Event\CTEventUpgrade.cpp" />
+    <ClCompile Include="src\GameData\ServerList.cpp" />
+    <ClCompile Include="src\GameProc\BGMManager.cpp" />
+    <ClCompile Include="src\GameProc\CallGM.cpp" />
+    <ClCompile Include="src\GameProc\CaptureChatList.cpp" />
+    <ClCompile Include="src\GameProc\CDayNNightProc.cpp" />
+    <ClCompile Include="src\GameProc\ChangeActionMode.cpp" />
+    <ClCompile Include="src\GameProc\ChangeVisibility.cpp" />
+    <ClCompile Include="src\GameProc\DelayedExp.cpp" />
+    <ClCompile Include="src\GameProc\ItemInfoView.cpp" />
+    <ClCompile Include="src\GameProc\LiveCheck.cpp" />
+    <ClCompile Include="src\GameProc\LoadingImageManager.cpp" />
+    <ClCompile Include="src\GameProc\MouseTargetEffect.cpp" />
+    <ClCompile Include="src\GameProc\ObjectTargetEffect.cpp" />
+    <ClCompile Include="src\GameProc\Objvibration.cpp" />
+    <ClCompile Include="src\GameProc\PreventDuplicatedCommand.cpp" />
+    <ClCompile Include="src\GameProc\SkillCommandDelay.cpp" />
+    <ClCompile Include="src\GameProc\TargetManager.cpp" />
+    <ClCompile Include="src\GameProc\UseItemDelay.cpp" />
+    <ClCompile Include="src\Game_FUNC.cpp" />
+    <ClCompile Include="src\Interface\CChatBox.cpp" />
+    <ClCompile Include="src\Interface\CClanMarkUserDefined.cpp" />
+    <ClCompile Include="src\Interface\CClanMarkView.cpp" />
+    <ClCompile Include="src\Interface\CDigitEffect.cpp" />
+    <ClCompile Include="src\Interface\CDragItem.cpp" />
+    <ClCompile Include="src\Interface\CDragNDropMgr.cpp" />
+    <ClCompile Include="src\Interface\CEnduranceProperty.cpp" />
+    <ClCompile Include="src\Interface\CHelpMgr.cpp" />
+    <ClCompile Include="src\Interface\CIndicate.cpp" />
+    <ClCompile Include="src\Interface\CInfo.cpp" />
+    <ClCompile Include="src\Interface\CKeyMove.cpp" />
+    <ClCompile Include="src\Interface\ClanMarkManager.cpp" />
+    <ClCompile Include="src\Interface\ClanMarkTransfer.cpp" />
+    <ClCompile Include="src\Interface\CLoading.cpp" />
+    <ClCompile Include="src\Interface\CNameBox.cpp" />
+    <ClCompile Include="src\Interface\Command\CTCmdHotExec.cpp" />
+    <ClCompile Include="src\Interface\Command\CTCmdNumberInput.cpp" />
+    <ClCompile Include="src\Interface\Command\CTCmdOpenDlg.cpp" />
+    <ClCompile Include="src\Interface\Command\DragCommand.cpp" />
+    <ClCompile Include="src\Interface\Command\EXUICOMMAND.cpp" />
+    <ClCompile Include="src\Interface\Command\UICommand.cpp" />
+    <ClCompile Include="src\Interface\controls\EffectString.cpp" />
+    <ClCompile Include="src\Interface\CTDrawImpl.cpp" />
+    <ClCompile Include="src\Interface\CTFontImpl.cpp" />
+    <ClCompile Include="src\Interface\CToolTipMgr.cpp" />
+    <ClCompile Include="src\Interface\CTSoundImpl.cpp" />
+    <ClCompile Include="src\Interface\CTString.cpp" />
+    <ClCompile Include="src\Interface\CUIMediator.cpp" />
+    <ClCompile Include="src\Interface\cursor\CCursor.cpp" />
+    <ClCompile Include="src\Interface\cursor\CCursorState.cpp" />
+    <ClCompile Include="src\Interface\cursor\CCursorStateDx.cpp" />
+    <ClCompile Include="src\Interface\cursor\CCursorStateSprite.cpp" />
+    <ClCompile Include="src\Interface\cursor\CCursorStateWindow.cpp" />
+    <ClCompile Include="src\Interface\DamageEffect.cpp" />
+    <ClCompile Include="src\Interface\DLGs\AvatarInfoDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\BasePAN.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CAddFriendDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CAvatarStore.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CAvatarStoreDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CBankDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CBankWindowDlg.cpp" />
+    <ClCompile Include="src\interface\dlgs\CChatFilterDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CChatRoomDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CClanDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CCommDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CDecompositionDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CDialogDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CGoodsDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CharacterDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\ChattingDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CItemDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\ClanOrganizeDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\ClanRegistNotice.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CMemoDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CMemoViewDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CMenuDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CMinimapDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CMsgBox.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CMsgBoxCartRide.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CMsgBoxSpecial.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CNumberInputDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\COptionDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CPartyDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CPartyMember.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CPatDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CPrivateChatDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CPrivateStoreDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CQuestDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CRestartDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CSeparateDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CSkillDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CStoreDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CStoreUnionDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CSystemDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CSystemMsgDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CTargetMenu.cpp" />
+    <ClCompile Include="src\Interface\DLGs\CUpgradeDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\DealDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\DeliveryStoreDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\EventDialog.cpp" />
+    <ClCompile Include="src\Interface\DLGs\ExchangeDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\HelpDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\InputNameDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\InventoryDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\MakeDLG.cpp" />
+    <ClCompile Include="src\Interface\DLGs\NotifyButtonDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\NotifyDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\PartyOptionDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\QuickToolBAR.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SelectEventDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SkillTreeDlg.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CChatRoomListItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CClanSkillListItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItemNew.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CDialogNpcScriptItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CFriendListItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CGuage.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\ClanMark.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\ClanMemberItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMailBoxListItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeState.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeStateNormal.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeStateResult.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CMakeStateWait.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CQuestListItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CSkillListCellRenderer.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CSkillListItem.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CSlot.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgState.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateNormal.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateResult.cpp" />
+    <ClCompile Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateWait.cpp" />
+    <ClCompile Include="src\Interface\DLGs\TargetObjectDLG.cpp" />
+    <ClCompile Include="src\Interface\ExternalUI\CCreateAvata.cpp" />
+    <ClCompile Include="src\Interface\ExternalUI\CExternalUIManager.cpp" />
+    <ClCompile Include="src\Interface\ExternalUI\CLogin.cpp" />
+    <ClCompile Include="src\Interface\ExternalUI\CSelectAvata.cpp" />
+    <ClCompile Include="src\Interface\ExternalUI\CSelectChannel.cpp" />
+    <ClCompile Include="src\Interface\ExternalUI\CSelectServer.cpp" />
+    <ClCompile Include="src\Interface\ExternalUI\ExternalUILobby.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIcon.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIconDialog.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIconItem.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIconItemDelivery.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIconQuick.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIconSkill.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIconSkillClan.cpp" />
+    <ClCompile Include="src\Interface\Icon\CIconSkillDummy.cpp" />
+    <ClCompile Include="src\Interface\IO_ImageRes.cpp" />
+    <ClCompile Include="src\Interface\ITState\CITState.cpp" />
+    <ClCompile Include="src\Interface\ITState\CITStateAppraisal.cpp" />
+    <ClCompile Include="src\interface\itstate\CITStateDead.cpp" />
+    <ClCompile Include="src\Interface\ITState\CITStateNormal.cpp" />
+    <ClCompile Include="src\Interface\ITState\CITStateNpcDialog.cpp" />
+    <ClCompile Include="src\Interface\ITState\CITStateRepair.cpp" />
+    <ClCompile Include="src\Interface\ITState\CITStateRideCart.cpp" />
+    <ClCompile Include="src\Interface\ITState\CITStateWaitDisconnect.cpp" />
+    <ClCompile Include="src\Interface\it_mgr.cpp" />
+    <ClCompile Include="src\Interface\PersonalStoreManager.cpp" />
+    <ClCompile Include="src\Interface\slotcontainer\CItemSlot.cpp" />
+    <ClCompile Include="src\Interface\SlotContainer\ClanSkillSlot.cpp" />
+    <ClCompile Include="src\Interface\SlotContainer\CSkillSlot.cpp" />
+    <ClCompile Include="src\Interface\SlotContainer\HotIconSlot.cpp" />
+    <ClCompile Include="src\Interface\TypeResource.cpp" />
+    <ClCompile Include="src\IO_Basic.cpp" />
+    <ClCompile Include="src\IO_Effect.cpp" />
+    <ClCompile Include="src\IO_Event.cpp" />
+    <ClCompile Include="src\IO_MATERIAL.CPP" />
+    <ClCompile Include="src\IO_MESH.CPP" />
+    <ClCompile Include="src\IO_Model.cpp" />
+    <ClCompile Include="src\IO_Morpher.cpp" />
+    <ClCompile Include="src\IO_Skeleton.cpp" />
+    <ClCompile Include="src\IO_Terrain.cpp" />
+    <ClCompile Include="src\JCommandState.cpp" />
+    <ClCompile Include="src\LUA_Func.cpp" />
+    <ClCompile Include="src\LUA_Init.cpp" />
+    <ClCompile Include="src\Misc\GameUtil.cpp" />
+    <ClCompile Include="src\Network\CNetwork.cpp" />
+    <ClCompile Include="src\Network\RecvPACKET.cpp" />
+    <ClCompile Include="src\Network\SendPACKET.cpp" />
+    <ClCompile Include="src\ObjCastleGear.cpp" />
+    <ClCompile Include="src\OBJECT.cpp" />
+    <ClCompile Include="src\ObjectActionProcessor.cpp" />
+    <ClCompile Include="src\ObjectCommand\ObjCommand.cpp" />
+    <ClCompile Include="src\ObjFixedEvent.cpp" />
+    <ClCompile Include="src\Sfx\ISFX.cpp" />
+    <ClCompile Include="src\Sfx\SFXFont.cpp" />
+    <ClCompile Include="src\Sfx\SFXManager.cpp" />
+    <ClCompile Include="src\Sfx\SFXWideScreen.cpp" />
+    <ClCompile Include="src\Sfx\SmoothVisibility.cpp" />
+    <ClCompile Include="src\Sound\DirectMusicPlayer.cpp" />
+    <ClCompile Include="src\Sound\IO_Sound.cpp" />
+    <ClCompile Include="src\Sound\MSSMusicPlayer.cpp" />
+    <ClCompile Include="src\Sound\MusicMgr.cpp" />
+    <ClCompile Include="src\Sound\MusicPlayer.cpp" />
+    <ClCompile Include="src\Sound\OggMusicPlayer.cpp" />
+    <ClCompile Include="src\Sound\SoundPlayer.cpp" />
+    <ClCompile Include="src\SqliteDB.cpp" />
+    <ClCompile Include="src\StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\System\CGame.cpp" />
+    <ClCompile Include="src\System\CGameState.cpp" />
+    <ClCompile Include="src\System\CGameStateCreateAvatar.cpp" />
+    <ClCompile Include="src\System\CGameStateExitMain.cpp" />
+    <ClCompile Include="src\System\CGameStateLogin.cpp" />
+    <ClCompile Include="src\System\CGameStateLoginVirtual.cpp" />
+    <ClCompile Include="src\System\CGameStateMain.cpp" />
+    <ClCompile Include="src\System\CGameStateMoveMain.cpp" />
+    <ClCompile Include="src\System\CGameStateNull.cpp" />
+    <ClCompile Include="src\System\CGameStatePrepareMain.cpp" />
+    <ClCompile Include="src\System\CGameStatePrepareSelectAvatar.cpp" />
+    <ClCompile Include="src\System\CGameStateReLogin.cpp" />
+    <ClCompile Include="src\System\CGameStateSelectAvatar.cpp" />
+    <ClCompile Include="src\System\CGameStateSelectSvr.cpp" />
+    <ClCompile Include="src\System\CGameStateTitle.cpp" />
+    <ClCompile Include="src\System\CGameStateWarp.cpp" />
+    <ClCompile Include="src\System\GameStateMovePlanet.cpp" />
+    <ClCompile Include="src\System\GameStateWarning.cpp" />
+    <ClCompile Include="src\System\SystemProcScript.cpp" />
+    <ClCompile Include="src\System\System_FUNC.cpp" />
+    <ClCompile Include="src\System\TCmdSystem.cpp" />
+    <ClCompile Include="src\Terrain\PatchManager.cpp" />
+    <ClCompile Include="src\Terrain\RoughMap.cpp" />
+    <ClCompile Include="src\Terrain\WideTerrain.cpp" />
+    <ClCompile Include="src\Tutorial\LevelUpEvent.cpp" />
+    <ClCompile Include="src\Tutorial\TutorialEvent.cpp" />
+    <ClCompile Include="src\Tutorial\TutorialEventManager.cpp" />
+    <ClCompile Include="src\Tutorial\TutorialEventUtility.cpp" />
+    <ClCompile Include="src\Util\ADSStream.cpp" />
+    <ClCompile Include="src\Util\Arcfour\Arcfour.cpp" />
+    <ClCompile Include="src\Util\CBITArray.cpp" />
+    <ClCompile Include="src\Util\CCheat.cpp" />
+    <ClCompile Include="src\Util\CClientSOCKET.cpp" />
+    <ClCompile Include="src\Util\CD3DUtil.cpp" />
+    <ClCompile Include="src\Util\CDSound.cpp" />
+    <ClCompile Include="src\Util\cdxHPC.cpp" />
+    <ClCompile Include="src\Util\CFileSystemNormal.cpp" />
+    <ClCompile Include="src\Util\CFileSystemTriggerVFS.cpp" />
+    <ClCompile Include="src\Util\CGameSTB.cpp" />
+    <ClCompile Include="src\Util\CGameStr.cpp" />
+    <ClCompile Include="src\Util\CheckHack.cpp" />
+    <ClCompile Include="src\Util\classCRC.cpp" />
+    <ClCompile Include="src\Util\classFile.cpp" />
+    <ClCompile Include="src\Util\classHASH.cpp" />
+    <ClCompile Include="src\Util\classHTTP.cpp" />
+    <ClCompile Include="src\Util\classIME.cpp" />
+    <ClCompile Include="src\Util\classLOG.cpp" />
+    <ClCompile Include="src\Util\classLUA.cpp" />
+    <ClCompile Include="src\Util\classMD5.cpp" />
+    <ClCompile Include="src\Util\classSTB.cpp" />
+    <ClCompile Include="src\Util\classSTR.cpp" />
+    <ClCompile Include="src\Util\classSYNCOBJ.cpp" />
+    <ClCompile Include="src\Util\classTHREAD.cpp" />
+    <ClCompile Include="src\Util\classTIME.cpp" />
+    <ClCompile Include="src\Util\classTRACE.cpp" />
+    <ClCompile Include="src\Util\classUTIL.cpp" />
+    <ClCompile Include="src\Util\ClipboardUtil.cpp" />
+    <ClCompile Include="src\Util\CMessageQ.cpp" />
+    <ClCompile Include="src\Util\CMMPlayer.cpp" />
+    <ClCompile Include="src\Util\CPacketCODEC.cpp" />
+    <ClCompile Include="src\Util\CProcess.cpp" />
+    <ClCompile Include="src\Util\CRandom.cpp" />
+    <ClCompile Include="src\Util\CRangeTBL.cpp" />
+    <ClCompile Include="src\Util\CRawSOCKET.cpp" />
+    <ClCompile Include="src\Util\CshoSOCKET.cpp" />
+    <ClCompile Include="src\Util\CSocket.cpp" />
+    <ClCompile Include="src\Util\CSocketWND.cpp" />
+    <ClCompile Include="src\Util\CWaveFILE.cpp" />
+    <ClCompile Include="src\Util\FileVersionInfo.cpp" />
+    <ClCompile Include="src\Util\JDebugNew.cpp" />
+    <ClCompile Include="src\Util\JResourceContainer.cpp" />
+    <ClCompile Include="src\Util\LIB_IJL.cpp" />
+    <ClCompile Include="src\Util\Localizing.cpp" />
+    <ClCompile Include="src\Util\PacketHEADER.cpp" />
+    <ClCompile Include="src\Util\ResourceCache.cpp" />
+    <ClCompile Include="src\Util\SystemInfo.cpp" />
+    <ClCompile Include="src\Util\SystemUtil.cpp" />
+    <ClCompile Include="src\Util\VFSManager.cpp" />
+    <ClCompile Include="src\Util\WndMsgQ.cpp" />
+    <ClCompile Include="src\winMAIN.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\CAssertNew.h" />
+    <ClInclude Include="..\Common\MiniDumper.h" />
+    <ClInclude Include="..\Common\Net_Prototype.h" />
+    <ClInclude Include="res\resource.h" />
+    <ClInclude Include="src\Ai_lib\Cai_lib.h" />
+    <ClInclude Include="src\AppMsgQ.h" />
+    <ClInclude Include="src\BULLET.H" />
+    <ClInclude Include="src\CApplication.h" />
+    <ClInclude Include="src\CAvatarState.h" />
+    <ClInclude Include="src\CCamera.h" />
+    <ClInclude Include="src\CClientStorage.h" />
+    <ClInclude Include="src\CGameOBJ.h" />
+    <ClInclude Include="src\CJustModelAVT.h" />
+    <ClInclude Include="src\CModelCHAR.h" />
+    <ClInclude Include="src\CObjCART.h" />
+    <ClInclude Include="src\CObjCHAR.h" />
+    <ClInclude Include="src\CObjCHAR_Collision.h" />
+    <ClInclude Include="src\CObjFIXED.h" />
+    <ClInclude Include="src\CObjGROUND.h" />
+    <ClInclude Include="src\CObjMORPH.h" />
+    <ClInclude Include="src\CObjUSER.h" />
+    <ClInclude Include="src\CommandFilter.h" />
+    <ClInclude Include="src\Common\Calculation.h" />
+    <ClInclude Include="src\Common\CEconomy.h" />
+    <ClInclude Include="src\Common\CHotICON.h" />
+    <ClInclude Include="src\Common\CInventory.h" />
+    <ClInclude Include="src\Common\CItem.h" />
+    <ClInclude Include="src\Common\CObjAI.h" />
+    <ClInclude Include="src\Common\CQuest.h" />
+    <ClInclude Include="src\Common\CRegenAREA.h" />
+    <ClInclude Include="src\Common\CUserDATA.h" />
+    <ClInclude Include="src\Common\DataTYPE.h" />
+    <ClInclude Include="src\Common\IO_AI.H" />
+    <ClInclude Include="src\Common\IO_Motion.h" />
+    <ClInclude Include="src\Common\Io_pat.h" />
+    <ClInclude Include="src\Common\IO_Quest.h" />
+    <ClInclude Include="src\Common\IO_Skill.h" />
+    <ClInclude Include="src\Common\IO_STB.h" />
+    <ClInclude Include="src\Country.h" />
+    <ClInclude Include="src\CSkyDOME.h" />
+    <ClInclude Include="src\CViewMSG.h" />
+    <ClInclude Include="src\Debug.h" />
+    <ClInclude Include="src\Event\CEvent.h" />
+    <ClInclude Include="src\Event\QuestRewardQueue.h" />
+    <ClInclude Include="src\Event\Quest_FUNC.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\gamecommon\CDelegatedObservable.h" />
+    <ClInclude Include="src\GameCommon\CFilterWord.h" />
+    <ClInclude Include="src\gamecommon\CItemEquip.h" />
+    <ClInclude Include="src\gamecommon\CItemEtc.h" />
+    <ClInclude Include="src\gamecommon\CItemPat.h" />
+    <ClInclude Include="src\gamecommon\CItemUse.h" />
+    <ClInclude Include="src\gamecommon\CObservable.h" />
+    <ClInclude Include="src\GameCommon\CSkillCommand.h" />
+    <ClInclude Include="src\gamecommon\iconcommand.h" />
+    <ClInclude Include="src\gamecommon\IObserver.h" />
+    <ClInclude Include="src\gamecommon\Item.h" />
+    <ClInclude Include="src\gamecommon\ItemCommand.h" />
+    <ClInclude Include="src\gamecommon\LngTbl.h" />
+    <ClInclude Include="src\GameCommon\ReloadProcess.h" />
+    <ClInclude Include="src\GameCommon\Skill.h" />
+    <ClInclude Include="src\GameCommon\StringManager.h" />
+    <ClInclude Include="src\GameData\CBank.h" />
+    <ClInclude Include="src\GameData\CChatRoom.h" />
+    <ClInclude Include="src\GameData\CClan.h" />
+    <ClInclude Include="src\GameData\CCommunity.h" />
+    <ClInclude Include="src\GameData\CDealData.h" />
+    <ClInclude Include="src\GameData\CDecomposition.h" />
+    <ClInclude Include="src\GameData\CExchange.h" />
+    <ClInclude Include="src\GameData\CGameDataCreateAvatar.h" />
+    <ClInclude Include="src\GameData\CManufacture.h" />
+    <ClInclude Include="src\GameData\CParty.h" />
+    <ClInclude Include="src\GameData\CPrivateStore.h" />
+    <ClInclude Include="src\GameData\CRequireMaterial.h" />
+    <ClInclude Include="src\GameData\CSeparate.h" />
+    <ClInclude Include="src\GameData\CStore.h" />
+    <ClInclude Include="src\GameData\CStoreUnion.h" />
+    <ClInclude Include="src\GameData\CUpgrade.h" />
+    <ClInclude Include="src\GameData\Event\CTEvenSkill.h" />
+    <ClInclude Include="src\GameData\Event\CTEvent.h" />
+    <ClInclude Include="src\GameData\Event\CTEventAvatarStore.h" />
+    <ClInclude Include="src\GameData\Event\CTEventChatRoom.h" />
+    <ClInclude Include="src\GameData\Event\CTEventClan.h" />
+    <ClInclude Include="src\GameData\Event\CTEventClanSkill.h" />
+    <ClInclude Include="src\GameData\Event\CTEventDeal.h" />
+    <ClInclude Include="src\GameData\Event\CTEventExchange.h" />
+    <ClInclude Include="src\GameData\Event\CTEventItem.h" />
+    <ClInclude Include="src\GameData\Event\CTEventManufacture.h" />
+    <ClInclude Include="src\GameData\Event\CTEventParty.h" />
+    <ClInclude Include="src\GameData\Event\CTEventPrivateStore.h" />
+    <ClInclude Include="src\GameData\Event\CTEventSeparate.h" />
+    <ClInclude Include="src\GameData\Event\CTEventServerList.h" />
+    <ClInclude Include="src\GameData\Event\CTEventSkill.h" />
+    <ClInclude Include="src\GameData\Event\CTEventStoreUnion.h" />
+    <ClInclude Include="src\GameData\Event\CTEventUpgrade.h" />
+    <ClInclude Include="src\GameData\ServerList.h" />
+    <ClInclude Include="src\GameProc\BGMManager.h" />
+    <ClInclude Include="src\GameProc\CallGM.h" />
+    <ClInclude Include="src\GameProc\CaptureChatList.h" />
+    <ClInclude Include="src\GameProc\CDayNNightProc.h" />
+    <ClInclude Include="src\GameProc\ChangeActionMode.h" />
+    <ClInclude Include="src\GameProc\ChangeVisibility.h" />
+    <ClInclude Include="src\GameProc\DelayedExp.h" />
+    <ClInclude Include="src\GameProc\ItemInfoView.h" />
+    <ClInclude Include="src\GameProc\LiveCheck.h" />
+    <ClInclude Include="src\GameProc\LoadingImageManager.h" />
+    <ClInclude Include="src\GameProc\MouseTargetEffect.h" />
+    <ClInclude Include="src\GameProc\ObjectTargetEffect.h" />
+    <ClInclude Include="src\GameProc\Objvibration.h" />
+    <ClInclude Include="src\GameProc\PreventDuplicatedCommand.h" />
+    <ClInclude Include="src\GameProc\SkillCommandDelay.h" />
+    <ClInclude Include="src\GameProc\TargetManager.h" />
+    <ClInclude Include="src\GameProc\UseItemDelay.h" />
+    <ClInclude Include="src\Game_FUNC.h" />
+    <ClInclude Include="src\Interface\CChatBox.h" />
+    <ClInclude Include="src\Interface\CClanMarkUserDefined.h" />
+    <ClInclude Include="src\Interface\CClanMarkView.h" />
+    <ClInclude Include="src\Interface\CDigitEffect.h" />
+    <ClInclude Include="src\Interface\CDragItem.h" />
+    <ClInclude Include="src\Interface\CDragNDropMgr.h" />
+    <ClInclude Include="src\Interface\CEnduranceProperty.h" />
+    <ClInclude Include="src\Interface\CHelpMgr.h" />
+    <ClInclude Include="src\Interface\CIndicate.h" />
+    <ClInclude Include="src\Interface\CInfo.h" />
+    <ClInclude Include="src\Interface\CKeyMove.h" />
+    <ClInclude Include="src\Interface\ClanMarkManager.h" />
+    <ClInclude Include="src\Interface\ClanMarkTransfer.h" />
+    <ClInclude Include="src\Interface\CLoading.h" />
+    <ClInclude Include="src\Interface\CNameBox.h" />
+    <ClInclude Include="src\Interface\Command\CTCmdHotExec.h" />
+    <ClInclude Include="src\Interface\Command\CTCmdNumberInput.h" />
+    <ClInclude Include="src\Interface\Command\CTCmdOpenDlg.h" />
+    <ClInclude Include="src\Interface\Command\DragCommand.h" />
+    <ClInclude Include="src\Interface\Command\ExUICommand.h" />
+    <ClInclude Include="src\Interface\Command\UICommand.h" />
+    <ClInclude Include="src\Interface\controls\EffectString.h" />
+    <ClInclude Include="src\Interface\CTDrawImpl.h" />
+    <ClInclude Include="src\Interface\CTFontImpl.h" />
+    <ClInclude Include="src\Interface\CToolTipMgr.h" />
+    <ClInclude Include="src\Interface\CTSoundImpl.h" />
+    <ClInclude Include="src\Interface\CTString.h" />
+    <ClInclude Include="src\Interface\CUIMediator.h" />
+    <ClInclude Include="src\Interface\cursor\CCursor.h" />
+    <ClInclude Include="src\Interface\cursor\CCursorState.h" />
+    <ClInclude Include="src\Interface\cursor\CCursorStateDx.h" />
+    <ClInclude Include="src\Interface\cursor\CCursorStateSprite.h" />
+    <ClInclude Include="src\Interface\cursor\CCursorStateWindow.h" />
+    <ClInclude Include="src\Interface\DamageEffect.h" />
+    <ClInclude Include="src\Interface\DLGs\AvatarInfoDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\BasePAN.h" />
+    <ClInclude Include="src\Interface\DLGs\CAddFriendDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CAvatarStore.h" />
+    <ClInclude Include="src\Interface\DLGs\CAvatarStoreDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CBankDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CBankWindowDlg.h" />
+    <ClInclude Include="src\interface\dlgs\CChatFilterDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CChatRoomDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CClanDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CCommDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CDecompositionDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CDialogDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CGoodsDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CharacterDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\ChattingDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\CItemDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\ClanOrganizeDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\ClanRegistNotice.h" />
+    <ClInclude Include="src\Interface\DLGs\CMemoDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CMemoViewDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CMenuDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CMinimapDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\CMsgBox.h" />
+    <ClInclude Include="src\Interface\DLGs\CMsgBoxCartRide.h" />
+    <ClInclude Include="src\Interface\DLGs\CMsgBoxSpecial.h" />
+    <ClInclude Include="src\Interface\DLGs\CNumberInputDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\COptionDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CPartyDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CPartyMember.h" />
+    <ClInclude Include="src\Interface\DLGs\CPatDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CPrivateChatDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CPrivateStoreDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CQuestDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CRestartDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\CSeparateDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CSkillDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\CStoreDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\CStoreUnionDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CSystemDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\CSystemMsgDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\CTargetMenu.h" />
+    <ClInclude Include="src\Interface\DLGs\CUpgradeDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\DealDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\DeliveryStoreDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\EventDialog.h" />
+    <ClInclude Include="src\Interface\DLGs\ExchangeDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\HelpDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\InputNameDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\InventoryDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\MakeDLG.h" />
+    <ClInclude Include="src\Interface\DLGs\NotifyButtonDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\NotifyDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\PartyOptionDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\QuickToolBAR.h" />
+    <ClInclude Include="src\Interface\DLGs\SelectEventDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\SkillTreeDlg.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CChatRoomListItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CClanSkillListItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CDialogNpcScriptAnswerItemNew.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CDialogNpcScriptItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CFriendListItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CGuage.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\ClanMark.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\ClanMemberItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMailBoxListItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeState.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeStateNormal.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeStateResult.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CMakeStateWait.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CQuestListItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CSkillListCellRenderer.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CSkillListItem.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CSlot.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgState.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateNormal.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateResult.h" />
+    <ClInclude Include="src\Interface\DLGs\SubClass\CUpgradeDlgStateWait.h" />
+    <ClInclude Include="src\Interface\DLGs\TargetObjectDLG.h" />
+    <ClInclude Include="src\Interface\ExternalUI\CCreateAvata.h" />
+    <ClInclude Include="src\Interface\ExternalUI\CExternalUI.h" />
+    <ClInclude Include="src\Interface\ExternalUI\CExternalUIManager.h" />
+    <ClInclude Include="src\Interface\ExternalUI\CLogin.h" />
+    <ClInclude Include="src\Interface\ExternalUI\CSelectAvata.h" />
+    <ClInclude Include="src\Interface\ExternalUI\CSelectChannel.h" />
+    <ClInclude Include="src\Interface\ExternalUI\CSelectServer.h" />
+    <ClInclude Include="src\Interface\ExternalUI\ExternalUILobby.h" />
+    <ClInclude Include="src\Interface\Icon\CIcon.h" />
+    <ClInclude Include="src\Interface\Icon\CIconDialog.h" />
+    <ClInclude Include="src\Interface\Icon\CIconItem.h" />
+    <ClInclude Include="src\Interface\Icon\CIconItemDelivery.h" />
+    <ClInclude Include="src\Interface\Icon\CIconQuick.h" />
+    <ClInclude Include="src\Interface\Icon\CIconSkill.h" />
+    <ClInclude Include="src\Interface\Icon\CIconSkillClan.h" />
+    <ClInclude Include="src\Interface\Icon\CIconSkillDummy.h" />
+    <ClInclude Include="src\Interface\InterfaceType.h" />
+    <ClInclude Include="src\Interface\IO_ImageRes.h" />
+    <ClInclude Include="src\Interface\ITState\CITState.h" />
+    <ClInclude Include="src\Interface\ITState\CITStateAppraisal.h" />
+    <ClInclude Include="src\interface\itstate\CITStateDead.h" />
+    <ClInclude Include="src\Interface\ITState\CITStateNormal.h" />
+    <ClInclude Include="src\Interface\ITState\CITStateNpcDialog.h" />
+    <ClInclude Include="src\Interface\ITState\CITStateRepair.h" />
+    <ClInclude Include="src\Interface\ITState\CITStateRideCart.h" />
+    <ClInclude Include="src\Interface\ITState\CITStateWaitDisconnect.h" />
+    <ClInclude Include="src\Interface\it_mgr.h" />
+    <ClInclude Include="src\Interface\PersonalStoreManager.h" />
+    <ClInclude Include="src\Interface\slotcontainer\CItemSlot.h" />
+    <ClInclude Include="src\Interface\SlotContainer\ClanSkillSlot.h" />
+    <ClInclude Include="src\Interface\SlotContainer\CSkillSlot.h" />
+    <ClInclude Include="src\Interface\SlotContainer\HotIconSlot.h" />
+    <ClInclude Include="src\Interface\TypeResource.h" />
+    <ClInclude Include="src\IO_Basic.h" />
+    <ClInclude Include="src\IO_Effect.h" />
+    <ClInclude Include="src\IO_Event.h" />
+    <ClInclude Include="src\IO_MATERIAL.H" />
+    <ClInclude Include="src\IO_MESH.H" />
+    <ClInclude Include="src\IO_Model.h" />
+    <ClInclude Include="src\IO_Morpher.h" />
+    <ClInclude Include="src\IO_Skeleton.h" />
+    <ClInclude Include="src\IO_Terrain.h" />
+    <ClInclude Include="src\JCommandState.h" />
+    <ClInclude Include="src\LUA_Func.h" />
+    <ClInclude Include="src\Misc\GameUtil.h" />
+    <ClInclude Include="src\Network\CNetwork.h" />
+    <ClInclude Include="src\Network\RecvPACKET.h" />
+    <ClInclude Include="src\Network\SendPACKET.h" />
+    <ClInclude Include="src\ObjCastleGear.h" />
+    <ClInclude Include="src\OBJECT.h" />
+    <ClInclude Include="src\ObjectActionProcessor.h" />
+    <ClInclude Include="src\ObjectCommand\ObjCommand.h" />
+    <ClInclude Include="src\ObjFixedEvent.h" />
+    <ClInclude Include="src\Sfx\ISFX.h" />
+    <ClInclude Include="src\Sfx\SFXFont.h" />
+    <ClInclude Include="src\Sfx\SFXManager.h" />
+    <ClInclude Include="src\Sfx\SFXWideScreen.h" />
+    <ClInclude Include="src\Sfx\SmoothVisibility.h" />
+    <ClInclude Include="src\Sound\DirectMusicPlayer.h" />
+    <ClInclude Include="src\Sound\IO_Sound.h" />
+    <ClInclude Include="src\Sound\MSSMusicPlayer.h" />
+    <ClInclude Include="src\Sound\MusicMgr.h" />
+    <ClInclude Include="src\Sound\MusicPlayer.h" />
+    <ClInclude Include="src\Sound\OggMusicPlayer.h" />
+    <ClInclude Include="src\Sound\SoundPlayer.h" />
+    <ClInclude Include="src\SqliteDB.h" />
+    <ClInclude Include="src\StdAfx.h" />
+    <ClInclude Include="src\System\CGame.h" />
+    <ClInclude Include="src\System\CGameState.h" />
+    <ClInclude Include="src\System\CGameStateCreateAvatar.h" />
+    <ClInclude Include="src\System\CGameStateExitMain.h" />
+    <ClInclude Include="src\System\CGameStateLogin.h" />
+    <ClInclude Include="src\System\CGameStateLoginVirtual.h" />
+    <ClInclude Include="src\System\CGameStateMain.h" />
+    <ClInclude Include="src\System\CGameStateMoveMain.h" />
+    <ClInclude Include="src\System\CGameStateNull.h" />
+    <ClInclude Include="src\System\CGameStatePrepareMain.h" />
+    <ClInclude Include="src\System\CGameStatePrepareSelectAvatar.h" />
+    <ClInclude Include="src\System\CGameStateReLogin.h" />
+    <ClInclude Include="src\System\CGameStateSelectAvatar.h" />
+    <ClInclude Include="src\System\CGameStateSelectSvr.h" />
+    <ClInclude Include="src\System\CGameStateTitle.h" />
+    <ClInclude Include="src\System\CGameStateWarp.h" />
+    <ClInclude Include="src\System\GameStateMovePlanet.h" />
+    <ClInclude Include="src\System\GameStateWarning.h" />
+    <ClInclude Include="src\System\SystemProcScript.h" />
+    <ClInclude Include="src\System\System_FUNC.h" />
+    <ClInclude Include="src\System\TCmdSystem.h" />
+    <ClInclude Include="src\Terrain\PatchManager.h" />
+    <ClInclude Include="src\Terrain\RoughMap.h" />
+    <ClInclude Include="src\Terrain\TerrainDef.h" />
+    <ClInclude Include="src\Terrain\WideTerrain.h" />
+    <ClInclude Include="src\Tutorial\LevelUpEvent.h" />
+    <ClInclude Include="src\Tutorial\TutorialEvent.h" />
+    <ClInclude Include="src\Tutorial\TutorialEventManager.h" />
+    <ClInclude Include="src\Tutorial\TutorialEventUtility.h" />
+    <ClInclude Include="src\Util\ADSStream.h" />
+    <ClInclude Include="src\Util\Arcfour\Arcfour.h" />
+    <ClInclude Include="src\Util\CBITArray.h" />
+    <ClInclude Include="src\Util\CCheat.h" />
+    <ClInclude Include="src\Util\CClientSOCKET.h" />
+    <ClInclude Include="src\Util\CD3DUtil.h" />
+    <ClInclude Include="src\Util\CDSound.h" />
+    <ClInclude Include="src\Util\CDXHPC.H" />
+    <ClInclude Include="src\Util\CFileLIST.h" />
+    <ClInclude Include="src\Util\CFileSystem.h" />
+    <ClInclude Include="src\Util\CFileSystemNormal.h" />
+    <ClInclude Include="src\Util\CFileSystemTriggerVFS.h" />
+    <ClInclude Include="src\Util\CGameSTB.h" />
+    <ClInclude Include="src\Util\CGameStr.h" />
+    <ClInclude Include="src\Util\CheckHack.h" />
+    <ClInclude Include="src\Util\classCRC.h" />
+    <ClInclude Include="src\Util\classFile.h" />
+    <ClInclude Include="src\Util\classHASH.h" />
+    <ClInclude Include="src\Util\classHTTP.h" />
+    <ClInclude Include="src\Util\classIME.h" />
+    <ClInclude Include="src\Util\classLOG.h" />
+    <ClInclude Include="src\Util\classLUA.h" />
+    <ClInclude Include="src\Util\classMD5.h" />
+    <ClInclude Include="src\Util\classMD5Defines.h" />
+    <ClInclude Include="src\Util\classQUEUE.h" />
+    <ClInclude Include="src\Util\classSTB.h" />
+    <ClInclude Include="src\Util\classSTR.h" />
+    <ClInclude Include="src\Util\classSYNCOBJ.h" />
+    <ClInclude Include="src\Util\classTHREAD.h" />
+    <ClInclude Include="src\Util\classTIME.h" />
+    <ClInclude Include="src\Util\classTRACE.h" />
+    <ClInclude Include="src\Util\classUTIL.h" />
+    <ClInclude Include="src\Util\ClipboardUtil.h" />
+    <ClInclude Include="src\Util\CMessageQ.h" />
+    <ClInclude Include="src\Util\CMMPlayer.h" />
+    <ClInclude Include="src\Util\CPacketCODEC.h" />
+    <ClInclude Include="src\Util\CProcess.h" />
+    <ClInclude Include="src\Util\CRandom.h" />
+    <ClInclude Include="src\Util\CRangeTBL.h" />
+    <ClInclude Include="src\Util\CRawSOCKET.h" />
+    <ClInclude Include="src\Util\CshoSOCKET.h" />
+    <ClInclude Include="src\Util\CSocket.h" />
+    <ClInclude Include="src\Util\CSocketWND.h" />
+    <ClInclude Include="src\Util\CVector.h" />
+    <ClInclude Include="src\Util\CWaveFILE.h" />
+    <ClInclude Include="src\Util\DLLIST.h" />
+    <ClInclude Include="src\Util\FileVersionInfo.h" />
+    <ClInclude Include="src\Util\JDebugNew.h" />
+    <ClInclude Include="src\Util\JResourceContainer.h" />
+    <ClInclude Include="src\Util\JSingleton.h" />
+    <ClInclude Include="src\Util\LIB_IJL.h" />
+    <ClInclude Include="src\Util\LIB_Util.h" />
+    <ClInclude Include="src\Util\Localizing.h" />
+    <ClInclude Include="src\Util\LogWnd.h" />
+    <ClInclude Include="src\Util\PacketHEADER.h" />
+    <ClInclude Include="src\Util\ResourceCache.h" />
+    <ClInclude Include="src\Util\RTTI.h" />
+    <ClInclude Include="src\Util\SLLIST.h" />
+    <ClInclude Include="src\Util\SystemInfo.h" />
+    <ClInclude Include="src\Util\SystemUtil.h" />
+    <ClInclude Include="src\Util\VFSManager.h" />
+    <ClInclude Include="src\Util\WndMsgQ.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\client.ver" />
+    <CustomBuild Include="src\export_GM.lua">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating game functions</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">Generating game functions</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating game functions</Message>
+    </CustomBuild>
+    <CustomBuild Include="src\export_QF.lua">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating quest functions</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">Generating quest functions</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating quest functions</Message>
+    </CustomBuild>
+    <CustomBuild Include="src\export_System.lua">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating system functions</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">Generating system functions</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating system functions</Message>
+    </CustomBuild>
+    <None Include="src\GlobalScr.lua" />
+    <None Include="res\cursor\Attack.cur" />
+    <None Include="res\cursor\cursor1.cur" />
+    <None Include="res\cursor\cursor2.cur" />
+    <None Include="res\cursor\Default.cur" />
+    <None Include="res\cursor\identify.cur" />
+    <None Include="res\cursor\item_invem.cur" />
+    <None Include="res\cursor\Item_inven.cur" />
+    <None Include="res\cursor\Item_pick.cur" />
+    <None Include="res\cursor\Left.cur" />
+    <None Include="res\cursor\noui01.cur" />
+    <None Include="res\cursor\Npc.cur" />
+    <None Include="res\cursor\repair.cur" />
+    <None Include="res\cursor\Right.cur" />
+    <None Include="res\cursor\User.cur" />
+    <None Include="res\cursor\Wheel.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\client.ico" />
+    <Image Include="res\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\client.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
