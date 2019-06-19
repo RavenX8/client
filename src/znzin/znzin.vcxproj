@@ -97,7 +97,7 @@ $(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua5.exe -e debug=1 zz_b
     <Link>
       <AdditionalDependencies>triggervfs.lib;d3d9.lib;d3dx9.lib;lualib5.lib;zlib.lib;legacy_stdio_definitions.lib;version.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;$(SolutionDir)3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)znzin.pdb</ProgramDatabaseFile>
@@ -144,7 +144,7 @@ $(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua5.exe -e debug=1 zz_b
     <Link>
       <AdditionalDependencies>triggervfs.lib;d3d9.lib;d3dx9.lib;lualib5.lib;zlib.lib;legacy_stdio_definitions.lib;version.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;$(SolutionDir)3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)znzin.pdb</ProgramDatabaseFile>
@@ -201,7 +201,7 @@ $(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua5.exe -e debug=1 zz_b
     <Link>
       <AdditionalDependencies>triggervfs.lib;d3d9.lib;d3dx9.lib;lualib5.lib;zlib.lib;legacy_stdio_definitions.lib;version.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;$(SolutionDir)\3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration);$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty;$(SolutionDir)3rdParty\dx90csdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)znzin.pdb</ProgramDatabaseFile>
@@ -465,27 +465,27 @@ $(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua5.exe -e debug=1 zz_b
   <ItemGroup>
     <None Include="include\zz_build_count.lua" />
     <CustomBuild Include="include\zz_script_lua.lua">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">zz_script_lua.inc</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cd $(ProjectDir)include\ 
-$(SolutionDir)bin\$(Platform)\$(Configuration)\lua5.exe %(FullPath)
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua5.exe %(FullPath)
 </Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\engine\include\zz_interface.h;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\engine\include\zz_script_lua.inc;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)include\zz_interface.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)include\zz_script_lua.inc;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">false</ExcludedFromBuild>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">zz_script_lua.inc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">zz_script_lua.inc</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cd $(ProjectDir)include\ 
-$(SolutionDir)bin\$(Platform)\$(Configuration)\lua5.exe %(FullPath)
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua5.exe %(FullPath)
 </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">cd $(ProjectDir)include\ 
-$(SolutionDir)bin\$(Platform)\$(Configuration)\lua5.exe %(FullPath)
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua5.exe %(FullPath)
 </Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\engine\include\zz_interface.h;%(AdditionalInputs)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)\engine\include\zz_interface.h;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\engine\include\zz_script_lua.inc;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)\engine\include\zz_script_lua.inc;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)include\zz_interface.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)include\zz_interface.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)include\zz_script_lua.inc;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)include\zz_script_lua.inc;%(Outputs)</Outputs>
     </CustomBuild>
     <None Include="shader\Makefile" />
   </ItemGroup>
