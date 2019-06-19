@@ -1,12 +1,12 @@
---- ·ç¾Æ¿ë ÀÎÅÍÆäÀÌ½º ¸ğµâ ÀÚµ¿ »ı¼ºÇÏ´Â ½ºÅ©¸³Æ®
---- ÀÔ·ÂÆÄÀÏ : zz_interface.h
---- Ãâ·ÂÆÄÀÏ : zz_api_define.inc zz_api_register.inc
+--- ë£¨ì•„ìš© ì¸í„°í˜ì´ìŠ¤ ëª¨ë“ˆ ìë™ ìƒì„±í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸
+--- ì…ë ¥íŒŒì¼ : zz_interface.h
+--- ì¶œë ¥íŒŒì¼ : zz_api_define.inc zz_api_register.inc
 ---
 --- ss checkout $/znzin11/engine/include/zz_api_define.inc $/znzin11/engine/include/zz_api_register.inc -yzho,XXXX -i-y
 ---
 --- $Header: /Client/export_GM.lua 2     03-08-29 5:22p Icarus $
 
---- ÆÄÀÏÀ» ÀĞ¾î interfaces Å×ÀÌºí¿¡ Á¤º¸ ÀúÀå
+--- íŒŒì¼ì„ ì½ì–´ interfaces í…Œì´ë¸”ì— ì •ë³´ ì €ì¥
 function read_interfaces ( hin, hout )
     i = 1
     word = read( hin, "*w" )
@@ -60,24 +60,24 @@ hin   = readfrom ( IN_FILENAME   ) -- input file handle
 hout1 = writeto  ( OUT_FILENAME1 ) -- output file handle
 hout2 = writeto  ( OUT_FILENAME2 ) -- output file handle
 
-interfaces = {} -- ÀÎÅÍÆäÀÌ½º Á¤º¸ Å×ÀÌºí
+interfaces = {} -- ì¸í„°í˜ì´ìŠ¤ ì •ë³´ í…Œì´ë¸”
 
---- ÀÎÅÍÆäÀÌ½º Á¤º¸ ÀĞ¾îµéÀÌ±â
+--- ì¸í„°í˜ì´ìŠ¤ ì •ë³´ ì½ì–´ë“¤ì´ê¸°
 read_interfaces ( hin, hout )
 
-names = {} --- Á¤·Ä¿ë ÀÌ¸§ Å×ÀÌºí
+names = {} --- ì •ë ¬ìš© ì´ë¦„ í…Œì´ë¸”
 i = 1
-index = next(interfaces, nil) -- ÀÌ¸§À¸·Î ÂüÁ¶ÇÏ´Â Å×ÀÌºíÀÌ¹Ç·Î, interfaces[i] ¸¦ »ç¿ëÇÒ ¼ö ¾ø´Ù.
+index = next(interfaces, nil) -- ì´ë¦„ìœ¼ë¡œ ì°¸ì¡°í•˜ëŠ” í…Œì´ë¸”ì´ë¯€ë¡œ, interfaces[i] ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
 while (index) do
     names[i] = index
     index = next(interfaces, index)
     i = i + 1
 end
 
---- ÀÌ¸§¼øÀ¸·Î Á¤·ÄÇÏ±â
+--- ì´ë¦„ìˆœìœ¼ë¡œ ì •ë ¬í•˜ê¸°
 sort( names )
 
---- ¸ÅÅ©·Î ÂüÁ¶ Å×ÀÌºíµé
+--- ë§¤í¬ë¡œ ì°¸ì¡° í…Œì´ë¸”ë“¤
 map_return_types = {
     void    = "RETURNS_NONE",
     int     = "RETURNS_INT",
@@ -93,18 +93,18 @@ map_param_types = {
     ZSTRING = "ZL_STRING"
 }
 
---- °æ°í ¸Ş¼¼Áö
+--- ê²½ê³  ë©”ì„¸ì§€
 message_autogen =
 "//==========================================================================//\n"..
-"// ÀÌ ÆÄÀÏÀº export_interface.lua ½ºÅ©¸³Æ®¿¡ ÀÇÇØ ÀÚµ¿»ı¼ºµÈ ÄÚµåÀÔ´Ï´Ù.\n"..
-"// Á÷Á¢ ¼öÁ¤ÇÏÁö ¸¶½Ê½Ã¿À.\n"..
+"// ì´ íŒŒì¼ì€ export_interface.lua ìŠ¤í¬ë¦½íŠ¸ì— ì˜í•´ ìë™ìƒì„±ëœ ì½”ë“œì…ë‹ˆë‹¤.\n"..
+"// ì§ì ‘ ìˆ˜ì •í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.\n"..
 "// "..date().."\n"..
 "//==========================================================================//\n\n\n"
 
 write( hout1, message_autogen )
 write( hout2, message_autogen )
 
---- ½ºÅ©¸³Æ® ÀÎÅÍÆäÀÌ½º Á¤ÀÇ¿ë ÆÄÀÏ »ı¼ºÇÏ±â
+--- ìŠ¤í¬ë¦½íŠ¸ ì¸í„°í˜ì´ìŠ¤ ì •ì˜ìš© íŒŒì¼ ìƒì„±í•˜ê¸°
 for i = 1, getn(names) do
     definition = format( "ZL_FUNC_BEGIN( %s, ", names[i] )
     -- export return_type
@@ -124,13 +124,13 @@ for i = 1, getn(names) do
     write( hout1, definition )
 end
 
---- ½ºÅ©¸³Æ® ÀÎÅÍÆäÀÌ½º µî·Ï¿ë ÆÄÀÏ »ı¼ºÇÏ±â
+--- ìŠ¤í¬ë¦½íŠ¸ ì¸í„°í˜ì´ìŠ¤ ë“±ë¡ìš© íŒŒì¼ ìƒì„±í•˜ê¸°
 for i = 1, getn(names) do
     register = format( "ZL_REGISTER( %-30s )\n", names[i] )
     write( hout2, register )
 end
 
---- ÆÄÀÏÀÇ ³¡ Ç¥½Ã
+--- íŒŒì¼ì˜ ë í‘œì‹œ
 message_end_of_file = "// end of file\n"
 
 write( hout1, message_end_of_file )
