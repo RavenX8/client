@@ -1011,30 +1011,63 @@
     <None Include="res\client.ver" />
     <CustomBuild Include="src\export_GM.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating game functions</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">Generating game functions</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating game functions</Message>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)src\Game_FUNC_DEF.inc;$(ProjectDir)src\Game_FUNC_REG.inc;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)src\Game_FUNC_DEF.inc;$(ProjectDir)src\Game_FUNC_REG.inc;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)src\Game_FUNC_DEF.inc;$(ProjectDir)src\Game_FUNC_REG.inc;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)src\Game_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)src\Game_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)src\Game_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="src\export_QF.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating quest functions</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">Generating quest functions</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating quest functions</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)src\event\Quest_FUNC_DEF.inc;$(ProjectDir)src\event\Quest_FUNC_REG.inc;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)src\event\Quest_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)src\event\Quest_FUNC_DEF.inc;$(ProjectDir)src\event\Quest_FUNC_REG.inc;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)src\event\Quest_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)src\event\Quest_FUNC_DEF.inc;$(ProjectDir)src\event\Quest_FUNC_REG.inc;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)src\event\Quest_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="src\export_System.lua">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating system functions</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">Generating system functions</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lua4.exe %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cd $(ProjectDir)src
+$(SolutionDir)bin\$(Platform)\$(Configuration)\3rdparty\lua4.exe %(FullPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating system functions</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)src\System\System_FUNC_DEF.inc;$(ProjectDir)src\System\System_FUNC_REG.inc;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)src\System\System_FUNC_DEF.inc;$(ProjectDir)src\System\System_FUNC_REG.inc;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)src\System\System_FUNC_DEF.inc;$(ProjectDir)src\System\System_FUNC_REG.inc;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)src\System\System_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">$(ProjectDir)src\System\System_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)src\System\System_FUNC.h;%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
     <None Include="src\GlobalScr.lua" />
     <None Include="res\cursor\Attack.cur" />
