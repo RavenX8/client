@@ -1390,8 +1390,8 @@ struct gsv_HP_REPLY : public t_PACKETHEADER {
 
 struct gsv_SET_HPnMP : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  int16_t  m_nHP;
-  int16_t  m_nMP;
+  int32_t  m_nHP;
+  int32_t  m_nMP;
 };
 
 struct tag_BUY_ITEM {
