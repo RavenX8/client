@@ -132,7 +132,8 @@ CGAMEDATA::CGAMEDATA() {
   m_nSightRange = 0;
   m_nServerID   = 0;
   //m_PasswordMD5			= NULL;
-  ZeroMemory(&m_PasswordMD5, sizeof(m_PasswordMD5));
+  //ZeroMemory(&m_PasswordMD5, sizeof(m_PasswordMD5));
+  m_PasswordMD5.clear();
 
   m_dwGameStartTime    = GetTime(); /// 게임 시작 시간.
   m_dwFrevFrameTime    = 0;         /// 이전 프레임 타임

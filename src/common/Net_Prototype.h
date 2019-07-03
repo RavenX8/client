@@ -628,8 +628,8 @@ struct cli_ACCEPT_REQ : public t_PACKETHEADER {};
 struct cli_LOGIN_REQ : public t_PACKETHEADER {
   //	uint32_t		m_dwBuildNo;							// 클라이언트 빌드 번호.
   union {
-    uint8_t  m_MD5Password[ 32 ];
-    uint32_t m_dwMD5[ 8 ];
+    uint8_t  m_MD5Password[ 64 ];
+    uint32_t m_dwMD5[ 16 ];
   };
 
   // szAccount[];

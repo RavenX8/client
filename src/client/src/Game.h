@@ -109,7 +109,7 @@ public:
   WORD          m_wServerPORT;
   CStrVAR       m_Account;
   CStrVAR       m_Password;
-  unsigned char m_PasswordMD5[32];
+  std::string   m_PasswordMD5;
 
   void Init() { InitializeCriticalSection( &m_csNZIN ); }
   void Free() { DeleteCriticalSection( &m_csNZIN ); }

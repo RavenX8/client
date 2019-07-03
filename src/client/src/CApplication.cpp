@@ -333,7 +333,7 @@ bool    CApplication::ParseArgument(char* pStr) {
       pToken = CStr::GetTokenNext( pDelimiters );
       if ( pToken ) {
         //GetMD5 ( g_GameDATA.m_PasswordMD5, (unsigned char*)pToken, strlen(pToken) );
-        CopyMemory( g_GameDATA.m_PasswordMD5, pToken, strlen( pToken ) );
+        g_GameDATA.m_PasswordMD5 = pToken;
       }
     }
     //----------------------------------------------------------/

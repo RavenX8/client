@@ -2413,6 +2413,9 @@
     <ClInclude Include="res\resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\common\picosha2.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\GlobalScr.lua">

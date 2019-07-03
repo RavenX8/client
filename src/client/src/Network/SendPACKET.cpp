@@ -2,6 +2,7 @@
   $Header: /Client/Network/SendPACKET.cpp 210   05-10-18 3:10p Young $
 */
 #include "StdAfx.h"
+#include "picosha2.h"
 #include "CNetwork.h"
 #include "../Util/classMD5.h"
 #include "Game.h"
@@ -101,14 +102,17 @@ void CSendPACKET::Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEn
   m_pSendPacket->m_HEADER.m_wType = CLI_LOGIN_REQ;
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_LOGIN_REQ );
 
+  std::string password = szPassword;
+
   if ( bEncode ) {
-    GetMD5( m_pMD5Buff, (unsigned char*)szPassword, strlen( szPassword ) );
-    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, m_pMD5Buff, 32);
+    picosha2::hash256_hex_string(password, m_pMD5Buff);
+    //GetMD5( m_pMD5Buff, (unsigned char*)szPassword, strlen( szPassword ) );
+    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
     Packet_AppendString( m_pSendPacket, szAccount );
   } else {
 
-    ::CopyMemory( m_pMD5Buff, g_GameDATA.m_PasswordMD5, 32);
-    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, g_GameDATA.m_PasswordMD5, 32);
+    m_pMD5Buff = g_GameDATA.m_PasswordMD5;
+    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, g_GameDATA.m_PasswordMD5.c_str(), 64);
     Packet_AppendString( m_pSendPacket, g_GameDATA.m_Account.Get() );
   }
 
@@ -163,7 +167,7 @@ void CSendPACKET::Send_cli_JOIN_SERVER_REQ(DWORD dwLSVID, bool bWorldServer) {
   m_pSendPacket->m_HEADER.m_wType             = CLI_JOIN_SERVER_REQ;
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_JOIN_SERVER_REQ );
   m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_dwID = dwLSVID;
-  ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff, sizeof(BYTE)*32);
+  ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff.c_str(), sizeof(BYTE)*64);
 #endif
 
   this->Send_PACKET( m_pSendPacket, bWorldServer );
