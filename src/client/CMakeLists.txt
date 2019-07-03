@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
 set(PROJECT TRose)
 project(${PROJECT})
@@ -19,15 +19,16 @@ link_directories(
   ${CMAKE_THIRD_PARTY_LIBRARY_DIR}
 )
 
-#add_linker_flags("/NODEFAULTLIB:\"libcp.lib\"")
 add_linker_flags("/SAFESEH:NO")
 add_linker_flags("/SUBSYSTEM:WINDOWS")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
 
 set( GEN_ARGS 
   EXPORT_FILES export_GM.lua export_QF.lua System/export_System.lua
 )
 
 set( SOURCES_HEADER
+  res/resource.h
   src/Ai_lib/Cai_file.h
   src/Ai_lib/Cai_lib.h
   src/AppMsgQ.h
@@ -306,7 +307,6 @@ set( SOURCES_HEADER
   src/ObjectActionProcessor.h
   src/ObjectCommand/ObjCommand.h
   src/ObjFixedEvent.h
-  src/resource.h
   src/Sfx/ISFX.h
   src/Sfx/SFXFont.h
   src/Sfx/SFXManager.h
@@ -351,7 +351,7 @@ set( SOURCES_HEADER
   src/Tutorial/TutorialEventUtility.h
   src/Util/ADSStream.h
   src/Util/Arcfour/Arcfour.h
-  src/Util/BugGUARD.h
+  #src/Util/BugGUARD.h
   src/Util/CBITArray.h
   src/Util/CCheat.h
   src/Util/CClientSOCKET.h
@@ -388,7 +388,7 @@ set( SOURCES_HEADER
   src/Util/CWaveFILE.h
   src/Util/DLLIST.h
   src/Util/FileVersionInfo.h
-  src/Util/ijl.h
+  src/Util/LIB_IJL.h
   src/Util/JDebugNew.h
   src/Util/JResourceContainer.h
   src/Util/JSingleton.h
@@ -774,15 +774,14 @@ set( RESOURCE_FILES
 
 set_source_files_properties(${RESOURCE_FILES} PROPERTIES LANGUAGE RC)
 add_executable(${PROJECT} src/stdafx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${RESOURCE_FILES})
-set_target_properties(${PROJECT} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "stdafx.h")
+set_target_properties(${PROJECT} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/stdafx.h")
 
-#target_link_libraries(${PROJECT} libutil)
-#target_link_libraries(${PROJECT} lua::lua)
-target_link_libraries(${PROJECT} ${CMAKE_SOURCE_DIR}/LIB_Util/IJL15.lib)
-target_link_libraries(${PROJECT} TGameCtrl)
-#target_link_libraries(${PROJECT} TriggerVFS)
-target_link_libraries(${PROJECT} TriggerInfo)
-target_link_libraries(${PROJECT} znzin)
+#TODO:: Build IJL15.lib
+target_link_libraries(${PROJECT} PRIVATE lua::lua5)
+target_link_libraries(${PROJECT} PRIVATE utils::ijl15)
+target_link_libraries(${PROJECT} PRIVATE TriggerInfo)
+target_link_libraries(${PROJECT} PRIVATE TGameCtrl)
+target_link_libraries(${PROJECT} PRIVATE znzin)
 
 if (COMMAND cotire)
   cotire(${PROJECT})

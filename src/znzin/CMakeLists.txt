@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
 set(PROJECT znzin)
 project(${PROJECT})
@@ -7,7 +7,6 @@ include_directories(
   SYSTEM ${SPDLOG_ROOT}
   SYSTEM ${DIRECTX_ROOT}/include
   SYSTEM ${CMAKE_THIRD_PARTY_INCLUDE_DIR}
-  SYSTEM ${CMAKE_THIRD_PARTY_INCLUDE_DIR}/lua500
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
@@ -262,8 +261,8 @@ add_library(${PROJECT} SHARED ${SOURCES_MAIN} ${SOURCES_HEADER})
 target_include_directories(${PROJECT} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
 if(NOT LUA_FOUND)
-  add_dependencies(${PROJECT} lua lua::lua)
+  add_dependencies(${PROJECT} lua5 lua::lua5)
 endif()
-target_link_libraries(${PROJECT} PUBLIC lua::lua)
-target_link_libraries(${PROJECT} PUBLIC libutil)
+target_link_libraries(${PROJECT} PUBLIC legacy_stdio_definitions.lib d3d9.lib d3dx9.lib version.lib Winmm.lib)
+target_link_libraries(${PROJECT} PUBLIC lua::lua5)
 target_link_libraries(${PROJECT} PUBLIC TriggerVFS)

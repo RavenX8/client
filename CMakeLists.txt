@@ -19,7 +19,7 @@ set(CMAKE_THIRD_PARTY_LIBRARY_DIR "${CMAKE_THIRD_PARTY_DIR}/lib")
 set(CMAKE_THIRD_PARTY_INCLUDE_DIR "${CMAKE_THIRD_PARTY_DIR}/include")
 set(CMAKE_GEN_SRC_DIR "${CMAKE_BINARY_DIR}/gen")
 
-SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(DIRECTX_ROOT ${CMAKE_THIRD_PARTY_DIR}/dx90csdk)
 set(SPDLOG_ROOT ${CMAKE_THIRD_PARTY_DIR}/spdlog/include)
@@ -68,11 +68,9 @@ else()
 endif()
 
 find_package(Threads REQUIRED)
-find_package(Lua)
 
-if(NOT LUA_FOUND)
-  include(Build-lua)
-endif()
+include(Build-lua)
+include(Build-ijl15) # This doesn't actually build anything, just sets up the target
 
 #--------------------------------
 # Build API Docs
