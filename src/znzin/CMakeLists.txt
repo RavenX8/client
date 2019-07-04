@@ -259,6 +259,7 @@ set( SOURCES_MAIN
 
 add_library(${PROJECT} SHARED ${SOURCES_MAIN} ${SOURCES_HEADER})
 target_include_directories(${PROJECT} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "znzin_d")
 
 if(NOT LUA_FOUND)
   add_dependencies(${PROJECT} lua5 lua::lua5)

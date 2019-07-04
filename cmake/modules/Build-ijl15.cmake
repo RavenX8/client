@@ -6,10 +6,10 @@ set(_byproducts
 
 if(WIN32)
   set(IJL15_LIBRARY "${IJL15_INSTALL_DIR}/IJL15.lib")
-  set(IJL15_LIBRARIES "${LUA_LIBRARY}")
+  set(IJL15_LIBRARIES "${IJL15_LIBRARY}")
 endif()
 
-set(IJL15_INCLUDE_DIR "${IJL15_INSTALL_DIR}/ijl")
+set(IJL15_INCLUDE_DIR "${IJL15_INSTALL_DIR}")
 
 if(NOT TARGET utils::ijl15)
   add_library(utils::ijl15 INTERFACE IMPORTED)

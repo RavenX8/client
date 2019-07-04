@@ -7,11 +7,11 @@ include_directories(
   SYSTEM ${SPDLOG_ROOT}
   SYSTEM ${DIRECTX_ROOT}/include
   SYSTEM ${CMAKE_THIRD_PARTY_INCLUDE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/Interface
-  ${CMAKE_CURRENT_SOURCE_DIR}/GameCommon
-  ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_SOURCE_DIR}/Common
+  ${CMAKE_CURRENT_SOURCE_DIR}/res
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Interface
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/GameCommon
 )
 
 link_directories(
@@ -21,7 +21,7 @@ link_directories(
 
 add_linker_flags("/SAFESEH:NO")
 add_linker_flags("/SUBSYSTEM:WINDOWS")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
 
 set( GEN_ARGS 
   EXPORT_FILES export_GM.lua export_QF.lua System/export_System.lua
@@ -740,7 +740,9 @@ set( SOURCES_MAIN
   src/Tutorial/TutorialEventUtility.cpp
   src/Util/ADSStream.cpp
   src/Util/Arcfour/Arcfour.cpp
+  src/Util/CBITArray.cpp
   src/Util/CCheat.cpp
+  src/Util/CClientSOCKET.cpp
   src/Util/CD3DUtil.cpp
   src/Util/CDSound.cpp
   src/Util/CFileSystemNormal.cpp
@@ -749,17 +751,38 @@ set( SOURCES_MAIN
   src/Util/CGameStr.cpp
   src/Util/CheckHack.cpp
   src/Util/classCRC.cpp
+  src/Util/classFile.cpp
+  src/Util/classHASH.cpp
+  src/Util/classHTTP.cpp
+  src/Util/classIME.cpp
+  src/Util/classLOG.cpp
   src/Util/classLUA.cpp
+  src/Util/classMD5.cpp
+  src/Util/classSTB.cpp
+  src/Util/classSTR.cpp
+  src/Util/classSYNCOBJ.cpp
+  src/Util/classTHREAD.cpp
   src/Util/classTIME.cpp
+  src/Util/classTRACE.cpp
+  src/Util/classUTIL.cpp
   src/Util/ClipboardUtil.cpp
   src/Util/CMessageQ.cpp
   src/Util/CMMPlayer.cpp
+  src/Util/CPacketCODEC.cpp
+  src/Util/CProcess.cpp
+  src/Util/CRandom.cpp
+  src/Util/CRawSOCKET.cpp
+  src/Util/CshoSOCKET.cpp
+  src/Util/CSocket.cpp
+  src/Util/CSocketWND.cpp
   src/Util/CRangeTBL.cpp
   src/Util/CWaveFILE.cpp
   src/Util/FileVersionInfo.cpp
   src/Util/JDebugNew.cpp
   src/Util/JResourceContainer.cpp
+  src/Util/LIB_IJL.cpp
   src/Util/Localizing.cpp
+  src/Util/PacketHEADER.cpp
   src/Util/ResourceCache.cpp
   src/Util/SystemInfo.cpp
   src/Util/SystemUtil.cpp
@@ -775,10 +798,18 @@ set( RESOURCE_FILES
 set_source_files_properties(${RESOURCE_FILES} PROPERTIES LANGUAGE RC)
 add_executable(${PROJECT} src/stdafx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${RESOURCE_FILES})
 set_target_properties(${PROJECT} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/stdafx.h")
+set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TRose_d")
 
-#TODO:: Build IJL15.lib
-target_link_libraries(${PROJECT} PRIVATE lua::lua5)
+target_link_libraries(${PROJECT} PRIVATE dsound.lib dxguid.lib dxerr9.lib d3dx9.lib)
+target_link_libraries(${PROJECT} PRIVATE legacy_stdio_definitions.lib imagehlp.lib odbc32.lib odbccp32.lib shlwapi.lib strmiids.lib unicows.lib urlmon.lib Version.lib)
+target_link_libraries(${PROJECT} PRIVATE WSock32.lib ws2_32.lib)
+target_link_libraries(${PROJECT} PRIVATE lua::lua4)
+target_link_libraries(${PROJECT} PRIVATE utils::zlib)
+target_link_libraries(${PROJECT} PRIVATE utils::expat)
 target_link_libraries(${PROJECT} PRIVATE utils::ijl15)
+target_link_libraries(${PROJECT} PRIVATE utils::ogg)
+target_link_libraries(${PROJECT} PRIVATE utils::vorbis)
+target_link_libraries(${PROJECT} PRIVATE sqlite3::sqlite3)
 target_link_libraries(${PROJECT} PRIVATE TriggerInfo)
 target_link_libraries(${PROJECT} PRIVATE TGameCtrl)
 target_link_libraries(${PROJECT} PRIVATE znzin)

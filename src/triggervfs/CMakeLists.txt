@@ -59,4 +59,5 @@ target_include_directories(${PROJECT}
   PUBLIC 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
+set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TriggerVFS_d")
 

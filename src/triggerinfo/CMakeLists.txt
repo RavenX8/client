@@ -49,6 +49,7 @@ target_include_directories(${PROJECT}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 set_target_properties(${PROJECT} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/stdafx.h")
+set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TriggerInfo_d")
 
 target_link_libraries(${PROJECT} wininet.lib d3d9.lib dxguid.lib Version.lib)
 

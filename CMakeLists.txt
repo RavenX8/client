@@ -16,7 +16,7 @@ set(CMAKE_PREFIX_PATH "${CMAKE_THIRD_PARTY_DIR}")
 
 set(CMAKE_THIRD_PARTY_DIR "${CMAKE_SOURCE_DIR}/3rdparty")
 set(CMAKE_THIRD_PARTY_LIBRARY_DIR "${CMAKE_THIRD_PARTY_DIR}/lib")
-set(CMAKE_THIRD_PARTY_INCLUDE_DIR "${CMAKE_THIRD_PARTY_DIR}/include")
+set(CMAKE_THIRD_PARTY_INCLUDE_DIR "${CMAKE_THIRD_PARTY_DIR}")
 set(CMAKE_GEN_SRC_DIR "${CMAKE_BINARY_DIR}/gen")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -69,8 +69,13 @@ endif()
 
 find_package(Threads REQUIRED)
 
+include(Build-ogg)
 include(Build-lua)
+include(Build-zlib)
+include(Build-expat)
 include(Build-ijl15) # This doesn't actually build anything, just sets up the target
+include(Build-sqlite3)
+include(Build-vorbis)
 
 #--------------------------------
 # Build API Docs

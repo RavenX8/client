@@ -163,9 +163,11 @@ target_include_directories(${PROJECT}
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 set_target_properties(${PROJECT} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/stdafx.h")
+set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TGameCtrl_d")
+set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_RELEASE "TGameCtrl_r")
 
 target_link_libraries(${PROJECT} 
-  PRIVATE 
+  PUBLIC 
     Imm32.lib winmm.lib
 )
 

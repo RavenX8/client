@@ -1,10 +1,10 @@
-set(LUA_INSTALL_DIR ${CMAKE_THIRD_PARTY_DIR})
+set(LUA_INSTALL_DIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 set(_byproducts
-  ${LUA_INSTALL_DIR}/lib/liblua4.lib
-  ${LUA_INSTALL_DIR}/lib/liblua4.a
-  ${LUA_INSTALL_DIR}/lib/liblua5.lib
-  ${LUA_INSTALL_DIR}/lib/liblua5.a
+  ${LUA_INSTALL_DIR}/liblua4.lib
+  ${LUA_INSTALL_DIR}/liblua4.a
+  ${LUA_INSTALL_DIR}/liblua5.lib
+  ${LUA_INSTALL_DIR}/liblua5.a
 )
 
 if(WIN32)
@@ -38,10 +38,10 @@ if(WIN32)
     <SOURCE_DIR>/src/lundump.c
     <SOURCE_DIR>/src/lvm.c
     <SOURCE_DIR>/src/lzio.c
-    && lib *.obj /OUT:${LUA_INSTALL_DIR}/lib/liblua4.lib
+    && lib *.obj /OUT:${LUA_INSTALL_DIR}/liblua4.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}
+    INSTALL_DIR ${LUA_INSTALL_DIR}/
     BUILD_BYPRODUCTS ${_byproducts}
   )
   
@@ -79,11 +79,11 @@ if(WIN32)
     <SOURCE_DIR>/src/lundump.c
     <SOURCE_DIR>/src/lvm.c
     <SOURCE_DIR>/src/lzio.c
-    && lib *.obj /OUT:${LUA_INSTALL_DIR}/lib/liblua5.lib
+    && lib *.obj /OUT:${LUA_INSTALL_DIR}/liblua5.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
     INSTALL_DIR ${LUA_INSTALL_DIR}
-    BUILD_BYPRODUCTS ${_byproducts}
+    #BUILD_BYPRODUCTS ${_byproducts}
   )
 else()
 #  find_library(LUA_DL_LIBRARY dl)
@@ -108,13 +108,9 @@ ExternalProject_Get_Property(
   install_dir
 )
 if(WIN32)
-  set(LUA_LIBRARY "${install_dir}/lib/liblua4.lib")
+  set(LUA_LIBRARY "${install_dir}/liblua4.lib")
   set(LUA_LIBRARIES "${LUA_LIBRARY}")
-  set(LUA_INSTALL_LIBS "${install_dir}/lib/liblua.dll")
-else()
-#  set(LUA_LIBRARY "${install_dir}/lib/liblua4.a")
-#  set(LUA_LIBRARIES "${LUA_LIBRARY}" "${LUA_DL_LIBRARY}" "${LUA_MATH_LIBRARY}")
-#  set(LUA_INSTALL_LIBS "${install_dir}/lib/liblua4.a")
+  set(LUA_INSTALL_LIBS "${install_dir}/liblua.dll")
 endif()
 
 set(LUA_INCLUDE_DIR "${source_dir}/include")
@@ -134,13 +130,9 @@ ExternalProject_Get_Property(
 )
 
 if(WIN32)
-  set(LUA_LIBRARY "${install_dir}/lib/liblua5.lib")
+  set(LUA_LIBRARY "${install_dir}/liblua5.lib")
   set(LUA_LIBRARIES "${LUA_LIBRARY}")
-  set(LUA_INSTALL_LIBS "${install_dir}/lib/liblua.dll")
-else()
-#  set(LUA_LIBRARY "${install_dir}/lib/liblua5.a")
-#  set(LUA_LIBRARIES "${LUA_LIBRARY}" "${LUA_DL_LIBRARY}" "${LUA_MATH_LIBRARY}")
-#  set(LUA_INSTALL_LIBS "${install_dir}/lib/liblua5.a")
+  set(LUA_INSTALL_LIBS "${install_dir}/liblua.dll")
 endif()
 
 
