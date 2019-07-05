@@ -810,7 +810,7 @@ struct wsv_JOIN_WORLD : public t_PACKETHEADER {
 // 월드/존 서버에 접속 요청
 struct cli_JOIN_SERVER_REQ : public t_PACKETHEADER {
   uint32_t m_dwID;
-  uint8_t  m_MD5Password[ 32 ];
+  uint8_t  m_MD5Password[ 64 ];
 };
 
 struct srv_JOIN_SERVER_REPLY : public t_PACKETHEADER {

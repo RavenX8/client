@@ -167,7 +167,7 @@ void CSendPACKET::Send_cli_JOIN_SERVER_REQ(DWORD dwLSVID, bool bWorldServer) {
   m_pSendPacket->m_HEADER.m_wType             = CLI_JOIN_SERVER_REQ;
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_JOIN_SERVER_REQ );
   m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_dwID = dwLSVID;
-  ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff.c_str(), sizeof(BYTE)*64);
+  ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
 #endif
 
   this->Send_PACKET( m_pSendPacket, bWorldServer );
