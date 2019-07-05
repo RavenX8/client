@@ -21,6 +21,8 @@ set(CMAKE_GEN_SRC_DIR "${CMAKE_BINARY_DIR}/gen")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+file(MAKE_DIRECTORY ${CMAKE_THIRD_PARTY_DIR}/bin)
+
 set(DIRECTX_ROOT ${CMAKE_THIRD_PARTY_DIR}/dx90csdk)
 set(SPDLOG_ROOT ${CMAKE_THIRD_PARTY_DIR}/spdlog/include)
 set(LUA_DIR ${CMAKE_THIRD_PARTY_DIR}/lua-5.0.0)
@@ -68,6 +70,12 @@ else()
 endif()
 
 find_package(Threads REQUIRED)
+find_package(PacketGenerator)
+
+if(NOT IDL_FOUND)
+  include(Build-packet-generator)
+endif()
+include(PacketGenerator)
 
 include(Build-ogg)
 include(Build-lua)

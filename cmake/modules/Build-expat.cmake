@@ -1,8 +1,8 @@
 set(EXPAT_INSTALL_DIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 set(_byproducts
-  ${EXPAT_INSTALL_DIR}/libexpat.lib
-  ${EXPAT_INSTALL_DIR}/libexpat.a
+  ${EXPAT_INSTALL_DIR}/xmlparse.lib
+  ${EXPAT_INSTALL_DIR}/xmlparse.a
 )
 
 if(WIN32 OR MINGW)
@@ -35,7 +35,7 @@ if(WIN32 OR MINGW)
         <SOURCE_DIR>/lib/xmltok_impl.c
         <SOURCE_DIR>/lib/xmltok_ns.c
         /link /def:<SOURCE_DIR>/lib/libexpat.def
-        /out:${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/$<CONFIG>/xmlparse.dll
+        /out:${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/xmlparse.dll
         /implib:${EXPAT_INSTALL_DIR}/xmlparse.lib
       BUILD_IN_SOURCE true
       BUILD_BYPRODUCTS ${_byproducts}
