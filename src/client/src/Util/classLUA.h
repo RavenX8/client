@@ -4,8 +4,10 @@
 extern "C" {
 #include "lua.h"
 #include "lualib.h"
-  //	#include "luadebug.h"
-  //	#include "lauxlib.h"
+//#include "luadebug.h"
+#ifdef ZZ_LUA500
+#include "lauxlib.h"
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------

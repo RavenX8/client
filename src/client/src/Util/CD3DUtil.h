@@ -1,8 +1,9 @@
 /*
-	$Header: /Client/util/CD3DUtil.h 10    04-02-14 5:29p Zho $
+    $Header: /Client/util/CD3DUtil.h 10    04-02-14 5:29p Zho $
 */
 #ifndef	__CD3DUTIL_H
 #define	__CD3DUTIL_H
+#include <algorithm>
 
 //-------------------------------------------------------------------------------------------------
 ///
@@ -51,7 +52,7 @@ public :
     iX1 = abs( iX2 - iX1 );
     iY1 = abs( iY2 - iY1 );
 
-    int mn = min(iX1, iY1);
+    int mn = std::min(iX1, iY1);
     return (iX1 + iY1 - (mn >> 1) - (mn >> 2) + (mn >> 4));
   }
 
@@ -63,7 +64,7 @@ public :
   static int length(int iX, int iY) {
     iX     = (iX < 0) ? -iX : iX;
     iY     = (iY < 0) ? -iY : iY;
-    int mn = min(iX, iY);
+    int mn = std::min(iX, iY);
     return (iX + iY - (mn >> 1) - (mn >> 2) + (mn >> 4));
   }
 };
