@@ -9,7 +9,7 @@ typedef int tagPS_SellITEMs;
 
 class CSendPACKET {
 protected:
-  unsigned char m_pMD5Buff[ 32 ];
+  std::string m_pMD5Buff;
   t_PACKET*     m_pSendPacket;
 
   virtual void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) = 0 { *(int*)nullptr = 10; }
