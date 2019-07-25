@@ -110,6 +110,7 @@ public:
   CStrVAR       m_Account;
   CStrVAR       m_Password;
   std::string   m_PasswordMD5;
+  std::string   m_OTPToken;
 
   void Init() { InitializeCriticalSection( &m_csNZIN ); }
   void Free() { DeleteCriticalSection( &m_csNZIN ); }

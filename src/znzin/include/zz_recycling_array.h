@@ -10,6 +10,7 @@
 
 #ifndef __ZZ_RECYCLING_ARRAY_H__
 #define __ZZ_RECYCLING_ARRAY_H__
+#include <stdexcept>
 
 #pragma warning (disable : 4311)
 

@@ -1,5 +1,5 @@
 /*
-	$Header: /Client/CObjUSER.cpp 176   05-09-14 11:44a Raning $
+  $Header: /Client/CObjUSER.cpp 176   05-09-14 11:44a Raning $
 */
 #include "StdAfx.h"
 #include "Game.h"
@@ -291,11 +291,11 @@ void CObjUSER::Update_SPEED() {
     /*for( int i = 0 ; i < MAX_RIDING_PART; ++i )
       m_nAtkAniSPEED += PAT_ITEM_ATK_SPD( m_sPetPartItemIDX[ i ].m_nItemNo );*/
 #else
- 		m_fRunAniSPEED = ( m_nRunSPEED + 500 ) / 1000.f;
- 		///<- 2005/7/25 카트 시스템 파츠 추가로 수정 : nAvy
-		//m_nAtkAniSPEED = ( 1500.f / ( ( PAT_ITEM_ATK_SPD( m_sPetPartItemIDX[ RIDE_PART_ARMS ].m_nItemNo )) + 5 ) ) + this->m_iAddValue[ AT_ATK_SPD ];
-		m_nAtkAniSPEED = ( 1500.f / ( ( PAT_ITEM_ATK_SPD( m_sPetPartItemIDX[ RIDE_PART_ARMS ].m_nItemNo )) + 5 ) ) + this->m_iAddValue[ AT_ATK_SPD ];
-		///->
+    m_fRunAniSPEED = ( m_nRunSPEED + 500 ) / 1000.f;
+    ///<- 2005/7/25 카트 시스템 파츠 추가로 수정 : nAvy
+    //m_nAtkAniSPEED = ( 1500.f / ( ( PAT_ITEM_ATK_SPD( m_sPetPartItemIDX[ RIDE_PART_ARMS ].m_nItemNo )) + 5 ) ) + this->m_iAddValue[ AT_ATK_SPD ];
+    m_nAtkAniSPEED = ( 1500.f / ( ( PAT_ITEM_ATK_SPD( m_sPetPartItemIDX[ RIDE_PART_ARMS ].m_nItemNo )) + 5 ) ) + this->m_iAddValue[ AT_ATK_SPD ];
+    ///->
 #endif
   }
 
@@ -446,13 +446,13 @@ bool CObjUSER::CanRidePET() {
     }
   }
 #else
-	for( int i = 0; i < MAX_RIDING_PART - 1; i++ )
-	{
-		if( m_Inventory.m_ItemRIDE[ i ].GetTYPE() == 0 )
-		{
-			return false;
-		}
-	}
+  for( int i = 0; i < MAX_RIDING_PART - 1; i++ )
+  {
+    if( m_Inventory.m_ItemRIDE[ i ].GetTYPE() == 0 )
+    {
+      return false;
+    }
+  }
 #endif
 
   return true;

@@ -844,30 +844,6 @@ void        CRecvPACKET::Recv_gsv_TOGGLE() {
 
 //-------------------------------------------------------------------------------------------------
 char*__stdcall Translate(char* text, char* lang = "en") {
-  /*char szPath[256], szRead[0xF00], szRet[256], *Token, szSite[256],
-*next_token; GetTempPath(256, szPath); strcat(szPath, "translation.txt");
-
-sprintf_s(szSite, 255,
-"http://aeongames.net/~support/translate.php?dest=%s&msg=%s", lang, text);
-
-  if (URLDownloadToFile(0, szSite, szPath, 0, 0) == S_OK)
-{
-      FILE *fIpHtm = fopen(szPath, "r");
-      if (fIpHtm)
-  {
-    ZeroMemory(szRead, sizeof(szRead));
-    fseek (fIpHtm , 0 , SEEK_END);
-    long lSize = ftell (fIpHtm);
-    rewind (fIpHtm);
-
-    fseek(fIpHtm, 0, SEEK_SET);
-    fread (szRead,1,lSize,fIpHtm);
-    fclose(fIpHtm);
-
-          sprintf_s(szRet, 250, "%s", szRead);
-          return szRead;
-      }
-  }*/
   return text;
 }
 

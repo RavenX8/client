@@ -85,6 +85,13 @@ include(Build-ijl15) # This doesn't actually build anything, just sets up the ta
 include(Build-sqlite3)
 include(Build-vorbis)
 
+include_directories(${CMAKE_GEN_SRC_DIR})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_CRT_SECURE_NO_WARNINGS")
+
+#add_subdirectory(3rdparty)
+add_subdirectory(src)
+
 #--------------------------------
 # Build API Docs
 #--------------------------------
@@ -94,11 +101,3 @@ if (BUILD_API_DOC)
     add_subdirectory(doc)
   endif (DOXYGEN_FOUND)
 endif (BUILD_API_DOC)
-
-include_directories(${CMAKE_GEN_SRC_DIR})
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_CRT_SECURE_NO_WARNINGS")
-
-#add_subdirectory(3rdparty)
-add_subdirectory(src)
-

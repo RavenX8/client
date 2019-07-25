@@ -233,7 +233,7 @@ DWORD          CApplication::DisplayFrameRate(void) {
 
 //-------------------------------------------------------------------------------------------------
 bool    CApplication::ParseArgument(char* pStr) {
-  char* pToken;
+  char* pToken = nullptr;
   char* pDelimiters = " ,\t\n";
 
   bool bPassLuncher = false;
@@ -275,18 +275,18 @@ bool    CApplication::ParseArgument(char* pStr) {
       m_nScrHeight = 720;
     }
 
-    if ( !strcmpi( pToken, "_sight" ) ) {
+    if ( !_strcmpi( pToken, "_sight" ) ) {
       pToken = CStr::GetTokenNext( pDelimiters );
       if ( pToken ) {
         g_GameDATA.m_nSightRange = atoi( pToken );
       }
     }
-    if ( !strcmpi( pToken, "_noui" ) ) {
+    if ( !_strcmpi( pToken, "_noui" ) ) {
       // 인터페이스 감추기. - zho
       g_GameDATA.m_bNoUI = true;
     }
 
-    if ( !strcmpi( pToken, "_server" ) ) {
+    if ( !_strcmpi( pToken, "_server" ) ) {
       // Get server ip...
       pToken = CStr::GetTokenNext( pDelimiters );
       if ( pToken ) {
@@ -294,66 +294,54 @@ bool    CApplication::ParseArgument(char* pStr) {
       }
     }
 
-    if ( !strcmpi( pToken, "_port" ) ) {
+    if ( !_strcmpi( pToken, "_port" ) ) {
       pToken = CStr::GetTokenNext( pDelimiters );
       if ( pToken ) {
         g_GameDATA.m_wServerPORT = atoi( pToken );
       }
     }
 
-    if ( !strcmpi( pToken, "_serverID" ) ) {
+    if ( !_strcmpi( pToken, "_serverID" ) ) {
       pToken = CStr::GetTokenNext( pDelimiters );
       if ( pToken ) {
         g_GameDATA.m_nServerID = atoi( pToken );
       }
     }
 
-    if ( !strcmpi( pToken, "_direct" ) ) {
+    if ( !_strcmpi( pToken, "_direct" ) ) {
       g_GameDATA.m_bDirectLogin = true;
     }
 
-    if ( !strcmpi( pToken, "_test" ) )
+    if ( !_strcmpi( pToken, "_test" ) )
       g_GameDATA.m_bForOpenTestServer = true;
 
-    if ( !strcmpi( pToken, "_dup" ) )
+    if ( !_strcmpi( pToken, "_dup" ) )
       g_GameDATA.m_bCheckDupRUN = false;
 
     /// 이하 일본 NHN JAPAN을 위한 Argument Setting( 2005/5/18 )
-    if ( !strcmpi( pToken, "_RCODE_JP_HG" ) )
+    if ( !_strcmpi( pToken, "_RCODE_JP_HG" ) )
       g_GameDATA.m_is_NHN_JAPAN = true;
 
-    if ( !strcmpi( pToken, "_userid" ) ) {
+    if ( !_strcmpi( pToken, "_userid" ) ) {
       pToken = CStr::GetTokenNext( pDelimiters );
       if ( pToken ) {
         g_GameDATA.m_Account.Set( pToken );
       }
     }
 
-    if ( !strcmpi( pToken, "_pw" ) ) {
+    if ( !_strcmpi( pToken, "_pw" ) ) {
       pToken = CStr::GetTokenNext( pDelimiters );
       if ( pToken ) {
-        //GetMD5 ( g_GameDATA.m_PasswordMD5, (unsigned char*)pToken, strlen(pToken) );
         g_GameDATA.m_PasswordMD5 = pToken;
       }
     }
-    //----------------------------------------------------------/
 
-    //#ifdef	_DEBUG
-    //		if ( !strcmpi( pToken, "_id" ) ) {
-    //			pToken = CStr::GetTokenNext (pDelimiters);
-    //			if ( pToken ) {
-    //				g_GameDATA.m_Account.Set( pToken );
-    //			}
-    //		}
-    //
-    //		if ( !strcmpi( pToken, "_pw" ) ) {
-    //			pToken = CStr::GetTokenNext (pDelimiters);
-    //			if ( pToken ) {
-    //				g_GameDATA.m_Password.Set( pToken );
-    //			}
-    //		}
-    //
-    //#endif
+    if (!_strcmpi(pToken, "_otp")) {
+      pToken = CStr::GetTokenNext(pDelimiters);
+      if (pToken) {
+        g_GameDATA.m_OTPToken = pToken;
+      }
+    }
 
     pToken = CStr::GetTokenNext( pDelimiters );
   }
@@ -483,19 +471,6 @@ bool CApplication::CreateWND(char* szClassName, char* szWindowName, short nWidth
   }
 
   m_hINS = hInstance;
-
-  /*HRSRC hRes=FindResource( hInstance, MAKEINTRESOURCE(IDR_ANIMOUSE1),"ANIMOUSE");
-  DWORD dwSize = SizeofResource( hInstance, hRes );
-  HGLOBAL hGlob=LoadResource( hInstance, hRes );
-  LPBYTE pBytes=(LPBYTE)LockResource( hGlob ); 
-
-  g_GameDATA.m_hCursor[ CURSOR_DEFAULT ] = (HCURSOR)CreateIconFromResource( pBytes, dwSize, FALSE, 0x00030000);	*/
-
-  //g_GameDATA.m_hCursor = LoadCursor( NULL, IDC_WAIT );
-
-  //	g_pCMouse->LoadUserCursor( hInstance );	
-
-  //	g_pCMouse->SetUserCursor( CURSOR_DEFAULT );	
 
   return (m_hWND != nullptr);
 }

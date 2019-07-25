@@ -130,8 +130,8 @@ void  CUserDATA::Cal_BattleAbility() {
     pITEM = &this->m_Inventory.m_ItemRIDE[RIDE_PART_ARMS];
     if ( pITEM->m_wHeader && pITEM->GetLife() ) iDefDura += pITEM->GetDurability();
 #else
-		pITEM = &this->m_Inventory.m_ItemRIDE[ RIDE_PART_ARMS ];
-		if ( pITEM->m_wHeader && pITEM->GetLife() ) iDefDura += pITEM->GetDurability();
+    pITEM = &this->m_Inventory.m_ItemRIDE[ RIDE_PART_ARMS ];
+    if ( pITEM->m_wHeader && pITEM->GetLife() ) iDefDura += pITEM->GetDurability();
 #endif
 
   }
@@ -360,44 +360,9 @@ int   CUserDATA::Cal_MaxHP() {
     }
 
     m_Battle.m_nMaxHP = (short)((this->GetCur_LEVEL() + iA) * sqrtf( this->GetCur_LEVEL() + iM1 ) * fC + (this->GetCur_STR() * 2) + this->m_iAddValue[AT_MAX_HP]);
-  } else {
-    switch ( this->GetCur_JOB() ) {
-      case CLASS_SOLDIER_111: iA = 7, iM1 = 12, iM2 = 2;
-        break;
-      case CLASS_SOLDIER_121: iA = -3, iM1 = 14, iM2 = 2;
-        break;
-      case CLASS_SOLDIER_122: iA = 2, iM1 = 13, iM2 = 2;
-        break;
-
-      case CLASS_MAGICIAN_211: iA = 11, iM1 = 10, iM2 = 2;
-        break;
-      case CLASS_MAGICIAN_221: iA = 11, iM1 = 10, iM2 = 2;
-        break;
-      case CLASS_MAGICIAN_222: iA = 5, iM1 = 11, iM2 = 2;
-        break;
-
-      case CLASS_MIXER_311: iA = 10, iM1 = 11, iM2 = 2;
-        break;
-      case CLASS_MIXER_321: iA = 2, iM1 = 13, iM2 = 2;
-        break;
-      case CLASS_MIXER_322: iA = 11, iM1 = 11, iM2 = 2;
-        break;
-
-      case CLASS_MERCHANT_411: iA = 12, iM1 = 10, iM2 = 2;
-        break;
-      case CLASS_MERCHANT_421: iA = 13, iM1 = 10, iM2 = 2;
-        break;
-      case CLASS_MERCHANT_422: iA = 6, iM1 = 11, iM2 = 2;
-        break;
-
-        //case CLASS_VISITOR :
-      default: iA = 12, iM1 = 8, iM2 = 2;
-        break;
-    }
-    m_Battle.m_nMaxHP = (this->GetCur_LEVEL() + iA) * iM1 + (this->GetCur_STR() * iM2) + this->m_iAddValue[AT_MAX_HP];
   }
 #ifdef _DEBUG
-	int test = this->GetPassiveSkillValue( AT_PSV_MAX_HP );
+  int test = this->GetPassiveSkillValue( AT_PSV_MAX_HP );
 #endif
 
   iA = this->GetPassiveSkillValue( AT_PSV_MAX_HP ) + (short)(m_Battle.m_nMaxHP * this->GetPassiveSkillRate( AT_PSV_MAX_HP ) / 100.f);
@@ -494,15 +459,15 @@ int        CUserDATA::Cal_AvoidRATE() {
 
   m_Battle.m_nAVOID = (short)((GetCur_DEX() * 1.9f + GetCur_LEVEL() * 0.3f + 10) * 0.4f) + (short)(iDefDura * 0.3f) + this->GetTot_DEF_GRADE();
 #else
-	if ( this->GetCur_MOVE_MODE() > MOVE_MODE_RUN ) 
-	{
-		m_Battle.m_nAVOID = (short)( (GetCur_DEX()+10) * 0.8f + GetCur_LEVEL() * 0.5f );
-	} 
-	else 
+  if ( this->GetCur_MOVE_MODE() > MOVE_MODE_RUN ) 
+  {
+    m_Battle.m_nAVOID = (short)( (GetCur_DEX()+10) * 0.8f + GetCur_LEVEL() * 0.5f );
+  } 
+  else 
 {
-		//AVO = [ (DEX*1.6 + LV*0.3 + 5) * 0.4 + (规绢备 前龙钦 * 0.3) ]
-		m_Battle.m_nAVOID = (short)( ( GetCur_DEX()*1.9f + GetCur_LEVEL()*0.3f + 10 ) * 0.4f ) + (short)( this->GetTot_DEF_DURABITY()*0.3f ) + this->GetTot_DEF_GRADE();
-	}
+    //AVO = [ (DEX*1.6 + LV*0.3 + 5) * 0.4 + (规绢备 前龙钦 * 0.3) ]
+    m_Battle.m_nAVOID = (short)( ( GetCur_DEX()*1.9f + GetCur_LEVEL()*0.3f + 10 ) * 0.4f ) + (short)( this->GetTot_DEF_DURABITY()*0.3f ) + this->GetTot_DEF_GRADE();
+  }
 #endif
 
   m_Battle.m_nAVOID += this->m_iAddValue[AT_AVOID];
@@ -522,10 +487,10 @@ int CUserDATA::Cal_CRITICAL() {
   m_Battle.m_iCritical = (int)(GetCur_SENSE() + (GetCur_CON() + 20) * 0.2f);
 #else
 
-	if ( this->GetCur_MOVE_MODE() > MOVE_MODE_RUN ) 
-		m_Battle.m_iCritical = (int)( GetCur_SENSE()*0.8f + GetCur_LEVEL() * 0.3f );
-	else 
-		m_Battle.m_iCritical  = (int)( GetCur_SENSE() + ( GetCur_CON() + 20 ) * 0.2f );
+  if ( this->GetCur_MOVE_MODE() > MOVE_MODE_RUN ) 
+    m_Battle.m_iCritical = (int)( GetCur_SENSE()*0.8f + GetCur_LEVEL() * 0.3f );
+  else 
+    m_Battle.m_iCritical  = (int)( GetCur_SENSE() + ( GetCur_CON() + 20 ) * 0.2f );
 
 #endif
   m_Battle.m_iCritical += this->m_iAddValue[AT_CRITICAL];
@@ -795,8 +760,8 @@ int   CUserDATA::Cal_ATTACK() {
     this->m_Battle.m_nATT = iAP + this->GetPassiveSkillAttackPower( iAP, pRightWPN->m_nItemNo );
 
 #else
-		iAP = ( GetCur_LEVEL() * 3 ) + GetCur_CON() + PAT_ITEM_ATK_POW( this->m_Inventory.m_ItemRIDE[ RIDE_PART_ARMS ].GetItemNO() );
-		this->m_Battle.m_nATT = iAP + this->m_iAddValue[ AT_ATK ];
+    iAP = ( GetCur_LEVEL() * 3 ) + GetCur_CON() + PAT_ITEM_ATK_POW( this->m_Inventory.m_ItemRIDE[ RIDE_PART_ARMS ].GetItemNO() );
+    this->m_Battle.m_nATT = iAP + this->m_iAddValue[ AT_ATK ];
 #endif
 
   }
@@ -841,7 +806,7 @@ int   CUserDATA::Cal_DEFENCE() {
   else
     this->m_Battle.m_nDEF = (int)((iTotDEF + (iTotGradeDEF) + (this->GetCur_STR() + 5) * 0.35f + (this->GetCur_LEVEL() + 15) * 0.7f)) * 0.8f + this->m_iAddValue[AT_DEF];
 #else
-	this->m_Battle.m_nDEF = (int)( iTotDEF + (iTotGradeDEF) + ( this->GetCur_STR()+5 ) * 0.35f + (this->GetCur_LEVEL()+15) * 0.7f ) + this->m_iAddValue[ AT_DEF ];
+  this->m_Battle.m_nDEF = (int)( iTotDEF + (iTotGradeDEF) + ( this->GetCur_STR()+5 ) * 0.35f + (this->GetCur_LEVEL()+15) * 0.7f ) + this->m_iAddValue[ AT_DEF ];
 #endif
 
   this->m_Battle.m_nDEF += iTotPatPartsDEF;
@@ -2232,7 +2197,7 @@ short CUserDATA::GetCur_PatHP() {
 #ifdef _GBC
   return this->m_GrowAbility.m_nPatHP;
 #else
-	return 1;
+  return 1;
 #endif
 }
 
@@ -2252,7 +2217,7 @@ DWORD CUserDATA::GetCur_PatCoolTIME() {
 #ifdef _GBC
   return m_GrowAbility.m_dwPatCoolTIME;
 #else
-	return 0;
+  return 0;
 #endif
 }
 
@@ -2268,7 +2233,7 @@ int CUserDATA::GetDef_IMMUNITY() {
 #ifdef _GBC
   return this->m_Battle.m_nImmunity;
 #else
-	return 0;
+  return 0;
 #endif
 }
 

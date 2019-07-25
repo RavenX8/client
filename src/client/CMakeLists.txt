@@ -814,6 +814,8 @@ target_link_libraries(${PROJECT} PRIVATE TriggerInfo)
 target_link_libraries(${PROJECT} PRIVATE TGameCtrl)
 target_link_libraries(${PROJECT} PRIVATE znzin)
 
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/src PREFIX "Source Files" FILES ${SOURCES_MAIN})
+
 if (COMMAND cotire)
   cotire(${PROJECT})
 endif()
