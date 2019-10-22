@@ -10,7 +10,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       expat
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/expat-2.0.1
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/expat-2.0.1
       CONFIGURE_COMMAND ""
       BUILD_COMMAND gcc -shared <SOURCE_DIR>/lib/xmlparse.c
         <SOURCE_DIR>/lib/xmlrole.c
@@ -26,7 +26,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       expat
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/expat-2.0.1
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/expat-2.0.1
       CONFIGURE_COMMAND ""
       BUILD_COMMAND cl /LD /EHsc /MT /D "COMPILED_FROM_DSP" /D "_WINDOWS" /D "_USRDLL" /D "EXPAT_EXPORTS" /D "_MBCS" 
         <SOURCE_DIR>/lib/xmlparse.c

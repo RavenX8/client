@@ -14,6 +14,7 @@ if(WIN32)
         google_breakpad/common/breakpad_types.h
         HINTS
             ${CMAKE_THIRD_PARTY_DIR}/include/breakpad
+            ${CMAKE_SUBMODULE_DIR}/include/breakpad
             ${CMAKE_BINARY_DIR}/breakpad-prefix/src/breakpad/src)
     
     set(BREAKPAD_COMMON_LIB_NAMES common)
@@ -23,12 +24,14 @@ else()
     find_path(BREAKPAD_EXCEPTION_HANDLER_INCLUDE_DIR 
         google_breakpad/common/breakpad_types.h
         HINTS
-            ${CMAKE_THIRD_PARTY_DIR}/include/breakpad)
+            ${CMAKE_THIRD_PARTY_DIR}/include/breakpad
+            ${CMAKE_SUBMODULE_DIR}/include/breakpad)
             
     find_program(BREAKPAD_DUMP_SYMS_PATH 
         dump_syms
         HINTS
-            ${CMAKE_THIRD_PARTY_DIR}/bin)
+            ${CMAKE_THIRD_PARTY_DIR}/bin
+            ${CMAKE_SUBMODULE_DIR}/bin)
             
     set(BREAKPAD_EXCEPTION_HANDLER_NAMES ${BREAKPAD_EXCEPTION_HANDLER_NAMES} breakpad_client)
 endif()
@@ -36,17 +39,20 @@ endif()
 find_library(BREAKPAD_EXCEPTION_HANDLER_LIBRARY
   NAMES ${BREAKPAD_EXCEPTION_HANDLER_NAMES}
   HINTS ${CMAKE_THIRD_PARTY_DIR}/lib
+        ${CMAKE_SUBMODULE_DIR}/lib
   )
   
 if(WIN32)
     find_library(BREAKPAD_COMMON_LIBRARY
       NAMES ${BREAKPAD_COMMON_LIB_NAMES}
       HINTS ${CMAKE_THIRD_PARTY_DIR}/lib
+            ${CMAKE_SUBMODULE_DIR}/lib
       )
       
     find_library(BREAKPAD_CRASH_GEN_LIBRARY
       NAMES ${BREAKPAD_CRASH_GENERATION_CLIENT_NAMES}
       HINTS ${CMAKE_THIRD_PARTY_DIR}/lib
+            ${CMAKE_SUBMODULE_DIR}/lib
       )
 endif()
 

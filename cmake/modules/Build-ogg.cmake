@@ -10,7 +10,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       ogg
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/libogg-1.1.3
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/libogg-1.1.3
       CONFIGURE_COMMAND ""
       BUILD_COMMAND gcc -shared <SOURCE_DIR>/src/bitwise.c
       <SOURCE_DIR>/src/framing.c -o ${OGG_INSTALL_DIR}/libogg.a
@@ -23,7 +23,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       ogg
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/libogg-1.1.3
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/libogg-1.1.3
       CONFIGURE_COMMAND ""
       BUILD_COMMAND cl /c /EHsc /MT /I <SOURCE_DIR>/include
       <SOURCE_DIR>/src/bitwise.c

@@ -11,7 +11,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       sqlite3
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/sqlite3
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/sqlite3
       CONFIGURE_COMMAND ""
       BUILD_COMMAND gcc -shared sqlite3.c -o ${SQLITE3_INSTALL_DIR}/libsqlite3.a
       BUILD_IN_SOURCE true
@@ -23,7 +23,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       sqlite3
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/sqlite3
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/sqlite3
       CONFIGURE_COMMAND ""
       BUILD_COMMAND cl /c /EHsc /MT sqlite3.c && lib sqlite3.obj /OUT:${SQLITE3_INSTALL_DIR}/libsqlite3.lib
       BUILD_IN_SOURCE true

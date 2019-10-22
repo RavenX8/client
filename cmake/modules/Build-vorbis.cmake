@@ -10,7 +10,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       vorbis
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/libvorbis-1.2.0
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/libvorbis-1.2.0
       CONFIGURE_COMMAND ""
       BUILD_COMMAND gcc -shared <SOURCE_DIR>/lib/analysis.c
         <SOURCE_DIR>/lib/bitrate.c
@@ -42,7 +42,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       vorbis
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/libvorbis-1.2.0
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/libvorbis-1.2.0
       CONFIGURE_COMMAND ""
       BUILD_COMMAND cl /c /EHsc /MT /I <SOURCE_DIR>/include /I ${OGG_INCLUDE_DIR}
         <SOURCE_DIR>/lib/analysis.c

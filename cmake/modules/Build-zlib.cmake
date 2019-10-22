@@ -10,7 +10,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       zlib
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/zlib-1.2.3
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/zlib-1.2.3
       CONFIGURE_COMMAND ""
       BUILD_COMMAND gcc -shared 
       <SOURCE_DIR>/adler32.c
@@ -33,7 +33,7 @@ if(WIN32 OR MINGW)
     ExternalProject_Add(
       zlib
       DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/zlib-1.2.3
+      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/zlib-1.2.3
       CONFIGURE_COMMAND ""
       BUILD_COMMAND cl /c /EHsc /MT 
       <SOURCE_DIR>/adler32.c

@@ -1922,8 +1922,6 @@ uniDAMAGE   CObjCHAR::PopTotalDamageFromList(int64_t& iMaxDamage) {
 //--------------------------------------------------------------------------------
 
 void        CObjCHAR::ClearAllDamage() {
-  uniDAMAGE wDamage;
-
   DWORD dwCurrentTime = g_GameDATA.GetGameTime();
 
   std::vector<stAPPLY_DAMAGE>::iterator begin = m_DamageList.begin();
@@ -1940,8 +1938,6 @@ void        CObjCHAR::ClearAllDamage() {
 //--------------------------------------------------------------------------------
 
 void        CObjCHAR::ProcDamageTimeOut() {
-  uniDAMAGE wDamage;
-
   DWORD dwCurrentTime = g_GameDATA.GetGameTime();
 
   std::vector<stAPPLY_DAMAGE>::iterator begin = m_DamageList.begin();
@@ -1978,7 +1974,6 @@ void CObjCHAR::CreateImmediateDigitEffect(int64_t wDamage) {
 //--------------------------------------------------------------------------------
 
 void        CObjCHAR::ConvertDamageOfSkillToDamage(gsv_DAMAGE_OF_SKILL stDamageOfSkill) {
-  uniDAMAGE Damage;
 
   CObjCHAR* pAtkOBJ;
 

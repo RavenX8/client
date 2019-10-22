@@ -857,17 +857,15 @@ float CUserDATA::Cal_RunSPEED() {
       nItemSpeed += BACKITEM_MOVE_SPEED( nItemNo );
     }
     nItemSpeed += 20;
-    if ( IsTAIWAN() ) {
-      // SPE = {(신발 이동력 + 등장착 이동력+20)*5
-      //fMoveSpeed = nItemSpeed * 5 + this->m_iAddValue[ AT_SPEED ];
-      fMoveSpeed = nItemSpeed * (GetCur_DEX() + 500.f) / 100.f + this->m_iAddValue[AT_SPEED];
-    } else {
-      fMoveSpeed = nItemSpeed * (GetCur_DEX() + 500.f) / 100.f + this->m_iAddValue[AT_SPEED];
-    }
+    // SPE = {(신발 이동력 + 등장착 이동력+20)*5
+    //fMoveSpeed = nItemSpeed * 5 + this->m_iAddValue[ AT_SPEED ];
+    fMoveSpeed = nItemSpeed * (GetCur_DEX() + 500.f) / 100.f + this->m_iAddValue[AT_SPEED];
 
     float fPsvSpd = GetPassiveSkillValue( AT_PSV_MOV_SPD ) + fMoveSpeed * GetPassiveSkillRate( AT_PSV_MOV_SPD ) / 100.f;
     return (fMoveSpeed + fPsvSpd);
   }
+
+  // CART/GEAR
   tagITEM* pLEG = &this->m_Inventory.m_ItemRIDE[RIDE_PART_LEG];
   tagITEM* pENG = &this->m_Inventory.m_ItemRIDE[RIDE_PART_ENGINE];
 

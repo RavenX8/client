@@ -1744,7 +1744,6 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
   /// 데미지로는 소환몹인지 모른다. 리스트에서 찾아서 있으면 지워라. 소환몹
   /// 리스트에서 빼라..
   //------------------------------------------------------------------------------------
-  //if (m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD)
   if ( (m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wACTION & DMG_ACT_DEAD) && g_pAVATAR ) {
     g_pAVATAR->SubSummonedMob( m_pRecvPacket->m_gsv_DAMAGE.m_wDefObjIDX );
   }
@@ -1758,7 +1757,7 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
     return;
 
   if ( pAtkOBJ ) {
-    if ( m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD ) {
+    if ( m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wACTION & DMG_ACT_DEAD) {
       if ( m_pRecvPacket->m_HEADER.m_nSize == (sizeof( gsv_DAMAGE ) + sizeof( tag_DROPITEM )) ) {
 
         short         nOffset    = sizeof( gsv_DAMAGE );
@@ -1773,7 +1772,6 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
       }
     }
 
-    //if ((m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_DEAD))
     if ( (m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wACTION & DMG_ACT_DEAD) ) {
       pDefOBJ->m_DeadDAMAGE.m_nTargetObjIDX = pAtkOBJ->Get_INDEX();
       pDefOBJ->m_DeadDAMAGE.m_wDamage       = m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage;

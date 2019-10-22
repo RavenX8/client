@@ -11,7 +11,7 @@ if(WIN32)
   ExternalProject_Add(
     lua4
     DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/lua-4.0.1
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-4.0.1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /EHsc <SOURCE_DIR>/src/lua/lua.c 
     <SOURCE_DIR>/src/lapi.c
@@ -48,7 +48,7 @@ if(WIN32)
   ExternalProject_Add(
     lua5
     DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_THIRD_PARTY_DIR}/lua-5.0.0
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
     CONFIGURE_COMMAND ""
     BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /EHsc <SOURCE_DIR>/src/lua/lua.c
     <SOURCE_DIR>/src/lapi.c
