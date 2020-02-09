@@ -10,24 +10,30 @@
 	class	CObjCHAR;
 #endif
 class CObjMOB;
+#ifndef NEW_DAMAGE
+typedef	uint16_t	damageType;
+#else
+typedef	uint64_t	damageType;
+#endif
 
 //-------------------------------------------------------------------------------------------------
 class CUserDATA;
 class CCal {
 private:
 	static int  Get_SuccessRATE(CObjCHAR *pATK, CObjCHAR *pDEF );
-	static WORD Get_BasicDAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, WORD wHitCNT, int iSuc);
-	static WORD Get_MagicDAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, WORD wHitCNT, int iSuc);
+  static damageType Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iSuc);
+  static damageType Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iSuc);
 
-	static int  Get_WeaponSkillDAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, short nSkillIDX, int iSuccess);
-	static int  Get_MagicSkillDAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, short nSkillIDX, int iSuccess);
+  static damageType Get_WeaponSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, int iSuccess);
+  static damageType Get_MagicSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, int iSuccess);
 
 public :
 	static bool Get_DropITEM (int iLevelDiff, CObjMOB *pMobCHAR, tagITEM &sITEM, int iZoneNO, int iDropRate, int iCharm);
-	static int64_t	Get_EXP (CObjCHAR *pAtkCHAR, CObjCHAR *pDefCHAR, int iGiveDamage);
+	static int64_t Get_EXP (CObjCHAR *pAtkCHAR, CObjCHAR *pDefCHAR, int iGiveDamage);
 
-	static WORD Get_DAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, WORD wHitCNT);
-	static WORD Get_SkillDAMAGE (CObjCHAR *pATK, CObjCHAR *pDEF, short nSkillIDX, WORD wHitCNT);
+  static damageType Get_DAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT);
+  static damageType Get_SkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, WORD wHitCNT);
+
 	static int	Get_StorageFEE (int iBasePrice, int iPriceRate, UINT uiDupCnt)
 	{
 		return (int)( ( iBasePrice * 5 / 1000 + 1 ) * ( iPriceRate+1 ) ) * uiDupCnt;

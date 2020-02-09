@@ -1289,7 +1289,7 @@ void CObjCHAR::Apply_DAMAGE(CObjCHAR* pAtkOBJ, int64_t wDamage) {
       // AddMsgToChatWND( CStr::Printf ("%s가 %s에게 피해 %d 입힘", pAtkOBJ->Get_NAME(), this->Get_NAME (), Damage.m_wVALUE ), g_dwRED );
     }
 
-    if ( Damage.m_wDamage & DMG_BIT_HITTED ) {
+    if ( Damage.m_wVALUE & DMG_ACT_HITTED) {
       // 맞는넘 맞는 동작으로 적용 가능하면...
       /// 팻탄 상태이면 맞는 동작을 하지 않는다.( 2..4/12/10 맞는종작을 할경우 공격을 하다가 캐슬기어가 서버렸다. )
       if ( this->GetPetMode() > 0 ) { } else {

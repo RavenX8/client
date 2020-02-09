@@ -1781,7 +1781,7 @@ void CRecvPACKET::Recv_gsv_DAMAGE() {
       return;
     }
 
-    if ( m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage & DMG_BIT_IMMEDIATE ) {
+    if ( m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wACTION & DMG_ACT_ATTACK) {
       pDefOBJ->Apply_DAMAGE( pAtkOBJ,
                              m_pRecvPacket->m_gsv_DAMAGE.m_Damage.m_wDamage );
       if ( pDefOBJ != pAtkOBJ )

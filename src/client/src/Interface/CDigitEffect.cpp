@@ -34,7 +34,7 @@ const char* _digit_Mesh[MAX_DIGIT_EFFECT] = {
 #define DIGIT_HEIGHT		32
 #define DIGIT_COUNT			8
 
-      CDigitEffect::CDigitEffect() {
+CDigitEffect::CDigitEffect() {
   int i                          = 0;
   for ( i                        = 0; i < MAX_DIGIT_EFFECT; i++ ) {
     m_DigitNode[i].m_hAnimatable = NULL;

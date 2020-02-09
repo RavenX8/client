@@ -181,15 +181,11 @@ bool  CCal::Get_DropITEM(int iLevelDiff, CObjMOB* pMobCHAR, tagITEM& sITEM, int 
   else if ( iLevelDiff >= 10 )
     return false;
 
-  if ( IsTAIWAN() ) {
     // 대만 6-14 kchs
-    if ( iLevelDiff < 9 )
-      iDrop_VAR = (int)((Get_WorldDROP() + NPC_DROP_ITEM( pMobCHAR->Get_CharNO() ) - (1 + RANDOM(100)) - ((iLevelDiff + 16) * 3.5f) - 10 + iDropRate) * 0.38f); // * ( NPC_DROP_MONEY( pMobCHAR->Get_CharNO() ) + 30 ) / 130;
-    else
-      iDrop_VAR = (int)((Get_WorldDROP() + NPC_DROP_ITEM( pMobCHAR->Get_CharNO() ) - (1 + RANDOM(100)) - ((iLevelDiff + 20) * 5.5f) - 10 + iDropRate) * 0.23f); // * ( NPC_DROP_MONEY( pMobCHAR->Get_CharNO() ) + 30 ) / 130;
-  } else {
+  if ( iLevelDiff < 9 )
     iDrop_VAR = (int)((Get_WorldDROP() + NPC_DROP_ITEM( pMobCHAR->Get_CharNO() ) - (1 + RANDOM(100)) - ((iLevelDiff + 16) * 3.5f) - 10 + iDropRate) * 0.38f); // * ( NPC_DROP_MONEY( pMobCHAR->Get_CharNO() ) + 30 ) / 130;
-  }
+  else
+    iDrop_VAR = (int)((Get_WorldDROP() + NPC_DROP_ITEM( pMobCHAR->Get_CharNO() ) - (1 + RANDOM(100)) - ((iLevelDiff + 20) * 5.5f) - 10 + iDropRate) * 0.23f); // * ( NPC_DROP_MONEY( pMobCHAR->Get_CharNO() ) + 30 ) / 130;
 
   if ( iDrop_VAR <= 0 ) {
     // 드롭 확률 저조 !!! 생성안됨.
@@ -403,13 +399,9 @@ int CCal::Get_SuccessRATE(CObjCHAR* pATK, CObjCHAR* pDEF) // , int &iCriticalSUC
     if ( pDEF->IsUSER() ) {
       // PVP일경우 성공 확률...
       iRAND1 = 1 + RANDOM(100);
-      if ( IsTAIWAN() ) {
-        // 대만 2005.06.08 kchs
-        iSuccess = (int)(90 - ((pATK->Get_HIT() + pDEF->Get_AVOID()) / pATK->Get_HIT()) * 40.f + iRAND1);
-      } else {
-        // SUC= [40-{(A_HIT+D_AVO)/ D_AVO }*60+RAN(1~100)] (대만 2005.06.01)
-        iSuccess = (int)(40 - ((pATK->Get_HIT() + pDEF->Get_AVOID()) / pATK->Get_AVOID()) * 60.f + iRAND1); // (IROSE2005.05.13)
-      }
+
+      // 대만 2005.06.08 kchs
+      iSuccess = (int)(90 - ((pATK->Get_HIT() + pDEF->Get_AVOID()) / pATK->Get_HIT()) * 40.f + iRAND1);
 
     } else {
       iRAND1   = 1 + RANDOM(50); //1+RANDOM(100) * 0.6f;
@@ -421,18 +413,8 @@ int CCal::Get_SuccessRATE(CObjCHAR* pATK, CObjCHAR* pDEF) // , int &iCriticalSUC
       return (int)(iSuccess * (pATK->Get_HIT() * 1.1f - pDEF->Get_AVOID() * 0.93f + iRAND2 /* *0.7f */ + 5 + pATK->Get_LEVEL() * 0.2f) / 80.f);
     }
   } else {
-    if ( IsTAIWAN() ) {
-      iRAND1   = 1 + RANDOM(100);
-      iSuccess = 138 - ((float)(pATK->Get_HIT() + pDEF->Get_AVOID()) / pATK->Get_HIT()) * 75.0f + iRAND1; // 2005-7-13 kchs 
-    } else {
-      iRAND1   = 1 + RANDOM(50); //1+RANDOM(100) * 0.6f;
-      iRAND2   = 1 + RANDOM(60); //1+RANDOM(100) * 0.7f;
-      iSuccess = (int)((pATK->Get_LEVEL() + 10) - pDEF->Get_LEVEL() * 1.1f + (iRAND1/* *0.6f */));
-      if ( iSuccess <= 0 )
-        return 0;
-
-      return (int)(iSuccess * (pATK->Get_HIT() * 1.1f - pDEF->Get_AVOID() * 0.93f + iRAND2 /* *0.7f */ + 5 + pATK->Get_LEVEL() * 0.2f) / 80.f);
-    }
+    iRAND1   = 1 + RANDOM(100);
+    iSuccess = 138 - ((float)(pATK->Get_HIT() + pDEF->Get_AVOID()) / pATK->Get_HIT()) * 75.0f + iRAND1; // 2005-7-13 kchs 
   }
 
   return iSuccess;
@@ -440,8 +422,9 @@ int CCal::Get_SuccessRATE(CObjCHAR* pATK, CObjCHAR* pDEF) // , int &iCriticalSUC
 
 //-------------------------------------------------------------------------------------------------
 // 일반 물리 데미지 계산식...
-WORD  CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iSuc) {
-  int iDamage, iCriSuc;
+damageType CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iSuc)
+{
+  damageType iDamage = 0, iCriSuc = 0;
   // 대만적용 (4/23~) * CRIT_SUC = { ( RAN(1~100) * 3 + A_LV + 60 } * 25 / (CRITICAL + 150)
   // CRIT_SUC = (28-{( CRITICAL /2+ A_LV)/( A_LV +8)}*20)+ RAN(1~100) (대만 2005.06.01)
   iCriSuc = (int)(28 - ((pATK->Get_CRITICAL() / 2.f + pATK->Get_LEVEL()) / (pATK->Get_LEVEL() + 8)) * 20) + 1 + RANDOM(100);
@@ -454,16 +437,16 @@ WORD  CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
     if ( pATK->IsUSER() && pDEF->IsUSER() ) {
       // PVP :: 크리티컬 물리 데미지 
         // DMG = A_ATT*(D_LV/A_LV) * ( SUC * 0.05+29)*(2.4* A_ATT - D_DEF +180)/(1.1 * D_DEF + D_AVO * 0.3 + 50)/100 (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) * (iSuc * 0.05f + 29) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.3f + 50) / 85.f); // (IROSE 2005.05.13)1
+        iDamage = (damageType)(pATK->Get_ATK() * (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) * (iSuc * 0.05f + 29) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.3f + 50) / 85.f); // (IROSE 2005.05.13)1
     } else {
       // 몬스터 :: 크리티컬 물리 데미지
         // [크리티컬 데미지 계산식]  * DMG = A_ATT * (SUC*0.05 + 29) * (A_ATT - D_DEF + 250) / (D_DEF+ D_AVO *0.3+20) /90
         // DMG = A_ATT * ( SUC * 0.05+29)*(2.4 * A_ATT - D_DEF +180)/(1.1 * D_DEF + D_AVO * 0.3 + 50)/100  (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.05f + 29) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.3f + 50) / 85.f); //  (IROSE 2005.05.13)
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.05f + 29) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.3f + 50) / 85.f); //  (IROSE 2005.05.13)
     }
     // 추가 데미지 스킬 ...
     if ( FLAG_ING_DUMMY_DAMAGE & pATK->GetIngDurationStateFLAG() ) {
-      iDamage += (int)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
+      iDamage += (damageType)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
       // iDamage |= DMG_BIT_DUMMY;
     }
 
@@ -472,7 +455,7 @@ WORD  CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
     if ( iDamage < 10 ) iDamage = 10;
     else {
       if ( pATK->IsUSER() && pDEF->IsUSER() ) {
-        int iMaxDmg                      = (int)(pDEF->Get_MaxHP() * 0.35f);
+        int iMaxDmg                      = (damageType)(pDEF->Get_MaxHP() * 0.35f);
         if ( iDamage > iMaxDmg ) iDamage = iMaxDmg;
       } else
         if ( iDamage > MAX_DAMAGE ) iDamage = MAX_DAMAGE;
@@ -484,17 +467,17 @@ WORD  CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
     if ( pATK->IsUSER() && pDEF->IsUSER() ) {
       // PVP :: 일반 물리 데미지
         // DMG = A_ATT*(D_LV/A_LV) * ( SUC*0.03+26)*(1.8* A_ATT - D_DEF +150) / (1.1* D_DEF + D_AVO *0.4+50)/145 (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) * (iSuc * 0.03f + 26) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) /
+        iDamage = (damageType)(pATK->Get_ATK() * (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) * (iSuc * 0.03f + 26) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) /
                         (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.4f + 50) / 126.f); //  (IROSE 2005.05.13)
     } else {
       // 몬스터 :: 일반 물리 데미지
         // [일반 데미지 계산식] * DMG = A_ATT * (SUC*0.03 + 26) * (A_ATT - D_DEF + 300) / (D_DEF+ D_AVO *0.3+30) /180 
         // DMG = A_ATT * ( SUC*0.03+26)*(1.8* A_ATT - D_DEF +150) / (1.1* D_DEF + D_AVO *0.4+50)/145  (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.03f + 26) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) / (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.4f + 50) / 145.f);
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.03f + 26) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) / (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.4f + 50) / 145.f);
     }
     // 추가 데미지 스킬 ...
     if ( FLAG_ING_DUMMY_DAMAGE & pATK->GetIngDurationStateFLAG() ) {
-      iDamage += (int)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
+      iDamage += (damageType)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
       // iDamage |= DMG_BIT_DUMMY;
     }
 
@@ -503,7 +486,7 @@ WORD  CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
     if ( iDamage < 5 ) iDamage = 5;
     else {
       if ( pATK->IsUSER() && pDEF->IsUSER() ) {
-        int iMaxDmg = (int)(pDEF->Get_MaxHP() * 0.25f);
+        damageType iMaxDmg = (damageType)(pDEF->Get_MaxHP() * 0.25f);
         if ( iDamage > iMaxDmg )
           iDamage = iMaxDmg;
       } else
@@ -516,8 +499,9 @@ WORD  CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
 
 //-------------------------------------------------------------------------------------------------
 // 마법 데미지
-WORD  CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iSuc) {
-  int iDamage, iCriSuc;
+damageType CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iSuc)
+{
+  damageType iDamage = 0, iCriSuc = 0;
 
   iCriSuc = (int)(((1 + RANDOM(100)) * 3 + pATK->Get_LEVEL() + 30) * 16 / (pATK->Get_CRITICAL() + 70));
 
@@ -531,24 +515,24 @@ WORD  CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
       // PVP :: 크리티컬 마법 데미지
       if ( IsTAIWAN() ) {
         // DMG = A_ATT* (D_LV/A_LV) *( SUC *0.05+25)*(2.4* A_ATT - D_DEF +180)/(1.1* D_RES + D_AVO *0.3+50)/110  (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) * (iSuc * 0.05f + 25) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 50) / 90.f); //  (IROSE 2005.05.13)
+        iDamage = (damageType)(pATK->Get_ATK() * (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) * (iSuc * 0.05f + 25) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 50) / 90.f); //  (IROSE 2005.05.13)
       } else {
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.08f + 33) * (pATK->Get_ATK() - pDEF->Get_DEF() + 340) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 20) * 360) + 25);
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.08f + 33) * (pATK->Get_ATK() - pDEF->Get_DEF() + 340) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 20) * 360) + 25);
       }
     } else {
       // 몬스터 :: 크리티컬 마법 데미지
       if ( IsTAIWAN() ) {
         // [크리티컬 데미지 계산식] * DMG = A_ATT * (SUC*0.05 + 33) * (A_ATT - D_DEF + 360) / (D_RES+ D_AVO *0.3+20) /170
         // DMG = A_ATT *( SUC *0.05+25)*(2.4* A_ATT - D_DEF +180)/(1.1* D_RES + D_AVO *0.3+50)/110 (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.05f + 25) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 50) / 90.f); //  (IROSE 2005.05.13)
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.05f + 25) * (2.4f * pATK->Get_ATK() - pDEF->Get_DEF() + 180) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 50) / 90.f); //  (IROSE 2005.05.13)
       } else {
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.05f + 33) * (pATK->Get_ATK() - pDEF->Get_DEF() * 0.8f + 310) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 5) * 200));
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.05f + 33) * (pATK->Get_ATK() - pDEF->Get_DEF() * 0.8f + 310) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 5) * 200));
       }
     }
 
     // 추가 데미지 ...
     if ( FLAG_ING_DUMMY_DAMAGE & pATK->GetIngDurationStateFLAG() ) {
-      iDamage += (int)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
+      iDamage += (damageType)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
       // iDamage |= DMG_BIT_DUMMY;
     }
 
@@ -557,7 +541,7 @@ WORD  CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
     if ( iDamage < 10 ) iDamage = 10;
     else {
       if ( pATK->IsUSER() && pDEF->IsUSER() ) {
-        int iMaxDmg = (int)(pDEF->Get_MaxHP() * 0.35f);
+        damageType iMaxDmg = (damageType)(pDEF->Get_MaxHP() * 0.35f);
         if ( iDamage > iMaxDmg )
           iDamage = iMaxDmg;
       } else
@@ -572,24 +556,24 @@ WORD  CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
       // PVP :: 일반 마법 데미지
       if ( IsTAIWAN() ) {
         // DMG = A_ATT*(D_LV/A_LV)  *( SUC *0.03+25)*(1.8 *A_ATT - D_DEF +150)/(1.1* D_RES + D_AVO *0.4+50)/180  (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (pDEF->Get_LEVEL() - pATK->Get_LEVEL()) * (iSuc * 0.03f + 25) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.4f + 50) / 120.f); // (IROSE 2005.05.13)
+        iDamage = (damageType)(pATK->Get_ATK() * (pDEF->Get_LEVEL() - pATK->Get_LEVEL()) * (iSuc * 0.03f + 25) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.4f + 50) / 120.f); // (IROSE 2005.05.13)
       } else {
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.06f + 29) * (pATK->Get_ATK() - pDEF->Get_DEF() * 0.8f + 350) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 5) * 640) + 20);
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.06f + 29) * (pATK->Get_ATK() - pDEF->Get_DEF() * 0.8f + 350) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 5) * 640) + 20);
       }
     } else {
       // 몬스터 :: 일반 마법 데미지
       if ( IsTAIWAN() ) {
         // [일반 데미지 계산식] * DMG = A_ATT * (SUC*0.03 + 25) * (A_ATT - D_DEF + 300) / (D_RES+ D_AVO * 0.3 + 30) /200 
         // DMG = A_ATT *( SUC *0.03+25)*(1.8 *A_ATT - D_DEF +150)/(1.1* D_RES + D_AVO *0.4+50)/140  (대만 2005.06.01)
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.03f + 25) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.4f + 50) / 120.f); // (IROSE 2005.05.13)
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.03f + 25) * (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) / (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.4f + 50) / 120.f); // (IROSE 2005.05.13)
       } else {
-        iDamage = (int)(pATK->Get_ATK() * (iSuc * 0.03f + 30) * (pATK->Get_ATK() - pDEF->Get_DEF() * 0.8f + 280) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 5) * 280));
+        iDamage = (damageType)(pATK->Get_ATK() * (iSuc * 0.03f + 30) * (pATK->Get_ATK() - pDEF->Get_DEF() * 0.8f + 280) / ((pDEF->Get_RES() + pDEF->Get_AVOID() * 0.3f + 5) * 280));
       }
     }
 
     // 추가 데미지 ...
     if ( FLAG_ING_DUMMY_DAMAGE & pATK->GetIngDurationStateFLAG() ) {
-      iDamage += (int)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
+      iDamage += (damageType)(iDamage * SKILL_POWER( pATK->GetIngDurationStateSKILL( ING_DUMMY_DAMAGE ) ) / 100.f);
       // iDamage |= DMG_BIT_DUMMY;
     }
 
@@ -598,7 +582,7 @@ WORD  CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
     if ( iDamage < 5 ) iDamage = 5;
     else {
       if ( pATK->IsUSER() && pDEF->IsUSER() ) {
-        int iMaxDmg = (int)(pDEF->Get_MaxHP() * 0.25f);
+        damageType iMaxDmg = (damageType)(pDEF->Get_MaxHP() * 0.25f);
         if ( iDamage > iMaxDmg )
           iDamage = iMaxDmg;
       } else
@@ -610,7 +594,8 @@ WORD  CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, int iS
 }
 
 //-------------------------------------------------------------------------------------------------
-WORD  CCal::Get_DAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT) {
+damageType CCal::Get_DAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT)
+{
   int iSuc = Get_SuccessRATE( pATK, pDEF );
 
   if ( iSuc < 20 ) {
@@ -630,13 +615,14 @@ WORD  CCal::Get_DAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT) {
 }
 
 //-------------------------------------------------------------------------------------------------
-int   CCal::Get_WeaponSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, int iSuccess) {
-  int iDamage;
+damageType CCal::Get_WeaponSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, int iSuccess)
+{
+  damageType iDamage = 0;
 
   // [무기 스킬형] 데미지 계산식 
   if ( pATK->IsUSER() && pDEF->IsUSER() ) {
     // DMG= (SKILL_POW/100) *(D_LV/A_LV) * A_ATT * ( SUC*0.03+26)*(1.8* A_ATT - D_DEF +150) / (1.1* D_DEF + D_AVO *0.4+50)/145
-    iDamage = (int)((SKILL_POWER(nSkillIDX) / 100.f) *
+    iDamage = (damageType)((SKILL_POWER(nSkillIDX) / 100.f) *
                     (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) *
                     (pATK->Get_ATK()) *
                     (iSuccess * 0.03f + 26) *
@@ -644,7 +630,7 @@ int   CCal::Get_WeaponSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillID
                     (1.1f * pDEF->Get_DEF() + pDEF->Get_AVOID() * 0.4f + 50) / 126.f);
   } else {
     // DMG = (SKILL_POW/100 ) * A_ATT * ( SUC*0.03+26)*(1.8* A_ATT - D_DEF +150) / (1.1* D_DEF + D_AVO *0.4+50)/145
-    iDamage = (int)((SKILL_POWER(nSkillIDX) / 100.f) *
+    iDamage = (damageType)((SKILL_POWER(nSkillIDX) / 100.f) *
                     (pATK->Get_ATK()) *
                     (iSuccess * 0.03f + 26) *
                     (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) /
@@ -654,13 +640,13 @@ int   CCal::Get_WeaponSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillID
   return iDamage;
 }
 
-int   CCal::Get_MagicSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, int iSuccess) {
-  int iDamage;
+damageType   CCal::Get_MagicSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, int iSuccess) {
+  damageType iDamage = 0;
 
   // [마법 스킬형] 데미지 계산식 
   if ( pATK->IsUSER() && pDEF->IsUSER() ) {
     // DMG = (SKILL_POW/100) *(D_LV/A_LV) * A_ATT *( SUC *0.03+25)*(1.8 *A_ATT - D_DEF +150)/(1.1* D_RES + D_AVO *0.4+50)/140
-    iDamage = (int)((SKILL_POWER(nSkillIDX) / 100.f) *
+    iDamage = (damageType)((SKILL_POWER(nSkillIDX) / 100.f) *
                     (pDEF->Get_LEVEL() / pATK->Get_LEVEL()) *
                     (pATK->Get_ATK()) *
                     (iSuccess * 0.03f + 25) *
@@ -668,7 +654,7 @@ int   CCal::Get_MagicSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX
                     (1.1f * pDEF->Get_RES() + pDEF->Get_AVOID() * 0.4f + 50) / 120.f);
   } else {
     // DMG = (SKILL_POW/100)  * A_ATT *( SUC *0.03+25)*(1.8 *A_ATT - D_DEF +150)/(1.1* D_RES + D_AVO *0.4+50)/120
-    iDamage = (int)((SKILL_POWER(nSkillIDX) / 100.f) *
+    iDamage = (damageType)((SKILL_POWER(nSkillIDX) / 100.f) *
                     (pATK->Get_ATK()) *
                     (iSuccess * 0.03f + 25) *
                     (1.8f * pATK->Get_ATK() - pDEF->Get_DEF() + 150) /
@@ -678,8 +664,9 @@ int   CCal::Get_MagicSkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX
   return iDamage;
 }
 
-WORD  CCal::Get_SkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, WORD wHitCNT) {
-  int iDamage;
+damageType CCal::Get_SkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX, WORD wHitCNT)
+{
+  damageType iDamage = 0;
 
   if ( IsTAIWAN() ) {
     // 공격 모션에 타점은 무조건 1개로 취급~
