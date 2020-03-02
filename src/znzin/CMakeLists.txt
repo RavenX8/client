@@ -262,7 +262,7 @@ target_include_directories(${PROJECT} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_S
 set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "znzin_d")
 
 if(NOT LUA_FOUND)
-  add_dependencies(${PROJECT} lua5 lua::lua5)
+  add_dependencies(${PROJECT} lua::lua5)
 endif()
 target_link_libraries(${PROJECT} PUBLIC legacy_stdio_definitions.lib d3d9.lib d3dx9.lib version.lib Winmm.lib)
 target_link_libraries(${PROJECT} PUBLIC lua::lua5)

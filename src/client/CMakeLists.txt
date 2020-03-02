@@ -799,6 +799,7 @@ set_source_files_properties(${RESOURCE_FILES} PROPERTIES LANGUAGE RC)
 add_executable(${PROJECT} src/stdafx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${RESOURCE_FILES})
 set_target_properties(${PROJECT} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/stdafx.h")
 set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TRose_d")
+set_target_properties(${PROJECT} PROPERTIES WIN32_EXECUTABLE true)
 
 target_link_libraries(${PROJECT} PRIVATE dsound.lib dxguid.lib dxerr9.lib d3dx9.lib)
 target_link_libraries(${PROJECT} PRIVATE legacy_stdio_definitions.lib imagehlp.lib odbc32.lib odbccp32.lib shlwapi.lib strmiids.lib unicows.lib urlmon.lib Version.lib)

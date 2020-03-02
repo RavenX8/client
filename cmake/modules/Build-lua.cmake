@@ -1,31 +1,18 @@
 set(LUA_INSTALL_DIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
-set(_byproducts
-  ${LUA_INSTALL_DIR}/liblua4.lib
-  ${LUA_INSTALL_DIR}/liblua4.a
-  ${LUA_INSTALL_DIR}/liblua5.lib
-  ${LUA_INSTALL_DIR}/liblua5.a
-)
-
 if(WIN32)
   ExternalProject_Add(
-    lua4
+    lua4_core
     DOWNLOAD_COMMAND ""
     SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-4.0.1
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /EHsc <SOURCE_DIR>/src/lua/lua.c 
+    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /EHsc
     <SOURCE_DIR>/src/lapi.c
     <SOURCE_DIR>/src/lcode.c
     <SOURCE_DIR>/src/ldebug.c
     <SOURCE_DIR>/src/ldo.c
     <SOURCE_DIR>/src/lfunc.c
     <SOURCE_DIR>/src/lgc.c
-    <SOURCE_DIR>/src/lib/lauxlib.c
-    <SOURCE_DIR>/src/lib/lbaselib.c
-    <SOURCE_DIR>/src/lib/ldblib.c
-    <SOURCE_DIR>/src/lib/liolib.c
-    <SOURCE_DIR>/src/lib/lmathlib.c
-    <SOURCE_DIR>/src/lib/lstrlib.c
     <SOURCE_DIR>/src/llex.c
     <SOURCE_DIR>/src/lmem.c
     <SOURCE_DIR>/src/lobject.c
@@ -38,15 +25,54 @@ if(WIN32)
     <SOURCE_DIR>/src/lundump.c
     <SOURCE_DIR>/src/lvm.c
     <SOURCE_DIR>/src/lzio.c
-    && lib *.obj /OUT:${LUA_INSTALL_DIR}/liblua4.lib
+    && lib lapi.obj lcode.obj ldebug.obj ldo.obj lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lparser.obj lstate.obj lstring.obj ltable.obj ltests.obj ltm.obj lundump.obj lvm.obj lzio.obj
+    /OUT:${LUA_INSTALL_DIR}/liblua4.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}/
-    BUILD_BYPRODUCTS ${_byproducts}
+    INSTALL_DIR ${LUA_INSTALL_DIR}
+    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/liblua4.lib ${LUA_INSTALL_DIR}/liblua4.a
   )
   
   ExternalProject_Add(
-    lua5
+    lua4_std
+    DOWNLOAD_COMMAND ""
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-4.0.1
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /EHsc
+    <SOURCE_DIR>/src/lib/lauxlib.c
+    <SOURCE_DIR>/src/lib/lbaselib.c
+    <SOURCE_DIR>/src/lib/ldblib.c
+    <SOURCE_DIR>/src/lib/liolib.c
+    <SOURCE_DIR>/src/lib/lmathlib.c
+    <SOURCE_DIR>/src/lib/lstrlib.c
+    && lib lauxlib.obj lbaselib.obj ldblib.obj liolib.obj lmathlib.obj lstrlib.obj /OUT:${LUA_INSTALL_DIR}/liblua4lib.lib
+    INSTALL_COMMAND ""
+    BUILD_IN_SOURCE true
+    INSTALL_DIR ${LUA_INSTALL_DIR}
+    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/liblua4lib.lib
+  )
+  
+  ExternalProject_Add(
+    lua4_compiler
+    DOWNLOAD_COMMAND ""
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-4.0.1
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND cl /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /I <SOURCE_DIR>/src/luac /EHsc
+    <SOURCE_DIR>/src/luac/luac.c
+    <SOURCE_DIR>/src/luac/dump.c
+    <SOURCE_DIR>/src/luac/opt.c
+    <SOURCE_DIR>/src/luac/stubs.c
+    <SOURCE_DIR>/src/luac/print.c
+    ${LUA_INSTALL_DIR}/liblua4.lib
+    ${LUA_INSTALL_DIR}/liblua4lib.lib
+    INSTALL_COMMAND ""
+    BUILD_IN_SOURCE true
+    INSTALL_DIR ${LUA_INSTALL_DIR}
+    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/lua4.exe
+  )
+  
+  ExternalProject_Add(
+    lua5_core
     DOWNLOAD_COMMAND ""
     SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
     CONFIGURE_COMMAND ""
@@ -58,14 +84,6 @@ if(WIN32)
     <SOURCE_DIR>/src/ldump.c
     <SOURCE_DIR>/src/lfunc.c
     <SOURCE_DIR>/src/lgc.c
-    <SOURCE_DIR>/src/lib/lauxlib.c
-    <SOURCE_DIR>/src/lib/lbaselib.c
-    <SOURCE_DIR>/src/lib/ldblib.c
-    <SOURCE_DIR>/src/lib/liolib.c
-    <SOURCE_DIR>/src/lib/lmathlib.c
-    <SOURCE_DIR>/src/lib/loadlib.c
-    <SOURCE_DIR>/src/lib/lstrlib.c
-    <SOURCE_DIR>/src/lib/ltablib.c
     <SOURCE_DIR>/src/llex.c
     <SOURCE_DIR>/src/lmem.c
     <SOURCE_DIR>/src/lobject.c
@@ -79,11 +97,50 @@ if(WIN32)
     <SOURCE_DIR>/src/lundump.c
     <SOURCE_DIR>/src/lvm.c
     <SOURCE_DIR>/src/lzio.c
-    && lib *.obj /OUT:${LUA_INSTALL_DIR}/liblua5.lib
+    && lib lapi.obj lcode.obj ldebug.obj ldo.obj ldump.obj lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj lparser.obj lstate.obj lstring.obj ltable.obj ltests.obj ltm.obj lundump.obj lvm.obj lzio.obj
+    /OUT:${LUA_INSTALL_DIR}/liblua5.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
     INSTALL_DIR ${LUA_INSTALL_DIR}
-    #BUILD_BYPRODUCTS ${_byproducts}
+    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/liblua5.lib ${LUA_INSTALL_DIR}/liblua5.a
+  )
+  
+  ExternalProject_Add(
+    lua5_std
+    DOWNLOAD_COMMAND ""
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /EHsc
+    <SOURCE_DIR>/src/lib/lauxlib.c
+    <SOURCE_DIR>/src/lib/lbaselib.c
+    <SOURCE_DIR>/src/lib/ldblib.c
+    <SOURCE_DIR>/src/lib/liolib.c
+    <SOURCE_DIR>/src/lib/lmathlib.c
+    <SOURCE_DIR>/src/lib/ltablib.c
+    <SOURCE_DIR>/src/lib/lstrlib.c
+    <SOURCE_DIR>/src/lib/loadlib.c
+    && lib lauxlib.obj lbaselib.obj ldblib.obj liolib.obj lmathlib.obj ltablib.obj lstrlib.obj loadlib.obj /OUT:${LUA_INSTALL_DIR}/liblua5lib.lib
+    INSTALL_COMMAND ""
+    BUILD_IN_SOURCE true
+    INSTALL_DIR ${LUA_INSTALL_DIR}/
+    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/liblua5lib.lib
+  )
+  
+  ExternalProject_Add(
+    lua5_compiler
+    DOWNLOAD_COMMAND ""
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND cl /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /I <SOURCE_DIR>/src/luac /EHsc -DLUA_OPNAMES
+    <SOURCE_DIR>/src/luac/luac.c
+    <SOURCE_DIR>/src/luac/print.c
+    <SOURCE_DIR>/src/lopcodes.c
+    ${LUA_INSTALL_DIR}/liblua5.lib
+    ${LUA_INSTALL_DIR}/liblua5lib.lib
+    INSTALL_COMMAND ""
+    BUILD_IN_SOURCE true
+    INSTALL_DIR ${LUA_INSTALL_DIR}/
+    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/lua5.exe
   )
 else()
 #  find_library(LUA_DL_LIBRARY dl)
@@ -103,13 +160,13 @@ else()
 endif()
 
 ExternalProject_Get_Property(
-  lua4
+  lua4_core
   source_dir
   install_dir
 )
 if(WIN32)
   set(LUA_LIBRARY "${install_dir}/liblua4.lib")
-  set(LUA_LIBRARIES "${LUA_LIBRARY}")
+  set(LUA_LIBRARIES "${LUA_LIBRARY}" "${install_dir}/liblua4lib.lib")
   set(LUA_INSTALL_LIBS "${install_dir}/liblua.dll")
 endif()
 
@@ -117,21 +174,22 @@ set(LUA_INCLUDE_DIR "${source_dir}/include")
 
 if(NOT TARGET lua::lua4)
   add_library(lua::lua4 INTERFACE IMPORTED)
-  add_dependencies(lua::lua4 lua4)
+  add_dependencies(lua::lua4 lua4_core lua4_std)
+  #set_target_properties(lua::lua4 PROPERTIES IMPORTED_LOCATION "${LUA_INCLUDE_DIR}")
   set_target_properties(lua::lua4 PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${LUA_INCLUDE_DIR}")
   set_target_properties(lua::lua4 PROPERTIES INTERFACE_LINK_LIBRARIES "${LUA_LIBRARIES}")
 endif()
 
 #Lua 5 stoof
 ExternalProject_Get_Property(
-  lua5
+  lua5_core
   source_dir
   install_dir
 )
 
 if(WIN32)
   set(LUA_LIBRARY "${install_dir}/liblua5.lib")
-  set(LUA_LIBRARIES "${LUA_LIBRARY}")
+  set(LUA_LIBRARIES "${LUA_LIBRARY}" "${install_dir}/liblua5lib.lib")
   set(LUA_INSTALL_LIBS "${install_dir}/liblua.dll")
 endif()
 
@@ -140,7 +198,8 @@ set(LUA_INCLUDE_DIR "${source_dir}/include")
 
 if(NOT TARGET lua::lua5)
     add_library(lua::lua5 INTERFACE IMPORTED)
-    add_dependencies(lua::lua5 lua5)
+    add_dependencies(lua::lua5 lua5_core lua5_std)
+    #set_target_properties(lua::lua5 PROPERTIES IMPORTED_LOCATION "${LUA_INCLUDE_DIR}")
     set_target_properties(lua::lua5 PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${LUA_INCLUDE_DIR}")
     set_target_properties(lua::lua5 PROPERTIES INTERFACE_LINK_LIBRARIES "${LUA_LIBRARIES}")
 endif()
