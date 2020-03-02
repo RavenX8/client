@@ -72,7 +72,7 @@ extern "C" {
 //*--------------------------------------------------------------------------------------*/
 
 //-------------------------------------------------------------------------------------------------
-bool   Init_DEVICE(void) {
+bool   Init_DEVICE() {
   bool bRet = false;
 
   //--------------------------[ engine related ]-----------------------//
@@ -105,7 +105,7 @@ bool   Init_DEVICE(void) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void Free_DEVICE(void) {
+void Free_DEVICE() {
   delete g_pSoundLIST;
 
   CD3DUtil::Free();
@@ -122,35 +122,9 @@ void Free_DEVICE(void) {
 // 중복 실행 체크용 소켓 해제
 SOCKET listener;
 
-void CloseDuplicateAppSocket(void) {
+void CloseDuplicateAppSocket() {
   closesocket( listener );
   WSACleanup();
-}
-
-// 중복 실행 체크 : 특정 포트가 중복 생성 안되는 점을 이용.
-bool      IsDuplicateApp(void) {
-  WSADATA wsadata;
-  WSAStartup( MAKEWORD( 2, 2 ), &wsadata );
-
-  // socket 생성
-  listener = socket( AF_INET, SOCK_STREAM, 0 );
-  // listening
-  sockaddr_in addr;
-  memset( &addr, 0, sizeof( sockaddr_in ) );
-  addr.sin_family           = AF_INET;
-  addr.sin_addr.S_un.S_addr = INADDR_ANY;
-  addr.sin_port             = htons( 7777 );
-
-  int result = ::bind( listener, (sockaddr*)&addr, sizeof( sockaddr_in ) );
-  result     = listen( listener, 5 );
-
-  if ( result == SOCKET_ERROR ) {
-    CloseDuplicateAppSocket();
-    MessageBox( nullptr, "이미 게임이 실행 중입니다 !", "에러", MB_OK );
-    return TRUE;
-  }
-
-  return FALSE;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -168,7 +142,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
   CCountry::GetSingleton().CheckCountry();
 
   g_SystemInfo.CollectingSystemInfo();
-  int iWindowVersion = g_SystemInfo.GetWindowsVersion();
 
   //-------------------------------------------------------------------------------
   /// Init Trigger VFS

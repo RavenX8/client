@@ -10,13 +10,11 @@ bool CustomAssertFunction(bool exp, char* description, int line, char* file, boo
     int rtn = MessageBoxA( nullptr, (char*)msg, "Assert", MB_ABORTRETRYIGNORE );
     switch ( rtn ) {
       case IDOK: return true;
-        break;
       case IDCANCEL: break;
       case IDABORT: // Abort
         break;
       case IDRETRY: // Retry
         return true;
-        break;
       case IDIGNORE: // Ignore
         ignore = true;
         break;
