@@ -54,6 +54,7 @@ if(WIN32)
   
   ExternalProject_Add(
     lua4_compiler
+    DEPENDS lua4_core lua4_std
     DOWNLOAD_COMMAND ""
     SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-4.0.1
     CONFIGURE_COMMAND ""
@@ -122,12 +123,13 @@ if(WIN32)
     && lib lauxlib.obj lbaselib.obj ldblib.obj liolib.obj lmathlib.obj ltablib.obj lstrlib.obj loadlib.obj /OUT:${LUA_INSTALL_DIR}/liblua5lib.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}/
+    INSTALL_DIR ${LUA_INSTALL_DIR}
     BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/liblua5lib.lib
   )
   
   ExternalProject_Add(
     lua5_compiler
+    DEPENDS lua5_core lua5_std
     DOWNLOAD_COMMAND ""
     SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
     CONFIGURE_COMMAND ""
@@ -139,7 +141,7 @@ if(WIN32)
     ${LUA_INSTALL_DIR}/liblua5lib.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}/
+    INSTALL_DIR ${LUA_INSTALL_DIR}
     BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/lua5.exe
   )
 else()
