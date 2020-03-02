@@ -85,7 +85,6 @@ find_package(PacketGenerator)
 if(NOT IDL_FOUND)
   include(Build-packet-generator)
 endif()
-include(PacketGenerator)
 
 include(Build-ogg)
 include(Build-lua)
@@ -94,6 +93,9 @@ include(Build-expat)
 include(Build-ijl15) # This doesn't actually build anything, just sets up the target
 include(Build-sqlite3)
 include(Build-vorbis)
+
+include(PacketGenerator)
+include(LuaIncludeGenerator)
 
 include_directories(${CMAKE_GEN_SRC_DIR})
 

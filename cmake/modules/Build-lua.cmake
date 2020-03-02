@@ -1,4 +1,4 @@
-set(LUA_INSTALL_DIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+set(LUA_INSTALL_DIR ${CMAKE_THIRD_PARTY_LIBRARY_DIR})
 
 if(WIN32)
   ExternalProject_Add(
@@ -53,6 +53,22 @@ if(WIN32)
   )
   
   ExternalProject_Add(
+    lua4_interp
+    DEPENDS lua4_core lua4_std
+    DOWNLOAD_COMMAND ""
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-4.0.1
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND cl /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /EHsc
+    <SOURCE_DIR>/src/lua/lua.c
+    ${LUA_INSTALL_DIR}/liblua4.lib
+    ${LUA_INSTALL_DIR}/liblua4lib.lib
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/lua.exe <INSTALL_DIR>/lua4.exe
+    BUILD_IN_SOURCE true
+    INSTALL_DIR ${CMAKE_THIRD_PARTY_BINARY_DIR}
+    BUILD_BYPRODUCTS ${CMAKE_THIRD_PARTY_BINARY_DIR}/lua4.exe
+  )
+  
+  ExternalProject_Add(
     lua4_compiler
     DEPENDS lua4_core lua4_std
     DOWNLOAD_COMMAND ""
@@ -66,10 +82,10 @@ if(WIN32)
     <SOURCE_DIR>/src/luac/print.c
     ${LUA_INSTALL_DIR}/liblua4.lib
     ${LUA_INSTALL_DIR}/liblua4lib.lib
-    INSTALL_COMMAND ""
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/luac.exe <INSTALL_DIR>/luac4.exe
     BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}
-    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/lua4.exe
+    INSTALL_DIR ${CMAKE_THIRD_PARTY_BINARY_DIR}
+    BUILD_BYPRODUCTS ${CMAKE_THIRD_PARTY_BINARY_DIR}/luac4.exe
   )
   
   ExternalProject_Add(
@@ -128,6 +144,22 @@ if(WIN32)
   )
   
   ExternalProject_Add(
+    lua5_interp
+    DEPENDS lua5_core lua5_std
+    DOWNLOAD_COMMAND ""
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND cl /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src/EHsc -DLUA_OPNAMES
+    <SOURCE_DIR>/src/lua/lua.c
+    ${LUA_INSTALL_DIR}/liblua5.lib
+    ${LUA_INSTALL_DIR}/liblua5lib.lib
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/lua.exe <INSTALL_DIR>/lua5.exe
+    BUILD_IN_SOURCE true
+    INSTALL_DIR ${CMAKE_THIRD_PARTY_BINARY_DIR}
+    BUILD_BYPRODUCTS ${CMAKE_THIRD_PARTY_BINARY_DIR}/lua5.exe
+  )
+  
+  ExternalProject_Add(
     lua5_compiler
     DEPENDS lua5_core lua5_std
     DOWNLOAD_COMMAND ""
@@ -139,10 +171,10 @@ if(WIN32)
     <SOURCE_DIR>/src/lopcodes.c
     ${LUA_INSTALL_DIR}/liblua5.lib
     ${LUA_INSTALL_DIR}/liblua5lib.lib
-    INSTALL_COMMAND ""
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/luac.exe <INSTALL_DIR>/luac5.exe
     BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}
-    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/lua5.exe
+    INSTALL_DIR ${CMAKE_THIRD_PARTY_BINARY_DIR}
+    BUILD_BYPRODUCTS ${CMAKE_THIRD_PARTY_BINARY_DIR}/luac5.exe
   )
 else()
 #  find_library(LUA_DL_LIBRARY dl)
@@ -177,9 +209,20 @@ set(LUA_INCLUDE_DIR "${source_dir}/include")
 if(NOT TARGET lua::lua4)
   add_library(lua::lua4 INTERFACE IMPORTED)
   add_dependencies(lua::lua4 lua4_core lua4_std)
-  #set_target_properties(lua::lua4 PROPERTIES IMPORTED_LOCATION "${LUA_INCLUDE_DIR}")
   set_target_properties(lua::lua4 PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${LUA_INCLUDE_DIR}")
   set_target_properties(lua::lua4 PROPERTIES INTERFACE_LINK_LIBRARIES "${LUA_LIBRARIES}")
+endif()
+
+if(NOT TARGET lua::lua4_interp)
+  add_executable(lua::lua4_interp IMPORTED)
+  add_dependencies(lua::lua4_interp lua4_interp)
+  set_target_properties(lua::lua4_interp PROPERTIES IMPORTED_LOCATION "${CMAKE_THIRD_PARTY_BINARY_DIR}/lua4.exe")
+endif()
+
+if(NOT TARGET lua::lua4_compiler)
+  add_executable(lua::lua4_compiler IMPORTED)
+  add_dependencies(lua::lua4_compiler lua4_compiler)
+  set_target_properties(lua::lua4_compiler PROPERTIES IMPORTED_LOCATION "${CMAKE_THIRD_PARTY_BINARY_DIR}/luac4.exe")
 endif()
 
 #Lua 5 stoof
@@ -199,11 +242,22 @@ endif()
 set(LUA_INCLUDE_DIR "${source_dir}/include")
 
 if(NOT TARGET lua::lua5)
-    add_library(lua::lua5 INTERFACE IMPORTED)
-    add_dependencies(lua::lua5 lua5_core lua5_std)
-    #set_target_properties(lua::lua5 PROPERTIES IMPORTED_LOCATION "${LUA_INCLUDE_DIR}")
-    set_target_properties(lua::lua5 PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${LUA_INCLUDE_DIR}")
-    set_target_properties(lua::lua5 PROPERTIES INTERFACE_LINK_LIBRARIES "${LUA_LIBRARIES}")
+  add_library(lua::lua5 INTERFACE IMPORTED)
+  add_dependencies(lua::lua5 lua5_core lua5_std)
+  set_target_properties(lua::lua5 PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${LUA_INCLUDE_DIR}")
+  set_target_properties(lua::lua5 PROPERTIES INTERFACE_LINK_LIBRARIES "${LUA_LIBRARIES}")
 endif()
+
+if(NOT TARGET lua::lua5_interp)
+  add_executable(lua::lua5_interp IMPORTED)
+  add_dependencies(lua::lua5_interp lua5_interp)
+  set_target_properties(lua::lua5_interp PROPERTIES IMPORTED_LOCATION "${CMAKE_THIRD_PARTY_BINARY_DIR}/lua5.exe")
+ endif()
+
+if(NOT TARGET lua::lua5_compiler)
+  add_executable(lua::lua5_compiler IMPORTED)
+  add_dependencies(lua::lua5_compiler lua5_compiler)
+  set_target_properties(lua::lua5_compiler PROPERTIES IMPORTED_LOCATION "${CMAKE_THIRD_PARTY_BINARY_DIR}/luac5.exe")
+ endif()
 
 #mark_as_advanced(LUA_INCLUDE_DIR LUA_LIBRARY LUA_LIBRARIES)

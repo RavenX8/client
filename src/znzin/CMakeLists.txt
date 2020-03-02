@@ -20,7 +20,13 @@ add_linker_flags("/NODEFAULTLIB:\"libcp.lib\"")
 add_linker_flags("/SAFESEH:NO")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_DLL_EXPORT")
 
-#TODO: generate the .inc files just like the old way
+set(args
+  TARGET znzin
+  LUAFILES include/zz_version_info.lua include/zz_script_lua.lua
+  LUAROOT ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+generate_lua_includes(LUA_SOURCES LUA_HEADERS ${args})
 
 set( SOURCES_HEADER
   include/zz_algebra.h
@@ -30,7 +36,6 @@ set( SOURCES_HEADER
   include/zz_autolock.h
   include/zz_bone.h
   include/zz_build_count
-  include/zz_build_count.lua
   include/zz_bvolume.h
   include/zz_bvolume_obb.h
   include/zz_camera.h
@@ -114,7 +119,6 @@ set( SOURCES_HEADER
   include/zz_scene_octree.h
   include/zz_script.h
   include/zz_script_lua.h
-  include/zz_script_lua.inc
   include/zz_script_lua.lua
   include/zz_script_simple.h
   include/zz_sfx.h
@@ -135,7 +139,7 @@ set( SOURCES_HEADER
   include/zz_tree.h
   include/zz_type.h
   include/zz_unit_test.h
-  include/zz_version_info.inc
+  include/zz_version_info.lua
   include/zz_vertex_buffer.h
   include/zz_vertex_format.h
   include/zz_vfs.h
@@ -257,10 +261,11 @@ set( SOURCES_MAIN
   src/zz_waiting_line.cpp
 )
 
-add_library(${PROJECT} SHARED ${SOURCES_MAIN} ${SOURCES_HEADER})
+add_library(${PROJECT} SHARED ${SOURCES_MAIN} ${SOURCES_HEADER} ${LUA_HEADERS})
 target_include_directories(${PROJECT} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "znzin_d")
 
+add_dependencies(${PROJECT} znzin_generated)
 if(NOT LUA_FOUND)
   add_dependencies(${PROJECT} lua::lua5)
 endif()
