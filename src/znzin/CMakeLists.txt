@@ -26,7 +26,7 @@ set(args
   LUAROOT ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-generate_lua_includes(LUA_SOURCES LUA_HEADERS ${args})
+generate_lua_includes(LUA_HEADERS ${args})
 
 set( SOURCES_HEADER
   include/zz_algebra.h

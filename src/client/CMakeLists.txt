@@ -23,9 +23,35 @@ add_linker_flags("/SAFESEH:NO")
 add_linker_flags("/SUBSYSTEM:WINDOWS")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
 
-set( GEN_ARGS 
-  EXPORT_FILES export_GM.lua export_QF.lua System/export_System.lua
+set(args
+  LUA4
+  TARGET TRose_GM
+  LUAFILES src/export_GM.lua
+  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/Game_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/Game_FUNC_REG.inc
+  LUAROOT ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+generate_lua_includes(GAME_LUA_HEADERS ${args})
+set(GEN_HEADERS ${GAME_LUA_HEADERS})
+
+set(args
+  LUA4
+  TARGET TRose_QF
+  LUAFILES src/export_QF.lua
+  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_REG.inc
+  LUAROOT ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+generate_lua_includes(GAME_LUA_HEADERS ${args})
+set(GEN_HEADERS ${GEN_HEADERS} ${GAME_LUA_HEADERS})
+
+set(args
+  LUA4
+  TARGET TRose_System
+  LUAFILES src/export_System.lua
+  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/System/System_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/System/System_FUNC_REG.inc
+  LUAROOT ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+generate_lua_includes(GAME_LUA_HEADERS ${args})
+set(GEN_HEADERS ${GEN_HEADERS} ${GAME_LUA_HEADERS})
 
 set( SOURCES_HEADER
   res/resource.h
@@ -796,7 +822,7 @@ set( RESOURCE_FILES
 )
 
 set_source_files_properties(${RESOURCE_FILES} PROPERTIES LANGUAGE RC)
-add_executable(${PROJECT} src/stdafx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${RESOURCE_FILES})
+add_executable(${PROJECT} src/stdafx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${GEN_HEADERS} ${RESOURCE_FILES})
 set_target_properties(${PROJECT} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/stdafx.h")
 set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TRose_d")
 set_target_properties(${PROJECT} PROPERTIES WIN32_EXECUTABLE true)

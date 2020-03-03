@@ -1,5 +1,5 @@
-function(GENERATE_LUA_INCLUDES SRCS HDRS)
-  cmake_parse_arguments(ARG "DEBUG;LUA4" "LUAROOT;TARGET" "LUAFILES" ${ARGN})
+function(GENERATE_LUA_INCLUDES HDRS)
+  cmake_parse_arguments(ARG "DEBUG;LUA4" "LUAROOT;TARGET" "LUAFILES;OUTPUT" ${ARGN})
 
   if(NOT ARG_LUAFILES)
     message(SEND_ERROR "Error: GENERATE_LUA_INCLUDES() called without any files")
@@ -16,10 +16,8 @@ function(GENERATE_LUA_INCLUDES SRCS HDRS)
     message("TARGET: ${TARGET}")
   endif()
 
-  set(${SRCS})
   set(${HDRS})
   foreach(LUAFILES ${ARG_LUAFILES})
-
     # ensure that the file ends with .proto
     string(REGEX MATCH "\\.lua$$" PROTOEND ${LUAFILES})
     if(NOT PROTOEND)
@@ -61,17 +59,22 @@ function(GENERATE_LUA_INCLUDES SRCS HDRS)
         message("  EXT_CLEANED_FILE=${EXT_CLEANED_FILE}")
     endif()
 
-    set(H_FILE "${LUAROOT}/${EXT_CLEANED_FILE}.inc")
+    if(NOT ARG_OUTPUT)
+      set(H_FILE "${LUAROOT}/${EXT_CLEANED_FILE}.inc")
+    else()
+      set(H_FILE ${ARG_OUTPUT})
+    endif()
 
     if(ARG_DEBUG)
+      message("  MATCH_PATH=${MATCH_PATH}")
       message("  H_FILE=${H_FILE}")
     endif()
 
-    list(APPEND ${HDRS} "${H_FILE}")
+    list(APPEND ${HDRS} ${H_FILE})
 
     if(ARG_LUA4)
       add_custom_command(
-        OUTPUT "${H_FILE}"
+        OUTPUT ${H_FILE}
         WORKING_DIRECTORY ${LUAROOT}
         COMMAND lua::lua4_interp "${MATCH_PATH}"
         DEPENDS ${ABS_FILE} lua::lua4_interp
@@ -79,7 +82,7 @@ function(GENERATE_LUA_INCLUDES SRCS HDRS)
         VERBATIM)
      else()
        add_custom_command(
-          OUTPUT "${H_FILE}"
+          OUTPUT ${H_FILE}
           WORKING_DIRECTORY ${LUAROOT}
           COMMAND lua::lua5_interp "${MATCH_PATH}"
           DEPENDS ${ABS_FILE} lua::lua5_interp
@@ -88,16 +91,15 @@ function(GENERATE_LUA_INCLUDES SRCS HDRS)
      endif()
   endforeach()
   if(ARG_LUA4)
-  add_custom_target(${TARGET}_generated
-    DEPENDS lua::lua4_interp ${${HDRS}}
-  )
+    add_custom_target(${TARGET}_generated ALL
+      DEPENDS lua::lua4_interp ${${HDRS}}
+    )
   else()
-  add_custom_target(${TARGET}_generated
-    DEPENDS lua::lua5_interp ${${HDRS}}
-  )
+    add_custom_target(${TARGET}_generated ALL
+      DEPENDS lua::lua5_interp ${${HDRS}}
+    )
   endif()
 
   set_source_files_properties(${${HDRS}} PROPERTIES GENERATED TRUE)
   set(${HDRS} ${${HDRS}} PARENT_SCOPE)
-
 endfunction()
