@@ -1,5 +1,8 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "CDigitEffect.h"
+
+#include <functional>
+
 #include "..//Game.h"
 
 /*
@@ -35,153 +38,148 @@ const char* _digit_Mesh[MAX_DIGIT_EFFECT] = {
 #define DIGIT_COUNT			8
 
 CDigitEffect::CDigitEffect() {
-  int i                          = 0;
-  for ( i                        = 0; i < MAX_DIGIT_EFFECT; i++ ) {
+  int i = 0;
+  for (i = 0; i < MAX_DIGIT_EFFECT; i++) {
     m_DigitNode[i].m_hAnimatable = NULL;
-    m_DigitNode[i].m_hMesh       = NULL;
-    m_DigitNode[i].m_hMat        = NULL;
+    m_DigitNode[i].m_hMesh = NULL;
+    m_DigitNode[i].m_hMat = NULL;
   }
 
   m_hMotion = NULL;
 
-  m_DigitTex[DIGIT_NORMAL]   = NULL;
+  m_DigitTex[DIGIT_NORMAL] = NULL;
   m_DigitTex[DIGIT_ATTACKED] = NULL;
 
   m_DigitClearTex = NULL;
-  m_DigitMissTex  = NULL;
+  m_DigitMissTex = NULL;
 }
 
 CDigitEffect::~CDigitEffect() {
-  /// ¿£Áø ÆÄ±«ÈÄ¿¡ È£ÃâµÇ±â¶§¹®¿¡..
-  //ClearAll();
+  /// Â¿Â£ÃÃ¸ Ã†Ã„Â±Â«ÃˆÃ„Â¿Â¡ ÃˆÂ£ÃƒÃ¢ÂµÃ‡Â±Ã¢Â¶Â§Â¹Â®Â¿Â¡..
+  // ClearAll();
 }
 
-/// ÀÛ¾÷ °´Ã¼µé ÃÊ±âÈ­..
+/// Ã€Ã›Â¾Ã· Â°Â´ÃƒÂ¼ÂµÃ© ÃƒÃŠÂ±Ã¢ÃˆÂ­..
 bool CDigitEffect::Init() {
   ClearAll();
 
   int i = 0;
 
-  HNODE hDummy      = NULL;
+  HNODE hDummy = NULL;
   HNODE hAnimatable = NULL;
-  HNODE hMesh       = NULL;
-  HNODE hMat        = NULL;
+  HNODE hMesh = NULL;
+  HNODE hMat = NULL;
 
   int ZZ_INTERP_SQUAD = 3, ZZ_INTERP_CATMULLROM = 4;
-  m_hMotion           = loadMotion( "DigitEffectMotion", "3DData\\Effect\\Special\\hit_figure_01.ZMO", 1, ZZ_INTERP_CATMULLROM, ZZ_INTERP_SQUAD, 1, 1 );
-  if ( m_hMotion == NULL ) {
+  m_hMotion = loadMotion("DigitEffectMotion", "3DData\\Effect\\Special\\hit_figure_01.ZMO", 1, ZZ_INTERP_CATMULLROM, ZZ_INTERP_SQUAD, 1, 1);
+  if (m_hMotion == NULL) {
     ClearAll();
     return false;
   }
 
-  for ( i = 0; i < MAX_DIGIT_EFFECT; i++ ) {
-    hMat  = loadNullColormapMaterial( CStr::Printf( "DigitEffect_%d", i ), g_GameDATA.m_hShader_nolit, DIGIT_WIDTH * DIGIT_COUNT, DIGIT_HEIGHT );
-    //hMat = ::loadColormapMaterial( CStr::Printf ("DigitEffect_%d", i ), g_GameDATA.m_hShader_nolit, "3DData\\Effect\\Special\\DigitNumber01.tga" );
-    if ( hMat == NULL ) {
+  for (i = 0; i < MAX_DIGIT_EFFECT; i++) {
+    hMat = loadNullColormapMaterial(CStr::Printf("DigitEffect_%d", i), g_GameDATA.m_hShader_nolit, DIGIT_WIDTH * DIGIT_COUNT, DIGIT_HEIGHT);
+    if (hMat == NULL) {
       ClearAll();
       return false;
     }
 
-    hMesh = loadMesh( CStr::Printf( "DigitMesh_%d", i ), "3DData\\Effect\\Special\\DigitWork01.zms" );
-    if ( hMesh == NULL ) {
+    hMesh = loadMesh(CStr::Printf("DigitMesh_%d", i), "3DData\\Effect\\Special\\DigitWork01.zms");
+    if (hMesh == NULL) {
       ClearAll();
       return false;
     }
 
-    hAnimatable = loadAnimatable( CStr::Printf( "DigitNode_%d", i ), hMesh, m_hMotion, hMat, g_GameDATA.m_hShader_nolit );
-    if ( hAnimatable == NULL ) {
+    hAnimatable = loadAnimatable(CStr::Printf("DigitNode_%d", i), hMesh, m_hMotion, hMat, g_GameDATA.m_hShader_nolit);
+    if (hAnimatable == NULL) {
       ClearAll();
       return false;
     }
 
-    hDummy = loadVisible( CStr::Printf( "DigitDummy_%d", i ), 0, 0, 0 );
-    if ( hDummy == NULL ) {
+    hDummy = loadVisible(CStr::Printf("DigitDummy_%d", i), 0, 0, 0);
+    if (hDummy == NULL) {
       ClearAll();
       return false;
     }
 
     m_DigitNode[i].m_hPositionDummy = hDummy;
-    m_DigitNode[i].m_hAnimatable    = hAnimatable;
-    m_DigitNode[i].m_hMesh          = hMesh;
-    m_DigitNode[i].m_hMat           = hMat;
+    m_DigitNode[i].m_hAnimatable = hAnimatable;
+    m_DigitNode[i].m_hMesh = hMesh;
+    m_DigitNode[i].m_hMat = hMat;
 
     /// Material attribute setting
 
-    setMaterialBlendTypeCustom( hMat, D3DBLEND_SRCALPHA,
-                                D3DBLEND_INVSRCALPHA,
-                                D3DBLENDOP_ADD
+    setMaterialBlendTypeCustom(hMat, D3DBLEND_SRCALPHA,
+      D3DBLEND_INVSRCALPHA,
+      D3DBLENDOP_ADD
     );
 
-    setMaterialUseAlpha( hMat, 1 );
-    setMaterialUseLight( hMat, 0 ); // ¶óÀÌÆÃ Àû¿ë ¾ÈÇÔ.
-
-    //::setMaterialUseAlphaTest( hMat, 1 );
-    //::setMaterialZWrite( hMat, 1 );
-    //::setMaterialZTest( hMat, 1 );
+    setMaterialUseAlpha(hMat, 1);
+    setMaterialUseLight(hMat, 0); // ë¼ì´íŒ… ì ìš© ì•ˆí•¨.
 
     /// 
-    setBillboard( m_DigitNode[i].m_hAnimatable, 1 );
-    controlAnimatable( m_DigitNode[i].m_hAnimatable, 0 );
+    setBillboard(m_DigitNode[i].m_hAnimatable, 1);
+    controlAnimatable(m_DigitNode[i].m_hAnimatable, 0);
 
-    setRepeatCount( m_DigitNode[i].m_hAnimatable, 1 );
+    setRepeatCount(m_DigitNode[i].m_hAnimatable, 1);
 
-    linkNode( hDummy, hAnimatable );
+    linkNode(hDummy, hAnimatable);
 
     //::insertToScene( hDummy );
     //----------------------------------------------------------------------------------------------------	
-    /// @brief CHILDÀÇInsertToSceneÁ¦°Å
+    /// @brief CHILDÃ€Ã‡InsertToSceneÃÂ¦Â°Ã…
     //----------------------------------------------------------------------------------------------------
     //::insertToScene( hAnimatable );
   }
 
   /// Load digit number
-  m_DigitTex[DIGIT_NORMAL] = loadTextureWithPool( "3DData\\Effect\\Special\\DigitNumber01.dds",
-                                                  "3DData\\Effect\\Special\\DigitNumber01.dds",
-                                                  1,
-                                                  0,
-                                                  2 );
-  if ( m_DigitTex[DIGIT_NORMAL] == NULL ) {
-    g_pCApp->ErrorBOX( "Chatbox load failed !!", "File open error" );
-    //½ÇÆĞÇÑ ÀÌÀ¯¸¦ Àû¾îÁØ´Ù..
+  m_DigitTex[DIGIT_NORMAL] = loadTextureWithPool("3DData\\Effect\\Special\\DigitNumber01.dds",
+    "3DData\\Effect\\Special\\DigitNumber01.dds",
+    1,
+    0,
+    2);
+  if (m_DigitTex[DIGIT_NORMAL] == NULL) {
+    g_pCApp->ErrorBOX("Normal Digit Texture load failed !!", "File open error");
+    //Â½Ã‡Ã†ÃÃ‡Ã‘ Ã€ÃŒÃ€Â¯Â¸Â¦ Ã€Ã»Â¾Ã®ÃÃ˜Â´Ã™..
     ClearAll();
     return false;
   }
 
   /// Load digit number
-  m_DigitTex[DIGIT_ATTACKED] = loadTextureWithPool( "3DData\\Effect\\Special\\DigitNumber02.dds",
-                                                    "3DData\\Effect\\Special\\DigitNumber02.dds",
-                                                    1,
-                                                    0,
-                                                    2 );
-  if ( m_DigitTex[DIGIT_ATTACKED] == NULL ) {
-    g_pCApp->ErrorBOX( "Chatbox load failed !!", "File open error" );
-    //½ÇÆĞÇÑ ÀÌÀ¯¸¦ Àû¾îÁØ´Ù..
+  m_DigitTex[DIGIT_ATTACKED] = loadTextureWithPool("3DData\\Effect\\Special\\DigitNumber02.dds",
+    "3DData\\Effect\\Special\\DigitNumber02.dds",
+    1,
+    0,
+    2);
+  if (m_DigitTex[DIGIT_ATTACKED] == NULL) {
+    g_pCApp->ErrorBOX("Attacked Digit Texture load failed !!", "File open error");
+    //Â½Ã‡Ã†ÃÃ‡Ã‘ Ã€ÃŒÃ€Â¯Â¸Â¦ Ã€Ã»Â¾Ã®ÃÃ˜Â´Ã™..
     ClearAll();
     return false;
   }
 
   /// Load digit clear number
-  m_DigitClearTex = loadTextureWithPool( "3DData\\Effect\\Special\\DigitWorkClear.dds",
-                                         "3DData\\Effect\\Special\\DigitWorkClear.dds",
-                                         1,
-                                         0,
-                                         2 );
-  if ( m_DigitClearTex == NULL ) {
-    g_pCApp->ErrorBOX( "m_DigitClearTex load failed !!", "File open error" );
-    //½ÇÆĞÇÑ ÀÌÀ¯¸¦ Àû¾îÁØ´Ù..
+  m_DigitClearTex = loadTextureWithPool("3DData\\Effect\\Special\\DigitWorkClear.dds",
+    "3DData\\Effect\\Special\\DigitWorkClear.dds",
+    1,
+    0,
+    2);
+  if (m_DigitClearTex == NULL) {
+    g_pCApp->ErrorBOX("Clear Digit Texture load failed !!", "File open error");
+    //Â½Ã‡Ã†ÃÃ‡Ã‘ Ã€ÃŒÃ€Â¯Â¸Â¦ Ã€Ã»Â¾Ã®ÃÃ˜Â´Ã™..
     ClearAll();
     return false;
   }
 
   /// Load digit Miss number
-  m_DigitMissTex = loadTextureWithPool( "3DData\\Effect\\Special\\DigitNumberMiss.dds",
-                                        "3DData\\Effect\\Special\\DigitNumberMiss.dds",
-                                        1,
-                                        0,
-                                        2 );
-  if ( m_DigitMissTex == NULL ) {
-    g_pCApp->ErrorBOX( "m_DigitMissTex load failed !!", "File open error" );
-    //½ÇÆĞÇÑ ÀÌÀ¯¸¦ Àû¾îÁØ´Ù..
+  m_DigitMissTex = loadTextureWithPool("3DData\\Effect\\Special\\DigitNumberMiss.dds",
+    "3DData\\Effect\\Special\\DigitNumberMiss.dds",
+    1,
+    0,
+    2);
+  if (m_DigitMissTex == NULL) {
+    g_pCApp->ErrorBOX("Miss Digit Texture load failed !!", "File open error");
+    //Â½Ã‡Ã†ÃÃ‡Ã‘ Ã€ÃŒÃ€Â¯Â¸Â¦ Ã€Ã»Â¾Ã®ÃÃ˜Â´Ã™..
     ClearAll();
     return false;
   }
@@ -191,93 +189,86 @@ bool CDigitEffect::Init() {
 
 void    CDigitEffect::ClearAll() {
   HNODE hVisible = NULL;
-  HNODE hMesh    = NULL;
-  HNODE hMat     = NULL;
+  HNODE hMesh = NULL;
+  HNODE hMat = NULL;
 
-  for ( int i = 0; i < MAX_DIGIT_EFFECT; i++ ) {
-    if ( m_DigitNode[i].m_hPositionDummy != NULL ) {
-      removeFromScene( m_DigitNode[i].m_hPositionDummy );
-      unloadVisible( m_DigitNode[i].m_hPositionDummy );
+  for (int i = 0; i < MAX_DIGIT_EFFECT; i++) {
+    if (m_DigitNode[i].m_hPositionDummy != NULL) {
+      removeFromScene(m_DigitNode[i].m_hPositionDummy);
+      unloadVisible(m_DigitNode[i].m_hPositionDummy);
       m_DigitNode[i].m_hPositionDummy = NULL;
     }
 
-    if ( m_DigitNode[i].m_hAnimatable != NULL ) {
+    if (m_DigitNode[i].m_hAnimatable != NULL) {
       //----------------------------------------------------------------------------------------------------	
-      /// @brief CHILDÀÇRemoveToSceneÁ¦°Å
+      /// @brief CHILDÃ€Ã‡RemoveToSceneÃÂ¦Â°Ã…
       //----------------------------------------------------------------------------------------------------
       //::removeFromScene( m_DigitNode[ i ].m_hAnimatable );
-      unloadAnimatable( m_DigitNode[i].m_hAnimatable );
+      unloadAnimatable(m_DigitNode[i].m_hAnimatable);
       m_DigitNode[i].m_hAnimatable = NULL;
     }
 
-    if ( m_DigitNode[i].m_hMesh != NULL ) {
-      unloadMesh( m_DigitNode[i].m_hMesh );
+    if (m_DigitNode[i].m_hMesh != NULL) {
+      unloadMesh(m_DigitNode[i].m_hMesh);
       m_DigitNode[i].m_hMesh = NULL;
     }
 
-    if ( m_DigitNode[i].m_hMat != NULL ) {
-      unloadMaterial( m_DigitNode[i].m_hMat );
+    if (m_DigitNode[i].m_hMat != NULL) {
+      unloadMaterial(m_DigitNode[i].m_hMat);
       m_DigitNode[i].m_hMat = NULL;
     }
 
   }
 
-  if ( m_hMotion != NULL ) {
-    unloadMotion( m_hMotion );
+  if (m_hMotion != NULL) {
+    unloadMotion(m_hMotion);
     m_hMotion = NULL;
   }
 
-  if ( m_DigitTex[DIGIT_NORMAL] != NULL ) {
-    unloadTexture( m_DigitTex[DIGIT_NORMAL] );
+  if (m_DigitTex[DIGIT_NORMAL] != NULL) {
+    unloadTexture(m_DigitTex[DIGIT_NORMAL]);
     m_DigitTex[DIGIT_NORMAL] = NULL;
   }
-  if ( m_DigitTex[DIGIT_ATTACKED] != NULL ) {
-    unloadTexture( m_DigitTex[DIGIT_ATTACKED] );
+  if (m_DigitTex[DIGIT_ATTACKED] != NULL) {
+    unloadTexture(m_DigitTex[DIGIT_ATTACKED]);
     m_DigitTex[DIGIT_ATTACKED] = NULL;
   }
 
-  if ( m_DigitClearTex != NULL ) {
-    unloadTexture( m_DigitClearTex );
+  if (m_DigitClearTex != NULL) {
+    unloadTexture(m_DigitClearTex);
     m_DigitClearTex = NULL;
   }
 
-  if ( m_DigitMissTex != NULL ) {
-    unloadTexture( m_DigitMissTex );
+  if (m_DigitMissTex != NULL) {
+    unloadTexture(m_DigitMissTex);
     m_DigitMissTex = NULL;
   }
 }
 
-/// Animation ÀÌ ³¡³­³ğµéÀº ¾Èº¸ÀÌ°Ô ÇÑ´Ù.
+/// Animation ì´ ëë‚œë†ˆë“¤ì€ ì•ˆë³´ì´ê²Œ í•œë‹¤.
 void        CDigitEffect::Refresh() {
-  for ( int i = 0; i < MAX_DIGIT_EFFECT; i++ ) {
-    if ( (m_DigitNode[i].m_hAnimatable != NULL) && m_DigitNode[i].m_bVisible ) {
-      short int iState = getAnimatableState( m_DigitNode[i].m_hAnimatable );
+  for (int i = 0; i < MAX_DIGIT_EFFECT; i++) {
+    if ((m_DigitNode[i].m_hAnimatable != NULL) && m_DigitNode[i].m_bVisible) {
+      const short int iState = ::getAnimatableState(m_DigitNode[i].m_hAnimatable);
 
-      if ( iState == 0 ) {
+      if (iState == 0) {
         //----------------------------------------------------------------------------------------------------	
-        /// @brief Visibility ·Î Á¶Á¤ÇÏ´Â°Ô ¾Æ´Ï¶ó ¾Æ¿¹ Scene¿¡¼­ »«´Ù.
+        /// @brief Visibility Â·Ã ÃÂ¶ÃÂ¤Ã‡ÃÂ´Ã‚Â°Ã” Â¾Ã†Â´ÃÂ¶Ã³ Â¾Ã†Â¿Â¹ SceneÂ¿Â¡Â¼Â­ Â»Â«Â´Ã™.
         //----------------------------------------------------------------------------------------------------
-        removeFromScene( m_DigitNode[i].m_hPositionDummy );
+        ::removeFromScene(m_DigitNode[i].m_hPositionDummy);
         m_DigitNode[i].m_bVisible = false;
-        /*::setVisibility( m_DigitNode[ i ].m_hAnimatable, 0 );
-        ::setVisibility( m_DigitNode[ i ].m_hPositionDummy, 0 );*/
       }
     }
   }
 }
 
-/// ÇöÀç »ç¿ëÁßÀÌÁö ¾ÊÀº ³ëµå¸¦ ±¸ÇÑ´Ù.
+/// Ã‡Ã¶Ã€Ã§ Â»Ã§Â¿Ã«ÃÃŸÃ€ÃŒÃÃ¶ Â¾ÃŠÃ€Âº Â³Ã«ÂµÃ¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 int         CDigitEffect::GetEmptyNode() {
-  for ( int i = 0; i < MAX_DIGIT_EFFECT; i++ ) {
-    /*if( m_DigitNode[ i ].m_hMesh == NULL )
-    {
-    return i;
-    }*/
+  for (int i = 0; i < MAX_DIGIT_EFFECT; i++) {
+    if ((m_DigitNode[i].m_bVisible == false) && (m_DigitNode[i].m_hAnimatable != NULL)) {
+      const short int iState = ::getAnimatableState(m_DigitNode[i].m_hAnimatable);
 
-    if ( (m_DigitNode[i].m_bVisible == false) && (m_DigitNode[i].m_hAnimatable != NULL) ) {
-      short int iState = getAnimatableState( m_DigitNode[i].m_hAnimatable );
-
-      if ( iState == 0 ) {
+      if (iState == 0) {
         return i;
       }
     }
@@ -289,186 +280,221 @@ int         CDigitEffect::GetEmptyNode() {
 #define __DIGITEFFECT8
 #ifdef __DIGITEFFECT8
 
-void  CDigitEffect::CreateDigitEffect(int iPoint, float x, float y, float z, bool bIsUSER) {
+void  CDigitEffect::CreateDigitEffect(const int iPoint, const float x, const float y, const float z, const bool bIsUSER) {
   int iEmptyNode = GetEmptyNode();
 
-  if ( iEmptyNode == INVALID_EFFECTNODE )
+  if (iEmptyNode == INVALID_EFFECTNODE)
     return;
 
-  /// °¢ ÀÚ¸´¼ö¸¦ ±¸ÇÑ´Ù..
+  /// Â°Â¢ Ã€ÃšÂ¸Â´Â¼Ã¶Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™..
   int iDigit[8];
-  iPoint    = iPoint % 100000000;
-  iDigit[0] = iPoint / 10000000;
-  iDigit[1] = (iPoint % 10000000) / 1000000;
-  iDigit[2] = (iPoint % 1000000) / 100000;
-  iDigit[3] = (iPoint % 100000) / 10000;
-  iDigit[4] = (iPoint % 10000) / 1000;
-  iDigit[5] = (iPoint % 1000) / 100;
-  iDigit[6] = (iPoint % 100) / 10;
-  iDigit[7] = (iPoint % 10);
+  int iNumber = iPoint % 100000000;
+  iDigit[0] = iNumber / 10000000;
+  iDigit[1] = (iNumber % 10000000) / 1000000;
+  iDigit[2] = (iNumber % 1000000) / 100000;
+  iDigit[3] = (iNumber % 100000) / 10000;
+  iDigit[4] = (iNumber % 10000) / 1000;
+  iDigit[5] = (iNumber % 1000) / 100;
+  iDigit[6] = (iNumber % 100) / 10;
+  iDigit[7] = (iNumber % 10);
 
-  /// ¸î°³ÀÇ ¼ıÀÚ¸¦ Ç¥½ÃÇØ¾ßÇÏ´Â°¡?
+  /// ëª‡ê°œì˜ ìˆ«ìë¥¼ í‘œì‹œí•´ì•¼í•˜ëŠ”ê°€?
   int iDigitCount = DIGIT_COUNT;
-  int i;
-  for ( i = 0; i < DIGIT_COUNT; i++ ) {
-    if ( iDigit[i] == 0 )
+  for (int i = 0; i < DIGIT_COUNT; i++) {
+    if (iDigit[i] == 0)
       iDigitCount--;
     else
       break;
   }
 
-  /// Ãâ·ÂÇÒ ¼ıÀÚ°¡ ¾ø´Ù..
-  if ( iDigitCount == 0 ) {
-    int          iMissWidth   = 0, iMissHeight = 0;
-    LPD3DTEXTURE workTexture  = (LPD3DTEXTURE)getTexture( m_DigitNode[iEmptyNode].m_hMat, 0 );
-    LPD3DTEXTURE MissTexture  = (LPD3DTEXTURE)getTexturePointer( m_DigitMissTex );
-    LPD3DTEXTURE ClearTexture = (LPD3DTEXTURE)getTexturePointer( m_DigitClearTex );
+  LPDIRECT3DSURFACE9 psurfWork = nullptr;
+  LPDIRECT3DSURFACE9 psurfDigit = nullptr;
+  LPDIRECT3DSURFACE9 psurfMiss = nullptr;
+  LPDIRECT3DSURFACE9 psurfClear = nullptr;
 
-    LPDIRECT3DSURFACE9 psurfWork  = nullptr;
-    LPDIRECT3DSURFACE9 psurfMiss  = nullptr;
-    LPDIRECT3DSURFACE9 psurfClear = nullptr;
+  std::function<void()> cleanupMem = [&]()
+  {
+    SAFE_RELEASE(psurfWork);
+    SAFE_RELEASE(psurfDigit);
+    SAFE_RELEASE(psurfMiss);
+    SAFE_RELEASE(psurfClear);
+  };
 
-    if ( !workTexture || !MissTexture ) return; // ÅØ½ºÃÄ°¡ ¾ÆÁ÷ ·ÎµùµÇÁö ¾ÊÀº »óÅÂ¶ó¸é °Ç³Ê¶Ü.
+  auto work_texture = reinterpret_cast<LPD3DTEXTURE>(getTexture(m_DigitNode[iEmptyNode].m_hMat, 0));
+  auto clear_texture = reinterpret_cast<LPD3DTEXTURE>(::getTexturePointer(m_DigitClearTex));
+
+  /// ì¶œë ¥í•  ìˆ«ìê°€ ì—†ë‹¤..
+  if (iDigitCount == 0) {
+    int          iMissWidth = 0, iMissHeight = 0;
+    auto miss_texture = reinterpret_cast<LPD3DTEXTURE>(getTexturePointer(m_DigitMissTex));
+
+    if (!work_texture || !miss_texture || !clear_texture) return; // Ã…Ã˜Â½ÂºÃƒÃ„Â°Â¡ Â¾Ã†ÃÃ· Â·ÃÂµÃ¹ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â°Ã‡Â³ÃŠÂ¶Ãœ.
 
     HRESULT hr = S_OK;
 
-    /// ÀÛ¾÷ ÅØ½ºÃÄ..
-    hr = workTexture->GetSurfaceLevel( 0, &psurfWork );
-    if ( FAILED(hr) )
+    /// Ã€Ã›Â¾Ã· Ã…Ã˜Â½ÂºÃƒÃ„..
+    hr = work_texture->GetSurfaceLevel(0, &psurfWork);
+    if (FAILED(hr))
+    {
+      cleanupMem();
       return;
+    }
 
-    /// Miss ÅØ½ºÃÄ..
-    hr = MissTexture->GetSurfaceLevel( 0, &psurfMiss );
-    if ( FAILED(hr) )
+    /// Miss Ã…Ã˜Â½ÂºÃƒÃ„..
+    hr = miss_texture->GetSurfaceLevel(0, &psurfMiss);
+    if (FAILED(hr))
+    {
+      cleanupMem();
       return;
+    }
 
-    /// Clear ÅØ½ºÃÄ..
-    hr = ClearTexture->GetSurfaceLevel( 0, &psurfClear );
-    if ( FAILED(hr) )
+    hr = clear_texture->GetSurfaceLevel(0, &psurfClear);
+    if (FAILED(hr))
+    {
+      cleanupMem();
       return;
+    }
 
-    RECT        SourceRect       = { 0, };
-    LPD3DDEVICE pDevice          = (LPD3DDEVICE)getDevice();
+    RECT        SourceRect = { 0, 0, 0, 0 };
+    auto pDevice = reinterpret_cast<LPD3DDEVICE>(::getDevice());
     POINT       DestinationPoint = { 0, 0 };
 
-    getTextureSize( m_DigitClearTex, iMissWidth, iMissHeight );
-    SourceRect.right  = iMissWidth;
-    SourceRect.bottom = iMissHeight;
+    int clear_width = 0, clear_height = 0;
+    ::getTextureSize(m_DigitClearTex, clear_width, clear_height);
+    SourceRect.right = clear_width;
+    SourceRect.bottom = clear_height;
 
-    hr = pDevice->UpdateSurface( psurfClear,
-                                 &SourceRect,
-                                 psurfWork,
-                                 &DestinationPoint );
-
-    getTextureSize( m_DigitMissTex, iMissWidth, iMissHeight );
-    SourceRect.right  = iMissWidth;
-    SourceRect.bottom = iMissHeight;
-
-    hr = pDevice->UpdateSurface( psurfMiss,
-                                 &SourceRect,
-                                 psurfWork,
-                                 &DestinationPoint );
-
-    if ( FAILED(hr) )
+    hr = pDevice->UpdateSurface(psurfClear,
+      &SourceRect,
+      psurfWork,
+      &DestinationPoint);
+    if (FAILED(hr))
+    {
+      cleanupMem();
       return;
+    }
 
-    setPosition( m_DigitNode[iEmptyNode].m_hPositionDummy, x, y, z );
-    controlAnimatable( m_DigitNode[iEmptyNode].m_hAnimatable, 1 );
+    ::getTextureSize(m_DigitMissTex, iMissWidth, iMissHeight);
+    SourceRect.right = iMissWidth;
+    SourceRect.bottom = iMissHeight;
+
+    hr = pDevice->UpdateSurface(psurfMiss,
+      &SourceRect,
+      psurfWork,
+      &DestinationPoint);
+
+    if (FAILED(hr))
+    {
+      cleanupMem();
+      return;
+    }
+
+    ::setPosition(m_DigitNode[iEmptyNode].m_hPositionDummy, x, y, z);
+    ::controlAnimatable(m_DigitNode[iEmptyNode].m_hAnimatable, 1);
 
     //----------------------------------------------------------------------------------------------------	
-    /// @brief Visibility ·Î Á¶Á¤ÇÏ´Â°Ô ¾Æ´Ï¶ó ¾Æ¿¹ Scene¿¡¼­ ³Ö°Ô »©±â...
+    /// @brief Visibility Â·Ã ÃÂ¶ÃÂ¤Ã‡ÃÂ´Ã‚Â°Ã” Â¾Ã†Â´ÃÂ¶Ã³ Â¾Ã†Â¿Â¹ SceneÂ¿Â¡Â¼Â­ Â³Ã–Â°Ã” Â»Â©Â±Ã¢...
     //----------------------------------------------------------------------------------------------------
-    insertToScene( m_DigitNode[iEmptyNode].m_hPositionDummy );
+    ::insertToScene(m_DigitNode[iEmptyNode].m_hPositionDummy);
     m_DigitNode[iEmptyNode].m_bVisible = true;
     ///::setVisibility( m_DigitNode[ iEmptyNode ].m_hAnimatable, 1 );
-
-    SAFE_RELEASE(psurfWork);
-    SAFE_RELEASE(psurfMiss);
-  } else {
-
-    if ( m_DigitNode[iEmptyNode].m_hMat == NULL )
+  }
+  else {
+    if (m_DigitNode[iEmptyNode].m_hMat == NULL)
       return;
 
-    LPD3DTEXTURE workTexture = (LPD3DTEXTURE)getTexture( m_DigitNode[iEmptyNode].m_hMat, 0 );
-
-    /// ³»°¡ ¸÷À» ¶§·ÈÀ»¶§¶û, ¾Æ¹ÙÅ¸°¡ ¸÷À» ¶§¸°°Å¶ûÀº Æ²¸®´Ù »öÀÌ.
-    LPD3DTEXTURE DigitTexture = nullptr;
-    if ( bIsUSER )
-      DigitTexture = (LPD3DTEXTURE)getTexturePointer( m_DigitTex[DIGIT_ATTACKED] );
+    /// Â³Â»Â°Â¡ Â¸Ã·Ã€Â» Â¶Â§Â·ÃˆÃ€Â»Â¶Â§Â¶Ã», Â¾Ã†Â¹Ã™Ã…Â¸Â°Â¡ Â¸Ã·Ã€Â» Â¶Â§Â¸Â°Â°Ã…Â¶Ã»Ã€Âº Ã†Â²Â¸Â®Â´Ã™ Â»Ã¶Ã€ÃŒ.
+    LPD3DTEXTURE digit_texture;
+    if (bIsUSER)
+      digit_texture = reinterpret_cast<LPD3DTEXTURE>(getTexturePointer(m_DigitTex[DIGIT_ATTACKED]));
     else
-      DigitTexture = (LPD3DTEXTURE)getTexturePointer( m_DigitTex[DIGIT_NORMAL] );
+      digit_texture = reinterpret_cast<LPD3DTEXTURE>(getTexturePointer(m_DigitTex[DIGIT_NORMAL]));
 
-    LPD3DTEXTURE ClearTexture = (LPD3DTEXTURE)getTexturePointer( m_DigitClearTex );
-
-    LPDIRECT3DSURFACE9 psurfWork  = nullptr;
-    LPDIRECT3DSURFACE9 psurfDigit = nullptr;
-    LPDIRECT3DSURFACE9 psurfClear = nullptr;
-
-    if ( !workTexture || !DigitTexture || !ClearTexture ) return; // ÅØ½ºÃÄ°¡ ¾ÆÁ÷ ·ÎµùµÇÁö ¾ÊÀº »óÅÂ¶ó¸é °Ç³Ê¶Ü.
+    if (!work_texture || !digit_texture || !clear_texture) return; // Ã…Ã˜Â½ÂºÃƒÃ„Â°Â¡ Â¾Ã†ÃÃ· Â·ÃÂµÃ¹ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â°Ã‡Â³ÃŠÂ¶Ãœ.
 
     HRESULT hr = S_OK;
 
-    /// ÀÛ¾÷ ÅØ½ºÃÄ..
-    hr = workTexture->GetSurfaceLevel( 0, &psurfWork );
-    if ( FAILED(hr) )
+    /// Ã€Ã›Â¾Ã· Ã…Ã˜Â½ÂºÃƒÃ„..
+    hr = work_texture->GetSurfaceLevel(0, &psurfWork);
+    if (FAILED(hr))
+    {
+      cleanupMem();
       return;
+    }
 
-    /// ¼ıÀÚ ÅØ½ºÃÄ..
-    hr = DigitTexture->GetSurfaceLevel( 0, &psurfDigit );
-    if ( FAILED(hr) )
+    /// Â¼Ã½Ã€Ãš Ã…Ã˜Â½ÂºÃƒÃ„..
+    hr = digit_texture->GetSurfaceLevel(0, &psurfDigit);
+    if (FAILED(hr))
+    {
+      cleanupMem();
       return;
+    }
 
-    /// Clear ÅØ½ºÃÄ..
-    hr = ClearTexture->GetSurfaceLevel( 0, &psurfClear );
-    if ( FAILED(hr) )
+    /// Clear Ã…Ã˜Â½ÂºÃƒÃ„..
+    hr = clear_texture->GetSurfaceLevel(0, &psurfClear);
+    if (FAILED(hr))
+    {
+      cleanupMem();
       return;
+    }
 
-    RECT  SourceRect       = { 0, 0, DIGIT_WIDTH * DIGIT_COUNT, DIGIT_HEIGHT };
+    RECT  SourceRect = { 0, 0, 0, 0 };
     POINT DestinationPoint = { 0, 0 };
 
-    LPD3DDEVICE pDevice = (LPD3DDEVICE)getDevice();
-    hr                  = pDevice->UpdateSurface( psurfClear,
-                                                  &SourceRect,
-                                                  psurfWork,
-                                                  &DestinationPoint );
+    int clear_width = 0, clear_height = 0;
+    ::getTextureSize(m_DigitClearTex, clear_width, clear_height);
+    SourceRect.right = clear_width;
+    SourceRect.bottom = clear_height;
 
-    /// ¼¾Å¸·Î À§Ä¡
+    LPD3DDEVICE pDevice = reinterpret_cast<LPD3DDEVICE>(::getDevice());
+    hr = pDevice->UpdateSurface(psurfClear,
+      &SourceRect,
+      psurfWork,
+      &DestinationPoint);
+
+    if (FAILED(hr))
+    {
+      cleanupMem();
+      return;
+    }
+
+    /// Â¼Â¾Ã…Â¸Â·Ã Ã€Â§Ã„Â¡
     int iStartPos = ((DIGIT_COUNT - iDigitCount) * DIGIT_WIDTH) / 2;
 
-    for ( i = 0; i < iDigitCount; i++ ) {
-      SetRect( &SourceRect, (DIGIT_WIDTH * iDigit[DIGIT_COUNT - iDigitCount + i]), 0, (DIGIT_WIDTH * iDigit[DIGIT_COUNT - iDigitCount + i]) + DIGIT_WIDTH, DIGIT_HEIGHT );
+    for (int i = 0; i < iDigitCount; i++) {
+      SetRect(&SourceRect, (DIGIT_WIDTH * iDigit[DIGIT_COUNT - iDigitCount + i]), 0, (DIGIT_WIDTH * iDigit[DIGIT_COUNT - iDigitCount + i]) + DIGIT_WIDTH, DIGIT_HEIGHT);
       DestinationPoint.x = iStartPos + i * DIGIT_WIDTH;
       DestinationPoint.y = 0;
 
-      hr = pDevice->UpdateSurface( psurfDigit,
-                                   &SourceRect,
-                                   psurfWork,
-                                   &DestinationPoint );
+      hr = pDevice->UpdateSurface(psurfDigit,
+        &SourceRect,
+        psurfWork,
+        &DestinationPoint);
 
-      if ( FAILED(hr) ) {
+      if (FAILED(hr))
+      {
+        cleanupMem();
         return;
       }
     }
 
-    setPosition( m_DigitNode[iEmptyNode].m_hPositionDummy, x, y, z );
-    controlAnimatable( m_DigitNode[iEmptyNode].m_hAnimatable, 1 );
+    setPosition(m_DigitNode[iEmptyNode].m_hPositionDummy, x, y, z);
+    controlAnimatable(m_DigitNode[iEmptyNode].m_hAnimatable, 1);
 
     //----------------------------------------------------------------------------------------------------	
-    /// @brief Visibility ·Î Á¶Á¤ÇÏ´Â°Ô ¾Æ´Ï¶ó ¾Æ¿¹ Scene¿¡¼­ ³Ö°Ô »©±â...
+    /// @brief Visibility Â·Ã ÃÂ¶ÃÂ¤Ã‡ÃÂ´Ã‚Â°Ã” Â¾Ã†Â´ÃÂ¶Ã³ Â¾Ã†Â¿Â¹ SceneÂ¿Â¡Â¼Â­ Â³Ã–Â°Ã” Â»Â©Â±Ã¢...
     //----------------------------------------------------------------------------------------------------
-    insertToScene( m_DigitNode[iEmptyNode].m_hPositionDummy );
+    insertToScene(m_DigitNode[iEmptyNode].m_hPositionDummy);
     m_DigitNode[iEmptyNode].m_bVisible = true;
     ///::setVisibility( m_DigitNode[ iEmptyNode ].m_hAnimatable, 1 );
-
-    SAFE_RELEASE(psurfWork);
-    SAFE_RELEASE(psurfDigit);
-    SAFE_RELEASE(psurfClear);
   }
+
+  cleanupMem();
 }
 
 #else
 
-/// ÃÖ´ë 4ÀÚ¸® Å¸°İÄ¡¸¦ Ç¥ÇöÇÑ´Ù.. ( 32 * 32 * 4 )
+/// ÃƒÃ–Â´Ã« 4Ã€ÃšÂ¸Â® Ã…Â¸Â°ÃÃ„Â¡Â¸Â¦ Ã‡Â¥Ã‡Ã¶Ã‡Ã‘Â´Ã™.. ( 32 * 32 * 4 )
 void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bool bIsUSER)
 {
   int iEmptyNode = GetEmptyNode();
@@ -487,9 +513,9 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
   iDigit[6] = (iPoint % 100) / 10;
   iDigit[7] = (iPoint % 10);
 
-  /// °¢ ÀÚ¸´¼ö¸¦ ±¸ÇÑ´Ù..
+  /// Â°Â¢ Ã€ÃšÂ¸Â´Â¼Ã¶Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™..
 
-  /// ¸î°³ÀÇ ¼ıÀÚ¸¦ Ç¥½ÃÇØ¾ßÇÏ´Â°¡?
+  /// Â¸Ã®Â°Â³Ã€Ã‡ Â¼Ã½Ã€ÃšÂ¸Â¦ Ã‡Â¥Â½ÃƒÃ‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚Â°Â¡?
   int iDigitCount = DIGIT_COUNT;
   for (int i = 0; i < DIGIT_COUNT; i++)
   {
@@ -499,7 +525,7 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
       break;
   }
 
-  /// Ãâ·ÂÇÒ ¼ıÀÚ°¡ ¾ø´Ù..
+  /// ÃƒÃ¢Â·Ã‚Ã‡Ã’ Â¼Ã½Ã€ÃšÂ°Â¡ Â¾Ã¸Â´Ã™..
   if (iDigitCount == 0)
   {
     LPD3DTEXTURE		workTexture = (LPD3DTEXTURE) ::getTexture(m_DigitNode[iEmptyNode].m_hMat, 0);
@@ -508,21 +534,21 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
     LPDIRECT3DSURFACE9 psurfWork = NULL;
     LPDIRECT3DSURFACE9 psurfMiss = NULL;
 
-    if (!workTexture || !MissTexture) return; // ÅØ½ºÃÄ°¡ ¾ÆÁ÷ ·ÎµùµÇÁö ¾ÊÀº »óÅÂ¶ó¸é °Ç³Ê¶Ü.
+    if (!workTexture || !MissTexture) return; // Ã…Ã˜Â½ÂºÃƒÃ„Â°Â¡ Â¾Ã†ÃÃ· Â·ÃÂµÃ¹ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â°Ã‡Â³ÃŠÂ¶Ãœ.
 
     HRESULT hr = S_OK;
 
-    /// ÀÛ¾÷ ÅØ½ºÃÄ..
+    /// Ã€Ã›Â¾Ã· Ã…Ã˜Â½ÂºÃƒÃ„..
     hr = workTexture->GetSurfaceLevel(0, &psurfWork);
     if (FAILED(hr))
       return;
 
-    /// Miss ÅØ½ºÃÄ..
+    /// Miss Ã…Ã˜Â½ÂºÃƒÃ„..
     hr = MissTexture->GetSurfaceLevel(0, &psurfMiss);
     if (FAILED(hr))
       return;
 
-    RECT SourceRect = { 0, 0, DIGIT_WIDTH*DIGIT_COUNT, DIGIT_HEIGHT };
+    RECT SourceRect = { 0, 0, DIGIT_WIDTH * DIGIT_COUNT, DIGIT_HEIGHT };
     POINT DestinationPoint = { 0, 0 };
 
     LPD3DDEVICE pDevice = (LPD3DDEVICE)::getDevice();
@@ -539,7 +565,7 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
     ::controlAnimatable(m_DigitNode[iEmptyNode].m_hAnimatable, 1);
 
     //----------------------------------------------------------------------------------------------------	
-/// @brief Visibility ·Î Á¶Á¤ÇÏ´Â°Ô ¾Æ´Ï¶ó ¾Æ¿¹ Scene¿¡¼­ ³Ö°Ô »©±â...
+/// @brief Visibility Â·Ã ÃÂ¶ÃÂ¤Ã‡ÃÂ´Ã‚Â°Ã” Â¾Ã†Â´ÃÂ¶Ã³ Â¾Ã†Â¿Â¹ SceneÂ¿Â¡Â¼Â­ Â³Ã–Â°Ã” Â»Â©Â±Ã¢...
     //----------------------------------------------------------------------------------------------------
     ::insertToScene(m_DigitNode[iEmptyNode].m_hPositionDummy);
     m_DigitNode[iEmptyNode].m_bVisible = true;
@@ -556,7 +582,7 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
 
     LPD3DTEXTURE		workTexture = (LPD3DTEXTURE) ::getTexture(m_DigitNode[iEmptyNode].m_hMat, 0);
 
-    /// ³»°¡ ¸÷À» ¶§·ÈÀ»¶§¶û, ¾Æ¹ÙÅ¸°¡ ¸÷À» ¶§¸°°Å¶ûÀº Æ²¸®´Ù »öÀÌ.
+    /// Â³Â»Â°Â¡ Â¸Ã·Ã€Â» Â¶Â§Â·ÃˆÃ€Â»Â¶Â§Â¶Ã», Â¾Ã†Â¹Ã™Ã…Â¸Â°Â¡ Â¸Ã·Ã€Â» Â¶Â§Â¸Â°Â°Ã…Â¶Ã»Ã€Âº Ã†Â²Â¸Â®Â´Ã™ Â»Ã¶Ã€ÃŒ.
     LPD3DTEXTURE		DigitTexture = NULL;
     if (bIsUSER)
       DigitTexture = (LPD3DTEXTURE) ::getTexturePointer(m_DigitTex[DIGIT_ATTACKED]);
@@ -569,27 +595,27 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
     LPDIRECT3DSURFACE9 psurfDigit = NULL;
     LPDIRECT3DSURFACE9 psurfClear = NULL;
 
-    if (!workTexture || !DigitTexture || !ClearTexture) return; // ÅØ½ºÃÄ°¡ ¾ÆÁ÷ ·ÎµùµÇÁö ¾ÊÀº »óÅÂ¶ó¸é °Ç³Ê¶Ü.
+    if (!workTexture || !DigitTexture || !ClearTexture) return; // Ã…Ã˜Â½ÂºÃƒÃ„Â°Â¡ Â¾Ã†ÃÃ· Â·ÃÂµÃ¹ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â°Ã‡Â³ÃŠÂ¶Ãœ.
 
     HRESULT hr = S_OK;
 
-    /// ÀÛ¾÷ ÅØ½ºÃÄ..
+    /// Ã€Ã›Â¾Ã· Ã…Ã˜Â½ÂºÃƒÃ„..
     hr = workTexture->GetSurfaceLevel(0, &psurfWork);
     if (FAILED(hr))
       return;
 
-    /// ¼ıÀÚ ÅØ½ºÃÄ..
+    /// Â¼Ã½Ã€Ãš Ã…Ã˜Â½ÂºÃƒÃ„..
     hr = DigitTexture->GetSurfaceLevel(0, &psurfDigit);
     if (FAILED(hr))
       return;
 
-    /// Clear ÅØ½ºÃÄ..
+    /// Clear Ã…Ã˜Â½ÂºÃƒÃ„..
     hr = ClearTexture->GetSurfaceLevel(0, &psurfClear);
     if (FAILED(hr))
       return;
 
 
-    RECT SourceRect = { 0, 0, DIGIT_WIDTH*DIGIT_COUNT, DIGIT_HEIGHT };
+    RECT SourceRect = { 0, 0, DIGIT_WIDTH * DIGIT_COUNT, DIGIT_HEIGHT };
     POINT DestinationPoint = { 0, 0 };
 
 
@@ -599,7 +625,7 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
       psurfWork,
       &DestinationPoint);
 
-    /// ¼¾Å¸·Î À§Ä¡
+    /// Â¼Â¾Ã…Â¸Â·Ã Ã€Â§Ã„Â¡
     int iStartPos = ((DIGIT_COUNT - iDigitCount) * DIGIT_WIDTH) / 2;
 
     for (int i = 0; i < iDigitCount; i++)
@@ -624,7 +650,7 @@ void CDigitEffect::CreateDigitEffect(DWORD iPoint, float x, float y, float z, bo
     ::controlAnimatable(m_DigitNode[iEmptyNode].m_hAnimatable, 1);
 
     //----------------------------------------------------------------------------------------------------	
-/// @brief Visibility ·Î Á¶Á¤ÇÏ´Â°Ô ¾Æ´Ï¶ó ¾Æ¿¹ Scene¿¡¼­ ³Ö°Ô »©±â...
+/// @brief Visibility Â·Ã ÃÂ¶ÃÂ¤Ã‡ÃÂ´Ã‚Â°Ã” Â¾Ã†Â´ÃÂ¶Ã³ Â¾Ã†Â¿Â¹ SceneÂ¿Â¡Â¼Â­ Â³Ã–Â°Ã” Â»Â©Â±Ã¢...
     //----------------------------------------------------------------------------------------------------
     ::insertToScene(m_DigitNode[iEmptyNode].m_hPositionDummy);
     m_DigitNode[iEmptyNode].m_bVisible = true;

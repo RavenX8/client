@@ -177,71 +177,82 @@ uint32 zz_vfs::read(uint32 size) {
   return read_count;
 }
 
-zz_vfs::zz_vfs_protocol zz_vfs::parse_protocol_(const char* filename /* in */, const char* & real_filename /* out */) {
+zz_vfs::zz_vfs_protocol zz_vfs::parse_protocol_(const char* filename /* in */, std::string& real_filename /* out */) {
   const char            ftp_string[]   = FTP_STRING;
   const char            http_string[]  = HTTP_STRING;
   const char            zip_string[]   = ZIP_STRING;
   const char            local_string[] = LOCAL_STRING;
 
+  std::string::size_type offset = std::string::npos;
+  std::string fileName = filename;
+
   // ftp
-  if ( real_filename = strstr( filename, ftp_string ) ) {
+  //if ( real_filename = strstr( filename, ftp_string ) ) {
+  if ((offset = fileName.find(ftp_string)) != std::string::npos) {
     // reset filename
     // "ftp://zho.pe.kr/haha.txt" -> "zho.pe.kr/haha.txt"
-    real_filename += strlen( ftp_string );
+    real_filename = fileName.substr(offset);
+    //real_filename += strlen( ftp_string );
     // real_filename += strlen(ftp_hostname);
     return ZZ_VFS_FTP;
   }
 
   // http
-  if ( real_filename = strstr( filename, http_string ) ) {
-    real_filename += strlen( http_string );
+  //if ( real_filename = strstr( filename, http_string ) ) {
+  if ((offset = fileName.find(http_string)) != std::string::npos) {
+    real_filename = fileName.substr(offset);
+    //real_filename += strlen( http_string );
     return ZZ_VFS_HTTP;
   }
 
   // zip
-  if ( real_filename = strstr( filename, zip_string ) ) {
+  //if ( real_filename = strstr( filename, zip_string ) ) {
+  if ((offset = fileName.find(zip_string)) != std::string::npos) {
     // reset filename
     // "zip://haha.zip/haha.txt" -> "haha.zip/haha.txt"
-    real_filename += strlen( zip_string );
+    real_filename = fileName.substr(offset);
+    //real_filename += strlen( zip_string );
     return ZZ_VFS_ZIP;
   }
 
   // local
-  if ( real_filename = strstr( filename, local_string ) ) {
+  //if ( real_filename = strstr( filename, local_string ) ) {
+  if ((offset = fileName.find(local_string)) != std::string::npos) {
     // reset filename
     // "file://haha.zip/haha.txt" -> "haha.zip/haha.txt"
-    real_filename += strlen( local_string );
+    real_filename = fileName.substr(offset);
+    //real_filename += strlen( local_string );
     return ZZ_VFS_LOCAL;
   }
 
   // in pakcage mode, just point the start position of the filename string
-  real_filename = const_cast<char *>(filename);
+  real_filename = fileName;
   return ZZ_VFS_PKG;
 }
 
-#if (0) // full version
+#if (1) // full version
 bool zz_vfs::open (const char * filename, const zz_vfs_mode mode)
 {
-	char * real_filename = NULL;
+	std::string real_filename;
 	bool result = false;
-	
-	switch (parse_protocol(filename, real_filename)) {
+
+  switch (parse_protocol_(filename, real_filename)) {
 		case ZZ_VFS_ZIP :
-			real_filesystem_ = zz_new zz_vfs_zip;
-			result = ((zz_vfs_zip *)real_filesystem_)->open(real_filename, mode);
+		// 	real_filesystem_ = zz_new zz_vfs_zip;
+		// 	result = ((zz_vfs_zip *)real_filesystem_)->open(real_filename.c_str(), mode);
 			break;
 		case ZZ_VFS_HTTP :
 			break;
 		case ZZ_VFS_PKG :
 			if (zz_system::get_pkg_system()) {
 				real_filesystem_ = zz_new zz_vfs_pkg(zz_system::get_pkg_system());
-				result = ((zz_vfs_pkg *)real_filesystem_)->open(real_filename, mode);
+				result = ((zz_vfs_pkg *)real_filesystem_)->open(real_filename.c_str(), mode);
 				break;
 			}
-			// continue belowing
+			// continue below
 		case ZZ_VFS_LOCAL :
 			real_filesystem_ = zz_new zz_vfs_local;
-			result = ((zz_vfs_local *)real_filesystem_)->open(real_filename, mode);
+			result = ((zz_vfs_local *)real_filesystem_)->open(real_filename.c_str(), mode);
 			break;
 	}
 	if (!result) {

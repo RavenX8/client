@@ -127,6 +127,7 @@
 
 #include <string.h>
 #include <assert.h>
+#include <xstring>
 
 #define ZZ_VFS_NAMESIZE        ZZ_MAX_STRING
 #define ZZ_VFS_BUFFER_SIZE     8192
@@ -181,7 +182,7 @@ public:
 
 protected:
   // derived classes should not use these members and methods.
-  static zz_vfs_protocol parse_protocol_(const char* filename, const char* & real_filename);
+  static zz_vfs_protocol parse_protocol_(const char* filename, std::string& real_filename);
   zz_vfs*                real_filesystem_; // set by set_real_filesystem() in constructor
   char*                  data_;
   zz_vfs_status          status_;
