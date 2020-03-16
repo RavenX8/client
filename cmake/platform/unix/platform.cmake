@@ -7,6 +7,8 @@ else()
   add_definitions(-DNDEBUG)
 endif()
 
+set(COPY_SCRIPT_PATH "")
+
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   set(64BIT TRUE)
   message("-- detected 64bit")

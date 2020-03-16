@@ -26,8 +26,8 @@ if(WIN32 AND NOT MINGW)
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND <SOURCE_DIR>/src/tools/gyp/gyp.bat --no-circular-check <SOURCE_DIR>/src/client/windows/breakpad_client.gyp
     BUILD_COMMAND msbuild <SOURCE_DIR>/src/client/windows/handler/exception_handler.vcxproj /nologo /t:rebuild /m:2 /p:Configuration=${BUILD_TYPE} /p:Platform=${BUILD_PLATFORM}
-    COMMAND ${CMAKE_SCRIPT_PATH}/robocopy.bat "<SOURCE_DIR>/src/" "<INSTALL_DIR>/lib/breakpad" "*.lib"
-    COMMAND ${CMAKE_SCRIPT_PATH}/robocopy.bat "<SOURCE_DIR>/src/" "<INSTALL_DIR>/bin" "*.dll"
+    COMMAND ${COPY_SCRIPT_PATH} "<SOURCE_DIR>/src/" "<INSTALL_DIR>/lib/breakpad" "*.lib"
+    COMMAND ${COPY_SCRIPT_PATH} "<SOURCE_DIR>/src/" "<INSTALL_DIR>/bin" "*.dll"
     INSTALL_COMMAND ""
   )
 
@@ -71,9 +71,9 @@ if(WIN32 AND NOT MINGW)
     copy-breakpad
     DEPENDEES download
     DEPENDERS patch_project_files
-    COMMAND ${CMAKE_SCRIPT_PATH}/robocopy.bat "<SOURCE_DIR>/src/" "<INSTALL_DIR>/include/breakpad" "*.h"
-    COMMAND ${CMAKE_SCRIPT_PATH}/robocopy.bat "<SOURCE_DIR>/src/" "<INSTALL_DIR>/include/breakpad" "*.hpp"
-    COMMAND ${CMAKE_SCRIPT_PATH}/robocopy.bat "<SOURCE_DIR>/src/tools/windows/binaries/" "<INSTALL_DIR>/bin" "*.exe"
+    COMMAND ${COPY_SCRIPT_PATH} "<SOURCE_DIR>/src/" "<INSTALL_DIR>/include/breakpad" "*.h"
+    COMMAND ${COPY_SCRIPT_PATH} "<SOURCE_DIR>/src/" "<INSTALL_DIR>/include/breakpad" "*.hpp"
+    COMMAND ${COPY_SCRIPT_PATH} "<SOURCE_DIR>/src/tools/windows/binaries/" "<INSTALL_DIR>/bin" "*.exe"
   )
 else()
 
