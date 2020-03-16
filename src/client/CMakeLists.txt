@@ -181,6 +181,7 @@ set( SOURCES_HEADER
   src/Interface/ClanMarkTransfer.h
   src/Interface/CLoading.h
   src/Interface/CNameBox.h
+  #src/Interface/InterfaceManager_HTML.h
   src/Interface/Command/CTCmdHotExec.h
   src/Interface/Command/CTCmdNumberInput.h
   src/Interface/Command/CTCmdOpenDlg.h
@@ -572,6 +573,7 @@ set( SOURCES_MAIN
   src/Interface/ClanMarkTransfer.cpp
   src/Interface/CLoading.cpp
   src/Interface/CNameBox.cpp
+  #src/Interface/InterfaceManager_HTML.cpp
   src/Interface/Command/CTCmdHotExec.cpp
   src/Interface/Command/CTCmdNumberInput.cpp
   src/Interface/Command/CTCmdOpenDlg.cpp
@@ -831,6 +833,7 @@ target_link_libraries(${PROJECT} PRIVATE dsound.lib dxguid.lib dxerr9.lib d3dx9.
 target_link_libraries(${PROJECT} PRIVATE legacy_stdio_definitions.lib imagehlp.lib odbc32.lib odbccp32.lib shlwapi.lib strmiids.lib unicows.lib urlmon.lib Version.lib)
 target_link_libraries(${PROJECT} PRIVATE WSock32.lib ws2_32.lib)
 target_link_libraries(${PROJECT} PRIVATE lua::lua4)
+#target_link_libraries(${PROJECT} PRIVATE ultralight::ultralight)
 target_link_libraries(${PROJECT} PRIVATE utils::zlib)
 target_link_libraries(${PROJECT} PRIVATE utils::expat)
 target_link_libraries(${PROJECT} PRIVATE utils::ijl15)

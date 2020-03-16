@@ -225,6 +225,9 @@ if(NOT TARGET lua::lua4_compiler)
   set_target_properties(lua::lua4_compiler PROPERTIES IMPORTED_LOCATION "${CMAKE_THIRD_PARTY_BINARY_DIR}/luac4.exe")
 endif()
 
+unset(source_dir)
+unset(install_dir)
+
 #Lua 5 stoof
 ExternalProject_Get_Property(
   lua5_core

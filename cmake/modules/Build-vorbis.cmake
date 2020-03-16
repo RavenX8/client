@@ -34,7 +34,7 @@ if(WIN32 OR MINGW)
         <SOURCE_DIR>/lib/window.c
         -o ${VORBIS_INSTALL_DIR}/libvorbis.a
       BUILD_IN_SOURCE true
-      BUILD_BYPRODUCTS ${_byproducts}
+      BUILD_BYPRODUCTS ${VORBIS_INSTALL_DIR}/libvorbis.a
       INSTALL_COMMAND ""
       INSTALL_DIR ${VORBIS_INSTALL_DIR}
     )
@@ -68,7 +68,7 @@ if(WIN32 OR MINGW)
         <SOURCE_DIR>/lib/window.c
         && lib *.obj /OUT:${VORBIS_INSTALL_DIR}/libvorbis.lib
       BUILD_IN_SOURCE true
-      BUILD_BYPRODUCTS ${_byproducts}
+      BUILD_BYPRODUCTS ${VORBIS_INSTALL_DIR}/libvorbis.lib
       INSTALL_COMMAND ""
       INSTALL_DIR ${VORBIS_INSTALL_DIR}
     )

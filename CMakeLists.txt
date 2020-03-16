@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project("Client")
 
 #set(CMAKE_CXX_EXTENSIONS OFF)
@@ -61,6 +61,8 @@ file(MAKE_DIRECTORY ${CMAKE_THIRD_PARTY_BINARY_DIR})
 file(MAKE_DIRECTORY ${CMAKE_THIRD_PARTY_INCLUDE_DIR})
 file(MAKE_DIRECTORY ${CMAKE_THIRD_PARTY_LIBRARY_DIR})
 file(MAKE_DIRECTORY ${CMAKE_THIRD_PARTY_DIR}/share)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 include(macros)
 include(CheckPlatform)
@@ -93,6 +95,7 @@ include(Build-expat)
 include(Build-ijl15) # This doesn't actually build anything, just sets up the target
 include(Build-sqlite3)
 include(Build-vorbis)
+#include(Build-Ultralight)
 
 include(PacketGenerator)
 include(LuaIncludeGenerator)
