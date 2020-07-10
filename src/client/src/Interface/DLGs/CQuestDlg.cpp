@@ -329,7 +329,7 @@ void          CQuestDlg::DrawItems() {
       if ( pItem->IsEnableDupCNT() ) {
         int  iImageIndex = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "ID_BLACK_PANEL" );
         char szCount[32] = { 0 };
-        itoa( pItem->GetQuantity(), szCount, 10 );
+        _itoa( pItem->GetQuantity(), szCount, 10 );
 
         HNODE hFont  = g_GameDATA.m_hFONT[FONT_NORMAL];
         SIZE  size   = getFontTextExtent( hFont, szCount );

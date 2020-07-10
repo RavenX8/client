@@ -43,11 +43,11 @@ class CTDialog;
 
 class IActionListener;
 
-typedef list<CWinCtrl*>                WINCTRL_LIST;
+typedef std::list<CWinCtrl*>                WINCTRL_LIST;
 typedef WINCTRL_LIST::iterator         WINCTRL_LIST_ITOR;
 typedef WINCTRL_LIST::reverse_iterator WINCTRL_LIST_RITOR;
 
-typedef map<unsigned int, CWinCtrl*> WINCTRL_MAP;
+typedef std::map<unsigned int, CWinCtrl*> WINCTRL_MAP;
 typedef WINCTRL_MAP::iterator        WINCTRL_MAP_ITOR;
 
 /**

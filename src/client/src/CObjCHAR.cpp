@@ -3188,7 +3188,7 @@ BOOL CObjCHAR::SetRideUser(WORD irideIDX) {
   //아바타 무기 및 날개는 안보이도록 설정 
   int iVisibilityPart[3] = { BODY_PART_KNAPSACK, BODY_PART_WEAPON_R, BODY_PART_WEAPON_L };
 
-  for ( register int   i         = 0; i < 3; i++ ) {
+  for ( int   i         = 0; i < 3; i++ ) {
     CMODEL<CCharPART>* pCharPART = pTarget->m_pCharMODEL->GetCharPART( iVisibilityPart[i] );
     if ( pCharPART ) {
       short nI;
@@ -3233,7 +3233,7 @@ void CObjCHAR::ReleaseRideUser(void) {
   //아바타 무기 및 날개는 보이도록 설정 
   int iVisibilityPart[3] = { BODY_PART_KNAPSACK, BODY_PART_WEAPON_R, BODY_PART_WEAPON_L };
 
-  for ( register int   i         = 0; i < 3; i++ ) {
+  for ( int   i         = 0; i < 3; i++ ) {
     CMODEL<CCharPART>* pCharPART = pTarget->m_pCharMODEL->GetCharPART( iVisibilityPart[i] );
     if ( pCharPART ) {
       short nI;
@@ -3280,7 +3280,7 @@ void CObjCHAR::ReleaseRideUser(WORD irideIDX) {
   //아바타 무기 및 날개는 보이도록 설정 
   int iVisibilityPart[3] = { BODY_PART_KNAPSACK, BODY_PART_WEAPON_R, BODY_PART_WEAPON_L };
 
-  for ( register int   i         = 0; i < 3; i++ ) {
+  for ( int   i         = 0; i < 3; i++ ) {
     CMODEL<CCharPART>* pCharPART = pTarget->m_pCharMODEL->GetCharPART( iVisibilityPart[i] );
     if ( pCharPART ) {
       short nI;
@@ -5411,7 +5411,7 @@ void CGoddessMgr::Release_List(GODDESSSTR* pGDS) {
   delete pGDS->pGODModel;
   delete pGDS->pSprModel;
 
-  for ( register int i = 0; i < 2; i++ ) {
+  for ( int i = 0; i < 2; i++ ) {
     delete pGDS->pEffect[i];
     pGDS->pEffect[i]   = nullptr;
     pGDS->hParticle[i] = NULL;
@@ -5466,7 +5466,7 @@ BOOL CGoddessMgr::Register_RenderObj(GODDESSSTR& gds) {
   char* ParticlName[] =
       { "3Ddata\\Effect\\_arua_ghost01.eft", "3Ddata\\Effect\\end_effect_02.eft" };
 
-  for ( register int i = 0; i < 2; i++ ) {
+  for ( int i = 0; i < 2; i++ ) {
     if ( gds.pEffect[i] != nullptr ) {
       delete gds.pEffect[i];
       gds.pEffect[i] = nullptr;

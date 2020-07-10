@@ -17,17 +17,17 @@ CFilterWord&         CFilterWord::GetInstance() {
 
 void CFilterWord::AddWord(char* pszWord, char* pszChangeWord) {
   if ( pszWord ) {
-    strupr( pszWord );
+    _strupr( pszWord );
     std::wstring wstrWord;
     if ( MulityByte2WideString( pszWord, wstrWord ) ) {
       if ( pszChangeWord && strlen( pszChangeWord ) >= 1 ) {
         std::wstring wstrTemp;
         if ( MulityByte2WideString( pszChangeWord, wstrTemp ) )
-          m_BadWords.insert( std::map<wstring, wstring>::value_type( wstrWord, wstrTemp ) );
+          m_BadWords.insert( std::map<std::wstring, std::wstring>::value_type( wstrWord, wstrTemp ) );
         else
-          m_BadWords.insert( std::map<wstring, wstring>::value_type( wstrWord, m_wstrChangeWord ) );
+          m_BadWords.insert( std::map<std::wstring, std::wstring>::value_type( wstrWord, m_wstrChangeWord ) );
       } else
-        m_BadWords.insert( std::map<wstring, wstring>::value_type( wstrWord, m_wstrChangeWord ) );
+        m_BadWords.insert( std::map<std::wstring, std::wstring>::value_type( wstrWord, m_wstrChangeWord ) );
     }
   }
 }
@@ -43,7 +43,7 @@ bool CFilterWord::CheckString(char* pszString) {
 
   m_strChangedString.clear();
 
-  std::map<wstring, wstring>::iterator iter;
+  std::map<std::wstring, std::wstring>::iterator iter;
 
   int iStringLen = strlen( pszString );
 
@@ -61,7 +61,7 @@ bool CFilterWord::CheckString(char* pszString) {
   wchar_t* pwszTemp           = new wchar_t[ iConvertStringLen + 1];
   pwszTemp[iConvertStringLen] = 0;
   wcsncpy( pwszTemp, pwszString, iConvertStringLen );
-  wcsupr( pwszTemp );
+  _wcsupr( pwszTemp );
   std::wstring wstrSourceString( pwszTemp );
   delete []pwszTemp;
 
@@ -107,7 +107,7 @@ std::string& CFilterWord::GetCheckedWord() {
   return m_strCheckedWord;
 }
 
-int CFilterWord::MulityByte2WideString(const char* pszMultyByte, wstring& wstrWide) {
+int CFilterWord::MulityByte2WideString(const char* pszMultyByte, std::wstring& wstrWide) {
   assert( pszMultyByte );
   if ( pszMultyByte == nullptr ) return 0;
 
@@ -140,7 +140,7 @@ int CFilterWord::MulityByte2WideString(const char* pszMultyByte, wchar_t* pwszWi
   return iRet;
 }
 
-int   CFilterWord::Wide2MultyByteString(wstring& wstrWide, string& strMultyByte) {
+int   CFilterWord::Wide2MultyByteString(std::wstring& wstrWide, std::string& strMultyByte) {
   int iBufSize = wstrWide.length() * 3 + 1;
 
   char* pszBuf = new char[ iBufSize ];
@@ -298,7 +298,7 @@ bool                     CFilterWord::CheckEnglish(std::wstring& wstrName) {
 void CFilterWord::AddName(char* pszName) {
   assert( pszName );
   if ( pszName ) {
-    strupr( pszName );
+    _strupr( pszName );
     std::wstring wstrName;
     if ( MulityByte2WideString( pszName, wstrName ) )
       m_BadNames.push_back( wstrName );
@@ -313,11 +313,11 @@ bool   CFilterWord::CheckName(char* pszName) {
     char* pszTemp = new char[ iLen + 1];
     strcpy( pszTemp, pszName );
     pszTemp[iLen] = 0;
-    strupr( pszTemp );
+    _strupr( pszTemp );
 
     std::wstring wstrName;
     if ( MulityByte2WideString( pszTemp, wstrName ) ) {
-      std::list<wstring>::iterator iter;
+      std::list<std::wstring>::iterator iter;
       for ( iter = m_BadNames.begin(); iter != m_BadNames.end(); ++iter ) {
         if ( wcsstr( wstrName.c_str(), iter->c_str() ) ) {
           bRet = false;

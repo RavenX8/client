@@ -233,7 +233,7 @@ void   CDealData::SendTradeReq() {
 
   tagITEM                               TempItem;
   std::list<tagITEM>                    appendItems;
-  std::list<pair<int, tagITEM>>         removeItems;
+  std::list<std::pair<int, tagITEM>>         removeItems;
   std::vector<CItemFragment*>::iterator iter;
   int                                   iCount = 0;
 
@@ -256,7 +256,7 @@ void   CDealData::SendTradeReq() {
     if ( TempItem.IsEnableDupCNT() )
       TempItem.m_uiQuantity = (*iter)->GetQuantity();
 
-    removeItems.push_back( make_pair( (*iter)->GetIndex(), TempItem ) );
+    removeItems.push_back( std::make_pair( (*iter)->GetIndex(), TempItem ) );
   }
 
   if ( g_pAVATAR->IsInventoryFull( appendItems, removeItems ) ) {

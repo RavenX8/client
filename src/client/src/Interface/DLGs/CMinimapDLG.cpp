@@ -757,7 +757,7 @@ void             CMinimapDLG::AddIndicatorNpc(int npcno, int auto_delete) {
   S_IndicatorNpc newitem;
   newitem.m_iNpcNo      = npcno;
   newitem.m_auto_remove = auto_delete;
-  m_indicators_npc.insert( make_pair( npcno, newitem ) );
+  m_indicators_npc.insert( std::make_pair( npcno, newitem ) );
 }
 
 void                     CMinimapDLG::AddIndicatorCoordinates(int index, int zoneno, float x, float y) {
@@ -772,7 +772,7 @@ void                     CMinimapDLG::AddIndicatorCoordinates(int index, int zon
     assert( 0 && "중복된 인덱스 입니다:좌표인디케이터 입력오류");
     return;
   }
-  m_indicators_coordinates.insert( make_pair( index, newitem ) );
+  m_indicators_coordinates.insert( std::make_pair( index, newitem ) );
 }
 
 void                                           CMinimapDLG::RemoveIndicatorNpc(int npcno) {

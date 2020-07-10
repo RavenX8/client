@@ -325,9 +325,9 @@ void CChatDLG::SendChatMsg(char* szMsg) {
     g_itMGR.AppendChatMsg( STR_STATE_BLOCK_CHAT, IT_MGR::CHAT_TYPE_SYSTEM );
     return;
   }
-  string stMsg = szMsg;
-  string stTargetID;
-  string stRealMsg;
+  std::string stMsg = szMsg;
+  std::string stTargetID;
+  std::string stRealMsg;
 
   int iChatType = ChatParser( stMsg, stRealMsg, stTargetID );
 
@@ -406,7 +406,7 @@ void CChatDLG::SendChatMsg(char* szMsg) {
       g_pNet->Send_cli_WHISPER( (char*)stTargetID.c_str(), (char*)stRealMsg.c_str() );
 
       ///자신의 채팅창에 메세지 뿌리고
-      string Temp = g_pAVATAR->Get_NAME();
+      std::string Temp = g_pAVATAR->Get_NAME();
       Temp.append( ">" );
       Temp.append( stMsg );
       g_itMGR.AppendChatMsg( Temp.c_str(), IT_MGR::CHAT_TYPE_WHISPER );
@@ -424,7 +424,7 @@ void CChatDLG::SendChatMsg(char* szMsg) {
       if ( pObjChar ) {
         if ( CExchange::GetInstance().SendCliTradeReq( g_pObjMGR->Get_ServerObjectIndex( pObjChar->Get_INDEX() ) ) ) {
           ///자신의 채팅창에 메세지 뿌리고
-          string Temp = stTargetID;
+          std::string Temp = stTargetID;
           Temp.append( STR_REQ_TRADE );
           g_itMGR.AppendChatMsg( Temp.c_str(), IT_MGR::CHAT_TYPE_SYSTEM );
         }
@@ -437,7 +437,7 @@ void CChatDLG::SendChatMsg(char* szMsg) {
   }
 }
 
-int           CChatDLG::ChatParser(string stMsg, string& stRealMsg, string& stTargetID) {
+int           CChatDLG::ChatParser(std::string stMsg, std::string& stRealMsg, std::string& stTargetID) {
   const char* pszMsg = stMsg.c_str();
 
   CFilterWord& Util = CFilterWord::GetInstance();

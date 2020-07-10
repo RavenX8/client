@@ -428,7 +428,7 @@ public:
   void SetWaitUpdateInventory(bool bWait);
 
   /// 서버에게 인벤토리 변경관련 패킷을 보내기 전에 변경후 인벤토리에 다들어갈수 있는지 체크한다.
-  bool  IsInventoryFull(std::list<tagITEM>& appendItems, std::list<pair<int,tagITEM>>& removeItems);
+  bool  IsInventoryFull(std::list<tagITEM>& appendItems, std::list<std::pair<int,tagITEM>>& removeItems);
   bool  IsInventoryFull(std::list<tagITEM>& appendItems);
   void  SetBattleTime(DWORD                 dwTime);
   DWORD GetLastBattleTime();

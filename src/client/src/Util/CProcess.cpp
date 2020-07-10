@@ -87,7 +87,7 @@ DWORD            CProcess::FindProcess(char* szExeName) {
 
   if ( Process32First( hSnapshot, &sEntry32 ) ) {
     do {
-      if ( 0 == strcmpi( szExeName, sEntry32.szExeFile ) ) {
+      if ( 0 == _strcmpi( szExeName, sEntry32.szExeFile ) ) {
         dwPID = sEntry32.th32ProcessID;
         break;
       }

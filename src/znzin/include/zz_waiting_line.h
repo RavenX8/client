@@ -54,7 +54,7 @@ public:
 
   typedef bool (zz_sort_compare_func)(const T* A, const T* B);
 
-  class zz_waiting_line_compare_func : public std::binary_function<T *, T *, bool> {
+  class zz_waiting_line_compare_func {
   public:
     bool operator()(const T* lhs, const T* rhs) const {
       return lhs->get_load_priority() > rhs->get_load_priority();

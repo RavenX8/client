@@ -92,7 +92,7 @@ char * CPUInfo::GetTypeID ()
 {
 	// Return the type ID of the CPU.
 	char * szTypeID = new char [32];
-	itoa (ChipID.Type, szTypeID, 10);
+	_itoa (ChipID.Type, szTypeID, 10);
 	return szTypeID;
 }
 
@@ -100,7 +100,7 @@ char * CPUInfo::GetFamilyID ()
 {
 	// Return the family of the CPU present.
 	char * szFamilyID = new char [32];
-	itoa (ChipID.Family, szFamilyID, 10);
+	_itoa (ChipID.Family, szFamilyID, 10);
 	return szFamilyID;
 }
 
@@ -108,7 +108,7 @@ char * CPUInfo::GetModelID ()
 {
 	// Return the model of CPU present.
 	char * szModelID = new char [32];
-	itoa (ChipID.Model, szModelID, 10);
+	_itoa (ChipID.Model, szModelID, 10);
 	return szModelID;
 }
 
@@ -116,7 +116,7 @@ char * CPUInfo::GetSteppingCode ()
 {
 	// Return the stepping code of the CPU present.
 	char * szSteppingCode = new char [32];
-	itoa (ChipID.Revision, szSteppingCode, 10);
+	_itoa (ChipID.Revision, szSteppingCode, 10);
 	return szSteppingCode;
 }
 

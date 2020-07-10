@@ -64,7 +64,6 @@ void                  DumpUnfreedToOutputString() {
 void                  DumpUnfreedToFile() {
   AllocList::iterator i;
   DWORD               totalSize = 0;
-  char                buf[1024];
 
   if ( !allocList )
     return;

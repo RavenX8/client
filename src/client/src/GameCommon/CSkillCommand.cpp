@@ -347,7 +347,7 @@ bool CBasicCommand::Execute() {
         if ( pObjAVT && !pObjAVT->IsRideUser() ) //홍근 : 보조석에 탄 아바타에게 거래 금지.
         {
           if ( CExchange::GetInstance().SendCliTradeReq( g_pObjMGR->Get_ServerObjectIndex( iTargetObjClientIndex ) ) ) {
-            string Temp = pObjAVT->Get_NAME();
+            std::string Temp = pObjAVT->Get_NAME();
             Temp.append( STR_REQ_TRADE );
             g_itMGR.AppendChatMsg( Temp.c_str(), IT_MGR::CHAT_TYPE_SYSTEM );
           }

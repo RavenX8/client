@@ -231,7 +231,7 @@ CFriendListItem* CCommDlg::FindFriendByName(const char* pszName) {
     assert( pCtrl );
     if ( pCtrl ) {
       pItem = (CFriendListItem*)pCtrl;
-      if ( strcmpi( pszName, pItem->GetName() ) == 0 )
+      if ( _strcmpi( pszName, pItem->GetName() ) == 0 )
         return pItem;
     }
   }

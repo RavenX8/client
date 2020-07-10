@@ -152,6 +152,7 @@ bool    CRoughMap::LoadEngineObject(char* szMapName, int iZoneMapX, int iZoneMap
     g_pCApp->ErrorBOX( "loadTerrainBlockExt Error", "ERROR" );
     return false;
   }
+  return true;
 }
 
 //----------------------------------------------------------------------------------------------------

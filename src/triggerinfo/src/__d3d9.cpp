@@ -147,7 +147,7 @@ bool CD3D9::__CheckError (HRESULT hr)
 }
 
 
-bool CD3D9::GetDisplayInfo (map<string, string> * mapDisInfo)
+bool CD3D9::GetDisplayInfo (std::map<std::string, std::string> * mapDisInfo)
 {
 	mapDisInfo->clear ();
 	if(mapDisInfo)
@@ -158,13 +158,13 @@ bool CD3D9::GetDisplayInfo (map<string, string> * mapDisInfo)
 			HRESULT hRes = s_pID3D->GetAdapterIdentifier (D3DADAPTER_DEFAULT, D3DENUM_WHQL_LEVEL, &DAI);
 			if(hRes	== S_OK)
 			{
-				mapDisInfo->insert (std::pair<string, string>("Driver"			, DAI.Driver));
-				mapDisInfo->insert (std::pair<string, string>("Divice Name"		, DAI.DeviceName));
-				mapDisInfo->insert (std::pair<string, string>("Description"		, DAI.Description));
+				mapDisInfo->insert (std::pair("Driver"			, DAI.Driver));
+				mapDisInfo->insert (std::pair("Divice Name"		, DAI.DeviceName));
+				mapDisInfo->insert (std::pair("Description"		, DAI.Description));
 				// char szDriverVersion[ 32 ];
 				// sprintf (szDriverVersion, "%o %o", DAI.DriverVersion.HighPart, DAI.DriverVersion.LowPart);
-				string strDrvVersion = ConvertDriverVersion (&DAI);
-				mapDisInfo->insert (std::pair<string, string>("Drive Version"	, strDrvVersion));
+				std::string strDrvVersion = ConvertDriverVersion (&DAI);
+				mapDisInfo->insert (std::pair("Drive Version"	, strDrvVersion));
 			}
 		}
 	}
@@ -172,7 +172,7 @@ bool CD3D9::GetDisplayInfo (map<string, string> * mapDisInfo)
 	return false;
 }
 
-string CD3D9::ConvertDriverVersion (D3DADAPTER_IDENTIFIER9 * pDI)
+std::string CD3D9::ConvertDriverVersion (D3DADAPTER_IDENTIFIER9 * pDI)
 {
 	char buff[ 1024 ];
 
@@ -376,7 +376,7 @@ LCleanup:
 // Name: GetDisplayInfo()
 // Desc: Get the display info from the dll
 //-----------------------------------------------------------------------------
-HRESULT CD3D9::GetDisplayInfo( vector<DisplayInfo*>& vDisplayInfo )
+HRESULT CD3D9::GetDisplayInfo( std::vector<DisplayInfo*>& vDisplayInfo )
 {
     HRESULT           hr;
     WCHAR             wszContainer[256];
@@ -724,7 +724,7 @@ HRESULT CD3D9::GetInt64Value( IDxDiagContainer* pObject, WCHAR* wstrName, ULONGL
 // Desc: 
 //-----------------------------------------------------------------------------
 HRESULT CD3D9::GatherDXVA_DeinterlaceCaps( IDxDiagContainer* pParent, 
-                                                 vector<DxDiag_DXVA_DeinterlaceCaps*>& vDXVACaps )
+                                                 std::vector<DxDiag_DXVA_DeinterlaceCaps*>& vDXVACaps )
 {
     HRESULT            hr;
     WCHAR              wszContainer[256];
@@ -794,16 +794,16 @@ LCleanup:
 }
 
 
-void CD3D9::DestroyDisplayInfo( vector<DisplayInfo*>& vDisplayInfo )
+void CD3D9::DestroyDisplayInfo( std::vector<DisplayInfo*>& vDisplayInfo )
 {
     DisplayInfo* pDisplayInfo;
-    vector<DisplayInfo*>::iterator iter; 
+    std::vector<DisplayInfo*>::iterator iter; 
     for( iter = vDisplayInfo.begin(); iter != vDisplayInfo.end(); iter++ )
     {
         pDisplayInfo = *iter;
 
         DxDiag_DXVA_DeinterlaceCaps* pDXVANode;
-        vector<DxDiag_DXVA_DeinterlaceCaps*>::iterator iterDXVA; 
+        std::vector<DxDiag_DXVA_DeinterlaceCaps*>::iterator iterDXVA; 
         for( iterDXVA = pDisplayInfo->m_vDXVACaps.begin(); iterDXVA != pDisplayInfo->m_vDXVACaps.end(); iterDXVA++ )
         {
             pDXVANode = *iterDXVA;

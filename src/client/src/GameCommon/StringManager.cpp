@@ -312,11 +312,11 @@ bool  CStringManager::LoadTypeTable(LANGUAGE_TYPE languageType, const char* pszF
   char strStlType[32];
   pFileSystem->ReadPascalString( strStlType, sizeof(strStlType) );
 
-  if ( strcmpi( strStlType, "ITST01" ) == 0 ) {
+  if ( _strcmpi( strStlType, "ITST01" ) == 0 ) {
     iTableType = ITEM_TYPE_ST;
-  } else if ( strcmpi( strStlType, "NRST01" ) == 0 ) {
+  } else if ( _strcmpi( strStlType, "NRST01" ) == 0 ) {
     iTableType = NORMAL_TYPE_ST;
-  } else if ( strcmpi( strStlType, "QEST01" ) == 0 ) {
+  } else if ( _strcmpi( strStlType, "QEST01" ) == 0 ) {
     iTableType = QUEST_TYPE_ST;
   } else {
     pFileSystem->CloseFile();

@@ -196,7 +196,7 @@ void CNameBox::DrawNpcName(float x, float y, float z, CObjCHAR* pCharOBJ, bool b
     g_DrawImpl.Draw( x - emoticon_width, y - emoticon_height, z, IMAGE_RES_UI, QuestEmoticonGid,D3DCOLOR_ARGB(255, 255, 255, 255) );
 
   int iPos = strNpcFullName.find_first_of( ']', 0 );
-  if ( iPos != string::npos ) {
+  if ( iPos != std::string::npos ) {
     strNpcJob = strNpcFullName.substr( 0, iPos + 1 );
     if ( iPos < strNpcFullName.size() )
       strNpcName = strNpcFullName.substr( iPos + 1, strNpcFullName.size() - iPos - 1 );

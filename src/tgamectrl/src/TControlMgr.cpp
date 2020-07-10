@@ -496,7 +496,7 @@ bool CTControlMgr::MakeDialogByXML(const char* IDD, CTDialog* pBase) {
 
 int                     CTControlMgr::GetNodeValueFromNamedNodeMapByName(MSXML::IXMLDOMNamedNodeMap* pNodeMap, char* name) {
   VARIANT               value;
-  string                TempString;
+  std::string           TempString;
   char                  szBuf[256];
   MSXML::IXMLDOMNodePtr Attribute = NULL;
   _bstr_t               bstrName  = name;
@@ -523,7 +523,7 @@ int                     CTControlMgr::GetNodeValueFromNamedNodeMapByName(MSXML::
 
 float                   CTControlMgr::GetNodeFloatValueFromNamedNodeMapByName(MSXML::IXMLDOMNamedNodeMap* pNodeMap, char* name) {
   VARIANT               value;
-  string                TempString;
+  std::string           TempString;
   char                  szBuf[256];
   MSXML::IXMLDOMNodePtr Attribute = NULL;
   _bstr_t               bstrName  = name;
@@ -550,7 +550,7 @@ float                   CTControlMgr::GetNodeFloatValueFromNamedNodeMapByName(MS
 
 std::string             CTControlMgr::GetNodeStringValueFromNamedNodeMapByName(MSXML::IXMLDOMNamedNodeMap* pNodeMap, char* name) {
   VARIANT               value;
-  string                TempString;
+  std::string           TempString;
   char                  szBuf[512];
   MSXML::IXMLDOMNodePtr Attribute = NULL;
   _bstr_t               bstrName  = name;

@@ -338,7 +338,7 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY() {
   CGame::GetInstance().SetRight( dwRight );
   CGame::GetInstance().SetPayType( m_pRecvPacket->m_srv_LOGIN_REPLY.m_wPayType );
 
-  std::map<BYTE, pair<DWORD, std::string>> TempServerList;
+  std::map<BYTE, std::pair<DWORD, std::string>> TempServerList;
 
   ///이전에 사용하던 인터페이스창이 있다면 Observer에서 삭제한다.
   if ( CTDialog*   pUI           = refEUIManager.GetEUI( EUI_SELECT_SERVER ) ) {
@@ -383,23 +383,23 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY() {
     if ( g_GameDATA.m_bForOpenTestServer ) {
       if ( szServerName[0] == '@' && strlen( szServerName ) >= 2 )
         TempServerList.insert(
-          std::map<BYTE, pair<DWORD, std::string>>::value_type(
+          std::map<BYTE, std::pair<DWORD, std::string>>::value_type(
             (BYTE)(128 + (*pServerID)),
-            make_pair( *pServerID, &szServerName[1] ) ) );
+            std::make_pair( *pServerID, &szServerName[1] ) ) );
     } else {
       if ( szServerName[0] == '@' ) {
         if ( dwRight >= CHEAT_MM ) {
           if ( strlen( szServerName ) >= 2 )
             TempServerList.insert(
-              std::map<BYTE, pair<DWORD, std::string>>::value_type(
+              std::map<BYTE, std::pair<DWORD, std::string>>::value_type(
                 (BYTE)(128 + (*pServerID)),
-                make_pair( *pServerID, &szServerName[0] ) ) );
+                std::make_pair( *pServerID, &szServerName[0] ) ) );
         }
       } else {
         if ( strlen( szServerName ) >= 2 )
           TempServerList.insert(
-            std::map<BYTE, pair<DWORD, std::string>>::value_type(
-              szServerName[0], make_pair( *pServerID, &szServerName[1] ) ) );
+            std::map<BYTE, std::pair<DWORD, std::string>>::value_type(
+              szServerName[0], std::make_pair( *pServerID, &szServerName[1] ) ) );
       }
     }
 
@@ -408,7 +408,7 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY() {
       (DWORD *)Packet_GetDataPtr( m_pRecvPacket, nOffset, sizeof( DWORD ) );
   }
 
-  std::map<BYTE, pair<DWORD, std::string>>::iterator iter;
+  std::map<BYTE, std::pair<DWORD, std::string>>::iterator iter;
   int                                                iCount = 0;
   for ( iter                                                = TempServerList.begin(); iter != TempServerList.end();
         ++iter, ++iCount )
@@ -924,7 +924,7 @@ void    CRecvPACKET::Recv_gsv_WHISPER() {
     }
     ///서버가 보내는 귓속말은 항상 보여준다.
     /// GM이나 시스템 귓속말의경우도 그렇게 해야 할텐데...
-    if ( strcmpi( szAccount, "<SERVER>::" ) == 0 ) {
+    if ( _strcmpi( szAccount, "<SERVER>::" ) == 0 ) {
       sprintf( buffer, "[%s]%s>%s", STR_WHISPER, szAccount, szMsg );
       g_itMGR.AppendChatMsg( buffer, IT_MGR::CHAT_TYPE_WHISPER );
     } else {
@@ -1855,7 +1855,7 @@ void CRecvPACKET::Recv_gsv_SETEXP() {
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
     if ( lDiff < 0 ) {
       char buf[255];
-      sprintf( buf, "Received exp is invalid[ %d/%d ]",
+      sprintf( buf, "Received exp is invalid[ %lld/%lld ]",
                m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP,
                g_GameDATA.m_iReceivedAvatarEXP );
       assert(0 && buf);
@@ -1884,7 +1884,7 @@ void CRecvPACKET::Recv_gsv_SETEXP() {
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
     if ( lDiff < 0 ) {
       char buf[255];
-      sprintf( buf, "Received exp is invalid[ %d/%d ]",
+      sprintf( buf, "Received exp is invalid[ %lld/%lld ]",
                m_pRecvPacket->m_gsv_SETEXP.m_lCurEXP,
                g_GameDATA.m_iReceivedAvatarEXP );
       assert(0 && buf);
@@ -5100,7 +5100,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
       char* pszMaster = (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset );
       assert(pszMember && pszMaster);
       if ( pszMember && pszMaster ) {
-        if ( strcmpi( g_pAVATAR->Get_NAME(),
+        if ( _strcmpi( g_pAVATAR->Get_NAME(),
                       pszMember ) ) ///내가 아닐 경우에만 보여주자.
         {
           g_itMGR.OpenMsgBox(
@@ -5225,7 +5225,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
 
       assert(pszMember && pszMaster);
       if ( pszMember && pszMaster ) {
-        if ( strcmpi( pszMember, g_pAVATAR->Get_NAME() ) ) {
+        if ( _strcmpi( pszMember, g_pAVATAR->Get_NAME() ) ) {
           g_itMGR.OpenMsgBox(
             CStr::Printf( STR_CLAN_RESULT_CLAN_KICK, pszMember, pszMaster ) );
           CClan::GetInstance().RemoveMember( pszMember );
@@ -5246,7 +5246,7 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND() {
       char* pszMember = (char *)Packet_GetStringPtr( m_pRecvPacket, nOffset );
       assert(pszMember);
       if ( pszMember ) {
-        if ( strcmpi( pszMember, g_pAVATAR->Get_NAME() ) == 0 ) {
+        if ( _strcmpi( pszMember, g_pAVATAR->Get_NAME() ) == 0 ) {
           CClan::GetInstance().Clear();
           if ( g_pAVATAR )
             g_pAVATAR->ResetClan();

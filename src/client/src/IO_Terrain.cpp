@@ -352,7 +352,6 @@ void CQuadPatchManager::SetExPatchBottom(int index) {
 
 void CQuadPatchManager::SetExPatch(int index, CMAP_PATCH* pPatch, int patch_x, int patch_y) {
 
-  int                       parent_index;
   classDLLNODE<PatchIndex>* pNODE;
 
   if ( (m_quadPATCH[index].aabb.x[0] > pPatch->m_AABBMin.x) || (m_quadPATCH[index].aabb.x[1] < pPatch->m_AABBMax.x) ||
@@ -448,7 +447,6 @@ void CQuadPatchManager::CalculateRayCullingBottomNode(short index) {
 
   int         i, j;
   CMAP_PATCH* pPatch;
-  short       patch_type;
 
   for ( i    = m_quadPATCH[index].index_y[0]; i <= m_quadPATCH[index].index_y[1]; i += 1 ) {
     for ( j  = m_quadPATCH[index].index_x[0]; j <= m_quadPATCH[index].index_x[1]; j += 1 ) {
@@ -1961,7 +1959,7 @@ tPOINTF   CTERRAIN::Get_EventPOS(char* szName) {
   tPOINTF OutPOS;
 
   for ( int iC = 0; iC < m_iEventPosCNT; iC++ ) {
-    if ( !strcmpi( m_pEventPOS[iC].m_Name.Get(), szName ) ) {
+    if ( !_strcmpi( m_pEventPOS[iC].m_Name.Get(), szName ) ) {
       OutPOS.x = m_pEventPOS[iC].m_Position.x;
       OutPOS.y = m_pEventPOS[iC].m_Position.y;
 

@@ -66,9 +66,6 @@ void CClientStorage::Load() {
   char szBuffer[64];
   ZeroMemory( szBuffer, sizeof( szBuffer) );
   if ( GetPrivateProfileString( "LASTCONNECT", "ID", "", szBuffer, sizeof(szBuffer), g_szIniFileName ) ) {
-    if ( szBuffer == nullptr )
-      m_strLastConnectID.c_str();
-    else
       m_strLastConnectID = szBuffer;
   }
 
@@ -140,65 +137,65 @@ void   CClientStorage::Save() {
     WritePrivateProfileString( "PARTY", "SHOWHPGUAGE", "0", g_szIniFileName );
 
   ///RESOLUTION
-  itoa( m_VideoOption.tResolution.iWidth, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iWidth, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "WIDTH", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.tResolution.iHeight, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iHeight, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "HEIGHT", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.tResolution.iDepth, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iDepth, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "DEPTH", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.tResolution.iFrequency, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iFrequency, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "FREQUENCY", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.iCamera, szTemp, 10 );
+  _itoa( m_VideoOption.iCamera, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "Camera", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.iPerformance, szTemp, 10 );
+  _itoa( m_VideoOption.iPerformance, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "PERFORMANCE", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.iFullScreen, szTemp, 10 );
+  _itoa( m_VideoOption.iFullScreen, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "FULLSCREEN", szTemp, g_szIniFileName );
 
   // <AntiAlising>
-  itoa( m_VideoOption.iAntiAlising, szTemp, 10 );
+  _itoa( m_VideoOption.iAntiAlising, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "ANTIALISING", szTemp, g_szIniFileName );
   // </AntiAlising>
 
-  itoa( m_SoundOption.iBgmVolume, szTemp, 10 );
+  _itoa( m_SoundOption.iBgmVolume, szTemp, 10 );
   WritePrivateProfileString( "SOUND", "BGMVOLUME", szTemp, g_szIniFileName );
 
-  itoa( m_SoundOption.iEffectVolume, szTemp, 10 );
+  _itoa( m_SoundOption.iEffectVolume, szTemp, 10 );
   WritePrivateProfileString( "SOUND", "EFFECTVOLUME", szTemp, g_szIniFileName );
 
   /// Play
-  itoa( m_PlayOption.uiControlType, szTemp, 10 );
+  _itoa( m_PlayOption.uiControlType, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "CONTROL", szTemp, g_szIniFileName );
 
-  itoa( m_PlayOption.iShowPcName, szTemp, 10 );
+  _itoa( m_PlayOption.iShowPcName, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "SHOWPCNAME", szTemp, g_szIniFileName );
 
-  itoa( m_PlayOption.iShowNpcName, szTemp, 10 );
+  _itoa( m_PlayOption.iShowNpcName, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "SHOWNPCNAME", szTemp, g_szIniFileName );
 
-  itoa( m_PlayOption.iShowMobName, szTemp, 10 );
+  _itoa( m_PlayOption.iShowMobName, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "SHOWMOBNAME", szTemp, g_szIniFileName );
 
   ///<-community option
-  itoa( m_CommunityOption.iWhisper, szTemp, 10 );
+  _itoa( m_CommunityOption.iWhisper, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "WHISPER", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iAddFriend, szTemp, 10 );
+  _itoa( m_CommunityOption.iAddFriend, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "ADDFRIEND", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iExchange, szTemp, 10 );
+  _itoa( m_CommunityOption.iExchange, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "EXCHANGE", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iParty, szTemp, 10 );
+  _itoa( m_CommunityOption.iParty, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "PARTY", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iMessanger, szTemp, 10 );
+  _itoa( m_CommunityOption.iMessanger, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "MESSANGER", szTemp, g_szIniFileName );
 
   ///->
@@ -210,10 +207,10 @@ void   CClientStorage::Save() {
   WritePrivateProfileStruct( "DIALOG", "POSITION", m_DialogPos, sizeof(m_DialogPos), g_szIniFileName );
   m_bHasSavedDialogPos = true;
 
-  itoa( m_iQuickBarDlgType, szTemp, 10 );
+  _itoa( m_iQuickBarDlgType, szTemp, 10 );
   WritePrivateProfileString( "DIALOG", "QUICKBARDLGTYPE", szTemp, g_szIniFileName );
 
-  itoa( m_iChatDlgType, szTemp, 10 );
+  _itoa( m_iChatDlgType, szTemp, 10 );
   WritePrivateProfileString( "DIALOG", "CHATDLGTYPE", szTemp, g_szIniFileName );
 
 }

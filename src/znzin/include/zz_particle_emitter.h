@@ -155,7 +155,7 @@ public:
   }
 
   int DeleteAllParticles(void) {
-    std::for_each( m_Sequences.begin(), m_Sequences.end(), std::mem_fun<int, zz_particle_event_sequence>( &zz_particle_event_sequence::DeleteAllParticles ) );
+      std::for_each(m_Sequences.begin(), m_Sequences.end(), [](auto* seq) { seq->DeleteAllParticles(); });
     return 0;
   }
 
@@ -170,7 +170,7 @@ public:
   void SetVBSize(const int data) { m_iVBSize = data; } // must be 6 times
 
   int Reset(void) {
-    std::for_each( m_Sequences.begin(), m_Sequences.end(), std::mem_fun<int, zz_particle_event_sequence>( &zz_particle_event_sequence::Reset ) );
+      std::for_each(m_Sequences.begin(), m_Sequences.end(), [](auto* seq) { seq->Reset(); });
     return 0;
   }
 

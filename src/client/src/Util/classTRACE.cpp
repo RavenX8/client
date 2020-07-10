@@ -286,7 +286,7 @@ BOOL GetSourceInfoFromAddress( UINT address, LPTSTR lpszSourceInfo )
 		if ( lpModuleInfo[0] == _T('?') || lpModuleInfo[0] == _T('\0'))
 		   // There is no modulename information. :((
          // Let's use the "address" format
-			_stprintf( lpszSourceInfo, _T("0x%08X"), lpModuleInfo, address );
+			_stprintf( lpszSourceInfo, _T("%s!0x%08X"), lpModuleInfo, address );
 		else
 			_stprintf( lpszSourceInfo, _T("%s!0x%08X"), lpModuleInfo, address );
 

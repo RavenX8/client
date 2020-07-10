@@ -201,7 +201,7 @@ t_HASHKEY CFileLIST<dType>::Add_FILE(char* szFileName, short nIndex, dType DATA,
 
   /// 이미들어간거라면..
   if ( pData ) {
-    if ( !strcmpi( szFileName, pData->m_FileName.Get() ) )
+    if ( !_strcmpi( szFileName, pData->m_FileName.Get() ) )
       return uiHashKey;
 
     t_HASHKEY uiHashKey2;

@@ -4,17 +4,15 @@
 #include "IScrollModel.h"
 #include <deque>
 
-using namespace std;
-
 typedef struct {
   char     m_szTxt[MAX_PATH];
   D3DCOLOR m_dwColor;
   bool     m_bDrawn;
 }          t_list_item;
 
-typedef deque<t_list_item>                 li_item_vec;
-typedef deque<t_list_item>::iterator       li_item_vec_itor;
-typedef deque<t_list_item>::const_iterator li_item_vec_const_itor;
+typedef std::deque<t_list_item>                 li_item_vec;
+typedef std::deque<t_list_item>::iterator       li_item_vec_itor;
+typedef std::deque<t_list_item>::const_iterator li_item_vec_const_itor;
 
 class CTScrollBar;
 class ITFont;

@@ -25,7 +25,7 @@ zz_manager_texture::zz_manager_texture() {}
 
 zz_manager_texture::~zz_manager_texture() {}
 
-class texture_settime_compare : public std::binary_function<zz_texture *, zz_texture *, bool> {
+class texture_settime_compare {
 public:
   bool operator()(const zz_texture* lhs, const zz_texture* rhs) const {
     return lhs->get_last_settime() < rhs->get_last_settime();

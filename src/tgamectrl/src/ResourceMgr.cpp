@@ -36,7 +36,7 @@ int                   CResourceMgr::GetImageNID(int iModuleID, const char* szSID
 
   memcpy( szBuff, szSID, iSize );
 
-  strupr( szBuff );
+  _strupr( szBuff );
 
   iterImageID = iterModule->second.find( szBuff );
   if ( iterImageID == iterModule->second.end() )
@@ -89,7 +89,7 @@ void             CResourceMgr::LoadResourceFile(char* szFileName, int iModuleID)
   int        NID;
   while ( nullptr != fgets( Buff, sizeof(Buff), pFile ) ) {
     ///대문자로 변경
-    strupr( Buff );
+    _strupr( Buff );
     p = strtok( Buff, sep ); ///문자열 ImageID;
 
     ZeroMemory( szBuf, sizeof( szBuf ));

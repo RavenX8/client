@@ -389,7 +389,7 @@ bool CTCmdBuyItem::Exec(CTObject* pObj) {
     TempItem.m_uiQuantity = m_iNumber;
 
   std::list<tagITEM>            appendItems;
-  std::list<pair<int, tagITEM>> removeItems;
+  std::list<std::pair<int, tagITEM>> removeItems;
   appendItems.push_back( TempItem );
 
   if ( g_pAVATAR->IsInventoryFull( appendItems, removeItems ) ) {

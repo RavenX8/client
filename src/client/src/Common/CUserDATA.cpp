@@ -310,7 +310,7 @@ void      CUserDATA::Cal_AddAbility() {
 extern bool IsIROSE();
 
 int   CUserDATA::Cal_MaxHP() {
-  int iA, iM1, iM2;
+  int iA, iM1;
   if ( IsTAIWAN() ) {
     float fC;
     switch ( this->GetCur_JOB() ) {

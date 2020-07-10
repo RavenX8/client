@@ -17,7 +17,7 @@ void CTCommandQ::Push_Front(CTCommand* pCmd) {
 }
 
 CTCommand*                   CTCommandQ::GetCommand() {
-  list<CTCommand*>::iterator Iter;
+  std::list<CTCommand*>::iterator Iter;
   if ( m_listCommand.empty() )
     return nullptr;
 
@@ -28,7 +28,7 @@ CTCommand*                   CTCommandQ::GetCommand() {
 }
 
 void                         CTCommandQ::Clear() {
-  list<CTCommand*>::iterator Iter;
+  std::list<CTCommand*>::iterator Iter;
   for ( Iter = m_listCommand.begin(); Iter != m_listCommand.end(); ) {
     delete *Iter;
     Iter = m_listCommand.erase( Iter );

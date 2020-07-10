@@ -780,12 +780,12 @@ void CObjUSER::Set_JOB(int iValue) {
   UpdateAbility();
 }
 
-bool         CObjUSER::IsInventoryFull(std::list<tagITEM>& appendItems, std::list<pair<int,tagITEM>>& removeItems) {
+bool         CObjUSER::IsInventoryFull(std::list<tagITEM>& appendItems, std::list<std::pair<int,tagITEM>>& removeItems) {
   CInventory TempInventory;
   memcpy( &TempInventory, &m_Inventory, sizeof( CInventory ) );
 
   std::list<tagITEM>::iterator            iterAppend;
-  std::list<pair<int, tagITEM>>::iterator iterRemove;
+  std::list<std::pair<int, tagITEM>>::iterator iterRemove;
   short                                   nInvenIndex = 0;
   short                                   nWeight     = 0;
 

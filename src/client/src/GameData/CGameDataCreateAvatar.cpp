@@ -57,7 +57,7 @@ void CGameDataCreateAvatar::AddCreateAvatar(CJustModelAVT* pAvatar) {
   if ( pAvatar->IsPlatinum() ) {
     pAvatar->SetIndex( m_avatars_platinum.size() + m_avatars_premium.size() );
 
-    m_avatars_platinum.insert( make_pair( pAvatar->GetLevel(), pAvatar ) );
+    m_avatars_platinum.insert( std::make_pair( pAvatar->GetLevel(), pAvatar ) );
     for ( riter = m_avatars_platinum.rbegin(); riter != m_avatars_platinum.rend(); ++riter, ++count ) {
       setPosition( riter->second->GetModelNode(),
                    c_AvatarPositions[count + 3][0],
@@ -68,7 +68,7 @@ void CGameDataCreateAvatar::AddCreateAvatar(CJustModelAVT* pAvatar) {
   } else {
     pAvatar->SetIndex( m_avatars_platinum.size() + m_avatars_premium.size() );
 
-    m_avatars_premium.insert( make_pair( pAvatar->GetLevel(), pAvatar ) );
+    m_avatars_premium.insert( std::make_pair( pAvatar->GetLevel(), pAvatar ) );
     for ( riter = m_avatars_premium.rbegin(); riter != m_avatars_premium.rend(); ++riter, ++count ) {
       setPosition( riter->second->GetModelNode(),
                    c_AvatarPositions[count][0],

@@ -2,9 +2,8 @@
 #define _HELPMGR_
 
 #include <map>
-using namespace std;
-typedef pair<unsigned short, unsigned short> PAIR_LIMIT_LV;
-typedef map<int, PAIR_LIMIT_LV>              MAP_HELP; ///< STB INDEX, PAIR_LIMIT_LV >
+typedef std::pair<unsigned short, unsigned short> PAIR_LIMIT_LV;
+typedef std::map<int, PAIR_LIMIT_LV>              MAP_HELP; ///< STB INDEX, PAIR_LIMIT_LV >
 typedef MAP_HELP::iterator                   ITER_MAP_HELP;
 typedef MAP_HELP::reverse_iterator           RITER_MAP_HELP;
 

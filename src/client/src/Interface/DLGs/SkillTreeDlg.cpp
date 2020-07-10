@@ -34,13 +34,13 @@ void          startElement(void* userData, const char* name, const char** atts) 
     node_base.m_level   = 1;
 
     for ( int index = 0; atts[index] != nullptr; index += 2 ) {
-      if ( strcmpi( atts[index], "INDEX" ) == 0 ) {
+      if ( _strcmpi( atts[index], "INDEX" ) == 0 ) {
         node_base.m_index = atoi( atts[index + 1] );
-      } else if ( strcmpi( atts[index], "OFFSETX" ) == 0 ) {
+      } else if ( _strcmpi( atts[index], "OFFSETX" ) == 0 ) {
         node_base.m_offset_x = atoi( atts[index + 1] );
-      } else if ( strcmpi( atts[index], "OFFSETY" ) == 0 ) {
+      } else if ( _strcmpi( atts[index], "OFFSETY" ) == 0 ) {
         node_base.m_offset_y = atoi( atts[index + 1] );
-      } else if ( strcmpi( atts[index], "IMAGE" ) == 0 ) {
+      } else if ( _strcmpi( atts[index], "IMAGE" ) == 0 ) {
         std::string file = "3DData\\Control\\Res\\";
         file.append( atts[index + 1] );
 
@@ -66,15 +66,15 @@ void          startElement(void* userData, const char* name, const char** atts) 
     node.m_level_limit = 0;
 
     for ( int index = 0; atts[index] != nullptr; index += 2 ) {
-      if ( strcmpi( atts[index], "INDEX" ) == 0 ) {
+      if ( _strcmpi( atts[index], "INDEX" ) == 0 ) {
         node.m_index = atoi( atts[index + 1] );
-      } else if ( strcmpi( atts[index], "OFFSETX" ) == 0 ) {
+      } else if ( _strcmpi( atts[index], "OFFSETX" ) == 0 ) {
         node.m_offset_x = atoi( atts[index + 1] );
-      } else if ( strcmpi( atts[index], "OFFSETY" ) == 0 ) {
+      } else if ( _strcmpi( atts[index], "OFFSETY" ) == 0 ) {
         node.m_offset_y = atoi( atts[index + 1] );
-      } else if ( strcmpi( atts[index], "LEVEL" ) == 0 ) {
+      } else if ( _strcmpi( atts[index], "LEVEL" ) == 0 ) {
         node.m_level = atoi( atts[index + 1] );
-      } else if ( strcmpi( atts[index], "LIMITLEVEL" ) == 0 ) {
+      } else if ( _strcmpi( atts[index], "LIMITLEVEL" ) == 0 ) {
         node.m_level_limit = atoi( atts[index + 1] );
       }
     }

@@ -91,7 +91,7 @@ private:
   CSlot              m_MakeItemSlot;     ///제조할 아이템 아이콘이 들어갈 슬롯
   std::vector<CSlot> m_listMaterialSlot; ///제조창에 올려진 아이템의 아이콘이 자리할 슬롯
 
-  vector<CSinglelineString> m_vecSingleString;
+  std::vector<CSinglelineString> m_vecSingleString;
 };
 
 /**

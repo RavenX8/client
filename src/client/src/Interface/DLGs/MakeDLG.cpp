@@ -51,7 +51,7 @@ CMakeComboClass::CMakeComboClass(int iClass) {
       std::string strName = pszName;
 
       std::string::size_type sizeType = strName.find_first_of( ' ', 0 );
-      if ( sizeType != string::npos && sizeType != strName.size() ) {
+      if ( sizeType != std::string::npos && sizeType != strName.size() ) {
         std::string strSubName = strName.substr( 0, sizeType );
         SetIdentify( strSubName.c_str() );
       } else {
@@ -116,7 +116,7 @@ CMakeDLG::CMakeDLG(int iType) {
     delete m_pMakeState[i];
 
   m_MakeItemSlot.DetachIcon();
-  for_each( m_listMaterialSlot.begin(), m_listMaterialSlot.end(), mem_fun_ref( &CSlot::DetachIcon ) );
+  for_each(m_listMaterialSlot.begin(), m_listMaterialSlot.end(), [](auto& slot) { slot.DetachIcon(); });
   m_pCurrState = nullptr;
 
   SAFE_DELETE( m_pDragItem );
@@ -133,7 +133,7 @@ void CMakeDLG::MoveWindow(POINT pt) {
   CTDialog::MoveWindow( pt );
 
   m_MakeItemSlot.MoveWindow( pt );
-  for_each( m_listMaterialSlot.begin(), m_listMaterialSlot.end(), bind2nd( mem_fun_ref( &CSlot::MoveWindow ), pt ) );
+  for_each(m_listMaterialSlot.begin(), m_listMaterialSlot.end(), [pt](auto& slot) { slot.MoveWindow(pt); });
 
   for ( int i = 0; i < STATE_MAX; ++i )
     m_pMakeState[i]->MoveWindow( pt );
@@ -155,7 +155,7 @@ void CMakeDLG::Draw() {
   m_MakeItemSlot.Draw();
 
   /// 인벤토리에서 옮긴 재료아이템 Draw
-  for_each( m_listMaterialSlot.begin(), m_listMaterialSlot.end(), mem_fun_ref( &CSlot::Draw ) );
+  for_each(m_listMaterialSlot.begin(), m_listMaterialSlot.end(), [](auto& slot) { slot.Draw(); });
 
   /// 필요 재료 Draw
   D3DXMATRIX mat;
@@ -227,12 +227,12 @@ void CMakeDLG::Update(POINT ptMouse) {
   CTDialog::Update( ptMouse );
 
   m_MakeItemSlot.Update( ptMouse );
-  for_each( m_listMaterialSlot.begin(), m_listMaterialSlot.end(), bind2nd( mem_fun_ref( &CSlot::Update ), ptMouse ) );
+  for_each(m_listMaterialSlot.begin(), m_listMaterialSlot.end(), [ptMouse](auto& slot) { slot.Update(ptMouse); });
 
   m_pCurrState->Update( ptMouse );
 
   //긴 아이템 이름 툴팁.
-  vector<CSinglelineString>::iterator itor = m_vecSingleString.begin();
+  std::vector<CSinglelineString>::iterator itor = m_vecSingleString.begin();
   while ( itor != m_vecSingleString.end() ) {
     CSinglelineString& sStrBuf = (*itor);
 

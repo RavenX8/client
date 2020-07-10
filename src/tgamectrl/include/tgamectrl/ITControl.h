@@ -7,14 +7,13 @@
 #include <list>
 #include <map>
 #include <crtdbg.h>
-using namespace std;
 
 class ITControl;
 
-typedef list<ITControl*>       CONTROL_LIST;
+typedef std::list<ITControl*>       CONTROL_LIST;
 typedef CONTROL_LIST::iterator CONTROL_LIST_ITOR;
 
-typedef map<int, ITControl*>  CONTROL_MAP;
+typedef std::map<int, ITControl*>  CONTROL_MAP;
 typedef CONTROL_MAP::iterator CONTROL_MAP_ITOR;
 
 //--------------------------------------------------------------------------------------------------------
