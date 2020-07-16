@@ -482,7 +482,7 @@ float CObjCART::Get_MoveSPEED() {
 }
 
 float CObjCART::Get_DefaultSPEED() {
-  return ((m_pObjParent) ? m_pObjParent->GetOri_RunSPEED() : 10);
+  return (float)((m_pObjParent) ? m_pObjParent->GetOri_RunSPEED() : 10);
 }
 
 short CObjCART::Get_nAttackSPEED() {

@@ -11,7 +11,7 @@ CClientStorage g_ClientStorage;
 const char     g_szIniFileName[]                     = "./Sevenhearts.ini";
 const long     g_ListBgmVolume[MAX_BGM_VOLUME]       = { -10000, -3000, -1000, -500, -100, -50, -10, -5, 0 };
 const long     g_ListEffectVolume[MAX_EFFECT_VOLUME] = { -10000, -3000, -1000, -500, -100, -50, -10, -5, 0 };
-const   float	c_GammaValues[MAX_GAMMA_COUNT] = {0.5, 0.7, 1.0, 1.2, 1.5 };
+const   float	c_GammaValues[MAX_GAMMA_COUNT] = {0.5f, 0.7f, 1.0f, 1.2f, 1.5f };
 const int c_iPeformances[MAX_PERFORMANCE_COUNT] = { 5, 4, 3, 2, 1 };
 
 CClientStorage::CClientStorage(void) {
@@ -262,17 +262,17 @@ void CClientStorage::ApplyCameraOption(short i) {
   }
 
   if ( i >= 0 && i < g_TblCamera.m_nDataCnt ) {
-    float fFogNear = CAMERA_NEAR_ALPHA_FOG(i) * 100;
-    float fFogFar  = CAMERA_FAR_ALPHA_FOG(i) * 100;
+    float fFogNear = (float)(CAMERA_NEAR_ALPHA_FOG(i) * 100);
+    float fFogFar  = (float)(CAMERA_FAR_ALPHA_FOG(i) * 100);
     setAlphaFogRange( fFogNear, fFogFar );
 
-    fFogNear = CAMERA_NEAR_FOG(i) * 100;
-    fFogFar  = CAMERA_FAR_FOG(i) * 100;
+    fFogNear = (float)(CAMERA_NEAR_FOG(i) * 100);
+    fFogFar  = (float)(CAMERA_FAR_FOG(i) * 100);
     setFogRange( fFogNear, fFogFar );
 
     HNODE camera = findNode( "avatar_camera" );
-    setCameraAspectRatio( camera, atof( CAMERA_ASPECT_RATIO(i) ) );
-    setCameraPerspective( camera, CAMERA_FOV(i), atof( CAMERA_ASPECT_RATIO(i) ), CAMERA_NEAR_PLANE(i) * 100, CAMERA_FAR_PLANE(i) * 100 );
+    setCameraAspectRatio( camera, (float)(atof( CAMERA_ASPECT_RATIO(i) )) );
+    setCameraPerspective( camera, (float)CAMERA_FOV(i), (float)(atof( CAMERA_ASPECT_RATIO(i) )), (float)(CAMERA_NEAR_PLANE(i) * 100), (float)(CAMERA_FAR_PLANE(i) * 100) );
     g_GameDATA.m_nSightRange = CAMERA_MAX_RANGE(i) / 10;
   }
 }
@@ -370,7 +370,7 @@ void CClientStorage::SetInventoryData(const char* pszName, std::list<S_Inventory
       if ( iSlot < 0 || iSlot >= INVENTORY_PAGE_SIZE )
         continue;
 
-      Inventory[iType][iSlot] = iter->lRealIndex;
+      Inventory[iType][iSlot] = (short)iter->lRealIndex;
     }
     WritePrivateProfileStruct( pszName, "INVENTORY", Inventory, sizeof(Inventory), g_szIniFileName );
   }
