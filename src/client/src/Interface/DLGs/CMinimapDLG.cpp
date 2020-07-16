@@ -288,7 +288,7 @@ void    CMinimapDLG::DrawCoordinatesIndicator() {
       fDrawPosY = fScreenCenterY - m_fCurrentScale * fDistanceY / fGetWorldDistancePerPixel();
 
       if ( IsInsideMinimap( fDrawPosX - 10, fDrawPosY - 10, 20, 20 ) ) {
-        m_indicator->SetPosition( fDrawPosX - 10, (int)fDrawPosY - 10 );
+        m_indicator->SetPosition( (int)fDrawPosX - 10, (int)fDrawPosY - 10 );
         m_indicator->Draw();
       }
     }

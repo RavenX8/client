@@ -296,7 +296,7 @@ public:
   int Get_FAME() { return GetCur_FAME(); }   // 명성
   int Get_JOB() { return GetCur_JOB(); }     // 직업
 
-  int Get_EXP() { return GetCur_EXP(); }
+  int64_t Get_EXP() { return GetCur_EXP(); }
   int Get_BonusPOINT() { return GetCur_BonusPOINT(); }
   int Get_SkillPOINT() { return GetCur_SkillPOINT(); }
 
