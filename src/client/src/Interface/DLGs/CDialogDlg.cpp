@@ -367,7 +367,7 @@ bool CDialogDlg::Create(const char* IDD) {
       if (NULL != pCtrl && CTRL_IMAGE == pCtrl->GetControlType())
       {
         CTImage* pImage = (CTImage*)pCtrl;
-        pImage->SetScaleWidth(g_pCApp->GetWIDTH() / pImage->GetWidth());
+        pImage->SetScaleWidth((float)(g_pCApp->GetWIDTH() / pImage->GetWidth()));
       }
 
       pCtrl = Find(IID_BTN_CLOSE);

@@ -134,8 +134,8 @@ void CQuadPatchManager::LoadQuadPatch(CMAP* pMap) {
 
   for ( i                      = 0; i < 85; i += 1 ) {
     m_quadPATCH[i].fquad_size  = m_quadPATCH[i].iquad_size * fPATCH_SIZE;
-    m_quadPATCH[i].nQuadXFromW = buffer_lengthX + m_quadPATCH[i].nQuadXFromMap;
-    m_quadPATCH[i].nQuadYFromW = buffer_lengthY + m_quadPATCH[i].nQuadYFromMap;
+    m_quadPATCH[i].nQuadXFromW = (float)(buffer_lengthX + m_quadPATCH[i].nQuadXFromMap);
+    m_quadPATCH[i].nQuadYFromW = (float)(buffer_lengthY + m_quadPATCH[i].nQuadYFromMap);
     m_quadPATCH[i].aabb.x[0]   = m_quadPATCH[i].nQuadXFromW * fPATCH_SIZE;
     m_quadPATCH[i].aabb.x[1]   = m_quadPATCH[i].aabb.x[0] + m_quadPATCH[i].fquad_size;
     m_quadPATCH[i].aabb.y[0]   = m_quadPATCH[i].nQuadYFromW * fPATCH_SIZE;
@@ -1071,8 +1071,8 @@ bool CMAP::AddObject(int             iObjectIndex, D3DXVECTOR3& Position = D3DXV
         D3DXMatrixScaling( &s_m, Scale.x, Scale.y, Scale.z );
         object_m = (s_m * r_m * t_m);
 
-        bufferPosition1.x = pModel->m_iCylinderX;
-        bufferPosition1.y = pModel->m_iCylinderY;
+        bufferPosition1.x = (FLOAT)(pModel->m_iCylinderX);
+        bufferPosition1.y = (FLOAT)(pModel->m_iCylinderY);
         bufferPosition1.z = 0.0f;
         bufferPosition1.w = 1.0f;
         D3DXVec4Transform( &bufferPosition2, &bufferPosition1, &object_m );

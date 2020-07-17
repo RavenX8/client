@@ -359,7 +359,7 @@ int   CUserDATA::Cal_MaxHP() {
         break;
     }
 
-    m_Battle.m_nMaxHP = (short)((this->GetCur_LEVEL() + iA) * sqrtf( this->GetCur_LEVEL() + iM1 ) * fC + (this->GetCur_STR() * 2) + this->m_iAddValue[AT_MAX_HP]);
+    m_Battle.m_nMaxHP = (short)((this->GetCur_LEVEL() + iA) * sqrtf( (float)(this->GetCur_LEVEL() + iM1) ) * fC + (this->GetCur_STR() * 2) + this->m_iAddValue[AT_MAX_HP]);
   }
 #ifdef _DEBUG
   int test = this->GetPassiveSkillValue( AT_PSV_MAX_HP );
@@ -546,8 +546,8 @@ int        CUserDATA::Cal_HIT() {
     pRightWPN = &this->m_Inventory.m_ItemRIDE[RIDE_PART_ARMS];
 
     if ( pRightWPN->GetLife() > 0 )
-      iHitRate = (int)((GetCur_CON() + 10) * 0.8f) + (GetCur_LEVEL() * 0.5f) +
-                 (int)(ITEM_QUALITY( ITEM_TYPE_RIDE_PART, pRightWPN->GetItemNO() ) * 1.2f);
+      iHitRate = (int)((int)((GetCur_CON() + 10) * 0.8f) + (GetCur_LEVEL() * 0.5f) +
+                 (int)(ITEM_QUALITY( ITEM_TYPE_RIDE_PART, pRightWPN->GetItemNO() ) * 1.2f));
     else
       iHitRate = 0;
   }
@@ -682,24 +682,24 @@ int   CUserDATA::Cal_ATTACK() {
       switch ( ShotTYPE ) {
         case SHOT_TYPE_ARROW: ///활무기
         {
-          iAP = (int)((GetCur_DEX() * 0.52f + GetCur_STR() * 0.1f + GetCur_LEVEL() * 0.1f + 3) +
+          iAP = (int)((int)((GetCur_DEX() * 0.52f + GetCur_STR() * 0.1f + GetCur_LEVEL() * 0.1f + 3) +
                       ((iWeaponAP + ITEMGRADE_ATK(pRightWPN->GetGrade()) + PatArmsAttackPower) *
-                       (GetCur_DEX() * 0.04f + GetCur_SENSE() * 0.03f + 29) / 60.f)) * 1.03f;
+                       (GetCur_DEX() * 0.04f + GetCur_SENSE() * 0.03f + 29) / 60.f)) * 1.03f);
         }
         break;
         case SHOT_TYPE_BULLET: ///총무기
         {
-          iAP = (int)((GetCur_DEX() * 0.3f + GetCur_CON() * 0.47f + GetCur_LEVEL() * 0.1f + 6.4) +
+          iAP = (int)((int)((GetCur_DEX() * 0.3f + GetCur_CON() * 0.47f + GetCur_LEVEL() * 0.1f + 6.4) +
                       (((iWeaponAP + ITEMGRADE_ATK(pRightWPN->GetGrade())) + PatArmsAttackPower) *
-                       (GetCur_CON() * 0.04f + GetCur_SENSE() * 0.05f + 29) / 60.f)) * 1.032f;
+                       (GetCur_CON() * 0.04f + GetCur_SENSE() * 0.05f + 29) / 60.f)) * 1.032f);
 
         }
         break;
         case SHOT_TYPE_THROW: ///투척기
         {
-          iAP = (int)((GetCur_STR() * 0.32f + GetCur_CON() * 0.45f + GetCur_LEVEL() * 0.1f + 8) +
+          iAP = (int)((int)((GetCur_STR() * 0.32f + GetCur_CON() * 0.45f + GetCur_LEVEL() * 0.1f + 8) +
                       (((iWeaponAP + ITEMGRADE_ATK(pRightWPN->GetGrade())) + PatArmsAttackPower) *
-                       (GetCur_CON() * 0.04f + GetCur_SENSE() * 0.05f + 29) / 60.f)) * 1.033f;
+                       (GetCur_CON() * 0.04f + GetCur_SENSE() * 0.05f + 29) / 60.f)) * 1.033f);
         }
         break;
         default:
@@ -718,30 +718,30 @@ int   CUserDATA::Cal_ATTACK() {
             );
           } else ///마법도구
           {
-            iAP = (int)((GetCur_INT() * 0.6f + GetCur_LEVEL() * 0.2f) +
+            iAP = (int)((int)((GetCur_INT() * 0.6f + GetCur_LEVEL() * 0.2f) +
                         ((iWeaponAP + ITEMGRADE_ATK(pRightWPN->GetGrade()) + PatArmsAttackPower) *
-                         (GetCur_SENSE() * 0.1f + 26) / 54.f)) * 1.025f;
+                         (GetCur_SENSE() * 0.1f + 26) / 54.f)) * 1.025f);
           }
         }
         break;
         case 25: // 카타르				
           if ( 252 == WEAPON_TYPE( pRightWPN->m_nItemNo ) ) {
             // 이도류
-            iAP = (int)((GetCur_STR() * 0.63f + GetCur_DEX() * 0.45f + GetCur_LEVEL() * 0.2f) +
+            iAP = (int)((int)((GetCur_STR() * 0.63f + GetCur_DEX() * 0.45f + GetCur_LEVEL() * 0.2f) +
                         ((iWeaponAP + ITEMGRADE_ATK(pRightWPN->GetGrade()) + PatArmsAttackPower) *
-                         (GetCur_DEX() * 0.05f + 25) / 52.f)) * 1.032f;
+                         (GetCur_DEX() * 0.05f + 25) / 52.f)) * 1.032f);
           } else {
-            iAP = (int)((GetCur_STR() * 0.42f + GetCur_DEX() * 0.55f + GetCur_LEVEL() * 0.2f) +
+            iAP = (int)((int)((GetCur_STR() * 0.42f + GetCur_DEX() * 0.55f + GetCur_LEVEL() * 0.2f) +
                         ((iWeaponAP + ITEMGRADE_ATK(pRightWPN->GetGrade()) + PatArmsAttackPower) *
-                         (GetCur_DEX() * 0.05f + 20) / 42.f)) * 1.032f;
+                         (GetCur_DEX() * 0.05f + 20) / 42.f)) * 1.032f);
           }
           break;
         case 21: // 한손// 근접 무기
         case 22: // 양손		
         {
-          iAP = (int)((GetCur_STR() * 0.75 + GetCur_LEVEL() * 0.2) +
+          iAP = (int)((int)((GetCur_STR() * 0.75 + GetCur_LEVEL() * 0.2) +
                       ((iWeaponAP + ITEMGRADE_ATK( pRightWPN->GetGrade() ) + PatArmsAttackPower) *
-                       (GetCur_STR() * 0.05 + 29) / 60.f)) * 1.033f;
+                       (GetCur_STR() * 0.05 + 29) / 60.f)) * 1.033f);
         }
           break;
         default: ///맨손
@@ -804,7 +804,7 @@ int   CUserDATA::Cal_DEFENCE() {
   if ( this->GetCur_MOVE_MODE() <= MOVE_MODE_RUN )
     this->m_Battle.m_nDEF = (int)(iTotDEF + (iTotGradeDEF) + (this->GetCur_STR() + 5) * 0.35f + (this->GetCur_LEVEL() + 15) * 0.7f) + this->m_iAddValue[AT_DEF];
   else
-    this->m_Battle.m_nDEF = (int)((iTotDEF + (iTotGradeDEF) + (this->GetCur_STR() + 5) * 0.35f + (this->GetCur_LEVEL() + 15) * 0.7f)) * 0.8f + this->m_iAddValue[AT_DEF];
+    this->m_Battle.m_nDEF = (short)((int)((iTotDEF + (iTotGradeDEF) + (this->GetCur_STR() + 5) * 0.35f + (this->GetCur_LEVEL() + 15) * 0.7f)) * 0.8f + this->m_iAddValue[AT_DEF]);
 #else
   this->m_Battle.m_nDEF = (int)( iTotDEF + (iTotGradeDEF) + ( this->GetCur_STR()+5 ) * 0.35f + (this->GetCur_LEVEL()+15) * 0.7f ) + this->m_iAddValue[ AT_DEF ];
 #endif
@@ -924,7 +924,7 @@ int CUserDATA::Get_AbilityValue(WORD wType) {
       // case AT_RECOVER_HP :	
       // case AT_RECOVER_MP :	break;
 
-    case AT_EXP: return GetCur_EXP();
+    case AT_EXP: return (int)GetCur_EXP();
     case AT_LEVEL: return GetCur_LEVEL();
     case AT_BONUSPOINT: return GetCur_BonusPOINT();
     case AT_SKILLPOINT: return GetCur_SkillPOINT();
@@ -1323,7 +1323,7 @@ int CUserDATA::Skill_GetAbilityValue(short nAbilityType) {
 
     case AT_HP: return (GetCur_HP() - 1); //// 실제보다 1작게...피인 경우 소모시 다빼면 뒈진다..
     case AT_MP: return GetCur_MP();
-    case AT_EXP: return GetCur_EXP();
+    case AT_EXP: return (int)GetCur_EXP();
     case AT_MONEY: if ( GetCur_MONEY() > MAX_INT )
         return MAX_INT;
       return (int)GetCur_MONEY();

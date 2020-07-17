@@ -1572,11 +1572,11 @@ const std::string& CGame::GetExpireTime() {
   return m_expireTime;
 }
 
-const std::string& CGame::GetExpireTimeExt(int type) {
+std::string CGame::GetExpireTimeExt(int type) {
   if ( type > 0 && type < PAY_FLAG_JP_SIZE ) {
     return m_expireTimeExt[type];
   }
-  return "";
+  return {};
 }
 
 DWORD CGame::GetSetExpireTime() {

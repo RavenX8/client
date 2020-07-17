@@ -286,7 +286,7 @@ void                                           CGameDataCreateAvatar::Update() {
 
       CInfo Info;
       Info.Clear();
-      POINT pt = { fScreenXYZ[0] - 40, fScreenXYZ[1] - 250 };
+      POINT pt = { (long)(fScreenXYZ[0] - 40), (long)(fScreenXYZ[1] - 250) };
 
       Info.AddString( pAVT->GetName().c_str(), g_dwYELLOW, g_GameDATA.m_hFONT[FONT_NORMAL], DT_CENTER );
       Info.AddString( CStr::Printf( "%s: %d", CStringManager::GetSingleton().GetAbility( AT_LEVEL ), pAVT->GetLevel() ) );

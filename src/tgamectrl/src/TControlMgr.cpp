@@ -792,7 +792,7 @@ CTImage*                      CTControlMgr::MakeImageByXML2(MSXML::IXMLDOMNodePt
   float fScaleWidth  = GetNodeFloatValueFromNamedNodeMapByName( pNamedNodeMap, "SCALEWIDTH" );
   float fScaleHeight = GetNodeFloatValueFromNamedNodeMapByName( pNamedNodeMap, "SCALEHEIGHT" );
 
-  int iSizeFit = GetNodeFloatValueFromNamedNodeMapByName( pNamedNodeMap, "SIZEFIT" );
+  int iSizeFit = (int)GetNodeFloatValueFromNamedNodeMapByName( pNamedNodeMap, "SIZEFIT" );
 
   std::string sGID = GetNodeStringValueFromNamedNodeMapByName( pNamedNodeMap, "GID" );
 

@@ -35,7 +35,7 @@ void CClanDlg::Draw() {
   if ( !IsVision() ) return;
   CTDialog::Draw();
 
-  D3DVECTOR vCharPos = { m_sPosition.x + 238, m_sPosition.y + 102, 0 };
+  D3DVECTOR vCharPos = { (float)(m_sPosition.x + 238), (float)(m_sPosition.y + 102), 0 };
 
   switch ( m_iTab ) {
     case TAB_INFO: CClanMarkView::Draw( g_pAVATAR, vCharPos );

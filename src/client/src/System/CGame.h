@@ -201,7 +201,7 @@ public:
   //Ext Func
   void               SetExpireTimeExt(int     type, const char* time);
   DWORD              GetSetExpireTimeExt(int  type);
-  const std::string& GetExpireTimeExt(int     type);
+  std::string        GetExpireTimeExt(int     type);
   void               SetExpireTimeTypeExt(int type, int time);
   int                GetExpireTimeTypeExt(int type);
 

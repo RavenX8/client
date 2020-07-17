@@ -400,21 +400,21 @@ HANDLE            __FindFirstFileName(const char* Dir, const char** FirstName) {
  * @return			파일이름
  * 디렉토리이고 제외시킬 ".", ".."도 제외
  */
-const char*       __FindNextFileName(HANDLE hSearch) {
+std::string __FindNextFileName(HANDLE hSearch) {
   WIN32_FIND_DATA FileData;
 
-  if ( !hSearch ) { return nullptr; } /// hSearch가 유효한 값이 아니면 NULL을 리턴
+  if (!hSearch) { return {}; } /// hSearch가 유효한 값이 아니면 NULL을 리턴
 
   FindNextFile( hSearch, &FileData );
-  if ( GetLastError() == ERROR_NO_MORE_FILES ) { return nullptr; } /// 더 이상의 파일이 없다
+  if (GetLastError() == ERROR_NO_MORE_FILES) { return {}; } /// 더 이상의 파일이 없다
 
   while ( FileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) {
     if ( !FindNextFile( hSearch, &FileData ) ) {
-      if ( GetLastError() == ERROR_NO_MORE_FILES ) { return nullptr; } /// 더 이상의 파일이 없다
+        if (GetLastError() == ERROR_NO_MORE_FILES) { return {}; } /// 더 이상의 파일이 없다
     }
   }
 
-  return (const char *)FileData.cFileName;
+  return std::string(FileData.cFileName);
 }
 
 /****************************************************************************************************

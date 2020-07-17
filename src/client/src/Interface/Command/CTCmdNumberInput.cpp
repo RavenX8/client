@@ -397,7 +397,7 @@ bool CTCmdBuyItem::Exec(CTObject* pObj) {
     return true;
   }
 
-  long lPrice = 0;
+  int64_t lPrice = 0;
   if ( CStore::GetInstance().IsUnionStore() ) {
     lPrice = ITEM_TRADE_UNIONPOINT( Item.GetTYPE(), Item.GetItemNO() ) * m_iNumber;
     if ( lPrice > g_pAVATAR->Get_AbilityValue( AT_UNION_POINT1 - 1 + g_pAVATAR->Get_UNION() ) ) {
@@ -405,7 +405,7 @@ bool CTCmdBuyItem::Exec(CTObject* pObj) {
       return true;
     }
     int iValue = g_pAVATAR->Get_AbilityValue( AT_UNION_POINT1 - 1 + g_pAVATAR->Get_UNION() );
-    g_pAVATAR->Set_AbilityValue( AT_UNION_POINT1 - 1 + g_pAVATAR->Get_UNION(), iValue - lPrice );
+    g_pAVATAR->Set_AbilityValue( AT_UNION_POINT1 - 1 + g_pAVATAR->Get_UNION(), iValue - (int)lPrice );
   } else {
     lPrice = g_pTerrain->m_Economy.Get_ItemBuyPRICE( Item.GetTYPE(), Item.GetItemNO(),
                                                      g_pAVATAR->GetBuySkillVALUE() ) * (int)m_iNumber;

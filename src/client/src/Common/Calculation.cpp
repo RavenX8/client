@@ -414,7 +414,7 @@ int CCal::Get_SuccessRATE(CObjCHAR* pATK, CObjCHAR* pDEF) // , int &iCriticalSUC
     }
   } else {
     iRAND1   = 1 + RANDOM(100);
-    iSuccess = 138 - ((float)(pATK->Get_HIT() + pDEF->Get_AVOID()) / pATK->Get_HIT()) * 75.0f + iRAND1; // 2005-7-13 kchs 
+    iSuccess = (int)(138 - ((float)(pATK->Get_HIT() + pDEF->Get_AVOID()) / pATK->Get_HIT()) * 75.0f + iRAND1); // 2005-7-13 kchs 
   }
 
   return iSuccess;
@@ -458,7 +458,7 @@ damageType CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, i
         int iMaxDmg                      = (damageType)(pDEF->Get_MaxHP() * 0.35f);
         if ( iDamage > iMaxDmg ) iDamage = iMaxDmg;
       } else
-        if ( iDamage > MAX_DAMAGE ) iDamage = MAX_DAMAGE;
+        if ( iDamage > MAX_DAMAGE ) iDamage = (damageType)MAX_DAMAGE;
     }
 
     iDamage |= DMG_BIT_CRITICAL;
@@ -490,11 +490,11 @@ damageType CCal::Get_BasicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, i
         if ( iDamage > iMaxDmg )
           iDamage = iMaxDmg;
       } else
-        if ( iDamage > MAX_DAMAGE ) iDamage = MAX_DAMAGE;
+        if ( iDamage > MAX_DAMAGE ) iDamage = (damageType)MAX_DAMAGE;
     }
   }
 
-  return (iHitActRATE >= 10) ? (DMG_BIT_HITTED | iDamage) : iDamage;
+  return (damageType)((iHitActRATE >= 10) ? (DMG_BIT_HITTED | iDamage) : iDamage);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -545,7 +545,7 @@ damageType CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, i
         if ( iDamage > iMaxDmg )
           iDamage = iMaxDmg;
       } else
-        if ( iDamage > MAX_DAMAGE ) iDamage = MAX_DAMAGE;
+        if ( iDamage > MAX_DAMAGE ) iDamage = (damageType)MAX_DAMAGE;
     }
 
     iDamage |= DMG_BIT_CRITICAL;
@@ -586,11 +586,11 @@ damageType CCal::Get_MagicDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, WORD wHitCNT, i
         if ( iDamage > iMaxDmg )
           iDamage = iMaxDmg;
       } else
-        if ( iDamage > MAX_DAMAGE ) iDamage = MAX_DAMAGE;
+        if ( iDamage > MAX_DAMAGE ) iDamage = (damageType)MAX_DAMAGE;
     }
   }
 
-  return (iHitActRATE >= 10) ? (DMG_BIT_HITTED | iDamage) : iDamage;
+  return (damageType)((iHitActRATE >= 10) ? (DMG_BIT_HITTED | iDamage) : iDamage);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -820,14 +820,14 @@ damageType CCal::Get_SkillDAMAGE(CObjCHAR* pATK, CObjCHAR* pDEF, short nSkillIDX
     if ( iDamage > iMaxDmg ) iDamage = iMaxDmg;
   } else
 
-    if ( iDamage > MAX_DAMAGE ) iDamage = MAX_DAMAGE;
+    if ( iDamage > MAX_DAMAGE ) iDamage = (damageType)MAX_DAMAGE;
 
   // 히트 동작 확률...
   int iHitActRATE;
 
   iHitActRATE = iDamage * (1 + (RANDOM(100)) + 100) / (pDEF->Get_AVOID() + 40) / 14;
 
-  return (iHitActRATE >= 10) ? (DMG_BIT_HITTED | iDamage) : iDamage;
+  return (damageType)((iHitActRATE >= 10) ? (DMG_BIT_HITTED | iDamage) : iDamage);
 }
 
 //-------------------------------------------------------------------------------------------------

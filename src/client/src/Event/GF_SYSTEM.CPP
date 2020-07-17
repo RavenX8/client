@@ -31,7 +31,7 @@ int GF_getVariable(int iVarTYPE) {
     case SV_SEN: return g_pAVATAR->Get_SENSE();
 
     case SV_LEVEL: return g_pAVATAR->Get_LEVEL();
-    case SV_EXP: return g_pAVATAR->Get_EXP();
+    case SV_EXP: return (int)g_pAVATAR->Get_EXP();
   }
 
   return -1;

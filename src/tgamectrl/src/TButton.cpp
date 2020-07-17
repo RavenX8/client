@@ -105,7 +105,7 @@ void CTButton::Update(POINT ptMouse) {
   if ( m_iBlink ) {
     DWORD dwCurrTime = timeGetTime();
 
-    if ( dwCurrTime - m_dwPrevUpdateTime > m_iBlinkTime ) {
+    if ( dwCurrTime - m_dwPrevUpdateTime > (DWORD)m_iBlinkTime ) {
       int iTempGID       = m_iNormalGraphicID;
       m_iNormalGraphicID = m_iBlinkGraphicID;
       m_iBlinkGraphicID  = iTempGID;

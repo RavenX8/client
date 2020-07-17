@@ -234,7 +234,7 @@ bool CUtil::Get_IPAddressFromHostName(const char* szHostName, char* szBuffer, sh
 int     CUtil::ExtractFilePath(char* pFullFilePath, char* pOutResult, WORD wOutBuffLEN) {
   short nI, nLen;
 
-  nLen     = strlen( pFullFilePath ) - 1;
+  nLen     = (short)(strlen( pFullFilePath ) - 1);
   for ( nI = nLen; nI >= 0 && pFullFilePath[nI] != '\\'; nI-- );
 
   if ( nI >= 0 && nI < nLen ) {
@@ -255,7 +255,7 @@ int     CUtil::ExtractFilePath(char* pFullFilePath, char* pOutResult, WORD wOutB
 int     CUtil::ExtractFileName(char* pResult, char* pFullPath) {
   short nI, nLen;
 
-  nLen     = strlen( pFullPath ) - 1;
+  nLen     = (short)(strlen( pFullPath ) - 1);
   for ( nI = nLen; nI >= 0 && pFullPath[nI] != '\\'; nI-- );
 
   if ( nI >= 0 && nI < nLen ) {

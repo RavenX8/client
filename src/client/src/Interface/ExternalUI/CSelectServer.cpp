@@ -83,7 +83,7 @@ void        CSelectServer::SendSelectServerReq() {
 
       int iSelectItmeIndex = pListBox->GetSelectedItemID();
 
-      if ( m_ServerInfoList.size() > 0 && m_ServerInfoList.size() > iSelectItmeIndex ) {
+      if ( m_ServerInfoList.size() > 0 && (int)m_ServerInfoList.size() > iSelectItmeIndex ) {
         CGame::GetInstance().SetServerInfo( m_ServerInfoList[iSelectItmeIndex] );
       }
 

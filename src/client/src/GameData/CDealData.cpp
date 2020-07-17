@@ -210,7 +210,7 @@ unsigned CDealData::GetSellItemCnt() {
 void   CDealData::SendTradeReq() {
   long lTotalSELL = GetTotal_SELL();
   long lTotalBUY  = GetTotal_BUY();
-  long lCurMoney  = g_pAVATAR->Get_MONEY() + lTotalSELL;
+  long lCurMoney  = (long)(g_pAVATAR->Get_MONEY() + lTotalSELL);
 
   if ( CStore::GetInstance().IsUnionStore() ) {
     if ( lTotalBUY > g_pAVATAR->Get_AbilityValue( AT_UNION_POINT1 - 1 + g_pAVATAR->Get_UNION() ) ) {

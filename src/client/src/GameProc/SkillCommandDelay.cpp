@@ -78,7 +78,7 @@ void CSkillCommandDelay::Draw(int iX, int iY) {
 
   ////// Transform
   D3DXMATRIX mat;
-  D3DXMatrixTranslation( &mat, iX, iY, 0.0f );
+  D3DXMatrixTranslation( &mat, (float)iX, (float)iY, 0.0f );
   setTransformSprite( mat );
 
   drawSprite( m_hCoverTexture,

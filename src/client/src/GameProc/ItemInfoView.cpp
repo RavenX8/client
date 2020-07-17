@@ -45,7 +45,7 @@ void CDropItemInfo::SetDropItemInfo(CObjITEM* pItem) {
 
   D3DVECTOR PosSCR;
   m_pDropItem->GetScreenPOS( PosSCR );
-  POINT pt = { PosSCR.x, PosSCR.y };
+  POINT pt = { (long)PosSCR.x, (long)PosSCR.y };
   m_Info.SetPosition( pt );
 }
 

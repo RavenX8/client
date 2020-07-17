@@ -184,7 +184,7 @@ void CTListBox::SelectItem()
 void CTListBox::SetText(int index, const char* text, D3DCOLOR dwColor) {
   if ( text == nullptr ) return;
   if ( m_ITM.empty() ) return;
-  if ( index < 0 || index >= m_ITM.size() ) return;
+  if ( index < 0 || (size_t)index >= m_ITM.size() ) return;
 
   t_list_item itm;
   int         iLen = (int)strlen( text );

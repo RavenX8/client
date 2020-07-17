@@ -210,7 +210,7 @@ bool CSelectEventDlg::Create(const char* IDD) {
       CWinCtrl* pCtrl = Find( IID_BG_IMAGE );
       if ( nullptr != pCtrl && CTRL_IMAGE == pCtrl->GetControlType() ) {
         CTImage* pImage = (CTImage*)pCtrl;
-        pImage->SetScaleWidth( g_pCApp->GetWIDTH() / pImage->GetWidth() );
+        pImage->SetScaleWidth( (float)(g_pCApp->GetWIDTH() / pImage->GetWidth()) );
       }
 
       pCtrl = Find( IID_BTN_CLOSE );

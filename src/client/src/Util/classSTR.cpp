@@ -306,7 +306,7 @@ void CStrVAR::Set(char* szStrIn) {
   this->Del();
 
   if ( szStrIn ) {
-    m_wStrLen = strlen( szStrIn );
+    m_wStrLen = (WORD)strlen( szStrIn );
     if ( m_wStrLen > 0 ) {
       m_pStr = new char[ m_wStrLen + 1 ];
       _ASSERT( m_pStr );

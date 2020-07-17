@@ -331,7 +331,7 @@ bool CObjFIXED::Create(CMODEL<CFixedPART>* pMODEL, D3DVECTOR& Position, bool bCr
     }
 
     if ( pMODEL->m_pParts[nI].m_nRangeSet ) {
-      setVisibleRangeFromCamera( m_pHNODES[nI], LOD_APPEAR_MIN( pMODEL->m_pParts[ nI ].m_nRangeSet ), LOD_APPEAR_MAX( pMODEL->m_pParts[ nI ].m_nRangeSet ) );
+      setVisibleRangeFromCamera( m_pHNODES[nI], (float)LOD_APPEAR_MIN( pMODEL->m_pParts[ nI ].m_nRangeSet ), (float)LOD_APPEAR_MAX( pMODEL->m_pParts[ nI ].m_nRangeSet ) );
     }
   }
 
