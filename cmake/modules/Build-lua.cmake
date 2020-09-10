@@ -93,7 +93,7 @@ if(WIN32)
     DOWNLOAD_COMMAND ""
     SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /EHsc <SOURCE_DIR>/src/lua/lua.c
+    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /EHsc
     <SOURCE_DIR>/src/lapi.c
     <SOURCE_DIR>/src/lcode.c
     <SOURCE_DIR>/src/ldebug.c
