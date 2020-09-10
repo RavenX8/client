@@ -21,16 +21,9 @@ public:
   HWND   m_hSocketWindow;
   SOCKET m_hSocket;
 
-  operator SOCKET() const;
-
   bool Socket(UINT uiWIndowMsg, int nSocketType = SOCK_STREAM, long lEvent =
                   FD_READ | FD_WRITE | FD_OOB | FD_ACCEPT | FD_CONNECT | FD_CLOSE,
               int nProtocolType = 0, int nAddressFormat = PF_INET);
-
-  BOOL SetSockOpt(int nOptionName, const void* lpOptionValue, int  nOptionLen, int  nLevel = SOL_SOCKET);
-  BOOL GetSockOpt(int nOptionName, void*       lpOptionValue, int* lpOptionLen, int nLevel = SOL_SOCKET);
-
-  static int PASCALGetLastError();
 
   // Operations
 public:
