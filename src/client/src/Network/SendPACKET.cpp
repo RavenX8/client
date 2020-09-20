@@ -20,6 +20,8 @@
 #include "../System/CGame.h"
 #include "../System/GameStateMovePlanet.h"
 
+#include "cli_login_req.h"
+
 #ifdef	__VIRTUAL_SERVER
 void CSendPACKET::Send_gsv_ADD_CHAR (int iObjectIndex, short nCharIdx, tPOINTF &PosSET)
 {
@@ -75,53 +77,26 @@ CSendPACKET::~CSendPACKET() {
 }
 
 //-------------------------------------------------------------------------------------------------
-void CSendPACKET::Send_cli_HEADER(WORD wType, bool bSendToWorld) {
-#ifdef	__VIRTUAL_SERVER
-  ;
-  return;
-  ;
-#else
-  m_pSendPacket->m_HEADER.m_wType = wType;
-  m_pSendPacket->m_HEADER.m_nSize = sizeof( t_PACKETHEADER );
-#endif
-
-  this->Send_PACKET( m_pSendPacket, bSendToWorld );
-}
-
-//-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEncode) {
   if ( !szAccount || !szAccount[0] )
     return;
 
-  int       iStrLen = strlen( szAccount );
-  for ( int iC      = 0; iC < iStrLen; iC++ ) {
-    if ( szAccount[iC] == '\'' ) // °èÁ¤¿¡ ' ¹®ÀÚ´Â µé¾î°¡¸é ¾ÈµÊ...
-      return;
+  std::string account(szAccount);
+
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ' ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½Èµï¿½...
+  if (account.find('\'') != std::string::npos) {
+    return;
   }
-
-  m_pSendPacket->m_HEADER.m_wType = CLI_LOGIN_REQ;
-  m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_LOGIN_REQ );
-
-  std::string password = szPassword;
 
   if ( bEncode ) {
+    std::string password(szPassword);
     picosha2::hash256_hex_string(password, m_pMD5Buff);
-    //GetMD5( m_pMD5Buff, (unsigned char*)szPassword, strlen( szPassword ) );
-    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
-    Packet_AppendString( m_pSendPacket, szAccount );
   } else {
-
     m_pMD5Buff = g_GameDATA.m_PasswordMD5;
-    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, g_GameDATA.m_PasswordMD5.c_str(), 64);
-    Packet_AppendString( m_pSendPacket, g_GameDATA.m_Account.Get() );
+    account = g_GameDATA.m_Account.Get();
   }
 
-#if defined(_TAIWAN) || defined(_PHILIPPIN)
-  short codepage = 950;
-  Packet_AppendData( m_pSendPacket, &codepage, sizeof( codepage ) );
-#endif
-
-  this->Send_PACKET( m_pSendPacket, true );
+  this->Send_PACKET(RoseCommon::Packet::CliLoginReq::create(m_pMD5Buff, account), true);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -370,8 +345,8 @@ void CSendPACKET::Send_cli_CHAT(char* szMsg) {
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHAT );
   Packet_AppendString( m_pSendPacket, szMsg );
 
-  /// Å¬¶óÀÌ¾ðÆ®¿¡¼­¸¸ »ç¿ëÇÏ´Â Ä¡Æ® »ç¿ë..
-  /// Å¬¶óÀÌ¾ðÆ®¿¡¼­ »ç¿ëÇÏ´Â Ä¡Æ®°¡ µ¿ÀÛµÇ¸é.. ÃÂÆÃÀ» ³¯¸®Áö ¸¶¶ó..
+  /// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Ä¡Æ® ï¿½ï¿½ï¿½..
+  /// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Ä¡Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¸ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
   if ( g_Cheat.DoCheat( szMsg, false ) == CHEAT_RESULT_CLIENT )
     return;
 
@@ -458,8 +433,8 @@ void CSendPACKET::Send_cli_STOP(D3DVECTOR& PosCUR) {
 
 //----------------------------------------------------------------------------------------------------
 /// @param
-/// @brief ÀÌµ¿ÀÇ ¸ñÀû¿¡ »ç¿ë
-/// @bug Á¶½É...m_nPosZ°¡ short ÇüÀÌ±â¶§¹®¿¡...
+/// @brief ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+/// @bug ï¿½ï¿½ï¿½ï¿½...m_nPosZï¿½ï¿½ short ï¿½ï¿½ï¿½Ì±â¶§ï¿½ï¿½ï¿½ï¿½...
 //----------------------------------------------------------------------------------------------------
 
 void CSendPACKET::Send_cli_MOUSECMD(int iClientTarget, D3DVECTOR& PosTO) {
@@ -477,7 +452,7 @@ void CSendPACKET::Send_cli_MOUSECMD(int iClientTarget, D3DVECTOR& PosTO) {
     return;
 
   //-------------------------------------------------------------------------------
-  /// ¾É±â »óÅÂ¿¡¼± ±ÝÁö..
+  /// ï¿½É±ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
   //-------------------------------------------------------------------------------				
   if ( g_pAVATAR->Get_STATE() == CS_SIT )
     Send_cli_TOGGLE( TOGGLE_TYPE_SIT );
@@ -488,8 +463,8 @@ void CSendPACKET::Send_cli_MOUSECMD(int iClientTarget, D3DVECTOR& PosTO) {
   m_pSendPacket->m_cli_MOUSECMD.m_PosTO.x          = PosTO.x;
   m_pSendPacket->m_cli_MOUSECMD.m_PosTO.y          = PosTO.y;
 
-  // ¾Æ¹ÙÅ¸ÀÇ ÀÌµ¿ ½ÃÀÛ À§Ä¡ÀÇ ³ôÀÌ¸¦ °°ÀÌ ½Ç¾î º¸³½´Ù.
-  // ÀÌ ³ôÀÌ´Â ÃÖÁ¾ À§Ä¡ÀÇ ³ôÀÌ°¡ ¾Æ´Ï¶ó, ÇöÀç(Áï, ÀÌµ¿ ½ÃÀÛ½Ã)ÀÇ ³ôÀÌÀÓÀ» ¸í½ÉÇÏÀÚ.
+  // ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+  // ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Æ´Ï¶ï¿½, ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½, ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Û½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
   m_pSendPacket->m_cli_MOUSECMD.m_nPosZ = (short)(g_pAVATAR->Get_CurPOS().z);
 #endif
 
@@ -500,8 +475,8 @@ void CSendPACKET::Send_cli_MOUSECMD(int iClientTarget, D3DVECTOR& PosTO) {
 
 //----------------------------------------------------------------------------------------------------
 /// @param
-/// @brief Å¬¶óÀÌ¾ðÆ® ÆÇ´Ü¿¡ ÀÇÇØ ¾Æ¹ÙÅ¸°¡ ¿òÁ÷ÀÌÁö ¸øÇÒ¶§ Åëº¸ÇÏ´Â ÆÐÅ¶
-/// @bug Á¶½É...m_nPosZ°¡ short ÇüÀÌ±â¶§¹®¿¡...
+/// @brief Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½Ç´Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ëº¸ï¿½Ï´ï¿½ ï¿½ï¿½Å¶
+/// @bug ï¿½ï¿½ï¿½ï¿½...m_nPosZï¿½ï¿½ short ï¿½ï¿½ï¿½Ì±â¶§ï¿½ï¿½ï¿½ï¿½...
 //----------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CANTMOVE() {
 #ifndef	__VIRTUAL_SERVER
@@ -537,7 +512,7 @@ void CSendPACKET::Send_cli_ATTACK(int iClientTarget) {
   m_pSendPacket->m_gsv_ATTACK.m_wDefObjIDX = g_pObjMGR->Get_ServerObjectIndex( iClientTarget );
 #else
   //-------------------------------------------------------------------------------
-  /// ¾É±â »óÅÂ¿¡¼± ±ÝÁö..
+  /// ï¿½É±ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
   //-------------------------------------------------------------------------------				
   if ( g_pAVATAR->Get_STATE() == CS_SIT )
     Send_cli_TOGGLE( TOGGLE_TYPE_SIT );
@@ -548,7 +523,7 @@ void CSendPACKET::Send_cli_ATTACK(int iClientTarget) {
 #endif
 
   //----------------------------------------------------------------------------------------------------
-  /// PVP °¡´ÉÁ¸ÀÏ°æ¿ì¿¡´Â PVP ÇÃ·¡±×°¡ ON »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¸ðµç °ø°Ý¸í·É ÆÐÁö
+  /// PVP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ì¿¡ï¿½ï¿½ PVP ï¿½Ã·ï¿½ï¿½×°ï¿½ ON ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //----------------------------------------------------------------------------------------------------
   if ( g_pTerrain->IsPVPZone() ) {
     if ( g_GameDATA.m_iPvPState == PVP_CANT )
@@ -573,7 +548,7 @@ void CSendPACKET::Send_cli_DAMAGE(CObjCHAR* pAtkOBJ, CObjCHAR* pDefOBJ, WORD wDa
   switch( pDefOBJ->Get_TYPE() ) {
     case OBJ_USER :
       if ( pDefOBJ->Get_HP() - nDamage <= 0 ) {
-        // Á×Áö ¾Ê°Ô..
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½..
          //nDamage *= -1;
         pDefOBJ->Set_HP( ((CObjUSER*)pDefOBJ)->Get_MaxHP() );
         nDamage = 0;
@@ -589,23 +564,23 @@ void CSendPACKET::Send_cli_DAMAGE(CObjCHAR* pAtkOBJ, CObjCHAR* pDefOBJ, WORD wDa
             this->Send_gsv_ADD_FIELDITEM ( 0, sITEM );
           }
         } else {
-          // Á×¿´À»¶§..
+          // ï¿½×¿ï¿½ï¿½ï¿½ï¿½ï¿½..
           g_AI_LIST.AI_Kill( NPC_AI_TYPE( pAtkOBJ->Get_CharNO() ), pAtkOBJ, pDefOBJ, nDamage );
         }
 
-        if ( pAtkOBJ->m_iServerTarget == pDefOBJ->m_nIndex )	// Å¸°Ù »èÁ¦.
+        if ( pAtkOBJ->m_iServerTarget == pDefOBJ->m_nIndex )	// Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
           pAtkOBJ->m_iServerTarget = 0;
 
-        // Á×À»¶§...
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
         pDefOBJ->Check_EVENT( pAtkOBJ, QUEST_EVENT_ON_DEAD );	// on_dead ..
         g_AI_LIST.AI_Dead( NPC_AI_TYPE( pDefOBJ->Get_CharNO() ), pDefOBJ, pAtkOBJ, nDamage );
         sDamage.m_wACTION |= DMG_ACT_DEAD;
 
         LogString (LOG_NORMAL, " Obj:%d ,  %s dead .. damage : %d \n", pDefOBJ->m_nIndex, pDefOBJ->Get_NAME(), nDamage);
       } else  {
-        // ¸÷ÀÌ¸é ¹Ý°Ý.
+        // ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ý°ï¿½.
         if ( pAtkOBJ && pAtkOBJ->Get_HP() > 0 ) {
-          // °ø°ÝÀÚ°¡ »ì¾Æ ÀÖÀ¸¸é...
+          // ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
           pDefOBJ->SetCMD_ATTACK( g_pObjMGR->Get_ServerObjectIndex( pAtkOBJ->Get_INDEX() ) );
         }
         g_AI_LIST.AI_Damaged( NPC_AI_TYPE( pDefOBJ->Get_CharNO() ), pDefOBJ, pAtkOBJ, nDamage );
@@ -628,10 +603,10 @@ void CSendPACKET::Send_cli_DAMAGE(CObjCHAR* pAtkOBJ, CObjCHAR* pDefOBJ, WORD wDa
 }
 
 //-------------------------------------------------------------------------------------------------
-// wNPCObjIDX : °Å·¡ÇÒ NPC ...
-// cBuyCNT    : »ì ¾ÆÀÌÅÛ °¹¼ö
-// cSellCNT   : ÆÈ ¾ÆÀÌÅÛ °¹¼ö
-// pINDEXs[]  : °Å·¡ npcÀÇ sell tab index + my avatar inventory item list index
+// wNPCObjIDX : ï¿½Å·ï¿½ï¿½ï¿½ NPC ...
+// cBuyCNT    : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+// cSellCNT   : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+// pINDEXs[]  : ï¿½Å·ï¿½ npcï¿½ï¿½ sell tab index + my avatar inventory item list index
 void CSendPACKET::Send_cli_STORE_TRADE_REQ(WORD wNPCObjIDX, char cBuyCNT, char cSellCNT, tag_BUY_ITEM* pBuyITEMs, tag_SELL_ITEM* pSellITEMs) {
   _ASSERT( cBuyCNT >= 0 && cSellCNT >= 0 );
 
@@ -678,7 +653,7 @@ void CSendPACKET::Send_cli_STORE_TRADE_REQ(WORD wNPCObjIDX, char cBuyCNT, char c
   this->Send_PACKET( m_pSendPacket );
 }
 
-/// ¼­¹ö¿¡ ÇØ´ç ¿ÀºêÁ§Æ® HP Á¤º¸ ¿ä±¸
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® HP ï¿½ï¿½ï¿½ï¿½ ï¿½ä±¸
 void CSendPACKET::Send_cli_HP_REQ(int iClientTarget) {
   m_pSendPacket->m_HEADER.m_wType          = CLI_HP_REQ;
   m_pSendPacket->m_HEADER.m_nSize          = sizeof( cli_HP_REQ );
@@ -751,7 +726,7 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
     tagITEM *pEquipITEM = &g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ];
 
     short nInvIDX = g_pAVATAR->Add_ITEM( *pEquipITEM );
-    // Àåºñ Å»°Å...
+    // ï¿½ï¿½ï¿½ Å»ï¿½ï¿½...
     if ( nInvIDX > 0 ) {
       m_pSendPacket->m_gsv_SET_INV_ONLY.m_btItemCNT = 2;
 
@@ -760,11 +735,11 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
 
       m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 1 ].m_btInvIDX =  nInvIDX;
       m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 1 ].m_ITEM     = *pEquipITEM;
-    } // else ºó ÀÎº¥Åä¸®°¡ ¾ø¾î¼­ Àåºñ¸¦ ¹þÀ»¼ö ¾ø´Ù...
+    } // else ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
   } else {
     m_pSendPacket->m_gsv_SET_INV_ONLY.m_btItemCNT = 2;
 
-    // Àåºñ ±³È¯.
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½È¯.
     m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 0 ].m_btInvIDX = nWeaponInvIDX;
     m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 0 ].m_ITEM     = g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ];
 
@@ -788,22 +763,22 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
     return;
 #else
   if ( nWeaponInvIDX && EQUIP_IDX_WEAPON_L == nEquipInvIDX && g_pAVATAR->m_Inventory.m_ItemLIST[EQUIP_IDX_WEAPON_R].IsTwoHands() ) {
-    // ¾ç¼Õ ¹«±â ÀåÂø »óÅÂ¿¡¼­ ¿Þ¼Õ ¹«±â¸¦ µî·ÏÇÒ¼ö ¾ø´Ù.
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½.
     return;
   }
 
   //----------------------------------------------------------------------------------------------
-  /// Àåºñ±³Ã¼¸¦ ÇÒ¼ö¾ø´Â »óÅÂ Ã¼Å©
+  /// ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
   //----------------------------------------------------------------------------------------------
 
-  /// °³ÀÎ»óÁ¡ »óÅÂ.
+  /// ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
   /*if( g_pAVATAR->IsPersonalStoreMode() )
     return;*/
 
   _ASSERT( nEquipInvIDX >= 1 && nEquipInvIDX < MAX_EQUIP_IDX );
 
   if ( 0 == nWeaponInvIDX ) {
-    // Àåºñ Å»°Å...
+    // ï¿½ï¿½ï¿½ Å»ï¿½ï¿½...
     _ASSERT( g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ].GetTYPE() &&
       g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ].GetTYPE() < ITEM_TYPE_USE );
   } else {
@@ -823,8 +798,8 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// ÇÊµå¿¡ ¾ÆÀÌÅÛÀ» ¶³¾î ¶ß¸°´Ù...
-// ¾ÆÀÌÅÛÀÌ µ·ÀÏ °æ¿ì nInventoryIndex == 0 !!!
+// ï¿½Êµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½ï¿½...
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ nInventoryIndex == 0 !!!
 void CSendPACKET::Send_cli_DROP_ITEM(short nInventoryIndex, int iQuantity) {
 #ifdef	__VIRTUAL_SERVER
   m_pSendPacket->m_HEADER.m_wType = GSV_ADD_FIELDITEM;
@@ -852,11 +827,11 @@ bool CSendPACKET::Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int iServerObject)
   if ( !pUSER )
     return false;
 
-  if ( pUSER->Get_TYPE() == OBJ_CART || pUSER->Get_TYPE() == OBJ_CGEAR ) //Ä«Æ®ÀÌ°Å³ª Ä³½½±â¾îÀÏ°æ¿ì
+  if ( pUSER->Get_TYPE() == OBJ_CART || pUSER->Get_TYPE() == OBJ_CGEAR ) //Ä«Æ®ï¿½Ì°Å³ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½
   {
-    if ( ((CObjCART*)pUSER)->GetParent() != g_pAVATAR ) // µå¶óÀÌ¹ö°¡ ³»°¡ ¾Æ´Ï¸é..
+    if ( ((CObjCART*)pUSER)->GetParent() != g_pAVATAR ) // ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½..
       return true;
-  } else if ( pUSER->Get_TYPE() != OBJ_USER || pUSER != g_pAVATAR ) //À¯Àú°¡ ¾Æ´Ï°Å³ª ³»°¡ ¾Æ´Ï¸é.. 
+  } else if ( pUSER->Get_TYPE() != OBJ_USER || pUSER != g_pAVATAR ) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½.. 
   {
     return true;
   }
@@ -885,7 +860,7 @@ bool CSendPACKET::Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int iServerObject)
 #else
     DWORD dwPassTIME = g_GameDATA.GetGameTime() - pITEM->m_dwCreatedTIME;
     if ( pITEM->m_wOwnerServerObjIDX && (int)(pITEM->m_wRemainTIME - dwPassTIME) > 62 * 1000 ) {
-      // È¹µæ ±ÇÇÑÀÌ ÀÖ´ÂÁö Á¶»ç...
+      // È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
       if ( pITEM->m_wOwnerServerObjIDX != g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex ) ) {
         g_itMGR.AppendChatMsg( STR_NOTIFY_02, IT_MGR::CHAT_TYPE_SYSTEM );
         return false;
@@ -985,7 +960,7 @@ void CSendPACKET::Send_cli_SET_HOTICON(BYTE btListIDX, tagHotICON HotICON) {
 /*
 void CSendPACKET::Send_cli_CLICK_HOTICON (BYTE btListIDX)
 {
-  /// µî·ÏµÇ¾î ÀÖ´ÂÁö Á¡°Ë..
+  /// ï¿½ï¿½ÏµÇ¾ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
   if ( g_pAVATAR->m_HotICONS.m_IconLIST[ btListIDX ].m_cType == 0 )
     return;
 
@@ -1021,8 +996,8 @@ void    CSendPACKET::Send_cli_SKILL_LEVELUP_REQ(BYTE btSkillSLOT, short nNextLev
   short nCurLevelSkillIDX = g_pAVATAR->m_Skills.m_nSkillINDEX[btSkillSLOT];
 
   if ( 0 == nNextLevelSkillIDX ) {
-    /// ÀÏ¹ÝÀûÀ¸·Î ´ÙÀ½ ·¹º§ÀÇ ½ºÅ³ÀÌ ÇöÀç ·¹º§ ½ºÅ³ÀÇ ´ÙÀ½ ¶óÀÎ¿¡ ¿Í¾ß ÇÏÁö¸¸
-    /// ±×·¸Áö ¾ÊÀ»°æ¿ì Å¬¶óÀÌ¾ðÆ®¿¡¼­ stb¸¦ µÚÃÄ¼­ ´ÙÀ½ ·¹º§ÀÇ ½ºÅ³ ÀÎµ¦½º¸¦ ¾ò¾î¾ß ÇÑ´Ù.
+    /// ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Í¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ stbï¿½ï¿½ ï¿½ï¿½ï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
     nNextLevelSkillIDX = nCurLevelSkillIDX + 1;
   }
 
@@ -1037,8 +1012,8 @@ void    CSendPACKET::Send_cli_SKILL_LEVELUP_REQ(BYTE btSkillSLOT, short nNextLev
 #else
   m_pSendPacket->m_HEADER.m_wType                             = CLI_SKILL_LEVELUP_REQ;
   m_pSendPacket->m_HEADER.m_nSize                             = sizeof( cli_SKILL_LEVELUP_REQ );
-  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_btSkillSLOT        = btSkillSLOT;        /// ÇöÀç ·¹º§¾÷À» ÇÒ ½ºÅ³ÀÌ ÀÖ´Â ½½·Ô
-  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_nNextLevelSkillIDX = nNextLevelSkillIDX; /// ·¹º§¾÷ ÇÏ·Á´Â ½ºÅ³¹øÈ£.
+  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_btSkillSLOT        = btSkillSLOT;        /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
+  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_nNextLevelSkillIDX = nNextLevelSkillIDX; /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½È£.
 #endif
   this->Send_PACKET( m_pSendPacket );
 }
@@ -1134,12 +1109,12 @@ void CSendPACKET::Send_cli_SELF_SKILL(BYTE btSkillSLOT) {
 
   g_CommandFilter.SetPrevCommand( nullptr );
 
-  /// ÀÌÀü¸í·É ÇÊÅÍ¸µ...
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½...
   if ( !g_CommandFilter.CanSendSelfSkillCommand( btSkillSLOT ) )
     return;
 
   //--------------------------------------------------------------------------------------
-  /// ½ºÅ³ ¿¬Å¸ ¹æÁö..
+  /// ï¿½ï¿½Å³ ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½..
   //--------------------------------------------------------------------------------------
   if ( CPreventDuplicatedCommand::GetSingleton().CanSendSelfSkillCommand( btSkillSLOT ) ) {
     CPreventDuplicatedCommand::GetSingleton().PushSelfSkillCommand( btSkillSLOT );
@@ -1175,12 +1150,12 @@ void CSendPACKET::Send_cli_TARGET_SKILL(int iClientTarget, BYTE btSkillSLOT) {
 #else
 
   g_CommandFilter.SetPrevCommand( nullptr );
-  /// ÀÌÀü¸í·É ÇÊÅÍ¸µ...
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½...
   if ( !g_CommandFilter.CanSendTargetSkillCommand( iClientTarget, btSkillSLOT ) )
     return;
 
   //--------------------------------------------------------------------------------------
-  /// ½ºÅ³ ¿¬Å¸ ¹æÁö..
+  /// ï¿½ï¿½Å³ ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½..
   //--------------------------------------------------------------------------------------
   if ( CPreventDuplicatedCommand::GetSingleton().CanSendTargetSkillCommand( iClientTarget, btSkillSLOT ) ) {
     CPreventDuplicatedCommand::GetSingleton().PushTargetSkillCommand( iClientTarget, btSkillSLOT );
@@ -1217,12 +1192,12 @@ void CSendPACKET::Send_cli_POSITION_SKILL(D3DVECTOR& PosTO, BYTE btSkillSLOT) {
     return;
 
   g_CommandFilter.SetPrevCommand( nullptr );
-  /// ÀÌÀü¸í·É ÇÊÅÍ¸µ...
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½...
   if ( !g_CommandFilter.CanSendPositionSkillCommand( PosTO, btSkillSLOT ) )
     return;
 
   //--------------------------------------------------------------------------------------
-  /// ½ºÅ³ ¿¬Å¸ ¹æÁö..
+  /// ï¿½ï¿½Å³ ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½..
   //--------------------------------------------------------------------------------------
   if ( CPreventDuplicatedCommand::GetSingleton().CanSendPositionSkillCommand( PosTO, btSkillSLOT ) ) {
     CPreventDuplicatedCommand::GetSingleton().PushPositionSkillCommand( PosTO, btSkillSLOT );
@@ -1411,7 +1386,7 @@ void CSendPACKET::Send_cli_PARTY_REPLY(BYTE btRequest, DWORD dwDestIDXorTAG) {
 }
 
 //-------------------------------------------------------------------------------------------------
-///Á¦Á¶ °ü·Ã
+///ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CSendPACKET::Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYPE, short nTargetItemNO, short* pnUseItemINV) {
   m_pSendPacket->m_HEADER.m_wType                        = CLI_CREATE_ITEM_REQ;
   m_pSendPacket->m_HEADER.m_nSize                        = sizeof( cli_CREATE_ITEM_REQ );
@@ -1422,7 +1397,7 @@ void CSendPACKET::Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYP
   this->Send_PACKET( m_pSendPacket );
 }
 
-///Á¦Á¶ °á°ú AnimaitionÈÄ¿¡ ¾òÀº °æÇèÄ¡¸¦ ´Þ¶ó°í ¿äÃ»ÇÑ´Ù.
+///ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Animaitionï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Þ¶ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ñ´ï¿½.
 //void CSendPACKET::Send_cli_CREATE_ITEM_EXP_REQ()
 //{
 //	m_pSendPacket->m_HEADER.m_wType = CLI_CREATE_ITEM_EXP_REQ;
@@ -1474,7 +1449,7 @@ void CSendPACKET::Send_cli_BANK_LIST_REQ(BYTE btREQ, char* pszPassword) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_SET_BULLET(BYTE btShotType, short nInvenIdx) {
-  /// Å»Âø½Ã nInvenIdx == 0;
+  /// Å»ï¿½ï¿½ï¿½ï¿½ nInvenIdx == 0;
   m_pSendPacket->m_HEADER.m_wType                 = CLI_SET_BULLET;
   m_pSendPacket->m_HEADER.m_nSize                 = sizeof( cli_SET_BULLET );
   m_pSendPacket->m_cli_SET_BULLET.m_wShotTYPE     = btShotType;
@@ -1531,7 +1506,7 @@ void CSendPACKET::Send_cli_CHANNEL_LIST_REQ(int iServerID) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// Ä£±¸ Ãß°¡ ¿äÃ»
+// Ä£ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½Ã»
 void CSendPACKET::Send_cli_MCMD_APPEND_REQ(char* szName) {
 
   m_pSendPacket->m_HEADER.m_wType = CLI_MESSENGER;
@@ -1544,7 +1519,7 @@ void CSendPACKET::Send_cli_MCMD_APPEND_REQ(char* szName) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// Ä£±¸ Ãß°¡ ¿äÃ»¿¡ ´ëÇÑ ÀÀ´ä
+// Ä£ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void CSendPACKET::Send_cli_MCMD_APPEND_REPLY(BYTE btCMD, WORD wUserIDX, char* pszName) {
   m_pSendPacket->m_HEADER.m_wType                   = CLI_MESSENGER;
   m_pSendPacket->m_HEADER.m_nSize                   = sizeof( cli_MCMD_APPEND_REPLY );
@@ -1557,7 +1532,7 @@ void CSendPACKET::Send_cli_MCMD_APPEND_REPLY(BYTE btCMD, WORD wUserIDX, char* ps
 }
 
 //-------------------------------------------------------------------------------------------------
-// ´ë»óÀ» »èÁ¦, ¼ö½Å°ÅºÎ »óÅÂ·Î º¯°æ.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Å°Åºï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½.
 void CSendPACKET::Send_cli_MCMD_TAG(BYTE btCMD, DWORD dwUserTAG) {
   m_pSendPacket->m_HEADER.m_wType           = CLI_MESSENGER;
   m_pSendPacket->m_HEADER.m_nSize           = sizeof( cli_MCMD_TAG );
@@ -1568,7 +1543,7 @@ void CSendPACKET::Send_cli_MCMD_TAG(BYTE btCMD, DWORD dwUserTAG) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// ³ªÀÇ »óÅÂ º¯°æ.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 void CSendPACKET::Send_cli_MCMD_STATUS_REQ(BYTE btStatus) {
   m_pSendPacket->m_HEADER.m_wType                 = CLI_MESSENGER;
   m_pSendPacket->m_HEADER.m_nSize                 = sizeof( cli_MCMD_STATUS_REQ );
@@ -1678,7 +1653,7 @@ void CSendPACKET::Send_cli_MEMO(char* pszName, char* pszMemo) {
     assert( iStrLen < 255 );
     if ( iStrLen < 255 ) {
       for ( int iC                             = 0; iC < iStrLen; iC++ ) {
-        if ( pszMemo[iC] == '\'' ) pszMemo[iC] = ' '; // ¸Þ¸ð ³»¿ë¿¡ '¹®ÀÚ ¿Ã¼ö ¾øÀ½
+        if ( pszMemo[iC] == '\'' ) pszMemo[iC] = ' '; // ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ë¿¡ 'ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¼ï¿½ ï¿½ï¿½ï¿½ï¿½
       }
 
       m_pSendPacket->m_HEADER.m_wType    = CLI_MEMO;
@@ -1708,9 +1683,9 @@ void CSendPACKET::Send_cli_MEMO_CNT_REQ() {
 }
 
 //----------------------------------------------------------------------------------------------------	
-/// @param btEquipInvNO : Àç¹ÖµÉ Àåºñ ½½·Ô ¹øÈ£
-/// @param btGemInvNO : Àç¹Ö¿¡ »ç¿ëÇÒ º¸¼®ÀÇ ½½·Ô ¹øÈ£
-/// @brief Àç¹Ö Àç·Ã°ü·Ã
+/// @param btEquipInvNO : ï¿½ï¿½Öµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+/// @param btGemInvNO : ï¿½ï¿½Ö¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+/// @brief ï¿½ï¿½ï¿½ ï¿½ï¿½Ã°ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvIDX) {
   m_pSendPacket->m_HEADER.m_wType = CLI_CRAFT_ITEM_REQ;
@@ -1724,9 +1699,9 @@ void CSendPACKET::Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvID
 }
 
 //----------------------------------------------------------------------------------------------------	
-/// @param nSkillSLOTorNpcIDX;					// »ç¿ë ½ºÅ³½½·Ô ¹øÈ£¶Ç´Â npc¹øÈ£
-/// @param btTargetInvIDX;						// ºÐ¸®ÇÒ ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
-/// @brief Àç¹Ö Àç·Ã°ü·Ã
+/// @param nSkillSLOTorNpcIDX;					// ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Ç´ï¿½ npcï¿½ï¿½È£
+/// @param btTargetInvIDX;						// ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½È£
+/// @brief ï¿½ï¿½ï¿½ ï¿½ï¿½Ã°ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------	
 void CSendPACKET::Send_cli_CRAFT_BREAKUP_REQ(BYTE btType, short nSkillSLOTorNpcIDX, BYTE btTargetInvIDX) {
   m_pSendPacket->m_HEADER.m_wType = CLI_CRAFT_ITEM_REQ;
@@ -1741,10 +1716,10 @@ void CSendPACKET::Send_cli_CRAFT_BREAKUP_REQ(BYTE btType, short nSkillSLOTorNpcI
 
 //----------------------------------------------------------------------------------------------------	
 /// @param btType								//
-/// @param nSkillSLOTorNpcIDX;					// »ç¿ë ½ºÅ³½½·Ô ¹øÈ£¶Ç´Â npc¹øÈ£
-/// @param btTargetInvIDX;						// ºÐ¸®ÇÒ ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
-/// @param btUseItemINV[ UPGRADE_ITEM_STEP ];	// Àç·Ã½Ã ¼Ò¸ðÇÒ ¾ÆÀÌÅÛ ÀÎº¥Åä¸® ¹øÈ£
-/// @brief Á¦·Ã
+/// @param nSkillSLOTorNpcIDX;					// ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Ç´ï¿½ npcï¿½ï¿½È£
+/// @param btTargetInvIDX;						// ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½È£
+/// @param btUseItemINV[ UPGRADE_ITEM_STEP ];	// ï¿½ï¿½Ã½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½È£
+/// @brief ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------	
 void CSendPACKET::Send_cli_CRAFT_UPGRADE_REQ(BYTE btType, short nSkillSLOTorNpcIDX, BYTE btTargetInvIDX, BYTE btUseItemINV[ UPGRADE_ITEM_STEP ]) {
   m_pSendPacket->m_HEADER.m_wType = CLI_CRAFT_ITEM_REQ;
@@ -1945,7 +1920,7 @@ void CSendPACKET::Send_cli_MOVE_ZULY_BANK2INV(int64_t i64MoveZuly) {
   Send_PACKET( m_pSendPacket );
 }
 
-//2ÀÎ½Â Ä«Æ®.
+//2ï¿½Î½ï¿½ Ä«Æ®.
 void CSendPACKET::Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuestObjIDX_) {
 
   m_pSendPacket->m_HEADER.m_wType = CLI_CART_RIDE;

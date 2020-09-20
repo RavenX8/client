@@ -3,22 +3,23 @@
 */
 #ifndef	__CSENDPACKET_H
 #define	__CSENDPACKET_H
+
+#include "crosepacket.h"
 //-------------------------------------------------------------------------------------------------
 
 typedef int tagPS_SellITEMs;
 
 class CSendPACKET {
 protected:
-  std::string m_pMD5Buff;
+  std::string   m_pMD5Buff;
   t_PACKET*     m_pSendPacket;
 
-  virtual void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) = 0 { *(int*)nullptr = 10; }
+  virtual void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) = 0;
+  virtual void Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld) = 0;
 
 public :
           CSendPACKET();
   virtual ~CSendPACKET();
-
-  void Send_cli_HEADER(WORD wType, bool bSendToWorld);
 
   void Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEncode);
   void Send_cli_LOGOUT_REQ();
@@ -67,18 +68,18 @@ public :
   void Send_cli_EQUIP_ITEM(short            nEquipInvIDX, short nWeaponInvIDX);
   bool Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int          iServerObject);
 
-  // ÇÊµå¿¡ ¾ÆÀÌÅÛÀ» ¶³±º´Ù...
+  // ï¿½Êµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
   void Send_cli_DROP_ITEM(short nInventoryIndex, int iQuantity);
 
   void Send_cli_TELEPORT_REQ(CGameOBJ* pUSER, short nWarpIDX);
 
-  // º¸³Ê½º Æ÷ÀÎÆ®¸¦ ÀÌ¿ëÇØ¼­ ±âº» ´É·ÂÄ¡¸¦ Çâ»ó ½ÃÅ²´Ù...
+  // ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½âº» ï¿½É·ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½...
   void Send_cli_USE_BPOINT_REQ(BYTE btAbilityTYPE);
 
   void Send_cli_TRADE_REQ(void  );
   void Send_cli_TRADE_REPLY(void);
 
-  /// ¼­¹ö¿¡ ÇØ´ç ¿ÀºêÁ§Æ® HP Á¤º¸ ¿ä±¸
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® HP ï¿½ï¿½ï¿½ï¿½ ï¿½ä±¸
   void Send_cli_HP_REQ(int iClientTarget);
 
   void Send_cli_P_STORE_OPEN(BYTE         btSellItemCount, BYTE btBuyItemCount, tagPS_ITEM* SellItems, tagPS_ITEM* BuyItems, char* pszTitle);
@@ -94,26 +95,26 @@ public :
 
   void Send_cli_QUEST_REQ(BYTE btReqTYPE, BYTE btQuestSLOT, int iQuestID, char* szQuestTriggerName = nullptr);
 
-  ///Æ®·¹ÀÌµå °ü·Ã Method
+  ///Æ®ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ Method
   bool Send_cli_TRADE_P2P(WORD      wServerIdx, BYTE  btResult, char         cSlotIdx = 0);
   void Send_cli_TRADE_P2P_ITEM(char cTradeSLOT, short nInventoryIndex, DWORD iQuantity);
-  ///ÆÄÆ¼ °ü·Ã
+  ///ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½
   void Send_cli_PARTY_REQ(BYTE   btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_REPLY(BYTE btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_RULE(BYTE  btRule);
-  ///Á¦Á¶ °ü·Ã
+  ///ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   void Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYPE, short nTargetItemNO, short* pnUseItemINV);
   //	void Send_cli_CREATE_ITEM_EXP_REQ();
 
   void Send_cli_ITEM_RESULT_REPORT(BYTE btREPORT, BYTE btItemType, short nItemNo);
 
-  ///Ã¢°í °ü·Ã
+  ///Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   void Send_cli_MOVE_ITEM(BYTE     btMoveTYPE, BYTE btFromIDX,tagITEM& MoveITEM, bool bPlatinum);
   void Send_cli_BANK_LIST_REQ(BYTE btREQ, char*     pszPassword);
-  ///¼Ò¸ðÅº °ü·Ã
+  ///ï¿½Ò¸ï¿½Åº ï¿½ï¿½ï¿½ï¿½
   void Send_cli_SET_BULLET(BYTE btShotType, short nInvenIdx);
 
-  ///PAT °ü·Ã
+  ///PAT ï¿½ï¿½ï¿½ï¿½
   void Send_cli_ASSEMBLE_RIDE_ITEM(short nPartIdx, short nInvenIdx);
 
   void Send_cli_SET_WEIGHT_RATE(BYTE btWeightRate);
@@ -143,7 +144,7 @@ public :
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief Àç¹Ö Àç·Ã°ü·Ã
+  /// @brief ï¿½ï¿½ï¿½ ï¿½ï¿½Ã°ï¿½ï¿½ï¿½
   ///
   //----------------------------------------------------------------------------------------------------
   void Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvIDX);
@@ -178,7 +179,7 @@ public :
 
   void Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuestObjIDX_);
 
-  //---½º¼¦°ü·Ã...--------------------------------------------------------------------------------------
+  //---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...--------------------------------------------------------------------------------------
   void Send_cli_SCREEN_SHOT_TIME();
   void Send_cli_UPDATE_NAME(char* szName);
   void Send_cli_SET_RIGHTS(DWORD  dwRight);

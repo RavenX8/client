@@ -18,6 +18,7 @@
 #include "Sound/MusicMgr.h"
 #include "Sound/DirectMusicPlayer.h"
 #include "Util/classMD5.h"
+#include "packetfactory.h"
 
 
 CApplication* CApplication::m_pInstance = nullptr;
@@ -67,18 +68,18 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
   if ( CTIme::GetInstance().Process( hWnd, uiMsg, wParam, lParam ) )
     return S_OK;
 
-  // Å°º¸µå ¸Þ¼¼Áö ÀúÀå
+  // Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   if ( CGame::GetInstance().AddWndMsgQ( uiMsg, wParam, lParam ) )
     return 0;
 
   switch ( uiMsg ) {
-    case WM_SYSCHAR: ///systemkey¿Í ÀÏ¹Ý Å°¸¦ Á¶ÇÕÇØ¼­ ´©¸¦¶§ "¶ò"¼Ò¸® ¾ø¾Ö±â
+    case WM_SYSCHAR: ///systemkeyï¿½ï¿½ ï¿½Ï¹ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½"ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
       return 0;
     case WM_SETCURSOR: if ( CCursor::GetInstance().RefreshCursor() )
         return S_OK;
       break;
     case WM_ACTIVATE: {
-      m_wActive = ((LOWORD( wParam ) != WA_INACTIVE) && (HIWORD( wParam ) == 0)); // INVACIVE °¡ ¾Æ´Ï°í, ¹Ì´Ï¸¶ÀÌÁîµµ ¾Æ´Ñ °æ¿ì¿¡¸¸ È°¼ºÈ­
+      m_wActive = ((LOWORD( wParam ) != WA_INACTIVE) && (HIWORD( wParam ) == 0)); // INVACIVE ï¿½ï¿½ ï¿½Æ´Ï°ï¿½, ï¿½Ì´Ï¸ï¿½ï¿½ï¿½ï¿½îµµ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ È°ï¿½ï¿½È­
       //m_wActive = true;
 
       LogString(LOG_DEBUG, "WM_ACTIVATE: [%s]\n",
@@ -118,7 +119,7 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
       return 0;
 
     case WM_ERASEBKGND:
-    case WM_SYSKEYUP: // ALTÅ° ´­·¶À»¶§ ¸ØÃã ¹æÁö !!!
+    case WM_SYSKEYUP: // ALTÅ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ !!!
     case WM_PALETTECHANGED:
     case WM_QUERYNEWPALETTE: return 0;
 
@@ -157,6 +158,9 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
 
 //-------------------------------------------------------------------------------------------------
 CApplication::CApplication() {
+  RoseCommon::register_send_packets();
+  RoseCommon::register_recv_packets();
+
   m_hWND = nullptr;
 
   m_bExitGame = false;
@@ -282,7 +286,7 @@ bool    CApplication::ParseArgument(char* pStr) {
       }
     }
     if ( !_strcmpi( pToken, "_noui" ) ) {
-      // ÀÎÅÍÆäÀÌ½º °¨Ãß±â. - zho
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½. - zho
       g_GameDATA.m_bNoUI = true;
     }
 
@@ -318,7 +322,7 @@ bool    CApplication::ParseArgument(char* pStr) {
     if ( !_strcmpi( pToken, "_dup" ) )
       g_GameDATA.m_bCheckDupRUN = false;
 
-    /// ÀÌÇÏ ÀÏº» NHN JAPANÀ» À§ÇÑ Argument Setting( 2005/5/18 )
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ NHN JAPANï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Argument Setting( 2005/5/18 )
     if ( !_strcmpi( pToken, "_RCODE_JP_HG" ) )
       g_GameDATA.m_is_NHN_JAPAN = true;
 
@@ -353,11 +357,11 @@ bool    CApplication::ParseArgument(char* pStr) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------
-/// 1. resetScreen()ÀÌ MoveWindowº¸´Ù ¸ÕÀú È£ÃâµÇ¾î¾ß client WindowÀÇ Sizeº¯°æÀÌ Á¦´ë·Î µÈ´Ù.
-/// resetScreenÀÌ MoveWindowº¸´Ù ³ªÁß¿¡ µÉ°æ¿ì MoveWindow¿¡¼­ Sizeº¯°æÀÌ  Window°¡ º¯°æµÉ¼ö ÀÖ´Â ÃÖ´ë»çÀÌÁî°¡
-/// ³»°¡ ¿øÇÏ´Â °ªº¸´Ù ÀÛ°Ô µÇ¾î Size º¯°æ¿¡ ½ÇÆÐÇÑ´Ù( navy : 2005/3/11 )
-/// 2. ÇöÀç À©µµ¿ìÁîÀÇ ÇØ»óµµº¸´Ù ÀÏÁ¤Å©±â ÀÌ»óÀ¸·Î À©µµ¿ì¸¦ »ý¼ºÇÏ°Å³ª »çÀÌÁî º¯°æÀÌ µÇÁö ¾Ê´Â´Ù.
-///		- ÇöÀç À©µµ¿ìÁî ÇØ»óµµ¸¦ ±¸ÇØ¼­ º¯°æÇÏ°íÀÚÇÏ´Â Å©±â¸¦ ºñ±³ÇÏÀÚ
+/// 1. resetScreen()ï¿½ï¿½ MoveWindowï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç¾ï¿½ï¿½ client Windowï¿½ï¿½ Sizeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
+/// resetScreenï¿½ï¿½ MoveWindowï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½É°ï¿½ï¿½ MoveWindowï¿½ï¿½ï¿½ï¿½ Sizeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½É¼ï¿½ ï¿½Ö´ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½î°¡
+/// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û°ï¿½ ï¿½Ç¾ï¿½ Size ï¿½ï¿½ï¿½æ¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½( navy : 2005/3/11 )
+/// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø»óµµºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+///		- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø»óµµ¸ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------------------------------------------
 void CApplication::ResizeWindowByClientSize(int& iClientWidth, int& iClientHeight, int iDepth, bool update_engine) {
   if ( m_bFullScreenMode ) {

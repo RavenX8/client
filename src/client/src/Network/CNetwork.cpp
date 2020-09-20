@@ -11,8 +11,9 @@
 #include "Debug.h"
 #include "Game.h"
 #include "IO_Terrain.h"
+#include "cli_accept_req.h"
 
-////005. 5. 23 ¹Ú ÁöÈ£
+////005. 5. 23 ï¿½ï¿½ ï¿½ï¿½È£
 //#include "../nProtect/NProtect.h"
 
 CNetwork* g_pNet;
@@ -63,10 +64,26 @@ void CNetwork::Destroy() {
   SAFE_DELETE(m_pInstance);
 }
 
+void CNetwork::Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld) {
+    if ( bSendToWorld || bAllInONE )
+      m_WorldSOCKET.Packet_Register2SendQ( pSendPacket );
+    else
+      m_ZoneSOCKET.Packet_Register2SendQ( pSendPacket );
+  }
+
+void CNetwork::Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld)
+{
+  if (sendToWorld || bAllInONE) {
+    m_WorldSOCKET.Packet_Register2SendQ(std::move(packet));
+  } else {
+    m_ZoneSOCKET.Packet_Register2SendQ(std::move(packet));
+  }
+}
+
 //-------------------------------------------------------------------------------------------------
 bool CNetwork::ConnectToServer(char* szServerIP, WORD wTcpPORT,
                                short nProcLEVEL) {
-  // World ¼ÒÄÏ...
+  // World ï¿½ï¿½ï¿½ï¿½...
   if ( m_nProcLEVEL == nProcLEVEL )
     return true;
 
@@ -86,7 +103,7 @@ void CNetwork::DisconnectFromServer(short nProcLEVEL) {
 //-------------------------------------------------------------------------------------------------
 void CNetwork::MoveZoneServer(const bool reconnect) {
   if ( NETWORK_STATUS_CONNECT == m_btZoneSocketSTATUS ) {
-    // Á¸ ¼­¹ö ¼ÒÄÏÀ» ²÷°í »õ·Î Á¢¼ÓÇÑ´Ù...
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½...
     m_bMoveingZONE = true;
     m_ZoneSOCKET.Close();
 
@@ -95,7 +112,7 @@ void CNetwork::MoveZoneServer(const bool reconnect) {
     }
     LogString(LOG_NORMAL, "MoveZoneServer reconnection logic hit\n");
   }
-  // ¹Ù·Î Á¢¼Ó...
+  // ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½...
   m_bMoveingZONE = false;
   m_ZoneSOCKET.Connect( CSocketWND::GetInstance()->GetWindowHandle(),
                         m_GSV_IP.Get(), m_wGSV_PORT, WM_ZONE_SOCKET_NOTIFY );
@@ -115,22 +132,22 @@ void              CNetwork::Proc_WorldPacket() {
             continue;
           }
           case NETWORK_STATUS_CONNECT: {
-            // ¼­¹ö¿Í ¿¬°áµÆ´Ù...
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ´ï¿½...
             switch ( m_nProcLEVEL ) {
-              case NS_CON_TO_WSV: // ¿ùµå ¼­¹ö¿¡ Á¢¼ÓÇß´Ù.
+              case NS_CON_TO_WSV: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½.
                 Send_cli_JOIN_SERVER_REQ( m_dwWSV_ID, true );
                 m_bWarping = false;
                 bAllInONE  = true;
                 break;
-              case NS_CON_TO_LSV: // ·Î±ä ¼­¹ö¿¡ Á¢¼ÓÇß´Ù.
+              case NS_CON_TO_LSV: // ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½.
                 pSocket->mF_Init( 0 );
-                Send_cli_HEADER( CLI_ACCEPT_REQ, true );
+                Send_PACKET(RoseCommon::Packet::CliAcceptReq::create(), true);
                 break;
             }
 
             g_pCApp->SetCaption( "ROSE online" );
 #ifdef __VIRTUAL_SERVER
-        g_pCApp->ErrorBOX("°¡»ó ¼­¹ö°¡ ¼³Á¤µÇ¾î ÀÖÀ½..", "ERROR !!!", MB_OK);
+        g_pCApp->ErrorBOX("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½..", "ERROR !!!", MB_OK);
 #endif
             continue;
           }
@@ -138,7 +155,7 @@ void              CNetwork::Proc_WorldPacket() {
             // g_pCApp->SetCaption ( "Disconnected" );
 
             if ( NS_DIS_FORM_LSV == m_nProcLEVEL ) {
-              // °ÔÀÓ ¼­¹ö¿¡ ÀçÁ¢¼Ó ÇÑ´Ù...
+              // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½...
               this->ConnectToServer( m_WSV_IP.Get(), m_wWSV_PORT, NS_CON_TO_WSV );
               continue;
             }
@@ -159,14 +176,14 @@ void              CNetwork::Proc_WorldPacket() {
         }
 
         // CGame::GetInstance().ProcWndMsg( WM_USER_SERVER_DISCONNECTED,0,0 );
-        // ¼­¹ö¿Í Á¢¼Ó ½ÇÆÐ Çß´Ù.
-        // LogString(LOG_NORMAL, "¼­¹ö¿ÍÀÇ Á¢¼Ó¿¡ ½ÇÆÐÇß½À´Ï´Ù.\n");
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß´ï¿½.
+        // LogString(LOG_NORMAL, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.\n");
         break;
       }
       case SRV_ERROR: Recv_srv_ERROR();
         break;
 
-      case SRV_JOIN_SERVER_REPLY: // ¿ùµå ¼­¹ö¿¡ Á¢¼ÓÇß´Ù.
+      case SRV_JOIN_SERVER_REPLY: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½.
       {
         DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY();
         if ( dwRet ) {
@@ -193,13 +210,13 @@ void              CNetwork::Proc_WorldPacket() {
       }
       case LSV_CHANNEL_LIST_REPLY: Recv_lsv_CHANNEL_LIST_REPLY();
         break;
-        // Ä³¸¯ÅÍ ¸®½ºÆ® ¹Þ¾ÒÀ½
+        // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Þ¾ï¿½ï¿½ï¿½
       case WSV_CHAR_LIST: Recv_wsv_CHAR_LIST();
         break;
 
       case WSV_DELETE_CHAR: Recv_wsv_DELETE_CHAR();
         break;
-        // Ä³¸¯ÅÍ »ý¼º¿äÃ» °á°ú Åëº¸¹ÞÀ½
+        // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ ï¿½ëº¸ï¿½ï¿½ï¿½ï¿½
       case WSV_CREATE_CHAR: Recv_wsv_CREATE_CHAR();
 
         break;
@@ -215,7 +232,7 @@ void              CNetwork::Proc_WorldPacket() {
         break;
       case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE();
         break;
-        // Á¸ ¼­¹ö¸¦ ÀÌµ¿ÇØ¶ó...
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ø¶ï¿½...
       case WSV_MOVE_SERVER: {
         bAllInONE = false;
         Recv_wsv_MOVE_SERVER();
@@ -251,7 +268,7 @@ void CNetwork::Proc_ZonePacket() {
       break;
 
     case SRV_CHECK_AUTH:
-      // 2005.5.23 ¹ÚÁöÈ£
+      // 2005.5.23 ï¿½ï¿½ï¿½ï¿½È£
       /*m_nProtectSys.Auth_FromServer(m_pRecvPacket->m_srv_CHECK_AUTH.m_btModuleTYPE,
             (GG_AUTH_DATA*)&m_pRecvPacket->m_pDATA[sizeof(srv_CHECK_AUTH)]);*/
 
@@ -301,7 +318,7 @@ void CNetwork::Proc_ZonePacket() {
     case GSV_GM_COMMAND: Recv_gsv_GM_COMMAND();
       break;
 
-      // Ä³¸¯ÅÍ ¼±ÅÃ °á°ú Åëº¸¹ÞÀ½
+      // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ëº¸ï¿½ï¿½ï¿½ï¿½
     case GSV_SELECT_CHAR: Recv_gsv_SELECT_CHAR();
 
       // Send_cli_JOIN_ZONE ();		// GSV_SELECT_CHAR
@@ -436,7 +453,7 @@ void CNetwork::Proc_ZonePacket() {
     case GSV_SPEED_CHANGED: Recv_gsv_SPEED_CHANGED();
       break;
 
-      /// ¾ÆÀÌÅÛÀ» »ç¿ëÇß´Ù.
+      /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´ï¿½.
     case GSV_USE_ITEM: Recv_gsv_USE_ITEM();
       break;
 
@@ -450,6 +467,7 @@ void CNetwork::Proc_ZonePacket() {
       // Missing break is intentional.
     }
 
+    [[fallthrough]];
     case GSV_SET_INV_ONLY: Recv_gsv_SET_INV_ONLY();
       break;
 
@@ -540,13 +558,13 @@ void CNetwork::Proc_ZonePacket() {
     }
 
       //----------------------------------------------------------------------------------------------------
-      /// @brief ¾ÆÀÌÅÛ Àç¹Ö°ü·Ã
+      /// @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö°ï¿½ï¿½ï¿½
       //----------------------------------------------------------------------------------------------------
     case GSV_CRAFT_ITEM_REPLY: Recv_gsv_CRAFT_ITEM_REPLY();
       break;
 
       //----------------------------------------------------------------------------------------------------
-      /// @brief ÀÌº¥Æ® ¿ÀºêÁ§Æ® °ü·Ã
+      /// @brief ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
       //----------------------------------------------------------------------------------------------------
     case GSV_ADD_EVENTOBJ: Recv_gsv_ADD_EVENTOBJ();
       break;
@@ -603,15 +621,15 @@ void CNetwork::Proc() {
             continue;
           }
           case NETWORK_STATUS_CONNECT: {
-            // Á¸ ¼­¹ö¿Í ¿¬°áµÆ´Ù...
-            // ÄÉ¸¯ÅÍ ¼±ÅÃÈÄ ½ÇÁ¦ Á¸¿¡ µé¾î°£´Ù.
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ´ï¿½...
+            // ï¿½É¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°£ï¿½ï¿½.
             m_bWarping = false;
             pSocket->mF_Init( m_dwGSV_IDs[1] );
             this->Send_cli_JOIN_SERVER_REQ( m_dwGSV_IDs[0] );
             continue;
           }
           case NETWORK_STATUS_DISCONNECT: {
-            // ¼­¹ö¸¦ ¿Å±â±â À§ÇØ Á¢¼ÓÀ» ²÷Àº°ÍÀÎ°¡ ? ²÷±ä°ÍÀÎ°¡ ?
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ ? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ ?
             if ( m_bMoveingZONE ) {
               LogString(LOG_DEBUG,
                         "m_bMoveingZONE set to true, reconnecting.... \n");
@@ -627,16 +645,16 @@ void CNetwork::Proc() {
           }
         }
 
-        LogString(LOG_NORMAL, "Á¸ ¼­¹ö¿ÍÀÇ Á¢¼Ó¿¡ ½ÇÆÐÇß½À´Ï´Ù.\n");
+        LogString(LOG_NORMAL, "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.\n");
         break;
       }
 
-      case SRV_JOIN_SERVER_REPLY: // Á¸ ¼­¹ö¿¡ Á¢¼ÓÇß´Ù.
+      case SRV_JOIN_SERVER_REPLY: // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½.
       {
         DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY();
         if ( dwRet ) {
           pSocket->OnAccepted( (int *)&dwRet );
-          // Ã³À½ Á¢¼ÓÇÑ Á¸ ¼­¹ö? ¸é...
+          // Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½...
 
           CLiveCheck::GetSingleton().ResetTime();
         } else {
@@ -653,7 +671,7 @@ void CNetwork::Proc() {
 }
 
 //-------------------------------------------------------------------------------------------------
-// 2005. 5. 23 ¹Ú ÁöÈ£
+// 2005. 5. 23 ï¿½ï¿½ ï¿½ï¿½È£
 void CNetwork::Send_AuthMsg(void) {
 
   m_pSendPacket->m_HEADER.m_wType = CLI_CHECK_AUTH;
