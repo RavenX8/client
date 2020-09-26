@@ -13,7 +13,7 @@
 #include "IO_Terrain.h"
 #include "cli_accept_req.h"
 
-////005. 5. 23 占쏙옙 占쏙옙호
+////005. 5. 23 박 지호
 //#include "../nProtect/NProtect.h"
 
 CNetwork* g_pNet;
@@ -83,7 +83,7 @@ void CNetwork::Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld)
 //-------------------------------------------------------------------------------------------------
 bool CNetwork::ConnectToServer(char* szServerIP, WORD wTcpPORT,
                                short nProcLEVEL) {
-  // World 占쏙옙占쏙옙...
+  // World 소켓...
   if ( m_nProcLEVEL == nProcLEVEL )
     return true;
 
@@ -103,7 +103,7 @@ void CNetwork::DisconnectFromServer(short nProcLEVEL) {
 //-------------------------------------------------------------------------------------------------
 void CNetwork::MoveZoneServer(const bool reconnect) {
   if ( NETWORK_STATUS_CONNECT == m_btZoneSocketSTATUS ) {
-    // 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싼댐옙...
+    // 존 서버 소켓을 끊고 새로 접속한다...
     m_bMoveingZONE = true;
     m_ZoneSOCKET.Close();
 
@@ -112,7 +112,7 @@ void CNetwork::MoveZoneServer(const bool reconnect) {
     }
     LogString(LOG_NORMAL, "MoveZoneServer reconnection logic hit\n");
   }
-  // 占쌕뤄옙 占쏙옙占쏙옙...
+  // 바로 접속...
   m_bMoveingZONE = false;
   m_ZoneSOCKET.Connect( CSocketWND::GetInstance()->GetWindowHandle(),
                         m_GSV_IP.Get(), m_wGSV_PORT, WM_ZONE_SOCKET_NOTIFY );
@@ -133,14 +133,14 @@ void              CNetwork::Proc_WorldPacket() {
             continue;
           }
           case NETWORK_STATUS_CONNECT: {
-            // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙틈占�...
+            // 서버와 연결됐다...
             switch ( m_nProcLEVEL ) {
-              case NS_CON_TO_WSV: // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌩댐옙.
+              case NS_CON_TO_WSV: // 월드 서버에 접속했다.
                 Send_cli_JOIN_SERVER_REQ( m_dwWSV_ID, true );
                 m_bWarping = false;
                 bAllInONE  = true;
                 break;
-              case NS_CON_TO_LSV: // 占싸깍옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌩댐옙.
+              case NS_CON_TO_LSV: // 로긴 서버에 접속했다.
                 pSocket->mF_Init( 0 );
                 Send_PACKET(RoseCommon::Packet::CliAcceptReq::create(), true);
                 break;
@@ -148,7 +148,7 @@ void              CNetwork::Proc_WorldPacket() {
 
             g_pCApp->SetCaption( "ROSE online" );
 #ifdef __VIRTUAL_SERVER
-        g_pCApp->ErrorBOX("占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占실억옙 占쏙옙占쏙옙..", "ERROR !!!", MB_OK);
+        g_pCApp->ErrorBOX("가상 서버가 설정되어 있음..", "ERROR !!!", MB_OK);
 #endif
             continue;
           }
@@ -156,7 +156,7 @@ void              CNetwork::Proc_WorldPacket() {
             // g_pCApp->SetCaption ( "Disconnected" );
 
             if ( NS_DIS_FORM_LSV == m_nProcLEVEL ) {
-              // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싼댐옙...
+              // 게임 서버에 재접속 한다...
               this->ConnectToServer( m_WSV_IP.Get(), m_wWSV_PORT, NS_CON_TO_WSV );
               continue;
             }
@@ -177,14 +177,14 @@ void              CNetwork::Proc_WorldPacket() {
         }
 
         // CGame::GetInstance().ProcWndMsg( WM_USER_SERVER_DISCONNECTED,0,0 );
-        // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쌩댐옙.
-        // LogString(LOG_NORMAL, "占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쌈울옙 占쏙옙占쏙옙占쌩쏙옙占싹댐옙.\n");
+        // 서버와 접속 실패 했다.
+        // LogString(LOG_NORMAL, "서버와의 접속에 실패했습니다.\n");
         break;
       }
       case SRV_ERROR: Recv_srv_ERROR(packet.get());
         break;
 
-      case SRV_JOIN_SERVER_REPLY: // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌩댐옙.
+      case SRV_JOIN_SERVER_REPLY: // 월드 서버에 접속했다.
       {
         DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(packet.get());
         if ( dwRet ) {
@@ -213,13 +213,13 @@ void              CNetwork::Proc_WorldPacket() {
       }
       case LSV_CHANNEL_LIST_REPLY: Recv_lsv_CHANNEL_LIST_REPLY(packet.get());
         break;
-        // 캐占쏙옙占쏙옙 占쏙옙占쏙옙트 占쌨억옙占쏙옙
+        // 캐릭터 리스트 받았음
       case WSV_CHAR_LIST: Recv_wsv_CHAR_LIST(packet.get());
         break;
 
       case WSV_DELETE_CHAR: Recv_wsv_DELETE_CHAR(packet.get());
         break;
-        // 캐占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙청 占쏙옙占� 占쎈보占쏙옙占쏙옙
+        // 캐릭터 생성요청 결과 통보받음
       case WSV_CREATE_CHAR: Recv_wsv_CREATE_CHAR(packet.get());
 
         break;
@@ -235,7 +235,7 @@ void              CNetwork::Proc_WorldPacket() {
         break;
       case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE(packet.get());
         break;
-        // 占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙占쌔띰옙...
+        // 존 서버를 이동해라...
       case WSV_MOVE_SERVER: {
         bAllInONE = false;
         Recv_wsv_MOVE_SERVER(packet.get());
@@ -271,7 +271,7 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
       break;
 
     case SRV_CHECK_AUTH:
-      // 2005.5.23 占쏙옙占쏙옙호
+      // 2005.5.23 박지호
       /*m_nProtectSys.Auth_FromServer(m_pRecvPacket->m_srv_CHECK_AUTH.m_btModuleTYPE,
             (GG_AUTH_DATA*)&m_pRecvPacket->m_pDATA[sizeof(srv_CHECK_AUTH)]);*/
 
@@ -321,7 +321,7 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
     case GSV_GM_COMMAND: Recv_gsv_GM_COMMAND(packet);
       break;
 
-      // 캐占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쎈보占쏙옙占쏙옙
+      // 캐릭터 선택 결과 통보받음
     case GSV_SELECT_CHAR: Recv_gsv_SELECT_CHAR(packet);
 
       // Send_cli_JOIN_ZONE ();		// GSV_SELECT_CHAR
@@ -456,7 +456,7 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
     case GSV_SPEED_CHANGED: Recv_gsv_SPEED_CHANGED(packet);
       break;
 
-      /// 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙杉占�.
+      /// 아이템을 사용했다.
     case GSV_USE_ITEM: Recv_gsv_USE_ITEM(packet);
       break;
 
@@ -561,13 +561,13 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
     }
 
       //----------------------------------------------------------------------------------------------------
-      /// @brief 占쏙옙占쏙옙占쏙옙 占쏙옙斂占쏙옙占�
+      /// @brief 아이템 재밍관련
       //----------------------------------------------------------------------------------------------------
     case GSV_CRAFT_ITEM_REPLY: Recv_gsv_CRAFT_ITEM_REPLY(packet);
       break;
 
       //----------------------------------------------------------------------------------------------------
-      /// @brief 占싱븝옙트 占쏙옙占쏙옙占쏙옙트 占쏙옙占쏙옙
+      /// @brief 이벤트 오브젝트 관련
       //----------------------------------------------------------------------------------------------------
     case GSV_ADD_EVENTOBJ: Recv_gsv_ADD_EVENTOBJ(packet);
       break;
@@ -625,15 +625,15 @@ void CNetwork::Proc() {
             continue;
           }
           case NETWORK_STATUS_CONNECT: {
-            // 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙틈占�...
-            // 占심몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙載ｏ옙占�.
+            // 존 서버와 연결됐다...
+            // 케릭터 선택후 실제 존에 들어간다.
             m_bWarping = false;
             pSocket->mF_Init( m_dwGSV_IDs[1] );
             this->Send_cli_JOIN_SERVER_REQ( m_dwGSV_IDs[0] );
             continue;
           }
           case NETWORK_STATUS_DISCONNECT: {
-            // 占쏙옙占쏙옙占쏙옙 占신깍옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占싸곤옙 ? 占쏙옙占쏙옙占쏙옙寬占� ?
+            // 서버를 옮기기 위해 접속을 끊은것인가 ? 끊긴것인가 ?
             if ( m_bMoveingZONE ) {
               LogString(LOG_DEBUG,
                         "m_bMoveingZONE set to true, reconnecting.... \n");
@@ -649,16 +649,16 @@ void CNetwork::Proc() {
           }
         }
 
-        LogString(LOG_NORMAL, "占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쌈울옙 占쏙옙占쏙옙占쌩쏙옙占싹댐옙.\n");
+        LogString(LOG_NORMAL, "존 서버와의 접속에 실패했습니다.\n");
         break;
       }
 
-      case SRV_JOIN_SERVER_REPLY: // 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌩댐옙.
+      case SRV_JOIN_SERVER_REPLY: // 존 서버와의 접속에 실패했습니다.
       {
         DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(packet.get());
         if ( dwRet ) {
           pSocket->OnAccepted( (int *)&dwRet );
-          // 처占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙? 占쏙옙...
+          // 처음 접속한 존 서버? 면...
 
           CLiveCheck::GetSingleton().ResetTime();
         } else {
@@ -675,7 +675,7 @@ void CNetwork::Proc() {
 }
 
 //-------------------------------------------------------------------------------------------------
-// 2005. 5. 23 占쏙옙 占쏙옙호
+// 2005. 5. 23 박 지호
 void CNetwork::Send_AuthMsg(void) {
 
   m_pSendPacket->m_HEADER.m_wType = CLI_CHECK_AUTH;

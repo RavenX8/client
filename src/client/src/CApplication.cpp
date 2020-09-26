@@ -68,18 +68,18 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
   if ( CTIme::GetInstance().Process( hWnd, uiMsg, wParam, lParam ) )
     return S_OK;
 
-  // 키占쏙옙占쏙옙 占쌨쇽옙占쏙옙 占쏙옙占쏙옙
+  // 키보드 메세지 저장
   if ( CGame::GetInstance().AddWndMsgQ( uiMsg, wParam, lParam ) )
     return 0;
 
   switch ( uiMsg ) {
-    case WM_SYSCHAR: ///systemkey占쏙옙 占싹뱄옙 키占쏙옙 占쏙옙占쏙옙占쌔쇽옙 占쏙옙占쏙옙占쏙옙 "占쏙옙"占쌀몌옙 占쏙옙占쌍깍옙
+    case WM_SYSCHAR: ///systemkey와 일반 키를 조합해서 누를때 "띵"소리 없애기
       return 0;
     case WM_SETCURSOR: if ( CCursor::GetInstance().RefreshCursor() )
         return S_OK;
       break;
     case WM_ACTIVATE: {
-      m_wActive = ((LOWORD( wParam ) != WA_INACTIVE) && (HIWORD( wParam ) == 0)); // INVACIVE 占쏙옙 占싣니곤옙, 占싱니몌옙占쏙옙占쏘도 占싣댐옙 占쏙옙荑∽옙占� 활占쏙옙화
+      m_wActive = ((LOWORD( wParam ) != WA_INACTIVE) && (HIWORD( wParam ) == 0)); // INVACIVE 가 아니고, 미니마이즈도 아닌 경우에만 활성화
       //m_wActive = true;
 
       LogString(LOG_DEBUG, "WM_ACTIVATE: [%s]\n",
@@ -119,7 +119,7 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
       return 0;
 
     case WM_ERASEBKGND:
-    case WM_SYSKEYUP: // ALT키 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 !!!
+    case WM_SYSKEYUP: // ALT키 눌렀을때 멈춤 방지 !!!
     case WM_PALETTECHANGED:
     case WM_QUERYNEWPALETTE: return 0;
 
@@ -286,7 +286,7 @@ bool    CApplication::ParseArgument(char* pStr) {
       }
     }
     if ( !_strcmpi( pToken, "_noui" ) ) {
-      // 占쏙옙占쏙옙占쏙옙占싱쏙옙 占쏙옙占쌩깍옙. - zho
+      // 인터페이스 감추기. - zho
       g_GameDATA.m_bNoUI = true;
     }
 
@@ -322,7 +322,7 @@ bool    CApplication::ParseArgument(char* pStr) {
     if ( !_strcmpi( pToken, "_dup" ) )
       g_GameDATA.m_bCheckDupRUN = false;
 
-    /// 占쏙옙占쏙옙 占싹븝옙 NHN JAPAN占쏙옙 占쏙옙占쏙옙 Argument Setting( 2005/5/18 )
+    /// 이하 일본 NHN JAPAN을 위한 Argument Setting( 2005/5/18 )
     if ( !_strcmpi( pToken, "_RCODE_JP_HG" ) )
       g_GameDATA.m_is_NHN_JAPAN = true;
 
@@ -357,11 +357,11 @@ bool    CApplication::ParseArgument(char* pStr) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------
-/// 1. resetScreen()占쏙옙 MoveWindow占쏙옙占쏙옙 占쏙옙占쏙옙 호占쏙옙퓸占쏙옙 client Window占쏙옙 Size占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占싫댐옙.
-/// resetScreen占쏙옙 MoveWindow占쏙옙占쏙옙 占쏙옙占쌩울옙 占심곤옙占� MoveWindow占쏙옙占쏙옙 Size占쏙옙占쏙옙占쏙옙  Window占쏙옙 占쏙옙占쏙옙�쇽옙 占쌍댐옙 占쌍댐옙占쏙옙占쏙옙載�
-/// 占쏙옙占쏙옙 占쏙옙占싹댐옙 占쏙옙占쏙옙占쏙옙 占쌜곤옙 占실억옙 Size 占쏙옙占썸에 占쏙옙占쏙옙占싼댐옙( navy : 2005/3/11 )
-/// 2. 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쌔상도븝옙占쏙옙 占쏙옙占쏙옙크占쏙옙 占싱삼옙占쏙옙占쏙옙 占쏙옙占쏙옙占쎌를 占쏙옙占쏙옙占싹거놂옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십는댐옙.
-///		- 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌔상도몌옙 占쏙옙占쌔쇽옙 占쏙옙占쏙옙占싹곤옙占쏙옙占싹댐옙 크占썩를 占쏙옙占쏙옙占쏙옙
+/// 1. resetScreen()이 MoveWindow보다 먼저 호출되어야 client Window의 Size변경이 제대로 된다.
+/// resetScreen이 MoveWindow보다 나중에 될경우 MoveWindow에서 Size변경이  Window가 변경될수 있는 최대사이즈가
+/// 내가 원하는 값보다 작게 되어 Size 변경에 실패한다( navy : 2005/3/11 )
+/// 2. 현재 윈도우즈의 해상도보다 일정크기 이상으로 윈도우를 생성하거나 사이즈 변경이 되지 않는다.
+///		- 현재 윈도우즈 해상도를 구해서 변경하고자하는 크기를 비교하자
 //-----------------------------------------------------------------------------------------------------------------
 void CApplication::ResizeWindowByClientSize(int& iClientWidth, int& iClientHeight, int iDepth, bool update_engine) {
   if ( m_bFullScreenMode ) {

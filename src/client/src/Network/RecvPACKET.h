@@ -128,7 +128,7 @@ public :
   /// result of skill
   ///
   void Recv_gsv_EFFECT_OF_SKILL(t_PACKET* packet);
-  void Recv_gsv_DAMAGE_OF_SKILL(t_PACKET* packet); // 7,17占쏙옙 타占쏙옙占쏙옙 占쏙옙占�.
+  void Recv_gsv_DAMAGE_OF_SKILL(t_PACKET* packet); // 7,17번 타입의 경우.
   void Recv_gsv_RESULT_OF_SKILL(t_PACKET* packet);
 
   void Recv_gsv_CLEAR_STATUS(t_PACKET* packet);
@@ -143,11 +143,11 @@ public :
   void Recv_gsv_P_STORE_RESULT(t_PACKET* packet);
   void Recv_gsv_QUEST_REPLY(t_PACKET* packet);
 
-  ///트占쏙옙占싱듸옙 占쏙옙占쏙옙
+  ///트레이드 관련
   void Recv_gsv_TRADE_P2P(t_PACKET* packet);
   void Recv_gsv_TRADE_P2P_ITEM(t_PACKET* packet);
 
-  ///占쏙옙티 占쏙옙占쏙옙
+  ///파티 관련
   void Recv_gsv_PARTY_REQ(t_PACKET* packet);
   void Recv_gsv_PARTY_REPLY(t_PACKET* packet);
   void Recv_gsv_PARTY_MEMBER(t_PACKET* packet);
@@ -155,19 +155,19 @@ public :
   void Recv_gsv_PARTY_ITEM(t_PACKET* packet);
   void Recv_gsv_PARTY_RULE(t_PACKET* packet);
   void Recv_gsv_CHANGE_OBJIDX(t_PACKET* packet);
-  ///占쏙옙占쏙옙占쏙옙占쏙옙
+  ///제조관련
   void Recv_gsv_CREATE_ITEM_REPLY(t_PACKET* packet);
-  ///占쏙옙크( 占쏙옙占쏙옙창占쏙옙) 占쏙옙占쏙옙
+  ///뱅크( 계정창고) 관련
   void Recv_gsv_BANK_LIST_REPLY(t_PACKET* packet);
   void Recv_gsv_MOVE_ITEM(t_PACKET* packet);
-  ///占쌀몌옙탄 占쏙옙占쏙옙
+  ///소모탄 관련
   void Recv_gsv_SET_BULLET(t_PACKET* packet);
 
   void Recv_gsv_SERVER_DATA(t_PACKET* packet);
-  ///PAT 占쏙옙占쏙옙
+  ///PAT 관련
   void Recv_gsv_ASSEMBLE_RIDE_ITEM(t_PACKET* packet);
 
-  /// 占실시곤옙 占쏙옙占쏙옙占실댐옙 占싱븝옙트 占쏙옙( m_nEventSTATUS ) 占쏙옙占쏙옙
+  /// 실시간 수정되는 이벤트 값( m_nEventSTATUS ) 전송
   void Recv_GSV_SET_EVENT_STATUS(t_PACKET* packet);
 
   void Recv_GSV_SET_ITEM_LIFE(t_PACKET* packet);
@@ -186,7 +186,7 @@ public :
   void Recv_gsv_APPRAISAL_REPLY(t_PACKET* packet);
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief 占쏙옙占� 占쏙옙챨占쏙옙占�
+  /// @brief 재밍 재련관련
   ///
   //----------------------------------------------------------------------------------------------------
   void Recv_gsv_CRAFT_ITEM_REPLY(t_PACKET* packet);
@@ -195,7 +195,7 @@ public :
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief 占쏙옙占쏙옙트 占쏙옙占쏙옙占쏙옙占�
+  /// @brief 퀘스트 보상관련
   ///
   //----------------------------------------------------------------------------------------------------
   void Recv_gsv_REWARD_ITEM(t_PACKET* packet);
@@ -206,21 +206,21 @@ public :
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief 占싱븝옙트 占쏙옙占쏙옙占쏙옙트 처占쏙옙 占쏙옙占쏙옙
+  /// @brief 이벤트 오브젝트 처리 관련
   ///
   //----------------------------------------------------------------------------------------------------	
   void Recv_gsv_ADD_EVENTOBJ(t_PACKET* packet);
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief HP, MP 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙킷.
+  /// @brief HP, MP 물약 종료 패킷.
   ///
   //----------------------------------------------------------------------------------------------------	
   void Recv_gsv_SET_HPnMP(t_PACKET* packet);
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief Do_DeadEvent 占쏙옙占쏙옙 호占쏙옙占싹댐옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙청占쏙옙 처占쏙옙占싹곤옙 占쏙옙占쏙옙..
+  /// @brief Do_DeadEvent 에서 호출하던것을 서버에서 요청시 처리하게 변경..
   ///
   //----------------------------------------------------------------------------------------------------
   void Recv_gsv_CHECK_NPC_EVENT(t_PACKET* packet);
@@ -251,21 +251,21 @@ public :
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// 占쏙옙 占쏙옙호    占쏙옙占쏙옙 占쏙옙환 占쏙옙킷처占쏙옙 
+  /// 박 지호    여신 소환 패킷처리
   ///
   //----------------------------------------------------------------------------------------------------	
   void Recv_gsv_GODDNESS_MODE(t_PACKET* packet);
   //----------------------------------------------------------------------------------------------------	
-  /// 占쏙옙틀카트 占쏙옙占쏙옙
+  /// 배틀카트 관련
   void Recv_gsv_PATSTATE_CHANGE(t_PACKET* packet);
 
-  // 占심몌옙占쏙옙 占쏙옙占쏙옙 占쏙옙환 (占쏙옙占쏙옙)
+  // 케릭터 상태 변환 (투명)
   void Recv_gsv_CHARSTATE_CHANGE(t_PACKET* packet);
 
-  // 2占싸쏙옙 카트.
+  // 2인승 카트.
   void Recv_gsv_CART_RIDE(t_PACKET* packet);
 
-  //占쏙옙占쏙옙占쏙옙占쏙옙..
+  //스샷관련..
   void Recv_gsv_SCREEN_SHOT_TIME(t_PACKET* packet);
 
   // Updates a player name

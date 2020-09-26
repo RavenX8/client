@@ -68,18 +68,18 @@ public :
   void Send_cli_EQUIP_ITEM(short            nEquipInvIDX, short nWeaponInvIDX);
   bool Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int          iServerObject);
 
-  // 占십드에 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙...
+  // 필드에 아이템을 떨군다...
   void Send_cli_DROP_ITEM(short nInventoryIndex, int iQuantity);
 
   void Send_cli_TELEPORT_REQ(CGameOBJ* pUSER, short nWarpIDX);
 
-  // 占쏙옙占십쏙옙 占쏙옙占쏙옙트占쏙옙 占싱울옙占쌔쇽옙 占썩본 占심뤄옙치占쏙옙 占쏙옙占� 占쏙옙킨占쏙옙...
+  // 보너스 포인트를 이용해서 기본 능력치를 향상 시킨다...
   void Send_cli_USE_BPOINT_REQ(BYTE btAbilityTYPE);
 
   void Send_cli_TRADE_REQ(void  );
   void Send_cli_TRADE_REPLY(void);
 
-  /// 占쏙옙占쏙옙占쏙옙 占쌔댐옙 占쏙옙占쏙옙占쏙옙트 HP 占쏙옙占쏙옙 占썰구
+  /// 서버에 해당 오브젝트 HP 정보 요구
   void Send_cli_HP_REQ(int iClientTarget);
 
   void Send_cli_P_STORE_OPEN(BYTE         btSellItemCount, BYTE btBuyItemCount, tagPS_ITEM* SellItems, tagPS_ITEM* BuyItems, char* pszTitle);
@@ -95,26 +95,26 @@ public :
 
   void Send_cli_QUEST_REQ(BYTE btReqTYPE, BYTE btQuestSLOT, int iQuestID, char* szQuestTriggerName = nullptr);
 
-  ///트占쏙옙占싱듸옙 占쏙옙占쏙옙 Method
+  ///트레이드 관련 Method
   bool Send_cli_TRADE_P2P(WORD      wServerIdx, BYTE  btResult, char         cSlotIdx = 0);
   void Send_cli_TRADE_P2P_ITEM(char cTradeSLOT, short nInventoryIndex, DWORD iQuantity);
-  ///占쏙옙티 占쏙옙占쏙옙
+  ///파티 관련
   void Send_cli_PARTY_REQ(BYTE   btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_REPLY(BYTE btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_RULE(BYTE  btRule);
-  ///占쏙옙占쏙옙 占쏙옙占쏙옙
+  ///제조 관련
   void Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYPE, short nTargetItemNO, short* pnUseItemINV);
   //	void Send_cli_CREATE_ITEM_EXP_REQ();
 
   void Send_cli_ITEM_RESULT_REPORT(BYTE btREPORT, BYTE btItemType, short nItemNo);
 
-  ///창占쏙옙 占쏙옙占쏙옙
+  ///창고 관련
   void Send_cli_MOVE_ITEM(BYTE     btMoveTYPE, BYTE btFromIDX,tagITEM& MoveITEM, bool bPlatinum);
   void Send_cli_BANK_LIST_REQ(BYTE btREQ, char*     pszPassword);
-  ///占쌀몌옙탄 占쏙옙占쏙옙
+  ///소모탄 관련
   void Send_cli_SET_BULLET(BYTE btShotType, short nInvenIdx);
 
-  ///PAT 占쏙옙占쏙옙
+  ///PAT 관련
   void Send_cli_ASSEMBLE_RIDE_ITEM(short nPartIdx, short nInvenIdx);
 
   void Send_cli_SET_WEIGHT_RATE(BYTE btWeightRate);
@@ -144,7 +144,7 @@ public :
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief 占쏙옙占� 占쏙옙챨占쏙옙占�
+  /// @brief 재밍 재련관련
   ///
   //----------------------------------------------------------------------------------------------------
   void Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvIDX);
@@ -179,7 +179,7 @@ public :
 
   void Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuestObjIDX_);
 
-  //---占쏙옙占쏙옙占쏙옙占쏙옙...--------------------------------------------------------------------------------------
+  //---스샷관련...--------------------------------------------------------------------------------------
   void Send_cli_SCREEN_SHOT_TIME();
   void Send_cli_UPDATE_NAME(char* szName);
   void Send_cli_SET_RIGHTS(DWORD  dwRight);

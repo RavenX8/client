@@ -47,8 +47,8 @@ unsigned __stdcall ClientSOCKET_SendTHREAD(void* lpParameter) {
     if ( pClientSocket->m_bWritable &&
          pClientSocket->m_SendPacketQ.size() > 0 ) {
       if ( !pClientSocket->Packet_Send() ) {
-        // 占쏙옙占쏙옙 占쏙옙占쏙옙 占쌩삼옙...
-#pragma message("!!!!!! >>>> 占쏙옙占쏙옙 占쏙옙占쏙옙 占쌩삼옙占쏙옙 占쏙옙처....")
+        // 소켓 오류 발생...
+#pragma message("!!!!!! >>>> 소켓 오류 발생시 대처....")
       }
     }
 #ifdef _DEBUG
@@ -168,7 +168,7 @@ void    CClientSOCKET::OnReceive(int nErrorCode) {
 void CClientSOCKET::OnSend(int nErrorCode) {
   if ( !nErrorCode ) {
     m_bWritable = true;
-    SetEvent( m_hThreadEvent ); // 占쏙옙占쏙옙占썲에 占쎈보 !!!
+    SetEvent( m_hThreadEvent ); // 쓰레드에 통보 !!!
   }
 }
 
@@ -228,11 +228,11 @@ void CClientSOCKET::Packet_Register2SendQ(const t_PACKET* const pRegPacket) {
   //	if ( m_cStatus == CLIENTSOCKET_CONNECTED )
   {
     std::lock_guard guard(m_waitMutex);
-    // Encoding pSendPacket->m_Packet ... 占쏙옙占쏙옙 占쌍댐옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙... 占쏙옙占쌘듸옙占쏙옙
-    // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙티占쏙옙占쏙옙占썲에 占쏙옙占쏙옙 틀占쏙옙占쏙옙占쏙옙 占쌍기때占쏙옙占쏙옙...
+    // Encoding pSendPacket->m_Packet ... 위에 있던것을 안으로... 인코딩된
+    // 수서와 보내는 순서가 멀티쓰레드에 의해 틀려질수 있기때문에...
     m_WaitPacketQ.emplace_back(packetSize, std::move(data));
   }
-  SetEvent( m_hThreadEvent ); // 占쏙옙占쏙옙占썲에 占쎈보 !!!
+  SetEvent( m_hThreadEvent ); // 쓰레드에 통보 !!!
 }
 
 void CClientSOCKET::Packet_Register2SendQ(RoseCommon::CRosePacket&& pRegPacket)
@@ -246,7 +246,7 @@ void CClientSOCKET::Packet_Register2SendQ(RoseCommon::CRosePacket&& pRegPacket)
       m_WaitPacketQ.emplace_back(size, std::move(packet));
     }
 
-    SetEvent(m_hThreadEvent); // 占쏙옙占쏙옙占썲에 占쎈보 !!!
+    SetEvent(m_hThreadEvent); // 패킷 오류 !!!
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -286,7 +286,7 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
         // Decoding Packet Header ...
         this->m_nPacketSize = this->mF_DRH( &(reinterpret_cast<t_PACKET*>(m_pRecvPacket)->m_HEADER) );
         if ( !this->m_nPacketSize ) {
-          // 占쏙옙킷 占쏙옙占쏙옙 !!!
+          // 패킷 오류 !!!
           this->Close();
           return;
         }
@@ -432,7 +432,7 @@ bool CClientSOCKET::Peek_Packet(t_PACKET* outPacket, bool bRemoveFromQ) {
     // pPacket = pNode->DATA;
     CopyMemory(&outPacket, data.get(), size);
 
-    // 占쏙옙킷 占쏙옙占쏙옙.
+    // 패킷 삭제.
     if ( bRemoveFromQ ) {
       this->m_RecvPacketQ.pop_front();
     }
@@ -449,7 +449,7 @@ std::optional<std::unique_ptr<RoseCommon::CRosePacket>> CClientSOCKET::Peek_Pack
     // we assume the packet is from the server
     auto res = RoseCommon::fetchPacket<true>(data.get());
 
-    // 占쏙옙킷 占쏙옙占쏙옙.
+    // 패킷 삭제.
     if ( bRemoveFromQ ) {
       this->m_RecvPacketQ.pop_front();
     }
@@ -488,7 +488,7 @@ void CClientSOCKET::Close() {
     m_cStatus = CLIENTSOCKET_CLOSING;
 
     do {
-      SetEvent( m_hThreadEvent ); // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쎈보...
+      SetEvent( m_hThreadEvent ); // 쓰레드 죽으라고 통보...
       Sleep( 100 );
     }
     while ( m_cStatus == CLIENTSOCKET_CLOSING );
