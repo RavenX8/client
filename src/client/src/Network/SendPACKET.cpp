@@ -22,6 +22,7 @@
 
 #include "cli_login_req.h"
 #include "cli_logout_req.h"
+#include "cli_srv_select_req.h"
 
 #ifdef	__VIRTUAL_SERVER
 void CSendPACKET::Send_gsv_ADD_CHAR (int iObjectIndex, short nCharIdx, tPOINTF &PosSET)
@@ -102,18 +103,7 @@ void CSendPACKET::Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEn
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_SELECT_SERVER(int iServerID, int iChannelNo) {
-#ifdef	__VIRTUAL_SERVER
-  ;
-  _ASSERT( 0 );
-  ;
-#else
-  m_pSendPacket->m_HEADER.m_wType                  = CLI_SELECT_SERVER;
-  m_pSendPacket->m_HEADER.m_nSize                  = sizeof( cli_SELECT_SERVER );
-  m_pSendPacket->m_cli_SELECT_SERVER.m_dwServerID  = (DWORD)iServerID;
-  m_pSendPacket->m_cli_SELECT_SERVER.m_btChannelNO = (BYTE)iChannelNo;
-#endif
-
-  this->Send_PACKET( m_pSendPacket, true );
+  this->Send_PACKET( RoseCommon::Packet::CliSrvSelectReq::create(iServerID, iChannelNo), true );
 }
 
 //-------------------------------------------------------------------------------------------------
