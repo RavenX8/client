@@ -82,11 +82,6 @@ else()
 endif()
 
 find_package(Threads REQUIRED)
-find_package(PacketGenerator)
-
-if(NOT IDL_FOUND)
-  include(Build-packet-generator)
-endif()
 
 include(Build-ogg)
 include(Build-lua)
@@ -97,7 +92,6 @@ include(Build-sqlite3)
 include(Build-vorbis)
 #include(Build-Ultralight)
 
-include(PacketGenerator)
 include(LuaIncludeGenerator)
 
 include_directories(${CMAKE_GEN_SRC_DIR})
