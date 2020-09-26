@@ -20,7 +20,7 @@ enum {
 
 class CNetwork : public CRecvPACKET, public CSendPACKET {
 private :
-  bool bAllInONE; /// ����/�������� ���� ������?
+  bool bAllInONE; /// 占쏙옙占쏙옙/占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙?
   void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) override;
 
   short m_nProcLEVEL;
@@ -32,7 +32,7 @@ private :
                    ~CNetwork();
 
   void Proc_WorldPacket();
-  void Proc_ZonePacket();
+  void Proc_ZonePacket(t_PACKET* packet);
 
   void MoveZoneServer(bool reconnect = false);
 
@@ -43,7 +43,7 @@ public :
   CshoClientSOCK m_WorldSOCKET;
   CshoClientSOCK m_ZoneSOCKET;
 #endif
-  bool m_bWarping; // �� ���� ���ΰ�...
+  bool m_bWarping; // 占쏙옙 占쏙옙占쏙옙 占쏙옙占싸곤옙...
 
   static CNetwork* Instance(HINSTANCE hInstance);
   void             Destroy();
@@ -52,7 +52,7 @@ public :
 
   bool ConnectToServer(char*      szServerIP, WORD wTcpPORT, short nProcLEVEL = 0);
   void DisconnectFromServer(short nProcLEVEL                                  = 0) override;
-  // �� ��ȣ 
+  // 占쏙옙 占쏙옙호 
   void Send_AuthMsg(void);
 
   // Playing packet ..

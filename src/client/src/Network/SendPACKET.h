@@ -15,7 +15,7 @@ protected:
   t_PACKET*     m_pSendPacket;
 
   virtual void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) = 0;
-  virtual void Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld) = 0;
+  virtual void Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld = false) = 0;
 
 public :
           CSendPACKET();
@@ -68,18 +68,18 @@ public :
   void Send_cli_EQUIP_ITEM(short            nEquipInvIDX, short nWeaponInvIDX);
   bool Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int          iServerObject);
 
-  // �ʵ忡 �������� ������...
+  // 占십드에 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙...
   void Send_cli_DROP_ITEM(short nInventoryIndex, int iQuantity);
 
   void Send_cli_TELEPORT_REQ(CGameOBJ* pUSER, short nWarpIDX);
 
-  // ���ʽ� ����Ʈ�� �̿��ؼ� �⺻ �ɷ�ġ�� ��� ��Ų��...
+  // 占쏙옙占십쏙옙 占쏙옙占쏙옙트占쏙옙 占싱울옙占쌔쇽옙 占썩본 占심뤄옙치占쏙옙 占쏙옙占� 占쏙옙킨占쏙옙...
   void Send_cli_USE_BPOINT_REQ(BYTE btAbilityTYPE);
 
   void Send_cli_TRADE_REQ(void  );
   void Send_cli_TRADE_REPLY(void);
 
-  /// ������ �ش� ������Ʈ HP ���� �䱸
+  /// 占쏙옙占쏙옙占쏙옙 占쌔댐옙 占쏙옙占쏙옙占쏙옙트 HP 占쏙옙占쏙옙 占썰구
   void Send_cli_HP_REQ(int iClientTarget);
 
   void Send_cli_P_STORE_OPEN(BYTE         btSellItemCount, BYTE btBuyItemCount, tagPS_ITEM* SellItems, tagPS_ITEM* BuyItems, char* pszTitle);
@@ -95,26 +95,26 @@ public :
 
   void Send_cli_QUEST_REQ(BYTE btReqTYPE, BYTE btQuestSLOT, int iQuestID, char* szQuestTriggerName = nullptr);
 
-  ///Ʈ���̵� ���� Method
+  ///트占쏙옙占싱듸옙 占쏙옙占쏙옙 Method
   bool Send_cli_TRADE_P2P(WORD      wServerIdx, BYTE  btResult, char         cSlotIdx = 0);
   void Send_cli_TRADE_P2P_ITEM(char cTradeSLOT, short nInventoryIndex, DWORD iQuantity);
-  ///��Ƽ ����
+  ///占쏙옙티 占쏙옙占쏙옙
   void Send_cli_PARTY_REQ(BYTE   btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_REPLY(BYTE btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_RULE(BYTE  btRule);
-  ///���� ����
+  ///占쏙옙占쏙옙 占쏙옙占쏙옙
   void Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYPE, short nTargetItemNO, short* pnUseItemINV);
   //	void Send_cli_CREATE_ITEM_EXP_REQ();
 
   void Send_cli_ITEM_RESULT_REPORT(BYTE btREPORT, BYTE btItemType, short nItemNo);
 
-  ///â�� ����
+  ///창占쏙옙 占쏙옙占쏙옙
   void Send_cli_MOVE_ITEM(BYTE     btMoveTYPE, BYTE btFromIDX,tagITEM& MoveITEM, bool bPlatinum);
   void Send_cli_BANK_LIST_REQ(BYTE btREQ, char*     pszPassword);
-  ///�Ҹ�ź ����
+  ///占쌀몌옙탄 占쏙옙占쏙옙
   void Send_cli_SET_BULLET(BYTE btShotType, short nInvenIdx);
 
-  ///PAT ����
+  ///PAT 占쏙옙占쏙옙
   void Send_cli_ASSEMBLE_RIDE_ITEM(short nPartIdx, short nInvenIdx);
 
   void Send_cli_SET_WEIGHT_RATE(BYTE btWeightRate);
@@ -144,7 +144,7 @@ public :
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief ��� ��ð���
+  /// @brief 占쏙옙占� 占쏙옙챨占쏙옙占�
   ///
   //----------------------------------------------------------------------------------------------------
   void Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvIDX);
@@ -179,7 +179,7 @@ public :
 
   void Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuestObjIDX_);
 
-  //---��������...--------------------------------------------------------------------------------------
+  //---占쏙옙占쏙옙占쏙옙占쏙옙...--------------------------------------------------------------------------------------
   void Send_cli_SCREEN_SHOT_TIME();
   void Send_cli_UPDATE_NAME(char* szName);
   void Send_cli_SET_RIGHTS(DWORD  dwRight);

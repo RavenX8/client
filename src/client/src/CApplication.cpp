@@ -68,18 +68,18 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
   if ( CTIme::GetInstance().Process( hWnd, uiMsg, wParam, lParam ) )
     return S_OK;
 
-  // Ű���� �޼��� ����
+  // 키占쏙옙占쏙옙 占쌨쇽옙占쏙옙 占쏙옙占쏙옙
   if ( CGame::GetInstance().AddWndMsgQ( uiMsg, wParam, lParam ) )
     return 0;
 
   switch ( uiMsg ) {
-    case WM_SYSCHAR: ///systemkey�� �Ϲ� Ű�� �����ؼ� ������ "��"�Ҹ� ���ֱ�
+    case WM_SYSCHAR: ///systemkey占쏙옙 占싹뱄옙 키占쏙옙 占쏙옙占쏙옙占쌔쇽옙 占쏙옙占쏙옙占쏙옙 "占쏙옙"占쌀몌옙 占쏙옙占쌍깍옙
       return 0;
     case WM_SETCURSOR: if ( CCursor::GetInstance().RefreshCursor() )
         return S_OK;
       break;
     case WM_ACTIVATE: {
-      m_wActive = ((LOWORD( wParam ) != WA_INACTIVE) && (HIWORD( wParam ) == 0)); // INVACIVE �� �ƴϰ�, �̴ϸ���� �ƴ� ��쿡�� Ȱ��ȭ
+      m_wActive = ((LOWORD( wParam ) != WA_INACTIVE) && (HIWORD( wParam ) == 0)); // INVACIVE 占쏙옙 占싣니곤옙, 占싱니몌옙占쏙옙占쏘도 占싣댐옙 占쏙옙荑∽옙占� 활占쏙옙화
       //m_wActive = true;
 
       LogString(LOG_DEBUG, "WM_ACTIVATE: [%s]\n",
@@ -119,7 +119,7 @@ LRESULT      CApplication::MessageProc(HWND hWnd, UINT uiMsg, WPARAM wParam, LPA
       return 0;
 
     case WM_ERASEBKGND:
-    case WM_SYSKEYUP: // ALTŰ �������� ���� ���� !!!
+    case WM_SYSKEYUP: // ALT키 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 !!!
     case WM_PALETTECHANGED:
     case WM_QUERYNEWPALETTE: return 0;
 
@@ -286,7 +286,7 @@ bool    CApplication::ParseArgument(char* pStr) {
       }
     }
     if ( !_strcmpi( pToken, "_noui" ) ) {
-      // �������̽� ���߱�. - zho
+      // 占쏙옙占쏙옙占쏙옙占싱쏙옙 占쏙옙占쌩깍옙. - zho
       g_GameDATA.m_bNoUI = true;
     }
 
@@ -322,7 +322,7 @@ bool    CApplication::ParseArgument(char* pStr) {
     if ( !_strcmpi( pToken, "_dup" ) )
       g_GameDATA.m_bCheckDupRUN = false;
 
-    /// ���� �Ϻ� NHN JAPAN�� ���� Argument Setting( 2005/5/18 )
+    /// 占쏙옙占쏙옙 占싹븝옙 NHN JAPAN占쏙옙 占쏙옙占쏙옙 Argument Setting( 2005/5/18 )
     if ( !_strcmpi( pToken, "_RCODE_JP_HG" ) )
       g_GameDATA.m_is_NHN_JAPAN = true;
 
@@ -357,11 +357,11 @@ bool    CApplication::ParseArgument(char* pStr) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------
-/// 1. resetScreen()�� MoveWindow���� ���� ȣ��Ǿ�� client Window�� Size������ ����� �ȴ�.
-/// resetScreen�� MoveWindow���� ���߿� �ɰ�� MoveWindow���� Size������  Window�� ����ɼ� �ִ� �ִ�����
-/// ���� ���ϴ� ������ �۰� �Ǿ� Size ���濡 �����Ѵ�( navy : 2005/3/11 )
-/// 2. ���� ���������� �ػ󵵺��� ����ũ�� �̻����� �����츦 �����ϰų� ������ ������ ���� �ʴ´�.
-///		- ���� �������� �ػ󵵸� ���ؼ� �����ϰ����ϴ� ũ�⸦ ������
+/// 1. resetScreen()占쏙옙 MoveWindow占쏙옙占쏙옙 占쏙옙占쏙옙 호占쏙옙퓸占쏙옙 client Window占쏙옙 Size占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占싫댐옙.
+/// resetScreen占쏙옙 MoveWindow占쏙옙占쏙옙 占쏙옙占쌩울옙 占심곤옙占� MoveWindow占쏙옙占쏙옙 Size占쏙옙占쏙옙占쏙옙  Window占쏙옙 占쏙옙占쏙옙�쇽옙 占쌍댐옙 占쌍댐옙占쏙옙占쏙옙載�
+/// 占쏙옙占쏙옙 占쏙옙占싹댐옙 占쏙옙占쏙옙占쏙옙 占쌜곤옙 占실억옙 Size 占쏙옙占썸에 占쏙옙占쏙옙占싼댐옙( navy : 2005/3/11 )
+/// 2. 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쌔상도븝옙占쏙옙 占쏙옙占쏙옙크占쏙옙 占싱삼옙占쏙옙占쏙옙 占쏙옙占쏙옙占쎌를 占쏙옙占쏙옙占싹거놂옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십는댐옙.
+///		- 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌔상도몌옙 占쏙옙占쌔쇽옙 占쏙옙占쏙옙占싹곤옙占쏙옙占싹댐옙 크占썩를 占쏙옙占쏙옙占쏙옙
 //-----------------------------------------------------------------------------------------------------------------
 void CApplication::ResizeWindowByClientSize(int& iClientWidth, int& iClientHeight, int iDepth, bool update_engine) {
   if ( m_bFullScreenMode ) {

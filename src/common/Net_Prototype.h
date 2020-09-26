@@ -1,200 +1,200 @@
 /*
-  2004. 3. 22 �߰� ���� - NPC�� �ΰ����ɿ� ���ؼ� �ǽð� �����Ǵ� �̺�Ʈ ��( m_nEventSTATUS ) ����.
-    . GSV_SET_EVENT_STATUS ��Ŷ �߰�.
-    . gsv_NPC_CHAR ��Ŷ�� ��� ���� m_nEventSTATUS �߰�.
-    �� NPC�� ���� �̺�Ʈ ����Ÿ���� m_nEventSTATUS ���� �����Ͽ� 
-    ��Ȳ�� �´� ��ȭ ����� ����Ʈ�� �ο�...
+  2004. 3. 22 占쌩곤옙 占쏙옙占쏙옙 - NPC占쏙옙 占싸곤옙占쏙옙占심울옙 占쏙옙占쌔쇽옙 占실시곤옙 占쏙옙占쏙옙占실댐옙 占싱븝옙트 占쏙옙( m_nEventSTATUS ) 占쏙옙占쏙옙.
+    . GSV_SET_EVENT_STATUS 占쏙옙킷 占쌩곤옙.
+    . gsv_NPC_CHAR 占쏙옙킷占쏙옙 占쏙옙占� 占쏙옙占쏙옙 m_nEventSTATUS 占쌩곤옙.
+    占쏙옙 NPC占쏙옙 占쏙옙占쏙옙 占싱븝옙트 占쏙옙占쏙옙타占쏙옙占쏙옙 m_nEventSTATUS 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙 
+    占쏙옙황占쏙옙 占승댐옙 占쏙옙화 占쏙옙占쏙옙占� 占쏙옙占쏙옙트占쏙옙 占싸울옙...
 
-  2004. 3. 24 �߰� ���� - ���忡�� �����Ǵ� �̺�Ʈ ������Ʈ ���� ����/����.
-    . gsv_ADD_EVENTOBJ ��Ŷ.
+  2004. 3. 24 占쌩곤옙 占쏙옙占쏙옙 - 占쏙옙占썲에占쏙옙 占쏙옙占쏙옙占실댐옙 占싱븝옙트 占쏙옙占쏙옙占쏙옙트 占쏙옙占쏙옙 占쏙옙占쏙옙/占쏙옙占쏙옙.
+    . gsv_ADD_EVENTOBJ 占쏙옙킷.
 
-  2004. 3. 30 �߰� ���� - NPC ��ų��� ��Ŷ�� ��ų ��� ��ȣ ����..
-    . gsv_SELF_SKILL, gsv_TARGET_SKILL ��Ŷ�� cNpcSkillMOTION ���� �߰�
-    . ����� ��ų�� ��� �̰��� ����, NPC ��ų�ϰ�� ��Ŷ ũ�Ⱑ +1 �Ǹ� cNpcSkillMOTION[0]�� ��� ��ȣ ��.
+  2004. 3. 30 占쌩곤옙 占쏙옙占쏙옙 - NPC 占쏙옙킬占쏙옙占� 占쏙옙킷占쏙옙 占쏙옙킬 占쏙옙占� 占쏙옙호 占쏙옙占쏙옙..
+    . gsv_SELF_SKILL, gsv_TARGET_SKILL 占쏙옙킷占쏙옙 cNpcSkillMOTION 占쏙옙占쏙옙 占쌩곤옙
+    . 占쏙옙占쏙옙占� 占쏙옙킬占쏙옙 占쏙옙占� 占싱곤옙占쏙옙 占쏙옙占쏙옙, NPC 占쏙옙킬占싹곤옙占� 占쏙옙킷 크占썩가 +1 占실몌옙 cNpcSkillMOTION[0]占쏙옙 占쏙옙占� 占쏙옙호 占쏙옙載�.
 
-  2004. 3. 31 �߰� ���� - gsv_DAMAGE_OF_SKILL ��Ŷ �߰�
-    . gsv_EFFECT_OF_SKILL ��Ŷ���� ��ų �������, ������ ���� �ϳ��� ���� ���޵Ǿ�����
-    . gsv_DAMAGE_OF_SKILL ��Ŷ�� �������� ��ų ������ְ� ���� ��� �ִ� ��Ŷ..
-    . ��ų Ÿ�� 7, 17���� ����� ���۵�.
+  2004. 3. 31 占쌩곤옙 占쏙옙占쏙옙 - gsv_DAMAGE_OF_SKILL 占쏙옙킷 占쌩곤옙
+    . gsv_EFFECT_OF_SKILL 占쏙옙킷占쏙옙占쏙옙 占쏙옙킬 占쏙옙占쏙옙占쏙옙占�, 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占싹놂옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쌨되억옙占쏙옙占쏙옙
+    . gsv_DAMAGE_OF_SKILL 占쏙옙킷占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙킬 占쏙옙占쏙옙占쏙옙斂占� 占쏙옙占쏙옙 占쏙옙占� 占쌍댐옙 占쏙옙킷..
+    . 占쏙옙킬 타占쏙옙 7, 17占쏙옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쌜듸옙.
 
-  2004. 3. 31 ���� ����.
-    . gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILL ���� ����.
-    . ��ų ����� ��ü �߽ɿ���, ��ų�� ����� ��ü �߽�����...
-    . ��ų�� ����� ��ü�� gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILL�� ��Ŷ�� ���� ����Ǹ�,
-    . ��ų�� ����� ��ü�� ���� ��� ��Ŷ�� ���۵��� gsv_RESULT_OF_SKILL�� ���۵ȴ�.
+  2004. 3. 31 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    . gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILL 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    . 占쏙옙킬 占쏙옙占쏙옙占� 占쏙옙체 占쌩심울옙占쏙옙, 占쏙옙킬占쏙옙 占쏙옙占쏙옙占� 占쏙옙체 占쌩쏙옙占쏙옙占쏙옙...
+    . 占쏙옙킬占쏙옙 占쏙옙占쏙옙占� 占쏙옙체占쏙옙 gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILL占쏙옙 占쏙옙킷占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙퓔占�,
+    . 占쏙옙킬占쏙옙 占쏙옙占쏙옙占� 占쏙옙체占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쏙옙킷占쏙옙 占쏙옙占쌜듸옙占쏙옙 gsv_RESULT_OF_SKILL占쏙옙 占쏙옙占쌜된댐옙.
 
-  2004. 4. 1  �߰� ����. 
-    . tag_ADD_CHAR ����ȣ �߰� CAI_OBJ::Is_ALLIED(�������ȣ)�� ȣ���Ͽ� true�� �Ʊ�, false�� ����.
+  2004. 4. 1  占쌩곤옙 占쏙옙占쏙옙. 
+    . tag_ADD_CHAR 占쏙옙占쏙옙호 占쌩곤옙 CAI_OBJ::Is_ALLIED(占쏙옙占쏙옙占쏙옙占싫�)占쏙옙 호占쏙옙占싹울옙 true占쏙옙 占싣깍옙, false占쏙옙 占쏙옙占쏙옙.
 
-  2004. 4. 2  ����/�߰� ����
-    . tag_FIELDITEM���� ���� ������ ���� �ð�(m_wRemainTIME)�� ���ܽ��� tag_DROPITEM���� �̸� ����.
-    . �Ϲ� �ʵ�������ϰ�� gsv_ADD_FIELDITEM�� m_wRemainTIME ��� ���������� ������ �ð� ����.
-    . ������ ��Ŷ�� tag_DROPITEM���� ������ �������� ���� �ð��� ITEM_OBJ_LIVE_TIME���� ����.
-    . gsv_DAMAGE_OF_SKILL�� ������ ��ӽ� tag_DROPITEM[0]�� �� ��. ������ �Ϲ� ������ �����۰� ����
+  2004. 4. 2  占쏙옙占쏙옙/占쌩곤옙 占쏙옙占쏙옙
+    . tag_FIELDITEM占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占시곤옙(m_wRemainTIME)占쏙옙 占쏙옙占쌤쏙옙占쏙옙 tag_DROPITEM占쏙옙占쏙옙 占싱몌옙 占쏙옙占쏙옙.
+    . 占싹뱄옙 占십듸옙占쏙옙占쏙옙占쏙옙構占쏙옙 gsv_ADD_FIELDITEM占쏙옙 m_wRemainTIME 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占시곤옙 占쏙옙占쏙옙.
+    . 占쏙옙占쏙옙占쏙옙 占쏙옙킷占쏙옙 tag_DROPITEM占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占시곤옙占쏙옙 ITEM_OBJ_LIVE_TIME占쏙옙占쏙옙 占쏙옙占쏙옙.
+    . gsv_DAMAGE_OF_SKILL占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙擔占� tag_DROPITEM[0]占쏙옙 占쏙옙 占쏙옙載�. 占쏙옙占쏙옙占쏙옙 占싹뱄옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌜곤옙 占쏙옙占쏙옙
 
-  2004. 4. 8  �߰� ����
-    . gsv_SKILL_LEARN_REPLY ��Ŷ�� ���� ������ RESULT_SKILL_LEARN_DELETE �߰�..
-    . ������ RESULT_SKILL_LEARN_DELETE �ϰ�� CUserDATA::Skill_DELETE(slot,skill)�� ȣ���Ͽ� �����Ѵ�.
+  2004. 4. 8  占쌩곤옙 占쏙옙占쏙옙
+    . gsv_SKILL_LEARN_REPLY 占쏙옙킷占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 RESULT_SKILL_LEARN_DELETE 占쌩곤옙..
+    . 占쏙옙占쏙옙占쏙옙 RESULT_SKILL_LEARN_DELETE 占싹곤옙占� CUserDATA::Skill_DELETE(slot,skill)占쏙옙 호占쏙옙占싹울옙 占쏙옙占쏙옙占싼댐옙.
 
-  2004. 4. 13 ����/�߰� ����
-    . tag_ADD_CHAR ��� m_btMoveMODE�� �̵� ���°� �߰�..
-    . �¿� ������ ��ȯ��:: cli_ASSEMBLE_RIDE_ITEM, gsv_ASSEMBLE_RIDE_ITEM ��Ŷ ���.
+  2004. 4. 13 占쏙옙占쏙옙/占쌩곤옙 占쏙옙占쏙옙
+    . tag_ADD_CHAR 占쏙옙占� m_btMoveMODE占쏙옙 占싱듸옙 占쏙옙占승곤옙 占쌩곤옙..
+    . 占승울옙 占쏙옙占쏙옙占쏙옙 占쏙옙환占쏙옙:: cli_ASSEMBLE_RIDE_ITEM, gsv_ASSEMBLE_RIDE_ITEM 占쏙옙킷 占쏙옙占�.
 
-  2004. 4. 16 ���� ����.
-    . wsv_CHAR_LIST��Ŷ�� tagBasicInfo��� tagCHARINFO�� ��ü, m_nPartItemIDX �߰�.
-    . tag_ADD_CHAR ����ü�� ��ȯ�� �ɸ��� ���� ��� �߰� ::
-      tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME �ϰ�� owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
-      �� �����ϸ��.
-      . CLI_APPRAISAL_REQ, GSV_APPRAISAL_REPLY ��Ŷ �߰�.
+  2004. 4. 16 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    . wsv_CHAR_LIST占쏙옙킷占쏙옙 tagBasicInfo占쏙옙占� tagCHARINFO占쏙옙 占쏙옙체, m_nPartItemIDX 占쌩곤옙.
+    . tag_ADD_CHAR 占쏙옙占쏙옙체占쏙옙 占쏙옙환占쏙옙 占심몌옙占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쌩곤옙 ::
+      tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME 占싹곤옙占� owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
+      占쏙옙 占쏙옙占쏙옙占싹몌옙占�.
+      . CLI_APPRAISAL_REQ, GSV_APPRAISAL_REPLY 占쏙옙킷 占쌩곤옙.
 
-  2004. 4. 20 ���� ����.
-    . gsv_MOVE ��Ŷ�� m_bRunMODE => m_btMoveMODE ( tag_ADD_CHAR::m_btMoveMODE�� ������ )
-    . gsv_JOIN_ZONE��Ŷ�� m_dwWorldTIME�� m_dwAccWorldTIME�� ����... ���� ������ ���� ���� ���� ���� �ð�
+  2004. 4. 20 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    . gsv_MOVE 占쏙옙킷占쏙옙 m_bRunMODE => m_btMoveMODE ( tag_ADD_CHAR::m_btMoveMODE占쏙옙 占쏙옙占쏙옙占쏙옙 )
+    . gsv_JOIN_ZONE占쏙옙킷占쏙옙 m_dwWorldTIME占쏙옙 m_dwAccWorldTIME占쏙옙 占쏙옙占쏙옙... 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占시곤옙
 
-  2004. 4. 28 ����/�߰� ����.
-      . gsv_RESULT_OF_SKILL�� m_nResultCNT�� m_nSKillIDX�� ����.
-    . gsv_PARTY_LEVnEXP�� m_btFlagLevelUP �߰�.
-    . GSV_SKILL_START ��Ŷ �߰� : �������� ��ų �ɽ��� ���۽� ���۵ȴ�.
+  2004. 4. 28 占쏙옙占쏙옙/占쌩곤옙 占쏙옙占쏙옙.
+      . gsv_RESULT_OF_SKILL占쏙옙 m_nResultCNT占쏙옙 m_nSKillIDX占쏙옙 占쏙옙占쏙옙.
+    . gsv_PARTY_LEVnEXP占쏙옙 m_btFlagLevelUP 占쌩곤옙.
+    . GSV_SKILL_START 占쏙옙킷 占쌩곤옙 : 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙킬 占심쏙옙占쏙옙 占쏙옙占쌜쏙옙 占쏙옙占쌜된댐옙.
 
-  2004. 4. 29 �߰� ����.
-    . cli_SET_WEIGHT_RATE�߰�, Ŭ���̾�Ʈ���� ������ ������ üũ�ؼ� ���������/�ִ� ������ ������
-    . 80%�̻� �ٱ� �ҵ�, 100%�̻� �̵� �Ҵ� �Ǵ��Ѵ�.
-    . cli_SET_WEIGHT_RATE���� ��Ŷ�� ���������� �ֺ��� gsv_SET_WEIGHT_RATE��Ŷ���� �߰��.
-    . �ƹ�Ÿ ���ν� ��Ŷ gsv_AVT_CHAR�� m_btWeightRate�� ���� ������� �ԷµǾ� ����. 
-    . cli_JOIN_ZONE��Ŷ �ȿ� m_btWeightRate �߰�.. ������ ��û�� m_btWeightRate�� ���� ������ �־� ����;
+  2004. 4. 29 占쌩곤옙 占쏙옙占쏙옙.
+    . cli_SET_WEIGHT_RATE占쌩곤옙, 클占쏙옙占싱억옙트占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 체크占쌔쇽옙 占쏙옙占쏙옙占쏙옙占쏙옙占�/占쌍댐옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
+    . 80%占싱삼옙 占쌕깍옙 占쌀듸옙, 100%占싱삼옙 占싱듸옙 占쌀댐옙 占실댐옙占싼댐옙.
+    . cli_SET_WEIGHT_RATE占쏙옙占쏙옙 占쏙옙킷占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쌍븝옙占쏙옙 gsv_SET_WEIGHT_RATE占쏙옙킷占쏙옙占쏙옙 占쌩곤옙占�.
+    . 占싣뱄옙타 占쏙옙占싸쏙옙 占쏙옙킷 gsv_AVT_CHAR占쏙옙 m_btWeightRate占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쌉력되억옙 占쏙옙占쏙옙. 
+    . cli_JOIN_ZONE占쏙옙킷 占싫울옙 m_btWeightRate 占쌩곤옙.. 占쏙옙占쏙옙占쏙옙 占쏙옙청占쏙옙 m_btWeightRate占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌍억옙 占쏙옙占쏙옙;
 
-  2004. 5. 1 ���� ����
-    . gsv_TARGET_SKILL��Ŷ�� �ӵ������� ���� ��ų �����ü ��ǥ, Ÿ�� ��ǥ �߰�...
-    . �߰� ���: m_wSrvDIST, m_PosTO - gsv_ATTACK ��Ŷ�� �ӵ� ������ �����ϰ� �����Ͽ� ���.
-    . Ÿ�� ��ų�� ��� �տ��� ��ĩ�Ͽ� gsv_SKILL_START��Ŷ�� ��ٸ��� ���� �����ɵ�...
-    . gsv_MOUSECMD, gsv_ATTACK����� m_PosCUR��� m_wSrvDIST�� ����.
-    . cli_CANTMOVE, gsv_ADJUST_POS, cli_MOUSECMD, gsv_MOUSECMD, cli_JOIN_ZONE, gsv_AVT_CHAR Z�� �߰�.
+  2004. 5. 1 占쏙옙占쏙옙 占쏙옙占쏙옙
+    . gsv_TARGET_SKILL占쏙옙킷占쏙옙 占쌈듸옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙킬 占쏙옙占쏙옙占시� 占쏙옙표, 타占쏙옙 占쏙옙표 占쌩곤옙...
+    . 占쌩곤옙 占쏙옙占�: m_wSrvDIST, m_PosTO - gsv_ATTACK 占쏙옙킷占쏙옙 占쌈듸옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹곤옙 占쏙옙占쏙옙占싹울옙 占쏙옙占�.
+    . 타占쏙옙 占쏙옙킬占쏙옙 占쏙옙占� 占쌌울옙占쏙옙 占쏙옙칫占싹울옙 gsv_SKILL_START占쏙옙킷占쏙옙 占쏙옙摸占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙占심듸옙...
+    . gsv_MOUSECMD, gsv_ATTACK占쏙옙占쏙옙占� m_PosCUR占쏙옙占� m_wSrvDIST占쏙옙 占쏙옙占쏙옙.
+    . cli_CANTMOVE, gsv_ADJUST_POS, cli_MOUSECMD, gsv_MOUSECMD, cli_JOIN_ZONE, gsv_AVT_CHAR Z占쏙옙 占쌩곤옙.
 
-  2004. 5. 11 ���� ����.
-    . gsv_INVENTORY_DATA��Ŷ�� m_WishITEMS[ MAX_WISH_ITEMS ] �߰�, ��� �뵵�� ���� ���� ���½�...
-    . ���� ���� �ŷ��� ��Ŷ cli_P_STORE_XXX, gsv_P_STORE_XXXX �߰�.
-    . cli_SET_WISHITEM �߰� ������� ���� ���ϴ� �������� �����Ҽ� �ִ�(���ͳ� ���θ�ó��..)
+  2004. 5. 11 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    . gsv_INVENTORY_DATA占쏙옙킷占쏙옙 m_WishITEMS[ MAX_WISH_ITEMS ] 占쌩곤옙, 占쏙옙占� 占쎈도占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占승쏙옙...
+    . 占쏙옙占쏙옙 占쏙옙占쏙옙 占신뤄옙占쏙옙 占쏙옙킷 cli_P_STORE_XXX, gsv_P_STORE_XXXX 占쌩곤옙.
+    . cli_SET_WISHITEM 占쌩곤옙 占쏙옙占쏙옙占쏘에占쏙옙 占쏙옙占쏙옙 占쏙옙占싹댐옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌀쇽옙 占쌍댐옙(占쏙옙占싶놂옙 占쏙옙占싸몌옙처占쏙옙..)
 
-  2004. 5. 13. �߰� ����.
-    . cli_CHATROOM, wsv_CHATROOM, cli_CHATROOM_MSG, wsv_CHATROOM_MSG ��Ŷ �߰�
-    . ���: ���弭������ �Ϲ� ä�� ����ó��, ���ӻ󿡼� ���� - ä�÷��� ������.
+  2004. 5. 13. 占쌩곤옙 占쏙옙占쏙옙.
+    . cli_CHATROOM, wsv_CHATROOM, cli_CHATROOM_MSG, wsv_CHATROOM_MSG 占쏙옙킷 占쌩곤옙
+    . 占쏙옙占�: 占쏙옙占썲서占쏙옙占쏙옙占쏙옙 占싹뱄옙 채占쏙옙 占쏙옙占쏙옙처占쏙옙, 占쏙옙占쌈상에쇽옙 占쏙옙占쏙옙 - 채占시뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙.
 
-  2004. 5. 17. �߰� ����.
-    . cli_MEMO, wsv_MEMO��Ŷ �߰� �ɸ��Ͱ� ���� ������/�ޱ� ���
+  2004. 5. 17. 占쌩곤옙 占쏙옙占쏙옙.
+    . cli_MEMO, wsv_MEMO占쏙옙킷 占쌩곤옙 占심몌옙占싶곤옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙/占쌨깍옙 占쏙옙占�
 
-  2004. 5. 18. �߰� ����.
-    . CLI_MESSENGER, WSV_MESSENGER ��Ŷ �߰�..  ģ�� ���� ��Ŷ..
-    . 1:1 ä�ýô� cli_MESSENGER_CHAT, wsv_MESSENGER_CHAT��Ŷ���� ��/���� ��.
+  2004. 5. 18. 占쌩곤옙 占쏙옙占쏙옙.
+    . CLI_MESSENGER, WSV_MESSENGER 占쏙옙킷 占쌩곤옙..  친占쏙옙 占쏙옙占쏙옙 占쏙옙킷..
+    . 1:1 채占시시댐옙 cli_MESSENGER_CHAT, wsv_MESSENGER_CHAT占쏙옙킷占쏙옙占쏙옙 占쏙옙/占쏙옙占쏙옙 占쏙옙.
 
-  2004. 5. 31. �߰� ����
-    . CLI_CHAR_CHANGE �߰�.. ���� �÷��̵��� �ɸ��� ����ȭ�� �̵� �̵��Ҷ� ���Ӽ����� ����..
-    . ����� ���弭������ WSV_CHAR_CHANGE ��Ŷ�� ���۵�. ��Ŷ ������ t_PACKETHEADER ���
+  2004. 5. 31. 占쌩곤옙 占쏙옙占쏙옙
+    . CLI_CHAR_CHANGE 占쌩곤옙.. 占쏙옙占쏙옙 占시뤄옙占싱듸옙占쏙옙 占심몌옙占쏙옙 占쏙옙占쏙옙화占쏙옙 占싱듸옙 占싱듸옙占쌀띰옙 占쏙옙占쌈쇽옙占쏙옙占쏙옙 占쏙옙占쏙옙..
+    . 占쏙옙占쏙옙占� 占쏙옙占썲서占쏙옙占쏙옙占쏙옙 WSV_CHAR_CHANGE 占쏙옙킷占쏙옙 占쏙옙占쌜듸옙. 占쏙옙킷 占쏙옙占쏙옙占쏙옙 t_PACKETHEADER 占쏙옙占�
 
-  2004. 6. 1.  �߰� ����.
-    . tag_ADD_CHAR ����ü�� ��ȯ�� �ɸ��Ϳ� ���� ��ȯ ��ų ��ȣ �߰� ::
-      ���� tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_DEC_LIFE_TIME �ϰ�� owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
-      ���� owner_obj_idx != 0 �̸� nUsedSummonSkillIDX = pAdjSTATUS[ btIDX ++ ]�� ��´�.
-    . ��ȯ�� ���� Ư��ġ�� ���(MaxHP,���ݷ�,����...) �� ��ȯ�� ���� ��ų ��ȣ�� ������ �ִ�.
+  2004. 6. 1.  占쌩곤옙 占쏙옙占쏙옙.
+    . tag_ADD_CHAR 占쏙옙占쏙옙체占쏙옙 占쏙옙환占쏙옙 占심몌옙占싶울옙 占쏙옙占쏙옙 占쏙옙환 占쏙옙킬 占쏙옙호 占쌩곤옙 ::
+      占쏙옙占쏙옙 tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_DEC_LIFE_TIME 占싹곤옙占� owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
+      占쏙옙占쏙옙 owner_obj_idx != 0 占싱몌옙 nUsedSummonSkillIDX = pAdjSTATUS[ btIDX ++ ]占쏙옙 占쏙옙쨈占�.
+    . 占쏙옙환占쏙옙 占쏙옙占쏙옙 특占쏙옙치占쏙옙 占쏙옙占�(MaxHP,占쏙옙占쌥뤄옙,占쏙옙占쏙옙...) 占쏙옙 占쏙옙환占쏙옙 占쏙옙占쏙옙 占쏙옙킬 占쏙옙호占쏙옙 占쏙옙占쏙옙占쏙옙 占쌍댐옙.
 
-  2004. 6. 8.	 �߰� ����.
-    . ������ ���� ��û,��� ��Ŷ ( �Ҹ𼺾����� ����, NPC�� ���� ������ ) �߰�
-    . ������ ���� �����, ���� ��� ��Ŷ�� ������ gsv_SET_MONEYnINV, gsv_SET_INV_ONLY�� �����
-    . ��Ŷ Ÿ�Ը� ����Ǿ� ���۵�
-    . ������ ���� ���� ��Ŷ �߰� : GSV_SET_ITEM_LIFE => ������ 0���� ������ ��� UpdateAbility()�� ȣ������� ��
+  2004. 6. 8.	 占쌩곤옙 占쏙옙占쏙옙.
+    . 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청,占쏙옙占� 占쏙옙킷 ( 占쌀모성억옙占쏙옙占쏙옙 占쏙옙占쏙옙, NPC占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 ) 占쌩곤옙
+    . 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占�, 占쏙옙占쏙옙 占쏙옙占� 占쏙옙킷占쏙옙 占쏙옙占쏙옙占쏙옙 gsv_SET_MONEYnINV, gsv_SET_INV_ONLY占쏙옙 占쏙옙占쏙옙占�
+    . 占쏙옙킷 타占쌉몌옙 占쏙옙占쏙옙퓸占� 占쏙옙占쌜듸옙
+    . 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙킷 占쌩곤옙 : GSV_SET_ITEM_LIFE => 占쏙옙占쏙옙占쏙옙 0占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� UpdateAbility()占쏙옙 호占쏙옙占쏙옙占쏙옙占� 占쏙옙
 
-  2004. 6. 14. ���� ����.
-    . gsv_TOGGLE, gsv_EQUIP_ITEM, gsv_ASSEMBLE_RIDE_ITEM ��Ŷ�� m_nRunSPEED[0]�� ����� �̵��ӵ� �߰�...
-    . if ( pPacket->m_HEADER.m_nSize == ( sizeof( gsv_XXX ) + sizeof(int16_t) ) ) �̸� m_nRunSPEED[0] ������ �̵� �ӵ� ����.
+  2004. 6. 14. 占쏙옙占쏙옙 占쏙옙占쏙옙.
+    . gsv_TOGGLE, gsv_EQUIP_ITEM, gsv_ASSEMBLE_RIDE_ITEM 占쏙옙킷占쏙옙 m_nRunSPEED[0]占쏙옙 占쏙옙占쏙옙占� 占싱듸옙占쌈듸옙 占쌩곤옙...
+    . if ( pPacket->m_HEADER.m_nSize == ( sizeof( gsv_XXX ) + sizeof(int16_t) ) ) 占싱몌옙 m_nRunSPEED[0] 占쏙옙占쏙옙占쏙옙 占싱듸옙 占쌈듸옙 占쏙옙占쏙옙.
 
-  2004. 6. 16. �߰� ����.
-    . GSV_P_STORE_MONEYnINV ��Ŷ Ÿ�� �߰�, ������ gsv_SET_MONEYnINV�� ����.
-    . gsv_P_STORE_RESULT ����� RESULT_P_STORE_TRADE_PART �߰� �ŷ��� �Ϻ� ǰ���� ǰ���ǰų� ���� ��� ��������
-    . �۰� ���Խ� ���۵�..
+  2004. 6. 16. 占쌩곤옙 占쏙옙占쏙옙.
+    . GSV_P_STORE_MONEYnINV 占쏙옙킷 타占쏙옙 占쌩곤옙, 占쏙옙占쏙옙占쏙옙 gsv_SET_MONEYnINV占쏙옙 占쏙옙占쏙옙.
+    . gsv_P_STORE_RESULT 占쏙옙占쏙옙占� RESULT_P_STORE_TRADE_PART 占쌩곤옙 占신뤄옙占쏙옙 占싹븝옙 품占쏙옙占쏙옙 품占쏙옙占실거놂옙 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙
+    . 占쌜곤옙 占쏙옙占쌉쏙옙 占쏙옙占쌜듸옙..
 
-  2004. 6. 17. �߰� ����.
-    . ��Ȱ�� �г�Ƽ ����ġ ������ �������� gsv_JOIN_ZONE ��Ŷ�� ���� ����ġ m_lCurEXP �߰�
+  2004. 6. 17. 占쌩곤옙 占쏙옙占쏙옙.
+    . 占쏙옙활占쏙옙 占싻놂옙티 占쏙옙占쏙옙치 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 gsv_JOIN_ZONE 占쏙옙킷占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙치 m_lCurEXP 占쌩곤옙
 
-  2004. 6. 28. �߰� ����.
-    . CLI_CHANNEL_LIST_REQ ��Ŷ �߰�. srv_LOGIN_REPLY ��Ŷ ������ ���ϴ� ���弭���� ID�� �����ϸ�
-    . ���� ������ ä�� ��������Ʈ�� ���۵�. ���弭���� ä���� ������ cli_SELECT_SERVER��Ŷ�� ä�� ��ȣ��
-    . �߰��ؼ� ���۽��Ѿ���.
-  2004. 7. 8. �߰� ����.
-    . CLI_CRAFT_ITEM_REQ, GSV_CRAFT_ITEM_REPLY ��Ŷ �߰�... Ŭ���̾�Ʈ ��û�ÿ��� ������ �´� ��Ŷ��
-    . �־� ����, ������ ���� ��Ŷ(GSV_CRAFT_ITEM_REPLY)�� ����, m_btRESULT�� ���� �������� ���ϰ�쿡��
-    . m_btOutCNT�� ��ȿ�� ���� ����ְ�, m_btRESULT�� ���а����ϰ�� �����ϸ� �ȵ�(��ý��д¿���-��ް���,�Ҹ�� �����۵������).
-  2004. 7. 10. �߰� ����.
-    . wsv_CHAT_ROOM_JOIN ��Ŷ�� �ڽ��� m_wUserID�߰�, �������� CHAT_REPLY_ROOM_MAKED�����
-    . ���̸� �տ� m_wUserID(�ڽ�) ����.
-    . gsv_CRAFT_ITEM_REPLY��Ŷ�� m_btRESULT���� CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED	�ϰ��
-    . m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity�� ������ ���Ȱ��� �������(��ȹ������)
-  2004. 7. 20. �߰� ����.
-    . gsv_AVT_CHAR�� ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) �ϰ�� char szStoreTITLE[] �ٿ� ����
-    . GSV_SKILL_CANCEL ��Ŷ �߰�
-  2004. 7. 26. �߰� ����.
-    . gsv_PARTY_MEMBER�� ��Ƽ�� ���� �� �߰�.
-    . cli_PARTY_ITEM, gsv_PARTY_ITEM ��Ŷ �߰�. ��Ƽ���� �����۽����� ���� �й��ϰ��, �����ڿ� ������ ������� ����
-  2004. 8. 8 ��������.
-    . MOB�� HP���� int16_t���� int32_t�� ����.
-  2004. 8. 10 �߰� ����.
-    . tagCHARINFO ����ü�� m_dwRemainSEC������� �߰�, ���� 0�� �ƴҰ�� �����ɶ����� ���� �ð�(�ʴ���).
-    . cli_DELETE_CHAR��Ŷ�� m_bDelete ������� �߰�, ������ ��û�� true�� ���������, false�� ������� ����,
-    . ���� ��Ŷ���� wsv_DELETE_CHAR ���۵�.
-  2004. 8. 23 �߰� ����.
-    . gsv_SETEXP ��Ŷ�� ���� ���׹̳� �� �߰�
-  2004. 9. 16 �߰� ����.
-    . ��Ƽ ��� ���� tag_PARTY_MEMBER�� m_nSTAMINA �߰�.
-    . �߰��� ��Ƽ ���� ���׹̳ʰ� < 3000 �����ϰ�� ... gsv_CHANGE_OBJIDX ��Ŷ�� �߰� ���۵�
-  2004. 10. 4 �߰� ����.
-    . gsv_SET_HPnMP��Ŷ �߰� : ������ ���� hp, mp�� ���۵�
-  2004. 10. 5 �߰� ����.
-    . gsv_CHECK_NPC_EVENT��Ŷ �߰�, ���� NPC�׿����� Ŭ���̾�Ʈ���� NPC�̺�Ʈ�� üũ�� ������ ���� ��û�ϴ�����
-    . ������ Ŭ���̾�Ʈ���� ������û => Ŭ���̾�Ʈ ������ �����Ϸ�Ǹ� => ������ ������û ������ �ٲ�.
-    . �������� ���� �׿��� ����ڿ��� ���� ����Ʈ�������� �������� �������� ������...
-  2004. 10. 15 ���� / �߰� ����.
-    . tag_ADD_CHAR ����ü�� char m_cTeamNO�� int32_t m_iTeamNO�� ����
-    . gsv_JOIN_ZONE ����ü�� �ڽ��� ����ȣ �߰� int32_t m_iTeamNO;
-  2004. 10. 30 �߰� ����.
-    . Ŭ�� ��Ŷ �߰� CLI_CLAN_COMMAND, WSV_CLAN_COMMAND
-    . Ŭ������ ��Ŷ�� ��� ���� ������ ������.
-  2004. 11. 16 �߰� / ����.
-    . CLI_ALLIED_CHAT, CLI_ALLIED_SHOUT, GSV_ALLIED_CHAT, GSV_ALLIED_SHOUT �߰�
-    . PvP ������ ���� ����ȣ���Ը� ä���� �����Ѵ�.
-    . gsv_AVT_CHAR����ü�� m_dwSubFLAG�߰� DataType.h�� FLAG_SUB_xxx �÷��� ������
-    . tag_MY_CLAN����ü���� m_btClanPOS(Ŭ���� ����)�� tag_CLAN_ID ����ü�� �̵�.
-    . ������ ������ Ŭ�� ���ɿ� GCMD_MEMBER_JOBnLEV�߰� :: �ڽ��� ����/������ �ٸ� ������� �뺸( �α�����/��������/�����Ŀ� ���� )
-  2004. 11. 23 ����.
-    . tag_CLAN_INFO ����, tag_MY_CLAN ��� �߰�
-  2004. 12. 1 �߰�
-    . 10�� ����ؾ��Ұ�� GSV_LOGOUT_REPLY ����
-  2004. 12. 16 �߰�
-    . ����/���ý� ������ �뺸 ��Ŷ( cli_ITEM_RESULT_REPORT ) �߰�, cli_CREATE_ITEM_EXP_REQ ��Ŷ�� ����
-  2004. 12. 21 �߰� 
-    . gsv_EFFECT_OF_SKILL�� ��ų �������� ���� m_nINT�� �߰�.
-  2005. 01. 05 �߰�
-    . CLI_SELECT_SERVER��û�� ���� ��� RESULT_SELECT_SERVER_NEED_CHARGE �߰� (�������ڰ� ������ ���ӽõ��Ҷ�)
-    . ���� ���� ��Ŷ �߰�. gsv_BILLING_MESSAGE
-  2005. 01. 11 ����
-    . gsv_CHANGE_SKIN����, gsv_SET_ABILITY��Ŷ�� �ڽ����׸� ���޵ǰ� ������ �뺸 �ʿ��� ���(�Ӹ���,��,����) gsv_CHANGE_SKIN�� ���۵�
-    . tagCHARINFO �������� �ɸ��� ����Ʈ�� �÷�Ƽ���ɸ��� ���� �ʵ� �߰�
-    . wsv_CREATE_CHAR�ɸ��� ���� ��Ŷ��.... �÷�Ƽ�� �ɸ����� �����Ȱ��� ����...
-    . gsv_BANK_LIST_REPLY��Ŷ�� BANK_REPLY_PLATINUM �߰�...�÷�Ƽ�� â������Ʈ�� ������ ���۵�(�������� �����Ұ��)
-  2005. 03. 23 �߰�
-    . Ŭ�� ��ũ ��û ��Ŷ cli_CLANMARK_REQ, wsv_CLANMARK_REPLY �߰�
-  2005. 06. 07 ����/�߰�
-    . GSV_NPC_CHAR ��Ŷ�� m_nCharIdx�� -(����) �̸� ���� �����̴�.
-    . gsv_SET_NPC_SHOW NPC�� ����/���� ���� ����.
-  2005. 06. 16 �߰�
-    . ���� gsv_BILLING_MESSAGE���� Ȯ��� ������ gsv_BILLING_MESSAGE_EXT ��Ŷ �߰�
-    . defined FLAG_PAY_XXX ���°� PAY_FLAG_����_XXX �� �̸� ����
-  2005. 06. 20 �߰�
-    . ���� ��ȯ ���� ��Ŷ GSV_GODDNESS_MODE �߰�.
-  2005. 06. 22 ����
-    . cli_TELEPORT_REQ ��Ŷ�� ���ǵ����� �����ϱ� ���� ������ ���� ��ǥ Ŭ���̾�Ʈ�� ���� ��ǥ(m_PosCUR) �߰�
-  2005. 06. 23 �߰�
-    . ��Ƽ / 1:1 �ŷ��� ���ݾ����� ���� �߰�
-    . ��ȯ�� ���� ��Ŷ �߰�.( CLI_SUMMON_CMD, GSV_SUMMON_CMD )
-  2005. 08. 22 �߰�
-    . CLI_CART_RIDE / GSV_CART_RIDE 2�ν�īƮ ��û/���� ��Ŷ �߰�.
+  2004. 6. 28. 占쌩곤옙 占쏙옙占쏙옙.
+    . CLI_CHANNEL_LIST_REQ 占쏙옙킷 占쌩곤옙. srv_LOGIN_REPLY 占쏙옙킷 占쏙옙占쏙옙占쏙옙 占쏙옙占싹댐옙 占쏙옙占썲서占쏙옙占쏙옙 ID占쏙옙 占쏙옙占쏙옙占싹몌옙
+    . 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 채占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙트占쏙옙 占쏙옙占쌜듸옙. 占쏙옙占썲서占쏙옙占쏙옙 채占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 cli_SELECT_SERVER占쏙옙킷占쏙옙 채占쏙옙 占쏙옙호占쏙옙
+    . 占쌩곤옙占쌔쇽옙 占쏙옙占쌜쏙옙占싼억옙占쏙옙.
+  2004. 7. 8. 占쌩곤옙 占쏙옙占쏙옙.
+    . CLI_CRAFT_ITEM_REQ, GSV_CRAFT_ITEM_REPLY 占쏙옙킷 占쌩곤옙... 클占쏙옙占싱억옙트 占쏙옙청占시울옙占쏙옙 占쏙옙占쏙옙占쏙옙 占승댐옙 占쏙옙킷占쏙옙
+    . 占쌍억옙 占쏙옙占쏙옙, 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙킷(GSV_CRAFT_ITEM_REPLY)占쏙옙 占쏙옙占쏙옙, m_btRESULT占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占싹곤옙荑∽옙占�
+    . m_btOutCNT占쏙옙 占쏙옙효占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙斂占�, m_btRESULT占쏙옙 占쏙옙占싻곤옙占쏙옙占싹곤옙占� 占쏙옙占쏙옙占싹몌옙 占싫듸옙(占쏙옙첵占쏙옙畇쩔占쏙옙占�-占쏙옙斌占쏙옙占�,占쌀몌옙占� 占쏙옙占쏙옙占쌜듸옙占쏙옙占쏙옙占�).
+  2004. 7. 10. 占쌩곤옙 占쏙옙占쏙옙.
+    . wsv_CHAT_ROOM_JOIN 占쏙옙킷占쏙옙 占쌘쏙옙占쏙옙 m_wUserID占쌩곤옙, 占쏙옙占쏙옙占쏙옙占쏙옙 CHAT_REPLY_ROOM_MAKED占쏙옙占쏙옙占�
+    . 占쏙옙占싱몌옙 占쌌울옙 m_wUserID(占쌘쏙옙) 占쏙옙占쏙옙.
+    . gsv_CRAFT_ITEM_REPLY占쏙옙킷占쏙옙 m_btRESULT占쏙옙占쏙옙 CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED	占싹곤옙占�
+    . m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싫곤옙占쏙옙 占쏙옙占쏙옙占쏙옙占�(占쏙옙획占쏙옙占쏙옙占쏙옙)
+  2004. 7. 20. 占쌩곤옙 占쏙옙占쏙옙.
+    . gsv_AVT_CHAR占쏙옙 ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) 占싹곤옙占� char szStoreTITLE[] 占쌕울옙 占쏙옙占쏙옙
+    . GSV_SKILL_CANCEL 占쏙옙킷 占쌩곤옙
+  2004. 7. 26. 占쌩곤옙 占쏙옙占쏙옙.
+    . gsv_PARTY_MEMBER占쏙옙 占쏙옙티占쏙옙 占쏙옙占쏙옙 占쏙옙 占쌩곤옙.
+    . cli_PARTY_ITEM, gsv_PARTY_ITEM 占쏙옙킷 占쌩곤옙. 占쏙옙티占쏙옙占쏙옙 占쏙옙占쏙옙占쌜쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占싻뱄옙占싹곤옙占�, 占쏙옙占쏙옙占쌘울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙
+  2004. 8. 8 占쏙옙占쏙옙占쏙옙占쏙옙.
+    . MOB占쏙옙 HP占쏙옙占쏙옙 int16_t占쏙옙占쏙옙 int32_t占쏙옙 占쏙옙占쏙옙.
+  2004. 8. 10 占쌩곤옙 占쏙옙占쏙옙.
+    . tagCHARINFO 占쏙옙占쏙옙체占쏙옙 m_dwRemainSEC占쏙옙占쏙옙占쏙옙占� 占쌩곤옙, 占쏙옙占쏙옙 0占쏙옙 占싣닐곤옙占� 占쏙옙占쏙옙占심띰옙占쏙옙占쏙옙 占쏙옙占쏙옙 占시곤옙(占십댐옙占쏙옙).
+    . cli_DELETE_CHAR占쏙옙킷占쏙옙 m_bDelete 占쏙옙占쏙옙占쏙옙占� 占쌩곤옙, 占쏙옙占쏙옙占쏙옙 占쏙옙청占쏙옙 true占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占�, false占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙,
+    . 占쏙옙占쏙옙 占쏙옙킷占쏙옙占쏙옙 wsv_DELETE_CHAR 占쏙옙占쌜듸옙.
+  2004. 8. 23 占쌩곤옙 占쏙옙占쏙옙.
+    . gsv_SETEXP 占쏙옙킷占쏙옙 占쏙옙占쏙옙 占쏙옙占쌓미놂옙 占쏙옙 占쌩곤옙
+  2004. 9. 16 占쌩곤옙 占쏙옙占쏙옙.
+    . 占쏙옙티 占쏙옙占� 占쏙옙占쏙옙 tag_PARTY_MEMBER占쏙옙 m_nSTAMINA 占쌩곤옙.
+    . 占쌩곤옙占쏙옙 占쏙옙티 占쏙옙占쏙옙 占쏙옙占쌓미너곤옙 < 3000 占쏙옙占쏙옙占싹곤옙占� ... gsv_CHANGE_OBJIDX 占쏙옙킷占쏙옙 占쌩곤옙 占쏙옙占쌜듸옙
+  2004. 10. 4 占쌩곤옙 占쏙옙占쏙옙.
+    . gsv_SET_HPnMP占쏙옙킷 占쌩곤옙 : 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 hp, mp占쏙옙 占쏙옙占쌜듸옙
+  2004. 10. 5 占쌩곤옙 占쏙옙占쏙옙.
+    . gsv_CHECK_NPC_EVENT占쏙옙킷 占쌩곤옙, 占쏙옙占쏙옙 NPC占쌓울옙占쏙옙占쏙옙 클占쏙옙占싱억옙트占쏙옙占쏙옙 NPC占싱븝옙트占쏙옙 체크占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청占싹댐옙占쏙옙占쏙옙
+    . 占쏙옙占쏙옙占쏙옙 클占쏙옙占싱억옙트占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙청 => 클占쏙옙占싱억옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹뤄옙퓔占� => 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙청 占쏙옙占쏙옙占쏙옙 占쌕뀐옙.
+    . 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쌓울옙占쏙옙 占쏙옙占쏙옙悶占쏙옙占� 占쏙옙載∽옙占� 占쏙옙占쏙옙트占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙載∽옙占쏙옙占�...
+  2004. 10. 15 占쏙옙占쏙옙 / 占쌩곤옙 占쏙옙占쏙옙.
+    . tag_ADD_CHAR 占쏙옙占쏙옙체占쏙옙 char m_cTeamNO占쏙옙 int32_t m_iTeamNO占쏙옙 占쏙옙占쏙옙
+    . gsv_JOIN_ZONE 占쏙옙占쏙옙체占쏙옙 占쌘쏙옙占쏙옙 占쏙옙占쏙옙호 占쌩곤옙 int32_t m_iTeamNO;
+  2004. 10. 30 占쌩곤옙 占쏙옙占쏙옙.
+    . 클占쏙옙 占쏙옙킷 占쌩곤옙 CLI_CLAN_COMMAND, WSV_CLAN_COMMAND
+    . 클占쏙옙占쏙옙占쏙옙 占쏙옙킷占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙.
+  2004. 11. 16 占쌩곤옙 / 占쏙옙占쏙옙.
+    . CLI_ALLIED_CHAT, CLI_ALLIED_SHOUT, GSV_ALLIED_CHAT, GSV_ALLIED_SHOUT 占쌩곤옙
+    . PvP 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙호占쏙옙占쌉몌옙 채占쏙옙占쏙옙 占쏙옙占쏙옙占싼댐옙.
+    . gsv_AVT_CHAR占쏙옙占쏙옙체占쏙옙 m_dwSubFLAG占쌩곤옙 DataType.h占쏙옙 FLAG_SUB_xxx 占시뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙
+    . tag_MY_CLAN占쏙옙占쏙옙체占쏙옙占쏙옙 m_btClanPOS(클占쏙옙占쏙옙 占쏙옙占쏙옙)占쏙옙 tag_CLAN_ID 占쏙옙占쏙옙체占쏙옙 占싱듸옙.
+    . 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 클占쏙옙 占쏙옙占심울옙 GCMD_MEMBER_JOBnLEV占쌩곤옙 :: 占쌘쏙옙占쏙옙 占쏙옙占쏙옙/占쏙옙占쏙옙占쏙옙 占쌕몌옙 占쏙옙占쏙옙占쏙옙占� 占쎈보( 占싸깍옙占쏙옙占쏙옙/占쏙옙占쏙옙占쏙옙占쏙옙/占쏙옙占쏙옙占식울옙 占쏙옙占쏙옙 )
+  2004. 11. 23 占쏙옙占쏙옙.
+    . tag_CLAN_INFO 占쏙옙占쏙옙, tag_MY_CLAN 占쏙옙占� 占쌩곤옙
+  2004. 12. 1 占쌩곤옙
+    . 10占쏙옙 占쏙옙占쏙옙瞞占쏙옙柰占쏙옙 GSV_LOGOUT_REPLY 占쏙옙占쏙옙
+  2004. 12. 16 占쌩곤옙
+    . 占쏙옙占쏙옙/占쏙옙占시쏙옙 占쏙옙占쏙옙占쏙옙 占쎈보 占쏙옙킷( cli_ITEM_RESULT_REPORT ) 占쌩곤옙, cli_CREATE_ITEM_EXP_REQ 占쏙옙킷占쏙옙 占쏙옙占쏙옙
+  2004. 12. 21 占쌩곤옙 
+    . gsv_EFFECT_OF_SKILL占쏙옙 占쏙옙킬 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 m_nINT占쏙옙 占쌩곤옙.
+  2005. 01. 05 占쌩곤옙
+    . CLI_SELECT_SERVER占쏙옙청占쏙옙 占쏙옙占쏙옙 占쏙옙占� RESULT_SELECT_SERVER_NEED_CHARGE 占쌩곤옙 (占쏙옙占쏙옙占쏙옙占쌘곤옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쌈시듸옙占쌀띰옙)
+    . 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙킷 占쌩곤옙. gsv_BILLING_MESSAGE
+  2005. 01. 11 占쏙옙占쏙옙
+    . gsv_CHANGE_SKIN占쏙옙占쏙옙, gsv_SET_ABILITY占쏙옙킷占쏙옙 占쌘쏙옙占쏙옙占쌓몌옙 占쏙옙占쌨되곤옙 占쏙옙占쏙옙占쏙옙 占쎈보 占십울옙占쏙옙 占쏙옙占�(占쌈몌옙占쏙옙,占쏙옙,占쏙옙占쏙옙) gsv_CHANGE_SKIN占쏙옙 占쏙옙占쌜듸옙
+    . tagCHARINFO 占쏙옙占쏙옙占쏙옙占쏙옙 占심몌옙占쏙옙 占쏙옙占쏙옙트占쏙옙 占시뤄옙티占쏙옙占심몌옙占쏙옙 占쏙옙占쏙옙 占십듸옙 占쌩곤옙
+    . wsv_CREATE_CHAR占심몌옙占쏙옙 占쏙옙占쏙옙 占쏙옙킷占쏙옙.... 占시뤄옙티占쏙옙 占심몌옙占쏙옙占쏙옙 占쏙옙占쏙옙占싫곤옙占쏙옙 占쏙옙占쏙옙...
+    . gsv_BANK_LIST_REPLY占쏙옙킷占쏙옙 BANK_REPLY_PLATINUM 占쌩곤옙...占시뤄옙티占쏙옙 창占쏙옙占쏙옙占쏙옙트占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쌜듸옙(占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌀곤옙占�)
+  2005. 03. 23 占쌩곤옙
+    . 클占쏙옙 占쏙옙크 占쏙옙청 占쏙옙킷 cli_CLANMARK_REQ, wsv_CLANMARK_REPLY 占쌩곤옙
+  2005. 06. 07 占쏙옙占쏙옙/占쌩곤옙
+    . GSV_NPC_CHAR 占쏙옙킷占쏙옙 m_nCharIdx占쏙옙 -(占쏙옙占쏙옙) 占싱몌옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싱댐옙.
+    . gsv_SET_NPC_SHOW NPC占쏙옙 占쏙옙占쏙옙/占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙.
+  2005. 06. 16 占쌩곤옙
+    . 占쏙옙占쏙옙 gsv_BILLING_MESSAGE占쏙옙占쏙옙 확占쏙옙占� 占쏙옙占쏙옙占쏙옙 gsv_BILLING_MESSAGE_EXT 占쏙옙킷 占쌩곤옙
+    . defined FLAG_PAY_XXX 占쏙옙占승곤옙 PAY_FLAG_占쏙옙占쏙옙_XXX 占쏙옙 占싱몌옙 占쏙옙占쏙옙
+  2005. 06. 20 占쌩곤옙
+    . 占쏙옙占쏙옙 占쏙옙환 占쏙옙占쏙옙 占쏙옙킷 GSV_GODDNESS_MODE 占쌩곤옙.
+  2005. 06. 22 占쏙옙占쏙옙
+    . cli_TELEPORT_REQ 占쏙옙킷占쏙옙 占쏙옙占실듸옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹깍옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙표 클占쏙옙占싱억옙트占쏙옙 占쏙옙占쏙옙 占쏙옙표(m_PosCUR) 占쌩곤옙
+  2005. 06. 23 占쌩곤옙
+    . 占쏙옙티 / 1:1 占신뤄옙占쏙옙 占쏙옙占쌥억옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쌩곤옙
+    . 占쏙옙환占쏙옙 占쏙옙占쏙옙 占쏙옙킷 占쌩곤옙.( CLI_SUMMON_CMD, GSV_SUMMON_CMD )
+  2005. 08. 22 占쌩곤옙
+    . CLI_CART_RIDE / GSV_CART_RIDE 2占싸쏙옙카트 占쏙옙청/占쏙옙占쏙옙 占쏙옙킷 占쌩곤옙.
 */
 #ifndef __NET_PROTOTYPE_H
 #define __NET_PROTOTYPE_H
@@ -211,8 +211,8 @@
 #include "Util/classHASH.h"
 #endif
 
-#define	__APPLY_04_10_15_TEAMNO			// 04.10.15���� ����ȣ ���� ��Ŷ �����ҷ� ?
-#define	__INC_PLATINUM				// ����ȭ���� ���뿩��..
+#define	__APPLY_04_10_15_TEAMNO			// 04.10.15占쏙옙占쏙옙 占쏙옙占쏙옙호 占쏙옙占쏙옙 占쏙옙킷 占쏙옙占쏙옙占쌀뤄옙 ?
+#define	__INC_PLATINUM				// 占쏙옙占쏙옙화占쏙옙占쏙옙 占쏙옙占쎈여占쏙옙..
 
 #pragma warning( disable:4200 )
 #pragma warning( disable:4201 )
@@ -244,18 +244,18 @@
 
 /*
 #define	CLI_JOIN_WORLD				0x070b
-#define WSV_JOIN_WORLD				0x070c		// ���� ������ ���� ���� ���� ����...
+#define WSV_JOIN_WORLD				0x070c		// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙...
 */
 
-#define	CLI_JOIN_SERVER_REQ			0x070b		// ����/�� ������ ������ ��û�Ѵ�.
+#define	CLI_JOIN_SERVER_REQ			0x070b		// 占쏙옙占쏙옙/占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙청占싼댐옙.
 #define	SRV_JOIN_SERVER_REPLY		0x070c
 
-#define	GSV_GM_COMMAND				0x070d		// GM ���ɾ�.
+#define	GSV_GM_COMMAND				0x070d		// GM 占쏙옙占심억옙.
 
-#define	GSV_SET_GLOBAL_VAR			0x070e		// ���� ���� ����.
-#define	GSV_SET_GLOBAL_FLAG			0x070f		// ���� �÷��� ��...
+#define	GSV_SET_GLOBAL_VAR			0x070e		// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	GSV_SET_GLOBAL_FLAG			0x070f		// 占쏙옙占쏙옙 占시뤄옙占쏙옙 占쏙옙...
 
-#define	WSV_MOVE_SERVER				0x0711		// ������ �̵��ض�...
+#define	WSV_MOVE_SERVER				0x0711		// 占쏙옙占쏙옙占쏙옙 占싱듸옙占쌔띰옙...
 
 #define	CLI_CHAR_LIST				0x0712
 #define	WSV_CHAR_LIST				0x0712
@@ -280,15 +280,15 @@
 
 #define	GSV_QUEST_DATA				0x071b
 
-#define	CLI_CHAR_CHANGE				0x071c		// �ɸ��� ����â���� �̵���û :: ���� ������ ��Ŷ �����ؾ���.
-#define	WSV_CHAR_CHANGE				0x071c		// �� ��Ŷ ������ CLI_CHAR_LIST�� ������ ��û :: ���� �������� ���۵Ǿ���
+#define	CLI_CHAR_CHANGE				0x071c		// 占심몌옙占쏙옙 占쏙옙占쏙옙창占쏙옙占쏙옙 占싱듸옙占쏙옙청 :: 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙킷 占쏙옙占쏙옙占쌔억옙占쏙옙.
+#define	WSV_CHAR_CHANGE				0x071c		// 占쏙옙 占쏙옙킷 占쏙옙占쏙옙占쏙옙 CLI_CHAR_LIST占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙청 :: 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쌜되억옙占쏙옙
 
-#define GSV_SET_MONEY_ONLY			0x071d		// ���������� ���絷... 
+#define GSV_SET_MONEY_ONLY			0x071d		// 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占썹돈... 
 
-#define	GSV_REWARD_MONEY			0x071e		// ���� ���� �Ǿ���... ������ gsv_SET_MONEY_ONLY
-#define	GSV_REWARD_ITEM				0x071f		// ������ ���� �Ǿ���
-#define	GSV_REWARD_ADD_ABILITY		0x0720		// �ɷ�ġ �߰�
-#define	GSV_REWARD_SET_ABILITY		0x0721		// �ɷ�ġ ����
+#define	GSV_REWARD_MONEY			0x071e		// 占쏙옙占쏙옙 占쏙옙占쏙옙 占실억옙占쏙옙... 占쏙옙占쏙옙占쏙옙 gsv_SET_MONEY_ONLY
+#define	GSV_REWARD_ITEM				0x071f		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占실억옙占쏙옙
+#define	GSV_REWARD_ADD_ABILITY		0x0720		// 占심뤄옙치 占쌩곤옙
+#define	GSV_REWARD_SET_ABILITY		0x0721		// 占심뤄옙치 占쏙옙占쏙옙
 
 #define	CLI_LOGOUT_CANCEL			0x0722
 
@@ -462,36 +462,36 @@
 
 #define	GSV_RESULT_OF_SKILL			0x07b9
 
-#define	CLI_APPRAISAL_REQ			0x07ba		// ������ ���� �Ƿ�~~~
+#define	CLI_APPRAISAL_REQ			0x07ba		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占실뤄옙~~~
 #define	GSV_APPRAISAL_REPLY			0x07ba
 
-#define	GSV_SKILL_START				0x07bb		// ��ų �ɽ��� ��ŸƮ...
+#define	GSV_SKILL_START				0x07bb		// 占쏙옙킬 占심쏙옙占쏙옙 占쏙옙타트...
 
 #define	CLI_CRAFT_ITEM_REQ			0x07bc
 #define	GSV_CRAFT_ITEM_REPLY		0x07bc
 
-#define	GSV_SKILL_CANCEL			0x07bd		// �����ߴ� ��ų ���.
+#define	GSV_SKILL_CANCEL			0x07bd		// 占쏙옙占쏙옙占쌩댐옙 占쏙옙킬 占쏙옙占�.
 //	0x07be
 
 #define	CLI_SET_WISHITEM			0x07bf
 
-#define	CLI_TRADE_P2P				0x07c0		// ���ΰ� �ŷ�...
+#define	CLI_TRADE_P2P				0x07c0		// 占쏙옙占싸곤옙 占신뤄옙...
 #define GSV_TRADE_P2P				0x07c0
 
-#define	CLI_TRADE_P2P_ITEM			0x07c1		// �ŷ� ������ �߰� / ����.
+#define	CLI_TRADE_P2P_ITEM			0x07c1		// 占신뤄옙 占쏙옙占쏙옙占쏙옙 占쌩곤옙 / 占쏙옙占쏙옙.
 #define	GSV_TRADE_P2P_ITEM			0x07c1
 
-#define CLI_P_STORE_OPEN			0x07c2		// ���� ���� ���� ��û
+#define CLI_P_STORE_OPEN			0x07c2		// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청
 #define GSV_P_STORE_OPENED			0x07c2
 
-#define CLI_P_STORE_CLOSE			0x07c3		// ���� ���� ��� ��û
+#define CLI_P_STORE_CLOSE			0x07c3		// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쏙옙청
 #define	GSV_P_STORE_CLOSED			0x07c3
 
-#define CLI_P_STORE_LIST_REQ		0x07c4		// ���� ���� ���� ����Ʈ ��û
+#define CLI_P_STORE_LIST_REQ		0x07c4		// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙트 占쏙옙청
 #define GSV_P_STORE_LIST_REPLY		0x07c4
 
-#define CLI_P_STORE_BUY_REQ			0x07c5		// ���� ���� ���� ���� ��û
-#define	CLI_P_STORE_SELL_REQ		0x07c6		// ���� ���� ���� �Ǹ� ��û
+#define CLI_P_STORE_BUY_REQ			0x07c5		// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청
+#define	CLI_P_STORE_SELL_REQ		0x07c6		// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占실몌옙 占쏙옙청
 
 #define	GSV_P_STORE_RESULT			0x07c6
 #define	GSV_P_STORE_MONEYnINV		0x07c7
@@ -499,13 +499,13 @@
 #define	CLI_ASSEMBLE_RIDE_ITEM		0x07ca
 #define	GSV_ASSEMBLE_RIDE_ITEM		0x07ca
 
-#define	CLI_USE_ITEM_TO_REPAIR		0x07cb		// �Ҹ� ���� ���������� ������ ���� ��û
+#define	CLI_USE_ITEM_TO_REPAIR		0x07cb		// 占쌀몌옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청
 #define	GSV_USED_ITEM_TO_REPAIR		0x07cb		// gsv_SET_INV_ONLY
 
-#define	CLI_REPAIR_FROM_NPC			0x07cd		// NPC�� ���� ������ ���� ��û
+#define	CLI_REPAIR_FROM_NPC			0x07cd		// NPC占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청
 #define	GSV_REPAIRED_FROM_NPC		0x07cd		// gsv_SET_MONEYnINV
 
-#define	GSV_SET_ITEM_LIFE			0x07ce		// �������� ������ �����
+#define	GSV_SET_ITEM_LIFE			0x07ce		// 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占�
 
 #define	CLI_PARTY_REQ				0x07d0
 #define	GSV_PARTY_REQ				0x07d0
@@ -513,9 +513,9 @@
 #define	CLI_PARTY_REPLY				0x07d1
 #define	GSV_PARTY_REPLY				0x07d1
 
-#define	GSV_PARTY_MEMBER			0x07d2		// ��Ƽ�� �߰�/����.
-//#define	GSV_PARTY_INFO			0x07d3		// ��Ƽ ����
-#define	GSV_PARTY_ITEM				0x07d3		// ���� �й�� ������ ���� ����
+#define	GSV_PARTY_MEMBER			0x07d2		// 占쏙옙티占쏙옙 占쌩곤옙/占쏙옙占쏙옙.
+//#define	GSV_PARTY_INFO			0x07d3		// 占쏙옙티 占쏙옙占쏙옙
+#define	GSV_PARTY_ITEM				0x07d3		// 占쏙옙占쏙옙 占싻뱄옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 
 #define	GSV_PARTY_LEVnEXP			0x07d4
 
@@ -576,8 +576,8 @@
 
 #define	GSV_CHARSTATE_CHANGE		0x07ea
 
-#define CLI_SCREEN_SHOT_TIME		0x07eb                          //��ũ���� ������ �����ð���û..(���翵 �߰� 2005.10.18)
-#define GSV_SCREEN_SHOT_TIME		0x07eb                          //��ũ���� �������ʿ��� ���� �ð�����.. .(���翵 �߰� 2005.10.18)
+#define CLI_SCREEN_SHOT_TIME		0x07eb                          //占쏙옙크占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占시곤옙占쏙옙청..(占쏙옙占썹영 占쌩곤옙 2005.10.18)
+#define GSV_SCREEN_SHOT_TIME		0x07eb                          //占쏙옙크占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占십울옙占쏙옙 占쏙옙占쏙옙 占시곤옙占쏙옙占쏙옙.. .(占쏙옙占썹영 占쌩곤옙 2005.10.18)
 
 #define SRV_UPDATE_NAME				0x07ec
 #define PXY_UPDATE_NAME				0x07ed
@@ -587,8 +587,8 @@
 
 struct cli_CHECK_AUTH : public t_PACKETHEADER {
   /*
-    �� ��⺰ ����Ÿ...
-    �ʸ����� ��� GG_AUTH_DATA ����ü
+    占쏙옙 占쏙옙羞� 占쏙옙占쏙옙타...
+    占십몌옙占쏙옙占쏙옙 占쏙옙占� GG_AUTH_DATA 占쏙옙占쏙옙체
   */
 };
 
@@ -597,8 +597,8 @@ struct cli_CHECK_AUTH : public t_PACKETHEADER {
 struct srv_CHECK_AUTH : public t_PACKETHEADER {
   uint8_t m_btModuleTYPE;
   /*
-    �� ��⺰ ����Ÿ...
-    �ʸ����� ��� GG_AUTH_DATA ����ü
+    占쏙옙 占쏙옙羞� 占쏙옙占쏙옙타...
+    占십몌옙占쏙옙占쏙옙 占쏙옙占� GG_AUTH_DATA 占쏙옙占쏙옙체
   */
 };
 
@@ -616,14 +616,14 @@ struct gsv_GM_COMMAND : public t_PACKETHEADER {
   uint16_t m_wBlockTIME;
 };
 
-#define	GM_CMD_SHUT		0x00		//	ä�� ����..
-#define	GM_CMD_LOGOUT	0x01		//	���� ���� ������...
+#define	GM_CMD_SHUT		0x00		//	채占쏙옙 占쏙옙占쏙옙..
+#define	GM_CMD_LOGOUT	0x01		//	占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙...
 
 struct srv_LOGIN_REPLY : public t_PACKETHEADER {
   uint8_t  m_btResult;
   uint16_t m_wRight;
   uint16_t m_wPayType;
-  /*  m_cResult == RESULT_LOGIN_REPLY_OK �ϰ��
+  /*  m_cResult == RESULT_LOGIN_REPLY_OK 占싹곤옙占�
       struct {
           // szServerNAME[]
     uint32_t dwServerID;
@@ -634,84 +634,84 @@ struct srv_LOGIN_REPLY : public t_PACKETHEADER {
 #define RESULT_LOGIN_REPLY_OK                   0x00
 #define	RESULT_LOGIN_REPLY_KOREA_OK				RESULT_LOGIN_REPLY_OK
 
-#define RESULT_LOGIN_REPLY_FAILED               0x01    // ����
-#define RESULT_LOGIN_REPLY_NOT_FOUND_ACCOUNT    0x02    // ���� ����.
-#define RESULT_LOGIN_REPLY_INVALID_PASSWORD     0x03    // ��� ����
-#define RESULT_LOGIN_REPLY_ALREADY_LOGGEDIN     0x04    // �̹� �α��� ���̴�
-#define RESULT_LOGIN_REPLY_REFUSED_ACCOUNT      0x05    // �������� �źε� �����̴�.
-#define RESULT_LOGIN_REPLY_NEED_CHARGE          0x06    // ������ �ʿ��Ѵ�
-#define	RESULT_LOGIN_REPLY_NO_RIGHT_TO_CONNECT	0x07	// ���� ������ ����.
-#define	RESULT_LOGIN_REPLY_TOO_MANY_USER		0x08	// ���� �ο� ����
+#define RESULT_LOGIN_REPLY_FAILED               0x01    // 占쏙옙占쏙옙
+#define RESULT_LOGIN_REPLY_NOT_FOUND_ACCOUNT    0x02    // 占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define RESULT_LOGIN_REPLY_INVALID_PASSWORD     0x03    // 占쏙옙占� 占쏙옙占쏙옙
+#define RESULT_LOGIN_REPLY_ALREADY_LOGGEDIN     0x04    // 占싱뱄옙 占싸깍옙占쏙옙 占쏙옙占싱댐옙
+#define RESULT_LOGIN_REPLY_REFUSED_ACCOUNT      0x05    // 占쏙옙占쏙옙占쏙옙占쏙옙 占신부듸옙 占쏙옙占쏙옙占싱댐옙.
+#define RESULT_LOGIN_REPLY_NEED_CHARGE          0x06    // 占쏙옙占쏙옙占쏙옙 占십울옙占싼댐옙
+#define	RESULT_LOGIN_REPLY_NO_RIGHT_TO_CONNECT	0x07	// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	RESULT_LOGIN_REPLY_TOO_MANY_USER		0x08	// 占쏙옙占쏙옙 占싸울옙 占쏙옙占쏙옙
 #define	RESULT_LOGIN_REPLY_NO_REAL_NAME			0x09
-#define	RESULT_LOGIN_REPLY_INVALID_VERSION		0x0a	// ��ġ�� �޾ƾ� �Ѵ�.
-#define	RESULT_LOGIN_REPLY_OUT_OF_IP			0x0b	// �Ǿ��� ���� ���� ip �ʰ�...
+#define	RESULT_LOGIN_REPLY_INVALID_VERSION		0x0a	// 占쏙옙치占쏙옙 占쌨아억옙 占싼댐옙.
+#define	RESULT_LOGIN_REPLY_OUT_OF_IP			0x0b	// 占실억옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 ip 占십곤옙...
 
-#define	RESULT_LOGIN_REPLY_TAIWAN_OK			0x10	// m_wPayType ���� Ÿ�̿� ���ݼ��� ü��
-#define	RESULT_LOGIN_REPLY_TAIWAN_FAILED		0x11	// Ÿ�̿� ���ݼ��� ü��� ����
+#define	RESULT_LOGIN_REPLY_TAIWAN_OK			0x10	// m_wPayType 占쏙옙占쏙옙 타占싱울옙 占쏙옙占쌥쇽옙占쏙옙 체占쏙옙
+#define	RESULT_LOGIN_REPLY_TAIWAN_FAILED		0x11	// 타占싱울옙 占쏙옙占쌥쇽옙占쏙옙 체占쏙옙占� 占쏙옙占쏙옙
 
-#define	RESULT_LOGIN_REPLY_JAPAN_OK				0x18	// m_wPayType ���� �Ϻ� ���ݼ��� ü��
+#define	RESULT_LOGIN_REPLY_JAPAN_OK				0x18	// m_wPayType 占쏙옙占쏙옙 占싹븝옙 占쏙옙占쌥쇽옙占쏙옙 체占쏙옙
 
 /*
-�Ϻ� ���� ���� RESULT_LOGIN_REPLY_JAPAN_OK�ϰ�� m_wPayType�� ����
-PAY_FLAG_JP_???? �� & �����ؼ� TRUE�̸� ������
-��:: )
+占싹븝옙 占쏙옙占쏙옙 占쏙옙占쏙옙 RESULT_LOGIN_REPLY_JAPAN_OK占싹곤옙占� m_wPayType占쏙옙 占쏙옙占쏙옙
+PAY_FLAG_JP_???? 占쏙옙 & 占쏙옙占쏙옙占쌔쇽옙 TRUE占싱몌옙 占쏙옙占쏙옙占쏙옙
+占쏙옙:: )
   if ( m_wPayType & PAY_FLAG_JP_EXTRA_CHAR ) {
-    // �ѱ��� �÷�Ƽ�� ����ó�� 5���� �ɸ��� ��밡��.
+    // 占싼깍옙占쏙옙 占시뤄옙티占쏙옙 占쏙옙占쏙옙처占쏙옙 5占쏙옙占쏙옙 占심몌옙占쏙옙 占쏙옙諛∽옙占�.
   }
 */
 /*
-�븸 ���� ���� RESULT_LOGIN_REPLY_TWAIN_OK�ϰ�� m_wPayType�� ��
-0  :	// ����
-1	:	// �ð��� - �� 1 �ð� ������ 6 ����Ʈ �谨, 1�ð��� ä���� ������ ���, 1�ð����� ����Ѵ�.
-2	:	// �� ������ - �� 30 �� ������ 350 ����Ʈ �谨.
-3	:	// �ð� ������ - �� 12 �ð� ������ 20 ����Ʈ �谨.
-4	:	// 3���� ������ - �� 90 �� ������ 888 ����Ʈ �谨.
-5	:	// ȫ�� ��������
-6	:	// ȫ�� 3���� ������
-7	:	// ȫ�� �ð���
-8	:	// ȫ�� �ð� ������
-9	:	// �� ������ - �� 1�� ������ 0.25����Ʈ �谨.
-10	:	// �ð� ������  - �� 2�ð� ������ 12 ����Ʈ �谨.
-11	:	// 10�� - �� 10�� ������ 150 ����Ʈ �谨.
-12	:	// ���� ü��
-101:	// ���� 3��
-102:	// ���� 7��
-103:	// ���� 10��
+占쎈만 占쏙옙占쏙옙 占쏙옙占쏙옙 RESULT_LOGIN_REPLY_TWAIN_OK占싹곤옙占� m_wPayType占쏙옙 占쏙옙
+0  :	// 占쏙옙占쏙옙
+1	:	// 占시곤옙占쏙옙 - 占쏙옙 1 占시곤옙 占쏙옙占쏙옙占쏙옙 6 占쏙옙占쏙옙트 占썼감, 1占시곤옙占쏙옙 채占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占�, 1占시곤옙占쏙옙占쏙옙 占쏙옙占쏙옙磯占�.
+2	:	// 占쏙옙 占쏙옙占쏙옙占쏙옙 - 占쏙옙 30 占쏙옙 占쏙옙占쏙옙占쏙옙 350 占쏙옙占쏙옙트 占썼감.
+3	:	// 占시곤옙 占쏙옙占쏙옙占쏙옙 - 占쏙옙 12 占시곤옙 占쏙옙占쏙옙占쏙옙 20 占쏙옙占쏙옙트 占썼감.
+4	:	// 3占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 - 占쏙옙 90 占쏙옙 占쏙옙占쏙옙占쏙옙 888 占쏙옙占쏙옙트 占썼감.
+5	:	// 홍占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
+6	:	// 홍占쏙옙 3占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
+7	:	// 홍占쏙옙 占시곤옙占쏙옙
+8	:	// 홍占쏙옙 占시곤옙 占쏙옙占쏙옙占쏙옙
+9	:	// 占쏙옙 占쏙옙占쏙옙占쏙옙 - 占쏙옙 1占쏙옙 占쏙옙占쏙옙占쏙옙 0.25占쏙옙占쏙옙트 占썼감.
+10	:	// 占시곤옙 占쏙옙占쏙옙占쏙옙  - 占쏙옙 2占시곤옙 占쏙옙占쏙옙占쏙옙 12 占쏙옙占쏙옙트 占썼감.
+11	:	// 10占쏙옙 - 占쏙옙 10占쏙옙 占쏙옙占쏙옙占쏙옙 150 占쏙옙占쏙옙트 占썼감.
+12	:	// 占쏙옙占쏙옙 체占쏙옙
+101:	// 占쏙옙占쏙옙 3占쏙옙
+102:	// 占쏙옙占쏙옙 7占쏙옙
+103:	// 占쏙옙占쏙옙 10占쏙옙
 
-�븸 ���� ���� RESULT_LOGIN_REPLY_TWAIN_FAILED�ϰ�� m_wPayType�� ��
-2	:	// �ߺ� �α��� (login result)	�̹� �α��� �� ����
-3	:	// �н����� ���� (login result)	���� �Ǵ� �н����� ���� �Ǵ� ����Ʈ �������� ���� ����,  Joypark ȸ�� �߽� ����.
-4	:	// ObjnetObiect ���� ����, Login Server��� �Ұ��� (Connection State Result)
-5	:	// Login Server���� �ߴ� (Connection State Result)
-6	:	// Login Server���� ���� (Connection State Result)
-7	:	// ���� ���� (login result)	���� �Ǵ� �н����� ���� �Ǵ� ����Ʈ�� �������� ���� ����,  Joypark ȸ�� �߽� ����. 
-8	:	// ����Ʈ ���� (login result)	����Ʈ ����
-9	:	// �ð� ���� (login result)	���� ü��Ⱓ ����
-10	:	// ���� �������� (login result)	���ݹ�� ����
-11	:	// ���� (login result)	���� ��
-12	:	// ���ϣ��� (login result)	���� ��
-13	:	// ���ϣ��� (login result)	���� ��
-14	:	// ���� 10 �� (login result)	���� ��
-15	:	// �α� �ƿ� ���� (logout result)
-16	:	// ��Ȯ���� ���� (������ ���̽� ���� login, relogin, logout result)	��Ȯ���� ����
-17	:	// Ip�ߺ� (Ȩ ���� ��� login, relogin, result) 
-18	:	// ���ӹ� ��ȿ�� ���ӹ� ip����Ʈ (��� : ���ӹ� login, relogin, result)	
-20	:	// ���� ���� (relogin result)	���� �Ǵ� �н����� ���� ���� ����Ʈ�� �������� ���� ����, Joypark ȸ�� �߽� ����.
-21	:	// �ߺ� �α��� (relogin result)	�̹� �¶��� ��Ȳ�� ���� 
-23	:	// ����Ʈ ���� (relogin result)	����Ʈ ����
-24	:	// �ð� ���� (relogin result)	���� ü��Ⱓ ����
-25	:	// ����Ȯ�� ���ݹ�� (relogin result)	���ݹ�� ���� 
-26	:	// ���� (relogin result)	���� ��
-27	:	// ���� ���� (relogin result)	���� ��
-28	:	// ���� ���� (relogin result)	���� ��
-29	:	// ���� 10 �� (relogin result)	���� ��
-30	:	// ���� ip  n�ʳ� �ߺ� �α��� (login result)	���콺�� ��� ���� �ϰ�, �� �� �� �ٽ� ����.
-31	:	// Game Server��� ���� (Connection State result)
-32	:	// Game Server��� ID�ߺ�(Connection State result)
-33	:	// Game Server�� ���(login, relogin result)	���� ���� �Ұ���, ����� �ٽ� ���� �õ�.
-34	:	// ���� ���� ���� ������ �ð� �ʰ�.(login, relogin result)	���ӽð� �ʰ�. 
-35	:	// ���� ü���� �� ���� (login result)	�� ������ ���� ü�� ���� �������� ����.
-101:	// Library������ Login Server �� ���� ����. (Connection State result)
+占쎈만 占쏙옙占쏙옙 占쏙옙占쏙옙 RESULT_LOGIN_REPLY_TWAIN_FAILED占싹곤옙占� m_wPayType占쏙옙 占쏙옙
+2	:	// 占쌩븝옙 占싸깍옙占쏙옙 (login result)	占싱뱄옙 占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙
+3	:	// 占싻쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 (login result)	占쏙옙占쏙옙 占실댐옙 占싻쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占실댐옙 占쏙옙占쏙옙트 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙,  Joypark 회占쏙옙 占쌩쏙옙 占쏙옙占쏙옙.
+4	:	// ObjnetObiect 占쏙옙占쏙옙 占쏙옙占쏙옙, Login Server占쏙옙占� 占쌀곤옙占쏙옙 (Connection State Result)
+5	:	// Login Server占쏙옙占쏙옙 占쌩댐옙 (Connection State Result)
+6	:	// Login Server占쏙옙占쏙옙 占쏙옙占쏙옙 (Connection State Result)
+7	:	// 占쏙옙占쏙옙 占쏙옙占쏙옙 (login result)	占쏙옙占쏙옙 占실댐옙 占싻쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占실댐옙 占쏙옙占쏙옙트占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙,  Joypark 회占쏙옙 占쌩쏙옙 占쏙옙占쏙옙. 
+8	:	// 占쏙옙占쏙옙트 占쏙옙占쏙옙 (login result)	占쏙옙占쏙옙트 占쏙옙占쏙옙
+9	:	// 占시곤옙 占쏙옙占쏙옙 (login result)	占쏙옙占쏙옙 체占쏙옙璲� 占쏙옙占쏙옙
+10	:	// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 (login result)	占쏙옙占쌥뱄옙占� 占쏙옙占쏙옙
+11	:	// 占쏙옙占쏙옙 (login result)	占쏙옙占쏙옙 占쏙옙
+12	:	// 占쏙옙占싹ｏ옙占쏙옙 (login result)	占쏙옙占쏙옙 占쏙옙
+13	:	// 占쏙옙占싹ｏ옙占쏙옙 (login result)	占쏙옙占쏙옙 占쏙옙
+14	:	// 占쏙옙占쏙옙 10 占쏙옙 (login result)	占쏙옙占쏙옙 占쏙옙
+15	:	// 占싸깍옙 占싣울옙 占쏙옙占쏙옙 (logout result)
+16	:	// 占쏙옙확占쏙옙占쏙옙 占쏙옙占쏙옙 (占쏙옙占쏙옙占쏙옙 占쏙옙占싱쏙옙 占쏙옙占쏙옙 login, relogin, logout result)	占쏙옙확占쏙옙占쏙옙 占쏙옙占쏙옙
+17	:	// Ip占쌩븝옙 (홈 占쏙옙占쏙옙 占쏙옙占� login, relogin, result) 
+18	:	// 占쏙옙占쌈뱄옙 占쏙옙효占쏙옙 占쏙옙占쌈뱄옙 ip占쏙옙占쏙옙트 (占쏙옙占� : 占쏙옙占쌈뱄옙 login, relogin, result)	
+20	:	// 占쏙옙占쏙옙 占쏙옙占쏙옙 (relogin result)	占쏙옙占쏙옙 占실댐옙 占싻쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙트占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙, Joypark 회占쏙옙 占쌩쏙옙 占쏙옙占쏙옙.
+21	:	// 占쌩븝옙 占싸깍옙占쏙옙 (relogin result)	占싱뱄옙 占승띰옙占쏙옙 占쏙옙황占쏙옙 占쏙옙占쏙옙 
+23	:	// 占쏙옙占쏙옙트 占쏙옙占쏙옙 (relogin result)	占쏙옙占쏙옙트 占쏙옙占쏙옙
+24	:	// 占시곤옙 占쏙옙占쏙옙 (relogin result)	占쏙옙占쏙옙 체占쏙옙璲� 占쏙옙占쏙옙
+25	:	// 占쏙옙占쏙옙확占쏙옙 占쏙옙占쌥뱄옙占� (relogin result)	占쏙옙占쌥뱄옙占� 占쏙옙占쏙옙 
+26	:	// 占쏙옙占쏙옙 (relogin result)	占쏙옙占쏙옙 占쏙옙
+27	:	// 占쏙옙占쏙옙 占쏙옙占쏙옙 (relogin result)	占쏙옙占쏙옙 占쏙옙
+28	:	// 占쏙옙占쏙옙 占쏙옙占쏙옙 (relogin result)	占쏙옙占쏙옙 占쏙옙
+29	:	// 占쏙옙占쏙옙 10 占쏙옙 (relogin result)	占쏙옙占쏙옙 占쏙옙
+30	:	// 占쏙옙占쏙옙 ip  n占십놂옙 占쌩븝옙 占싸깍옙占쏙옙 (login result)	占쏙옙占쎌스占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占싹곤옙, 占쏙옙 占쏙옙 占쏙옙 占쌕쏙옙 占쏙옙占쏙옙.
+31	:	// Game Server占쏙옙占� 占쏙옙占쏙옙 (Connection State result)
+32	:	// Game Server占쏙옙占� ID占쌩븝옙(Connection State result)
+33	:	// Game Server占쏙옙 占쏙옙占�(login, relogin result)	占쏙옙占쏙옙 占쏙옙占쏙옙 占쌀곤옙占쏙옙, 占쏙옙占쏙옙占� 占쌕쏙옙 占쏙옙占쏙옙 占시듸옙.
+34	:	// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占시곤옙 占십곤옙.(login, relogin result)	占쏙옙占쌈시곤옙 占십곤옙. 
+35	:	// 占쏙옙占쏙옙 체占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙 (login result)	占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 체占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
+101:	// Library占쏙옙占쏙옙占쏙옙 Login Server 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙. (Connection State result)
 */
 
 struct cli_CHANNEL_LIST_REQ : public t_PACKETHEADER {
@@ -719,11 +719,11 @@ struct cli_CHANNEL_LIST_REQ : public t_PACKETHEADER {
 };
 
 struct tagCHANNEL_SRV {
-  uint8_t m_btChannelNO;  // ������ ä�� ���� ��ȣ
-  uint8_t m_btLowAGE;     // ���� ������ ���� ���� 0 �̸� ���� ���� ���� ����
-  uint8_t m_btHighAGE;    // ���� ������ �ְ� ���� 0 �̸� �ְ� ���� ���� ����
-  int16_t m_nUserPERCENT; // ���� ���ӵǾ� �ִ� ����ھ�...
-  // char m_szChannenNAME[]	// m_szChannelsNAME == "" �̸� CHANNEL-ä�ι�ȣ �� ������
+  uint8_t m_btChannelNO;  // 占쏙옙占쏙옙占쏙옙 채占쏙옙 占쏙옙占쏙옙 占쏙옙호
+  uint8_t m_btLowAGE;     // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 0 占싱몌옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+  uint8_t m_btHighAGE;    // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌍곤옙 占쏙옙占쏙옙 0 占싱몌옙 占쌍곤옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+  int16_t m_nUserPERCENT; // 占쏙옙占쏙옙 占쏙옙占쌈되억옙 占쌍댐옙 占쏙옙占쏙옙岷占�...
+  // char m_szChannenNAME[]	// m_szChannelsNAME == "" 占싱몌옙 CHANNEL-채占싸뱄옙호 占쏙옙 占쏙옙占쏙옙占쏙옙
 };
 
 struct lsv_CHANNEL_LIST_REPLY : public t_PACKETHEADER {
@@ -750,18 +750,18 @@ struct lsv_SELECT_SERVER : public t_PACKETHEADER {
 
 #define	RESULT_SELECT_SERVER_OK					0x00
 #define RESULT_SELECT_SERVER_FAILED				0x01
-#define	RESULT_SELECT_SERVER_FULL				0x02	// �ο� ����
-#define	RESULT_SELECT_SERVER_INVALID_CHANNEL	0x03	// �߸��� ä�� ����
-#define	RESULT_SELECT_SERVER_CHANNEL_NOT_ACTIVE	0x04	// ä�� ���� ������
-#define	RESUTL_SELECT_SERVER_INVALID_AGE		0x05	// ������ ���� �ʴ´�..
-#define	RESULT_SELECT_SERVER_NEED_CHARGE		0x06	// ������ �ȵǾ� �ִ�
+#define	RESULT_SELECT_SERVER_FULL				0x02	// 占싸울옙 占쏙옙占쏙옙
+#define	RESULT_SELECT_SERVER_INVALID_CHANNEL	0x03	// 占쌩몌옙占쏙옙 채占쏙옙 占쏙옙占쏙옙
+#define	RESULT_SELECT_SERVER_CHANNEL_NOT_ACTIVE	0x04	// 채占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
+#define	RESUTL_SELECT_SERVER_INVALID_AGE		0x05	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십는댐옙..
+#define	RESULT_SELECT_SERVER_NEED_CHARGE		0x06	// 占쏙옙占쏙옙占쏙옙 占싫되억옙 占쌍댐옙
 
 struct tagVAR_GLOBAL {
-  int16_t  m_nWorld_PRODUCT;               // ���� ����
-  uint32_t m_dwUpdateTIME;                 // ���ŵ� �ð�.
-  int16_t  m_nWorld_RATE;                  // ���� ���� :: ���蹰�� 80~140
-  uint8_t  m_btTOWN_RATE;                  // ���� ����					80~140
-  uint8_t  m_btItemRATE[ MAX_PRICE_TYPE ]; // �����ۺ� ����				1~127
+  int16_t  m_nWorld_PRODUCT;               // 占쏙옙占쏙옙 占쏙옙占쏙옙
+  uint32_t m_dwUpdateTIME;                 // 占쏙옙占신듸옙 占시곤옙.
+  int16_t  m_nWorld_RATE;                  // 占쏙옙占쏙옙 占쏙옙占쏙옙 :: 占쏙옙占썼물占쏙옙 80~140
+  uint8_t  m_btTOWN_RATE;                  // 占쏙옙占쏙옙 占쏙옙占쏙옙					80~140
+  uint8_t  m_btItemRATE[ MAX_PRICE_TYPE ]; // 占쏙옙占쏙옙占쌜븝옙 占쏙옙占쏙옙				1~127
   uint32_t m_dwGlobalFLAGS;
 };
 
@@ -779,19 +779,19 @@ struct cli_JOIN_WORLD : public t_PACKETHEADER {
     uint8_t	m_MD5Password[ 32 ];
 } ;
 
-// m_cResult ���� lsv_LOGIN_REPLY�� ����.
+// m_cResult 占쏙옙占쏙옙 lsv_LOGIN_REPLY占쏙옙 占쏙옙占쏙옙.
 struct wsv_JOIN_WORLD : public t_PACKETHEADER {
   uint8_t	m_btResult;
   uint32_t	m_dwID;
 } ;
 #define	RESULT_JOIN_WORLD_OK					0x00
 #define	RESULT_JOIN_WORLD_FAILED				0x01
-#define RESULT_JOIN_WORLD_TIME_OUT				0x02    // �ð� �ʰ��� ���� ������ �ٽ� �α��� �ؾ��Ѵ�.
-#define RESULT_JOIN_WORLD_INVALID_PASSWORD		0x03    // ��� ����
-#define RESULT_JOIN_WORLD_ALREADY_LOGGEDIN		0x04    // �̹� �α��� ���̴�
+#define RESULT_JOIN_WORLD_TIME_OUT				0x02    // 占시곤옙 占십곤옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌕쏙옙 占싸깍옙占쏙옙 占쌔억옙占싼댐옙.
+#define RESULT_JOIN_WORLD_INVALID_PASSWORD		0x03    // 占쏙옙占� 占쏙옙占쏙옙
+#define RESULT_JOIN_WORLD_ALREADY_LOGGEDIN		0x04    // 占싱뱄옙 占싸깍옙占쏙옙 占쏙옙占싱댐옙
 */
 
-// ����/�� ������ ���� ��û
+// 占쏙옙占쏙옙/占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청
 struct cli_JOIN_SERVER_REQ : public t_PACKETHEADER {
   uint32_t m_dwID;
   uint8_t  m_MD5Password[ 64 ];
@@ -805,11 +805,11 @@ struct srv_JOIN_SERVER_REPLY : public t_PACKETHEADER {
 
 #define	RESULT_JOIN_SERVER_OK					0x00
 #define	RESULT_JOIN_SERVER_FAILED				0x01
-#define RESULT_JOIN_SERVER_TIME_OUT				0x02    // �ð� �ʰ��� ���� ������ �ٽ� �α��� �ؾ��Ѵ�.
-#define RESULT_JOIN_SERVER_INVALID_PASSWORD		0x03    // ��� ����
-#define RESULT_JOIN_SERVER_ALREADY_LOGGEDIN		0x04    // �̹� �α��� ���̴�
+#define RESULT_JOIN_SERVER_TIME_OUT				0x02    // 占시곤옙 占십곤옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌕쏙옙 占싸깍옙占쏙옙 占쌔억옙占싼댐옙.
+#define RESULT_JOIN_SERVER_INVALID_PASSWORD		0x03    // 占쏙옙占� 占쏙옙占쏙옙
+#define RESULT_JOIN_SERVER_ALREADY_LOGGEDIN		0x04    // 占싱뱄옙 占싸깍옙占쏙옙 占쏙옙占싱댐옙
 
-// Ŭ���̾�Ʈ���� ������ �̵� �����϶�� �뺸...
+// 클占쏙옙占싱억옙트占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙 占쏙옙占쏙옙占싹띰옙占� 占쎈보...
 struct wsv_MOVE_SERVER : public t_PACKETHEADER {
   uint16_t m_wPortNO;
   uint32_t m_dwIDs[2];
@@ -818,14 +818,14 @@ struct wsv_MOVE_SERVER : public t_PACKETHEADER {
 
 struct cli_CHAR_LIST : public t_PACKETHEADER {};
 
-// ����, ����,����, ��Ʈ �ε���...
+// 占쏙옙占쏙옙, 占쏙옙占쏙옙,占쏙옙占쏙옙, 占쏙옙트 占싸듸옙占쏙옙...
 struct tagCHARINFO {
   uint8_t  m_btCharRACE;
   int16_t  m_nLEVEL;
   int16_t  m_nJOB;
-  uint32_t m_dwRemainSEC; // 0�� �ƴҰ�� �����ɶ����� ���� �ð�(�ʴ���)
+  uint32_t m_dwRemainSEC; // 0占쏙옙 占싣닐곤옙占� 占쏙옙占쏙옙占심띰옙占쏙옙占쏙옙 占쏙옙占쏙옙 占시곤옙(占십댐옙占쏙옙)
 #ifdef	__INC_PLATINUM
-  uint8_t m_btIsPlatinumCHAR; // 0�� �ƴѰ��� �÷�Ƽ���� ��츸 ���� ������ �ɸ��̴�.
+  uint8_t m_btIsPlatinumCHAR; // 0占쏙옙 占싣닌곤옙占쏙옙 占시뤄옙티占쏙옙占쏙옙 占쏙옙痢� 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占심몌옙占싱댐옙.
 #endif
 };
 
@@ -859,17 +859,17 @@ struct wsv_CREATE_CHAR : public t_PACKETHEADER {
 #define	RESULT_CREATE_CHAR_FAILED			0x01
 #define	RESULT_CREATE_CHAR_DUP_NAME			0x02
 #define	RESULT_CREATE_CHAR_INVALID_VALUE	0x03
-#define	RESULT_CREATE_CHAR_NO_MORE_SLOT		0x04	// ���̻� ����� ����.
-#define	RESULT_CREATE_CHAR_BLOCKED			0x05	// �������� �ɸ��� ������ �����Ǿ� �ִ� ���´�.
+#define	RESULT_CREATE_CHAR_NO_MORE_SLOT		0x04	// 占쏙옙占싱삼옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙.
+#define	RESULT_CREATE_CHAR_BLOCKED			0x05	// 占쏙옙占쏙옙占쏙옙占쏙옙 占심몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占실억옙 占쌍댐옙 占쏙옙占승댐옙.
 
 struct cli_DELETE_CHAR : public t_PACKETHEADER {
   uint8_t m_btCharNO;
-  bool    m_bDelete; // true�� ����, false�� ������� ���� �ɸ��� ��Ȱ
+  bool    m_bDelete; // true占쏙옙 占쏙옙占쏙옙, false占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙 占심몌옙占쏙옙 占쏙옙활
   // char szCharName[]
 };
 
 struct wsv_DELETE_CHAR : public t_PACKETHEADER {
-  uint32_t m_dwDelRemainTIME; // 0�̸� ���� ���...
+  uint32_t m_dwDelRemainTIME; // 0占싱몌옙 占쏙옙占쏙옙 占쏙옙占�...
   // char szCharName[]
 };
 
@@ -910,14 +910,14 @@ struct gsv_SELECT_CHAR : public t_PACKETHEADER {
 };
 
 struct gsv_INVENTORY_DATA : public t_PACKETHEADER {
-  // 2004. 9.11 ��ü... CInventory	m_INV;
+  // 2004. 9.11 占쏙옙체... CInventory	m_INV;
   struct {
     int64_t     m_i64Money;
     tagBaseITEM m_ItemLIST[ INVENTORY_TOTAL_SIZE ];
   }             m_INV;
 };
 
-// ����Ʈ ����ġ ���� ������ �Ʒ� 2���� ��Ŷ���� �и��� ������.
+// 占쏙옙占쏙옙트 占쏙옙占쏙옙치 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싣뤄옙 2占쏙옙占쏙옙 占쏙옙킷占쏙옙占쏙옙 占싻몌옙占쏙옙 占쏙옙占쏙옙占쏙옙.
 struct gsv_QUEST_DATA : public t_PACKETHEADER {
   tagQuestData m_Quests;
   tagWishLIST  m_WishLIST;
@@ -943,9 +943,9 @@ struct gsv_JOIN_ZONE : public t_PACKETHEADER {
   int64_t       m_lCurEXP;
   int64_t       m_lPenalEXP;
   tagVAR_GLOBAL m_VAR;
-  uint32_t      m_dwAccWorldTIME; // ���� ���� ó�� ������ ������ ���� Ÿ��
+  uint32_t      m_dwAccWorldTIME; // 占쏙옙占쏙옙 占쏙옙占쏙옙 처占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 타占쏙옙
 #ifdef	__APPLY_04_10_15_TEAMNO
-  int32_t m_iTeamNO; // �������� ������ ����ȣ	:: 04.10.15 �߰�..
+  int32_t m_iTeamNO; // 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙호	:: 04.10.15 占쌩곤옙..
 #endif
 
 };
@@ -1017,7 +1017,7 @@ struct cli_TOGGLE : public t_PACKETHEADER {
 struct gsv_TOGGLE : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
   uint8_t  m_btTYPE;
-  int16_t  m_nRunSPEED[0]; // �� Ÿ�� ��������...
+  int16_t  m_nRunSPEED[0]; // 占쏙옙 타占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙...
 };
 
 struct cli_CHAT : public t_PACKETHEADER {
@@ -1070,10 +1070,10 @@ struct gsv_SET_EVENT_STATUS : public t_PACKETHEADER {
   int16_t  m_nEventSTATUS;
 };
 
-#define	MOVE_MODE_WALK		0x00	// �ȱ� ���
-#define	MOVE_MODE_RUN		0x01	// �ٱ� ���
-#define	MOVE_MODE_DRIVE		0x02	// ���� ��� : �ڽ��� Ÿ�� �ִ�.
-#define	MOVE_MODE_RIDEON	0x04	// ���� ��� : ���ǰͿ� Ÿ�� �ִ�.
+#define	MOVE_MODE_WALK		0x00	// 占싫깍옙 占쏙옙占�
+#define	MOVE_MODE_RUN		0x01	// 占쌕깍옙 占쏙옙占�
+#define	MOVE_MODE_DRIVE		0x02	// 占쏙옙占쏙옙 占쏙옙占� : 占쌘쏙옙占쏙옙 타占쏙옙 占쌍댐옙.
+#define	MOVE_MODE_RIDEON	0x04	// 占쏙옙占쏙옙 占쏙옙占� : 占쏙옙占실것울옙 타占쏙옙 占쌍댐옙.
 
 struct tag_ADD_CHAR : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
@@ -1081,18 +1081,18 @@ struct tag_ADD_CHAR : public t_PACKETHEADER {
   tPOINTF  m_PosTO;
   uint16_t m_wCommand;
   uint16_t m_wTargetOBJ;
-  uint8_t  m_btMoveMODE; // 0:�ȱ�, 1:�ٱ�, 2:�� �¿�����ۿ� Ÿ���ִ�, 3: m_wTargetOBJ�� �¿�����ۿ� Ÿ���ִ�.
+  uint8_t  m_btMoveMODE; // 0:占싫깍옙, 1:占쌕깍옙, 2:占쏙옙 占승울옙占쏙옙占쏙옙謗占� 타占쏙옙占쌍댐옙, 3: m_wTargetOBJ占쏙옙 占승울옙占쏙옙占쏙옙謗占� 타占쏙옙占쌍댐옙.
   int32_t  m_iHP;
 #ifdef	__APPLY_04_10_15_TEAMNO
-  int32_t m_iTeamNO; //	char m_cTeamNO => int32_t�� ���� 04.10.15 ����...
+  int32_t m_iTeamNO; //	char m_cTeamNO => int32_t占쏙옙 占쏙옙占쏙옙 04.10.15 占쏙옙占쏙옙...
 #else
   int8_t		m_cTeamNO;
 #endif
   uint32_t m_dwStatusFALG;
   /*
-  ���� ��ų�� ���� �ٲ� ��...	2004.1.4
+  占쏙옙占쏙옙 占쏙옙킬占쏙옙 占쏙옙占쏙옙 占쌕뀐옙 占쏙옙...	2004.1.4
   if ( m_dwStatusFALG & ( ING_FLAG_MAX_HP | ING_FLAG_xxx_MOV_SPEED | ING_FLAG_xxx_ATK_SPEED ) ) {
-    �� ����ü �ڿ� m_nAdjSTATUS[ xx ]�پ� ���۵�.
+    占쏙옙 占쏙옙占쏙옙체 占쌘울옙 m_nAdjSTATUS[ xx ]占쌕억옙 占쏙옙占쌜듸옙.
 
     uint8_t btIDX = 0;
       if ( tag_ADD_CHAR.m_dwStatusFALG &  FLAG_ING_MAX_HP ) )
@@ -1110,7 +1110,7 @@ struct tag_ADD_CHAR : public t_PACKETHEADER {
     if ( tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_ATK_SPEED ) )
       dec_atk_spd = pAdjSTATUS[ btIDX++ ];
 
-    if ( tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME ) )		// 2004. 4. 16 �߰�..
+    if ( tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME ) )		// 2004. 4. 16 占쌩곤옙..
       owner_obj_idx = (uint16_t) pAdjSTATUS[ btIDX++ ];
   }
   */
@@ -1122,14 +1122,14 @@ struct gsv_MOB_CHAR : public tag_ADD_CHAR {
   // int16_t		m_nAdjSTATUS[];
 };
 
-// gsv_NPC_CHAR��Ŷ���� m_nCharIdx < 0 �̸� �������(Ŭ���̾�Ʈ���� ���������� ����)
+// gsv_NPC_CHAR占쏙옙킷占쏙옙占쏙옙 m_nCharIdx < 0 占싱몌옙 占쏙옙占쏙옙占쏙옙占�(클占쏙옙占싱억옙트占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙)
 struct gsv_NPC_CHAR : public gsv_MOB_CHAR {
   float   m_fModelDIR;
-  int16_t m_nEventSTATUS; // 2004. 3. 22 �߰�.., NPC�ΰ����ɿ� ���� ���������� �ٲ�� ������..
+  int16_t m_nEventSTATUS; // 2004. 3. 22 占쌩곤옙.., NPC占싸곤옙占쏙옙占심울옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쌕뀐옙占� 占쏙옙占쏙옙占쏙옙..
   // int16_t		m_nAdjSTATUS[];
 };
 
-/// ���� ������ �Ҹ�ź 
+/// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌀몌옙탄 
 struct tagShotDATA {
   union {
     struct {
@@ -1142,9 +1142,9 @@ struct tagShotDATA {
 };
 
 /*
-  ��� ��� 
-  1. ���ݼӵ� = ����� ���Ȱ� + �нú� ������ + ���� ������
-  2. �̵��ӵ� = �������� ������(�нú�����) + ���� ���������� 
+  占쏙옙占� 占쏙옙占� 
+  1. 占쏙옙占쌥속듸옙 = 占쏙옙占쏙옙占� 占쏙옙占싫곤옙 + 占싻시븝옙 占쏙옙占쏙옙占쏙옙 + 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
+  2. 占싱듸옙占쌈듸옙 = 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙(占싻시븝옙占쏙옙占쏙옙) + 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 
 */
 struct tag_CLAN_ID {
   uint32_t m_dwClanID;
@@ -1154,33 +1154,33 @@ struct tag_CLAN_ID {
     uint16_t m_wClanMARK[2];
   };
 
-  uint8_t m_btClanLEVEL; // Ŭ�� ����
-  uint8_t m_btClanPOS;   // Ŭ�������� ����
+  uint8_t m_btClanLEVEL; // 클占쏙옙 占쏙옙占쏙옙
+  uint8_t m_btClanPOS;   // 클占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 };
 
 struct gsv_AVT_CHAR : public tag_ADD_CHAR {
   uint8_t     m_btCharRACE;
-  int16_t     m_nRunSpeed;    // �нú꿡 ���� ������ ������, ���ӿ� ���� �����Ȱ� ���� ..
-  int16_t     m_nPsvAtkSpeed; // �нú� ����...  �⺻�ӵ�, ���ӿ� ���� �����Ȱ� ���� ..
-  uint8_t     m_btWeightRate; // ���������/�ִ������*100
+  int16_t     m_nRunSpeed;    // 占싻시브에 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙, 占쏙옙占쌈울옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싫곤옙 占쏙옙占쏙옙 ..
+  int16_t     m_nPsvAtkSpeed; // 占싻시븝옙 占쏙옙占쏙옙...  占썩본占쌈듸옙, 占쏙옙占쌈울옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싫곤옙 占쏙옙占쏙옙 ..
+  uint8_t     m_btWeightRate; // 占쏙옙占쏙옙占쏙옙占쏙옙占�/占쌍댐옙占쏙옙占쏙옙占�*100
   tagPartITEM m_PartITEM [ MAX_BODY_PART ];
   tagShotDATA m_sShotItem [ MAX_SHOT_TYPE ];
 
   int16_t m_nJOB;
   uint8_t m_btLEVEL;
 
-  //	int16_t		m_nRidingITEM [ MAX_RIDING_PART ];	// �¿� ������ ..
-  tagPartITEM m_RidingITEM [ MAX_RIDING_PART ]; // �¿� ������ ..
+  //	int16_t		m_nRidingITEM [ MAX_RIDING_PART ];	// 占승울옙 占쏙옙占쏙옙占쏙옙 ..
+  tagPartITEM m_RidingITEM [ MAX_RIDING_PART ]; // 占승울옙 占쏙옙占쏙옙占쏙옙 ..
   int16_t     m_nPosZ;
 
   uint32_t m_dwSubFLAG;
 
   // char		szUserID[]
   // int16_t	m_nAdjSTATUS[];
-  // ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) �ϰ�� char szStoreTITLE[] ����
+  // ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) 占싹곤옙占� char szStoreTITLE[] 占쏙옙占쏙옙
 
-  /*	Ŭ�� ���� �߰�...
-  tag_CLAN_ID	m_CLAN;	== NULL�� �ƴϸ� Ŭ������ ����
+  /*	클占쏙옙 占쏙옙占쏙옙 占쌩곤옙...
+  tag_CLAN_ID	m_CLAN;	== NULL占쏙옙 占싣니몌옙 클占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
   // char m_szClanNAME[];
   */
 };
@@ -1254,16 +1254,16 @@ struct gsv_ATTACK : public t_PACKETHEADER {
 };
 
 struct gsv_MOVE : public gsv_MOUSECMD {
-  uint8_t m_btMoveMODE; // tag_ADD_CHAR::m_btMoveMODE�� ������
+  uint8_t m_btMoveMODE; // tag_ADD_CHAR::m_btMoveMODE占쏙옙 占쏙옙占쏙옙占쏙옙
 };
 
-// tag_DROPITEM�� ���� �����鼭 �����°�...������ ���� �ð��� �����̸� Ŭ���̾�Ʈ�� ITEM_OBJ_LIVE_TIME ���� ����.
+// tag_DROPITEM占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占썽서 占쏙옙占쏙옙占승곤옙...占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占시곤옙占쏙옙 占쏙옙占쏙옙占싱몌옙 클占쏙옙占싱억옙트占쏙옙 ITEM_OBJ_LIVE_TIME 占쏙옙占쏙옙 占쏙옙占쏙옙.
 struct tag_DROPITEM {
   tPOINTF     m_PosCUR;
   tagBaseITEM m_ITEM;
   uint16_t    m_wServerItemIDX;
   uint16_t    m_wOwnerObjIDX;
-  // uint16_t m_wRemainTIME;		// ���� :: ITEM_OBJ_LIVE_TIME�� ����.
+  // uint16_t m_wRemainTIME;		// 占쏙옙占쏙옙 :: ITEM_OBJ_LIVE_TIME占쏙옙 占쏙옙占쏙옙.
 };
 
 struct gsv_ADD_FIELDITEM : public t_PACKETHEADER, public tag_DROPITEM {
@@ -1285,10 +1285,10 @@ struct gsv_GET_FIELDITEM_REPLY : public t_PACKETHEADER {
   tagBaseITEM m_ITEM;
 };
 
-#define	REPLY_GET_FIELDITEM_REPLY_OK			0x00	// ȹ���ߴ�.
-#define REPLY_GET_FIELDITEM_REPLY_NONE			0x01	// ����� �������̴�..
-#define REPLY_GET_FIELDITEM_REPLY_NO_RIGHT		0x02	// ������ ������ ����.
-#define	REPLY_GET_FIELDITEM_REPLY_TOO_MANY		0x03	// ���̻� �������� ������ ����.
+#define	REPLY_GET_FIELDITEM_REPLY_OK			0x00	// 획占쏙옙占쌩댐옙.
+#define REPLY_GET_FIELDITEM_REPLY_NONE			0x01	// 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙占싱댐옙..
+#define REPLY_GET_FIELDITEM_REPLY_NO_RIGHT		0x02	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	REPLY_GET_FIELDITEM_REPLY_TOO_MANY		0x03	// 占쏙옙占싱삼옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
 
 struct cli_DAMAGE : public t_PACKETHEADER {
   uint16_t m_wDefObjIDX;
@@ -1309,26 +1309,26 @@ struct gsv_DAMAGE : public t_PACKETHEADER {
   uint16_t m_wDefObjIDX;
 
   uniDAMAGE    m_Damage;
-  tag_DROPITEM m_DropITEM[ 0 ]; // �״� �������ϰ�쿡�� ���� ��� �ִ�. ��ӵ� ������ �ε���
+  tag_DROPITEM m_DropITEM[ 0 ]; // 占쌓댐옙 占쏙옙占쏙옙占쏙옙占싹곤옙荑∽옙占� 占쏙옙占쏙옙 占쏙옙占� 占쌍댐옙. 占쏙옙撻占� 占쏙옙占쏙옙占쏙옙 占싸듸옙占쏙옙
 };
 
 #define	MAX_DAMAGE			0x05F5E0FF //	99,999,999
 
-// gsv_DAMAGE::m_wDamage�� ����Ǵ� ��.
-//#define	DMG_BIT_DUMMY		0x0800		// �߰� ������ ���� �Ŵ� :: �ڽ��� ������� �߰� ������ ����� ��.
-//#define	DMG_BIT_IMMEDIATE	0x1000		// ��Ű �ް� �ﰢ ó�� �ϸ� �ȴ�:��)���� ���� ��ų�� ���� �ݻ�� ����
-//#define	DMG_BIT_HITTED		0x2000		// �´� ������ �Ѵ�.
-//#define	DMG_BIT_CRITICAL	0x4000		// ũ��Ƽ�� ��������
-//#define	DMG_BIT_DEAD		0x8000		// �׾���.
+// gsv_DAMAGE::m_wDamage占쏙옙 占쏙옙占쏙옙풔占� 占쏙옙.
+//#define	DMG_BIT_DUMMY		0x0800		// 占쌩곤옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占신댐옙 :: 占쌘쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쌩곤옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙.
+//#define	DMG_BIT_IMMEDIATE	0x1000		// 占쏙옙키 占쌨곤옙 占쏙각 처占쏙옙 占싹몌옙 占싫댐옙:占쏙옙)占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙킬占쏙옙 占쏙옙占쏙옙 占쌥삼옙占� 占쏙옙占쏙옙
+//#define	DMG_BIT_HITTED		0x2000		// 占승댐옙 占쏙옙占쏙옙占쏙옙 占싼댐옙.
+//#define	DMG_BIT_CRITICAL	0x4000		// 크占쏙옙티占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
+//#define	DMG_BIT_DEAD		0x8000		// 占쌓억옙占쏙옙.
 
-// gsv_DAMAGE::m_wDamage�� ����Ǵ� ��.
+// gsv_DAMAGE::m_wDamage占쏙옙 占쏙옙占쏙옙풔占� 占쏙옙.
 #define	DMG_BIT_DUMMY		  0x0100000000
 #define	DMG_BIT_IMMEDIATE	0x0200000000
 #define	DMG_BIT_HITTED		0x0400000000
 #define	DMG_BIT_CRITICAL	0x0800000000
 #define	DMG_BIT_DEAD		  0x1000000000
 
-// gsv_DAMAGE::m_wACTION�� ���� ��...
+// gsv_DAMAGE::m_wACTION占쏙옙 占쏙옙占쏙옙 占쏙옙...
 #define	DMG_ACT_RESERVED	0x01
 #define	DMG_ACT_ATTACK		0x02
 #define	DMG_ACT_HITTED		0x04
@@ -1348,7 +1348,7 @@ struct cli_SUMMON_CMD : public t_PACKETHEADER {
 #define	SUMMON_CMD_DEFENSE		0x01
 #define	SUMMON_CMD_STANDING		0x02
 
-// �ڽ��� ���� ����ġ�� �����Ѵ�.
+// 占쌘쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙치占쏙옙 占쏙옙占쏙옙占싼댐옙.
 struct gsv_SETEXP : public t_PACKETHEADER {
   int64_t  m_lCurEXP;
   int16_t  m_nCurSTAMINA;
@@ -1369,7 +1369,7 @@ struct cli_HP_REQ : public t_PACKETHEADER {
 
 struct gsv_HP_REPLY : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  int32_t  m_iHP; // MOB hp�� �����ϱ�°��̱� ������...
+  int32_t  m_iHP; // MOB hp占쏙옙 占쏙옙占쏙옙占싹깍옙째占쏙옙堅占� 占쏙옙占쏙옙占쏙옙...
 };
 
 struct gsv_SET_HPnMP : public t_PACKETHEADER {
@@ -1381,15 +1381,15 @@ struct gsv_SET_HPnMP : public t_PACKETHEADER {
 struct tag_BUY_ITEM {
   int8_t   m_cTabNO;
   int8_t   m_cColNO;
-  uint16_t m_wDupCNT; // �ߺ��� �������ϰ�� ������ ����
+  uint16_t m_wDupCNT; // 占쌩븝옙占쏙옙 占쏙옙占쏙옙占쏙옙占싹곤옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 };
 
 struct tag_SELL_ITEM {
   uint8_t  m_btInvIDX;
-  uint16_t m_wDupCNT; // �ߺ��� �������ϰ�� �Ǹ��� ����
+  uint16_t m_wDupCNT; // 占쌩븝옙占쏙옙 占쏙옙占쏙옙占쏙옙占싹곤옙占� 占실몌옙占쏙옙 占쏙옙占쏙옙
 };
 
-// �������� �ŷ�...
+// 占쏙옙占쏙옙占쏙옙占쏙옙 占신뤄옙...
 struct cli_STORE_TRADE_REQ : public t_PACKETHEADER {
   uint16_t m_wNPCObjIdx;
   int8_t   m_cBuyCNT;
@@ -1409,25 +1409,25 @@ struct gsv_STORE_TRADE_REPLY : public t_PACKETHEADER {
 #define	STORE_TRADE_RESULT_NPC_NOT_FOUND	0x02
 #define	STORE_TRADE_RESULT_TOO_FAR			0x03
 #define	STORE_TRADE_RESULT_OUT_OF_MONEY		0x04
-#define	STORE_TRADE_RESULT_NOT_UNION_USER	0x05	// ���� ���տ��� �ƴϴ�
-#define	STORE_TRADE_RESULT_OUT_OF_POINT		0x06	// ���� ����Ʈ�� ���ڸ���
+#define	STORE_TRADE_RESULT_NOT_UNION_USER	0x05	// 占쏙옙占쏙옙 占쏙옙占쌌울옙占쏙옙 占싣니댐옙
+#define	STORE_TRADE_RESULT_OUT_OF_POINT		0x06	// 占쏙옙占쏙옙 占쏙옙占쏙옙트占쏙옙 占쏙옙占쌘몌옙占쏙옙
 
-// ����� �κ��丮 ����...
+// 占쏙옙占쏙옙占� 占싸븝옙占썰리 占쏙옙占쏙옙...
 struct tag_SET_INVITEM {
   uint8_t     m_btInvIDX;
   tagBaseITEM m_ITEM;
 };
 
-// ����� �κ��丮 ������ ��...
+// 占쏙옙占쏙옙占� 占싸븝옙占썰리 占쏙옙占쏙옙占쏙옙 占쏙옙載�...
 struct gsv_SET_MONEYnINV : public t_PACKETHEADER {
   int64_t         m_i64Money;
   uint8_t         m_btItemCNT;
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ����� ���� ��ŭ ��� �ִ�...
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙큼 占쏙옙占� 占쌍댐옙...
 };
 
 struct gsv_SET_INV_ONLY : public t_PACKETHEADER {
   uint8_t         m_btItemCNT;
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ����� ���� ��ŭ ��� �ִ�...
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙큼 占쏙옙占� 占쌍댐옙...
 };
 
 struct gsv_SET_MONEY_ONLY : public t_PACKETHEADER {
@@ -1470,8 +1470,8 @@ struct cli_ITEM_SKILL : public t_PACKETHEADER {
 
 struct cli_USE_ITEM : public t_PACKETHEADER {
   int16_t m_nInventoryIndex;
-  // uint16_t		m_wDestObjIDX;		:: �Ҹ� ���������� Ÿ�� ��ų ����
-  // tPOINTF	m_PosTARGET;		:: �Ҹ� ���������� ��ġ ��ų ����
+  // uint16_t		m_wDestObjIDX;		:: 占쌀몌옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 타占쏙옙 占쏙옙킬 占쏙옙占쏙옙
+  // tPOINTF	m_PosTARGET;		:: 占쌀몌옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙치 占쏙옙킬 占쏙옙占쏙옙
 };
 
 struct gsv_USE_ITEM : public t_PACKETHEADER {
@@ -1485,11 +1485,11 @@ struct cli_DROP_ITEM : public t_PACKETHEADER {
   uint32_t m_uiQuantity;
 };
 
-// m_nEquipInvIDX�� �޵�� ���� ��� �־����.
-// m_nWeaponInvIDX�� ��� Ż���� ��� 0 !!
+// m_nEquipInvIDX占쏙옙 占쌨듸옙占� 占쏙옙占쏙옙 占쏙옙占� 占쌍억옙占쏙옙占�.
+// m_nWeaponInvIDX占쏙옙 占쏙옙占� 탈占쏙옙占쏙옙 占쏙옙占� 0 !!
 struct cli_EQUIP_ITEM : public t_PACKETHEADER {
-  int16_t m_nEquipInvIDX;  // ����â �κ��丮 ��ȣ :: m_nEquipInvIDX >= 1 && m_nEquipInvIDX < MAX_EQUIP_IDX
-  int16_t m_nWeaponInvIDX; // ��� �������� ��ġ�ϰ� �ִ� �κ��丮 ��ȣ...
+  int16_t m_nEquipInvIDX;  // 占쏙옙占쏙옙창 占싸븝옙占썰리 占쏙옙호 :: m_nEquipInvIDX >= 1 && m_nEquipInvIDX < MAX_EQUIP_IDX
+  int16_t m_nWeaponInvIDX; // 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙치占싹곤옙 占쌍댐옙 占싸븝옙占썰리 占쏙옙호...
 };
 
 struct gsv_EQUIP_ITEM : public t_PACKETHEADER {
@@ -1497,12 +1497,12 @@ struct gsv_EQUIP_ITEM : public t_PACKETHEADER {
   int16_t  m_nEquipIndex;
   //	int16_t		m_nItemNO;
   tagPartITEM m_PartITEM;
-  int16_t     m_nRunSPEED[ 0 ]; // �нú� ��ų������ ������ ������ : ���ӿ� ���� �����Ȱ� ���� :: �� �� ž�� ��������..
+  int16_t     m_nRunSPEED[ 0 ]; // 占싻시븝옙 占쏙옙킬占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 : 占쏙옙占쌈울옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싫곤옙 占쏙옙占쏙옙 :: 占쏙옙 占쏙옙 탑占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙..
 };
 
 struct cli_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
-  int16_t m_nRidingPartIDX; // t_eRidePART�ǰ�.
-  int16_t m_nRidingInvIDX;  // cli_EQUIP_ITEM::m_nWeaponInvIDX ó��...
+  int16_t m_nRidingPartIDX; // t_eRidePART占실곤옙.
+  int16_t m_nRidingInvIDX;  // cli_EQUIP_ITEM::m_nWeaponInvIDX 처占쏙옙...
 };
 
 struct gsv_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
@@ -1510,22 +1510,22 @@ struct gsv_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
   int16_t  m_nRidingPartIDX;
   //	int16_t		m_nItemNO;
   tagPartITEM m_RideITEM;
-  int16_t     m_nRunSPEED[ 0 ]; // �нú� ��ų������ ������ ������ : ���ӿ� ���� �����Ȱ� ���� :: �� ž�� ������...
+  int16_t     m_nRunSPEED[ 0 ]; // 占싻시븝옙 占쏙옙킬占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 : 占쏙옙占쌈울옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싫곤옙 占쏙옙占쏙옙 :: 占쏙옙 탑占쏙옙 占쏙옙占쏙옙占쏙옙...
 };
 
 struct cli_USE_ITEM_TO_REPAIR : public t_PACKETHEADER {
-  int16_t m_nUseItemInvIDX;      // ������ ����� �������� �κ� ��ȣ
-  int16_t m_nRepairTargetInvIDX; // ������ �������� �κ� ��ȣ
+  int16_t m_nUseItemInvIDX;      // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占싸븝옙 占쏙옙호
+  int16_t m_nRepairTargetInvIDX; // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占싸븝옙 占쏙옙호
 };
 
 struct cli_REPAIR_FROM_NPC : public t_PACKETHEADER {
-  uint16_t m_wNPCObjIDX;          // ���� ��û�� NPC ���� �ε���
-  int16_t  m_nRepairTargetInvIDX; // ������ �������� �κ� ��ȣ
+  uint16_t m_wNPCObjIDX;          // 占쏙옙占쏙옙 占쏙옙청占쏙옙 NPC 占쏙옙占쏙옙 占싸듸옙占쏙옙
+  int16_t  m_nRepairTargetInvIDX; // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占싸븝옙 占쏙옙호
 };
 
 struct gsv_SET_ITEM_LIFE : public t_PACKETHEADER {
-  int16_t m_nInventoryIDX; // ������ ����� �������� �κ��丮 ��ȣ
-  int16_t m_nLife;         // ���������� ���� ����
+  int16_t m_nInventoryIDX; // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占싸븝옙占썰리 占쏙옙호
+  int16_t m_nLife;         // 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 };
 
 //struct cli_CHANGE_SKIN : public t_PACKETHEADER {
@@ -1541,24 +1541,24 @@ struct gsv_CHANGE_SKIN : public t_PACKETHEADER {
 struct cli_MOVE_ITEM : public t_PACKETHEADER {
   uint8_t     m_btMoveTYPE;
   uint8_t     m_btFromIDX;
-  tagBaseITEM m_MoveITEM; // <<-- �ű� ������ �־.. uint16_t m_wQuantity;
+  tagBaseITEM m_MoveITEM; // <<-- 占신깍옙 占쏙옙占쏙옙占쏙옙 占쌍어도.. uint16_t m_wQuantity;
 #ifdef	__INC_PLATINUM
-  uint8_t m_btUseSpecialTAB; // ���� 1�̸� .. ����Ƽ�� ���񽺷� �߰��� �ǿ� ������ �ֱ�..
+  uint8_t m_btUseSpecialTAB; // 占쏙옙占쏙옙 1占싱몌옙 .. 占쏙옙占쏙옙티占쏙옙 占쏙옙占쏟스뤄옙 占쌩곤옙占쏙옙 占실울옙 占쏙옙占쏙옙占쏙옙 占쌍깍옙..
 #endif
 };
 
 #define	MOVE_ITEM_TYPE_INV2BANK		0x00		// ITEM :: Inventory --> Bank
 #define	MOVE_ITEM_TYPE_BANK2INV		0x01		// ITEM :: Bank --> Inventory
 
-// ��Ŷ ������ == gsv_MOVE_ITEM �̸�				â��=>�κ��丮 �̵�
-// ��Ŷ ������ == gsv_MOVE_ITEM+sizeof(int64_t)��	�κ�=>â��, m_iCurMoney[0]�� ����� ����
+// 占쏙옙킷 占쏙옙占쏙옙占쏙옙 == gsv_MOVE_ITEM 占싱몌옙				창占쏙옙=>占싸븝옙占썰리 占싱듸옙
+// 占쏙옙킷 占쏙옙占쏙옙占쏙옙 == gsv_MOVE_ITEM+sizeof(int64_t)占쏙옙	占싸븝옙=>창占쏙옙, m_iCurMoney[0]占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙
 struct gsv_MOVE_ITEM : public t_PACKETHEADER {
-  int16_t m_nInvIDX;  // IDX == -1 ����
-  int16_t m_nBankIDX; // IDX == -1 ����
+  int16_t m_nInvIDX;  // IDX == -1 占쏙옙占쏙옙
+  int16_t m_nBankIDX; // IDX == -1 占쏙옙占쏙옙
 
   tagBaseITEM m_InvItem;
   tagBaseITEM m_BankITEM;
-  int64_t     m_iCurMoney[0]; // ������ ���� �����...
+  int64_t     m_iCurMoney[0]; // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占�...
 };
 
 #define	MOVE_ZULY_TYPE_INV2BANK		0x10		// ZULY :: Inventory --> Bank
@@ -1566,39 +1566,39 @@ struct gsv_MOVE_ITEM : public t_PACKETHEADER {
 
 struct cli_MOVE_ZULY : public t_PACKETHEADER {
   uint8_t m_btMoveTYPE;
-  int64_t m_i64MoveZuly; // �̵� �� �ٸ���
+  int64_t m_i64MoveZuly; // 占싱듸옙 占쏙옙 占쌕몌옙占쏙옙
 };
 
 struct gsv_MOVE_ZULY : public t_PACKETHEADER {
-  int64_t m_i64InvZuly;  // �̵��� ������ �ٸ���
-  int64_t m_i64BankZuly; // �̵��� ������ �ٸ���
+  int64_t m_i64InvZuly;  // 占싱듸옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌕몌옙占쏙옙
+  int64_t m_i64BankZuly; // 占싱듸옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌕몌옙占쏙옙
 };
 
-#define	BANK_REQ_OPEN				0x00		// â�� ����..
-#define	BANK_REQ_CHANGE_PASSWORD	0x01		// â�� ��� �ٲܶ�...�ݵ�� â���� ���� �ִ� ���¿���...
+#define	BANK_REQ_OPEN				0x00		// 창占쏙옙 占쏙옙占쏙옙..
+#define	BANK_REQ_CHANGE_PASSWORD	0x01		// 창占쏙옙 占쏙옙占� 占쌕꿀띰옙...占쌥듸옙占� 창占쏙옙占쏙옙 占쏙옙占쏙옙 占쌍댐옙 占쏙옙占승울옙占쏙옙...
 
 struct cli_BANK_LIST_REQ : public t_PACKETHEADER {
   uint8_t m_btREQ;
   int8_t  m_szPassword[0];
 };
 
-#define	BANK_REPLY_INIT_DATA		0x00		// â�� ����Ÿ �ʱ�ȭ & �����ش�
-#define	BANK_REPLY_SHOW_DATA		0x01		// â�� ���� �ش� m_btItemCNT == 0
-#define	BANK_REPLY_NEED_PASSWORD	0x02		// â�� ����� �ʿ�..
-#define	BANK_REPLY_CHANGED_PASSWORD	0x03		// â�� ����� �������
-#define	BANK_REPLY_INVALID_PASSWORD	0x04		// â�� ����� Ʋ��
-#define	BANK_REPLY_CLEARED_PASSWORD	0x05		// â�� ��� ������
-#define	BANK_REPLY_PLATINUM			0x06		// �÷�Ƽ�� â�� ����( BANK_REPLY_INIT_DATA�ڿ� �̾ ���۵� )
+#define	BANK_REPLY_INIT_DATA		0x00		// 창占쏙옙 占쏙옙占쏙옙타 占십깍옙화 & 占쏙옙占쏙옙占쌔댐옙
+#define	BANK_REPLY_SHOW_DATA		0x01		// 창占쏙옙 占쏙옙占쏙옙 占쌔댐옙 m_btItemCNT == 0
+#define	BANK_REPLY_NEED_PASSWORD	0x02		// 창占쏙옙 占쏙옙占쏙옙占� 占십울옙..
+#define	BANK_REPLY_CHANGED_PASSWORD	0x03		// 창占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙占�
+#define	BANK_REPLY_INVALID_PASSWORD	0x04		// 창占쏙옙 占쏙옙占쏙옙占� 틀占쏙옙
+#define	BANK_REPLY_CLEARED_PASSWORD	0x05		// 창占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙
+#define	BANK_REPLY_PLATINUM			0x06		// 占시뤄옙티占쏙옙 창占쏙옙 占쏙옙占쏙옙( BANK_REPLY_INIT_DATA占쌘울옙 占싱어서 占쏙옙占쌜듸옙 )
 
 struct gsv_BANK_LIST_REPLY : public t_PACKETHEADER {
   uint8_t         m_btREPLY;
   uint8_t         m_btItemCNT;
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ����� ���� ��ŭ ��� �ִ�...
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙큼 占쏙옙占� 占쌍댐옙...
 };
 
 struct cli_TELEPORT_REQ : public t_PACKETHEADER {
   int16_t m_nWarpIDX;
-  tPOINTF m_PosCUR; // ���� ������ :: Ŭ���̾�Ʈ�� ���� ��ǥ�� �ָ� ���� ��ǥ�� ��
+  tPOINTF m_PosCUR; // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 :: 클占쏙옙占싱억옙트占쏙옙 占쏙옙占쏙옙 占쏙옙표占쏙옙 占쌍몌옙 占쏙옙占쏙옙 占쏙옙표占쏙옙 占쏙옙
 };
 
 struct gsv_TELEPORT_REPLY : public t_PACKETHEADER {
@@ -1609,7 +1609,7 @@ struct gsv_TELEPORT_REPLY : public t_PACKETHEADER {
   uint8_t  m_btRideMODE;
 };
 
-// m_btAbilityNO >= 100	: ��ų ����Ʈ �ε����� +100�ؼ� ����...
+// m_btAbilityNO >= 100	: 占쏙옙킬 占쏙옙占쏙옙트 占싸듸옙占쏙옙占쏙옙 +100占쌔쇽옙 占쏙옙占쏙옙...
 struct cli_USE_BPOINT_REQ : public t_PACKETHEADER {
   uint8_t m_btAbilityNO;
 };
@@ -1635,7 +1635,7 @@ struct cli_SET_BULLET : public t_PACKETHEADER {
 
 struct gsv_SET_BULLET : public t_PACKETHEADER {
   uint16_t    m_wObjectIDX;
-  tagShotDATA m_sShot; // m_sShot.m_wItemNO == 0 �ϰ�� �Ѿ� �� ��� !!!
+  tagShotDATA m_sShot; // m_sShot.m_wItemNO == 0 占싹곤옙占� 占싼억옙 占쏙옙 占쏙옙占� !!!
 };
 
 struct gsv_SKILL_LEARN_REPLY : public t_PACKETHEADER {
@@ -1645,17 +1645,17 @@ struct gsv_SKILL_LEARN_REPLY : public t_PACKETHEADER {
   int16_t m_nSkillPOINT;
 };
 
-#define	RESULT_SKILL_LEARN_FAILED			0x00		// ���� ����.
-#define	RESULT_SKILL_LEARN_SUCCESS			0x01		// ���� ����.
-#define	RESULT_SKILL_LEARN_NEED_JOB			0x02		// ������ ��ġ���� �ʴ´�.
-#define	RESULT_SKILL_LEARN_NEED_SKILL		0x03		// ������ ��ų�� �ʿ��Ѵ�.
-#define	RESULT_SKILL_LEARN_NEED_ABILITY		0x04		// �ɷ�ġ�� �����ϴ�
-#define	RESULT_SKILL_LEARN_OUTOFSLOT		0x05		// ���̻� ��ų�� ���� ����.
-#define	RESULT_SKILL_LEARN_INVALID_SKILL	0x06		// �߸��� ��ų ��ȣ��.
-#define	RESULT_SKILL_LEARN_OUTOFPOINT		0x07		// ��ų ����Ʈ ����
-#define	RESULT_SKILL_LEARN_DELETE			0x08		// m_btSkillSLOT�� m_nSkillIDX�� ��ų�� �����ض�..
+#define	RESULT_SKILL_LEARN_FAILED			0x00		// 占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	RESULT_SKILL_LEARN_SUCCESS			0x01		// 占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	RESULT_SKILL_LEARN_NEED_JOB			0x02		// 占쏙옙占쏙옙占쏙옙 占쏙옙치占쏙옙占쏙옙 占십는댐옙.
+#define	RESULT_SKILL_LEARN_NEED_SKILL		0x03		// 占쏙옙占쏙옙占쏙옙 占쏙옙킬占쏙옙 占십울옙占싼댐옙.
+#define	RESULT_SKILL_LEARN_NEED_ABILITY		0x04		// 占심뤄옙치占쏙옙 占쏙옙占쏙옙占싹댐옙
+#define	RESULT_SKILL_LEARN_OUTOFSLOT		0x05		// 占쏙옙占싱삼옙 占쏙옙킬占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	RESULT_SKILL_LEARN_INVALID_SKILL	0x06		// 占쌩몌옙占쏙옙 占쏙옙킬 占쏙옙호占쏙옙.
+#define	RESULT_SKILL_LEARN_OUTOFPOINT		0x07		// 占쏙옙킬 占쏙옙占쏙옙트 占쏙옙占쏙옙
+#define	RESULT_SKILL_LEARN_DELETE			0x08		// m_btSkillSLOT占쏙옙 m_nSkillIDX占쏙옙 占쏙옙킬占쏙옙 占쏙옙占쏙옙占쌔띰옙..
 
-// ��ų ��������...
+// 占쏙옙킬 占쏙옙占쏙옙占쏙옙占쏙옙...
 struct cli_SKILL_LEVELUP_REQ : public t_PACKETHEADER {
   uint8_t m_btSkillSLOT;
   int16_t m_nNextLevelSkillIDX;
@@ -1674,9 +1674,9 @@ struct gsv_SKILL_LEVELUP_REPLY : public t_PACKETHEADER {
 #define	RESULT_SKILL_LEVELUP_NEED_ABILITY	0x03
 #define	RESULT_SKILL_LEVELUP_NEED_JOB		0x04
 #define	RESULT_SKILL_LEVELUP_NEED_SKILL		0x05
-#define	RESULT_SKILL_LEVELUP_OUTOFZULY		0x06		// 05.05.25 �ٸ��� ���ڸ���
+#define	RESULT_SKILL_LEVELUP_OUTOFZULY		0x06		// 05.05.25 占쌕몌옙占쏙옙 占쏙옙占쌘몌옙占쏙옙
 
-/// ��ų�� ��� ���� : ������ ������
+/// 占쏙옙킬占쏙옙 占쏙옙占� 占쏙옙占쏙옙 : 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 struct cli_SELF_SKILL : public t_PACKETHEADER {
   uint8_t m_btSkillSLOT;
 };
@@ -1687,7 +1687,7 @@ struct gsv_SELF_SKILL : public t_PACKETHEADER {
   int8_t   cNpcSkillMOTION[ 0 ];
 };
 
-/// ��ų�� Ÿ�ٿ� ���� : ������ ������
+/// 占쏙옙킬占쏙옙 타占쌕울옙 占쏙옙占쏙옙 : 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 struct cli_TARGET_SKILL : public t_PACKETHEADER {
   uint16_t m_wDestObjIDX;
   uint8_t  m_btSkillSLOT;
@@ -1699,12 +1699,12 @@ struct gsv_TARGET_SKILL : public t_PACKETHEADER {
   int16_t  m_nSkillIDX;
 
   uint16_t m_wSrvDIST;
-  tPOINTF  m_PosTO; // ��ǥ ������	2004. 5. 1 �߰�
+  tPOINTF  m_PosTO; // 占쏙옙표 占쏙옙占쏙옙占쏙옙	2004. 5. 1 占쌩곤옙
 
   int8_t cNpcSkillMOTION[ 0 ];
 };
 
-/// ��ų�� ������ ���� : ������ ������
+/// 占쏙옙킬占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 : 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 struct cli_POSITION_SKILL : public t_PACKETHEADER {
   uint8_t m_btSkillSLOT;
   tPOINTF m_PosTARGET;
@@ -1721,7 +1721,7 @@ struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
   uint16_t m_wSpellObjIDX;
 
-  // ȫ��
+  // 홍占쏙옙
 #ifdef _GBC
   uint16_t m_nSkillIDX;
   uint16_t m_nINT;
@@ -1730,13 +1730,13 @@ struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
   union {
     struct {
       uint16_t	m_nSkillIDX		: 12;
-      uint16_t	m_btSuccessBITS : 2;	// ��������
+      uint16_t	m_btSuccessBITS : 2;	// 占쏙옙占쏙옙占쏙옙占쏙옙
       uint8_t			m_tmp1;
     } ;
     struct {
       uint8_t			m_tmp2;
       uint16_t	m_tmp3			: 6;
-      uint16_t	m_nINT			: 10;	// �������� ����
+      uint16_t	m_nINT			: 10;	// 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
     } ;
   } ;
 #endif
@@ -1745,11 +1745,11 @@ struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
 
 struct gsv_DAMAGE_OF_SKILL : public gsv_EFFECT_OF_SKILL {
   union {
-    uniDAMAGE m_Damage; // ���ذ� ������� ���� ��� ����.
+    uniDAMAGE m_Damage; // 占쏙옙占쌔곤옙 占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙.
     uint16_t  m_wDamage;
   };
 
-  tag_DROPITEM m_DropITEM[ 0 ]; // �״� �������ϰ�쿡�� ���� ��� �ִ�. ��ӵ� ������ �ε���
+  tag_DROPITEM m_DropITEM[ 0 ]; // 占쌓댐옙 占쏙옙占쏙옙占쏙옙占싹곤옙荑∽옙占� 占쏙옙占쏙옙 占쏙옙占� 占쌍댐옙. 占쏙옙撻占� 占쏙옙占쏙옙占쏙옙 占싸듸옙占쏙옙
 };
 
 struct gsv_RESULT_OF_SKILL : public t_PACKETHEADER {
@@ -1761,9 +1761,9 @@ struct gsv_SKILL_START : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
 };
 
-#define	SKILL_CANCEL_NEED_ABILITY		0x01	// �ɷ�ġ ����
-#define	SKILL_CANCEL_NEED_TARGET		0x02	// �ɽ��� �õ��� Ÿ���� ��������... MP�Ҹ� ����
-#define	SKILL_CANCEL_TARGET_NOT_FOUND	0x03	// �ɽ����� ���������� Ÿ���� ��������... MP�Ҹ� ����
+#define	SKILL_CANCEL_NEED_ABILITY		0x01	// 占심뤄옙치 占쏙옙占쏙옙
+#define	SKILL_CANCEL_NEED_TARGET		0x02	// 占심쏙옙占쏙옙 占시듸옙占쏙옙 타占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙... MP占쌀몌옙 占쏙옙占쏙옙
+#define	SKILL_CANCEL_TARGET_NOT_FOUND	0x03	// 占심쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 타占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙... MP占쌀몌옙 占쏙옙占쏙옙
 
 struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
@@ -1771,10 +1771,10 @@ struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
 };
 
 /*
-  **	�������� ��Ŷ�� ���� �ԷµǴ� ���... AND ��ų �÷��״� DataType.h�� ����� ���� ũ�� ������
-    m_gsv_CLEAR_STATUS.m_nAdjVALUE[x]�� ���� �ԷµǾ� ����.
+  **	占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙킷占쏙옙 占쏙옙占쏙옙 占쌉력되댐옙 占쏙옙占�... AND 占쏙옙킬 占시뤄옙占쌓댐옙 DataType.h占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙 크占쏙옙 占쏙옙占쏙옙占쏙옙
+    m_gsv_CLEAR_STATUS.m_nAdjVALUE[x]占쏙옙 占쏙옙占쏙옙 占쌉력되억옙 占쏙옙占쏙옙.
 
-  dwClearedFLAG = Ŭ���̾�Ʈ���� & ~��������
+  dwClearedFLAG = 클占쏙옙占싱억옙트占쏙옙占쏙옙 & ~占쏙옙占쏙옙占쏙옙占쏙옙
 
   uint8_t btIDX=0;	
   if ( dwClearedFLAG &  FLAG_ING_HP )
@@ -1785,18 +1785,18 @@ struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
 */
 struct gsv_CLEAR_STATUS : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  uint32_t m_dwStatusFLAG; // �������� ���� �÷���...
-  int16_t  m_nAdjVALUE[0]; // �������� ������ ��...
+  uint32_t m_dwStatusFLAG; // 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占시뤄옙占쏙옙...
+  int16_t  m_nAdjVALUE[0]; // 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙...
 };
 
 struct gsv_SPEED_CHANGED : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  int16_t  m_nRunSPEED;    // �нú� ���¸� ����, ���� ���� ����
-  int16_t  m_nPsvAtkSPEED; // �нú� ����...
-  uint8_t  m_btWeightRate; // ���������/�ִ������*100
+  int16_t  m_nRunSPEED;    // 占싻시븝옙 占쏙옙占승몌옙 占쏙옙占쏙옙, 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+  int16_t  m_nPsvAtkSPEED; // 占싻시븝옙 占쏙옙占쏙옙...
+  uint8_t  m_btWeightRate; // 占쏙옙占쏙옙占쏙옙占쏙옙占�/占쌍댐옙占쏙옙占쏙옙占�*100
 };
 
-// ��� �������� �����Ƿ� :: m_nInventoryIndex�� ������ ���� ��û ..
+// 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占실뤄옙 :: m_nInventoryIndex占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청 ..
 struct cli_APPRAISAL_REQ : public t_PACKETHEADER {
   uint16_t m_wInventoryIndex;
 };
@@ -1808,30 +1808,30 @@ struct gsv_APPRAISAL_REPLY : public t_PACKETHEADER {
   };
 };
 
-#define	RESULT_APPRAISAL_REPLY_OK		0	// ����
-#define	RESULT_APPRAISAL_REPLY_FAILED	1	// ������.
+#define	RESULT_APPRAISAL_REPLY_OK		0	// 占쏙옙占쏙옙
+#define	RESULT_APPRAISAL_REPLY_FAILED	1	// 占쏙옙占쏙옙占쏙옙.
 
-/// �ŷ� ��� m_wObjectIDX���� ������ ������.
+/// 占신뤄옙 占쏙옙占� m_wObjectIDX占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙.
 struct cli_TRADE_P2P : public t_PACKETHEADER {
   uint8_t  m_btRESULT;
   uint16_t m_wObjectIDX;
   int8_t   m_cTradeSLOT;
 };
 
-#define	RESULT_TRADE_REQUEST			0x00	// �ŷ� �䱸
-#define	RESULT_TRADE_ACCEPT				0x01	// �ŷ� �³�
-#define	RESULT_TRADE_REJECT				0x02	// �ŷ� �ź�
-#define	RESULT_TRADE_CANCEL				0x03	// �ŷ� ���� ���
-#define	RESULT_TRADE_CHECK_READY		0x04	// �ŷ� �غ� �Ϸ�
-#define	RESULT_TRADE_UNCHECK_READY		0x05	// �ŷ� �غ� ���
-#define	RESULT_TRADE_DONE				0x06	// �ŷ� ����
-#define	RESULT_TRADE_BUSY				0x07	// �ŷ��� �Ҽ� ����.
-#define	RESULT_TRADE_TOO_FAR			0x08	// �Ÿ��� �ִ�.	5m �̳�..
-#define	RESULT_TRADE_NOT_TARGET			0x09	// ����� ����.
-#define	RESULT_TRADE_OUT_OF_INV			0x0a	// ������ �κ��丮�� �����ϴ�.
+#define	RESULT_TRADE_REQUEST			0x00	// 占신뤄옙 占썰구
+#define	RESULT_TRADE_ACCEPT				0x01	// 占신뤄옙 占승놂옙
+#define	RESULT_TRADE_REJECT				0x02	// 占신뤄옙 占신븝옙
+#define	RESULT_TRADE_CANCEL				0x03	// 占신뤄옙 占쏙옙占쏙옙 占쏙옙占�
+#define	RESULT_TRADE_CHECK_READY		0x04	// 占신뤄옙 占쌔븝옙 占싹뤄옙
+#define	RESULT_TRADE_UNCHECK_READY		0x05	// 占신뤄옙 占쌔븝옙 占쏙옙占�
+#define	RESULT_TRADE_DONE				0x06	// 占신뤄옙 占쏙옙占쏙옙
+#define	RESULT_TRADE_BUSY				0x07	// 占신뤄옙占쏙옙 占쌀쇽옙 占쏙옙占쏙옙.
+#define	RESULT_TRADE_TOO_FAR			0x08	// 占신몌옙占쏙옙 占쌍댐옙.	5m 占싱놂옙..
+#define	RESULT_TRADE_NOT_TARGET			0x09	// 占쏙옙占쏙옙占� 占쏙옙占쏙옙.
+#define	RESULT_TRADE_OUT_OF_INV			0x0a	// 占쏙옙占쏙옙占쏙옙 占싸븝옙占썰리占쏙옙 占쏙옙占쏙옙占싹댐옙.
 #define	RESULT_TRADE_NO_CHARGE_TARGET	0x0b
 
-/// �������� ���۵� m_wObjectIDX�� �ŷ��� ����.
+/// 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쌜듸옙 m_wObjectIDX占쏙옙 占신뤄옙占쏙옙 占쏙옙占쏙옙.
 struct gsv_TRADE_P2P : public t_PACKETHEADER {
   uint8_t  m_btRESULT;
   uint16_t m_wObjectIDX;
@@ -1843,8 +1843,8 @@ struct gsv_TRADE_P2P : public t_PACKETHEADER {
 
 struct cli_TRADE_P2P_ITEM : public t_PACKETHEADER {
   int8_t   m_cTradeSLOT;
-  int16_t  m_nInventoryIndex; // �κ��丮 ��ȣ
-  uint32_t m_uiQuantity;      // ����
+  int16_t  m_nInventoryIndex; // 占싸븝옙占썰리 占쏙옙호
+  uint32_t m_uiQuantity;      // 占쏙옙占쏙옙
 };
 
 struct gsv_TRADE_P2P_ITEM : public t_PACKETHEADER {
@@ -1857,29 +1857,29 @@ struct cli_SET_WISHITEM : public t_PACKETHEADER {
   tagBaseITEM m_ITEM;
 };
 
-// ���� ���� ����....
+// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙....
 #define	MAX_P_STORE_ITEM_SLOT	31
 
-// �Ǹ��� ������
+// 占실몌옙占쏙옙 占쏙옙占쏙옙占쏙옙
 struct tagPS_ITEM {
   union {
-    uint8_t m_btInvIDX;  // �ǸŽ� �κ���ȣ
-    uint8_t m_btWishIDX; // ���Ž� WishList ���� ��ȣ
+    uint8_t m_btInvIDX;  // 占실매쏙옙 占싸븝옙占쏙옙호
+    uint8_t m_btWishIDX; // 占쏙옙占신쏙옙 WishList 占쏙옙占쏙옙 占쏙옙호
   };
 
-  tagBaseITEM m_ITEM;         // ������( �ߺ����� �������ϰ�� �ȷ��� ���� ����)
-  uint32_t    m_dwPricePerEA; // 1���� �Ǹ� ��� ����
+  tagBaseITEM m_ITEM;         // 占쏙옙占쏙옙占쏙옙( 占쌩븝옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占싹곤옙占� 占싫뤄옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙)
+  uint32_t    m_dwPricePerEA; // 1占쏙옙占쏙옙 占실몌옙 占쏙옙占� 占쏙옙占쏙옙
 };
 
 #define	STORE_MODE_TO_SELL		0x01
 #define	STORE_MODE_TO_BUY		0x02
 
 struct cli_P_STORE_OPEN : public t_PACKETHEADER {
-  uint8_t m_btSellItemCNT; // �Ǹ� ��� ������ ��� ����
-  uint8_t m_btWishItemCNT; // ���� ��� ������ ��� ����
+  uint8_t m_btSellItemCNT; // 占실몌옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙
+  uint8_t m_btWishItemCNT; // 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙
 
-  // ����� ������
-  tagPS_ITEM m_ITEMs[ 0 ]; // �Ǹ� 3, ���� 2 �ϰ�� 0~2�� �Ǹ�, 3~4�� ������� ������
+  // 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙
+  tagPS_ITEM m_ITEMs[ 0 ]; // 占실몌옙 3, 占쏙옙占쏙옙 2 占싹곤옙占� 0~2占쏙옙 占실몌옙, 3~4占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙
   // char	m_szStoreTITLE[0]
 };
 
@@ -1901,7 +1901,7 @@ struct tagPS_SLOT_PRICE {
 };
 
 struct cli_P_STORE_LIST_REQ : public t_PACKETHEADER {
-  // ���� ���� ������ ��� �䱸
+  // 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占썰구
   uint16_t m_wStoreObjectIDX;
 };
 
@@ -1916,7 +1916,7 @@ struct tagPS_SLOT_ITEM {
   tagBaseITEM m_SlotITEM;
 };
 
-// ���� ������ ���� ��û
+// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청
 struct cli_P_STORE_BUY_REQ : public t_PACKETHEADER {
   uint16_t        m_wStoreObjectIDX;
   uint8_t         m_btItemCNT;
@@ -1924,12 +1924,12 @@ struct cli_P_STORE_BUY_REQ : public t_PACKETHEADER {
 };
 
 struct tagSELL_ITEM {
-  uint8_t     m_btInvIDX;   // �ȷ��� �������� ��ġ�� �κ��丮 ��ȣ
-  uint8_t     m_btWishSLOT; // ���� ������ ���ϴ� �������� ��ġ�� ��ȣ
-  tagBaseITEM m_SellITEM;   // �ȷ��� ������(�ߺ����� �������� ��� �ȷ��� �������� ����)
+  uint8_t     m_btInvIDX;   // 占싫뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙치占쏙옙 占싸븝옙占썰리 占쏙옙호
+  uint8_t     m_btWishSLOT; // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싹댐옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙치占쏙옙 占쏙옙호
+  tagBaseITEM m_SellITEM;   // 占싫뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙(占쌩븝옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占싫뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙)
 };
 
-// ���� ������ �Ǹ� ��û
+// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占실몌옙 占쏙옙청
 struct cli_P_STORE_SELL_REQ : public t_PACKETHEADER {
   uint16_t     m_wStoreObjectIDX;
   uint8_t      m_btItemCNT;
@@ -1943,13 +1943,13 @@ struct gsv_P_STORE_RESULT : public t_PACKETHEADER {
   tagPS_SLOT_ITEM m_UpdatedITEM[0];
 };
 
-#define	RESULT_P_STORE_CANCLED				0x01	// �ŷ� ���,
-#define	RESULT_P_STORE_TRADE_SOLD_OUT		0x02	// ������ ǰ��
-#define	RESULT_P_STORE_TRADE_NO_MORE_NEED	0x03	// ���� ������ ���ϴ� �������� ������ ���� �ȾҴ�.
-#define RESULT_P_STORE_BOUGHT_PART			0x04	// ���� �Ϸ�...��, �Ϻ� ǰ���� ǰ���Ǿ� ���� ����...
-#define RESULT_P_STORE_BOUGHT_ALL			0x05	// ��û�� ǰ�� ��ü ���� �Ϸ� 
-#define RESULT_P_STORE_SOLD_PART			0x06	// �Ǹ� �Ϸ�...��, �Ϻ� ǰ���� ���ԿϷ�Ǿ� �Ǹ� ����...
-#define RESULT_P_STORE_SOLD_ALL				0x07	// ��û�� ǰ�� ��ü �Ǹ� �Ϸ�
+#define	RESULT_P_STORE_CANCLED				0x01	// 占신뤄옙 占쏙옙占�,
+#define	RESULT_P_STORE_TRADE_SOLD_OUT		0x02	// 占쏙옙占쏙옙占쏙옙 품占쏙옙
+#define	RESULT_P_STORE_TRADE_NO_MORE_NEED	0x03	// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싹댐옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占싫았댐옙.
+#define RESULT_P_STORE_BOUGHT_PART			0x04	// 占쏙옙占쏙옙 占싹뤄옙...占쏙옙, 占싹븝옙 품占쏙옙占쏙옙 품占쏙옙占실억옙 占쏙옙占쏙옙 占쏙옙占쏙옙...
+#define RESULT_P_STORE_BOUGHT_ALL			0x05	// 占쏙옙청占쏙옙 품占쏙옙 占쏙옙체 占쏙옙占쏙옙 占싹뤄옙 
+#define RESULT_P_STORE_SOLD_PART			0x06	// 占실몌옙 占싹뤄옙...占쏙옙, 占싹븝옙 품占쏙옙占쏙옙 占쏙옙占쌉완뤄옙퓸占� 占실몌옙 占쏙옙占쏙옙...
+#define RESULT_P_STORE_SOLD_ALL				0x07	// 占쏙옙청占쏙옙 품占쏙옙 占쏙옙체 占실몌옙 占싹뤄옙
 
 /*
   party structure ...
@@ -1965,12 +1965,12 @@ struct gsv_PARTY_REQ : public t_PACKETHEADER {
   //	int16_t	m_nZoneNO;
 };
 
-#define	PARTY_REQ_MAKE				0x00	// ��Ƽ �Ἲ ��û 
-#define	PARTY_REQ_JOIN				0x01	// ��Ƽ ���� ��û
-#define	PARTY_REQ_LEFT				0x02	// ��Ƽ Ż�� ��û
-#define	PARTY_REQ_CHANGE_OWNER		0x03	// ��¯ ���� ��û.
+#define	PARTY_REQ_MAKE				0x00	// 占쏙옙티 占써성 占쏙옙청 
+#define	PARTY_REQ_JOIN				0x01	// 占쏙옙티 占쏙옙占쏙옙 占쏙옙청
+#define	PARTY_REQ_LEFT				0x02	// 占쏙옙티 탈占쏙옙 占쏙옙청
+#define	PARTY_REQ_CHANGE_OWNER		0x03	// 占쏙옙짱 占쏙옙占쏙옙 占쏙옙청.
 
-#define	PARTY_REQ_BAN				0x81	// ��Ƽ ���� ��û
+#define	PARTY_REQ_BAN				0x81	// 占쏙옙티 占쏙옙占쏙옙 占쏙옙청
 
 struct cli_PARTY_REPLY : public t_PACKETHEADER {
   uint8_t  m_btREPLY;
@@ -1982,57 +1982,57 @@ struct gsv_PARTY_REPLY : public t_PACKETHEADER {
   uint32_t m_dwFromIDXorTAG;
 };
 
-#define	PARTY_REPLY_NOT_FOUND				0x00	// ����� ã�� ���ߴ�.
-#define	PARTY_REPLY_BUSY					0x01	// ����� ��Ƽ�� ���� �Ҽ� ���� ���´�.
+#define	PARTY_REPLY_NOT_FOUND				0x00	// 占쏙옙占쏙옙占� 찾占쏙옙 占쏙옙占쌩댐옙.
+#define	PARTY_REPLY_BUSY					0x01	// 占쏙옙占쏙옙占� 占쏙옙티占쏙옙 占쏙옙占쏙옙 占쌀쇽옙 占쏙옙占쏙옙 占쏙옙占승댐옙.
 #define	PARTY_REPLY_ACCEPT_MAKE				0x02
 #define	PARTY_REPLY_ACCEPT_JOIN				0x03
-#define	PARTY_REPLY_REJECT_JOIN				0x04	// ��Ƽ �Ἲ/������ ���� ..
-#define	PARTY_REPLY_DESTROY					0x05	// ��Ƽ �ǰ� ����
-#define PARTY_REPLY_FULL_MEMBERS			0x06	// ���� �����̴�.
-#define	PARTY_REPLY_INVALID_LEVEL			0x07	// ������ ���� �ʴ´�
+#define	PARTY_REPLY_REJECT_JOIN				0x04	// 占쏙옙티 占써성/占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 ..
+#define	PARTY_REPLY_DESTROY					0x05	// 占쏙옙티 占실곤옙 占쏙옙占쏙옙
+#define PARTY_REPLY_FULL_MEMBERS			0x06	// 占쏙옙占쏙옙 占쏙옙占쏙옙占싱댐옙.
+#define	PARTY_REPLY_INVALID_LEVEL			0x07	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십는댐옙
 #define	PARTY_REPLY_CHANGE_OWNER			0x08
-#define	PARTY_REPLY_CHANGE_OWNERnDISCONN	0x09	// PARTY_REPLY_CHANGE_OWNER�� ����...�� ���� ��¯�� disconnect�� ���·� ����.
+#define	PARTY_REPLY_CHANGE_OWNERnDISCONN	0x09	// PARTY_REPLY_CHANGE_OWNER占쏙옙 占쏙옙占쏙옙...占쏙옙 占쏙옙占쏙옙 占쏙옙짱占쏙옙 disconnect占쏙옙 占쏙옙占승뤄옙 占쏙옙占쏙옙.
 #define	PAATY_REPLY_NO_CHARGE_TARGET		0x0a
 
 #define	PARTY_REPLY_BAN						0x80
-#define PARTY_REPLY_DISCONNECT				0x81	// ������ ���� �ƴ�...
-#define	PARTY_REPLY_REJOIN					0x82	// ������ ������ �����ߴ�.
+#define PARTY_REPLY_DISCONNECT				0x81	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占싣댐옙...
+#define	PARTY_REPLY_REJOIN					0x82	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌩댐옙.
 
 /*
-struct tag_PARTY_USER {		// ���� �������� ���۵�
+struct tag_PARTY_USER {		// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쌜듸옙
   uint16_t	m_wUserTAG;
   //char	m_szCharName[]
 } ;
 struct wsv_PARTY_USER : public t_PACKETHEADER {
-  char	m_cUserCNT;					// -1�̸� ��Ƽ������ ����, ��� m_cType�� �߰��� ����ڼ�...
-  uint16_t	m_wUserTAG[0];				// ��Ƽ�� ������ ��� ����...
-//	tag_PARTY_USER[ m_cUserCNT ];		// ��Ƽ�� �߰��� ��� ����
+  char	m_cUserCNT;					// -1占싱몌옙 占쏙옙티占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙, 占쏙옙占� m_cType占쏙옙 占쌩곤옙占쏙옙 占쏙옙占쏙옙靡占�...
+  uint16_t	m_wUserTAG[0];				// 占쏙옙티占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙...
+//	tag_PARTY_USER[ m_cUserCNT ];		// 占쏙옙티占쏙옙 占쌩곤옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙
 } ;
 */
 struct tag_PARTY_MEMBER {
-  // �� �������� ���۵�
+  // 占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쌜듸옙
   uint32_t m_dwUserTAG;
   uint16_t m_wObjectIDX;
   uint32_t m_nMaxHP;
   uint32_t m_nHP;
   uint32_t m_dwStatusFALG;
 
-  int16_t m_nCON; // uint8_t	m_btCON; //�ִ� ���� ������ 300���� ������ 2004. 7. 21
+  int16_t m_nCON; // uint8_t	m_btCON; //占쌍댐옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 300占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 2004. 7. 21
 
   uint16_t m_btRecoverHP; // item_recover_hp + passive_recover_hp
   uint16_t m_btRecoverMP; // item_recover_mp + passive_recover_mp
 
   int16_t m_nSTAMINA;
 
-  //char	m_szCharName[];				// ** PARTY_MEMBER_ADD�� ��츸 ���� ��� ����
+  //char	m_szCharName[];				// ** PARTY_MEMBER_ADD占쏙옙 占쏙옙痢� 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙
 };
 
 struct gsv_PARTY_MEMBER : public t_PACKETHEADER {
-  uint8_t  m_btPartyRULE;    // ��Ƽ ��Ģ(�����ۺй�, ����ġ�й���)
-  int8_t   m_cUserCNT;       // -1�̸� ��Ƽ������ ����, ��� m_cType�� �߰��� ����ڼ�, ObjTAG...
-  uint32_t m_dwObjectTAG[0]; // ��Ƽ�� ������ ��� ����...
+  uint8_t  m_btPartyRULE;    // 占쏙옙티 占쏙옙칙(占쏙옙占쏙옙占쌜분뱄옙, 占쏙옙占쏙옙치占싻뱄옙占쏙옙)
+  int8_t   m_cUserCNT;       // -1占싱몌옙 占쏙옙티占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙, 占쏙옙占� m_cType占쏙옙 占쌩곤옙占쏙옙 占쏙옙占쏙옙靡占�, ObjTAG...
+  uint32_t m_dwObjectTAG[0]; // 占쏙옙티占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙...
   /*
-  tag_PARTY_MEMBER[ m_cUserCNT ];		// ��Ƽ�� �߰��� ��� ����
+  tag_PARTY_MEMBER[ m_cUserCNT ];		// 占쏙옙티占쏙옙 占쌩곤옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙
   */
 };
 
@@ -2056,8 +2056,8 @@ struct gsv_PARTY_ITEM : public t_PACKETHEADER {
   tagBaseITEM m_ITEM;
 };
 
-#define	BIT_PARTY_RULE_EXP_PER_PLAYER		0x001	// ����ġ�� ������ʷ� ������...
-#define	BIT_PARTY_RULE_ITEM_TO_ORDER		0x080	// ������� �켱�� �ο�...
+#define	BIT_PARTY_RULE_EXP_PER_PLAYER		0x001	// 占쏙옙占쏙옙치占쏙옙 占쏙옙占쏙옙占쏙옙袈占� 占쏙옙占쏙옙占쏙옙...
+#define	BIT_PARTY_RULE_ITEM_TO_ORDER		0x080	// 占쏙옙占쏙옙占쏙옙占� 占쎌선占쏙옙 占싸울옙...
 
 struct cli_PARTY_RULE : public t_PACKETHEADER {
   uint8_t m_btPartyRUEL;
@@ -2083,31 +2083,31 @@ struct gsv_SUB_EVENTOBJ : public t_PACKETHEADER {
 
 struct gsv_SET_NPC_SHOW : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  bool     m_bShow; // m_bShow == true�̸� ����/false�̸� ����
+  bool     m_bShow; // m_bShow == true占싱몌옙 占쏙옙占쏙옙/false占싱몌옙 占쏙옙占쏙옙
 };
 
-//--------------------------- CLAN ���� ��Ŷ
-#define	GCMD_CREATE				0x000		//������, /guildcreate [����]
-#define	GCMD_INFO				0x001		//�������, /ginfo - ��忡 ���� �⺻���� ����
-#define	GCMD_INVITE				0x002		//����ʴ�, /ginvite <�÷��̾�> - ��忡 �ش� �÷��̾� �ʴ��ϱ�
-#define	GCMD_REMOVE				0x003		//����߹�, /gremove <�÷��̾�> - ��忡�� �ش� �÷��̾� �߹��ϱ�
-#define	GCMD_PROMOTE			0x004		//���±�, /gpromote <�÷��̾�> - �ش� �÷��̾� ��� ��� �ø���
-#define	GCMD_DEMOTE				0x005		//��尭��, /gdemote <�÷��̾�> - �ش� �÷��̾� ��� ��� ������
-#define	GCMD_MOTD				0x006		//������, /gmotd <�Ҹ�> - ������ ��� �޽��� ���ϱ�
-#define	GCMD_QUIT				0x007		//���Ż��, /gquit - ��忡�� Ż���ϱ�
-#define	GCMD_ROSTER				0x008		//�����, /groster - ��ü ���� ��� ����
-#define	GCMD_LEADER				0x009		//�������, /gleader <�÷��̾�> - �ٸ� �÷��̾�� ����� �����ϱ� (����� ����)
-#define	GCMD_DISBAND			0x00a		//�����ü, /gdisband - ��� ��ü�ϱ� (����� ����) 
+//--------------------------- CLAN 占쏙옙占쏙옙 占쏙옙킷
+#define	GCMD_CREATE				0x000		//占쏙옙占쏙옙占쏙옙, /guildcreate [占쏙옙占쏙옙]
+#define	GCMD_INFO				0x001		//占쏙옙占쏙옙占쏙옙占�, /ginfo - 占쏙옙恙� 占쏙옙占쏙옙 占썩본占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	GCMD_INVITE				0x002		//占쏙옙占쏙옙苛占�, /ginvite <占시뤄옙占싱억옙> - 占쏙옙恙� 占쌔댐옙 占시뤄옙占싱억옙 占십댐옙占싹깍옙
+#define	GCMD_REMOVE				0x003		//占쏙옙占쏙옙衫占�, /gremove <占시뤄옙占싱억옙> - 占쏙옙恙∽옙占� 占쌔댐옙 占시뤄옙占싱억옙 占쌩뱄옙占싹깍옙
+#define	GCMD_PROMOTE			0x004		//占쏙옙占승깍옙, /gpromote <占시뤄옙占싱억옙> - 占쌔댐옙 占시뤄옙占싱억옙 占쏙옙占� 占쏙옙占� 占시몌옙占쏙옙
+#define	GCMD_DEMOTE				0x005		//占쏙옙弱�占쏙옙, /gdemote <占시뤄옙占싱억옙> - 占쌔댐옙 占시뤄옙占싱억옙 占쏙옙占� 占쏙옙占� 占쏙옙占쏙옙占쏙옙
+#define	GCMD_MOTD				0x006		//占쏙옙占쏙옙占쏙옙, /gmotd <占쌀몌옙> - 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쌨쏙옙占쏙옙 占쏙옙占싹깍옙
+#define	GCMD_QUIT				0x007		//占쏙옙占신삼옙占�, /gquit - 占쏙옙恙∽옙占� 탈占쏙옙占싹깍옙
+#define	GCMD_ROSTER				0x008		//占쏙옙占쏙옙占�, /groster - 占쏙옙체 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙
+#define	GCMD_LEADER				0x009		//占쏙옙占쏙옙占쏙옙占�, /gleader <占시뤄옙占싱억옙> - 占쌕몌옙 占시뤄옙占싱어에占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙占싹깍옙 (占쏙옙占쏙옙占� 占쏙옙占쏙옙)
+#define	GCMD_DISBAND			0x00a		//占쏙옙占쏙옙占시�, /gdisband - 占쏙옙占� 占쏙옙체占싹깍옙 (占쏙옙占쏙옙占� 占쏙옙占쏙옙) 
 
-#define GCMD_INVITE_REQ			0x00b		//������ Ŭ�� ������ ��û�ߴ�. <��û���̸�>
-#define	GCMD_INVITE_REPLY_YES	0x00c		//Ŭ������ �³� <��û���̸�>
-#define	GCMD_INVITE_REPLY_NO	0x00d		//Ŭ������ ���� <��û���̸�>
+#define GCMD_INVITE_REQ			0x00b		//占쏙옙占쏙옙占쏙옙 클占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙청占쌩댐옙. <占쏙옙청占쏙옙占싱몌옙>
+#define	GCMD_INVITE_REPLY_YES	0x00c		//클占쏙옙占쏙옙占쏙옙 占승놂옙 <占쏙옙청占쏙옙占싱몌옙>
+#define	GCMD_INVITE_REPLY_NO	0x00d		//클占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 <占쏙옙청占쏙옙占싱몌옙>
 
-#define	GCMD_SLOGAN				0x00e		//��彽�ΰ� /clan slotan ���ΰ�
+#define	GCMD_SLOGAN				0x00e		//占쏙옙壤쏙옙寬占� /clan slotan 占쏙옙占싸곤옙
 
-#define	GCMD_MEMBER_JOBnLEV		0x00f		//�ڽ��� ����/������ �ٸ� ������� �뺸( �α�����/��������/�����Ŀ� ���� )
+#define	GCMD_MEMBER_JOBnLEV		0x00f		//占쌘쏙옙占쏙옙 占쏙옙占쏙옙/占쏙옙占쏙옙占쏙옙 占쌕몌옙 占쏙옙占쏙옙占쏙옙占� 占쎈보( 占싸깍옙占쏙옙占쏙옙/占쏙옙占쏙옙占쏙옙占쏙옙/占쏙옙占쏙옙占식울옙 占쏙옙占쏙옙 )
 
-//-- ���� ���� Ÿ��...
+//-- 占쏙옙占쏙옙 占쏙옙占쏙옙 타占쏙옙...
 #define	GCMD_LOGIN				0x0f0
 #define	GCMD_LOGOUT				0x0f1
 #define	GCMD_CHAT				0x0f2
@@ -2141,19 +2141,19 @@ struct wsv_CLAN_MEMBER_JOBnLEV : public t_PACKETHEADER {
 //struct tag_CLAN_INFO {
 //	int16_t		m_nClanLEVEL;
 //	int32_t			m_iClanSCORE;
-//	int32_t			m_iClanRATE;	// â��ȿ��
+//	int32_t			m_iClanRATE;	// 창占쏙옙효占쏙옙
 //	int64_t		m_biClanMONEY;
-//	char szName[];				�̸�
-//	char szDesc[];				���ΰ� ������ NULL
-//	char szAlliedGroup[]		���� �̸� ������ NULL
+//	char szName[];				占싱몌옙
+//	char szDesc[];				占쏙옙占싸곤옙 占쏙옙占쏙옙占쏙옙 NULL
+//	char szAlliedGroup[]		占쏙옙占쏙옙 占싱몌옙 占쏙옙占쏙옙占쏙옙 NULL
 //} ;
 
 #define	MAX_CLAN_SKILL_SLOT		20
 #ifdef	MAX_CLAN_SKILL_SLOT
 struct tagClanSKILL {
   int16_t  m_nSkillIDX;
-  uint32_t m_dwExpiredAbsSEC; // ��� ���� �ð�
-  //	int16_t	m_nCount;			// ��� ���� Ƚ�� -> ���� ��밡���� Ƚ��?? �����͸�??
+  uint32_t m_dwExpiredAbsSEC; // 占쏙옙占� 占쏙옙占쏙옙 占시곤옙
+  //	int16_t	m_nCount;			// 占쏙옙占� 占쏙옙占쏙옙 횟占쏙옙 -> 占쏙옙占쏙옙 占쏙옙諛∽옙占쏙옙占� 횟占쏙옙?? 占쏙옙占쏙옙占싶몌옙??
 };
 
 struct tagClanBIN {
@@ -2166,13 +2166,13 @@ struct tagClanBIN {
 #endif
 
 struct tag_MY_CLAN : public tag_CLAN_ID {
-  int32_t m_iClanSCORE; // Ŭ�� ����Ʈ
-  int32_t m_iClanRATE;  // â��ȿ��
+  int32_t m_iClanSCORE; // 클占쏙옙 占쏙옙占쏙옙트
+  int32_t m_iClanRATE;  // 창占쏙옙효占쏙옙
   int64_t m_biClanMONEY;
-  int16_t m_nMemberCNT; // ��� ��
-  int32_t m_iClanCONT;  // Ŭ�� �⿩��
+  int16_t m_nMemberCNT; // 占쏙옙占� 占쏙옙
+  int32_t m_iClanCONT;  // 클占쏙옙 占썩여占쏙옙
 #ifdef	MAX_CLAN_SKILL_SLOT
-  tagClanBIN m_ClanBIN; // Ŭ�� ���̳ʸ� ����Ÿ..
+  tagClanBIN m_ClanBIN; // 클占쏙옙 占쏙옙占싱너몌옙 占쏙옙占쏙옙타..
 #endif
   // char m_szClanName[];
   // char m_szClanDESC[];
@@ -2181,7 +2181,7 @@ struct tag_MY_CLAN : public tag_CLAN_ID {
 
 struct tag_CLAN_MEMBER {
   uint8_t m_btClanPOS;
-  uint8_t m_btChannelNO; // ���� 0xff�̸� �������� �ʴ� ������...
+  uint8_t m_btChannelNO; // 占쏙옙占쏙옙 0xff占싱몌옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십댐옙 占쏙옙占쏙옙占쏙옙...
   int32_t m_iClanCONTRIBUTE;
   int16_t m_nLEVEL;
   int16_t m_nJOB;
@@ -2199,28 +2199,28 @@ struct wsv_CLAN_COMMAND : public t_PACKETHEADER {
   */
 
   /*
-  // m_btRESULT == RESULT_CLAN_INFO �ϰ��
+  // m_btRESULT == RESULT_CLAN_INFO 占싹곤옙占�
   struct tag_CLAN_INFO
   */
   /*
-  // m_btRESULT == RESULT_CLAN_ROSTER �ϰ��
+  // m_btRESULT == RESULT_CLAN_ROSTER 占싹곤옙占�
   tag_CLAN_MEMBER	m_Members[ x ];
   */
   /*
-  // m_btRESULT == RESULT_CLAN_KICK, RESULT_CLAN_POSITION �ϰ��
+  // m_btRESULT == RESULT_CLAN_KICK, RESULT_CLAN_POSITION 占싹곤옙占�
   strujct {
-    char *m_szMember;	Ż����
-    char *m_szMaster;	Ż���Ų�� == NULL�ϰ�� ������ ������
+    char *m_szMember;	탈占쏙옙占쏙옙
+    char *m_szMaster;	탈占쏙옙占신뀐옙占� == NULL占싹곤옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
   */
   /*
   // m_btRESULT == RESULT_CLAN_JOINED
   struct {
-    char *m_szMember;	�ű� ������
-    char *m_szMaster;	���Խ�Ų��
+    char *m_szMember;	占신깍옙 占쏙옙占쏙옙占쏙옙
+    char *m_szMaster;	占쏙옙占쌉쏙옙킨占쏙옙
   } ;
   */
   /*
-  // m_btRESULT == RESULT_CLAN_SET :: �ֺ� ������� Ŭ�� ���� ����
+  // m_btRESULT == RESULT_CLAN_SET :: 占쌍븝옙 占쏙옙占쏙옙占쏙옙占� 클占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
   struct {
     uint16_t		m_wObjIDX;
     tag_CLAN_ID	;
@@ -2234,63 +2234,63 @@ struct wsv_RESULT_CLAN_SET : public t_PACKETHEADER {
   tag_CLAN_ID m_ClanID;
 };
 
-#define	RESULT_CLAN_CREATE_OK			0x030		// ���� â�� �ߴ�.
-#define RESULT_CLAN_JOIN_OK				0x031		// ���� �ű� ���Եƴ�
+#define	RESULT_CLAN_CREATE_OK			0x030		// 占쏙옙占쏙옙 창占쏙옙 占쌩댐옙.
+#define RESULT_CLAN_JOIN_OK				0x031		// 占쏙옙占쏙옙 占신깍옙 占쏙옙占쌉됐댐옙
 #define	RESULT_CLAN_DESTROY_OK			0x032
-#define RESULT_CLAN_MY_DATA				0x033		// �̹� ���Ե� Ŭ���� �ִ� ���¿��� ���� Ŭ�� ����
-#define	RESULT_CLAN_MOTD				0x034		// Ŭ�� ���� �ٲ����.
-#define	RESULT_CLAN_SET					0x035		// �ֺ� ������� Ŭ�� ���� ����
-#define	RESULT_CLAN_SLOGAN				0x036		// Ŭ�� ���ΰ� �ٲ����
+#define RESULT_CLAN_MY_DATA				0x033		// 占싱뱄옙 占쏙옙占쌉듸옙 클占쏙옙占쏙옙 占쌍댐옙 占쏙옙占승울옙占쏙옙 占쏙옙占쏙옙 클占쏙옙 占쏙옙占쏙옙
+#define	RESULT_CLAN_MOTD				0x034		// 클占쏙옙 占쏙옙占쏙옙 占쌕뀐옙占쏙옙占�.
+#define	RESULT_CLAN_SET					0x035		// 占쌍븝옙 占쏙옙占쏙옙占쏙옙占� 클占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	RESULT_CLAN_SLOGAN				0x036		// 클占쏙옙 占쏙옙占싸곤옙 占쌕뀐옙占쏙옙占�
 
 #define	RESULT_CLAN_CREATE_FAILED		0x041
 #define	RESULT_CLAN_CREATE_DUP_NAME		0x042
-#define	RESULT_CLAN_CREATE_NO_RIGHT		0x043		// â�� ���� ����.
-#define	RESULT_CLAN_CREATE_NO_CONDITION	0x044		// â�� ���� �ȸ´´�.
+#define	RESULT_CLAN_CREATE_NO_RIGHT		0x043		// 창占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	RESULT_CLAN_CREATE_NO_CONDITION	0x044		// 창占쏙옙 占쏙옙占쏙옙 占싫맞는댐옙.
 
-#define	RESULT_CLAN_DESTROYED			0x051		// Ŭ�� �ǰ� ����..
+#define	RESULT_CLAN_DESTROYED			0x051		// 클占쏙옙 占실곤옙 占쏙옙占쏙옙..
 #define	RESULT_CLAN_DESTROY_FAILED		0x052
-#define	RESULT_CLAN_DESTROY_NO_RIGHT	0x053		// �ǰ� ���� ����.
+#define	RESULT_CLAN_DESTROY_NO_RIGHT	0x053		// 占실곤옙 占쏙옙占쏙옙 占쏙옙占쏙옙.
 
-#define	RESULT_CLAN_JOIN_MEMBER			0x061		// �ű� �����ߴ� :: �� Ŭ���� ���� ����..
+#define	RESULT_CLAN_JOIN_MEMBER			0x061		// 占신깍옙 占쏙옙占쏙옙占쌩댐옙 :: 占쏙옙 클占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙..
 #define	RESULT_CLAN_JOIN_FAILED			0x062
-#define	RESULT_CLAN_JOIN_NO_RIGHT		0x063		// ���� ��ų ������ ����.
-#define	RESULT_CLAN_JOIN_HAS_CLAN		0x064		// �ٸ� ��忡 ������ �ִ�.
-#define	RESULT_CLAN_JOIN_MEMBER_FULL	0x065		// ��� ��á��.
+#define	RESULT_CLAN_JOIN_NO_RIGHT		0x063		// 占쏙옙占쏙옙 占쏙옙킬 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
+#define	RESULT_CLAN_JOIN_HAS_CLAN		0x064		// 占쌕몌옙 占쏙옙恙� 占쏙옙占쏙옙占쏙옙 占쌍댐옙.
+#define	RESULT_CLAN_JOIN_MEMBER_FULL	0x065		// 占쏙옙占� 占쏙옙찼占쏙옙.
 
-#define	RESULT_CLAN_INFO				0x071		// Ŭ�� ����
-#define	RESULT_CLAN_ROSTER				0x072		// Ŭ�� ����Ʈ
+#define	RESULT_CLAN_INFO				0x071		// 클占쏙옙 占쏙옙占쏙옙
+#define	RESULT_CLAN_ROSTER				0x072		// 클占쏙옙 占쏙옙占쏙옙트
 
-#define	RESULT_CLAN_MEMBER_LOGIN		0x073		// ��ü���� �������� ��� �α���
-#define	RESULT_CLAN_MEMBER_LOGOUT		0x074		// ��ü���� �������� ��� �α׾ƿ�
-#define	RESULT_CLAN_MEMBER_POSITION		0x075		// ��ü���� �������� ��� ��������
+#define	RESULT_CLAN_MEMBER_LOGIN		0x073		// 占쏙옙체占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占싸깍옙占쏙옙
+#define	RESULT_CLAN_MEMBER_LOGOUT		0x074		// 占쏙옙체占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占싸그아울옙
+#define	RESULT_CLAN_MEMBER_POSITION		0x075		// 占쏙옙체占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙
 
-#define	RESULT_CLAN_KICK				0x081		// Ŭ������ �߹��
-#define	RESULT_CLAN_QUIT				0x082		// �Ҽ� Ŭ������ ������( Ŭ������ �ʱ�ȭ )
-#define	RESULT_CLAN_POSITION			0x083		// Ŭ�������� ����� �����ƴ�.
-#define	RESULT_CLAN_MEMBER_JOBnLEV		0x084		// �α��ε� ����� ����/����
+#define	RESULT_CLAN_KICK				0x081		// 클占쏙옙占쏙옙占쏙옙 占쌩뱄옙占�
+#define	RESULT_CLAN_QUIT				0x082		// 占쌀쇽옙 클占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙( 클占쏙옙占쏙옙占쏙옙 占십깍옙화 )
+#define	RESULT_CLAN_POSITION			0x083		// 클占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙占싣댐옙.
+#define	RESULT_CLAN_MEMBER_JOBnLEV		0x084		// 占싸깍옙占싸듸옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙/占쏙옙占쏙옙
 
-// m_dwClanID�� Ŭ�� ��ũ�� ������ ��û
+// m_dwClanID占쏙옙 클占쏙옙 占쏙옙크占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙청
 struct cli_CLANMARK_REQ : public t_PACKETHEADER {
   uint32_t m_dwClanID;
 };
 
-// m_btMARK����Ÿ�� �ڽ��� Ŭ�� ��ũ�� ����
+// m_btMARK占쏙옙占쏙옙타占쏙옙 占쌘쏙옙占쏙옙 클占쏙옙 占쏙옙크占쏙옙 占쏙옙占쏙옙
 struct cli_CLANMARK_SET : public t_PACKETHEADER {
   uint16_t m_wMarkCRC16;
   //	uint8_t	m_btMARK[ 0 ];
 };
 
-// m_dwClanIDŬ���� Ŭ����ũ ����Ÿ
-#define	RESULT_CLANMARK_TOO_MANY_UPDATE		0x0001	// ��ũ ������ �����ð� �Ŀ� �ؾ� �Ѵ�...
-#define	RESULT_CLANMARK_DB_ERROR			0x0002	// ��� ���� ����
-#define	RESULT_CLANMAKR_SP_ERROR			0x0003	// ��� SP ����
+// m_dwClanID클占쏙옙占쏙옙 클占쏙옙占쏙옙크 占쏙옙占쏙옙타
+#define	RESULT_CLANMARK_TOO_MANY_UPDATE		0x0001	// 占쏙옙크 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占시곤옙 占식울옙 占쌔억옙 占싼댐옙...
+#define	RESULT_CLANMARK_DB_ERROR			0x0002	// 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	RESULT_CLANMAKR_SP_ERROR			0x0003	// 占쏙옙占� SP 占쏙옙占쏙옙
 
 struct wsv_CLANMARK_REPLY : public t_PACKETHEADER {
   uint32_t m_dwClanID;
 
   union {
     uint16_t m_wMarkCRC16;
-    uint16_t m_wFailedReason; // m_dwClanID == 0 �ϰ�� ���� ���� ��� ����.
+    uint16_t m_wFailedReason; // m_dwClanID == 0 占싹곤옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙.
   };
 
   //	uint8_t	m_btMARK[ 0 ];
@@ -2313,41 +2313,41 @@ struct gsv_CHEAT_CODE : public t_PACKETHEADER {
 };
 
 /*
-  ������ ���� ����...
+  占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙...
 */
 #define	CREATE_ITEM_STEP	4
 
 struct cli_CREATE_ITEM_REQ : public t_PACKETHEADER {
-  uint8_t m_btSkillSLOT;                     // ����� ���� ��ų
-  int8_t  m_cTargetItemTYPE;                 // ������ ������ Ÿ��( t_eITEM�� �� )
-  int16_t m_nTargetItemNO;                   // ������ ������ ��ȣ
-  int16_t m_nUseItemINV[ CREATE_ITEM_STEP ]; // ������ �Ҹ��� ������ �κ��丮 ��ȣ
-  //	int16_t	m_nUseItemCNT[ CREATE_ITEM_STEP ];		// ������ �Ҹ��� ������ ����
+  uint8_t m_btSkillSLOT;                     // 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙킬
+  int8_t  m_cTargetItemTYPE;                 // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 타占쏙옙( t_eITEM占쏙옙 占쏙옙 )
+  int16_t m_nTargetItemNO;                   // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙호
+  int16_t m_nUseItemINV[ CREATE_ITEM_STEP ]; // 占쏙옙占쏙옙占쏙옙 占쌀몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싸븝옙占썰리 占쏙옙호
+  //	int16_t	m_nUseItemCNT[ CREATE_ITEM_STEP ];		// 占쏙옙占쏙옙占쏙옙 占쌀몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 };
 
 struct gsv_CREATE_ITEM_REPLY : public t_PACKETHEADER {
-  uint8_t     m_btRESULT;                       // ���...
-  int16_t     m_nStepORInvIDX;                  // ���� ���н� ���е� ����, ������ �� �κ��丮��ȣ
-  int16_t     m_nPRO_POINT[ CREATE_ITEM_STEP ]; // ���� ����Ʈ
-  tagBaseITEM m_CreatedITEM;                    // ���� ������ ������ ������
+  uint8_t     m_btRESULT;                       // 占쏙옙占�...
+  int16_t     m_nStepORInvIDX;                  // 占쏙옙占쏙옙 占쏙옙占싻쏙옙 占쏙옙占싻듸옙 占쏙옙占쏙옙, 占쏙옙占쏙옙占쏙옙 占쏙옙載� 占싸븝옙占썰리占쏙옙호
+  int16_t     m_nPRO_POINT[ CREATE_ITEM_STEP ]; // 占쏙옙占쏙옙 占쏙옙占쏙옙트
+  tagBaseITEM m_CreatedITEM;                    // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 };
 
-#define	RESULT_CREATE_ITEM_SUCCESS				0x00	// ����
-#define	RESULT_CREATE_ITEM_FAILED				0x01	// ����
-#define	RESULT_CREATE_ITEM_INVALID_CONDITION	0x02	// ������ �����ϴ�.
-#define	RESULT_CREATE_ITEM_NEED_ITEM			0x03	// �Ҹ�� �������� �����ϴ�
-#define	RESULT_CREATE_ITEM_INVALID_ITEM			0x04	// �Ҹ�� �������� �������ϴ�
-#define	RESULT_CREATE_ITEM_NEED_SKILL_LEV		0x05	// ���� ��ų ������ �����ϴ�
+#define	RESULT_CREATE_ITEM_SUCCESS				0x00	// 占쏙옙占쏙옙
+#define	RESULT_CREATE_ITEM_FAILED				0x01	// 占쏙옙占쏙옙
+#define	RESULT_CREATE_ITEM_INVALID_CONDITION	0x02	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙.
+#define	RESULT_CREATE_ITEM_NEED_ITEM			0x03	// 占쌀몌옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙
+#define	RESULT_CREATE_ITEM_INVALID_ITEM			0x04	// 占쌀몌옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占싹댐옙
+#define	RESULT_CREATE_ITEM_NEED_SKILL_LEV		0x05	// 占쏙옙占쏙옙 占쏙옙킬 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙
 
 //struct cli_CREATE_ITEM_EXP_REQ : public t_PACKETHEADER {
 //} ;
 
-#define	REPORT_ITEM_CREATE_START				0x00	// ������ ���� ����
-#define	REPORT_ITEM_CREATE_SUCCESS				0x01	// ������ ���� ����
-#define	REPORT_ITEM_CREATE_FAILED				0x02	// ������ ���� ����
-#define	REPORT_ITEM_UPGRADE_START				0x03	// ������ ���� ����
-#define	REPORT_ITEM_UPGRADE_SUCCESS				0x04	// ������ ���� ����
-#define	REPORT_ITEM_UPGRADE_FAILED				0x05	// ������ ���� ����
+#define	REPORT_ITEM_CREATE_START				0x00	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	REPORT_ITEM_CREATE_SUCCESS				0x01	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	REPORT_ITEM_CREATE_FAILED				0x02	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	REPORT_ITEM_UPGRADE_START				0x03	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	REPORT_ITEM_UPGRADE_SUCCESS				0x04	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	REPORT_ITEM_UPGRADE_FAILED				0x05	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 
 struct cli_ITEM_RESULT_REPORT : public t_PACKETHEADER {
   uint8_t m_btREPORT;
@@ -2363,58 +2363,58 @@ struct gsv_ITEM_RESULT_REPORT : public t_PACKETHEADER {
 };
 
 //---------------------------------------------------------
-#define	CRAFT_GEMMING_REQ			0x01			// ���
-#define CRAFT_BREAKUP_USE_SKILL		0x02			// ��ų�� ����
-#define CRAFT_BREAKUP_FROM_NPC		0x03			// npc ���� ����
-#define	CRAFT_UPGRADE_USE_SKILL		0x04			// ��ų�� ���
-#define	CRAFT_UPGRADE_FROM_NPC		0x05			// npc ���� ���
+#define	CRAFT_GEMMING_REQ			0x01			// 占쏙옙占�
+#define CRAFT_BREAKUP_USE_SKILL		0x02			// 占쏙옙킬占쏙옙 占쏙옙占쏙옙
+#define CRAFT_BREAKUP_FROM_NPC		0x03			// npc 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	CRAFT_UPGRADE_USE_SKILL		0x04			// 占쏙옙킬占쏙옙 占쏙옙占�
+#define	CRAFT_UPGRADE_FROM_NPC		0x05			// npc 占쏙옙占쏙옙 占쏙옙占�
 
 struct cli_CRAFT_ITEM_REQ : public t_PACKETHEADER {
   uint8_t m_btTYPE;
 };
 
 struct cli_CRAFT_GEMMING_REQ : public cli_CRAFT_ITEM_REQ {
-  uint8_t m_btEquipInvIDX; // ������ ���� ������ �κ� ��ȣ
-  uint8_t m_btJemInvIDX;   // ���� ������ �κ� ��ȣ
+  uint8_t m_btEquipInvIDX; // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싸븝옙 占쏙옙호
+  uint8_t m_btJemInvIDX;   // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싸븝옙 占쏙옙호
 };
 
 struct cli_CRAFT_BREAKUP_REQ : public cli_CRAFT_ITEM_REQ {
-  int16_t m_nSkillSLOTorNpcIDX; // ��� ��ų���� ��ȣ�Ǵ� npc��ȣ
-  uint8_t m_btTargetInvIDX;     // �и��� ������ �κ� ��ȣ
+  int16_t m_nSkillSLOTorNpcIDX; // 占쏙옙占� 占쏙옙킬占쏙옙占쏙옙 占쏙옙호占실댐옙 npc占쏙옙호
+  uint8_t m_btTargetInvIDX;     // 占싻몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싸븝옙 占쏙옙호
 };
 
 #define	UPGRADE_ITEM_STEP		3
 
 struct cli_CRAFT_UPGRADE_REQ : public cli_CRAFT_ITEM_REQ {
-  int16_t m_nSkillSLOTorNpcIDX;                // ��� ��ų���� ��ȣ�Ǵ� npc��ȣ
-  uint8_t m_btTargetInvIDX;                    // ����� ������ �κ� ��ȣ
-  uint8_t m_btUseItemINV[ UPGRADE_ITEM_STEP ]; // ��ý� �Ҹ��� ������ �κ��丮 ��ȣ
+  int16_t m_nSkillSLOTorNpcIDX;                // 占쏙옙占� 占쏙옙킬占쏙옙占쏙옙 占쏙옙호占실댐옙 npc占쏙옙호
+  uint8_t m_btTargetInvIDX;                    // 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占싸븝옙 占쏙옙호
+  uint8_t m_btUseItemINV[ UPGRADE_ITEM_STEP ]; // 占쏙옙첵占� 占쌀몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싸븝옙占썰리 占쏙옙호
 };
 
 #define	CRAFT_GEMMING_SUCCESS		0x01
-#define	CRAFT_GEMMING_NEED_SOCKET	0x02	// ���Ͼ���.
-#define	CRAFT_GEMMING_USED_SOCKET	0x03	// ��ֵ� ����....
+#define	CRAFT_GEMMING_NEED_SOCKET	0x02	// 占쏙옙占싹억옙占쏙옙.
+#define	CRAFT_GEMMING_USED_SOCKET	0x03	// 占쏙옙令占� 占쏙옙占쏙옙....
 
-#define	CRAFT_BREAKUP_SUCCESS_GEM	0x04	// ���� �и� ����
-#define	CRAFT_BREAKUP_DEGRADE_GEM	0x05	// ���� �и� ����, ������� ����
-#define	CRAFT_BREAKUP_CLEARED_GEM	0x06	// ���� �и� ����, ���� ������
+#define	CRAFT_BREAKUP_SUCCESS_GEM	0x04	// 占쏙옙占쏙옙 占싻몌옙 占쏙옙占쏙옙
+#define	CRAFT_BREAKUP_DEGRADE_GEM	0x05	// 占쏙옙占쏙옙 占싻몌옙 占쏙옙占쏙옙, 占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙
+#define	CRAFT_BREAKUP_CLEARED_GEM	0x06	// 占쏙옙占쏙옙 占싻몌옙 占쏙옙占쏙옙, 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 
-#define	CRAFT_BREAKUP_SUCCESS		0x07	// ������ ���� ����
+#define	CRAFT_BREAKUP_SUCCESS		0x07	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 
-#define	CRAFT_UPGRADE_SUCCESS		0x10	// ��� ����
-#define	CRAFT_UPGRADE_FAILED		0x11	// ��� ����
-#define	CRAFT_UPGRADE_INVALID_MAT	0x12	// ��� �������� �߸��ƴ�.
+#define	CRAFT_UPGRADE_SUCCESS		0x10	// 占쏙옙占� 占쏙옙占쏙옙
+#define	CRAFT_UPGRADE_FAILED		0x11	// 占쏙옙占� 占쏙옙占쏙옙
+#define	CRAFT_UPGRADE_INVALID_MAT	0x12	// 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쌩몌옙占싣댐옙.
 
 struct gsv_CRAFT_ITEM_REPLY : public t_PACKETHEADER {
   uint8_t         m_btRESULT;
-  uint8_t         m_btOutCNT;      // ����� ������ ����
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ����� ���� ��ŭ ��� �ִ�... 
-  // ����) CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED �ϰ��
-  // m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity�� ������ ���Ȱ��� �������
+  uint8_t         m_btOutCNT;      // 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙큼 占쏙옙占� 占쌍댐옙... 
+  // 占쏙옙占쏙옙) CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED 占싹곤옙占�
+  // m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싫곤옙占쏙옙 占쏙옙占쏙옙占쏙옙占�
 };
 
 /*
-///	����Ʈ ���� ...
+///	占쏙옙占쏙옙트 占쏙옙占쏙옙 ...
 */
 struct cli_QUEST_REQ : public t_PACKETHEADER {
   uint8_t m_btTYPE;
@@ -2444,86 +2444,86 @@ struct gsv_QUEST_REPLY : public t_PACKETHEADER {
 #define	RESULT_QUEST_REPLY_ADD_FAILED			0x02
 #define	RESULT_QUEST_REPLY_DEL_SUCCESS			0x03
 #define	RESULT_QUEST_REPLY_DEL_FAILED			0x04
-#define	RESULT_QUEST_REPLY_TRIGGER_SUCCESS		0x05		// �� ��Ŷ�� ������ Ŭ���̾�Ʈ������ ������ �����Ѵ�.
+#define	RESULT_QUEST_REPLY_TRIGGER_SUCCESS		0x05		// 占쏙옙 占쏙옙킷占쏙옙 占쏙옙占쏙옙占쏙옙 클占쏙옙占싱억옙트占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싼댐옙.
 #define	RESULT_QUEST_REPLY_TRIGGER_FAILED		0x06
 
-// ������ Ŭ���̾�Ʈ���� NPC�� ���� �ִ� �̺�Ʈ�� üũ�� ����....
+// 占쏙옙占쏙옙占쏙옙 클占쏙옙占싱억옙트占쏙옙占쏙옙 NPC占쏙옙 占쏙옙占쏙옙 占쌍댐옙 占싱븝옙트占쏙옙 체크占쏙옙 占쏙옙占쏙옙....
 struct gsv_CHECK_NPC_EVENT : public t_PACKETHEADER {
   int16_t m_nNpcIDX;
 };
 
-//--------------------------- Messenger ���� ��Ŷ
-// ��Ŷ Ÿ���� CLI_MESSENGER, WSV_MESSENGER�� ����, ���� Ÿ�� m_btCMD�� ���� ��Ŷ ������ ������.
-#define	FRIEND_STATUS_NORMAL		0x000		// �Ϲ�
-#define FRIEND_STATUS_HUNT			0x001		// �����
-#define	FRIEND_STATUS_STORE			0x002		// �����
-#define	FRIEND_STATUS_QUEST			0x003		// ����Ʈ��
-#define	FRIEND_STATUS_EAT			0x004		// �Ļ���
-#define	FRIEND_STATUS_REST			0x005		// �޽���
-#define	FRIEND_STATUS_ONLINE		0x007		// ���ӵ�		: ģ������� m_dwUserTAG�� �����ߴ�.
-#define	FRIEND_STATUS_OFFLINE		0x008		// ���Ӳ���		: ģ������� m_dwUserTAG�� ���Ӳ���
-#define	FRIEND_STATUS_REFUSE_MSG	0x009		// ��� �޼��� �ź�
+//--------------------------- Messenger 占쏙옙占쏙옙 占쏙옙킷
+// 占쏙옙킷 타占쏙옙占쏙옙 CLI_MESSENGER, WSV_MESSENGER占쏙옙 占쏙옙占쏙옙, 占쏙옙占쏙옙 타占쏙옙 m_btCMD占쏙옙 占쏙옙占쏙옙 占쏙옙킷 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙.
+#define	FRIEND_STATUS_NORMAL		0x000		// 占싹뱄옙
+#define FRIEND_STATUS_HUNT			0x001		// 占쏙옙占쏙옙占�
+#define	FRIEND_STATUS_STORE			0x002		// 占쏙옙占쏙옙占�
+#define	FRIEND_STATUS_QUEST			0x003		// 占쏙옙占쏙옙트占쏙옙
+#define	FRIEND_STATUS_EAT			0x004		// 占식삼옙占쏙옙
+#define	FRIEND_STATUS_REST			0x005		// 占쌨쏙옙占쏙옙
+#define	FRIEND_STATUS_ONLINE		0x007		// 占쏙옙占쌈듸옙		: 친占쏙옙占쏙옙占쏙옙占� m_dwUserTAG占쏙옙 占쏙옙占쏙옙占쌩댐옙.
+#define	FRIEND_STATUS_OFFLINE		0x008		// 占쏙옙占쌈뀐옙占쏙옙		: 친占쏙옙占쏙옙占쏙옙占� m_dwUserTAG占쏙옙 占쏙옙占쌈뀐옙占쏙옙
+#define	FRIEND_STATUS_REFUSE_MSG	0x009		// 占쏙옙占� 占쌨쇽옙占쏙옙 占신븝옙
 
-#define	FRIEND_STATUS_REFUSED		0x080		// �� ��ȭ�� �����ߴ�
-#define	FRIEND_STATUS_DELETED		0x081		// ���� ģ����Ͽ��� �����ߴ�
+#define	FRIEND_STATUS_REFUSED		0x080		// 占쏙옙 占쏙옙화占쏙옙 占쏙옙占쏙옙占쌩댐옙
+#define	FRIEND_STATUS_DELETED		0x081		// 占쏙옙占쏙옙 친占쏙옙占쏙옙臼占쏙옙占� 占쏙옙占쏙옙占쌩댐옙
 
-#define	MSGR_CMD_APPEND_REQ			0x001		// ģ�� �߰� ��û	: ����� �ݵ�� ������ �־�� ��
-#define MSGR_CMD_APPEND_ACCEPT		0x002		// ģ�� �߰� ��û �³�
-#define	MSGR_CMD_APPEND_REJECT		0x003		// ģ�� �߰� ��û ����
-#define	MSGR_CMD_NOT_FOUND			0x004		// ģ�� �߰� ����(����� ������ �������...)
-#define	MSGR_CMD_DELETE				0x005		// ģ�� ����		: ����߿��� m_dwUserTAG�� ����..
-#define	MSGR_CMD_LIST				0x006		// ģ�� ����Ʈ	: ģ����� �䱸
-#define	MSGR_CMD_REFUSE				0x007		// �޽��� ����	: ����߿��� m_dwUserTAG�� �޼��� �ź�
-#define	MSGR_CMD_CHANGE_STATUS		0x008		// ���� ����
+#define	MSGR_CMD_APPEND_REQ			0x001		// 친占쏙옙 占쌩곤옙 占쏙옙청	: 占쏙옙占쏙옙占� 占쌥듸옙占� 占쏙옙占쏙옙占쏙옙 占쌍억옙占� 占쏙옙
+#define MSGR_CMD_APPEND_ACCEPT		0x002		// 친占쏙옙 占쌩곤옙 占쏙옙청 占승놂옙
+#define	MSGR_CMD_APPEND_REJECT		0x003		// 친占쏙옙 占쌩곤옙 占쏙옙청 占쏙옙占쏙옙
+#define	MSGR_CMD_NOT_FOUND			0x004		// 친占쏙옙 占쌩곤옙 占쏙옙占쏙옙(占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占�...)
+#define	MSGR_CMD_DELETE				0x005		// 친占쏙옙 占쏙옙占쏙옙		: 占쏙옙占쏙옙傷占쏙옙占� m_dwUserTAG占쏙옙 占쏙옙占쏙옙..
+#define	MSGR_CMD_LIST				0x006		// 친占쏙옙 占쏙옙占쏙옙트	: 친占쏙옙占쏙옙占� 占썰구
+#define	MSGR_CMD_REFUSE				0x007		// 占쌨쏙옙占쏙옙 占쏙옙占쏙옙	: 占쏙옙占쏙옙傷占쏙옙占� m_dwUserTAG占쏙옙 占쌨쇽옙占쏙옙 占신븝옙
+#define	MSGR_CMD_CHANGE_STATUS		0x008		// 占쏙옙占쏙옙 占쏙옙占쏙옙
 
-#define	MSGR_CMD_LOGIN				0x080		// ���������� ���
-#define	MSGR_CMD_LOGOUT				0x081		// ���������� ���
+#define	MSGR_CMD_LOGIN				0x080		// 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占�
+#define	MSGR_CMD_LOGOUT				0x081		// 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占�
 
 struct tag_MCMD_HEADER : public t_PACKETHEADER {
   uint8_t m_btCMD;
 };
 
 struct cli_MCMD_APPEND_REQ : public tag_MCMD_HEADER {
-  // ģ�� �߰� ��û�Ҷ�
+  // 친占쏙옙 占쌩곤옙 占쏙옙청占쌀띰옙
   char m_szName[0];
 };
 
 struct cli_MCMD_APPEND_REPLY : public tag_MCMD_HEADER {
-  // ģ�� �߰� ��û�� ���� ����
+  // 친占쏙옙 占쌩곤옙 占쏙옙청占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
   uint16_t m_wUserIDX;
 };
 
 struct cli_MCMD_TAG : public tag_MCMD_HEADER {
-  // ����, ���� ��û
+  // 占쏙옙占쏙옙, 占쏙옙占쏙옙 占쏙옙청
   uint32_t m_dwUserTAG;
 };
 
 struct cli_MCMD_STATUS_REQ : public tag_MCMD_HEADER {
-  // �� ���� ���� ��û
+  // 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙청
   uint8_t m_btStatus;
 };
 
 struct wsv_MCMD_APPEND_REQ : public tag_MCMD_HEADER {
-  // ģ�� �߰� ��û�޾�����
+  // 친占쏙옙 占쌩곤옙 占쏙옙청占쌨억옙占쏙옙占쏙옙
   uint16_t m_wUserIDX;
   char     m_szName[0];
 };
 
 struct wsv_MCMD_APPEND_ACCEPT : public tag_MCMD_HEADER {
-  // ģ�� �߰� �³��ϰ�� ����Ʈ�� �߰���
+  // 친占쏙옙 占쌩곤옙 占승놂옙占싹곤옙占� 占쏙옙占쏙옙트占쏙옙 占쌩곤옙占쏙옙
   uint32_t m_dwUserTAG;
   uint8_t  m_btStatus;
   char     m_szName[0];
 };
 
 struct wsv_MCMD_STATUS_REPLY : public tag_MCMD_HEADER {
-  // ���������� ����:: m_dwUserTAG���� ���� �뺸
+  // 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙:: m_dwUserTAG占쏙옙占쏙옙 占쏙옙占쏙옙 占쎈보
   uint32_t m_dwUserTAG;
   uint8_t  m_btStatus;
 };
 
 struct wsv_MCMD_LIST : public tag_MCMD_HEADER {
-  // ģ�� ���
+  // 친占쏙옙 占쏙옙占�
   uint8_t m_btFriendCNT;
   /*
   {
@@ -2543,7 +2543,7 @@ struct wsv_MESSENGER_CHAT : public t_PACKETHEADER {
   char     m_szMSG[0];
 };
 
-//--------------------------- Chatting room ���� ��Ŷ
+//--------------------------- Chatting room 占쏙옙占쏙옙 占쏙옙킷
 #define	CHAT_REQ_ROOM_LIST		0x001
 #define	CHAT_REQ_MAKE			0x002
 #define	CHAT_REQ_JOIN			0x003
@@ -2558,7 +2558,7 @@ struct tag_CHAT_HEADER : public t_PACKETHEADER {
 
 struct cli_CHAT_ROOM_MAKE : public tag_CHAT_HEADER {
   uint8_t m_btRoomTYPE;
-  uint8_t m_btMaxUSER; // �ִ� �����ο�
+  uint8_t m_btMaxUSER; // 占쌍댐옙 占쏙옙占쏙옙占싸울옙
   // szTitle[]
   // szPassword[]
 };
@@ -2592,8 +2592,8 @@ struct wsv_CHAT_ROOM_USER : public tag_CHAT_HEADER {
 
 /*
 struct wsv_CHAT_ROOM_JOIN : public tag_CHAT_HEADER {
-  uint16_t	m_wUserID;	// �ڽ�
-  szRoomName[]		// ���̸�
+  uint16_t	m_wUserID;	// 占쌘쏙옙
+  szRoomName[]		// 占쏙옙占싱몌옙
   {
     uint16_t	m_wUserID;
     szUserName[];
@@ -2605,17 +2605,17 @@ struct wsv_CHAT_ROOM_LIST : public tag_CHAT_HEADER {
   // tag_CHAT_ROOM[]
 };
 
-#define	CHAT_REPLY_ROOM_MAKED		0x001	// ����� ����			m_wUserID(�ڽ�)
+#define	CHAT_REPLY_ROOM_MAKED		0x001	// 占쏙옙占쏙옙占� 占쏙옙占쏙옙			m_wUserID(占쌘쏙옙)
 #define	CHAT_REPLY_MAKE_FAILED		0x002
 
-#define	CHAT_REPLY_ROOM_JOINED		0x010	// ���� ����			wsv_CHAT_ROOM_JOIN[]
-#define	CHAT_REPLY_FULL_USERS		0x011	// �ο� ����
-#define	CHAT_REPLY_INVALIED_PASS	0x012	// ��� Ʋ��
-#define CHAT_REPLY_ROOM_NOT_FOUND	0x013	// �� ���� ����
-#define CHAT_REPLY_USER_ADD			0x014	// ����� �߰�			m_wUserID, szName[]
-#define	CHAT_REPLY_KICKED			0x015	// �߹� ���ߴ�			m_wUserID
-#define CHAT_REPLY_USER_LEFT		0x016	// �濡�� ������.		m_wUserID
-#define	CHAT_REPLY_USER_LEFT_NAME	0x017	// �濡�� ������.		����� �̸����� Ż��...
+#define	CHAT_REPLY_ROOM_JOINED		0x010	// 占쏙옙占쏙옙 占쏙옙占쏙옙			wsv_CHAT_ROOM_JOIN[]
+#define	CHAT_REPLY_FULL_USERS		0x011	// 占싸울옙 占쏙옙占쏙옙
+#define	CHAT_REPLY_INVALIED_PASS	0x012	// 占쏙옙占� 틀占쏙옙
+#define CHAT_REPLY_ROOM_NOT_FOUND	0x013	// 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define CHAT_REPLY_USER_ADD			0x014	// 占쏙옙占쏙옙占� 占쌩곤옙			m_wUserID, szName[]
+#define	CHAT_REPLY_KICKED			0x015	// 占쌩뱄옙 占쏙옙占쌩댐옙			m_wUserID
+#define CHAT_REPLY_USER_LEFT		0x016	// 占썸에占쏙옙 占쏙옙占쏙옙占쏙옙.		m_wUserID
+#define	CHAT_REPLY_USER_LEFT_NAME	0x017	// 占썸에占쏙옙 占쏙옙占쏙옙占쏙옙.		占쏙옙占쏙옙占� 占싱몌옙占쏙옙占쏙옙 탈占쏙옙...
 
 #define	CHAT_REPLY_ROOM_LIST		0x020
 #define	CHAT_REPLY_ROOM_LIST_END	0x021
@@ -2629,58 +2629,58 @@ struct wsv_CHATROOM_MSG : public t_PACKETHEADER {
   char     m_szMSG[0];
 };
 
-//--------------------------- ���� ���� ��Ŷ
-#define	MEMO_REQ_CONTENTS			0x001	// ���ŵ� ��ü ���� ���� �䱸
-#define MEMO_REQ_SEND				0x002	// ���� ���� �䱸
-#define MEMO_REQ_RECEIVED_CNT		0x003	// ������ ���� ���� �䱸
+//--------------------------- 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙킷
+#define	MEMO_REQ_CONTENTS			0x001	// 占쏙옙占신듸옙 占쏙옙체 占쏙옙占쏙옙 占쏙옙占쏙옙 占썰구
+#define MEMO_REQ_SEND				0x002	// 占쏙옙占쏙옙 占쏙옙占쏙옙 占썰구
+#define MEMO_REQ_RECEIVED_CNT		0x003	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占썰구
 
 struct cli_MEMO : public t_PACKETHEADER {
   uint8_t m_btTYPE;
   /*
   struct tagReqMemoSend {
     // szTargetCHAR[]
-    // szMemoContent[]			// 255�� �̸�
+    // szMemoContent[]			// 255占쏙옙 占싱몌옙
   } ;
   */
 };
 
-#define	MEMO_REPLY_RECEIVED_CNT			0x001	// ������ ���� ����
-#define	MEMO_REPLY_CONTENTS				0x002	// ���� �����...
-#define	MEMO_REPLY_SEND_OK				0x003	// ���� ����
-#define	MEMO_REPLY_SEND_INVALID_TARGET	0x004	// ��� ����, ������ ����
-#define	MEMO_REPLY_SEND_NOT_EXIST		0x005	// ����� �������� �ʴ´�.
-#define	MEMO_REPLY_SEND_REFUSED			0x006	// ���� ���� �ź� ���·� ������ ����
-#define MEMO_REPLY_SEND_FULL_MEMO		0x007	// ���� �������� ������ ������ ����
-#define MEMO_REPLY_SEND_INVALID_CONTENT	0x008	// �������
+#define	MEMO_REPLY_RECEIVED_CNT			0x001	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	MEMO_REPLY_CONTENTS				0x002	// 占쏙옙占쏙옙 占쏙옙占쏙옙占�...
+#define	MEMO_REPLY_SEND_OK				0x003	// 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	MEMO_REPLY_SEND_INVALID_TARGET	0x004	// 占쏙옙占� 占쏙옙占쏙옙, 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	MEMO_REPLY_SEND_NOT_EXIST		0x005	// 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占십는댐옙.
+#define	MEMO_REPLY_SEND_REFUSED			0x006	// 占쏙옙占쏙옙 占쏙옙占쏙옙 占신븝옙 占쏙옙占승뤄옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+#define MEMO_REPLY_SEND_FULL_MEMO		0x007	// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+#define MEMO_REPLY_SEND_INVALID_CONTENT	0x008	// 占쏙옙占쏙옙占쏙옙占�
 
 struct wsv_MEMO : public t_PACKETHEADER {
   uint8_t m_btTYPE;
-  int16_t m_nRecvCNT[0]; //  m_btTYPE == MEMO_REPLY_RECEIVED_CNT �ϰ�� ���� ���� ����
+  int16_t m_nRecvCNT[0]; //  m_btTYPE == MEMO_REPLY_RECEIVED_CNT 占싹곤옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
   /*
   struct tagReplyMemoCONTENTS {
-    // uint32_t dwReceivedDATE			// classTIME::GetCurrentAbsSecond()�Լ��� ����� �ð���.
-    // szFrom[]						// ������
-    // szMemo[]						// ����
+    // uint32_t dwReceivedDATE			// classTIME::GetCurrentAbsSecond()占쌉쇽옙占쏙옙 占쏙옙占쏙옙占� 占시곤옙占쏙옙.
+    // szFrom[]						// 占쏙옙占쏙옙占쏙옙
+    // szMemo[]						// 占쏙옙占쏙옙
   } ;
   */
 };
 
-#define	REQ_MALL_ITEM_LIST					0x01	// ����Ʈ ��û
-#define	REQ_MALL_ITEM_FIND_CHAR				0x02	// �ɸ� �̸� üũ
-#define	REQ_MALL_ITEM_BRING					0x03	// ��������
-#define	REQ_MALL_ITEM_GIVE					0x04	// �����ϱ�
+#define	REQ_MALL_ITEM_LIST					0x01	// 占쏙옙占쏙옙트 占쏙옙청
+#define	REQ_MALL_ITEM_FIND_CHAR				0x02	// 占심몌옙 占싱몌옙 체크
+#define	REQ_MALL_ITEM_BRING					0x03	// 占쏙옙占쏙옙占쏙옙占쏙옙
+#define	REQ_MALL_ITEM_GIVE					0x04	// 占쏙옙占쏙옙占싹깍옙
 
 struct cli_MALL_ITEM_REQ : public t_PACKETHEADER {
   uint8_t m_btReqTYPE;
-  int16_t m_nDupCnt;     // REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE�ÿ� ����..
-  uint8_t m_btInvIDX[0]; // REQ_MALL_ITEM_GIVE�ϰ�� 0~39 ������ �κ��丮 ��ȣ
-  // char m_szCharName[]							// REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE ��û��
-  // char m_szDesc[]								// REQ_MALL_ITEM_GIVE ��û�� �����ϸ�(�����Ҷ� �޼���)::�ִ� 80��
+  int16_t m_nDupCnt;     // REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE占시울옙 占쏙옙占쏙옙..
+  uint8_t m_btInvIDX[0]; // REQ_MALL_ITEM_GIVE占싹곤옙占� 0~39 占쏙옙占쏙옙占쏙옙 占싸븝옙占썰리 占쏙옙호
+  // char m_szCharName[]							// REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE 占쏙옙청占쏙옙
+  // char m_szDesc[]								// REQ_MALL_ITEM_GIVE 占쏙옙청占쏙옙 占쏙옙占쏙옙占싹몌옙(占쏙옙占쏙옙占쌀띰옙 占쌨쇽옙占쏙옙)::占쌍댐옙 80占쏙옙
 };
 
-#define	REPLY_MALL_ITEM_CHECK_CHAR_FOUND	0x01	// ��� ã�Ҵ�
-#define	REPLY_MALL_ITEM_CHECK_CHAR_NONE		0x02	// ��� ����.
-#define	REPLY_MALL_ITEM_CHECK_CHAR_INVALID	0x03	// �ڱ� �ڽ� ������..�߸��� ���
+#define	REPLY_MALL_ITEM_CHECK_CHAR_FOUND	0x01	// 占쏙옙占� 찾占쌀댐옙
+#define	REPLY_MALL_ITEM_CHECK_CHAR_NONE		0x02	// 占쏙옙占� 占쏙옙占쏙옙.
+#define	REPLY_MALL_ITEM_CHECK_CHAR_INVALID	0x03	// 占쌘깍옙 占쌘쏙옙 占쏙옙占쏙옙占쏙옙..占쌩몌옙占쏙옙 占쏙옙占�
 #define	REPLY_MALL_ITEM_BRING_SUCCESS		0x04
 #define	REPLY_MALL_ITEM_BRING_FAILED		0x05
 #define	REPLY_MALL_ITME_GIVE_SUCCESS		0x06
@@ -2692,62 +2692,62 @@ struct cli_MALL_ITEM_REQ : public t_PACKETHEADER {
 
 struct gsv_MALL_ITEM_REPLY : public t_PACKETHEADER {
   uint8_t m_btReplyTYPE;
-  uint8_t m_btCntOrIdx; // ���� / �� �κ��丮 �ε���
+  uint8_t m_btCntOrIdx; // 占쏙옙占쏙옙 / 占쏙옙 占싸븝옙占썰리 占싸듸옙占쏙옙
 
-  /* MALL_ITEM_REQ_LIST ���� :: m_nCntOrIdx ������ŭ..
+  /* MALL_ITEM_REQ_LIST 占쏙옙占쏙옙 :: m_nCntOrIdx 占쏙옙占쏙옙占쏙옙큼..
     m_btReplyTYPE == REPLY_MALL_ITEM_LIST_START
       m_btReplyTYPE == REPLY_MALL_ITEM_LIST_DATA
       {
-        m_btCntOrIdx :: ����
+        m_btCntOrIdx :: 占쏙옙占쏙옙
         {
           tagBaseITEM
-          szFrom[]		// ������ �ɸ�
+          szFrom[]		// 占쏙옙占쏙옙占쏙옙 占심몌옙
           if ( '\0' != szFrom[0] ) {
-            // szDesc[]	// �����Ҷ� �޼���
-            // szTo[]	// ������ ��� �ɸ� �̸�
+            // szDesc[]	// 占쏙옙占쏙옙占쌀띰옙 占쌨쇽옙占쏙옙
+            // szTo[]	// 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占심몌옙 占싱몌옙
           }
         }
       }
     m_btReplyTYPE == REPLY_MALL_ITEM_LIST_END
   */
-  // REPLY_MALL_ITEM_BRING_SUCCESS���� :: m_nCntOrIdx���� �� �κ��丮 �ε��� m_BringITEM[0]���� �߰��� ������
+  // REPLY_MALL_ITEM_BRING_SUCCESS占쏙옙占쏙옙 :: m_nCntOrIdx占쏙옙占쏙옙 占쏙옙 占싸븝옙占썰리 占싸듸옙占쏙옙 m_BringITEM[0]占쏙옙占쏙옙 占쌩곤옙占쏙옙 占쏙옙占쏙옙占쏙옙
   union {
-    tag_SET_INVITEM m_BringITEM[0]; // MALL_ITEM_REQ_BRING�� ���� ����(����� �κ��丮 ����) :: m_btCntOrIdx�� �� �κ��丮 �������� �̵�
+    tag_SET_INVITEM m_BringITEM[0]; // MALL_ITEM_REQ_BRING占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙(占쏙옙占쏙옙占� 占싸븝옙占썰리 占쏙옙占쏙옙) :: m_btCntOrIdx占쏙옙 占쏙옙 占싸븝옙占썰리 占쏙옙占쏙옙占쏙옙占쏙옙 占싱듸옙
   };
 };
 
 #define	BILLING_MSG_FREE_USER				0x00	//
 
-//#define	BILLING_MSG_FEE_TYPE1				0x01	//  /���: ���ϴ� ���׿���� ����� �Դϴ�. (2004��06��01��)
-//#define	BILLING_MSG_FEE_TYPE2				0x02	//         ���ϴ� ��������� ����� �Դϴ�. (18�ð�20��20��)
+//#define	BILLING_MSG_FEE_TYPE1				0x01	//  /占쏙옙占�: 占쏙옙占싹댐옙 占쏙옙占쌓울옙占쏙옙占� 占쏙옙占쏙옙占� 占쌉니댐옙. (2004占쏙옙06占쏙옙01占쏙옙)
+//#define	BILLING_MSG_FEE_TYPE2				0x02	//         占쏙옙占싹댐옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙占� 占쌉니댐옙. (18占시곤옙20占쏙옙20占쏙옙)
 
-#define	BILLING_MSG_PAY_FU					0x01	// FU	�α��� �� ����ڴ� ���� ���̵� ��������� ��Ÿ����.
-#define	BILLING_MSG_PAY_FA					0x02	// FA	�α��� �� ����ڴ� �������� ��������� ��Ÿ����.
-#define	BILLING_MSG_PAY_FAP					0x03	// FAP	�α��� �� ����ڴ� �������� �����(�÷�Ƽ��)���� ��Ÿ����.
-#define	BILLING_MSG_PAY_FQ					0x04	// FQ	�α��� �� ����ڴ� �������� ��������� ��Ÿ����.
-#define	BILLING_MSG_PAY_GU					0x05	// GU	�α��� �� ����ڴ� ���ӹ� ��������� ��Ÿ����.
-#define	BILLING_MSG_PAY_GQ					0x06	// GQ	���ӹ濡�� �α����� �õ��Ͽ����� ���ӹ��� ���ݱⰣ(�ð�)�� ����Ǿ� ������������ �α��� �Ǿ����� ��Ÿ����.
-#define	BILLING_MSG_PAY_IQ					0x07	// IQ	���ӹ濡�� �α����� �õ��Ͽ����� �̹� ���� IP ���ڸ� ��� ����ϰ� �־� ������������ �α��� �Ǿ����� ��Ÿ����.
+#define	BILLING_MSG_PAY_FU					0x01	// FU	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙 占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	BILLING_MSG_PAY_FA					0x02	// FA	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	BILLING_MSG_PAY_FAP					0x03	// FAP	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占�(占시뤄옙티占쏙옙)占쏙옙占쏙옙 占쏙옙타占쏙옙占쏙옙.
+#define	BILLING_MSG_PAY_FQ					0x04	// FQ	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	BILLING_MSG_PAY_GU					0x05	// GU	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쌈뱄옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	BILLING_MSG_PAY_GQ					0x06	// GQ	占쏙옙占쌈방에占쏙옙 占싸깍옙占쏙옙占쏙옙 占시듸옙占싹울옙占쏙옙占쏙옙 占쏙옙占쌈뱄옙占쏙옙 占쏙옙占쌥기간(占시곤옙)占쏙옙 占쏙옙占쏙옙퓸占� 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占싸깍옙占쏙옙 占실억옙占쏙옙占쏙옙 占쏙옙타占쏙옙占쏙옙.
+#define	BILLING_MSG_PAY_IQ					0x07	// IQ	占쏙옙占쌈방에占쏙옙 占싸깍옙占쏙옙占쏙옙 占시듸옙占싹울옙占쏙옙占쏙옙 占싱뱄옙 占쏙옙占쏙옙 IP 占쏙옙占쌘몌옙 占쏙옙占� 占쏙옙占쏙옙構占� 占쌍억옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占싸깍옙占쏙옙 占실억옙占쏙옙占쏙옙 占쏙옙타占쏙옙占쏙옙.
 
-#define	BILLING_MSG_KICKOUT_CHEAT_DETECT	0x21	// ���ٵ� ġƮ �߰ߵǼ� ����
-#define	BILLING_MSG_KICKOUT_ALREADY_LOGIN	0x22	// �̹� ���ӵ� �����̶� ���� ����
-#define	BILLING_MSG_KICKOUT_TIME_EXPIRED	0x23	// ���� �ð� ����
-#define	BILLING_MSG_KICKOUT_DUP_LOGIN		0x24	// �ٸ� ���� �����ؼ� ���� ����
-#define BILLING_MSG_KICKOUT_NO_RIGHT		0x25	// ������ ������ ����...
-#define	BILLING_MSG_KICKOUT_OUT_OF_IP		0x26	// pc�濡�� �����Ҽ� �ִ� ip ������ �ʰ�
-#define	BILLING_MSG_KICKOUT_EXIST_ACCOUNT	0x27	// ���ӵǾ� �ִ� ������ ©����.
+#define	BILLING_MSG_KICKOUT_CHEAT_DETECT	0x21	// 占쏙옙占쌕듸옙 치트 占쌩견되쇽옙 占쏙옙占쏙옙
+#define	BILLING_MSG_KICKOUT_ALREADY_LOGIN	0x22	// 占싱뱄옙 占쏙옙占쌈듸옙 占쏙옙占쏙옙占싱띰옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	BILLING_MSG_KICKOUT_TIME_EXPIRED	0x23	// 占쏙옙占쏙옙 占시곤옙 占쏙옙占쏙옙
+#define	BILLING_MSG_KICKOUT_DUP_LOGIN		0x24	// 占쌕몌옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쌔쇽옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define BILLING_MSG_KICKOUT_NO_RIGHT		0x25	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙...
+#define	BILLING_MSG_KICKOUT_OUT_OF_IP		0x26	// pc占썸에占쏙옙 占쏙옙占쏙옙占쌀쇽옙 占쌍댐옙 ip 占쏙옙占쏙옙占쏙옙 占십곤옙
+#define	BILLING_MSG_KICKOUT_EXIST_ACCOUNT	0x27	// 占쏙옙占쌈되억옙 占쌍댐옙 占쏙옙占쏙옙占쏙옙 짤占쏙옙占쏙옙.
 
-#define	BILLING_MSG_JPN_NEED_CHARGE			0x41	// �Ϻ� ���� ���� �ʿ�!!! gsv_BILLING_MESSAGE2 ��Ŷ������ ���۵ǰ� m_dwPayFlag�� �ʿ��� ���� �÷��� ���õǾ� ����
+#define	BILLING_MSG_JPN_NEED_CHARGE			0x41	// 占싹븝옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占십울옙!!! gsv_BILLING_MESSAGE2 占쏙옙킷占쏙옙占쏙옙占쏙옙 占쏙옙占쌜되곤옙 m_dwPayFlag占쏙옙 占십울옙占쏙옙 占쏙옙占쏙옙 占시뤄옙占쏙옙 占쏙옙占시되억옙 占쏙옙占쏙옙
 
-//#define	BILLING_MSG_TIME_ALERT				0x31	// ���� �ð� �뺸
-//#define	BILLING_MSG_TIME_EXPIRED			0x32	// <����> ���� �ð��� �ٵǾ� ������ �����մϴ�.
+//#define	BILLING_MSG_TIME_ALERT				0x31	// 占쏙옙占쏙옙 占시곤옙 占쎈보
+//#define	BILLING_MSG_TIME_EXPIRED			0x32	// <占쏙옙占쏙옙> 占쏙옙占쏙옙 占시곤옙占쏙옙 占쌕되억옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌌니댐옙.
 
-#define	BILLING_MSG_TYPE_SET_DATE			0x81	// ���� ���� ����	szMsg = 200309101025
-#define	BILLING_MSG_TYPE_SET_TIME			0x82	// ���� �ð� ����	szMsg = ������
-#define	BILLING_MSG_TYPE_TIME_ALERT			0x83	// ���� �ð� ���	szMsg = ������
+#define	BILLING_MSG_TYPE_SET_DATE			0x81	// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙	szMsg = 200309101025
+#define	BILLING_MSG_TYPE_SET_TIME			0x82	// 占쏙옙占쏙옙 占시곤옙 占쏙옙占쏙옙	szMsg = 占쏙옙占쏙옙占쏙옙
+#define	BILLING_MSG_TYPE_TIME_ALERT			0x83	// 占쏙옙占쏙옙 占시곤옙 占쏙옙占�	szMsg = 占쏙옙占쏙옙占쏙옙
 
-#define	BILLING_MSG_KICKOUT_TAIWAN			0xf0	// �븸 ���ݼ������� ©��� �뺸 �޾�����..
-#define	BILLING_MSG_TYPE_TAIWAN				0xf1	// �븸 ���ݼ������� ���� �޼���.. �����ֱ⸸ �ϸ� ��
+#define	BILLING_MSG_KICKOUT_TAIWAN			0xf0	// 占쎈만 占쏙옙占쌥쇽옙占쏙옙占쏙옙占쏙옙 짤占쏙옙占� 占쎈보 占쌨억옙占쏙옙占쏙옙..
+#define	BILLING_MSG_TYPE_TAIWAN				0xf1	// 占쎈만 占쏙옙占쌥쇽옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쌨쇽옙占쏙옙.. 占쏙옙占쏙옙占쌍기만 占싹몌옙 占쏙옙
 
 struct gsv_BILLING_MESSAGE : public t_PACKETHEADER {
   uint8_t m_btTYPE;
@@ -2756,79 +2756,79 @@ struct gsv_BILLING_MESSAGE : public t_PACKETHEADER {
 
 struct gsv_BILLING_MESSAGE2 : public t_PACKETHEADER {
   uint8_t  m_btTYPE;
-  int8_t   m_cFunctionTYPE; // �Һз�( A ~ R )
+  int8_t   m_cFunctionTYPE; // 占쌀분뤄옙( A ~ R )
   uint32_t m_dwPayFlag;
 };
 
-// �ѱ� ���� ���� ��Ʈ~
-#define	PAY_FLAG_KR_FU				(0x01 << BILLING_MSG_PAY_FU)	// FU	�α��� �� ����ڴ� ���� ���̵� ��������� ��Ÿ����.
-#define	PAY_FLAG_KR_FA				(0x01 << BILLING_MSG_PAY_FA)	// FA	�α��� �� ����ڴ� �������� ��������� ��Ÿ����.
-#define	PAY_FLAG_KR_FAP				(0x01 << BILLING_MSG_PAY_FAP)	// FAP	�α��� �� ����ڴ� �������� �����(�÷�Ƽ��)���� ��Ÿ����.
-#define	PAY_FLAG_KR_FQ				(0x01 << BILLING_MSG_PAY_FQ)	// FQ	�α��� �� ����ڴ� �������� ��������� ��Ÿ����.
-#define	PAY_FLAG_KR_GU				(0x01 << BILLING_MSG_PAY_GU)	// GU	�α��� �� ����ڴ� ���ӹ� ��������� ��Ÿ����.
-#define	PAY_FLAG_KR_GQ				(0x01 << BILLING_MSG_PAY_GQ)	// GQ	���ӹ濡�� �α����� �õ��Ͽ����� ���ӹ��� ���ݱⰣ(�ð�)�� ����Ǿ� ������������ �α��� �Ǿ����� ��Ÿ����.
-#define	PAY_FLAG_KR_IQ				(0x01 << BILLING_MSG_PAY_IQ)	// IQ	���ӹ濡�� �α����� �õ��Ͽ����� �̹� ���� IP ���ڸ� ��� ����ϰ� �־� ������������ �α��� �Ǿ����� ��Ÿ����.
+// 占싼깍옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙트~
+#define	PAY_FLAG_KR_FU				(0x01 << BILLING_MSG_PAY_FU)	// FU	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙 占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	PAY_FLAG_KR_FA				(0x01 << BILLING_MSG_PAY_FA)	// FA	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	PAY_FLAG_KR_FAP				(0x01 << BILLING_MSG_PAY_FAP)	// FAP	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占�(占시뤄옙티占쏙옙)占쏙옙占쏙옙 占쏙옙타占쏙옙占쏙옙.
+#define	PAY_FLAG_KR_FQ				(0x01 << BILLING_MSG_PAY_FQ)	// FQ	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	PAY_FLAG_KR_GU				(0x01 << BILLING_MSG_PAY_GU)	// GU	占싸깍옙占쏙옙 占쏙옙 占쏙옙占쏙옙渼占� 占쏙옙占쌈뱄옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙타占쏙옙占쏙옙.
+#define	PAY_FLAG_KR_GQ				(0x01 << BILLING_MSG_PAY_GQ)	// GQ	占쏙옙占쌈방에占쏙옙 占싸깍옙占쏙옙占쏙옙 占시듸옙占싹울옙占쏙옙占쏙옙 占쏙옙占쌈뱄옙占쏙옙 占쏙옙占쌥기간(占시곤옙)占쏙옙 占쏙옙占쏙옙퓸占� 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占싸깍옙占쏙옙 占실억옙占쏙옙占쏙옙 占쏙옙타占쏙옙占쏙옙.
+#define	PAY_FLAG_KR_IQ				(0x01 << BILLING_MSG_PAY_IQ)	// IQ	占쏙옙占쌈방에占쏙옙 占싸깍옙占쏙옙占쏙옙 占시듸옙占싹울옙占쏙옙占쏙옙 占싱뱄옙 占쏙옙占쏙옙 IP 占쏙옙占쌘몌옙 占쏙옙占� 占쏙옙占쏙옙構占� 占쌍억옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占싸깍옙占쏙옙 占실억옙占쏙옙占쏙옙 占쏙옙타占쏙옙占쏙옙.
 
 // #define	PAY_FLAG_KR_PLATINUM		( FLAG_PAY_FAP|FLAG_PAY_GU )
 
-// �Ϻ� ���� ���� ��Ʈ~
-//#define	FLAG_JPAY_CHAT			(0x01 << 0)						// 0	Free Play 	ĳ���ۼ�, ä��
-#define	PAY_FLAG_JP_BATTLE			(0x01 << 0)	 					// 1	Entry	��Ʋ, ���̽� �ʵ�
-#define	PAY_FLAG_JP_COMMUNITY		(0x01 << 1)	 					// 2	Community	ģ�����, ä�ù�
-#define	PAY_FLAG_JP_TRADE			(0x01 << 2)	 					// 3	Trade	�ŷ�, ����
-#define	PAY_FLAG_JP_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	��ũ
-#define	PAY_FLAG_JP_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	�߰���ũ �����̽�
-#define	PAY_FLAG_JP_STARSHIP_PASS	(0x01 << 5)	 					// 6	Starship Pass	�༺�� �̵�
-#define	PAY_FLAG_JP_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	���� �ʵ�
-#define	PAY_FLAG_JP_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	�ۼ����� ĳ�� �߰�
+// 占싹븝옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙트~
+//#define	FLAG_JPAY_CHAT			(0x01 << 0)						// 0	Free Play 	캐占쏙옙占쌜쇽옙, 채占쏙옙
+#define	PAY_FLAG_JP_BATTLE			(0x01 << 0)	 					// 1	Entry	占쏙옙틀, 占쏙옙占싱쏙옙 占십듸옙
+#define	PAY_FLAG_JP_COMMUNITY		(0x01 << 1)	 					// 2	Community	친占쏙옙占쏙옙占�, 채占시뱄옙
+#define	PAY_FLAG_JP_TRADE			(0x01 << 2)	 					// 3	Trade	占신뤄옙, 占쏙옙占쏙옙
+#define	PAY_FLAG_JP_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	占쏙옙크
+#define	PAY_FLAG_JP_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	占쌩곤옙占쏙옙크 占쏙옙占쏙옙占싱쏙옙
+#define	PAY_FLAG_JP_STARSHIP_PASS	(0x01 << 5)	 					// 6	Starship Pass	占썅성占쏙옙 占싱듸옙
+#define	PAY_FLAG_JP_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	占쏙옙占쏙옙 占십듸옙
+#define	PAY_FLAG_JP_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	占쌜쇽옙占쏙옙占쏙옙 캐占쏙옙 占쌩곤옙
 
-#define	PAY_FLAG_JP_ALL				(0xff << 0)						//      ��� ���� ����~
+#define	PAY_FLAG_JP_ALL				(0xff << 0)						//      占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙~
 
-// �������¿� ���� �÷��� ���ɿ��θ� üũ�� ��Ʈ...
-// �ѱ� ������ FLAG_PAY_FAP,FLAG_PAY_GU�� ���� �Ʒ� ��� ��Ʈ on 
-// �̿� �ѱ� ������ PLAY_FLAG_EXTRA_STOCK, PLAY_FLAG_EXTRA_CHAR ��Ʈ off
-#define	PLAY_FLAG_BATTLE			(0x01 << 0)	 					// 1	Entry	��Ʋ, ���̽� �ʵ�
-#define	PLAY_FLAG_COMMUNITY			(0x01 << 1)	 					// 2	Community	ģ�����, ä�ù�
-#define	PLAY_FLAG_TRADE				(0x01 << 2)	 					// 3	Trade	�ŷ�, ����
-#define	PLAY_FLAG_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	��ũ
-#define	PLAY_FLAG_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	�߰���ũ �����̽�
-#define	PLAY_FLAG_STARSHIP_PASS		(0x01 << 5)	 					// 6	Starship Pass	�༺�� �̵�
-#define	PLAY_FLAG_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	���� �ʵ�
-#define	PLAY_FLAG_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	�ۼ����� ĳ�� �߰�
+// 占쏙옙占쏙옙占쏙옙占승울옙 占쏙옙占쏙옙 占시뤄옙占쏙옙 占쏙옙占심울옙占싸몌옙 체크占쏙옙 占쏙옙트...
+// 占싼깍옙 占쏙옙占쏙옙占쏙옙 FLAG_PAY_FAP,FLAG_PAY_GU占쏙옙 占쏙옙占쏙옙 占싣뤄옙 占쏙옙占� 占쏙옙트 on 
+// 占싱울옙 占싼깍옙 占쏙옙占쏙옙占쏙옙 PLAY_FLAG_EXTRA_STOCK, PLAY_FLAG_EXTRA_CHAR 占쏙옙트 off
+#define	PLAY_FLAG_BATTLE			(0x01 << 0)	 					// 1	Entry	占쏙옙틀, 占쏙옙占싱쏙옙 占십듸옙
+#define	PLAY_FLAG_COMMUNITY			(0x01 << 1)	 					// 2	Community	친占쏙옙占쏙옙占�, 채占시뱄옙
+#define	PLAY_FLAG_TRADE				(0x01 << 2)	 					// 3	Trade	占신뤄옙, 占쏙옙占쏙옙
+#define	PLAY_FLAG_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	占쏙옙크
+#define	PLAY_FLAG_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	占쌩곤옙占쏙옙크 占쏙옙占쏙옙占싱쏙옙
+#define	PLAY_FLAG_STARSHIP_PASS		(0x01 << 5)	 					// 6	Starship Pass	占썅성占쏙옙 占싱듸옙
+#define	PLAY_FLAG_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	占쏙옙占쏙옙 占십듸옙
+#define	PLAY_FLAG_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	占쌜쇽옙占쏙옙占쏙옙 캐占쏙옙 占쌩곤옙
 
-// �ѱ� �⺻ ����
+// 占싼깍옙 占썩본 占쏙옙占쏙옙
 #define	PLAY_FLAG_KOREA_DEFAULT		( PLAY_FLAG_BATTLE | PLAY_FLAG_COMMUNITY | PLAY_FLAG_TRADE | PLAY_FLAG_STOCK_SPACE | PLAY_FLAG_STARSHIP_PASS | PLAY_FLAG_DUNGEON_ADV )
 #define	PLAY_FLAG_TAIWAN_DEFAULT	PLAY_FLAG_KOREA_DEFAULT
 
-#define	EXT_BILLING_MSG_PAY_KOREA			0x1001	// �ѱ� ���� ����
-#define	EXT_BILLING_MSG_PAY_JAPAN			0x1002	// �Ϻ� ���� �÷���
-#define	EXT_BILLING_MSG_PAY_TAIWAN			0x1003	// �븸 ���� Ÿ�Թ�ȣ
+#define	EXT_BILLING_MSG_PAY_KOREA			0x1001	// 占싼깍옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+#define	EXT_BILLING_MSG_PAY_JAPAN			0x1002	// 占싹븝옙 占쏙옙占쏙옙 占시뤄옙占쏙옙
+#define	EXT_BILLING_MSG_PAY_TAIWAN			0x1003	// 占쎈만 占쏙옙占쏙옙 타占쌉뱄옙호
 
-#define	EXT_BILLING_MSG_TYPE_SET_DATE		0x1010	// ���� ���� ����	m_dwPayType = m_dwPlayingFlag = 0	szMsg = Ÿ��\t200309101025\tŸ��\t200309101025...
-#define	EXT_BILLING_MSG_TYPE_SET_TIME		0x1011	// ���� �ð� ����	m_dwPayType = m_dwPlayingFlag = 0	szMsg = Ÿ��\t������\tŸ��\t������...
-#define EXT_BILLING_MSG_TYPE_TIME_EXPIRED	0x1012	// PayType=0�̰� m_dwPlayingFlag[0]�� ����� ���� �÷�������
-#define EXT_BILLING_MSG_TYPE_TIME_ALERT		0x1013	// PayType=0�̰� m_dwPlayingFlag[0]�� �ð�����Ǵ� ���� �÷�������
+#define	EXT_BILLING_MSG_TYPE_SET_DATE		0x1010	// 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙	m_dwPayType = m_dwPlayingFlag = 0	szMsg = 타占쏙옙\t200309101025\t타占쏙옙\t200309101025...
+#define	EXT_BILLING_MSG_TYPE_SET_TIME		0x1011	// 占쏙옙占쏙옙 占시곤옙 占쏙옙占쏙옙	m_dwPayType = m_dwPlayingFlag = 0	szMsg = 타占쏙옙\t占쏙옙占쏙옙占쏙옙\t타占쏙옙\t占쏙옙占쏙옙占쏙옙...
+#define EXT_BILLING_MSG_TYPE_TIME_EXPIRED	0x1012	// PayType=0占싱곤옙 m_dwPlayingFlag[0]占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占시뤄옙占쏙옙占쏙옙占쏙옙
+#define EXT_BILLING_MSG_TYPE_TIME_ALERT		0x1013	// PayType=0占싱곤옙 m_dwPlayingFlag[0]占쏙옙 占시곤옙占쏙옙占쏙옙풔占� 占쏙옙占쏙옙 占시뤄옙占쏙옙占쏙옙占쏙옙
 
 struct gsv_BILLING_MESSAGE_EXT : public t_PACKETHEADER {
   uint16_t m_wMsgTYPE;
   uint32_t m_dwPayType;
-  uint32_t m_dwPlayingFlag[ 4 ]; // �����ְ�~ :: 32 * 4 = 128
+  uint32_t m_dwPlayingFlag[ 4 ]; // 占쏙옙占쏙옙占쌍곤옙~ :: 32 * 4 = 128
   // char m_szMsg[];
 };
 
 //-------------------------------------------------------------------------------------------------
 struct gsv_GODDNESS_MODE : public t_PACKETHEADER {
-  uint8_t  m_btOnOff;    // ����/����
-  uint16_t m_wObjectIDX; // ��� ���� �ɸ��� �ε���
+  uint8_t  m_btOnOff;    // 占쏙옙占쏙옙/占쏙옙占쏙옙
+  uint16_t m_wObjectIDX; // 占쏙옙占� 占쏙옙占쏙옙 占심몌옙占쏙옙 占싸듸옙占쏙옙
 };
 
 //-------------------------------------------------------------------------------------------------
 struct gsv_PATSTATE_CHANGE : public t_PACKETHEADER {
   // GSV_PATSTATE_CHANGE
-  uint8_t  m_btOnOff;    // īƮ ��ȯ ����/�Ұ���(1/0) 
-  uint32_t m_dwCoolTIME; // īƮ ��ȯ �Ұ��� �����̸� ���⿡ ��Ÿ�� ��
-  int16_t  m_nMaxPatHP;  // īƮ ü��
-  uint16_t m_wObjectIDX; // ����� īƮ ü�� 
+  uint8_t  m_btOnOff;    // 카트 占쏙옙환 占쏙옙占쏙옙/占쌀곤옙占쏙옙(1/0) 
+  uint32_t m_dwCoolTIME; // 카트 占쏙옙환 占쌀곤옙占쏙옙 占쏙옙占쏙옙占싱몌옙 占쏙옙占썩에 占쏙옙타占쏙옙 占쏙옙
+  int16_t  m_nMaxPatHP;  // 카트 체占쏙옙
+  uint16_t m_wObjectIDX; // 占쏙옙占쏙옙占� 카트 체占쏙옙 
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -2839,17 +2839,17 @@ struct gsv_CHARSTATE_CHANGE : public t_PACKETHEADER {
 
 struct cli_CART_RIDE : public t_PACKETHEADER {
   uint8_t  m_btType;
-  uint16_t m_wOwnerObjIDX; // �¿� �ƹ�Ÿ
-  uint16_t m_wGuestObjIDX; // Ż �ƹ�Ÿ
+  uint16_t m_wOwnerObjIDX; // 占승울옙 占싣뱄옙타
+  uint16_t m_wGuestObjIDX; // 탈 占싣뱄옙타
 };
 
 struct gsv_CART_RIDE : public cli_CART_RIDE {};
 
-#define	CART_RIDE_REQ				0x01	// Ż�� ?	m_wGuestObjIDX���Ը� ���۵�
-#define	CART_RIDE_ACCEPT			0x02	// Ż��		�ֺ� ��� �ɸ��� ���۵�
-#define	CART_RIDE_REFUSE			0x03	// ��Ż��	m_wOwnerObjIDX���Ը� ���۵�
-#define	CART_RIDE_OWNER_NOT_FOUND	0x04	// �¿� �شٴ� �ɸ��� �������
-#define	CART_RIDE_GUEST_NOT_FOUND	0x05	// �¿���� �ɸ��� �������
+#define	CART_RIDE_REQ				0x01	// 탈占쏙옙 ?	m_wGuestObjIDX占쏙옙占쌉몌옙 占쏙옙占쌜듸옙
+#define	CART_RIDE_ACCEPT			0x02	// 탈占쏙옙		占쌍븝옙 占쏙옙占� 占심몌옙占쏙옙 占쏙옙占쌜듸옙
+#define	CART_RIDE_REFUSE			0x03	// 占쏙옙탈占쏙옙	m_wOwnerObjIDX占쏙옙占쌉몌옙 占쏙옙占쌜듸옙
+#define	CART_RIDE_OWNER_NOT_FOUND	0x04	// 占승울옙 占쌔다댐옙 占심몌옙占쏙옙 占쏙옙占쏙옙占쏙옙占�
+#define	CART_RIDE_GUEST_NOT_FOUND	0x05	// 占승울옙占쏙옙占� 占심몌옙占쏙옙 占쏙옙占쏙옙占쏙옙占�
 
 struct gsv_UPDATE_NAME : public t_PACKETHEADER {
   /*
