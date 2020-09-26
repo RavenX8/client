@@ -70,6 +70,8 @@ $Header: /Client/Network/RecvPACKET.cpp 690   05-10-27 10:18a Choo0219 $
 
 #include "triggerinfo/TriggerInfo.h"
 
+#include "enumerate.h"
+
 // 서버에서 받은 전역 번수들 설정...
 void SetServerVAR(tagVAR_GLOBAL* pVAR) {
   // short	m_nWorld_PRODUCT;					// 제조
@@ -228,7 +230,7 @@ void    CRecvPACKET::Recv_gsv_ANNOUNCE_CHAT(t_PACKET* packet) {
 }
 
 //-------------------------------------------------------------------------------------------------
-bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(t_PACKET* packet) {
+bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& packet) {
   CLogin* pLogin = (CLogin *)g_EUILobby.GetEUI( EUI_LOGIN );
 
   if ( pLogin == nullptr )
@@ -237,85 +239,72 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(t_PACKET* packet) {
   g_EUILobby.HideMsgBox();
 
   CServerList& ServerList = CServerList::GetInstance();
-  ///채널 보이기, 숨기기 구분
-  if ( packet->m_srv_LOGIN_REPLY.m_btResult & 0x80 )
-    ServerList.HideChannel();
+  ///Show and hide channels
+  if ( packet.get_result() & 0x80 )
+    ServerList.HideChannel(); // This is never the case as 0x80 is too high
   else
     ServerList.ShowChannel();
 
-  ///채널 보이기, 숨기기 정보를 뺀상태에서
-  BYTE btResult = packet->m_srv_LOGIN_REPLY.m_btResult & ~0x80;
+  ///With channel show and hide information removed
+  using Result = RoseCommon::Packet::SrvLoginReply::Result;
+  Result btResult = packet.get_result();
 
-  if ( RESULT_LOGIN_REPLY_OK != btResult &&
-       RESULT_LOGIN_REPLY_TAIWAN_OK != btResult &&
-       RESULT_LOGIN_REPLY_JAPAN_OK != btResult ) {
+  if (Result::OK != btResult) {
     switch ( btResult ) {
-      case RESULT_LOGIN_REPLY_NO_RIGHT_TO_CONNECT: g_EUILobby.ShowMsgBox( STR_LOGIN_REPLY_NO_RIGHT_TO_CONNECT,
-                                                                          CTMsgBox::BT_OK, true, pLogin->GetDialogType() );
+      case Result::NO_RIGHT_TO_CONNECT:
+        g_EUILobby.ShowMsgBox(STR_LOGIN_REPLY_NO_RIGHT_TO_CONNECT,
+                              CTMsgBox::BT_OK, true, pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_FAILED: // 오류
-        g_EUILobby.ShowMsgBox( STR_COMMON_ERROR, CTMsgBox::BT_OK, true,
-                               pLogin->GetDialogType() );
+      case Result::FAILED: // Error
+        g_EUILobby.ShowMsgBox(STR_COMMON_ERROR, CTMsgBox::BT_OK, true,
+                              pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_NOT_FOUND_ACCOUNT: // 계정 없다.
-        g_EUILobby.ShowMsgBox( STR_NOT_FOUND_ACCOUNT, CTMsgBox::BT_OK, true,
-                               pLogin->GetDialogType() );
+      case Result::UNKNOWN_ACCOUNT: // No account
+        g_EUILobby.ShowMsgBox(STR_NOT_FOUND_ACCOUNT, CTMsgBox::BT_OK, true,
+                              pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_INVALID_PASSWORD: // 비번 오류
-        g_EUILobby.ShowMsgBox( STR_INVALID_PASSWORD, CTMsgBox::BT_OK, true,
-                               pLogin->GetDialogType() );
+      case Result::INVALID_PASSWORD: // Off-time error
+        g_EUILobby.ShowMsgBox(STR_INVALID_PASSWORD, CTMsgBox::BT_OK, true,
+                              pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_ALREADY_LOGGEDIN: // 이미 로그인 중이다
-        g_EUILobby.ShowMsgBox( STR_ALREADY_LOGGEDIN, CTMsgBox::BT_OK, true,
-                               pLogin->GetDialogType() );
+      case Result::ALREADY_LOGGEDIN: // 이미 로그인 중이다
+        g_EUILobby.ShowMsgBox(STR_ALREADY_LOGGEDIN, CTMsgBox::BT_OK, true,
+                              pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_REFUSED_ACCOUNT: // 서버에서 거부된 계정이다.혹은
+      case Result::REFUSED_ACCOUNT: // 서버에서 거부된 계정이다.혹은
         // 블럭된 계정입니다.
-        g_EUILobby.ShowMsgBox( STR_REFUSED_ACCOUNT, CTMsgBox::BT_OK, true,
-                               pLogin->GetDialogType() );
+        g_EUILobby.ShowMsgBox(STR_REFUSED_ACCOUNT, CTMsgBox::BT_OK, true,
+                              pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_NEED_CHARGE: // 충전이 필요한다
-        g_EUILobby.ShowMsgBox( STR_BILL_AT_ROSEONLINE_HOMEPAGE, CTMsgBox::BT_OK,
-                               true,
-                               pLogin->GetDialogType() ); //로즈온라인 홈페이지에서
+      case Result::NEED_CHARGE: // 충전이 필요한다
+        g_EUILobby.ShowMsgBox(STR_BILL_AT_ROSEONLINE_HOMEPAGE, CTMsgBox::BT_OK,
+                              true,
+                              pLogin->GetDialogType()); //로즈온라인 홈페이지에서
         //결제 신청을 해주세요~
         return false;
-      case RESULT_LOGIN_REPLY_TOO_MANY_USER: g_EUILobby.ShowMsgBox( STR_LOGIN_REPLY_TOO_MANY_USER, CTMsgBox::BT_OK,
-                                                                    true, pLogin->GetDialogType() );
+      case Result::TOO_MANY_USERS:
+        g_EUILobby.ShowMsgBox(STR_LOGIN_REPLY_TOO_MANY_USER, CTMsgBox::BT_OK,
+                              true, pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_NO_REAL_NAME: g_EUILobby.ShowMsgBox( STR_RESULT_LOGIN_REPLY_NO_REAL_NAME,
-                                                                   CTMsgBox::BT_OK, true, pLogin->GetDialogType() );
+      case Result::NO_NAME:
+        g_EUILobby.ShowMsgBox(STR_RESULT_LOGIN_REPLY_NO_REAL_NAME,
+                              CTMsgBox::BT_OK, true, pLogin->GetDialogType());
         return false;
-      case RESULT_LOGIN_REPLY_OUT_OF_IP: g_EUILobby.ShowMsgBox(
-          STR_INSUFFICIENCY_IP, CTMsgBox::BT_OK, true,
-          pLogin->GetDialogType() ); //"접속 가능한 ip 수가 초과 되었습니다"
+      case Result::OUTSIDE_REGION:
+        g_EUILobby.ShowMsgBox(STR_INSUFFICIENCY_IP, CTMsgBox::BT_OK, true,
+                              pLogin->GetDialogType()); //"접속 가능한 ip 수가 초과 되었습니다"
         return false;
-      case RESULT_LOGIN_REPLY_TAIWAN_FAILED: switch ( packet->m_srv_LOGIN_REPLY.m_wPayType ) {
-          case 7: g_EUILobby.ShowMsgBox( STR_NOT_FOUND_ACCOUNT, CTMsgBox::BT_OK, true,
-                                         pLogin->GetDialogType() );
-            break;
-          default: g_EUILobby.ShowMsgBox( STR_COMMON_ERROR, CTMsgBox::BT_OK, true,
-                                          pLogin->GetDialogType() );
-            break;
-        }
-
-        return false;
-      default: g_EUILobby.ShowMsgBox( "Login Failed", CTMsgBox::BT_OK, true,
-                                      pLogin->GetDialogType() );
+      default:
+        g_EUILobby.ShowMsgBox("Login Failed", CTMsgBox::BT_OK, true,
+                              pLogin->GetDialogType());
         return false;
     }
   }
-  short  nOffset = sizeof( srv_LOGIN_REPLY );
-  char*  szServerName;
-  DWORD* pServerID;
 
-  szServerName = Packet_GetStringPtr( packet, nOffset );
-  pServerID    = (DWORD *)Packet_GetDataPtr( packet, nOffset, sizeof( DWORD ) );
-
-  if ( !szServerName || !pServerID ) {
+  if ( !packet.get_serversInfo().size() ) {
     CTCommand* pCmd = new CTCmdExit;
-    g_EUILobby.ShowMsgBox( STR_INSPECT_ALL_SEVER, CTMsgBox::BT_OK, true,
-                           pLogin->GetDialogType(), pCmd );
+    g_EUILobby.ShowMsgBox(STR_INSPECT_ALL_SEVER, CTMsgBox::BT_OK, true,
+                          pLogin->GetDialogType(), pCmd);
     return false;
   }
 
@@ -325,14 +314,8 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(t_PACKET* packet) {
 
   CExternalUIManager& refEUIManager = g_EUILobby.GetExternalUIManager();
 
-  //	bool	bSetFirstServerID = false;
-  //	int		iFirstServerID  = 0;
-
-  DWORD dwServerID = 0;
-  short nServerID  = 0;
-  DWORD dwRight    = packet->m_srv_LOGIN_REPLY.m_wRight;
-  CGame::GetInstance().SetRight( dwRight );
-  CGame::GetInstance().SetPayType( packet->m_srv_LOGIN_REPLY.m_wPayType );
+  CGame::GetInstance().SetRight( packet.get_right() );
+  CGame::GetInstance().SetPayType( packet.get_type() );
 
   std::map<BYTE, std::pair<DWORD, std::string>> TempServerList;
 
@@ -366,50 +349,36 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(t_PACKET* packet) {
   // pSelectServer->ClearServerList();
   // pSelectServer->ClearChannelList();
 
-  while ( szServerName && pServerID ) {
-    if ( !dwServerID )
-      dwServerID = *pServerID;
-
-    nServerID++;
-
-    LogString(LOG_DEBUG, "\n\n[[ Server: %s, ID: %d ]]\n\n\n", szServerName,
-              *pServerID);
+  for (const auto& [nServerID, server] : Core::enumerate(packet.get_serversInfo())) {
+    LogString(LOG_DEBUG, "\n\n[[ Server %s, ID: %d]]\n\n\n", server.get_name(), server.get_id());
 
     ///서버네임에@에 붙은경우 개발자 권한에서만 리스트에 보여준다.
     if ( g_GameDATA.m_bForOpenTestServer ) {
-      if ( szServerName[0] == '@' && strlen( szServerName ) >= 2 )
-        TempServerList.insert(
-          std::map<BYTE, std::pair<DWORD, std::string>>::value_type(
-            (BYTE)(128 + (*pServerID)),
-            std::make_pair( *pServerID, &szServerName[1] ) ) );
+      if ( server.get_test() == '@' && server.get_name().size() >= 1 )
+        TempServerList.emplace(
+            (BYTE)(128 + (server.get_id())),
+            std::make_pair(server.get_id(), server.get_name()));
     } else {
-      if ( szServerName[0] == '@' ) {
-        if ( dwRight >= CHEAT_MM ) {
-          if ( strlen( szServerName ) >= 2 )
-            TempServerList.insert(
-              std::map<BYTE, std::pair<DWORD, std::string>>::value_type(
-                (BYTE)(128 + (*pServerID)),
-                std::make_pair( *pServerID, &szServerName[0] ) ) );
+      if (server.get_test() == '@' ) {
+        if ( packet.get_right() >= CHEAT_MM ) {
+          if ( server.get_name().size() >= 1 )
+            TempServerList.emplace(
+                (BYTE)(128 + (server.get_id())),
+                std::make_pair(server.get_id(), std::string("@") + server.get_name()));
         }
       } else {
-        if ( strlen( szServerName ) >= 2 )
-          TempServerList.insert(
-            std::map<BYTE, std::pair<DWORD, std::string>>::value_type(
-              szServerName[0], std::make_pair( *pServerID, &szServerName[1] ) ) );
+        if ( server.get_name().size() >= 1 )
+          TempServerList.emplace(
+              server.get_test(),
+              std::make_pair(server.get_id(), server.get_name()));
       }
     }
-
-    szServerName = Packet_GetStringPtr( packet, nOffset );
-    pServerID    =
-      (DWORD *)Packet_GetDataPtr( packet, nOffset, sizeof( DWORD ) );
   }
 
-  std::map<BYTE, std::pair<DWORD, std::string>>::iterator iter;
-  int                                                iCount = 0;
-  for ( iter                                                = TempServerList.begin(); iter != TempServerList.end();
-        ++iter, ++iCount )
-    ServerList.AddWorldServerList( iCount, iter->second.first,
-                                   (char *)(iter->second.second.c_str()) );
+  for ( const auto& [iCount, server] : Core::enumerate(TempServerList)) {
+    ServerList.AddWorldServerList( iCount, server.second.first,
+                                   (char *)(server.second.second.c_str()) );
+  }
 
   g_EUILobby.HideMsgBox();
 

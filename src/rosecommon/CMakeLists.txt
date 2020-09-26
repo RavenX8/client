@@ -12,6 +12,7 @@ set( SOURCES_HEADER
   include/packetfactory.h
   include/packet_dispatcher.h
   include/crosewriter.h
+  include/enumerate.h
 )
 
 SET(SOURCES_BASE

@@ -4,6 +4,8 @@
 #ifndef	__CRECVPACKET_H
 #define	__CRECVPACKET_H
 
+#include "srv_login_reply.h"
+
 //-------------------------------------------------------------------------------------------------
 
 class CRecvPACKET {
@@ -35,7 +37,7 @@ public :
   void Recv_srv_ANNOUNCE_TEXT(t_PACKET* packet);
   void Recv_gsv_ANNOUNCE_CHAT(t_PACKET* packet);
 
-  bool Recv_lsv_LOGIN_REPLY(t_PACKET* packet);
+  bool Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& packet);
 
   void Recv_lsv_CHANNEL_LIST_REPLY(t_PACKET* packet);
   int  Recv_lsv_SELECT_SERVER(t_PACKET* packet);

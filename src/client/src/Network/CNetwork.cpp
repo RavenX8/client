@@ -198,7 +198,9 @@ void              CNetwork::Proc_WorldPacket() {
         break;
       }
 
-      case LSV_LOGIN_REPLY: if ( !Recv_lsv_LOGIN_REPLY(packet.get()) ) {
+      case LSV_LOGIN_REPLY:
+        using RoseCommon::Packet::SrvLoginReply;
+        if ( !Recv_lsv_LOGIN_REPLY(SrvLoginReply::create(reinterpret_cast<const uint8_t*>(packet.get()))) ) {
           this->DisconnectFromServer();
           return;
         }

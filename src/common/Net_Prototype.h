@@ -619,38 +619,6 @@ struct gsv_GM_COMMAND : public t_PACKETHEADER {
 #define	GM_CMD_SHUT		0x00		//	채占쏙옙 占쏙옙占쏙옙..
 #define	GM_CMD_LOGOUT	0x01		//	占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙...
 
-struct srv_LOGIN_REPLY : public t_PACKETHEADER {
-  uint8_t  m_btResult;
-  uint16_t m_wRight;
-  uint16_t m_wPayType;
-  /*  m_cResult == RESULT_LOGIN_REPLY_OK 占싹곤옙占�
-      struct {
-          // szServerNAME[]
-    uint32_t dwServerID;
-      } ;
-  */
-};
-
-#define RESULT_LOGIN_REPLY_OK                   0x00
-#define	RESULT_LOGIN_REPLY_KOREA_OK				RESULT_LOGIN_REPLY_OK
-
-#define RESULT_LOGIN_REPLY_FAILED               0x01    // 占쏙옙占쏙옙
-#define RESULT_LOGIN_REPLY_NOT_FOUND_ACCOUNT    0x02    // 占쏙옙占쏙옙 占쏙옙占쏙옙.
-#define RESULT_LOGIN_REPLY_INVALID_PASSWORD     0x03    // 占쏙옙占� 占쏙옙占쏙옙
-#define RESULT_LOGIN_REPLY_ALREADY_LOGGEDIN     0x04    // 占싱뱄옙 占싸깍옙占쏙옙 占쏙옙占싱댐옙
-#define RESULT_LOGIN_REPLY_REFUSED_ACCOUNT      0x05    // 占쏙옙占쏙옙占쏙옙占쏙옙 占신부듸옙 占쏙옙占쏙옙占싱댐옙.
-#define RESULT_LOGIN_REPLY_NEED_CHARGE          0x06    // 占쏙옙占쏙옙占쏙옙 占십울옙占싼댐옙
-#define	RESULT_LOGIN_REPLY_NO_RIGHT_TO_CONNECT	0x07	// 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙.
-#define	RESULT_LOGIN_REPLY_TOO_MANY_USER		0x08	// 占쏙옙占쏙옙 占싸울옙 占쏙옙占쏙옙
-#define	RESULT_LOGIN_REPLY_NO_REAL_NAME			0x09
-#define	RESULT_LOGIN_REPLY_INVALID_VERSION		0x0a	// 占쏙옙치占쏙옙 占쌨아억옙 占싼댐옙.
-#define	RESULT_LOGIN_REPLY_OUT_OF_IP			0x0b	// 占실억옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 ip 占십곤옙...
-
-#define	RESULT_LOGIN_REPLY_TAIWAN_OK			0x10	// m_wPayType 占쏙옙占쏙옙 타占싱울옙 占쏙옙占쌥쇽옙占쏙옙 체占쏙옙
-#define	RESULT_LOGIN_REPLY_TAIWAN_FAILED		0x11	// 타占싱울옙 占쏙옙占쌥쇽옙占쏙옙 체占쏙옙占� 占쏙옙占쏙옙
-
-#define	RESULT_LOGIN_REPLY_JAPAN_OK				0x18	// m_wPayType 占쏙옙占쏙옙 占싹븝옙 占쏙옙占쌥쇽옙占쏙옙 체占쏙옙
-
 /*
 占싹븝옙 占쏙옙占쏙옙 占쏙옙占쏙옙 RESULT_LOGIN_REPLY_JAPAN_OK占싹곤옙占� m_wPayType占쏙옙 占쏙옙占쏙옙
 PAY_FLAG_JP_???? 占쏙옙 & 占쏙옙占쏙옙占쌔쇽옙 TRUE占싱몌옙 占쏙옙占쏙옙占쏙옙
@@ -2895,8 +2863,6 @@ struct t_PACKET {
     gsv_LOGOUT_REPLY m_gsv_LOGOUT_REPLY;
 
     // CLI <-> LSV
-    srv_LOGIN_REPLY m_srv_LOGIN_REPLY;
-
     cli_CHANNEL_LIST_REQ   m_cli_CHANNEL_LIST_REQ;
     lsv_CHANNEL_LIST_REPLY m_lsv_CHANNEL_LIST_REPLY;
 

@@ -10,6 +10,7 @@
 #include <tuple>
 #include <mutex>
 #include <optional>
+#include <cstddef>
 
 //-------------------------------------------------------------------------------------------------
 
@@ -20,7 +21,7 @@ private:
   bool _Init(void);
   void _Free(void);
 
-  uint8_t   m_pRecvPacket[MAX_PACKET_SIZE];
+  std::byte m_pRecvPacket[MAX_PACKET_SIZE];
   short     m_nRecvBytes;
   short     m_nPacketSize;
 
@@ -40,9 +41,9 @@ private:
   // <size, data>
   using Node = std::tuple<uint16_t, std::unique_ptr<uint8_t[]>>;
 
-  std::list<Node>       m_RecvPacketQ;
-  std::list<Node>			  m_SendPacketQ;
-  std::list<Node>			  m_WaitPacketQ;
+  std::list<Node> m_RecvPacketQ;
+  std::list<Node> m_SendPacketQ;
+  std::list<Node> m_WaitPacketQ;
 
   //classDLLIST<struct tagUDPPACKET *> m_RecvUDPPacketQ;
 
