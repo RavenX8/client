@@ -1,3 +1,0 @@
-[submodule "3rdParty/packets"]
-	path = 3rdParty/packets
-	url = https://github.com/dev-osrose/packets

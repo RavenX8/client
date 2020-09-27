@@ -843,8 +843,7 @@ target_link_libraries(${PROJECT} PRIVATE sqlite3::sqlite3)
 target_link_libraries(${PROJECT} PRIVATE TriggerInfo)
 target_link_libraries(${PROJECT} PRIVATE TGameCtrl)
 target_link_libraries(${PROJECT} PRIVATE znzin)
-target_link_libraries(${PROJECT} PRIVATE osIROSE-common-core)
-target_link_libraries(${PROJECT} PRIVATE osIROSE-common-rosecommon)
+target_link_libraries(${PROJECT} PRIVATE osirose_common::osirose_common)
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/src PREFIX "Source Files" FILES ${SOURCES_MAIN})
 
