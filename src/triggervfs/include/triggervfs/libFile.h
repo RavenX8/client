@@ -34,7 +34,7 @@ int GetFileNameInDir (const char *Dir, char **ppFile, int nNum, int nMaxName);
 /// 디렉토리내에 있는 첫번째 파일이름을 조사한다.
 HANDLE __FindFirstFileName (const char *Dir, const char **FirstName);
 /// 디렉토리내에 있는 다음 파일이름을 리턴해 준다
-const char * __FindNextFileName (HANDLE hSearch);
+std::string __FindNextFileName (HANDLE hSearch);
 /// 파일 Find를 닫는다
 void __CloseFindFileName (HANDLE hSearch);
 /// 경로가 파일인지 아닌지 검사

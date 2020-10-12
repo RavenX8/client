@@ -20,11 +20,10 @@
 #include <string>
 #include <vector>
 
-using namespace std;
 
 class TGAMECTRL_API CSplitHangul {
-  vector<string> m_StringList;
-  std::string    m_strNull;
+  std::vector<std::string> m_StringList;
+  std::string	           m_strNull;
 public:
   CSplitHangul();
   CSplitHangul(char* Str, int iLength, unsigned uiCodePage);

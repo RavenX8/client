@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project("Client")
 
 #set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_CXX_COMPILER_LAUNCHER)
   set(ENV{CCACHE_SLOPPINESS} "pch_defines,time_macros")

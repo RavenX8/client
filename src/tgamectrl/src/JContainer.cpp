@@ -15,7 +15,7 @@ void                             CJContainer::Draw() {
 }
 
 void CJContainer::Update(POINT ptMouse) {
-  for_each( m_Children.begin(), m_Children.end(), bind2nd( mem_fun( &CWinCtrl::Update ), ptMouse ) );
+    for_each(m_Children.begin(), m_Children.end(), [ptMouse](auto* winCtrl) { winCtrl->Update(ptMouse); });
 }
 
 unsigned                                 CJContainer::Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) {

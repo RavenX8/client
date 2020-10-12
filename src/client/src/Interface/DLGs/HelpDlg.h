@@ -60,7 +60,7 @@ public:
 class CHelpPage : public CTObject {
 private:
   std::string         m_strPageName;
-  vector<std::string> m_PageContents;
+  std::vector<std::string> m_PageContents;
 
 public:
   CHelpPage() {};

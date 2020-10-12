@@ -18,8 +18,8 @@ static CAdapterInfo * g_pAdInfo = NULL;
 /************************************************************
  * 시스템 정보를 저장하는 문자열
  */
-static string g_Info;
-static string g_InfoForWeb;
+static std::string g_Info;
+static std::string g_InfoForWeb;
 
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  ul_reason_for_call, 

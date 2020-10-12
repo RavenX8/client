@@ -1680,7 +1680,7 @@ short   CObjAI::Get_RecoverHP(short nRecoverMODE) {
     case CMD_SIT: {
       if ( CCountry::GetSingleton().IsApplyNewVersion() )
         //nRecoverHP = this->GetAdd_RecoverHP() + this->Get_MaxHP() / 12.f + 1;
-        nRecoverHP = this->GetAdd_RecoverHP() + this->GetOri_MaxHP() / 12.f + 1;
+        nRecoverHP = (short)(this->GetAdd_RecoverHP() + this->GetOri_MaxHP() / 12.f + 1);
 
       else
         nRecoverHP = this->GetAdd_RecoverHP() + (this->Get_CON() + 30) / 8 * (nRecoverMODE + 3) / 10;
@@ -1708,13 +1708,13 @@ short   CObjAI::Get_RecoverMP(short nRecoverMODE) {
   switch ( Get_COMMAND() ) {
     case CMD_SIT: if ( CCountry::GetSingleton().IsApplyNewVersion() )
         //nRecoverMP = this->GetAdd_RecoverMP() + this->Get_MaxMP() / 12.f + 1;
-        nRecoverMP = this->GetAdd_RecoverMP() + this->GetOri_MaxMP() / 12.f + 1;
+        nRecoverMP = (short)(this->GetAdd_RecoverMP() + this->GetOri_MaxMP() / 12.f + 1);
       else
         nRecoverMP = (this->GetAdd_RecoverMP() + (this->Get_CON() + 20) / 10 * nRecoverMODE / 7);
       break;
     default: if ( CCountry::GetSingleton().IsApplyNewVersion() ) {
         //nRecoverMP = this->GetAdd_RecoverMP() + this->Get_MaxMP() / 35.f + 1;
-        nRecoverMP = this->GetAdd_RecoverMP() + this->GetOri_MaxMP() / 35.f + 1;
+        nRecoverMP = (short)(this->GetAdd_RecoverMP() + this->GetOri_MaxMP() / 35.f + 1);
       }
       break;
   }

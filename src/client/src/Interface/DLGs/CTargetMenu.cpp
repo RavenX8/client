@@ -63,7 +63,7 @@ bool CTargetMenu::OnLButtonUp(unsigned iProcID) {
       CObjAVT* pObjAVT = g_pObjMGR->Get_CharAVT( m_iTargetAvatarID, true );
       if ( pObjAVT ) {
         if ( CExchange::GetInstance().SendCliTradeReq( g_pObjMGR->Get_ServerObjectIndex( pObjAVT->Get_INDEX() ) ) ) {
-          string Temp = pObjAVT->Get_NAME();
+          std::string Temp = pObjAVT->Get_NAME();
           Temp.append( STR_REQ_TRADE );
           g_itMGR.AppendChatMsg( Temp.c_str(), IT_MGR::CHAT_TYPE_SYSTEM );
         }

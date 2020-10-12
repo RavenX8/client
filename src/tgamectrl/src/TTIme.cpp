@@ -244,14 +244,14 @@ int CTIme::Process(HWND hWnd, unsigned uiMsg, WPARAM wParam, LPARAM lParam) {
 
               std::string strItem;
               int         iCount = 1;
-              for ( int   i      = iStart; i < (iStart + pCandidateList->dwPageSize) && (i < pCandidateList->dwCount); ++i, ++iCount ) {
+              for ( size_t   i      = iStart; i < (iStart + pCandidateList->dwPageSize) && (i < pCandidateList->dwCount); ++i, ++iCount ) {
                 sprintf( pszBuffer, "%2d. ", iCount );
                 strItem = pszBuffer;
                 strItem.append( (char*)pCandidateList + pCandidateList->dwOffset[i] );
                 m_pCandidateWindow->AddCandidate( strItem.c_str() );
               }
 
-              m_pCandidateWindow->SetSelection( pCandidateList->dwSelection % pCandidateList->dwPageSize );
+              m_pCandidateWindow->SetSelection( (short)(pCandidateList->dwSelection % pCandidateList->dwPageSize) );
               delete []pCandidateList;
             }
             ImmReleaseContext( hWnd, hIMC );

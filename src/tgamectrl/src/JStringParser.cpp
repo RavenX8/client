@@ -222,7 +222,7 @@ void CJStringParser::SetDefaultColor(DWORD dwColor) {
 }
 
 void                     CJStringParser::TagStartProcess(std::string& Tag, TagInfo& tag_info) {
-  std::string            strTag = strupr( (char*)Tag.c_str() );
+  std::string            strTag = _strupr( (char*)Tag.c_str() );
   std::string::size_type index;
 
   index = strTag.find( "FC" );
@@ -258,7 +258,7 @@ void                     CJStringParser::TagStartProcess(std::string& Tag, TagIn
 }
 
 void          CJStringParser::TagEndProcess(std::string& Tag, TagInfo& tag_info) {
-  std::string strTag = strupr( (char*)Tag.c_str() );
+  std::string strTag = _strupr( (char*)Tag.c_str() );
 
   std::string::size_type index;
 

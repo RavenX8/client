@@ -126,7 +126,7 @@ protected:
     CHAT_ALLIED,
   };
 
-  int ChatParser(string stMsg, string& stRealMsg, string& stTargetID);
+  int ChatParser(std::string stMsg, std::string& stRealMsg, std::string& stTargetID);
 
   bool IsChatBlock();
   void SetFocusEditBox(unsigned iID);
@@ -145,7 +145,7 @@ protected:
 
 protected:
   /// 도배 금지 기능에 사용되는 멤버들
-  queue<DWORD> m_PrevSendMessageTimes;
+  std::queue<DWORD> m_PrevSendMessageTimes;
   int          m_iCheckChatCount; ///3
   DWORD        m_dwCheckChatTime; ///5 * 1000
 
@@ -168,7 +168,7 @@ protected:
   short      m_nChatLineCNT; /// 채팅 라인수 
   static int m_iCaptureCount;
 
-  vector<ChatFilter> m_Filters;
+  std::vector<ChatFilter> m_Filters;
 
   /// 다국어 지원용 : 2바이트문자에서도 동작할수 있도록 유니코드로 등록
   std::vector<std::wstring> m_ShoutCommands;

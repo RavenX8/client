@@ -601,14 +601,13 @@ void IT_MGR::DrawDLGs(POINT ptMouse) {
   CWinCtrl::SetProcessMouseOverCtrl( nullptr );
   CTDialog::SetProcessMouseOverDialog( nullptr );
   ///
-  CTDialog* pDlg = nullptr;
 
-  for_each( m_Dlgs.rbegin(), m_Dlgs.rend(), bind2nd( mem_fun( &CTDialog::Update ), ptMouse ) );
-  for_each( m_Icons.rbegin(), m_Icons.rend(), bind2nd( mem_fun( &CIcon::Update ), ptMouse ) );
+  for_each(m_Dlgs.rbegin(), m_Dlgs.rend(), [ptMouse](auto* dialog) {dialog->Update(ptMouse); });
+  for_each(m_Icons.rbegin(), m_Icons.rend(), [ptMouse](auto* icon) { icon->Update(ptMouse); });
   m_pNotifyButtonDlg->Update( ptMouse );
 
-  for_each( m_Icons.begin(), m_Icons.end(), mem_fun( &CIcon::Draw ) );
-  for_each( m_Dlgs.begin(), m_Dlgs.end(), mem_fun( &CTDialog::Draw ) );
+  for_each(m_Icons.begin(), m_Icons.end(), [](auto* icon) { icon->Draw(); });
+  for_each(m_Dlgs.begin(), m_Dlgs.end(), [](auto* dialog) { dialog->Draw(); });
   m_pNotifyButtonDlg->Draw();
 
   if ( !IsMouseOnInterface() ) {

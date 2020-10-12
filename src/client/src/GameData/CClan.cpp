@@ -189,7 +189,7 @@ void CClan::AddMember(const char* pszName, int iClass, int iClanPoint, int iChan
     SetChanged();
     NotifyObservers( &m_Event );
 
-    if ( g_pAVATAR != nullptr && strcmpi( pszName, g_pAVATAR->Get_NAME() ) == 0 )
+    if ( g_pAVATAR != nullptr && _strcmpi( pszName, g_pAVATAR->Get_NAME() ) == 0 )
       m_iMyClanPoint = iClanPoint;
   }
 }
@@ -200,7 +200,7 @@ void CClan::RemoveMember(const char* pszName) {
     std::list<S_ClanMember>::iterator iter;
     int                               iIndex = 0;
     for ( iter                               = m_Members.begin(); iter != m_Members.end(); ++iter, ++iIndex ) {
-      if ( strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
+      if ( _strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
         m_Event.SetID( CTEventClan::EID_REMOVE_MEMBER );
         m_Event.SetName( pszName );
         SetChanged();
@@ -215,13 +215,13 @@ void CClan::RemoveMember(const char* pszName) {
 void CClan::ChangeClass(const char* pszName, int iClass) {
   assert( pszName );
   if ( pszName ) {
-    if ( g_pAVATAR != nullptr && strcmpi( pszName, g_pAVATAR->Get_NAME() ) == 0 )
+    if ( g_pAVATAR != nullptr && _strcmpi( pszName, g_pAVATAR->Get_NAME() ) == 0 )
       g_pAVATAR->SetClanPos( (BYTE)iClass );
 
     std::list<S_ClanMember>::iterator iter;
     int                               iIndex = 0;
     for ( iter                               = m_Members.begin(); iter != m_Members.end(); ++iter, ++iIndex ) {
-      if ( strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
+      if ( _strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
         iter->m_iClass = iClass;
         m_Event.SetID( CTEventClan::EID_CHANGE_CLASS );
         m_Event.SetName( pszName );
@@ -363,7 +363,7 @@ void CClan::SetMemberLevel(const char* pszName, short nLev) {
     std::list<S_ClanMember>::iterator iter;
     int                               iIndex = 0;
     for ( iter                               = m_Members.begin(); iter != m_Members.end(); ++iter, ++iIndex ) {
-      if ( strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
+      if ( _strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
         m_Event.SetID( CTEventClan::EID_SET_LEVEL );
         m_Event.SetName( pszName );
         m_Event.SetLevel( nLev );
@@ -381,7 +381,7 @@ void CClan::SetMemberJob(const char* pszName, short nJob) {
     std::list<S_ClanMember>::iterator iter;
     int                               iIndex = 0;
     for ( iter                               = m_Members.begin(); iter != m_Members.end(); ++iter, ++iIndex ) {
-      if ( strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
+      if ( _strcmpi( iter->m_strName.c_str(), pszName ) == 0 ) {
         m_Event.SetID( CTEventClan::EID_SET_JOB );
         m_Event.SetName( pszName );
         m_Event.SetJob( nJob );

@@ -398,7 +398,7 @@ void CLogin::Draw() {
 
   if ( m_hCopyRight ) {
     D3DXMATRIX mat;
-    D3DXMatrixTranslation( &mat, 50, g_pCApp->GetHEIGHT() - m_iHeightCopyRight - 10, 0.0f );
+    D3DXMatrixTranslation( &mat, (FLOAT)50, (FLOAT)(g_pCApp->GetHEIGHT() - m_iHeightCopyRight - 10), 0.0f );
     setTransformSprite( mat );
     drawSprite( m_hCopyRight,
                 nullptr,

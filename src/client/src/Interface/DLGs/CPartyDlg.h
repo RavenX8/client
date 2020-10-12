@@ -9,7 +9,7 @@ class CPartyMember;
 #include "../../GameCommon/IObserver.h"
 #include <list>
 
-typedef list<CPartyMember*>         LIST_PARTY_MEMBER;
+typedef std::list<CPartyMember*>         LIST_PARTY_MEMBER;
 typedef LIST_PARTY_MEMBER::iterator LIST_PARTY_MEMBER_ITER;
 
 /**

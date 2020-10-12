@@ -143,6 +143,6 @@ void CHelpMgr::Update() {
       continue;
 
     if ( iLowestLv <= iAvatarLv && iUpperLv >= iAvatarLv )
-      m_HelpData.insert( MAP_HELP::value_type( i, make_pair( iLowestLv, iUpperLv ) ) );
+      m_HelpData.insert( MAP_HELP::value_type( i, std::make_pair( iLowestLv, iUpperLv ) ) );
   }
 }

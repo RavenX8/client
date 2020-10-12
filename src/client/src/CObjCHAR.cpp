@@ -1831,7 +1831,7 @@ bool   CObjCHAR::ProcEffectedSkill() {
 
   stEFFECT_OF_SKILL* pEffectOfSkill = nullptr;
 
-  for ( int i      = 0; i < m_EffectedSkillList.size(); i++ ) {
+  for ( size_t i      = 0; i < m_EffectedSkillList.size(); i++ ) {
     pEffectOfSkill = &(m_EffectedSkillList[i]);
 
     ProcOneEffectedSkill( pEffectOfSkill );
@@ -1902,7 +1902,7 @@ uniDAMAGE   CObjCHAR::PopTotalDamageFromList(int64_t& iMaxDamage) {
   wDamage.m_wDamage = 0;
   iMaxDamage        = 0;
 
-  for ( int i = 0; i < m_DamageList.size(); i++ ) {
+  for ( size_t i = 0; i < m_DamageList.size(); i++ ) {
     /// 일단 타격치 출력은 제일 큰값..
     if ( m_DamageList[i].m_Damage.m_wVALUE > iMaxDamage )
       iMaxDamage = m_DamageList[i].m_Damage.m_wVALUE;
@@ -1993,7 +1993,7 @@ void        CObjCHAR::ConvertDamageOfSkillToDamage(gsv_DAMAGE_OF_SKILL stDamageO
 //--------------------------------------------------------------------------------
 
 void        CObjCHAR::DropFieldItemFromList() {
-  for ( int i = 0; i < m_FieldItemList.size(); i++ ) {
+  for ( size_t i = 0; i < m_FieldItemList.size(); i++ ) {
     //gsv_ADD_FIELDITEM& ItemInfo = m_FieldItemList[ i ];
 
     int iItemOBJ = g_pObjMGR->Add_GndITEM( m_FieldItemList[i].m_wServerItemIDX,
@@ -2003,7 +2003,7 @@ void        CObjCHAR::DropFieldItemFromList() {
     if ( iItemOBJ ) {
       CObjITEM* pITEM             = (CObjITEM *)g_pObjMGR->Get_OBJECT( iItemOBJ );
       pITEM->m_wOwnerServerObjIDX = m_FieldItemList[i].m_wOwnerObjIDX;
-      pITEM->m_wRemainTIME        = ITEM_OBJ_LIVE_TIME;
+      pITEM->m_wRemainTIME        = (WORD)ITEM_OBJ_LIVE_TIME;
 
       pITEM->InsertToScene();
 
@@ -2409,11 +2409,11 @@ int CObjCHAR::Get_AttackRange() {
   }
 
   if ( Get_R_WEAPON() ) {
-    return WEAPON_ATTACK_RANGE( Get_R_WEAPON() ) + (Get_SCALE() * 120);
+    return (int)(WEAPON_ATTACK_RANGE( Get_R_WEAPON() ) + (Get_SCALE() * 120));
   }
 
   // Default attack range...
-  return (Def_AttackRange() + (Get_SCALE() * 120));
+  return (int)(Def_AttackRange() + (Get_SCALE() * 120));
 }
 
 //--------------------------------------------------------------------------------
@@ -3188,7 +3188,7 @@ BOOL CObjCHAR::SetRideUser(WORD irideIDX) {
   //아바타 무기 및 날개는 안보이도록 설정 
   int iVisibilityPart[3] = { BODY_PART_KNAPSACK, BODY_PART_WEAPON_R, BODY_PART_WEAPON_L };
 
-  for ( register int   i         = 0; i < 3; i++ ) {
+  for ( int   i         = 0; i < 3; i++ ) {
     CMODEL<CCharPART>* pCharPART = pTarget->m_pCharMODEL->GetCharPART( iVisibilityPart[i] );
     if ( pCharPART ) {
       short nI;
@@ -3233,7 +3233,7 @@ void CObjCHAR::ReleaseRideUser(void) {
   //아바타 무기 및 날개는 보이도록 설정 
   int iVisibilityPart[3] = { BODY_PART_KNAPSACK, BODY_PART_WEAPON_R, BODY_PART_WEAPON_L };
 
-  for ( register int   i         = 0; i < 3; i++ ) {
+  for ( int   i         = 0; i < 3; i++ ) {
     CMODEL<CCharPART>* pCharPART = pTarget->m_pCharMODEL->GetCharPART( iVisibilityPart[i] );
     if ( pCharPART ) {
       short nI;
@@ -3280,7 +3280,7 @@ void CObjCHAR::ReleaseRideUser(WORD irideIDX) {
   //아바타 무기 및 날개는 보이도록 설정 
   int iVisibilityPart[3] = { BODY_PART_KNAPSACK, BODY_PART_WEAPON_R, BODY_PART_WEAPON_L };
 
-  for ( register int   i         = 0; i < 3; i++ ) {
+  for ( int   i         = 0; i < 3; i++ ) {
     CMODEL<CCharPART>* pCharPART = pTarget->m_pCharMODEL->GetCharPART( iVisibilityPart[i] );
     if ( pCharPART ) {
       short nI;
@@ -3699,7 +3699,7 @@ void CObjCHAR::SetClan(DWORD dwClanID, WORD wMarkBack, WORD wMarkCenter, const c
   //assert( pszName && dwClanID );
   if ( pszName && dwClanID ) {
 
-    m_dwClanID        = dwClanID;
+    m_dwClanID        = (WORD)dwClanID;
     m_wClanMarkBack   = wMarkBack;
     m_wClanMarkCenter = wMarkCenter;
     m_iClanLevel      = iLevel;
@@ -3776,7 +3776,7 @@ void CObjCHAR::Calc_AruaAddAbility() {
   //if( CCountry::GetSingleton().IsApplyNewVersion() )
   {
     if ( m_IsAroa )
-      m_AruaAddMoveSpeed = GetOri_RunSPEED() * 0.2;
+      m_AruaAddMoveSpeed = (int)(GetOri_RunSPEED() * 0.2);
     else
       m_AruaAddMoveSpeed = 0;
   }
@@ -3948,8 +3948,8 @@ bool    CObjMOB::Create(short nCharIdx, const D3DVECTOR& Position, short nQuestI
 void        CObjMOB::Run_AWAY(int iDistance) {
   D3DVECTOR pos;
 
-  pos.x = RANDOM( iDistance*2 ) - iDistance;
-  pos.y = RANDOM( iDistance*2 ) - iDistance;
+  pos.x = (float)(RANDOM( iDistance*2 ) - iDistance);
+  pos.y = (float)(RANDOM( iDistance*2 ) - iDistance);
   pos.x += m_PosBORN.x;
   pos.y += m_PosBORN.y;
 
@@ -4030,7 +4030,7 @@ int CObjMOB::Get_DefaultAbilityValue(int iType) {
 
 /// NPC의 경우 STB에 강제로 높이가 들어가 있으면 그 높이를 사용한다.
 void    CObjMOB::GetScreenPOS(D3DVECTOR& PosSCR) {
-  float fStature = NPC_HEIGHT( this->m_nCharIdx );
+  float fStature = (float)NPC_HEIGHT( this->m_nCharIdx );
 
   if ( fStature != 0 ) {
     worldToScreen( m_PosCUR.x, m_PosCUR.y, getPositionZ( m_hNodeMODEL ) + fStature, &PosSCR.x, &PosSCR.y, &PosSCR.z );
@@ -4065,7 +4065,7 @@ int CObjMOB::Get_AttackRange() {
   //}
 
   // Default attack range...
-  return (Def_AttackRange() + (Get_SCALE() * 120));
+  return (int)(Def_AttackRange() + (Get_SCALE() * 120));
 }
 
 //------------------------------------------------------------------------------------------------
@@ -4771,7 +4771,7 @@ int CObjAVT::Proc() {
     if ( CCountry::GetSingleton().IsApplyNewVersion() )
       iRecoverStateStopWalk = RECOVER_STATE_STOP_OR_WALK_NEW;
 
-    if ( m_dwElapsedTime > iRecoverStateCheckTime ) {
+    if ( m_dwElapsedTime > (unsigned int)iRecoverStateCheckTime ) {
       //_RPT3( _CRT_WARN,"Update Recover HP/MP ElapsedTime:%d, CheckTime:%d, CurrTime:%d \n", m_dwElapsedTime, iRecoverStateCheckTime, timeGetTime() );
       switch ( Get_COMMAND() ) {
         case CMD_SIT: this->RecoverHP( iRecoverStateSitOnGround );
@@ -5411,7 +5411,7 @@ void CGoddessMgr::Release_List(GODDESSSTR* pGDS) {
   delete pGDS->pGODModel;
   delete pGDS->pSprModel;
 
-  for ( register int i = 0; i < 2; i++ ) {
+  for ( int i = 0; i < 2; i++ ) {
     delete pGDS->pEffect[i];
     pGDS->pEffect[i]   = nullptr;
     pGDS->hParticle[i] = NULL;
@@ -5466,7 +5466,7 @@ BOOL CGoddessMgr::Register_RenderObj(GODDESSSTR& gds) {
   char* ParticlName[] =
       { "3Ddata\\Effect\\_arua_ghost01.eft", "3Ddata\\Effect\\end_effect_02.eft" };
 
-  for ( register int i = 0; i < 2; i++ ) {
+  for ( int i = 0; i < 2; i++ ) {
     if ( gds.pEffect[i] != nullptr ) {
       delete gds.pEffect[i];
       gds.pEffect[i] = nullptr;
@@ -5768,7 +5768,7 @@ void CGoddessMgr::Update(void) {
 //Visible 처리를 한다. 
 int CGoddessMgr::ProcessVisible(float& fv, float fseq) {
 
-  float fdelta = g_GameDATA.GetElapsedFrameTime();
+  float fdelta = (float)g_GameDATA.GetElapsedFrameTime();
 
   fv += (fseq * fdelta);
 

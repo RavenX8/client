@@ -119,7 +119,7 @@ protected:
 // zz_particle_event_compare_func
 //////////////////////////////////////////////////////////////////////////////
 
-class zz_particle_event_compare_func : public std::binary_function<zz_particle_event *, zz_particle_event *, bool> {
+class zz_particle_event_compare_func {
 public:
   bool operator()(const zz_particle_event* lhs, const zz_particle_event* rhs) const {
     return lhs->GetActualTime() < rhs->GetActualTime();

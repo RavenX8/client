@@ -348,7 +348,7 @@ WORD       CpC::ESCP(t_PACKETHEADER* pHEADER, int& iSendSEQ) {
     pHEADER->m_pDATA[wI] ^= s_iRandTABLE[(iRandTbl + wI) & RANDOM_TABLE_COUNT][(iRandIdx + wI) & MAX_RANDOM_TABLE_SIZE];
   }
 
-  pHEADER->m_CRC = wCRC;
+  pHEADER->m_CRC = (BYTE)wCRC;
   for ( ; wI < wTotSize; wI++ ) {
     pHEADER->m_pDATA[wI] ^= s_iRandTABLE[(iRandTbl + wI) & RANDOM_TABLE_COUNT][(iRandIdx + wI) & MAX_RANDOM_TABLE_SIZE];
   }
@@ -409,7 +409,7 @@ WORD       CpC::ESSP(t_PACKETHEADER* pHEADER) {
     pHEADER->m_pDATA[wI] ^= s_iRandTABLE[(iRandTbl + wI) & RANDOM_TABLE_COUNT][(iRandIdx + wI) & MAX_RANDOM_TABLE_SIZE];
   }
 
-  pHEADER->m_CRC = wCRC;
+  pHEADER->m_CRC = (BYTE)wCRC;
   /*
   더미 패킷 없다..
   for (	; wI<wTotSize; wI++) {

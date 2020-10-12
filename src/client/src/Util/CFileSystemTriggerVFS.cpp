@@ -235,7 +235,7 @@ void CFileSystemTriggerVFS::WritePascalString(const char* pStr) {
   if ( pStr == nullptr )
     return;
 
-  short nLength = strlen( pStr );
+  short nLength = (short)strlen( pStr );
 
   /// 두바이트로 길이를 표현한다.
   if ( nLength > 0x7F ) {

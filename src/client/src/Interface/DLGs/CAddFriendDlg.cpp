@@ -45,7 +45,7 @@ bool        CAddFriendDlg::SendReqAddFriend() {
 
   char* pszName = pEditBox->get_text();
   if ( pszName && strlen( pszName ) > 0 ) {
-    if ( strcmpi( pszName, g_pAVATAR->Get_NAME() ) ) ///자기 자신은 안된다.
+    if ( _strcmpi( pszName, g_pAVATAR->Get_NAME() ) ) ///자기 자신은 안된다.
     {
       CTDialog* pDlg = g_itMGR.FindDlg( DLG_TYPE_COMMUNITY );
       assert( pDlg );

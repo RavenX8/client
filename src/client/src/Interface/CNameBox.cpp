@@ -195,8 +195,8 @@ void CNameBox::DrawNpcName(float x, float y, float z, CObjCHAR* pCharOBJ, bool b
   if ( bDrawQuestEmoticon )
     g_DrawImpl.Draw( x - emoticon_width, y - emoticon_height, z, IMAGE_RES_UI, QuestEmoticonGid,D3DCOLOR_ARGB(255, 255, 255, 255) );
 
-  int iPos = strNpcFullName.find_first_of( ']', 0 );
-  if ( iPos != string::npos ) {
+  size_t iPos = strNpcFullName.find_first_of( ']', 0 );
+  if ( iPos != std::string::npos ) {
     strNpcJob = strNpcFullName.substr( 0, iPos + 1 );
     if ( iPos < strNpcFullName.size() )
       strNpcName = strNpcFullName.substr( iPos + 1, strNpcFullName.size() - iPos - 1 );
@@ -215,8 +215,8 @@ void CNameBox::DrawNpcName(float x, float y, float z, CObjCHAR* pCharOBJ, bool b
 
     if ( bTargeted ) {
       RECT rcDrawName;
-      rcDrawName.left   = rc.left + x - NAMEBOX_WIDTH / 2;
-      rcDrawName.top    = rc.top + y - 60;
+      rcDrawName.left   = (long)(rc.left + x - NAMEBOX_WIDTH / 2);
+      rcDrawName.top    = (long)(rc.top + y - 60);
       rcDrawName.right  = rcDrawName.left + NAMEBOX_WIDTH;
       rcDrawName.bottom = rcDrawName.top + 18;
 
@@ -231,8 +231,8 @@ void CNameBox::DrawNpcName(float x, float y, float z, CObjCHAR* pCharOBJ, bool b
 
     if ( bTargeted ) {
       RECT rcDrawName;
-      rcDrawName.left   = rc.left + x - NAMEBOX_WIDTH / 2;
-      rcDrawName.top    = rc.top + y - NAMEBOX_HEIGHT;
+      rcDrawName.left   = (long)(rc.left + x - NAMEBOX_WIDTH / 2);
+      rcDrawName.top    = (long)(rc.top + y - NAMEBOX_HEIGHT);
       rcDrawName.right  = rcDrawName.left + NAMEBOX_WIDTH;
       rcDrawName.bottom = rcDrawName.top + NAMEBOX_HEIGHT / 2;
 
@@ -272,9 +272,9 @@ void    CNameBox::DrawMobName(float x, float y, float z, CObjCHAR* pCharOBJ, boo
       SIZE size = getFontTextExtent( g_GameDATA.m_hFONT[FONT_NORMAL_OUTLINE], pszMobName );
 
       RECT rcDrawName;
-      rcDrawName.left   = x - size.cx / 2 - 5;
-      rcDrawName.top    = y - NAMEBOX_HEIGHT / 2 - 16;
-      rcDrawName.right  = x + size.cx / 2 + 5;
+      rcDrawName.left   = (long)(x - size.cx / 2 - 5);
+      rcDrawName.top    = (long)(y - NAMEBOX_HEIGHT / 2 - 16);
+      rcDrawName.right  = (long)(x + size.cx / 2 + 5);
       rcDrawName.bottom = rcDrawName.top + size.cy;
 
       RECT rc = { iWidthGuage / 2 - size.cx / 2 - 5, -18, iWidthGuage / 2 + size.cx / 2 + 5, 0 };
@@ -375,8 +375,8 @@ void    CNameBox::DrawAvatarName(float x, float y, float z, CObjCHAR* pCharOBJ, 
 
   if ( bTargeted ) {
     RECT rcDrawTargetMark;
-    rcDrawTargetMark.left   = x - size.cx / 2 - 5;
-    rcDrawTargetMark.top    = y - NAMEBOX_HEIGHT / 2 + 4;
+    rcDrawTargetMark.left   = (long)(x - size.cx / 2 - 5);
+    rcDrawTargetMark.top    = (long)(y - NAMEBOX_HEIGHT / 2 + 4);
     rcDrawTargetMark.right  = rcDrawTargetMark.left + size.cx + 10;
     rcDrawTargetMark.bottom = rcDrawTargetMark.top + size.cy;
 
@@ -454,7 +454,7 @@ void    CNameBox::DrawMyName(float x, float y, float z, const char* pName, bool 
   }
 
   if ( bTargeted ) {
-    RECT rcDrawTargetMark = { fGuageDrawX, fGuageDrawY, fGuageDrawX + iWidthGuage, fGuageDrawY + iHeightGuage };
+    RECT rcDrawTargetMark = { (long)fGuageDrawX, (long)fGuageDrawY, (long)(fGuageDrawX + iWidthGuage), (long)(fGuageDrawY + iHeightGuage) };
     DrawTargetMark( g_pAVATAR, rcDrawTargetMark, z );
   }
 }

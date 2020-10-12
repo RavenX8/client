@@ -58,7 +58,7 @@ void CObjCART::UnLinkChild(int iStart) {
 
   if ( iStart ) { si = 1; }
 
-  for ( register int i = si; i < 2; i++ ) {
+  for ( int i = si; i < 2; i++ ) {
     if ( pClass[i] == nullptr )
       continue;
 
@@ -482,7 +482,7 @@ float CObjCART::Get_MoveSPEED() {
 }
 
 float CObjCART::Get_DefaultSPEED() {
-  return ((m_pObjParent) ? m_pObjParent->GetOri_RunSPEED() : 10);
+  return (float)((m_pObjParent) ? m_pObjParent->GetOri_RunSPEED() : 10);
 }
 
 short CObjCART::Get_nAttackSPEED() {
@@ -539,7 +539,7 @@ void CObjCART::SetCartPartVisible(float fv) {
   CMODEL<CCharPART>* pCharPART = nullptr;
   short              iPart     = 0;
 
-  for ( register int i = 0; i < MAX_RIDING_PART; i++ ) {
+  for ( int i = 0; i < MAX_RIDING_PART; i++ ) {
     iPart              = m_nPartItemIDX[i];
 
     if ( !iPart )
@@ -550,7 +550,7 @@ void CObjCART::SetCartPartVisible(float fv) {
     if ( pCharPART == nullptr )
       continue;
 
-    for ( register int j = 0; j < pCharPART->m_nPartCNT; j++ ) { setVisibilityRecursive( m_phPartVIS[iPart][j], fv ); }
+    for ( int j = 0; j < pCharPART->m_nPartCNT; j++ ) { setVisibilityRecursive( m_phPartVIS[iPart][j], fv ); }
 
   }
 

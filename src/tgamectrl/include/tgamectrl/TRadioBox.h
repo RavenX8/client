@@ -4,7 +4,7 @@
 #include "winctrl.h"
 class CTRadioButton;
 
-typedef map<unsigned int, CTRadioButton*> RADIOBUTTON_MAP;
+typedef std::map<unsigned int, CTRadioButton*> RADIOBUTTON_MAP;
 typedef RADIOBUTTON_MAP::iterator         RADIOBUTTON_MAP_ITOR;
 
 /**

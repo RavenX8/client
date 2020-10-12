@@ -207,9 +207,9 @@ typedef unsigned long zz_time;
 typedef unsigned long zz_handle;
 
 // checks if the handle is in the valid range
-#define ZZ_HANDLE_NULL        (-1)             // null handle value
-#define ZZ_HANDLE_IS_VALID(h) (h != -1)       // Is this handle valid?
-#define ZZ_HANDLE_IS_INVALID(h) (h == -1) // Is this handle invalid?
+#define ZZ_HANDLE_NULL        ((zz_handle)(-1))             // null handle value
+#define ZZ_HANDLE_IS_VALID(h) (h != ZZ_HANDLE_NULL)         // Is this handle valid?
+#define ZZ_HANDLE_IS_INVALID(h) (h == ZZ_HANDLE_NULL)       // Is this handle invalid?
 
 #ifndef TRUE
 #define TRUE 1

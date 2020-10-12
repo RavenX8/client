@@ -96,7 +96,7 @@ void CChatRoom::LeaveMember(const char* pszName) {
 
   std::list<CChatMember>::iterator iter;
   for ( iter = m_Members.begin(); iter != m_Members.end(); ++iter ) {
-    if ( strcmpi( iter->GetName(), pszName ) == 0 ) {
+    if ( _strcmpi( iter->GetName(), pszName ) == 0 ) {
       m_Event.SetID( CTEventChatRoom::EID_LEAVE_MEMBER );
       m_Event.SetServerIdx( iter->GetServerIdx() );
 

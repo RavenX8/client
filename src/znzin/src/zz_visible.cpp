@@ -1377,7 +1377,7 @@ void zz_visible::set_billboard_axis(bool use_billboard, int axis_to_camera_index
 }
 
 // not using this for performance
-class set_camdistance_recurse_func : public std::unary_function<zz_visible*, void> {
+class set_camdistance_recurse_func {
   float camdistance;
 
 public:
@@ -1400,7 +1400,7 @@ void zz_visible::set_camdist_square_recursive(float distance_square) {
 }
 
 // not using this for performance
-class set_visibility_recurse_func : public std::unary_function<zz_visible*, void> {
+class set_visibility_recurse_func {
   float visibility;
 
 public:
@@ -1451,7 +1451,7 @@ void zz_visible::set_shadow_onoff_recursive(bool onoff) {
   }
 }
 
-class set_seethru_recurse_func : public std::unary_function<zz_visible*, void> {
+class set_seethru_recurse_func {
   float seethru;
 
 public:

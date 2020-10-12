@@ -41,14 +41,13 @@ const int DEFAULT_USE_SCROLL_DELAY = 3000;
 	2005. 05. 26	¹Ú	ÁöÈ£ 
 =====================================================================*/
 #include <map>
-using namespace std;
 
-typedef map<int, float>::iterator USERITEMDELAYITR;
+typedef std::map<int, float>::iterator USERITEMDELAYITR;
 
 class CUseItemDelay {
 
   int             m_nCount;
-  map<int, float> m_UseItemDelay;
+  std::map<int, float> m_UseItemDelay;
 
 public:
   CUseItemDelay();

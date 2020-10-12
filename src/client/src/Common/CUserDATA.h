@@ -397,7 +397,7 @@ public :
   int GetCur_FAME() { return this->m_BasicINFO.m_cFame; }        // 명성
   int GetCur_JOB() { return this->m_BasicINFO.m_nClass; }        // 직업
 
-  int  GetCur_EXP() { return this->m_GrowAbility.m_lEXP; }
+  int64_t  GetCur_EXP() { return this->m_GrowAbility.m_lEXP; }
   int  GetCur_BonusPOINT() { return this->m_GrowAbility.m_nBonusPoint; }
   int  GetCur_SkillPOINT() { return this->m_GrowAbility.m_nSkillPoint; }
   BYTE GetCur_HeadSIZE() { return this->m_GrowAbility.m_btHeadSIZE; }
@@ -552,7 +552,7 @@ public :
   short m_PassiveAbilityFromRate [ BA_MAX ]; // 기본 능력치 :: 비율 패시브 스킬에 의해 보정된 값
   short m_nPassiveAttackSpeed;               // 한국/일본/IRose를 위한 패시브 스킬에 의한 공속 추가
 
-  int m_iAppliedPenaltyEXP; /// 부활시 경험치 복구를 위한 변수..
+  int64_t m_iAppliedPenaltyEXP; /// 부활시 경험치 복구를 위한 변수..
 
   tagITEM  Get_EquipITEM(WORD    wEquipIDX) { return m_Inventory.m_ItemEQUIP[wEquipIDX]; }
   tagITEM* Get_EquipItemPTR(WORD wEquipIDX) { return &m_Inventory.m_ItemEQUIP[wEquipIDX]; }
@@ -648,8 +648,8 @@ public :
   void Set_PenalEXP(BYTE btAddPercent) {
     if ( this->GetCur_LEVEL() >= 10 ) {
       // 10렙 이상이면 페널티 적용..
-      int iNeedEXP         = CCal::Get_NeedRawEXP( m_GrowAbility.m_nLevel );
-      int iPenalEXP        = (int)(iNeedEXP * btAddPercent / 100.f);
+      int64_t iNeedEXP         = CCal::Get_NeedRawEXP( m_GrowAbility.m_nLevel );
+      int64_t iPenalEXP        = (int)(iNeedEXP * btAddPercent / 100.f);
       m_iAppliedPenaltyEXP = iPenalEXP;
 
       if ( m_GrowAbility.m_lEXP >= iPenalEXP ) {

@@ -3,7 +3,6 @@
 #include "TGameCtrl.h"
 #include <vector>
 #include <string>
-using namespace std;
 
 /**
 *	CSplitHangul과 유사하게 동작하지만 문자개수가 아닌 표시된 너비에 따라 스트링을 자르는 Class
@@ -14,7 +13,7 @@ using namespace std;
 */
 
 class TGAMECTRL_API CTSplitString {
-  vector<string> m_StringList;
+  std::vector<std::string> m_StringList;
   std::string    m_strNull;
   SIZE           m_szStrSize;
 

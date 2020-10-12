@@ -710,7 +710,6 @@ void CObjCHAR_Collision::GetCollisionStateAvatar(void)
     DIRECTION_MOVE /= distanceLimitBody;
     BodyRay = true;
   }
-  int collisionLevel;
 
   bool isFalling = (m_vVelocity.x == 0) && (m_vVelocity.y == 0); // not moving forward
 
@@ -837,7 +836,6 @@ void CObjCHAR_Collision::GetCollisionStateCart(void)
     DIRECTION_MOVE /= distanceLimitBody;
     BodyRay = true;
   }
-  int collisionLevel;
 
   bool isFalling = (m_vVelocity.x == 0) && (m_vVelocity.y == 0); // not moving forward
 

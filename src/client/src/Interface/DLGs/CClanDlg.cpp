@@ -35,7 +35,7 @@ void CClanDlg::Draw() {
   if ( !IsVision() ) return;
   CTDialog::Draw();
 
-  D3DVECTOR vCharPos = { m_sPosition.x + 238, m_sPosition.y + 102, 0 };
+  D3DVECTOR vCharPos = { (float)(m_sPosition.x + 238), (float)(m_sPosition.y + 102), 0 };
 
   switch ( m_iTab ) {
     case TAB_INFO: CClanMarkView::Draw( g_pAVATAR, vCharPos );
@@ -171,7 +171,7 @@ void CClanDlg::OnLButtonUp(unsigned uiProcID, WPARAM wParam, LPARAM lParam) {
       if ( Clan.GetClanNo() && !g_pTerrain->IsPVPZone() ) {
         if ( CClan::GetInstance().GetClass() >= CClan::CLAN_MASTER ) {
           CClanMemberItem* pMember = GetSelectedMember();
-          if ( pMember != nullptr && strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) ) {
+          if ( pMember != nullptr && _strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) ) {
             if ( pMember->GetClass() >= CClan::CLAN_COMMANDER ) {
               CTCmdClanCommand* pCmd = new CTCmdClanCommand( GCMD_LEADER, pMember->GetName() );
 
@@ -197,7 +197,7 @@ void CClanDlg::OnLButtonUp(unsigned uiProcID, WPARAM wParam, LPARAM lParam) {
       if ( Clan.GetClanNo() && !g_pTerrain->IsPVPZone() ) {
         if ( CClan::GetInstance().GetClass() >= CClan::CLAN_MASTER ) {
           CClanMemberItem* pMember = GetSelectedMember();
-          if ( pMember != nullptr && strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) ) {
+          if ( pMember != nullptr && _strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) ) {
             CTCmdClanCommand* pCmd = new CTCmdClanCommand( GCMD_REMOVE, pMember->GetName() );
             g_itMGR.OpenMsgBox( CStr::Printf( STR_CLAN_QUERY_BAN, pMember->GetName() ),
                                 CMsgBox::BT_OK | CMsgBox::BT_CANCEL, true, 0, pCmd );
@@ -210,7 +210,7 @@ void CClanDlg::OnLButtonUp(unsigned uiProcID, WPARAM wParam, LPARAM lParam) {
     break;
     case IID_BTN_CLASS_UP: {
       CClanMemberItem* pMember = GetSelectedMember();
-      if ( pMember != nullptr && strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) && !g_pTerrain->IsPVPZone() ) {
+      if ( pMember != nullptr && _strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) && !g_pTerrain->IsPVPZone() ) {
         if ( CClan::GetInstance().GetClass() >= CClan::CLAN_MASTER ) {
           if ( CClan::GetInstance().IsValidClassUp( pMember->GetClass() ) ) {
             CTCmdClanCommand* pCmd = new CTCmdClanCommand( GCMD_PROMOTE, pMember->GetName() );
@@ -229,7 +229,7 @@ void CClanDlg::OnLButtonUp(unsigned uiProcID, WPARAM wParam, LPARAM lParam) {
     break;
     case IID_BTN_CLASS_DOWN: {
       CClanMemberItem* pMember = GetSelectedMember();
-      if ( pMember && strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) && !g_pTerrain->IsPVPZone() ) {
+      if ( pMember && _strcmpi( pMember->GetName(), g_pAVATAR->Get_NAME() ) && !g_pTerrain->IsPVPZone() ) {
         if ( CClan::GetInstance().GetClass() >= CClan::CLAN_MASTER ) {
           if ( pMember->GetClass() >= 0 ) {
             CTCmdClanCommand* pCmd = new CTCmdClanCommand( GCMD_DEMOTE, pMember->GetName() );
@@ -369,7 +369,7 @@ void CClanDlg::Update(CObservable* pObservable, CTObject* pObj) {
             for ( int        i         = 0; i < pList->GetSize(); ++i ) {
               if ( pCtrl               = pList->GetItem( i ) ) {
                 CClanMemberItem* pItem = (CClanMemberItem*)pCtrl;
-                if ( strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
+                if ( _strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
                   pItem->SetJob( pEvent->GetJob() );
                   break;
                 }
@@ -391,7 +391,7 @@ void CClanDlg::Update(CObservable* pObservable, CTObject* pObj) {
             for ( int        i         = 0; i < pList->GetSize(); ++i ) {
               if ( pCtrl               = pList->GetItem( i ) ) {
                 CClanMemberItem* pItem = (CClanMemberItem*)pCtrl;
-                if ( strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
+                if ( _strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
                   pItem->SetLevel( pEvent->GetLevel() );
                   break;
                 }
@@ -430,7 +430,7 @@ void CClanDlg::Update(CObservable* pObservable, CTObject* pObj) {
             for ( int        i         = 0; i < pList->GetSize(); ++i ) {
               if ( pCtrl               = pList->GetItem( i ) ) {
                 CClanMemberItem* pItem = (CClanMemberItem*)pCtrl;
-                if ( strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
+                if ( _strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
                   pList->DelItem( i );
                   break;
                 }
@@ -452,7 +452,7 @@ void CClanDlg::Update(CObservable* pObservable, CTObject* pObj) {
             for ( int        i         = 0; i < pList->GetSize(); ++i ) {
               if ( pCtrl               = pList->GetItem( i ) ) {
                 CClanMemberItem* pItem = (CClanMemberItem*)pCtrl;
-                if ( strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
+                if ( _strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
                   pItem->SetClass( pEvent->GetClass() );
                   SortMemberlistByClass();
                   break;
@@ -475,7 +475,7 @@ void CClanDlg::Update(CObservable* pObservable, CTObject* pObj) {
             for ( int        i         = 0; i < pList->GetSize(); ++i ) {
               if ( pCtrl               = pList->GetItem( i ) ) {
                 CClanMemberItem* pItem = (CClanMemberItem*)pCtrl;
-                if ( strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
+                if ( _strcmpi( pItem->GetName(), pEvent->GetName() ) == 0 ) {
                   pItem->SetConnectStatus( pEvent->GetChannelNo() );
                   break;
                 }
@@ -594,7 +594,7 @@ void                                                     CClanDlg::SortMemberlis
         pItem    = (CClanMemberItem*)pList->GetItem( i );
         pNewItem = new CClanMemberItem( pItem->GetName(), pItem->GetClass(), pItem->GetClanPoint(), pItem->GetChannelNo(), pItem->GetLevel(), pItem->GetJob() );
 
-        TempMap.insert( make_pair( pItem->GetClass(), pNewItem ) );
+        TempMap.insert( std::make_pair( pItem->GetClass(), pNewItem ) );
       }
 
       pList->Clear();

@@ -2,7 +2,6 @@
 #define _TCOMMANDQ_
 #include "TGameCtrl.h"
 #include <list>
-using namespace std;
 
 class CTCommand;
 
@@ -25,6 +24,6 @@ public:
   void       Clear();
 
 protected:
-  list<CTCommand*> m_listCommand;
+  std::list<CTCommand*> m_listCommand;
 };
 #endif

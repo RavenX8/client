@@ -27,7 +27,7 @@ protected:
   bool  CreatePart(int     iCreateOrder, D3DVECTOR& Position, short nPartIdx);
 
 public :
-  CObjFIXED() {
+  CObjFIXED() : m_nCnstIdx(0) {
     m_pMODEL            = nullptr, m_pHNODES  = nullptr, m_bIsVisible = false;
     m_pLightMapMaterial = nullptr, m_ppEFFECT = nullptr;
   }

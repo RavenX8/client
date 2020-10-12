@@ -5,7 +5,6 @@
 #include <string>
 #include "dispinfo.h"
 #include "systeminfo.h"
-using namespace std;
 
 static LPSTINFO m_system;
 static DPINFO m_display1;
@@ -13,12 +12,12 @@ static DPINFO m_display1;
 class CSysInfo
 {
 private:
-	map<string, string> m_mapCPU;
-	map<string, string> m_mapOS;
-	map<string, string> m_mapVideo;
-	map<string, string> m_mapDisc;
-	map<string, string> m_mapMem;
-	vector<DisplayInfo*> m_DisplayInfo;
+	std::map<std::string, std::string> m_mapCPU;
+	std::map<std::string, std::string> m_mapOS;
+	std::map<std::string, std::string> m_mapVideo;
+	std::map<std::string, std::string> m_mapDisc;
+	std::map<std::string, std::string> m_mapMem;
+	std::vector<DisplayInfo*> m_DisplayInfo;
 	LPSTINFO  m_SystemInfo;
 
 	// HWND m_hWnd;
