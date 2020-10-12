@@ -9,19 +9,13 @@
 #include <process.h>
 #include <tchar.h>
 #include <windows.h>
+#include "Net_Prototype.h"
 #include "packetfactory.h"
 
 #define CLIENTSOCKET_SERVERDEAD (-1)
 #define CLIENTSOCKET_DISCONNECTED 0x000
 #define CLIENTSOCKET_CONNECTED 0x001
 #define CLIENTSOCKET_CLOSING 0x002
-
-struct t_PACKET {
-  union {
-    t_PACKETHEADER m_HEADER;
-    BYTE           m_pDATA[1];
-  };
-};
 
 //-------------------------------------------------------------------------------------------------
 // DWORD WINAPI ClientSOCKET_SendTHREAD (LPVOID lpParameter)
@@ -107,7 +101,10 @@ void CClientSOCKET::_Free(void) {
 
 //---------------------------------------------------------------------------------
 void CClientSOCKET::Packet_Register2RecvQ(RoseCommon::CRosePacket&& pRegPacket) {
-
+    auto data = pRegPacket.getPacked();
+    auto size = pRegPacket.get_size();
+    std::lock_guard guard(m_recvMutex);
+    m_RecvPacketQ.emplace_back(size, std::move(data));
 }
 
 //-------------------------------------------------------------------------------------------------
