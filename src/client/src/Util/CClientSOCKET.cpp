@@ -17,6 +17,15 @@
 #define CLIENTSOCKET_CONNECTED 0x001
 #define CLIENTSOCKET_CLOSING 0x002
 
+struct t_SendPACKET {
+    WORD m_wSize;
+
+    union {
+        t_PACKET m_Packet;
+        BYTE     m_pDATA[MAX_PACKET_SIZE];
+    };
+};
+
 //-------------------------------------------------------------------------------------------------
 // DWORD WINAPI ClientSOCKET_SendTHREAD (LPVOID lpParameter)
 unsigned __stdcall ClientSOCKET_SendTHREAD(void* lpParameter) {
@@ -225,8 +234,10 @@ void CClientSOCKET::Packet_Register2SendQ(const t_PACKET* const pRegPacket) {
   //	if ( m_cStatus == CLIENTSOCKET_CONNECTED )
   {
     std::lock_guard guard(m_waitMutex);
+    
     // Encoding pSendPacket->m_Packet ... 위에 있던것을 안으로... 인코딩된
     // 수서와 보내는 순서가 멀티쓰레드에 의해 틀려질수 있기때문에...
+    m_crypt.encodeClientPacket(data.get());
     m_WaitPacketQ.emplace_back(packetSize, std::move(data));
   }
   SetEvent( m_hThreadEvent ); // 쓰레드에 통보 !!!
@@ -240,6 +251,7 @@ void CClientSOCKET::Packet_Register2SendQ(RoseCommon::CRosePacket&& pRegPacket)
     uint16_t size = pRegPacket.get_size();
     {
       std::lock_guard guard(m_waitMutex);
+      m_crypt.encodeClientPacket(packet.get());
       m_WaitPacketQ.emplace_back(size, std::move(packet));
     }
 
@@ -427,7 +439,7 @@ bool CClientSOCKET::Peek_Packet(t_PACKET* outPacket, bool bRemoveFromQ) {
   if ( this->m_RecvPacketQ.size() > 0 ) {
     const auto& [size, data] = this->m_RecvPacketQ.front();
     // pPacket = pNode->DATA;
-    CopyMemory(&outPacket, data.get(), size);
+    CopyMemory(outPacket, data.get(), size);
 
     // 패킷 삭제.
     if ( bRemoveFromQ ) {

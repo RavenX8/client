@@ -355,22 +355,22 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& 
     ///서버네임에@에 붙은경우 개발자 권한에서만 리스트에 보여준다.
     if ( g_GameDATA.m_bForOpenTestServer ) {
       if ( server.get_test() == '@' && server.get_name().size() >= 1 )
-        TempServerList.emplace(
-            (BYTE)(128 + (server.get_id())),
-            std::make_pair(server.get_id(), server.get_name()));
+          TempServerList.emplace(
+              (BYTE)(128 + (server.get_id())),
+              std::make_pair(server.get_id(), server.get_name()));
     } else {
       if (server.get_test() == '@' ) {
         if ( packet.get_right() >= CHEAT_MM ) {
           if ( server.get_name().size() >= 1 )
-            TempServerList.emplace(
-                (BYTE)(128 + (server.get_id())),
-                std::make_pair(server.get_id(), std::string("@") + server.get_name()));
+              TempServerList.emplace(
+                  (BYTE)(128 + (server.get_id())),
+                  std::make_pair(server.get_id(), std::string("@") + server.get_name()));
         }
       } else {
         if ( server.get_name().size() >= 1 )
-          TempServerList.emplace(
-              server.get_test(),
-              std::make_pair(server.get_id(), server.get_name()));
+            TempServerList.emplace(
+                server.get_test(),
+                std::make_pair(server.get_id(), server.get_name()));
       }
     }
   }

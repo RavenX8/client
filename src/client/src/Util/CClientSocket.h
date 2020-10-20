@@ -6,6 +6,7 @@
 #include "CRawSOCKET.h"
 #include "PacketHEADER.h"
 #include "crosepacket.h"
+#include "crosecrypt.h"
 #include <list>
 #include <tuple>
 #include <mutex>
@@ -20,6 +21,8 @@ class CClientSOCKET : public CRawSOCKET {
 private:
   bool _Init(void);
   void _Free(void);
+
+  RoseCommon::PacketCodec m_crypt;
 
   std::byte m_pRecvPacket[MAX_PACKET_SIZE];
   short     m_nRecvBytes;
