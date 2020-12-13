@@ -1,200 +1,200 @@
 /*
-  2004. 3. 22 Ãß°¡ »çÇ× - NPCÀÇ ÀÎ°øÁö´É¿¡ ÀÇÇØ¼­ ½Ç½Ã°£ ¼öÁ¤µÇ´Â ÀÌº¥Æ® °ª( m_nEventSTATUS ) Àü¼Û.
-    . GSV_SET_EVENT_STATUS ÆÐÅ¶ Ãß°¡.
-    . gsv_NPC_CHAR ÆÐÅ¶ÀÇ ¸â¹ö º¯¼ö m_nEventSTATUS Ãß°¡.
-    °¢ NPCÀÇ °íÀ¯ ÀÌº¥Æ® µ¥ÀÌÅ¸¿¡¼­ m_nEventSTATUS °ªÀ» ÂüÁ¶ÇÏ¿© 
-    »óÈ²¿¡ ¸Â´Â ´ëÈ­ ¿¬Ãâ¹× Äù½ºÆ®¸¦ ºÎ¿©...
+  2004. 3. 22 ì¶”ê°€ ì‚¬í•­ - NPCì˜ ì¸ê³µì§€ëŠ¥ì— ì˜í•´ì„œ ì‹¤ì‹œê°„ ìˆ˜ì •ë˜ëŠ” ì´ë²¤íŠ¸ ê°’( m_nEventSTATUS ) ì „ì†¡.
+    . GSV_SET_EVENT_STATUS íŒ¨í‚· ì¶”ê°€.
+    . gsv_NPC_CHAR íŒ¨í‚·ì˜ ë©¤ë²„ ë³€ìˆ˜ m_nEventSTATUS ì¶”ê°€.
+    ê° NPCì˜ ê³ ìœ  ì´ë²¤íŠ¸ ë°ì´íƒ€ì—ì„œ m_nEventSTATUS ê°’ì„ ì°¸ì¡°í•˜ì—¬ 
+    ìƒí™©ì— ë§žëŠ” ëŒ€í™” ì—°ì¶œë° í€˜ìŠ¤íŠ¸ë¥¼ ë¶€ì—¬...
 
-  2004. 3. 24 Ãß°¡ »çÇ× - ¿ùµå¿¡¼­ °ü¸®µÇ´Â ÀÌº¥Æ® ¿ÀºêÁ§Æ® °´Á¦ »ý¼º/»èÁ¦.
-    . gsv_ADD_EVENTOBJ ÆÐÅ¶.
+  2004. 3. 24 ì¶”ê°€ ì‚¬í•­ - ì›”ë“œì—ì„œ ê´€ë¦¬ë˜ëŠ” ì´ë²¤íŠ¸ ì˜¤ë¸Œì íŠ¸ ê°ì œ ìƒì„±/ì‚­ì œ.
+    . gsv_ADD_EVENTOBJ íŒ¨í‚·.
 
-  2004. 3. 30 Ãß°¡ »çÇ× - NPC ½ºÅ³»ç¿ë ÆÐÅ¶¿¡ ½ºÅ³ ¸ð¼Ç ¹øÈ£ ¼³Á¤..
-    . gsv_SELF_SKILL, gsv_TARGET_SKILL ÆÐÅ¶¿¡ cNpcSkillMOTION º¯¼ö Ãß°¡
-    . »ç¿ëÀÚ ½ºÅ³ÀÏ °æ¿ì ÀÌ°ªÀ» ¹«½Ã, NPC ½ºÅ³ÀÏ°æ¿ì ÆÐÅ¶ Å©±â°¡ +1 µÇ¸é cNpcSkillMOTION[0]¿¡ ¸ð¼Ç ¹øÈ£ µé¾î°¨.
+  2004. 3. 30 ì¶”ê°€ ì‚¬í•­ - NPC ìŠ¤í‚¬ì‚¬ìš© íŒ¨í‚·ì— ìŠ¤í‚¬ ëª¨ì…˜ ë²ˆí˜¸ ì„¤ì •..
+    . gsv_SELF_SKILL, gsv_TARGET_SKILL íŒ¨í‚·ì— cNpcSkillMOTION ë³€ìˆ˜ ì¶”ê°€
+    . ì‚¬ìš©ìž ìŠ¤í‚¬ì¼ ê²½ìš° ì´ê°’ì„ ë¬´ì‹œ, NPC ìŠ¤í‚¬ì¼ê²½ìš° íŒ¨í‚· í¬ê¸°ê°€ +1 ë˜ë©´ cNpcSkillMOTION[0]ì— ëª¨ì…˜ ë²ˆí˜¸ ë“¤ì–´ê°.
 
-  2004. 3. 31 Ãß°¡ »çÇ× - gsv_DAMAGE_OF_SKILL ÆÐÅ¶ Ãß°¡
-    . gsv_EFFECT_OF_SKILL ÆÐÅ¶À¸·Î ½ºÅ³ Àû¿ë»óÅÂ, µ¥¹ÌÁö µÑÁß ÇÏ³ªÀÇ °ªÀÌ Àü´ÞµÇ¾úÁö¸¸
-    . gsv_DAMAGE_OF_SKILL ÆÐÅ¶Àº µ¥¹ÌÁö¿Í ½ºÅ³ Àû¿ë»ô¾Ö°¡ °°ÀÌ µé¾î ÀÖ´Â ÆÐÅ¶..
-    . ½ºÅ³ Å¸ÀÔ 7, 17¹øÀÇ °á°ú·Î Àü¼ÛµÊ.
+  2004. 3. 31 ì¶”ê°€ ì‚¬í•­ - gsv_DAMAGE_OF_SKILL íŒ¨í‚· ì¶”ê°€
+    . gsv_EFFECT_OF_SKILL íŒ¨í‚·ìœ¼ë¡œ ìŠ¤í‚¬ ì ìš©ìƒíƒœ, ë°ë¯¸ì§€ ë‘˜ì¤‘ í•˜ë‚˜ì˜ ê°’ì´ ì „ë‹¬ë˜ì—ˆì§€ë§Œ
+    . gsv_DAMAGE_OF_SKILL íŒ¨í‚·ì€ ë°ë¯¸ì§€ì™€ ìŠ¤í‚¬ ì ìš©ìƒ…ì• ê°€ ê°™ì´ ë“¤ì–´ ìžˆëŠ” íŒ¨í‚·..
+    . ìŠ¤í‚¬ íƒ€ìž… 7, 17ë²ˆì˜ ê²°ê³¼ë¡œ ì „ì†¡ë¨.
 
-  2004. 3. 31 ¼öÁ¤ »çÇ×.
-    . gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILL ±¸Á¶ º¯°æ.
-    . ½ºÅ³ »ç¿ëÇÑ °´Ã¼ Áß½É¿¡¼­, ½ºÅ³ÀÌ Àû¿ëµÈ °´Ã¼ Áß½ÉÀ¸·Î...
-    . ½ºÅ³¿¡ Àû¿ëµÈ °´Ã¼´Â gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILLÀÇ ÆÐÅ¶¿¡ ÀÇÇØ Àû¿ëµÇ¸ç,
-    . ½ºÅ³À» »ç¿ëÇÑ °´Ã¼´Â À§ÀÇ °á°ú ÆÐÅ¶ÀÌ Àü¼ÛµÈÈÄ gsv_RESULT_OF_SKILLÀÌ Àü¼ÛµÈ´Ù.
+  2004. 3. 31 ìˆ˜ì • ì‚¬í•­.
+    . gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILL êµ¬ì¡° ë³€ê²½.
+    . ìŠ¤í‚¬ ì‚¬ìš©í•œ ê°ì²´ ì¤‘ì‹¬ì—ì„œ, ìŠ¤í‚¬ì´ ì ìš©ëœ ê°ì²´ ì¤‘ì‹¬ìœ¼ë¡œ...
+    . ìŠ¤í‚¬ì— ì ìš©ëœ ê°ì²´ëŠ” gsv_EFFECT_OF_SKILL, gsv_DAMAGE_OF_SKILLì˜ íŒ¨í‚·ì— ì˜í•´ ì ìš©ë˜ë©°,
+    . ìŠ¤í‚¬ì„ ì‚¬ìš©í•œ ê°ì²´ëŠ” ìœ„ì˜ ê²°ê³¼ íŒ¨í‚·ì´ ì „ì†¡ëœí›„ gsv_RESULT_OF_SKILLì´ ì „ì†¡ëœë‹¤.
 
-  2004. 4. 1  Ãß°¡ »çÇ×. 
-    . tag_ADD_CHAR ÆÀ¹øÈ£ Ãß°¡ CAI_OBJ::Is_ALLIED(»ó´ëÆÀ¹øÈ£)¸¦ È£ÃâÇÏ¿© true¸é ¾Æ±º, false¸é Àû±º.
+  2004. 4. 1  ì¶”ê°€ ì‚¬í•­. 
+    . tag_ADD_CHAR íŒ€ë²ˆí˜¸ ì¶”ê°€ CAI_OBJ::Is_ALLIED(ìƒëŒ€íŒ€ë²ˆí˜¸)ë¥¼ í˜¸ì¶œí•˜ì—¬ trueë©´ ì•„êµ°, falseë©´ ì êµ°.
 
-  2004. 4. 2  ¼öÁ¤/Ãß°¡ »çÇ×
-    . tag_FIELDITEM±¸Á¶ ¿¡¼­ ¾ÆÀÌÅÛ ³²Àº ½Ã°£(m_wRemainTIME)À» Á¦¿Ü½ÃÄÑ tag_DROPITEMÀ¸·Î ÀÌ¸§ º¯°æ.
-    . ÀÏ¹Ý ÇÊµå¾ÆÀÌÅÛÀÏ°æ¿ì gsv_ADD_FIELDITEM¿¡ m_wRemainTIME ¸â¹ö º¯¼ö°ªÀ¸·Î ¾ÆÀÌÅÛ ½Ã°£ ¼³Á¤.
-    . µ¥¹ÌÁö ÆÐÅ¶ÀÇ tag_DROPITEMÀ¸·Î »ý¼ºÇÑ ¾ÆÀÌÅÛÀº ³²Àº ½Ã°£À» ITEM_OBJ_LIVE_TIMEÀ¸·Î ¼³Á¤.
-    . gsv_DAMAGE_OF_SKILL¿¡ ¾ÆÀÌÅÛ µå·Ó½Ã tag_DROPITEM[0]¿¡ °ª µé¾î°¨. »ç¿ë¹ýÀº ÀÏ¹Ý µ¥¹ÌÁö ¾ÆÀÌÅÛ°ú µ¿ÀÏ
+  2004. 4. 2  ìˆ˜ì •/ì¶”ê°€ ì‚¬í•­
+    . tag_FIELDITEMêµ¬ì¡° ì—ì„œ ì•„ì´í…œ ë‚¨ì€ ì‹œê°„(m_wRemainTIME)ì„ ì œì™¸ì‹œì¼œ tag_DROPITEMìœ¼ë¡œ ì´ë¦„ ë³€ê²½.
+    . ì¼ë°˜ í•„ë“œì•„ì´í…œì¼ê²½ìš° gsv_ADD_FIELDITEMì— m_wRemainTIME ë©¤ë²„ ë³€ìˆ˜ê°’ìœ¼ë¡œ ì•„ì´í…œ ì‹œê°„ ì„¤ì •.
+    . ë°ë¯¸ì§€ íŒ¨í‚·ì˜ tag_DROPITEMìœ¼ë¡œ ìƒì„±í•œ ì•„ì´í…œì€ ë‚¨ì€ ì‹œê°„ì„ ITEM_OBJ_LIVE_TIMEìœ¼ë¡œ ì„¤ì •.
+    . gsv_DAMAGE_OF_SKILLì— ì•„ì´í…œ ë“œë¡­ì‹œ tag_DROPITEM[0]ì— ê°’ ë“¤ì–´ê°. ì‚¬ìš©ë²•ì€ ì¼ë°˜ ë°ë¯¸ì§€ ì•„ì´í…œê³¼ ë™ì¼
 
-  2004. 4. 8  Ãß°¡ »çÇ×
-    . gsv_SKILL_LEARN_REPLY ÆÐÅ¶ÀÇ ÀÀ´ä Á¾·ù¿¡ RESULT_SKILL_LEARN_DELETE Ãß°¡..
-    . ÀÀ´äÀÌ RESULT_SKILL_LEARN_DELETE ÀÏ°æ¿ì CUserDATA::Skill_DELETE(slot,skill)À» È£ÃâÇÏ¿© »èÁ¦ÇÑ´Ù.
+  2004. 4. 8  ì¶”ê°€ ì‚¬í•­
+    . gsv_SKILL_LEARN_REPLY íŒ¨í‚·ì˜ ì‘ë‹µ ì¢…ë¥˜ì— RESULT_SKILL_LEARN_DELETE ì¶”ê°€..
+    . ì‘ë‹µì´ RESULT_SKILL_LEARN_DELETE ì¼ê²½ìš° CUserDATA::Skill_DELETE(slot,skill)ì„ í˜¸ì¶œí•˜ì—¬ ì‚­ì œí•œë‹¤.
 
-  2004. 4. 13 ¼öÁ¤/Ãß°¡ »çÇ×
-    . tag_ADD_CHAR ¸ã¹ö m_btMoveMODEÀÇ ÀÌµ¿ »óÅÂ°ª Ãß°¡..
-    . ½Â¿ë ¾ÆÀÌÅÛ ±³È¯½Ã:: cli_ASSEMBLE_RIDE_ITEM, gsv_ASSEMBLE_RIDE_ITEM ÆÐÅ¶ »ç¿ë.
+  2004. 4. 13 ìˆ˜ì •/ì¶”ê°€ ì‚¬í•­
+    . tag_ADD_CHAR ë©¥ë²„ m_btMoveMODEì˜ ì´ë™ ìƒíƒœê°’ ì¶”ê°€..
+    . ìŠ¹ìš© ì•„ì´í…œ êµí™˜ì‹œ:: cli_ASSEMBLE_RIDE_ITEM, gsv_ASSEMBLE_RIDE_ITEM íŒ¨í‚· ì‚¬ìš©.
 
-  2004. 4. 16 ¼öÁ¤ »çÇ×.
-    . wsv_CHAR_LISTÆÐÅ¶¿¡ tagBasicInfo´ë½Å tagCHARINFO·Î ´ëÃ¼, m_nPartItemIDX Ãß°¡.
-    . tag_ADD_CHAR ±¸Á¶Ã¼¿¡ ¼ÒÈ¯µÈ ÄÉ¸¯ÅÍ ±¸ºÐ ±â´É Ãß°¡ ::
-      tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME ÀÏ°æ¿ì owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
-      ·Î ¼³Á¤ÇÏ¸éµÊ.
-      . CLI_APPRAISAL_REQ, GSV_APPRAISAL_REPLY ÆÐÅ¶ Ãß°¡.
+  2004. 4. 16 ìˆ˜ì • ì‚¬í•­.
+    . wsv_CHAR_LISTíŒ¨í‚·ì— tagBasicInfoëŒ€ì‹  tagCHARINFOë¡œ ëŒ€ì²´, m_nPartItemIDX ì¶”ê°€.
+    . tag_ADD_CHAR êµ¬ì¡°ì²´ì— ì†Œí™˜ëœ ì¼€ë¦­í„° êµ¬ë¶„ ê¸°ëŠ¥ ì¶”ê°€ ::
+      tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME ì¼ê²½ìš° owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
+      ë¡œ ì„¤ì •í•˜ë©´ë¨.
+      . CLI_APPRAISAL_REQ, GSV_APPRAISAL_REPLY íŒ¨í‚· ì¶”ê°€.
 
-  2004. 4. 20 ¼öÁ¤ »çÇ×.
-    . gsv_MOVE ÆÐÅ¶ÀÇ m_bRunMODE => m_btMoveMODE ( tag_ADD_CHAR::m_btMoveMODE¿Í °°Àº°ª )
-    . gsv_JOIN_ZONEÆÐÅ¶ÀÇ m_dwWorldTIMEÀ» m_dwAccWorldTIME·Î º¯°æ... °ÔÀÓ ¼­¹öÀÇ ´©Àû µ¿ÀÛ ¿ùµå ÁøÇà ½Ã°£
+  2004. 4. 20 ìˆ˜ì • ì‚¬í•­.
+    . gsv_MOVE íŒ¨í‚·ì˜ m_bRunMODE => m_btMoveMODE ( tag_ADD_CHAR::m_btMoveMODEì™€ ê°™ì€ê°’ )
+    . gsv_JOIN_ZONEíŒ¨í‚·ì˜ m_dwWorldTIMEì„ m_dwAccWorldTIMEë¡œ ë³€ê²½... ê²Œìž„ ì„œë²„ì˜ ëˆ„ì  ë™ìž‘ ì›”ë“œ ì§„í–‰ ì‹œê°„
 
-  2004. 4. 28 ¼öÁ¤/Ãß°¡ »çÇ×.
-      . gsv_RESULT_OF_SKILLÀÇ m_nResultCNT¸¦ m_nSKillIDX·Î º¯°æ.
-    . gsv_PARTY_LEVnEXP¿¡ m_btFlagLevelUP Ãß°¡.
-    . GSV_SKILL_START ÆÐÅ¶ Ãß°¡ : ¼­¹ö¿¡¼­ ½ºÅ³ ÄÉ½ºÆÃ µ¿ÀÛ½Ã Àü¼ÛµÈ´Ù.
+  2004. 4. 28 ìˆ˜ì •/ì¶”ê°€ ì‚¬í•­.
+      . gsv_RESULT_OF_SKILLì˜ m_nResultCNTë¥¼ m_nSKillIDXë¡œ ë³€ê²½.
+    . gsv_PARTY_LEVnEXPì— m_btFlagLevelUP ì¶”ê°€.
+    . GSV_SKILL_START íŒ¨í‚· ì¶”ê°€ : ì„œë²„ì—ì„œ ìŠ¤í‚¬ ì¼€ìŠ¤íŒ… ë™ìž‘ì‹œ ì „ì†¡ëœë‹¤.
 
-  2004. 4. 29 Ãß°¡ »çÇ×.
-    . cli_SET_WEIGHT_RATEÃß°¡, Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¾ÆÀÌÅÛ ¼ÒÁö·® Ã¼Å©ÇØ¼­ ÇöÀç¼ÒÁö·®/ÃÖ´ë ¼ÒÁö·® ºñÀ²ÀÌ
-    . 80%ÀÌ»ó ¶Ù±â ºÒµî, 100%ÀÌ»ó ÀÌµ¿ ºÒ´É ÆÇ´ÜÇÑ´Ù.
-    . cli_SET_WEIGHT_RATE¹ÞÀº ÆÐÅ¶Àº ¼­¹ö¿¡ÀÇÇØ ÁÖº¯¿¡ gsv_SET_WEIGHT_RATEÆÐÅ¶À¸·Î Áß°èµÊ.
-    . ¾Æ¹ÙÅ¸ Á¶ÀÎ½Ã ÆÐÅ¶ gsv_AVT_CHAR¿¡ m_btWeightRate¿¡ ÇöÀç ¹«°èºñÀ² ÀÔ·ÂµÇ¾î ÀÖÀ½. 
-    . cli_JOIN_ZONEÆÐÅ¶ ¾È¿¡ m_btWeightRate Ãß°¡.. ¼­¹ö¿¡ ¿äÃ»½Ã m_btWeightRate¿¡ ¹«°Ô ºñÀ²À» ³Ö¾î Àü¼Û;
+  2004. 4. 29 ì¶”ê°€ ì‚¬í•­.
+    . cli_SET_WEIGHT_RATEì¶”ê°€, í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì•„ì´í…œ ì†Œì§€ëŸ‰ ì²´í¬í•´ì„œ í˜„ìž¬ì†Œì§€ëŸ‰/ìµœëŒ€ ì†Œì§€ëŸ‰ ë¹„ìœ¨ì´
+    . 80%ì´ìƒ ë›°ê¸° ë¶ˆë“±, 100%ì´ìƒ ì´ë™ ë¶ˆëŠ¥ íŒë‹¨í•œë‹¤.
+    . cli_SET_WEIGHT_RATEë°›ì€ íŒ¨í‚·ì€ ì„œë²„ì—ì˜í•´ ì£¼ë³€ì— gsv_SET_WEIGHT_RATEíŒ¨í‚·ìœ¼ë¡œ ì¤‘ê³„ë¨.
+    . ì•„ë°”íƒ€ ì¡°ì¸ì‹œ íŒ¨í‚· gsv_AVT_CHARì— m_btWeightRateì— í˜„ìž¬ ë¬´ê³„ë¹„ìœ¨ ìž…ë ¥ë˜ì–´ ìžˆìŒ. 
+    . cli_JOIN_ZONEíŒ¨í‚· ì•ˆì— m_btWeightRate ì¶”ê°€.. ì„œë²„ì— ìš”ì²­ì‹œ m_btWeightRateì— ë¬´ê²Œ ë¹„ìœ¨ì„ ë„£ì–´ ì „ì†¡;
 
-  2004. 5. 1 ¼öÁ¤ »çÇ×
-    . gsv_TARGET_SKILLÆÐÅ¶¿¡ ¼Óµµº¸Á¤À» À§ÇØ ½ºÅ³ »ç¿ëÁÖÃ¼ ÁÂÇ¥, Å¸°Ù ÁÂÇ¥ Ãß°¡...
-    . Ãß°¡ ¸â¹ö: m_wSrvDIST, m_PosTO - gsv_ATTACK ÆÐÅ¶ÀÇ ¼Óµµ º¸Á¤°ú µ¿ÀÏÇÏ°Ô Àû¿ëÇÏ¿© »ç¿ë.
-    . Å¸°Ù ½ºÅ³ÀÇ °æ¿ì ¾Õ¿¡¼­ ¸ØÄ©ÇÏ¿© gsv_SKILL_STARTÆÐÅ¶À» ±â´Ù¸®´ø Çö»ó ¼öÁ¤µÉµí...
-    . gsv_MOUSECMD, gsv_ATTACK¸â¹öÀÇ m_PosCUR´ë½Å m_wSrvDIST·Î º¯°æ.
-    . cli_CANTMOVE, gsv_ADJUST_POS, cli_MOUSECMD, gsv_MOUSECMD, cli_JOIN_ZONE, gsv_AVT_CHAR Z°ª Ãß°¡.
+  2004. 5. 1 ìˆ˜ì • ì‚¬í•­
+    . gsv_TARGET_SKILLíŒ¨í‚·ì— ì†ë„ë³´ì •ì„ ìœ„í•´ ìŠ¤í‚¬ ì‚¬ìš©ì£¼ì²´ ì¢Œí‘œ, íƒ€ê²Ÿ ì¢Œí‘œ ì¶”ê°€...
+    . ì¶”ê°€ ë©¤ë²„: m_wSrvDIST, m_PosTO - gsv_ATTACK íŒ¨í‚·ì˜ ì†ë„ ë³´ì •ê³¼ ë™ì¼í•˜ê²Œ ì ìš©í•˜ì—¬ ì‚¬ìš©.
+    . íƒ€ê²Ÿ ìŠ¤í‚¬ì˜ ê²½ìš° ì•žì—ì„œ ë©ˆì¹«í•˜ì—¬ gsv_SKILL_STARTíŒ¨í‚·ì„ ê¸°ë‹¤ë¦¬ë˜ í˜„ìƒ ìˆ˜ì •ë ë“¯...
+    . gsv_MOUSECMD, gsv_ATTACKë©¤ë²„ì˜ m_PosCURëŒ€ì‹  m_wSrvDISTë¡œ ë³€ê²½.
+    . cli_CANTMOVE, gsv_ADJUST_POS, cli_MOUSECMD, gsv_MOUSECMD, cli_JOIN_ZONE, gsv_AVT_CHAR Zê°’ ì¶”ê°€.
 
-  2004. 5. 11 ¼öÁ¤ »çÇ×.
-    . gsv_INVENTORY_DATAÆÐÅ¶¿¡ m_WishITEMS[ MAX_WISH_ITEMS ] Ãß°¡, »ç¿ë ¿ëµµ´Â °³ÀÎ »óÁ¡ ¿ÀÇÂ½Ã...
-    . °³ÀÎ »óÁ¡ °Å·¡¿ë ÆÐÅ¶ cli_P_STORE_XXX, gsv_P_STORE_XXXX Ãß°¡.
-    . cli_SET_WISHITEM Ãß°¡ »óÁ¡µî¿¡¼­ ±¸ÀÔ ¿øÇÏ´Â ¾ÆÀÌÅÛÀ» ¼³Á¤ÇÒ¼ö ÀÖ´Ù(ÀÎÅÍ³Ý ¼îÇÎ¸ôÃ³·³..)
+  2004. 5. 11 ìˆ˜ì • ì‚¬í•­.
+    . gsv_INVENTORY_DATAíŒ¨í‚·ì— m_WishITEMS[ MAX_WISH_ITEMS ] ì¶”ê°€, ì‚¬ìš© ìš©ë„ëŠ” ê°œì¸ ìƒì  ì˜¤í”ˆì‹œ...
+    . ê°œì¸ ìƒì  ê±°ëž˜ìš© íŒ¨í‚· cli_P_STORE_XXX, gsv_P_STORE_XXXX ì¶”ê°€.
+    . cli_SET_WISHITEM ì¶”ê°€ ìƒì ë“±ì—ì„œ êµ¬ìž… ì›í•˜ëŠ” ì•„ì´í…œì„ ì„¤ì •í• ìˆ˜ ìžˆë‹¤(ì¸í„°ë„· ì‡¼í•‘ëª°ì²˜ëŸ¼..)
 
-  2004. 5. 13. Ãß°¡ »çÇ×.
-    . cli_CHATROOM, wsv_CHATROOM, cli_CHATROOM_MSG, wsv_CHATROOM_MSG ÆÐÅ¶ Ãß°¡
-    . ±â´É: ¿ùµå¼­¹ö¿¡¼­ ÀÏ¹Ý Ã¤ÆÃ ¼­¹öÃ³·³, °ÔÀÓ»ó¿¡¼­ µ¿ÀÛ - Ã¤ÆÃ·ëÀ» Á¦°øÇÔ.
+  2004. 5. 13. ì¶”ê°€ ì‚¬í•­.
+    . cli_CHATROOM, wsv_CHATROOM, cli_CHATROOM_MSG, wsv_CHATROOM_MSG íŒ¨í‚· ì¶”ê°€
+    . ê¸°ëŠ¥: ì›”ë“œì„œë²„ì—ì„œ ì¼ë°˜ ì±„íŒ… ì„œë²„ì²˜ëŸ¼, ê²Œìž„ìƒì—ì„œ ë™ìž‘ - ì±„íŒ…ë£¸ì„ ì œê³µí•¨.
 
-  2004. 5. 17. Ãß°¡ »çÇ×.
-    . cli_MEMO, wsv_MEMOÆÐÅ¶ Ãß°¡ ÄÉ¸¯ÅÍ°£ ÂÊÁö º¸³»±â/¹Þ±â ±â´É
+  2004. 5. 17. ì¶”ê°€ ì‚¬í•­.
+    . cli_MEMO, wsv_MEMOíŒ¨í‚· ì¶”ê°€ ì¼€ë¦­í„°ê°„ ìª½ì§€ ë³´ë‚´ê¸°/ë°›ê¸° ê¸°ëŠ¥
 
-  2004. 5. 18. Ãß°¡ »çÇ×.
-    . CLI_MESSENGER, WSV_MESSENGER ÆÐÅ¶ Ãß°¡..  Ä£±¸ °ü¸® ÆÐÅ¶..
-    . 1:1 Ã¤ÆÃ½Ã´Â cli_MESSENGER_CHAT, wsv_MESSENGER_CHATÆÐÅ¶À¸·Î ¼Û/¼ö½Å ÇÔ.
+  2004. 5. 18. ì¶”ê°€ ì‚¬í•­.
+    . CLI_MESSENGER, WSV_MESSENGER íŒ¨í‚· ì¶”ê°€..  ì¹œêµ¬ ê´€ë¦¬ íŒ¨í‚·..
+    . 1:1 ì±„íŒ…ì‹œëŠ” cli_MESSENGER_CHAT, wsv_MESSENGER_CHATíŒ¨í‚·ìœ¼ë¡œ ì†¡/ìˆ˜ì‹  í•¨.
 
-  2004. 5. 31. Ãß°¡ »çÇ×
-    . CLI_CHAR_CHANGE Ãß°¡.. °ÔÀÓ ÇÃ·¹ÀÌµµÁß ÄÉ¸¯ÅÍ ¼±ÅÃÈ­¸é ÀÌµ¿ ÀÌµ¿ÇÒ¶§ °ÔÀÓ¼­¹ö¿¡ Àü¼Û..
-    . °á°ú´Â ¿ùµå¼­¹ö¿¡¼­ WSV_CHAR_CHANGE ÆÐÅ¶ÀÌ Àü¼ÛµÈ. ÆÐÅ¶ ±¸Á¶´Â t_PACKETHEADER »ç¿ë
+  2004. 5. 31. ì¶”ê°€ ì‚¬í•­
+    . CLI_CHAR_CHANGE ì¶”ê°€.. ê²Œìž„ í”Œë ˆì´ë„ì¤‘ ì¼€ë¦­í„° ì„ íƒí™”ë©´ ì´ë™ ì´ë™í• ë•Œ ê²Œìž„ì„œë²„ì— ì „ì†¡..
+    . ê²°ê³¼ëŠ” ì›”ë“œì„œë²„ì—ì„œ WSV_CHAR_CHANGE íŒ¨í‚·ì´ ì „ì†¡ëœ. íŒ¨í‚· êµ¬ì¡°ëŠ” t_PACKETHEADER ì‚¬ìš©
 
-  2004. 6. 1.  Ãß°¡ »çÇ×.
-    . tag_ADD_CHAR ±¸Á¶Ã¼¿¡ ¼ÒÈ¯µÈ ÄÉ¸¯ÅÍ¿¡ »ç¿ëµÈ ¼ÒÈ¯ ½ºÅ³ ¹øÈ£ Ãß°¡ ::
-      ±âÁ¸ tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_DEC_LIFE_TIME ÀÏ°æ¿ì owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
-      ¿¡¼­ owner_obj_idx != 0 ÀÌ¸é nUsedSummonSkillIDX = pAdjSTATUS[ btIDX ++ ]·Î ¾ò´Â´Ù.
-    . ¼ÒÈ¯µÈ ¸÷ÀÇ Æ¯¼ºÄ¡Áß ¸î¸î(MaxHP,°ø°Ý·Â,¹æ¾î·Â...) Àº ¼ÒÈ¯¿¡ »ç¿ëµÈ ½ºÅ³ ¹øÈ£·Î ¾òÀ»¼ö ÀÖ´Ù.
+  2004. 6. 1.  ì¶”ê°€ ì‚¬í•­.
+    . tag_ADD_CHAR êµ¬ì¡°ì²´ì— ì†Œí™˜ëœ ì¼€ë¦­í„°ì— ì‚¬ìš©ëœ ì†Œí™˜ ìŠ¤í‚¬ ë²ˆí˜¸ ì¶”ê°€ ::
+      ê¸°ì¡´ tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_DEC_LIFE_TIME ì¼ê²½ìš° owner_obj_idx = (uint16_t)pAdjSTATUS[ btIDX++ ];
+      ì—ì„œ owner_obj_idx != 0 ì´ë©´ nUsedSummonSkillIDX = pAdjSTATUS[ btIDX ++ ]ë¡œ ì–»ëŠ”ë‹¤.
+    . ì†Œí™˜ëœ ëª¹ì˜ íŠ¹ì„±ì¹˜ì¤‘ ëª‡ëª‡(MaxHP,ê³µê²©ë ¥,ë°©ì–´ë ¥...) ì€ ì†Œí™˜ì— ì‚¬ìš©ëœ ìŠ¤í‚¬ ë²ˆí˜¸ë¡œ ì–»ì„ìˆ˜ ìžˆë‹¤.
 
-  2004. 6. 8.	 Ãß°¡ »çÇ×.
-    . ¾ÆÀÌÅÛ ¼ö¸® ¿äÃ»,°á°ú ÆÐÅ¶ ( ¼Ò¸ð¼º¾ÆÀÌÅÛ »ç¿ë½Ã, NPC¿¡ ÀÇÇÑ ¼ö¸®½Ã ) Ãß°¡
-    . ¾ÆÀÌÅÛ ¼ö¸í º¯°æ¹×, ¼ö¸® °á°ú ÆÐÅ¶Àº ±âÁ¸ÀÇ gsv_SET_MONEYnINV, gsv_SET_INV_ONLY¸¦ »ç¿ëÇØ
-    . ÆÐÅ¶ Å¸ÀÔ¸¸ º¯°æµÇ¾î Àü¼ÛµÊ
-    . ¾ÆÀÌÅÛ ¼ö¸í º¯°æ ÆÐÅ¶ Ãß°¡ : GSV_SET_ITEM_LIFE => ¼ö¸íÀÌ 0À¸·Î ¼³Á¤µÉ °æ¿ì UpdateAbility()¸¦ È£ÃâÇØÁà¾ß ÇÔ
+  2004. 6. 8.	 ì¶”ê°€ ì‚¬í•­.
+    . ì•„ì´í…œ ìˆ˜ë¦¬ ìš”ì²­,ê²°ê³¼ íŒ¨í‚· ( ì†Œëª¨ì„±ì•„ì´í…œ ì‚¬ìš©ì‹œ, NPCì— ì˜í•œ ìˆ˜ë¦¬ì‹œ ) ì¶”ê°€
+    . ì•„ì´í…œ ìˆ˜ëª… ë³€ê²½ë°, ìˆ˜ë¦¬ ê²°ê³¼ íŒ¨í‚·ì€ ê¸°ì¡´ì˜ gsv_SET_MONEYnINV, gsv_SET_INV_ONLYë¥¼ ì‚¬ìš©í•´
+    . íŒ¨í‚· íƒ€ìž…ë§Œ ë³€ê²½ë˜ì–´ ì „ì†¡ë¨
+    . ì•„ì´í…œ ìˆ˜ëª… ë³€ê²½ íŒ¨í‚· ì¶”ê°€ : GSV_SET_ITEM_LIFE => ìˆ˜ëª…ì´ 0ìœ¼ë¡œ ì„¤ì •ë  ê²½ìš° UpdateAbility()ë¥¼ í˜¸ì¶œí•´ì¤˜ì•¼ í•¨
 
-  2004. 6. 14. ¼öÁ¤ »çÇ×.
-    . gsv_TOGGLE, gsv_EQUIP_ITEM, gsv_ASSEMBLE_RIDE_ITEM ÆÐÅ¶¿¡ m_nRunSPEED[0]¿¡ º¯°æ½Ã ÀÌµ¿¼Óµµ Ãß°¡...
-    . if ( pPacket->m_HEADER.m_nSize == ( sizeof( gsv_XXX ) + sizeof(int16_t) ) ) ÀÌ¸é m_nRunSPEED[0] °ªÀ¸·Î ÀÌµ¿ ¼Óµµ Àû¿ë.
+  2004. 6. 14. ìˆ˜ì • ì‚¬í•­.
+    . gsv_TOGGLE, gsv_EQUIP_ITEM, gsv_ASSEMBLE_RIDE_ITEM íŒ¨í‚·ì— m_nRunSPEED[0]ì— ë³€ê²½ì‹œ ì´ë™ì†ë„ ì¶”ê°€...
+    . if ( pPacket->m_HEADER.m_nSize == ( sizeof( gsv_XXX ) + sizeof(int16_t) ) ) ì´ë©´ m_nRunSPEED[0] ê°’ìœ¼ë¡œ ì´ë™ ì†ë„ ì ìš©.
 
-  2004. 6. 16. Ãß°¡ »çÇ×.
-    . GSV_P_STORE_MONEYnINV ÆÐÅ¶ Å¸ÀÔ Ãß°¡, ±¸Á¶´Â gsv_SET_MONEYnINV¿Í µ¿ÀÏ.
-    . gsv_P_STORE_RESULT °á°ú¿¡ RESULT_P_STORE_TRADE_PART Ãß°¡ °Å·¡½Ã ÀÏºÎ Ç°¸ñÀÌ Ç°ÀýµÇ°Å³ª ±¸ÀÔ Èñ¸Á °¹¼öº¸´Ù
-    . ÀÛ°³ ±¸ÀÔ½Ã Àü¼ÛµÊ..
+  2004. 6. 16. ì¶”ê°€ ì‚¬í•­.
+    . GSV_P_STORE_MONEYnINV íŒ¨í‚· íƒ€ìž… ì¶”ê°€, êµ¬ì¡°ëŠ” gsv_SET_MONEYnINVì™€ ë™ì¼.
+    . gsv_P_STORE_RESULT ê²°ê³¼ì— RESULT_P_STORE_TRADE_PART ì¶”ê°€ ê±°ëž˜ì‹œ ì¼ë¶€ í’ˆëª©ì´ í’ˆì ˆë˜ê±°ë‚˜ êµ¬ìž… í¬ë§ ê°¯ìˆ˜ë³´ë‹¤
+    . ìž‘ê°œ êµ¬ìž…ì‹œ ì „ì†¡ë¨..
 
-  2004. 6. 17. Ãß°¡ »çÇ×.
-    . ºÎÈ°½Ã ÆÐ³ÎÆ¼ °æÇèÄ¡ Àû¿ë¹æ¹ý º¯°æÀ¸·Î gsv_JOIN_ZONE ÆÐÅ¶¿¡ ÇöÀç °æÇèÄ¡ m_lCurEXP Ãß°¡
+  2004. 6. 17. ì¶”ê°€ ì‚¬í•­.
+    . ë¶€í™œì‹œ íŒ¨ë„í‹° ê²½í—˜ì¹˜ ì ìš©ë°©ë²• ë³€ê²½ìœ¼ë¡œ gsv_JOIN_ZONE íŒ¨í‚·ì— í˜„ìž¬ ê²½í—˜ì¹˜ m_lCurEXP ì¶”ê°€
 
-  2004. 6. 28. Ãß°¡ »çÇ×.
-    . CLI_CHANNEL_LIST_REQ ÆÐÅ¶ Ãß°¡. srv_LOGIN_REPLY ÆÐÅ¶ ¼ö½ÅÈÄ ¿øÇÏ´Â ¿ùµå¼­¹öÀÇ ID¸¦ Àü¼ÛÇÏ¸é
-    . ¿ùµå ¼­¹öÀÇ Ã¤³Î ¼­¹ö¸®½ºÆ®°¡ Àü¼ÛµÊ. ¿ùµå¼­¹öÀÇ Ã¤³ÎÀ» ¼±ÅÃÈÄ cli_SELECT_SERVERÆÐÅ¶¿¡ Ã¤³Î ¹øÈ£¸¦
-    . Ãß°¡ÇØ¼­ Àü¼Û½ÃÄÑ¾ßÇÔ.
-  2004. 7. 8. Ãß°¡ »çÇ×.
-    . CLI_CRAFT_ITEM_REQ, GSV_CRAFT_ITEM_REPLY ÆÐÅ¶ Ãß°¡... Å¬¶óÀÌ¾ðÆ® ¿äÃ»½Ã¿¡´Â °¢°¢¿¡ ¸Â´Â ÆÐÅ¶¿¡
-    . ³Ö¾î Àü¼Û, ¼­¹öÀÇ ÀÀ´ä ÆÐÅ¶(GSV_CRAFT_ITEM_REPLY)Àº °øÅë, m_btRESULTÀÇ °ªÀÌ ¼º°ø°ü·Ã °ªÀÏ°æ¿ì¿¡¸¸
-    . m_btOutCNT¿¡ À¯È¿ÇÑ °ªÀÌ µé¾îÀÖ°í, m_btRESULTÀÌ ½ÇÆÐ°ü·ÃÀÏ°æ¿ì ÂüÁ¶ÇÏ¸é ¾ÈµÊ(Àç·Ã½ÇÆÐ´Â¿¹¿Ü-µî±Þ°¨¼Ò,¼Ò¸ðµÈ ¾ÆÀÌÅÛµé¾îÀÖÀ½).
-  2004. 7. 10. Ãß°¡ »çÇ×.
-    . wsv_CHAT_ROOM_JOIN ÆÐÅ¶¿¡ ÀÚ½ÅÀÇ m_wUserIDÃß°¡, ¼­¹ö¿¡¼­ CHAT_REPLY_ROOM_MAKEDÀÀ´ä½Ã
-    . ¹æÀÌ¸§ ¾Õ¿¡ m_wUserID(ÀÚ½Å) »ðÀÔ.
-    . gsv_CRAFT_ITEM_REPLYÆÐÅ¶Áß m_btRESULT°ªÀÌ CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED	ÀÏ°æ¿ì
-    . m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity¿¡ ¼º°øµµ °è»êµÈ°ªÀÌ µé¾îÀÖÀ½(±âÈ¹¼­Âü°í)
-  2004. 7. 20. Ãß°¡ »çÇ×.
-    . gsv_AVT_CHAR¿¡ ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) ÀÏ°æ¿ì char szStoreTITLE[] ºÙ¿© Àü¼Û
-    . GSV_SKILL_CANCEL ÆÐÅ¶ Ãß°¡
-  2004. 7. 26. Ãß°¡ »çÇ×.
-    . gsv_PARTY_MEMBER¿¡ ÆÄÆ¼ÀÇ ÇöÀç ·ê Ãß°¡.
-    . cli_PARTY_ITEM, gsv_PARTY_ITEM ÆÐÅ¶ Ãß°¡. ÆÄÆ¼¿¡¼­ ¾ÆÀÌÅÛ½ÀµæÀÌ ¼ø¼­ ºÐ¹èÀÏ°æ¿ì, ½ÀµæÀÚ¿Í ¾ÆÀÌÅÛ Á¤º¸µé¾î ÀÖÀ½
-  2004. 8. 8 ¼öÁ¤»çÇ×.
-    . MOBÀÇ HP°ªÀ» int16_t¿¡¼­ int32_t·Î º¯°æ.
-  2004. 8. 10 Ãß°¡ »çÇ×.
-    . tagCHARINFO ±¸Á¶Ã¼¿¡ m_dwRemainSEC¸â¹öº¯¼ö Ãß°¡, °ªÀÌ 0ÀÌ ¾Æ´Ò°æ¿ì »èÁ¦µÉ¶§±îÁö ³²Àº ½Ã°£(ÃÊ´ÜÀ§).
-    . cli_DELETE_CHARÆÐÅ¶¿¡ m_bDelete ¸â¹öº¯¼ö Ãß°¡, ¼­¹ö¿¡ ¿äÃ»½Ã true¸é »èÁ¦´ë±âµî·Ï, false¸é »èÁ¦´ë±â ÇØÁ¦,
-    . ÀÀ´ä ÆÐÅ¶À¸·Î wsv_DELETE_CHAR Àü¼ÛµÊ.
-  2004. 8. 23 Ãß°¡ »çÇ×.
-    . gsv_SETEXP ÆÐÅ¶¿¡ ÇöÀç ½ºÅ×¹Ì³Ê °ª Ãß°¡
-  2004. 9. 16 Ãß°¡ »çÇ×.
-    . ÆÄÆ¼ ¸ã¹ö Á¤º¸ tag_PARTY_MEMBER¿¡ m_nSTAMINA Ãß°¡.
-    . Ãß°¡·Î ÆÄÆ¼ ¿øÀÌ ½ºÅ×¹Ì³Ê°¡ < 3000 ÀÌÇÏÀÏ°æ¿ì ... gsv_CHANGE_OBJIDX ÆÐÅ¶ÀÌ Ãß°¡ Àü¼ÛµÊ
-  2004. 10. 4 Ãß°¡ »çÇ×.
-    . gsv_SET_HPnMPÆÐÅ¶ Ãß°¡ : ¼­¹öÀÇ ÇöÀç hp, mp°¡ Àü¼ÛµÊ
-  2004. 10. 5 Ãß°¡ »çÇ×.
-    . gsv_CHECK_NPC_EVENTÆÐÅ¶ Ãß°¡, ±âÁ¸ NPCÁ×¿´À»¶§ Å¬¶óÀÌ¾ðÆ®¿¡¼­ NPCÀÌº¥Æ®¸¦ Ã¼Å©ÈÄ ¼­¹ö¿¡ °ËÁõ ¿äÃ»ÇÏ´ø°ÍÀ»
-    . ¼­¹ö°¡ Å¬¶óÀÌ¾ðÆ®¿¡°Ô °ËÁõ¿äÃ» => Å¬¶óÀÌ¾ðÆ® °ËÁõÈÄ °ËÁõ¿Ï·áµÇ¸é => ¼­¹ö¿¡ °ËÁõ¿äÃ» ¼ø¼­·Î ¹Ù²Þ.
-    . ¸¶Áö¸·¿¡ ¸÷À» Á×¿´´ø »ç¿ëÀÚ¿¡°Ô µé¾î°¡´ø Äù½ºÆ®¾ÆÀÌÅÛÀ» ¼±»§¶§¸° À¯Àú¿¡°Ô µé¾î°¡µµ·Ï...
-  2004. 10. 15 ¼öÁ¤ / Ãß°¡ »çÇ×.
-    . tag_ADD_CHAR ±¸Á¶Ã¼ÀÇ char m_cTeamNO°¡ int32_t m_iTeamNO·Î º¯°æ
-    . gsv_JOIN_ZONE ±¸Á¶Ã¼¿¡ ÀÚ½ÅÀÇ ÆÀ¹øÈ£ Ãß°¡ int32_t m_iTeamNO;
-  2004. 10. 30 Ãß°¡ »çÇ×.
-    . Å¬·£ ÆÐÅ¶ Ãß°¡ CLI_CLAN_COMMAND, WSV_CLAN_COMMAND
-    . Å¬·£°ü·Ã ÆÐÅ¶Àº ¸ðµÎ ¿ùµå ¼­¹ö¿¡ Àü¼ÛÇÔ.
-  2004. 11. 16 Ãß°¡ / ¼öÁ¤.
-    . CLI_ALLIED_CHAT, CLI_ALLIED_SHOUT, GSV_ALLIED_CHAT, GSV_ALLIED_SHOUT Ãß°¡
-    . PvP Á¸¿¡¼­ °°Àº ÆÀ¹øÈ£¿¡°Ô¸¸ Ã¤ÆÃÀ» Àü¼ÛÇÑ´Ù.
-    . gsv_AVT_CHAR±¸Á¶Ã¼ÀÇ m_dwSubFLAGÃß°¡ DataType.hÀÇ FLAG_SUB_xxx ÇÃ·¹±× ¼³Á¤µÊ
-    . tag_MY_CLAN±¸Á¶Ã¼¾ÈÀÇ m_btClanPOS(Å¬·£³» Á÷À§)¸¦ tag_CLAN_ID ±¸Á¶Ã¼·Î ÀÌµ¿.
-    . ¼­¹ö¿¡ º¸³»´Â Å¬·£ ¸í·É¿¡ GCMD_MEMBER_JOBnLEVÃß°¡ :: ÀÚ½ÅÀÇ Á÷¾÷/·¹º§À» ´Ù¸¥ ¸â¹ö¿¡°Ô Åëº¸( ·Î±×ÀÎÈÄ/·¹º§¾÷ÈÄ/ÀüÁ÷ÈÄ¿¡ Àü¼Û )
-  2004. 11. 23 ¼öÁ¤.
-    . tag_CLAN_INFO »èÁ¦, tag_MY_CLAN ¸ã¸Ó Ãß°¡
-  2004. 12. 1 Ãß°¡
-    . 10ÃÊ ´ë±âÇØ¾ßÇÒ°æ¿ì GSV_LOGOUT_REPLY Àü¼Û
-  2004. 12. 16 Ãß°¡
-    . Á¦Á¶/Á¦·Ã½Ã ÁÖÀ§¿¡ Åëº¸ ÆÐÅ¶( cli_ITEM_RESULT_REPORT ) Ãß°¡, cli_CREATE_ITEM_EXP_REQ ÆÐÅ¶Àº »èÁ¦
-  2004. 12. 21 Ãß°¡ 
-    . gsv_EFFECT_OF_SKILL¿¡ ½ºÅ³ ½ÃÀüÀÚÀÇ Áö·Â m_nINT°ª Ãß°¡.
-  2005. 01. 05 Ãß°¡
-    . CLI_SELECT_SERVER¿äÃ»½Ã ÀÀ´ä °á°ú RESULT_SELECT_SERVER_NEED_CHARGE Ãß°¡ (¹«·á»ç¿ëÀÚ°¡ º»¼·¿¡ Á¢¼Ó½ÃµµÇÒ¶§)
-    . °ú±Ý °ü·Ã ÆÐÅ¶ Ãß°¡. gsv_BILLING_MESSAGE
-  2005. 01. 11 ¼öÁ¤
-    . gsv_CHANGE_SKIN¼öÁ¤, gsv_SET_ABILITYÆÐÅ¶Àº ÀÚ½ÅÇÑÅ×¸¸ Àü´ÞµÇ°í ÁÖÀ§¿¡ Åëº¸ ÇÊ¿äÇÑ °æ¿ì(¸Ó¸®ÅÐ,¾ó±¼,¼ºº°) gsv_CHANGE_SKIN·Î Àü¼ÛµÊ
-    . tagCHARINFO ¼­¹ö¿¡¼­ ÄÉ¸¯ÅÍ ¸®½ºÆ®¿¡ ÇÃ·¹Æ¼³ÑÄÉ¸¯ÅÍ ¿©ºÎ ÇÊµå Ãß°¡
-    . wsv_CREATE_CHARÄÉ¸¯ÅÍ »ý¼º ÆÐÅ¶¿¡.... ÇÃ·¹Æ¼³Ñ ÄÉ¸¯À¸·Î »ý¼ºµÈ°ÇÁö ¿©ºÎ...
-    . gsv_BANK_LIST_REPLYÆÐÅ¶¿¡ BANK_REPLY_PLATINUM Ãß°¡...ÇÃ·¹Æ¼³Ñ Ã¢°í¸®½ºÆ®°¡ º°µµ·Î Àü¼ÛµÊ(¾ÆÀÌÅÛÀÌ Á¸Á¦ÇÒ°æ¿ì)
-  2005. 03. 23 Ãß°¡
-    . Å¬·£ ¸¶Å© ¿äÃ» ÆÐÅ¶ cli_CLANMARK_REQ, wsv_CLANMARK_REPLY Ãß°¡
-  2005. 06. 07 ¼öÁ¤/Ãß°¡
-    . GSV_NPC_CHAR ÆÐÅ¶½Ã m_nCharIdx°¡ -(À½¼ö) ÀÌ¸é ¼û±è »óÅÂÀÌ´Ù.
-    . gsv_SET_NPC_SHOW NPCÀÇ ¼û±è/º¸ÀÓ »óÅÂ ¼³Á¤.
-  2005. 06. 16 Ãß°¡
-    . ±âÁ¸ gsv_BILLING_MESSAGE¿¡¼­ È®ÀåµÈ ÇüÅÂÀÇ gsv_BILLING_MESSAGE_EXT ÆÐÅ¶ Ãß°¡
-    . defined FLAG_PAY_XXX ÇüÅÂ°¡ PAY_FLAG_±¹°¡_XXX ·Î ÀÌ¸§ º¯°æ
-  2005. 06. 20 Ãß°¡
-    . ¿©½Å ¼ÒÈ¯ °ü·Ã ÆÐÅ¶ GSV_GODDNESS_MODE Ãß°¡.
-  2005. 06. 22 ¼öÁ¤
-    . cli_TELEPORT_REQ ÆÐÅ¶¿¡ ½ºÇÇµåÇÙÀ» ¹æÁöÇÏ±â À§ÇØ ¼­¹ö¿Í ºñ±³ÇÒ ÁÂÇ¥ Å¬¶óÀÌ¾ðÆ®ÀÇ ÇöÀç ÁÂÇ¥(m_PosCUR) Ãß°¡
-  2005. 06. 23 Ãß°¡
-    . ÆÄÆ¼ / 1:1 °Å·¡½Ã °ú±Ý¾øÀ»½Ã ÀÀ´ä Ãß°¡
-    . ¼ÒÈ¯¼ö ¸í·É ÆÐÅ¶ Ãß°¡.( CLI_SUMMON_CMD, GSV_SUMMON_CMD )
-  2005. 08. 22 Ãß°¡
-    . CLI_CART_RIDE / GSV_CART_RIDE 2ÀÎ½ÂÄ«Æ® ¿äÃ»/ÀÀ´ä ÆÐÅ¶ Ãß°¡.
+  2004. 6. 28. ì¶”ê°€ ì‚¬í•­.
+    . CLI_CHANNEL_LIST_REQ íŒ¨í‚· ì¶”ê°€. srv_LOGIN_REPLY íŒ¨í‚· ìˆ˜ì‹ í›„ ì›í•˜ëŠ” ì›”ë“œì„œë²„ì˜ IDë¥¼ ì „ì†¡í•˜ë©´
+    . ì›”ë“œ ì„œë²„ì˜ ì±„ë„ ì„œë²„ë¦¬ìŠ¤íŠ¸ê°€ ì „ì†¡ë¨. ì›”ë“œì„œë²„ì˜ ì±„ë„ì„ ì„ íƒí›„ cli_SELECT_SERVERíŒ¨í‚·ì— ì±„ë„ ë²ˆí˜¸ë¥¼
+    . ì¶”ê°€í•´ì„œ ì „ì†¡ì‹œì¼œì•¼í•¨.
+  2004. 7. 8. ì¶”ê°€ ì‚¬í•­.
+    . CLI_CRAFT_ITEM_REQ, GSV_CRAFT_ITEM_REPLY íŒ¨í‚· ì¶”ê°€... í´ë¼ì´ì–¸íŠ¸ ìš”ì²­ì‹œì—ëŠ” ê°ê°ì— ë§žëŠ” íŒ¨í‚·ì—
+    . ë„£ì–´ ì „ì†¡, ì„œë²„ì˜ ì‘ë‹µ íŒ¨í‚·(GSV_CRAFT_ITEM_REPLY)ì€ ê³µí†µ, m_btRESULTì˜ ê°’ì´ ì„±ê³µê´€ë ¨ ê°’ì¼ê²½ìš°ì—ë§Œ
+    . m_btOutCNTì— ìœ íš¨í•œ ê°’ì´ ë“¤ì–´ìžˆê³ , m_btRESULTì´ ì‹¤íŒ¨ê´€ë ¨ì¼ê²½ìš° ì°¸ì¡°í•˜ë©´ ì•ˆë¨(ìž¬ë ¨ì‹¤íŒ¨ëŠ”ì˜ˆì™¸-ë“±ê¸‰ê°ì†Œ,ì†Œëª¨ëœ ì•„ì´í…œë“¤ì–´ìžˆìŒ).
+  2004. 7. 10. ì¶”ê°€ ì‚¬í•­.
+    . wsv_CHAT_ROOM_JOIN íŒ¨í‚·ì— ìžì‹ ì˜ m_wUserIDì¶”ê°€, ì„œë²„ì—ì„œ CHAT_REPLY_ROOM_MAKEDì‘ë‹µì‹œ
+    . ë°©ì´ë¦„ ì•žì— m_wUserID(ìžì‹ ) ì‚½ìž….
+    . gsv_CRAFT_ITEM_REPLYíŒ¨í‚·ì¤‘ m_btRESULTê°’ì´ CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED	ì¼ê²½ìš°
+    . m_sInvITEM[ m_btOutCNT-1 ].m_iQuantityì— ì„±ê³µë„ ê³„ì‚°ëœê°’ì´ ë“¤ì–´ìžˆìŒ(ê¸°íšì„œì°¸ê³ )
+  2004. 7. 20. ì¶”ê°€ ì‚¬í•­.
+    . gsv_AVT_CHARì— ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) ì¼ê²½ìš° char szStoreTITLE[] ë¶™ì—¬ ì „ì†¡
+    . GSV_SKILL_CANCEL íŒ¨í‚· ì¶”ê°€
+  2004. 7. 26. ì¶”ê°€ ì‚¬í•­.
+    . gsv_PARTY_MEMBERì— íŒŒí‹°ì˜ í˜„ìž¬ ë£° ì¶”ê°€.
+    . cli_PARTY_ITEM, gsv_PARTY_ITEM íŒ¨í‚· ì¶”ê°€. íŒŒí‹°ì—ì„œ ì•„ì´í…œìŠµë“ì´ ìˆœì„œ ë¶„ë°°ì¼ê²½ìš°, ìŠµë“ìžì™€ ì•„ì´í…œ ì •ë³´ë“¤ì–´ ìžˆìŒ
+  2004. 8. 8 ìˆ˜ì •ì‚¬í•­.
+    . MOBì˜ HPê°’ì„ int16_tì—ì„œ int32_të¡œ ë³€ê²½.
+  2004. 8. 10 ì¶”ê°€ ì‚¬í•­.
+    . tagCHARINFO êµ¬ì¡°ì²´ì— m_dwRemainSECë©¤ë²„ë³€ìˆ˜ ì¶”ê°€, ê°’ì´ 0ì´ ì•„ë‹ê²½ìš° ì‚­ì œë ë•Œê¹Œì§€ ë‚¨ì€ ì‹œê°„(ì´ˆë‹¨ìœ„).
+    . cli_DELETE_CHARíŒ¨í‚·ì— m_bDelete ë©¤ë²„ë³€ìˆ˜ ì¶”ê°€, ì„œë²„ì— ìš”ì²­ì‹œ trueë©´ ì‚­ì œëŒ€ê¸°ë“±ë¡, falseë©´ ì‚­ì œëŒ€ê¸° í•´ì œ,
+    . ì‘ë‹µ íŒ¨í‚·ìœ¼ë¡œ wsv_DELETE_CHAR ì „ì†¡ë¨.
+  2004. 8. 23 ì¶”ê°€ ì‚¬í•­.
+    . gsv_SETEXP íŒ¨í‚·ì— í˜„ìž¬ ìŠ¤í…Œë¯¸ë„ˆ ê°’ ì¶”ê°€
+  2004. 9. 16 ì¶”ê°€ ì‚¬í•­.
+    . íŒŒí‹° ë©¥ë²„ ì •ë³´ tag_PARTY_MEMBERì— m_nSTAMINA ì¶”ê°€.
+    . ì¶”ê°€ë¡œ íŒŒí‹° ì›ì´ ìŠ¤í…Œë¯¸ë„ˆê°€ < 3000 ì´í•˜ì¼ê²½ìš° ... gsv_CHANGE_OBJIDX íŒ¨í‚·ì´ ì¶”ê°€ ì „ì†¡ë¨
+  2004. 10. 4 ì¶”ê°€ ì‚¬í•­.
+    . gsv_SET_HPnMPíŒ¨í‚· ì¶”ê°€ : ì„œë²„ì˜ í˜„ìž¬ hp, mpê°€ ì „ì†¡ë¨
+  2004. 10. 5 ì¶”ê°€ ì‚¬í•­.
+    . gsv_CHECK_NPC_EVENTíŒ¨í‚· ì¶”ê°€, ê¸°ì¡´ NPCì£½ì˜€ì„ë•Œ í´ë¼ì´ì–¸íŠ¸ì—ì„œ NPCì´ë²¤íŠ¸ë¥¼ ì²´í¬í›„ ì„œë²„ì— ê²€ì¦ ìš”ì²­í•˜ë˜ê²ƒì„
+    . ì„œë²„ê°€ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ê²€ì¦ìš”ì²­ => í´ë¼ì´ì–¸íŠ¸ ê²€ì¦í›„ ê²€ì¦ì™„ë£Œë˜ë©´ => ì„œë²„ì— ê²€ì¦ìš”ì²­ ìˆœì„œë¡œ ë°”ê¿ˆ.
+    . ë§ˆì§€ë§‰ì— ëª¹ì„ ì£½ì˜€ë˜ ì‚¬ìš©ìžì—ê²Œ ë“¤ì–´ê°€ë˜ í€˜ìŠ¤íŠ¸ì•„ì´í…œì„ ì„ ë¹µë•Œë¦° ìœ ì €ì—ê²Œ ë“¤ì–´ê°€ë„ë¡...
+  2004. 10. 15 ìˆ˜ì • / ì¶”ê°€ ì‚¬í•­.
+    . tag_ADD_CHAR êµ¬ì¡°ì²´ì˜ char m_cTeamNOê°€ int32_t m_iTeamNOë¡œ ë³€ê²½
+    . gsv_JOIN_ZONE êµ¬ì¡°ì²´ì— ìžì‹ ì˜ íŒ€ë²ˆí˜¸ ì¶”ê°€ int32_t m_iTeamNO;
+  2004. 10. 30 ì¶”ê°€ ì‚¬í•­.
+    . í´ëžœ íŒ¨í‚· ì¶”ê°€ CLI_CLAN_COMMAND, WSV_CLAN_COMMAND
+    . í´ëžœê´€ë ¨ íŒ¨í‚·ì€ ëª¨ë‘ ì›”ë“œ ì„œë²„ì— ì „ì†¡í•¨.
+  2004. 11. 16 ì¶”ê°€ / ìˆ˜ì •.
+    . CLI_ALLIED_CHAT, CLI_ALLIED_SHOUT, GSV_ALLIED_CHAT, GSV_ALLIED_SHOUT ì¶”ê°€
+    . PvP ì¡´ì—ì„œ ê°™ì€ íŒ€ë²ˆí˜¸ì—ê²Œë§Œ ì±„íŒ…ì„ ì „ì†¡í•œë‹¤.
+    . gsv_AVT_CHARêµ¬ì¡°ì²´ì˜ m_dwSubFLAGì¶”ê°€ DataType.hì˜ FLAG_SUB_xxx í”Œë ˆê·¸ ì„¤ì •ë¨
+    . tag_MY_CLANêµ¬ì¡°ì²´ì•ˆì˜ m_btClanPOS(í´ëžœë‚´ ì§ìœ„)ë¥¼ tag_CLAN_ID êµ¬ì¡°ì²´ë¡œ ì´ë™.
+    . ì„œë²„ì— ë³´ë‚´ëŠ” í´ëžœ ëª…ë ¹ì— GCMD_MEMBER_JOBnLEVì¶”ê°€ :: ìžì‹ ì˜ ì§ì—…/ë ˆë²¨ì„ ë‹¤ë¥¸ ë©¤ë²„ì—ê²Œ í†µë³´( ë¡œê·¸ì¸í›„/ë ˆë²¨ì—…í›„/ì „ì§í›„ì— ì „ì†¡ )
+  2004. 11. 23 ìˆ˜ì •.
+    . tag_CLAN_INFO ì‚­ì œ, tag_MY_CLAN ë©¥ë¨¸ ì¶”ê°€
+  2004. 12. 1 ì¶”ê°€
+    . 10ì´ˆ ëŒ€ê¸°í•´ì•¼í• ê²½ìš° GSV_LOGOUT_REPLY ì „ì†¡
+  2004. 12. 16 ì¶”ê°€
+    . ì œì¡°/ì œë ¨ì‹œ ì£¼ìœ„ì— í†µë³´ íŒ¨í‚·( cli_ITEM_RESULT_REPORT ) ì¶”ê°€, cli_CREATE_ITEM_EXP_REQ íŒ¨í‚·ì€ ì‚­ì œ
+  2004. 12. 21 ì¶”ê°€ 
+    . gsv_EFFECT_OF_SKILLì— ìŠ¤í‚¬ ì‹œì „ìžì˜ ì§€ë ¥ m_nINTê°’ ì¶”ê°€.
+  2005. 01. 05 ì¶”ê°€
+    . CLI_SELECT_SERVERìš”ì²­ì‹œ ì‘ë‹µ ê²°ê³¼ RESULT_SELECT_SERVER_NEED_CHARGE ì¶”ê°€ (ë¬´ë£Œì‚¬ìš©ìžê°€ ë³¸ì„­ì— ì ‘ì†ì‹œë„í• ë•Œ)
+    . ê³¼ê¸ˆ ê´€ë ¨ íŒ¨í‚· ì¶”ê°€. gsv_BILLING_MESSAGE
+  2005. 01. 11 ìˆ˜ì •
+    . gsv_CHANGE_SKINìˆ˜ì •, gsv_SET_ABILITYíŒ¨í‚·ì€ ìžì‹ í•œí…Œë§Œ ì „ë‹¬ë˜ê³  ì£¼ìœ„ì— í†µë³´ í•„ìš”í•œ ê²½ìš°(ë¨¸ë¦¬í„¸,ì–¼êµ´,ì„±ë³„) gsv_CHANGE_SKINë¡œ ì „ì†¡ë¨
+    . tagCHARINFO ì„œë²„ì—ì„œ ì¼€ë¦­í„° ë¦¬ìŠ¤íŠ¸ì— í”Œë ˆí‹°ë„˜ì¼€ë¦­í„° ì—¬ë¶€ í•„ë“œ ì¶”ê°€
+    . wsv_CREATE_CHARì¼€ë¦­í„° ìƒì„± íŒ¨í‚·ì—.... í”Œë ˆí‹°ë„˜ ì¼€ë¦­ìœ¼ë¡œ ìƒì„±ëœê±´ì§€ ì—¬ë¶€...
+    . gsv_BANK_LIST_REPLYíŒ¨í‚·ì— BANK_REPLY_PLATINUM ì¶”ê°€...í”Œë ˆí‹°ë„˜ ì°½ê³ ë¦¬ìŠ¤íŠ¸ê°€ ë³„ë„ë¡œ ì „ì†¡ë¨(ì•„ì´í…œì´ ì¡´ì œí• ê²½ìš°)
+  2005. 03. 23 ì¶”ê°€
+    . í´ëžœ ë§ˆí¬ ìš”ì²­ íŒ¨í‚· cli_CLANMARK_REQ, wsv_CLANMARK_REPLY ì¶”ê°€
+  2005. 06. 07 ìˆ˜ì •/ì¶”ê°€
+    . GSV_NPC_CHAR íŒ¨í‚·ì‹œ m_nCharIdxê°€ -(ìŒìˆ˜) ì´ë©´ ìˆ¨ê¹€ ìƒíƒœì´ë‹¤.
+    . gsv_SET_NPC_SHOW NPCì˜ ìˆ¨ê¹€/ë³´ìž„ ìƒíƒœ ì„¤ì •.
+  2005. 06. 16 ì¶”ê°€
+    . ê¸°ì¡´ gsv_BILLING_MESSAGEì—ì„œ í™•ìž¥ëœ í˜•íƒœì˜ gsv_BILLING_MESSAGE_EXT íŒ¨í‚· ì¶”ê°€
+    . defined FLAG_PAY_XXX í˜•íƒœê°€ PAY_FLAG_êµ­ê°€_XXX ë¡œ ì´ë¦„ ë³€ê²½
+  2005. 06. 20 ì¶”ê°€
+    . ì—¬ì‹  ì†Œí™˜ ê´€ë ¨ íŒ¨í‚· GSV_GODDNESS_MODE ì¶”ê°€.
+  2005. 06. 22 ìˆ˜ì •
+    . cli_TELEPORT_REQ íŒ¨í‚·ì— ìŠ¤í”¼ë“œí•µì„ ë°©ì§€í•˜ê¸° ìœ„í•´ ì„œë²„ì™€ ë¹„êµí•  ì¢Œí‘œ í´ë¼ì´ì–¸íŠ¸ì˜ í˜„ìž¬ ì¢Œí‘œ(m_PosCUR) ì¶”ê°€
+  2005. 06. 23 ì¶”ê°€
+    . íŒŒí‹° / 1:1 ê±°ëž˜ì‹œ ê³¼ê¸ˆì—†ì„ì‹œ ì‘ë‹µ ì¶”ê°€
+    . ì†Œí™˜ìˆ˜ ëª…ë ¹ íŒ¨í‚· ì¶”ê°€.( CLI_SUMMON_CMD, GSV_SUMMON_CMD )
+  2005. 08. 22 ì¶”ê°€
+    . CLI_CART_RIDE / GSV_CART_RIDE 2ì¸ìŠ¹ì¹´íŠ¸ ìš”ì²­/ì‘ë‹µ íŒ¨í‚· ì¶”ê°€.
 */
 #ifndef __NET_PROTOTYPE_H
 #define __NET_PROTOTYPE_H
@@ -211,8 +211,8 @@
 #include "Util/classHASH.h"
 #endif
 
-#define	__APPLY_04_10_15_TEAMNO			// 04.10.15ÀÏÀÚ ÆÀ¹øÈ£ º¯°æ ÆÐÅ¶ Àû¿ëÇÒ·¡ ?
-#define	__INC_PLATINUM				// À¯·áÈ­º¯°æ Àû¿ë¿©ºÎ..
+#define	__APPLY_04_10_15_TEAMNO			// 04.10.15ì¼ìž íŒ€ë²ˆí˜¸ ë³€ê²½ íŒ¨í‚· ì ìš©í• ëž˜ ?
+#define	__INC_PLATINUM				// ìœ ë£Œí™”ë³€ê²½ ì ìš©ì—¬ë¶€..
 
 #pragma warning( disable:4200 )
 #pragma warning( disable:4201 )
@@ -220,13 +220,10 @@
 
 //-------------------------------------------------------------------------------------------------
 
-#define	CLI_ALIVE					0x0700
 #define	SRV_ERROR					0x0700
 
 #define	SRV_ANNOUNCE_TEXT			0x0701
 #define	GSV_ANNOUNCE_CHAT			0x0702
-
-#define	CLI_ACCEPT_REQ				0x0703
 
 #define	CLI_CHANNEL_LIST_REQ		0x0704
 #define	LSV_CHANNEL_LIST_REPLY		0x0704
@@ -239,7 +236,6 @@
 #define	CLI_LOGOUT_REQ				0x0707
 #define GSV_LOGOUT_REPLY			0x0707
 
-#define CLI_LOGIN_REQ				0x0708
 #define LSV_LOGIN_REPLY				0x0708
 #define	GSV_LOGIN_REPLY				0x0709
 
@@ -248,18 +244,18 @@
 
 /*
 #define	CLI_JOIN_WORLD				0x070b
-#define WSV_JOIN_WORLD				0x070c		// ¿ùµå ¼­¹ö·Î ºÎÅÍ Á¢¼Ó °ËÁõ ¿©ºÎ...
+#define WSV_JOIN_WORLD				0x070c		// ì›”ë“œ ì„œë²„ë¡œ ë¶€í„° ì ‘ì† ê²€ì¦ ì—¬ë¶€...
 */
 
-#define	CLI_JOIN_SERVER_REQ			0x070b		// ¿ùµå/Á¸ ¼­¹ö·Î Á¢¼ÓÀ» ¿äÃ»ÇÑ´Ù.
+#define	CLI_JOIN_SERVER_REQ			0x070b		// ì›”ë“œ/ì¡´ ì„œë²„ë¡œ ì ‘ì†ì„ ìš”ì²­í•œë‹¤.
 #define	SRV_JOIN_SERVER_REPLY		0x070c
 
-#define	GSV_GM_COMMAND				0x070d		// GM ¸í·É¾î.
+#define	GSV_GM_COMMAND				0x070d		// GM ëª…ë ¹ì–´.
 
-#define	GSV_SET_GLOBAL_VAR			0x070e		// ¼­¹ö º¯¼ö ¼³Á¤.
-#define	GSV_SET_GLOBAL_FLAG			0x070f		// ¼­¹ö ÇÃ·¹±× °ª...
+#define	GSV_SET_GLOBAL_VAR			0x070e		// ì„œë²„ ë³€ìˆ˜ ì„¤ì •.
+#define	GSV_SET_GLOBAL_FLAG			0x070f		// ì„œë²„ í”Œë ˆê·¸ ê°’...
 
-#define	WSV_MOVE_SERVER				0x0711		// Á¸¼­¹ö ÀÌµ¿ÇØ¶ó...
+#define	WSV_MOVE_SERVER				0x0711		// ì¡´ì„œë²„ ì´ë™í•´ë¼...
 
 #define	CLI_CHAR_LIST				0x0712
 #define	WSV_CHAR_LIST				0x0712
@@ -284,15 +280,15 @@
 
 #define	GSV_QUEST_DATA				0x071b
 
-#define	CLI_CHAR_CHANGE				0x071c		// ÄÉ¸¯ÅÍ ¼±ÅÃÃ¢À¸·Î ÀÌµ¿¿äÃ» :: °ÔÀÓ ¼­¹ö·Î ÆÐÅ¶ Àü¼ÛÇØ¾ßÇÔ.
-#define	WSV_CHAR_CHANGE				0x071c		// ÀÌ ÆÐÅ¶ ¹ÞÀ¸¸é CLI_CHAR_LISTÀ» ¼­¹ö¿¡ ¿äÃ» :: ¿ùµå ¼­¹ö¿¡¼­ Àü¼ÛµÇ¾îÁü
+#define	CLI_CHAR_CHANGE				0x071c		// ì¼€ë¦­í„° ì„ íƒì°½ìœ¼ë¡œ ì´ë™ìš”ì²­ :: ê²Œìž„ ì„œë²„ë¡œ íŒ¨í‚· ì „ì†¡í•´ì•¼í•¨.
+#define	WSV_CHAR_CHANGE				0x071c		// ì´ íŒ¨í‚· ë°›ìœ¼ë©´ CLI_CHAR_LISTì„ ì„œë²„ì— ìš”ì²­ :: ì›”ë“œ ì„œë²„ì—ì„œ ì „ì†¡ë˜ì–´ì§
 
-#define GSV_SET_MONEY_ONLY			0x071d		// ¼­¹ö¿¡¼­ÀÇ ÇöÀçµ·... 
+#define GSV_SET_MONEY_ONLY			0x071d		// ì„œë²„ì—ì„œì˜ í˜„ìž¬ëˆ... 
 
-#define	GSV_REWARD_MONEY			0x071e		// µ·ÀÌ º¸»ó µÇ¾ú´Ù... ±¸Á¶´Â gsv_SET_MONEY_ONLY
-#define	GSV_REWARD_ITEM				0x071f		// ¾ÆÀÌÅÛ º¸»ó µÇ¾ú´Ù
-#define	GSV_REWARD_ADD_ABILITY		0x0720		// ´É·ÂÄ¡ Ãß°¡
-#define	GSV_REWARD_SET_ABILITY		0x0721		// ´É·ÂÄ¡ ¼³Á¤
+#define	GSV_REWARD_MONEY			0x071e		// ëˆì´ ë³´ìƒ ë˜ì—ˆë‹¤... êµ¬ì¡°ëŠ” gsv_SET_MONEY_ONLY
+#define	GSV_REWARD_ITEM				0x071f		// ì•„ì´í…œ ë³´ìƒ ë˜ì—ˆë‹¤
+#define	GSV_REWARD_ADD_ABILITY		0x0720		// ëŠ¥ë ¥ì¹˜ ì¶”ê°€
+#define	GSV_REWARD_SET_ABILITY		0x0721		// ëŠ¥ë ¥ì¹˜ ì„¤ì •
 
 #define	CLI_LOGOUT_CANCEL			0x0722
 
@@ -466,36 +462,36 @@
 
 #define	GSV_RESULT_OF_SKILL			0x07b9
 
-#define	CLI_APPRAISAL_REQ			0x07ba		// ¾ÆÀÌÅÛ °¨Á¤ ÀÇ·Ú~~~
+#define	CLI_APPRAISAL_REQ			0x07ba		// ì•„ì´í…œ ê°ì • ì˜ë¢°~~~
 #define	GSV_APPRAISAL_REPLY			0x07ba
 
-#define	GSV_SKILL_START				0x07bb		// ½ºÅ³ ÄÉ½ºÆÃ ½ºÅ¸Æ®...
+#define	GSV_SKILL_START				0x07bb		// ìŠ¤í‚¬ ì¼€ìŠ¤íŒ… ìŠ¤íƒ€íŠ¸...
 
 #define	CLI_CRAFT_ITEM_REQ			0x07bc
 #define	GSV_CRAFT_ITEM_REPLY		0x07bc
 
-#define	GSV_SKILL_CANCEL			0x07bd		// ½ÃÀÛÇß´ø ½ºÅ³ Ãë¼Ò.
+#define	GSV_SKILL_CANCEL			0x07bd		// ì‹œìž‘í–ˆë˜ ìŠ¤í‚¬ ì·¨ì†Œ.
 //	0x07be
 
 #define	CLI_SET_WISHITEM			0x07bf
 
-#define	CLI_TRADE_P2P				0x07c0		// °³ÀÎ°£ °Å·¡...
+#define	CLI_TRADE_P2P				0x07c0		// ê°œì¸ê°„ ê±°ëž˜...
 #define GSV_TRADE_P2P				0x07c0
 
-#define	CLI_TRADE_P2P_ITEM			0x07c1		// °Å·¡ ¾ÆÀÌÅÛ Ãß°¡ / »èÁ¦.
+#define	CLI_TRADE_P2P_ITEM			0x07c1		// ê±°ëž˜ ì•„ì´í…œ ì¶”ê°€ / ì‚­ì œ.
 #define	GSV_TRADE_P2P_ITEM			0x07c1
 
-#define CLI_P_STORE_OPEN			0x07c2		// °³ÀÎ »óÁ¡ °³Á¡ ¿äÃ»
+#define CLI_P_STORE_OPEN			0x07c2		// ê°œì¸ ìƒì  ê°œì  ìš”ì²­
 #define GSV_P_STORE_OPENED			0x07c2
 
-#define CLI_P_STORE_CLOSE			0x07c3		// °³ÀÎ »óÁ¡ Æó¼â ¿äÃ»
+#define CLI_P_STORE_CLOSE			0x07c3		// ê°œì¸ ìƒì  íì‡„ ìš”ì²­
 #define	GSV_P_STORE_CLOSED			0x07c3
 
-#define CLI_P_STORE_LIST_REQ		0x07c4		// °³ÀÎ »óÁ¡ ¹°°Ç ¸®½ºÆ® ¿äÃ»
+#define CLI_P_STORE_LIST_REQ		0x07c4		// ê°œì¸ ìƒì  ë¬¼ê±´ ë¦¬ìŠ¤íŠ¸ ìš”ì²­
 #define GSV_P_STORE_LIST_REPLY		0x07c4
 
-#define CLI_P_STORE_BUY_REQ			0x07c5		// °³ÀÎ »óÁ¡ ¹°°Ç ±¸¸Å ¿äÃ»
-#define	CLI_P_STORE_SELL_REQ		0x07c6		// °³ÀÎ »óÁ¡ ¹°°Ç ÆÇ¸Å ¿äÃ»
+#define CLI_P_STORE_BUY_REQ			0x07c5		// ê°œì¸ ìƒì  ë¬¼ê±´ êµ¬ë§¤ ìš”ì²­
+#define	CLI_P_STORE_SELL_REQ		0x07c6		// ê°œì¸ ìƒì  ë¬¼ê±´ íŒë§¤ ìš”ì²­
 
 #define	GSV_P_STORE_RESULT			0x07c6
 #define	GSV_P_STORE_MONEYnINV		0x07c7
@@ -503,13 +499,13 @@
 #define	CLI_ASSEMBLE_RIDE_ITEM		0x07ca
 #define	GSV_ASSEMBLE_RIDE_ITEM		0x07ca
 
-#define	CLI_USE_ITEM_TO_REPAIR		0x07cb		// ¼Ò¸ð¼º ¼ö¸® ¾ÆÀÌÅÛÀ¸·Î ¾ÆÀÌÅÛ ¼ö¸® ¿äÃ»
+#define	CLI_USE_ITEM_TO_REPAIR		0x07cb		// ì†Œëª¨ì„± ìˆ˜ë¦¬ ì•„ì´í…œìœ¼ë¡œ ì•„ì´í…œ ìˆ˜ë¦¬ ìš”ì²­
 #define	GSV_USED_ITEM_TO_REPAIR		0x07cb		// gsv_SET_INV_ONLY
 
-#define	CLI_REPAIR_FROM_NPC			0x07cd		// NPC¸¦ ÅëÇØ ¾ÆÀÌÅÛ ¼ö¸® ¿äÃ»
+#define	CLI_REPAIR_FROM_NPC			0x07cd		// NPCë¥¼ í†µí•´ ì•„ì´í…œ ìˆ˜ë¦¬ ìš”ì²­
 #define	GSV_REPAIRED_FROM_NPC		0x07cd		// gsv_SET_MONEYnINV
 
-#define	GSV_SET_ITEM_LIFE			0x07ce		// ¾ÆÀÌÅÛÀÇ ¼ö¸íÀÌ º¯°æµÊ
+#define	GSV_SET_ITEM_LIFE			0x07ce		// ì•„ì´í…œì˜ ìˆ˜ëª…ì´ ë³€ê²½ë¨
 
 #define	CLI_PARTY_REQ				0x07d0
 #define	GSV_PARTY_REQ				0x07d0
@@ -517,9 +513,9 @@
 #define	CLI_PARTY_REPLY				0x07d1
 #define	GSV_PARTY_REPLY				0x07d1
 
-#define	GSV_PARTY_MEMBER			0x07d2		// ÆÄÆ¼¿ø Ãß°¡/»èÁ¦.
-//#define	GSV_PARTY_INFO			0x07d3		// ÆÄÆ¼ Á¤º¸
-#define	GSV_PARTY_ITEM				0x07d3		// ¼ø¼­ ºÐ¹è½Ã ¾ÆÀÌÅÛ ½Àµæ Á¤º¸
+#define	GSV_PARTY_MEMBER			0x07d2		// íŒŒí‹°ì› ì¶”ê°€/ì‚­ì œ.
+//#define	GSV_PARTY_INFO			0x07d3		// íŒŒí‹° ì •ë³´
+#define	GSV_PARTY_ITEM				0x07d3		// ìˆœì„œ ë¶„ë°°ì‹œ ì•„ì´í…œ ìŠµë“ ì •ë³´
 
 #define	GSV_PARTY_LEVnEXP			0x07d4
 
@@ -580,8 +576,8 @@
 
 #define	GSV_CHARSTATE_CHANGE		0x07ea
 
-#define CLI_SCREEN_SHOT_TIME		0x07eb                          //½ºÅ©¸°¼¦ ÂïÀ»¶§ ¼­¹ö½Ã°£¿äÃ»..(ÇãÀç¿µ Ãß°¡ 2005.10.18)
-#define GSV_SCREEN_SHOT_TIME		0x07eb                          //½ºÅ©¸°¼¦ ÂïÀ»¶§ÇÊ¿äÇÑ ¼­¹ö ½Ã°£Àü¼Û.. .(ÇãÀç¿µ Ãß°¡ 2005.10.18)
+#define CLI_SCREEN_SHOT_TIME		0x07eb                          //ìŠ¤í¬ë¦°ìƒ· ì°ì„ë•Œ ì„œë²„ì‹œê°„ìš”ì²­..(í—ˆìž¬ì˜ ì¶”ê°€ 2005.10.18)
+#define GSV_SCREEN_SHOT_TIME		0x07eb                          //ìŠ¤í¬ë¦°ìƒ· ì°ì„ë•Œí•„ìš”í•œ ì„œë²„ ì‹œê°„ì „ì†¡.. .(í—ˆìž¬ì˜ ì¶”ê°€ 2005.10.18)
 
 #define SRV_UPDATE_NAME				0x07ec
 #define PXY_UPDATE_NAME				0x07ed
@@ -591,8 +587,8 @@
 
 struct cli_CHECK_AUTH : public t_PACKETHEADER {
   /*
-    °¢ ¸ðµâº° µ¥ÀÌÅ¸...
-    ÇÊ¸®ÇÉÀÇ °æ¿ì GG_AUTH_DATA ±¸Á¶Ã¼
+    ê° ëª¨ë“ˆë³„ ë°ì´íƒ€...
+    í•„ë¦¬í•€ì˜ ê²½ìš° GG_AUTH_DATA êµ¬ì¡°ì²´
   */
 };
 
@@ -601,8 +597,8 @@ struct cli_CHECK_AUTH : public t_PACKETHEADER {
 struct srv_CHECK_AUTH : public t_PACKETHEADER {
   uint8_t m_btModuleTYPE;
   /*
-    °¢ ¸ðµâº° µ¥ÀÌÅ¸...
-    ÇÊ¸®ÇÉÀÇ °æ¿ì GG_AUTH_DATA ±¸Á¶Ã¼
+    ê° ëª¨ë“ˆë³„ ë°ì´íƒ€...
+    í•„ë¦¬í•€ì˜ ê²½ìš° GG_AUTH_DATA êµ¬ì¡°ì²´
   */
 };
 
@@ -620,114 +616,70 @@ struct gsv_GM_COMMAND : public t_PACKETHEADER {
   uint16_t m_wBlockTIME;
 };
 
-#define	GM_CMD_SHUT		0x00		//	Ã¤ÆÃ ±ÝÁö..
-#define	GM_CMD_LOGOUT	0x01		//	Á¢¼Ó ²÷°í ³ª°¡¶ó...
-
-struct cli_ACCEPT_REQ : public t_PACKETHEADER {};
-
-struct cli_LOGIN_REQ : public t_PACKETHEADER {
-  //	uint32_t		m_dwBuildNo;							// Å¬¶óÀÌ¾ðÆ® ºôµå ¹øÈ£.
-  union {
-    uint8_t  m_MD5Password[ 64 ];
-    uint32_t m_dwMD5[ 16 ];
-  };
-
-  // szAccount[];
-};
-
-struct srv_LOGIN_REPLY : public t_PACKETHEADER {
-  uint8_t  m_btResult;
-  uint16_t m_wRight;
-  uint16_t m_wPayType;
-  /*  m_cResult == RESULT_LOGIN_REPLY_OK ÀÏ°æ¿ì
-      struct {
-          // szServerNAME[]
-    uint32_t dwServerID;
-      } ;
-  */
-};
-
-#define RESULT_LOGIN_REPLY_OK                   0x00
-#define	RESULT_LOGIN_REPLY_KOREA_OK				RESULT_LOGIN_REPLY_OK
-
-#define RESULT_LOGIN_REPLY_FAILED               0x01    // ¿À·ù
-#define RESULT_LOGIN_REPLY_NOT_FOUND_ACCOUNT    0x02    // °èÁ¤ ¾ø´Ù.
-#define RESULT_LOGIN_REPLY_INVALID_PASSWORD     0x03    // ºñ¹ø ¿À·ù
-#define RESULT_LOGIN_REPLY_ALREADY_LOGGEDIN     0x04    // ÀÌ¹Ì ·Î±×ÀÎ ÁßÀÌ´Ù
-#define RESULT_LOGIN_REPLY_REFUSED_ACCOUNT      0x05    // ¼­¹ö¿¡¼­ °ÅºÎµÈ °èÁ¤ÀÌ´Ù.
-#define RESULT_LOGIN_REPLY_NEED_CHARGE          0x06    // ÃæÀüÀÌ ÇÊ¿äÇÑ´Ù
-#define	RESULT_LOGIN_REPLY_NO_RIGHT_TO_CONNECT	0x07	// Á¢¼Ó ±ÇÇÑÀÌ ¾ø´Ù.
-#define	RESULT_LOGIN_REPLY_TOO_MANY_USER		0x08	// Á¢¼Ó ÀÎ¿ø Á¦ÇÑ
-#define	RESULT_LOGIN_REPLY_NO_REAL_NAME			0x09
-#define	RESULT_LOGIN_REPLY_INVALID_VERSION		0x0a	// ÆÐÄ¡¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
-#define	RESULT_LOGIN_REPLY_OUT_OF_IP			0x0b	// ÇÇ¾¾¹æ Á¢¼Ó °¡´É ip ÃÊ°ú...
-
-#define	RESULT_LOGIN_REPLY_TAIWAN_OK			0x10	// m_wPayType °ªÀº Å¸ÀÌ¿Ï °ú±Ý¼­¹ö Ã¼°è
-#define	RESULT_LOGIN_REPLY_TAIWAN_FAILED		0x11	// Å¸ÀÌ¿Ï °ú±Ý¼­¹ö Ã¼°è·Î Àû¿ë
-
-#define	RESULT_LOGIN_REPLY_JAPAN_OK				0x18	// m_wPayType °ªÀº ÀÏº» °ú±Ý¼­¹ö Ã¼°è
+#define	GM_CMD_SHUT		0x00		//	ì±„íŒ… ê¸ˆì§€..
+#define	GM_CMD_LOGOUT	0x01		//	ì ‘ì† ëŠê³  ë‚˜ê°€ë¼...
 
 /*
-ÀÏº» °ú±Ý ¼­¹ö RESULT_LOGIN_REPLY_JAPAN_OKÀÏ°æ¿ì m_wPayTypeÀÇ °ª°ú
-PAY_FLAG_JP_???? ¿Í & ¿¬»êÇØ¼­ TRUEÀÌ¸é °áÁ¦°Í
-¿¹:: )
+ì¼ë³¸ ê³¼ê¸ˆ ì„œë²„ RESULT_LOGIN_REPLY_JAPAN_OKì¼ê²½ìš° m_wPayTypeì˜ ê°’ê³¼
+PAY_FLAG_JP_???? ì™€ & ì—°ì‚°í•´ì„œ TRUEì´ë©´ ê²°ì œê²ƒ
+ì˜ˆ:: )
   if ( m_wPayType & PAY_FLAG_JP_EXTRA_CHAR ) {
-    // ÇÑ±¹À» ÇÃ·¹Æ¼³Ñ °ú±ÝÃ³·³ 5°³ÀÇ ÄÉ¸¯ÅÍ ¿î¿ë°¡´É.
+    // í•œêµ­ì„ í”Œë ˆí‹°ë„˜ ê³¼ê¸ˆì²˜ëŸ¼ 5ê°œì˜ ì¼€ë¦­í„° ìš´ìš©ê°€ëŠ¥.
   }
 */
 /*
-´ë¸¸ °ú±Ý ¼­¹ö RESULT_LOGIN_REPLY_TWAIN_OKÀÏ°æ¿ì m_wPayTypeÀÇ °ª
-0  :	// ±ÝÁö
-1	:	// ½Ã°£Á¦ - ¸Å 1 ½Ã°£ ´ÜÀ§·Î 6 Æ÷ÀÎÆ® »è°¨, 1½Ã°£À» Ã¤¿ìÁö ¸øÇßÀ» °æ¿ì, 1½Ã°£À¸·Î °è»êÇÑ´Ù.
-2	:	// ¿ù Á¤¾×Á¦ - ¸Å 30 ÀÏ ´ÜÀ§·Î 350 Æ÷ÀÎÆ® »è°¨.
-3	:	// ½Ã°£ Á¤¾×Á¦ - ¸Å 12 ½Ã°£ ´ÜÀ§·Î 20 Æ÷ÀÎÆ® »è°¨.
-4	:	// 3°³¿ù Á¤¾×Á¦ - ¸Å 90 ÀÏ ´ÜÀ§·Î 888 Æ÷ÀÎÆ® »è°¨.
-5	:	// È«Äá ¿ùÁ¤¾×Á¦
-6	:	// È«Äá 3°³¿ù Á¤¾×Á¦
-7	:	// È«Äá ½Ã°£Á¦
-8	:	// È«Äá ½Ã°£ Á¤¾×Á¦
-9	:	// ºÐ Á¤·®Á¦ - ¸Å 1ºÐ ´ÜÀ§·Î 0.25Æ÷ÀÎÆ® »è°¨.
-10	:	// ½Ã°£ Á¤·®Á¦  - ¸Å 2½Ã°£ ´ÜÀ§·Î 12 Æ÷ÀÎÆ® »è°¨.
-11	:	// 10ÀÏ - ¸Å 10ÀÏ ´ÜÀ§·Î 150 Æ÷ÀÎÆ® »è°¨.
-12	:	// ¹«·á Ã¼Çè
-101:	// ºí·Ï 3ÀÏ
-102:	// ºí·Ï 7ÀÏ
-103:	// ºí·Ï 10ÀÏ
+ëŒ€ë§Œ ê³¼ê¸ˆ ì„œë²„ RESULT_LOGIN_REPLY_TWAIN_OKì¼ê²½ìš° m_wPayTypeì˜ ê°’
+0  :	// ê¸ˆì§€
+1	:	// ì‹œê°„ì œ - ë§¤ 1 ì‹œê°„ ë‹¨ìœ„ë¡œ 6 í¬ì¸íŠ¸ ì‚­ê°, 1ì‹œê°„ì„ ì±„ìš°ì§€ ëª»í–ˆì„ ê²½ìš°, 1ì‹œê°„ìœ¼ë¡œ ê³„ì‚°í•œë‹¤.
+2	:	// ì›” ì •ì•¡ì œ - ë§¤ 30 ì¼ ë‹¨ìœ„ë¡œ 350 í¬ì¸íŠ¸ ì‚­ê°.
+3	:	// ì‹œê°„ ì •ì•¡ì œ - ë§¤ 12 ì‹œê°„ ë‹¨ìœ„ë¡œ 20 í¬ì¸íŠ¸ ì‚­ê°.
+4	:	// 3ê°œì›” ì •ì•¡ì œ - ë§¤ 90 ì¼ ë‹¨ìœ„ë¡œ 888 í¬ì¸íŠ¸ ì‚­ê°.
+5	:	// í™ì½© ì›”ì •ì•¡ì œ
+6	:	// í™ì½© 3ê°œì›” ì •ì•¡ì œ
+7	:	// í™ì½© ì‹œê°„ì œ
+8	:	// í™ì½© ì‹œê°„ ì •ì•¡ì œ
+9	:	// ë¶„ ì •ëŸ‰ì œ - ë§¤ 1ë¶„ ë‹¨ìœ„ë¡œ 0.25í¬ì¸íŠ¸ ì‚­ê°.
+10	:	// ì‹œê°„ ì •ëŸ‰ì œ  - ë§¤ 2ì‹œê°„ ë‹¨ìœ„ë¡œ 12 í¬ì¸íŠ¸ ì‚­ê°.
+11	:	// 10ì¼ - ë§¤ 10ì¼ ë‹¨ìœ„ë¡œ 150 í¬ì¸íŠ¸ ì‚­ê°.
+12	:	// ë¬´ë£Œ ì²´í—˜
+101:	// ë¸”ë¡ 3ì¼
+102:	// ë¸”ë¡ 7ì¼
+103:	// ë¸”ë¡ 10ì¼
 
-´ë¸¸ °ú±Ý ¼­¹ö RESULT_LOGIN_REPLY_TWAIN_FAILEDÀÏ°æ¿ì m_wPayTypeÀÇ °ª
-2	:	// Áßº¹ ·Î±×ÀÎ (login result)	ÀÌ¹Ì ·Î±×ÀÎ µÈ °èÁ¤
-3	:	// ÆÐ½º¿öµå ¿¡·¯ (login result)	°èÁ¤ ¶Ç´Â ÆÐ½º¿öµå ¿¡·¯ ¶Ç´Â Æ÷ÀÎÆ® ÃæÀüÇÏÁö ¾ÊÀº »óÅÂ,  Joypark È¸¿ø Áß½É Âü°í.
-4	:	// ObjnetObiect ±¸Ãà ½ÇÆÐ, Login Serverµî·Ï ºÒ°¡´É (Connection State Result)
-5	:	// Login Server¿¬°á Áß´Ü (Connection State Result)
-6	:	// Login Server¿¬°á ½ÇÆÐ (Connection State Result)
-7	:	// ¾ø´Â °èÁ¤ (login result)	°èÁ¤ ¶Ç´Â ÆÐ½º¿öµå ¿¡·¯ ¶Ç´Â Æ÷ÀÎÆ®¸¦ ÃæÀüÇÏÁö ¾ÊÀº »óÅÂ,  Joypark È¸¿ø Áß½É Âü°í. 
-8	:	// Æ÷ÀÎÆ® ºÎÁ· (login result)	Æ÷ÀÎÆ® ºÎÁ·
-9	:	// ½Ã°£ ºÎÁ· (login result)	¹«·á Ã¼Çè±â°£ ¸¸±â
-10	:	// ¾ø´Â °ú±ÝÁ¦µµ (login result)	°ú±Ý¹æ½Ä ¹®Á¦
-11	:	// ºí·Ï (login result)	ºí·Ï Áß
-12	:	// ºí·Ï£³ÀÏ (login result)	ºí·Ï Áß
-13	:	// ºí·Ï£·ÀÏ (login result)	ºí·Ï Áß
-14	:	// ºí·Ï 10 ÀÏ (login result)	ºí·Ï Áß
-15	:	// ·Î±× ¾Æ¿ô »óÅÂ (logout result)
-16	:	// ºÒÈ®½ÇÇÑ ¿¡·¯ (µ¥ÀÌÅÍ º£ÀÌ½º ¿¡·¯ login, relogin, logout result)	ºÒÈ®½ÇÇÑ ¿¡·¯
-17	:	// IpÁßº¹ (È¨ À¯Àú ´ë»ó login, relogin, result) 
-18	:	// °ÔÀÓ¹æ À¯È¿ÇÑ °ÔÀÓ¹æ ip¸®½ºÆ® (»ç¿ë : °ÔÀÓ¹æ login, relogin, result)	
-20	:	// ¾ø´Â °èÁ¤ (relogin result)	°èÁ¤ ¶Ç´Â ÆÐ½º¿öµå ¿¡·¯ µµ´Â Æ÷ÀÎÆ®¸¦ ÃæÀüÇÏÁö ¾ÊÀº »óÅÂ, Joypark È¸¿ø Áß½É Âü°í.
-21	:	// Áßº¹ ·Î±×ÀÎ (relogin result)	ÀÌ¹Ì ¿Â¶óÀÎ »óÈ²ÀÎ °èÁ¤ 
-23	:	// Æ÷ÀÎÆ® ºÎÁ· (relogin result)	Æ÷ÀÎÆ® ºÎÁ·
-24	:	// ½Ã°£ ºÎÁ· (relogin result)	¹«·á Ã¼Çè±â°£ ¸¸±â
-25	:	// ºÎÁ¤È®ÇÑ °ú±Ý¹æ½Ä (relogin result)	°ú±Ý¹æ½Ä ¹®Á¦ 
-26	:	// ºí·Ï (relogin result)	ºí·Ï Áß
-27	:	// ºí·Ï £³ÀÏ (relogin result)	ºí·Ï Áß
-28	:	// ºí·Ï £·ÀÏ (relogin result)	ºí·Ï Áß
-29	:	// ºí·Ï 10 ÀÏ (relogin result)	ºí·Ï Áß
-30	:	// °°Àº ip  nÃÊ³» Áßº¹ ·Î±×ÀÎ (login result)	¸¶¿ì½º¸¦ Àá±ñ ½¬°Ô ÇÏ°í, ¸î ÃÊ ÈÄ ´Ù½Ã Á¢¼Ó.
-31	:	// Game Serverµî·Ï ¼º°ø (Connection State result)
-32	:	// Game Serverµî·Ï IDÁßº¹(Connection State result)
-33	:	// Game Server¹Ì µî·Ï(login, relogin result)	¼­¹ö Á¢¼Ó ºÒ°¡´É, Àá½ÃÈÄ ´Ù½Ã ¿¬°á ½Ãµµ.
-34	:	// À¯Àú ¸ÅÀÏ Á¢¼Ó °¡´ÉÇÑ ½Ã°£ ÃÊ°ú.(login, relogin result)	Á¢¼Ó½Ã°£ ÃÊ°ú. 
-35	:	// ¹«·á Ã¼ÇèÁ¦ ¹Ì ¿ÀÇÂ (login result)	ÀÌ ¼­¹ö´Â ¹«·á Ã¼Çè °èÁ¤ Á¦°øÇÏÁö ¾ÊÀ½.
-101:	// Library¹öÀü°ú Login Server ¿Í ¸ÂÁö ¾ÊÀ½. (Connection State result)
+ëŒ€ë§Œ ê³¼ê¸ˆ ì„œë²„ RESULT_LOGIN_REPLY_TWAIN_FAILEDì¼ê²½ìš° m_wPayTypeì˜ ê°’
+2	:	// ì¤‘ë³µ ë¡œê·¸ì¸ (login result)	ì´ë¯¸ ë¡œê·¸ì¸ ëœ ê³„ì •
+3	:	// íŒ¨ìŠ¤ì›Œë“œ ì—ëŸ¬ (login result)	ê³„ì • ë˜ëŠ” íŒ¨ìŠ¤ì›Œë“œ ì—ëŸ¬ ë˜ëŠ” í¬ì¸íŠ¸ ì¶©ì „í•˜ì§€ ì•Šì€ ìƒíƒœ,  Joypark íšŒì› ì¤‘ì‹¬ ì°¸ê³ .
+4	:	// ObjnetObiect êµ¬ì¶• ì‹¤íŒ¨, Login Serverë“±ë¡ ë¶ˆê°€ëŠ¥ (Connection State Result)
+5	:	// Login Serverì—°ê²° ì¤‘ë‹¨ (Connection State Result)
+6	:	// Login Serverì—°ê²° ì‹¤íŒ¨ (Connection State Result)
+7	:	// ì—†ëŠ” ê³„ì • (login result)	ê³„ì • ë˜ëŠ” íŒ¨ìŠ¤ì›Œë“œ ì—ëŸ¬ ë˜ëŠ” í¬ì¸íŠ¸ë¥¼ ì¶©ì „í•˜ì§€ ì•Šì€ ìƒíƒœ,  Joypark íšŒì› ì¤‘ì‹¬ ì°¸ê³ . 
+8	:	// í¬ì¸íŠ¸ ë¶€ì¡± (login result)	í¬ì¸íŠ¸ ë¶€ì¡±
+9	:	// ì‹œê°„ ë¶€ì¡± (login result)	ë¬´ë£Œ ì²´í—˜ê¸°ê°„ ë§Œê¸°
+10	:	// ì—†ëŠ” ê³¼ê¸ˆì œë„ (login result)	ê³¼ê¸ˆë°©ì‹ ë¬¸ì œ
+11	:	// ë¸”ë¡ (login result)	ë¸”ë¡ ì¤‘
+12	:	// ë¸”ë¡ï¼“ì¼ (login result)	ë¸”ë¡ ì¤‘
+13	:	// ë¸”ë¡ï¼—ì¼ (login result)	ë¸”ë¡ ì¤‘
+14	:	// ë¸”ë¡ 10 ì¼ (login result)	ë¸”ë¡ ì¤‘
+15	:	// ë¡œê·¸ ì•„ì›ƒ ìƒíƒœ (logout result)
+16	:	// ë¶ˆí™•ì‹¤í•œ ì—ëŸ¬ (ë°ì´í„° ë² ì´ìŠ¤ ì—ëŸ¬ login, relogin, logout result)	ë¶ˆí™•ì‹¤í•œ ì—ëŸ¬
+17	:	// Ipì¤‘ë³µ (í™ˆ ìœ ì € ëŒ€ìƒ login, relogin, result) 
+18	:	// ê²Œìž„ë°© ìœ íš¨í•œ ê²Œìž„ë°© ipë¦¬ìŠ¤íŠ¸ (ì‚¬ìš© : ê²Œìž„ë°© login, relogin, result)	
+20	:	// ì—†ëŠ” ê³„ì • (relogin result)	ê³„ì • ë˜ëŠ” íŒ¨ìŠ¤ì›Œë“œ ì—ëŸ¬ ë„ëŠ” í¬ì¸íŠ¸ë¥¼ ì¶©ì „í•˜ì§€ ì•Šì€ ìƒíƒœ, Joypark íšŒì› ì¤‘ì‹¬ ì°¸ê³ .
+21	:	// ì¤‘ë³µ ë¡œê·¸ì¸ (relogin result)	ì´ë¯¸ ì˜¨ë¼ì¸ ìƒí™©ì¸ ê³„ì • 
+23	:	// í¬ì¸íŠ¸ ë¶€ì¡± (relogin result)	í¬ì¸íŠ¸ ë¶€ì¡±
+24	:	// ì‹œê°„ ë¶€ì¡± (relogin result)	ë¬´ë£Œ ì²´í—˜ê¸°ê°„ ë§Œê¸°
+25	:	// ë¶€ì •í™•í•œ ê³¼ê¸ˆë°©ì‹ (relogin result)	ê³¼ê¸ˆë°©ì‹ ë¬¸ì œ 
+26	:	// ë¸”ë¡ (relogin result)	ë¸”ë¡ ì¤‘
+27	:	// ë¸”ë¡ ï¼“ì¼ (relogin result)	ë¸”ë¡ ì¤‘
+28	:	// ë¸”ë¡ ï¼—ì¼ (relogin result)	ë¸”ë¡ ì¤‘
+29	:	// ë¸”ë¡ 10 ì¼ (relogin result)	ë¸”ë¡ ì¤‘
+30	:	// ê°™ì€ ip  nì´ˆë‚´ ì¤‘ë³µ ë¡œê·¸ì¸ (login result)	ë§ˆìš°ìŠ¤ë¥¼ ìž ê¹ ì‰¬ê²Œ í•˜ê³ , ëª‡ ì´ˆ í›„ ë‹¤ì‹œ ì ‘ì†.
+31	:	// Game Serverë“±ë¡ ì„±ê³µ (Connection State result)
+32	:	// Game Serverë“±ë¡ IDì¤‘ë³µ(Connection State result)
+33	:	// Game Serverë¯¸ ë“±ë¡(login, relogin result)	ì„œë²„ ì ‘ì† ë¶ˆê°€ëŠ¥, ìž ì‹œí›„ ë‹¤ì‹œ ì—°ê²° ì‹œë„.
+34	:	// ìœ ì € ë§¤ì¼ ì ‘ì† ê°€ëŠ¥í•œ ì‹œê°„ ì´ˆê³¼.(login, relogin result)	ì ‘ì†ì‹œê°„ ì´ˆê³¼. 
+35	:	// ë¬´ë£Œ ì²´í—˜ì œ ë¯¸ ì˜¤í”ˆ (login result)	ì´ ì„œë²„ëŠ” ë¬´ë£Œ ì²´í—˜ ê³„ì • ì œê³µí•˜ì§€ ì•ŠìŒ.
+101:	// Libraryë²„ì „ê³¼ Login Server ì™€ ë§žì§€ ì•ŠìŒ. (Connection State result)
 */
 
 struct cli_CHANNEL_LIST_REQ : public t_PACKETHEADER {
@@ -735,11 +687,11 @@ struct cli_CHANNEL_LIST_REQ : public t_PACKETHEADER {
 };
 
 struct tagCHANNEL_SRV {
-  uint8_t m_btChannelNO;  // º¸¿©ÁÙ Ã¤³Î ½½·Ô ¹øÈ£
-  uint8_t m_btLowAGE;     // Á¢¼Ó °¡´ÉÇÑ ÃÖÀú ¿¬·É 0 ÀÌ¸é ÃÖÀú ¿¬·É Á¦ÇÑ ¾øÀ½
-  uint8_t m_btHighAGE;    // Á¢¼Ó °¡´ÉÇÑ ÃÖ°í ¿¬·É 0 ÀÌ¸é ÃÖ°í ¿¬·É Á¦ÇÑ ¾øÀ½
-  int16_t m_nUserPERCENT; // ÇöÀç Á¢¼ÓµÇ¾î ÀÖ´Â »ç¿ëÀÚ¾ç...
-  // char m_szChannenNAME[]	// m_szChannelsNAME == "" ÀÌ¸é CHANNEL-Ã¤³Î¹øÈ£ ·Î ºÎÇôÇÔ
+  uint8_t m_btChannelNO;  // ë³´ì—¬ì¤„ ì±„ë„ ìŠ¬ë¡¯ ë²ˆí˜¸
+  uint8_t m_btLowAGE;     // ì ‘ì† ê°€ëŠ¥í•œ ìµœì € ì—°ë ¹ 0 ì´ë©´ ìµœì € ì—°ë ¹ ì œí•œ ì—†ìŒ
+  uint8_t m_btHighAGE;    // ì ‘ì† ê°€ëŠ¥í•œ ìµœê³  ì—°ë ¹ 0 ì´ë©´ ìµœê³  ì—°ë ¹ ì œí•œ ì—†ìŒ
+  int16_t m_nUserPERCENT; // í˜„ìž¬ ì ‘ì†ë˜ì–´ ìžˆëŠ” ì‚¬ìš©ìžì–‘...
+  // char m_szChannenNAME[]	// m_szChannelsNAME == "" ì´ë©´ CHANNEL-ì±„ë„ë²ˆí˜¸ ë¡œ ë¶€í˜€í•¨
 };
 
 struct lsv_CHANNEL_LIST_REPLY : public t_PACKETHEADER {
@@ -766,18 +718,18 @@ struct lsv_SELECT_SERVER : public t_PACKETHEADER {
 
 #define	RESULT_SELECT_SERVER_OK					0x00
 #define RESULT_SELECT_SERVER_FAILED				0x01
-#define	RESULT_SELECT_SERVER_FULL				0x02	// ÀÎ¿ø ²ËÂü
-#define	RESULT_SELECT_SERVER_INVALID_CHANNEL	0x03	// Àß¸øµÈ Ã¤³Î ¼±ÅÃ
-#define	RESULT_SELECT_SERVER_CHANNEL_NOT_ACTIVE	0x04	// Ã¤³Î ¼­¹ö Á¡°ËÁß
-#define	RESUTL_SELECT_SERVER_INVALID_AGE		0x05	// ¿¬·ÉÀÌ ¸ÂÁö ¾Ê´Â´Ù..
-#define	RESULT_SELECT_SERVER_NEED_CHARGE		0x06	// °ú±ÝÀÌ ¾ÈµÇ¾î ÀÖ´Ù
+#define	RESULT_SELECT_SERVER_FULL				0x02	// ì¸ì› ê½‰ì°¸
+#define	RESULT_SELECT_SERVER_INVALID_CHANNEL	0x03	// ìž˜ëª»ëœ ì±„ë„ ì„ íƒ
+#define	RESULT_SELECT_SERVER_CHANNEL_NOT_ACTIVE	0x04	// ì±„ë„ ì„œë²„ ì ê²€ì¤‘
+#define	RESUTL_SELECT_SERVER_INVALID_AGE		0x05	// ì—°ë ¹ì´ ë§žì§€ ì•ŠëŠ”ë‹¤..
+#define	RESULT_SELECT_SERVER_NEED_CHARGE		0x06	// ê³¼ê¸ˆì´ ì•ˆë˜ì–´ ìžˆë‹¤
 
 struct tagVAR_GLOBAL {
-  int16_t  m_nWorld_PRODUCT;               // Á¦Á¶ °ü·Ã
-  uint32_t m_dwUpdateTIME;                 // °»½ÅµÈ ½Ã°£.
-  int16_t  m_nWorld_RATE;                  // °æÁ¦ °ü·Ã :: ¼¼°è¹°°¡ 80~140
-  uint8_t  m_btTOWN_RATE;                  // ¸¶À» ¹°°¡					80~140
-  uint8_t  m_btItemRATE[ MAX_PRICE_TYPE ]; // ¾ÆÀÌÅÛº° ¹°°¡				1~127
+  int16_t  m_nWorld_PRODUCT;               // ì œì¡° ê´€ë ¨
+  uint32_t m_dwUpdateTIME;                 // ê°±ì‹ ëœ ì‹œê°„.
+  int16_t  m_nWorld_RATE;                  // ê²½ì œ ê´€ë ¨ :: ì„¸ê³„ë¬¼ê°€ 80~140
+  uint8_t  m_btTOWN_RATE;                  // ë§ˆì„ ë¬¼ê°€					80~140
+  uint8_t  m_btItemRATE[ MAX_PRICE_TYPE ]; // ì•„ì´í…œë³„ ë¬¼ê°€				1~127
   uint32_t m_dwGlobalFLAGS;
 };
 
@@ -795,19 +747,19 @@ struct cli_JOIN_WORLD : public t_PACKETHEADER {
     uint8_t	m_MD5Password[ 32 ];
 } ;
 
-// m_cResult °ªÀº lsv_LOGIN_REPLY¿Í °°´Ù.
+// m_cResult ê°’ì€ lsv_LOGIN_REPLYì™€ ê°™ë‹¤.
 struct wsv_JOIN_WORLD : public t_PACKETHEADER {
   uint8_t	m_btResult;
   uint32_t	m_dwID;
 } ;
 #define	RESULT_JOIN_WORLD_OK					0x00
 #define	RESULT_JOIN_WORLD_FAILED				0x01
-#define RESULT_JOIN_WORLD_TIME_OUT				0x02    // ½Ã°£ ÃÊ°ú·Î °èÁ¤ ¾ø¾îÁ® ´Ù½Ã ·Î±×ÀÎ ÇØ¾ßÇÑ´Ù.
-#define RESULT_JOIN_WORLD_INVALID_PASSWORD		0x03    // ºñ¹ø ¿À·ù
-#define RESULT_JOIN_WORLD_ALREADY_LOGGEDIN		0x04    // ÀÌ¹Ì ·Î±×ÀÎ ÁßÀÌ´Ù
+#define RESULT_JOIN_WORLD_TIME_OUT				0x02    // ì‹œê°„ ì´ˆê³¼ë¡œ ê³„ì • ì—†ì–´ì ¸ ë‹¤ì‹œ ë¡œê·¸ì¸ í•´ì•¼í•œë‹¤.
+#define RESULT_JOIN_WORLD_INVALID_PASSWORD		0x03    // ë¹„ë²ˆ ì˜¤ë¥˜
+#define RESULT_JOIN_WORLD_ALREADY_LOGGEDIN		0x04    // ì´ë¯¸ ë¡œê·¸ì¸ ì¤‘ì´ë‹¤
 */
 
-// ¿ùµå/Á¸ ¼­¹ö¿¡ Á¢¼Ó ¿äÃ»
+// ì›”ë“œ/ì¡´ ì„œë²„ì— ì ‘ì† ìš”ì²­
 struct cli_JOIN_SERVER_REQ : public t_PACKETHEADER {
   uint32_t m_dwID;
   uint8_t  m_MD5Password[ 64 ];
@@ -821,11 +773,11 @@ struct srv_JOIN_SERVER_REPLY : public t_PACKETHEADER {
 
 #define	RESULT_JOIN_SERVER_OK					0x00
 #define	RESULT_JOIN_SERVER_FAILED				0x01
-#define RESULT_JOIN_SERVER_TIME_OUT				0x02    // ½Ã°£ ÃÊ°ú·Î °èÁ¤ ¾ø¾îÁ® ´Ù½Ã ·Î±×ÀÎ ÇØ¾ßÇÑ´Ù.
-#define RESULT_JOIN_SERVER_INVALID_PASSWORD		0x03    // ºñ¹ø ¿À·ù
-#define RESULT_JOIN_SERVER_ALREADY_LOGGEDIN		0x04    // ÀÌ¹Ì ·Î±×ÀÎ ÁßÀÌ´Ù
+#define RESULT_JOIN_SERVER_TIME_OUT				0x02    // ì‹œê°„ ì´ˆê³¼ë¡œ ê³„ì • ì—†ì–´ì ¸ ë‹¤ì‹œ ë¡œê·¸ì¸ í•´ì•¼í•œë‹¤.
+#define RESULT_JOIN_SERVER_INVALID_PASSWORD		0x03    // ë¹„ë²ˆ ì˜¤ë¥˜
+#define RESULT_JOIN_SERVER_ALREADY_LOGGEDIN		0x04    // ì´ë¯¸ ë¡œê·¸ì¸ ì¤‘ì´ë‹¤
 
-// Å¬¶óÀÌ¾ðÆ®¿¡°Ô Á¸¼­¹ö ÀÌµ¿ Á¢¼ÓÇÏ¶ó°í Åëº¸...
+// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¡´ì„œë²„ ì´ë™ ì ‘ì†í•˜ë¼ê³  í†µë³´...
 struct wsv_MOVE_SERVER : public t_PACKETHEADER {
   uint16_t m_wPortNO;
   uint32_t m_dwIDs[2];
@@ -834,14 +786,14 @@ struct wsv_MOVE_SERVER : public t_PACKETHEADER {
 
 struct cli_CHAR_LIST : public t_PACKETHEADER {};
 
-// ¼ºº°, ·¹º§,Á÷¾÷, ÆÄÆ® ÀÎµ¦½º...
+// ì„±ë³„, ë ˆë²¨,ì§ì—…, íŒŒíŠ¸ ì¸ë±ìŠ¤...
 struct tagCHARINFO {
   uint8_t  m_btCharRACE;
   int16_t  m_nLEVEL;
   int16_t  m_nJOB;
-  uint32_t m_dwRemainSEC; // 0ÀÌ ¾Æ´Ò°æ¿ì »èÁ¦µÉ¶§±îÁö ³²Àº ½Ã°£(ÃÊ´ÜÀ§)
+  uint32_t m_dwRemainSEC; // 0ì´ ì•„ë‹ê²½ìš° ì‚­ì œë ë•Œê¹Œì§€ ë‚¨ì€ ì‹œê°„(ì´ˆë‹¨ìœ„)
 #ifdef	__INC_PLATINUM
-  uint8_t m_btIsPlatinumCHAR; // 0ÀÌ ¾Æ´Ñ°æ¿ì´Â ÇÃ·¹Æ¼³ÑÀÏ °æ¿ì¸¸ ¼±ÅÃ °¡´ÉÇÑ ÄÉ¸¯ÀÌ´Ù.
+  uint8_t m_btIsPlatinumCHAR; // 0ì´ ì•„ë‹Œê²½ìš°ëŠ” í”Œë ˆí‹°ë„˜ì¼ ê²½ìš°ë§Œ ì„ íƒ ê°€ëŠ¥í•œ ì¼€ë¦­ì´ë‹¤.
 #endif
 };
 
@@ -875,17 +827,17 @@ struct wsv_CREATE_CHAR : public t_PACKETHEADER {
 #define	RESULT_CREATE_CHAR_FAILED			0x01
 #define	RESULT_CREATE_CHAR_DUP_NAME			0x02
 #define	RESULT_CREATE_CHAR_INVALID_VALUE	0x03
-#define	RESULT_CREATE_CHAR_NO_MORE_SLOT		0x04	// ´õÀÌ»ó ¸¸µé¼ö ¾ø´Ù.
-#define	RESULT_CREATE_CHAR_BLOCKED			0x05	// ¼­¹ö¿¡¼­ ÄÉ¸¯ÅÍ »ý¼ºÀÌ ±ÝÁöµÇ¾î ÀÖ´Â »óÅÂ´Ù.
+#define	RESULT_CREATE_CHAR_NO_MORE_SLOT		0x04	// ë”ì´ìƒ ë§Œë“¤ìˆ˜ ì—†ë‹¤.
+#define	RESULT_CREATE_CHAR_BLOCKED			0x05	// ì„œë²„ì—ì„œ ì¼€ë¦­í„° ìƒì„±ì´ ê¸ˆì§€ë˜ì–´ ìžˆëŠ” ìƒíƒœë‹¤.
 
 struct cli_DELETE_CHAR : public t_PACKETHEADER {
   uint8_t m_btCharNO;
-  bool    m_bDelete; // true¸é »èÁ¦, false¸é »èÁ¦´ë±â »óÅÂ ÄÉ¸¯ÅÍ ºÎÈ°
+  bool    m_bDelete; // trueë©´ ì‚­ì œ, falseë©´ ì‚­ì œëŒ€ê¸° ìƒíƒœ ì¼€ë¦­í„° ë¶€í™œ
   // char szCharName[]
 };
 
 struct wsv_DELETE_CHAR : public t_PACKETHEADER {
-  uint32_t m_dwDelRemainTIME; // 0ÀÌ¸é »èÁ¦ Ãë¼Ò...
+  uint32_t m_dwDelRemainTIME; // 0ì´ë©´ ì‚­ì œ ì·¨ì†Œ...
   // char szCharName[]
 };
 
@@ -926,14 +878,14 @@ struct gsv_SELECT_CHAR : public t_PACKETHEADER {
 };
 
 struct gsv_INVENTORY_DATA : public t_PACKETHEADER {
-  // 2004. 9.11 ´ëÃ¼... CInventory	m_INV;
+  // 2004. 9.11 ëŒ€ì²´... CInventory	m_INV;
   struct {
     int64_t     m_i64Money;
     tagBaseITEM m_ItemLIST[ INVENTORY_TOTAL_SIZE ];
   }             m_INV;
 };
 
-// Äù½ºÆ® ½ºÀ§Ä¡ °¹¼ö Áõ°¡ÈÄ ¾Æ·¡ 2°³ÀÇ ÆÐÅ¶À¸·Î ºÐ¸®ÈÄ »ç¿ë¾ÈÇÔ.
+// í€˜ìŠ¤íŠ¸ ìŠ¤ìœ„ì¹˜ ê°¯ìˆ˜ ì¦ê°€í›„ ì•„ëž˜ 2ê°œì˜ íŒ¨í‚·ìœ¼ë¡œ ë¶„ë¦¬í›„ ì‚¬ìš©ì•ˆí•¨.
 struct gsv_QUEST_DATA : public t_PACKETHEADER {
   tagQuestData m_Quests;
   tagWishLIST  m_WishLIST;
@@ -959,9 +911,9 @@ struct gsv_JOIN_ZONE : public t_PACKETHEADER {
   int64_t       m_lCurEXP;
   int64_t       m_lPenalEXP;
   tagVAR_GLOBAL m_VAR;
-  uint32_t      m_dwAccWorldTIME; // °ÔÀÓ ¼­¹ö Ã³À½ µ¿ÀÛÈÄ ´©ÀûµÈ ¿ùµå Å¸ÀÓ
+  uint32_t      m_dwAccWorldTIME; // ê²Œìž„ ì„œë²„ ì²˜ìŒ ë™ìž‘í›„ ëˆ„ì ëœ ì›”ë“œ íƒ€ìž„
 #ifdef	__APPLY_04_10_15_TEAMNO
-  int32_t m_iTeamNO; // ¼­¹ö¿¡¼­ ¼³Á¤µÈ ÆÀ¹øÈ£	:: 04.10.15 Ãß°¡..
+  int32_t m_iTeamNO; // ì„œë²„ì—ì„œ ì„¤ì •ëœ íŒ€ë²ˆí˜¸	:: 04.10.15 ì¶”ê°€..
 #endif
 
 };
@@ -1033,7 +985,7 @@ struct cli_TOGGLE : public t_PACKETHEADER {
 struct gsv_TOGGLE : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
   uint8_t  m_btTYPE;
-  int16_t  m_nRunSPEED[0]; // ÆÖ Å¸°í ³»¸±¶§¸¸...
+  int16_t  m_nRunSPEED[0]; // íŒ» íƒ€ê³  ë‚´ë¦´ë•Œë§Œ...
 };
 
 struct cli_CHAT : public t_PACKETHEADER {
@@ -1086,10 +1038,10 @@ struct gsv_SET_EVENT_STATUS : public t_PACKETHEADER {
   int16_t  m_nEventSTATUS;
 };
 
-#define	MOVE_MODE_WALK		0x00	// °È±â ¸ðµå
-#define	MOVE_MODE_RUN		0x01	// ¶Ù±â ¸ðµå
-#define	MOVE_MODE_DRIVE		0x02	// ¿îÀü ¸ðµå : ÀÚ½ÅÀÌ Å¸°í ÀÖ´Ù.
-#define	MOVE_MODE_RIDEON	0x04	// ½ÂÂ÷ ¸ðµå : ³²ÀÇ°Í¿¡ Å¸°í ÀÖ´Ù.
+#define	MOVE_MODE_WALK		0x00	// ê±·ê¸° ëª¨ë“œ
+#define	MOVE_MODE_RUN		0x01	// ë›°ê¸° ëª¨ë“œ
+#define	MOVE_MODE_DRIVE		0x02	// ìš´ì „ ëª¨ë“œ : ìžì‹ ì´ íƒ€ê³  ìžˆë‹¤.
+#define	MOVE_MODE_RIDEON	0x04	// ìŠ¹ì°¨ ëª¨ë“œ : ë‚¨ì˜ê²ƒì— íƒ€ê³  ìžˆë‹¤.
 
 struct tag_ADD_CHAR : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
@@ -1097,18 +1049,18 @@ struct tag_ADD_CHAR : public t_PACKETHEADER {
   tPOINTF  m_PosTO;
   uint16_t m_wCommand;
   uint16_t m_wTargetOBJ;
-  uint8_t  m_btMoveMODE; // 0:°È±â, 1:¶Ù±â, 2:³» ½Â¿ë¾ÆÀÌÅÛ¿¡ Å¸°íÀÖ´Ù, 3: m_wTargetOBJÀÇ ½Â¿ë¾ÆÀÌÅÛ¿¡ Å¸°íÀÖ´Ù.
+  uint8_t  m_btMoveMODE; // 0:ê±·ê¸°, 1:ë›°ê¸°, 2:ë‚´ ìŠ¹ìš©ì•„ì´í…œì— íƒ€ê³ ìžˆë‹¤, 3: m_wTargetOBJì˜ ìŠ¹ìš©ì•„ì´í…œì— íƒ€ê³ ìžˆë‹¤.
   int32_t  m_iHP;
 #ifdef	__APPLY_04_10_15_TEAMNO
-  int32_t m_iTeamNO; //	char m_cTeamNO => int32_t·Î º¯°æ 04.10.15 ¼öÁ¤...
+  int32_t m_iTeamNO; //	char m_cTeamNO => int32_të¡œ ë³€ê²½ 04.10.15 ìˆ˜ì •...
 #else
   int8_t		m_cTeamNO;
 #endif
   uint32_t m_dwStatusFALG;
   /*
-  Áö¼Ó ½ºÅ³¿¡ ÀÇÇØ ¹Ù²ï °ª...	2004.1.4
+  ì§€ì† ìŠ¤í‚¬ì— ì˜í•´ ë°”ë€ ê°’...	2004.1.4
   if ( m_dwStatusFALG & ( ING_FLAG_MAX_HP | ING_FLAG_xxx_MOV_SPEED | ING_FLAG_xxx_ATK_SPEED ) ) {
-    °¢ ±¸Á¶Ã¼ µÚ¿¡ m_nAdjSTATUS[ xx ]ºÙ¾î Àü¼ÛµÊ.
+    ê° êµ¬ì¡°ì²´ ë’¤ì— m_nAdjSTATUS[ xx ]ë¶™ì–´ ì „ì†¡ë¨.
 
     uint8_t btIDX = 0;
       if ( tag_ADD_CHAR.m_dwStatusFALG &  FLAG_ING_MAX_HP ) )
@@ -1126,7 +1078,7 @@ struct tag_ADD_CHAR : public t_PACKETHEADER {
     if ( tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_ATK_SPEED ) )
       dec_atk_spd = pAdjSTATUS[ btIDX++ ];
 
-    if ( tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME ) )		// 2004. 4. 16 Ãß°¡..
+    if ( tag_ADD_CHAR.m_dwStatusFALG &	FLAG_ING_DEC_LIFE_TIME ) )		// 2004. 4. 16 ì¶”ê°€..
       owner_obj_idx = (uint16_t) pAdjSTATUS[ btIDX++ ];
   }
   */
@@ -1138,14 +1090,14 @@ struct gsv_MOB_CHAR : public tag_ADD_CHAR {
   // int16_t		m_nAdjSTATUS[];
 };
 
-// gsv_NPC_CHARÆÐÅ¶¿¡¼­ m_nCharIdx < 0 ÀÌ¸é ¼û±è»óÅÂ(Å¬¶óÀÌ¾ðÆ®¿¡¼­ ·£´õ¸µÇÏÁö ¾ÊÀ½)
+// gsv_NPC_CHARíŒ¨í‚·ì—ì„œ m_nCharIdx < 0 ì´ë©´ ìˆ¨ê¹€ìƒíƒœ(í´ë¼ì´ì–¸íŠ¸ì—ì„œ ëžœë”ë§í•˜ì§€ ì•ŠìŒ)
 struct gsv_NPC_CHAR : public gsv_MOB_CHAR {
   float   m_fModelDIR;
-  int16_t m_nEventSTATUS; // 2004. 3. 22 Ãß°¡.., NPCÀÎ°øÁö´É¿¡ ÀÇÇØ ³»ºÎÀûÀ¸·Î ¹Ù²î´Â º¯¼ö°ª..
+  int16_t m_nEventSTATUS; // 2004. 3. 22 ì¶”ê°€.., NPCì¸ê³µì§€ëŠ¥ì— ì˜í•´ ë‚´ë¶€ì ìœ¼ë¡œ ë°”ë€ŒëŠ” ë³€ìˆ˜ê°’..
   // int16_t		m_nAdjSTATUS[];
 };
 
-/// ÇöÀç ¼³Á¤µÈ ¼Ò¸ðÅº 
+/// í˜„ìž¬ ì„¤ì •ëœ ì†Œëª¨íƒ„ 
 struct tagShotDATA {
   union {
     struct {
@@ -1158,9 +1110,9 @@ struct tagShotDATA {
 };
 
 /*
-  °è»ê ¹æ¹ý 
-  1. °ø°Ý¼Óµµ = ¹«±â·Î °è»êµÈ°ª + ÆÐ½Ãºê º¸Á¤°ª + Áö¼Ó º¸Á¤°ª
-  2. ÀÌµ¿¼Óµµ = ¼­¹ö¿¡¼­ ¹ÞÀº°ª(ÆÐ½ÃºêÆ÷ÇÔ) + Áö¼Ó º¸Á¤°ªÀ¸·Î 
+  ê³„ì‚° ë°©ë²• 
+  1. ê³µê²©ì†ë„ = ë¬´ê¸°ë¡œ ê³„ì‚°ëœê°’ + íŒ¨ì‹œë¸Œ ë³´ì •ê°’ + ì§€ì† ë³´ì •ê°’
+  2. ì´ë™ì†ë„ = ì„œë²„ì—ì„œ ë°›ì€ê°’(íŒ¨ì‹œë¸Œí¬í•¨) + ì§€ì† ë³´ì •ê°’ìœ¼ë¡œ 
 */
 struct tag_CLAN_ID {
   uint32_t m_dwClanID;
@@ -1170,33 +1122,33 @@ struct tag_CLAN_ID {
     uint16_t m_wClanMARK[2];
   };
 
-  uint8_t m_btClanLEVEL; // Å¬·£ ·¹º§
-  uint8_t m_btClanPOS;   // Å¬·£¿¡¼­ÀÇ Á÷À§
+  uint8_t m_btClanLEVEL; // í´ëžœ ë ˆë²¨
+  uint8_t m_btClanPOS;   // í´ëžœì—ì„œì˜ ì§ìœ„
 };
 
 struct gsv_AVT_CHAR : public tag_ADD_CHAR {
   uint8_t     m_btCharRACE;
-  int16_t     m_nRunSpeed;    // ÆÐ½Ãºê¿¡ ÀÇÇØ º¸Á¤µÈ °ª±îÁö, Áö¼Ó¿¡ ÀÇÇØ º¸Á¤µÈ°ª Á¦¿Ü ..
-  int16_t     m_nPsvAtkSpeed; // ÆÐ½Ãºê °ª¸¸...  ±âº»¼Óµµ, Áö¼Ó¿¡ ÀÇÇØ º¸Á¤µÈ°ª Á¦¿Ü ..
-  uint8_t     m_btWeightRate; // ÇöÀç¼ÒÁö·®/ÃÖ´ë¼ÒÁö·®*100
+  int16_t     m_nRunSpeed;    // íŒ¨ì‹œë¸Œì— ì˜í•´ ë³´ì •ëœ ê°’ê¹Œì§€, ì§€ì†ì— ì˜í•´ ë³´ì •ëœê°’ ì œì™¸ ..
+  int16_t     m_nPsvAtkSpeed; // íŒ¨ì‹œë¸Œ ê°’ë§Œ...  ê¸°ë³¸ì†ë„, ì§€ì†ì— ì˜í•´ ë³´ì •ëœê°’ ì œì™¸ ..
+  uint8_t     m_btWeightRate; // í˜„ìž¬ì†Œì§€ëŸ‰/ìµœëŒ€ì†Œì§€ëŸ‰*100
   tagPartITEM m_PartITEM [ MAX_BODY_PART ];
   tagShotDATA m_sShotItem [ MAX_SHOT_TYPE ];
 
   int16_t m_nJOB;
   uint8_t m_btLEVEL;
 
-  //	int16_t		m_nRidingITEM [ MAX_RIDING_PART ];	// ½Â¿ë ¾ÆÀÌÅÛ ..
-  tagPartITEM m_RidingITEM [ MAX_RIDING_PART ]; // ½Â¿ë ¾ÆÀÌÅÛ ..
+  //	int16_t		m_nRidingITEM [ MAX_RIDING_PART ];	// ìŠ¹ìš© ì•„ì´í…œ ..
+  tagPartITEM m_RidingITEM [ MAX_RIDING_PART ]; // ìŠ¹ìš© ì•„ì´í…œ ..
   int16_t     m_nPosZ;
 
   uint32_t m_dwSubFLAG;
 
   // char		szUserID[]
   // int16_t	m_nAdjSTATUS[];
-  // ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) ÀÏ°æ¿ì char szStoreTITLE[] ºÙÀ½
+  // ( tag_ADD_CHAR.m_dwStatusFALG & FLAG_ING_STORE_MODE ) ì¼ê²½ìš° char szStoreTITLE[] ë¶™ìŒ
 
-  /*	Å¬·£ Á¤º¸ Ãß°¡...
-  tag_CLAN_ID	m_CLAN;	== NULLÀÌ ¾Æ´Ï¸é Å¬·£Á¤º¸ ÀÖÀ½
+  /*	í´ëžœ ì •ë³´ ì¶”ê°€...
+  tag_CLAN_ID	m_CLAN;	== NULLì´ ì•„ë‹ˆë©´ í´ëžœì •ë³´ ìžˆìŒ
   // char m_szClanNAME[];
   */
 };
@@ -1270,16 +1222,16 @@ struct gsv_ATTACK : public t_PACKETHEADER {
 };
 
 struct gsv_MOVE : public gsv_MOUSECMD {
-  uint8_t m_btMoveMODE; // tag_ADD_CHAR::m_btMoveMODE¿Í °°Àº°ª
+  uint8_t m_btMoveMODE; // tag_ADD_CHAR::m_btMoveMODEì™€ ê°™ì€ê°’
 };
 
-// tag_DROPITEMÀº ¸÷ÀÌ Á×À¸¸é¼­ ¶³±¸´Â°Å...¾ÆÀÌÅÛ »ý¼º ½Ã°£Àº °íÁ¤ÀÌ¸§ Å¬¶óÀÌ¾îÆ®°¡ ITEM_OBJ_LIVE_TIME À¸·Î ¼³Á¤.
+// tag_DROPITEMì€ ëª¹ì´ ì£½ìœ¼ë©´ì„œ ë–¨êµ¬ëŠ”ê±°...ì•„ì´í…œ ìƒì„± ì‹œê°„ì€ ê³ ì •ì´ë¦„ í´ë¼ì´ì–´íŠ¸ê°€ ITEM_OBJ_LIVE_TIME ìœ¼ë¡œ ì„¤ì •.
 struct tag_DROPITEM {
   tPOINTF     m_PosCUR;
   tagBaseITEM m_ITEM;
   uint16_t    m_wServerItemIDX;
   uint16_t    m_wOwnerObjIDX;
-  // uint16_t m_wRemainTIME;		// »èÁ¦ :: ITEM_OBJ_LIVE_TIME·Î ¼³Á¤.
+  // uint16_t m_wRemainTIME;		// ì‚­ì œ :: ITEM_OBJ_LIVE_TIMEë¡œ ì„¤ì •.
 };
 
 struct gsv_ADD_FIELDITEM : public t_PACKETHEADER, public tag_DROPITEM {
@@ -1301,10 +1253,10 @@ struct gsv_GET_FIELDITEM_REPLY : public t_PACKETHEADER {
   tagBaseITEM m_ITEM;
 };
 
-#define	REPLY_GET_FIELDITEM_REPLY_OK			0x00	// È¹µæÇß´Ù.
-#define REPLY_GET_FIELDITEM_REPLY_NONE			0x01	// »ç¶óÁø ¾ÆÀÌÅÛÀÌ´Ù..
-#define REPLY_GET_FIELDITEM_REPLY_NO_RIGHT		0x02	// °¡Á®°¥ ±ÇÇÑÀÌ ¾ø´Ù.
-#define	REPLY_GET_FIELDITEM_REPLY_TOO_MANY		0x03	// ´õÀÌ»ó ¾ÆÀÌÅÛÀ» °®À»¼ö ¾ø´Ù.
+#define	REPLY_GET_FIELDITEM_REPLY_OK			0x00	// íšë“í–ˆë‹¤.
+#define REPLY_GET_FIELDITEM_REPLY_NONE			0x01	// ì‚¬ë¼ì§„ ì•„ì´í…œì´ë‹¤..
+#define REPLY_GET_FIELDITEM_REPLY_NO_RIGHT		0x02	// ê°€ì ¸ê°ˆ ê¶Œí•œì´ ì—†ë‹¤.
+#define	REPLY_GET_FIELDITEM_REPLY_TOO_MANY		0x03	// ë”ì´ìƒ ì•„ì´í…œì„ ê°–ì„ìˆ˜ ì—†ë‹¤.
 
 struct cli_DAMAGE : public t_PACKETHEADER {
   uint16_t m_wDefObjIDX;
@@ -1325,26 +1277,26 @@ struct gsv_DAMAGE : public t_PACKETHEADER {
   uint16_t m_wDefObjIDX;
 
   uniDAMAGE    m_Damage;
-  tag_DROPITEM m_DropITEM[ 0 ]; // Á×´Â µ¥¹ÌÁöÀÏ°æ¿ì¿¡¸¸ °ªÀÌ µé¾î ÀÖ´Ù. µå·ÓµÈ ¾ÆÀÌÅÛ ÀÎµ¦½º
+  tag_DROPITEM m_DropITEM[ 0 ]; // ì£½ëŠ” ë°ë¯¸ì§€ì¼ê²½ìš°ì—ë§Œ ê°’ì´ ë“¤ì–´ ìžˆë‹¤. ë“œë¡­ëœ ì•„ì´í…œ ì¸ë±ìŠ¤
 };
 
 #define	MAX_DAMAGE			0x05F5E0FF //	99,999,999
 
-// gsv_DAMAGE::m_wDamage¿Í ¿¬»êµÇ´Â °ª.
-//#define	DMG_BIT_DUMMY		0x0800		// Ãß°¡ µ¥¹ÌÁö ºÙÀº °Å´Ù :: ÀÚ½ÅÀÌ ¶§¸°°æ¿ì Ãß°¡ µ¥¹ÌÁö °è»êÀ» ÇØ.
-//#define	DMG_BIT_IMMEDIATE	0x1000		// ÆÐÅ° ¹Þ°í Áï°¢ Ã³¸® ÇÏ¸é µÈ´Ù:¿¹)¹æÆÐ µ©Áã ½ºÅ³¿¡ ÀÇÇØ ¹Ý»çµÈ µ©Áã
-//#define	DMG_BIT_HITTED		0x2000		// ¸Â´Â µ¿ÀÛÀ» ÇÑ´Ù.
-//#define	DMG_BIT_CRITICAL	0x4000		// Å©¸®Æ¼ÄÃ µ¥¹ÌÁö´Ù
-//#define	DMG_BIT_DEAD		0x8000		// Á×¾ú´Ù.
+// gsv_DAMAGE::m_wDamageì™€ ì—°ì‚°ë˜ëŠ” ê°’.
+//#define	DMG_BIT_DUMMY		0x0800		// ì¶”ê°€ ë°ë¯¸ì§€ ë¶™ì€ ê±°ë‹¤ :: ìžì‹ ì´ ë•Œë¦°ê²½ìš° ì¶”ê°€ ë°ë¯¸ì§€ ê³„ì‚°ì„ í•´.
+//#define	DMG_BIT_IMMEDIATE	0x1000		// íŒ¨í‚¤ ë°›ê³  ì¦‰ê° ì²˜ë¦¬ í•˜ë©´ ëœë‹¤:ì˜ˆ)ë°©íŒ¨ ëŽ€ì¥ ìŠ¤í‚¬ì— ì˜í•´ ë°˜ì‚¬ëœ ëŽ€ì¥
+//#define	DMG_BIT_HITTED		0x2000		// ë§žëŠ” ë™ìž‘ì„ í•œë‹¤.
+//#define	DMG_BIT_CRITICAL	0x4000		// í¬ë¦¬í‹°ì»¬ ë°ë¯¸ì§€ë‹¤
+//#define	DMG_BIT_DEAD		0x8000		// ì£½ì—ˆë‹¤.
 
-// gsv_DAMAGE::m_wDamage¿Í ¿¬»êµÇ´Â °ª.
+// gsv_DAMAGE::m_wDamageì™€ ì—°ì‚°ë˜ëŠ” ê°’.
 #define	DMG_BIT_DUMMY		  0x0100000000
 #define	DMG_BIT_IMMEDIATE	0x0200000000
 #define	DMG_BIT_HITTED		0x0400000000
 #define	DMG_BIT_CRITICAL	0x0800000000
 #define	DMG_BIT_DEAD		  0x1000000000
 
-// gsv_DAMAGE::m_wACTIONÀÌ °®´Â °ª...
+// gsv_DAMAGE::m_wACTIONì´ ê°–ëŠ” ê°’...
 #define	DMG_ACT_RESERVED	0x01
 #define	DMG_ACT_ATTACK		0x02
 #define	DMG_ACT_HITTED		0x04
@@ -1364,7 +1316,7 @@ struct cli_SUMMON_CMD : public t_PACKETHEADER {
 #define	SUMMON_CMD_DEFENSE		0x01
 #define	SUMMON_CMD_STANDING		0x02
 
-// ÀÚ½ÅÀÇ ÇöÀç °æÇèÄ¡¸¦ °»½ÅÇÑ´Ù.
+// ìžì‹ ì˜ í˜„ìž¬ ê²½í—˜ì¹˜ë¥¼ ê°±ì‹ í•œë‹¤.
 struct gsv_SETEXP : public t_PACKETHEADER {
   int64_t  m_lCurEXP;
   int16_t  m_nCurSTAMINA;
@@ -1385,7 +1337,7 @@ struct cli_HP_REQ : public t_PACKETHEADER {
 
 struct gsv_HP_REPLY : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  int32_t  m_iHP; // MOB hp¸¦ Àü¼ÛÇÏ±â´Â°ÍÀÌ±â ¶§¹®¿¡...
+  int32_t  m_iHP; // MOB hpë¥¼ ì „ì†¡í•˜ê¸°ëŠ”ê²ƒì´ê¸° ë•Œë¬¸ì—...
 };
 
 struct gsv_SET_HPnMP : public t_PACKETHEADER {
@@ -1397,15 +1349,15 @@ struct gsv_SET_HPnMP : public t_PACKETHEADER {
 struct tag_BUY_ITEM {
   int8_t   m_cTabNO;
   int8_t   m_cColNO;
-  uint16_t m_wDupCNT; // Áßº¹µÈ ¾ÆÀÌÅÛÀÏ°æ¿ì ±¸¸ÅÇÒ °¹¼ö
+  uint16_t m_wDupCNT; // ì¤‘ë³µëœ ì•„ì´í…œì¼ê²½ìš° êµ¬ë§¤í•  ê°¯ìˆ˜
 };
 
 struct tag_SELL_ITEM {
   uint8_t  m_btInvIDX;
-  uint16_t m_wDupCNT; // Áßº¹µÈ ¾ÆÀÌÅÛÀÏ°æ¿ì ÆÇ¸ÅÇÒ °¹¼ö
+  uint16_t m_wDupCNT; // ì¤‘ë³µëœ ì•„ì´í…œì¼ê²½ìš° íŒë§¤í•  ê°¯ìˆ˜
 };
 
-// »óÁ¡¿¡¼­ °Å·¡...
+// ìƒì ì—ì„œ ê±°ëž˜...
 struct cli_STORE_TRADE_REQ : public t_PACKETHEADER {
   uint16_t m_wNPCObjIdx;
   int8_t   m_cBuyCNT;
@@ -1425,25 +1377,25 @@ struct gsv_STORE_TRADE_REPLY : public t_PACKETHEADER {
 #define	STORE_TRADE_RESULT_NPC_NOT_FOUND	0x02
 #define	STORE_TRADE_RESULT_TOO_FAR			0x03
 #define	STORE_TRADE_RESULT_OUT_OF_MONEY		0x04
-#define	STORE_TRADE_RESULT_NOT_UNION_USER	0x05	// °°Àº Á¶ÇÕ¿øÀÌ ¾Æ´Ï´Ù
-#define	STORE_TRADE_RESULT_OUT_OF_POINT		0x06	// Á¶ÇÕ Æ÷ÀÎÆ®°¡ ¸ðÀÚ¸£´Ù
+#define	STORE_TRADE_RESULT_NOT_UNION_USER	0x05	// ê°™ì€ ì¡°í•©ì›ì´ ì•„ë‹ˆë‹¤
+#define	STORE_TRADE_RESULT_OUT_OF_POINT		0x06	// ì¡°í•© í¬ì¸íŠ¸ê°€ ëª¨ìžë¥´ë‹¤
 
-// º¯°æµÈ ÀÎº¥Åä¸® Á¤º¸...
+// ë³€ê²½ëœ ì¸ë²¤í† ë¦¬ ì •ë³´...
 struct tag_SET_INVITEM {
   uint8_t     m_btInvIDX;
   tagBaseITEM m_ITEM;
 };
 
-// º¯°æµÈ ÀÎº¥Åä¸® Á¤º¸°¡ µé¾î°¨...
+// ë³€ê²½ëœ ì¸ë²¤í† ë¦¬ ì •ë³´ê°€ ë“¤ì–´ê°...
 struct gsv_SET_MONEYnINV : public t_PACKETHEADER {
   int64_t         m_i64Money;
   uint8_t         m_btItemCNT;
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // º¯°æµÈ °¹¼ö ¸¸Å­ µé¾î ÀÖ´Ù...
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ë³€ê²½ëœ ê°¯ìˆ˜ ë§Œí¼ ë“¤ì–´ ìžˆë‹¤...
 };
 
 struct gsv_SET_INV_ONLY : public t_PACKETHEADER {
   uint8_t         m_btItemCNT;
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // º¯°æµÈ °¹¼ö ¸¸Å­ µé¾î ÀÖ´Ù...
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ë³€ê²½ëœ ê°¯ìˆ˜ ë§Œí¼ ë“¤ì–´ ìžˆë‹¤...
 };
 
 struct gsv_SET_MONEY_ONLY : public t_PACKETHEADER {
@@ -1486,8 +1438,8 @@ struct cli_ITEM_SKILL : public t_PACKETHEADER {
 
 struct cli_USE_ITEM : public t_PACKETHEADER {
   int16_t m_nInventoryIndex;
-  // uint16_t		m_wDestObjIDX;		:: ¼Ò¸ð ¾ÆÀÌÅÛÀ¸·Î Å¸ÄÏ ½ºÅ³ »ç¿ë½Ã
-  // tPOINTF	m_PosTARGET;		:: ¼Ò¸ð ¾ÆÀÌÅÛÀ¸·Î À§Ä¡ ½ºÅ³ »ç¿ë½Ã
+  // uint16_t		m_wDestObjIDX;		:: ì†Œëª¨ ì•„ì´í…œìœ¼ë¡œ íƒ€ì¼“ ìŠ¤í‚¬ ì‚¬ìš©ì‹œ
+  // tPOINTF	m_PosTARGET;		:: ì†Œëª¨ ì•„ì´í…œìœ¼ë¡œ ìœ„ì¹˜ ìŠ¤í‚¬ ì‚¬ìš©ì‹œ
 };
 
 struct gsv_USE_ITEM : public t_PACKETHEADER {
@@ -1501,11 +1453,11 @@ struct cli_DROP_ITEM : public t_PACKETHEADER {
   uint32_t m_uiQuantity;
 };
 
-// m_nEquipInvIDX´Â ¹Þµå½Ã °ªÀÌ µé¾î ÀÖ¾î¾ßÇÔ.
-// m_nWeaponInvIDX´Â Àåºñ Å»°ÅÀÇ °æ¿ì 0 !!
+// m_nEquipInvIDXëŠ” ë°›ë“œì‹œ ê°’ì´ ë“¤ì–´ ìžˆì–´ì•¼í•¨.
+// m_nWeaponInvIDXëŠ” ìž¥ë¹„ íƒˆê±°ì˜ ê²½ìš° 0 !!
 struct cli_EQUIP_ITEM : public t_PACKETHEADER {
-  int16_t m_nEquipInvIDX;  // ÀåÂøÃ¢ ÀÎº¥Åä¸® ¹øÈ£ :: m_nEquipInvIDX >= 1 && m_nEquipInvIDX < MAX_EQUIP_IDX
-  int16_t m_nWeaponInvIDX; // Àåºñ ¾ÆÀÌÅÛÀÌ À§Ä¡ÇÏ°í ÀÖ´Â ÀÎº¥Åä¸® ¹øÈ£...
+  int16_t m_nEquipInvIDX;  // ìž¥ì°©ì°½ ì¸ë²¤í† ë¦¬ ë²ˆí˜¸ :: m_nEquipInvIDX >= 1 && m_nEquipInvIDX < MAX_EQUIP_IDX
+  int16_t m_nWeaponInvIDX; // ìž¥ë¹„ ì•„ì´í…œì´ ìœ„ì¹˜í•˜ê³  ìžˆëŠ” ì¸ë²¤í† ë¦¬ ë²ˆí˜¸...
 };
 
 struct gsv_EQUIP_ITEM : public t_PACKETHEADER {
@@ -1513,12 +1465,12 @@ struct gsv_EQUIP_ITEM : public t_PACKETHEADER {
   int16_t  m_nEquipIndex;
   //	int16_t		m_nItemNO;
   tagPartITEM m_PartITEM;
-  int16_t     m_nRunSPEED[ 0 ]; // ÆÐ½Ãºê ½ºÅ³¿¡ÀÇÇØ º¸Á¤µÈ °ª±îÁö : Áö¼Ó¿¡ ÀÇÇØ º¸Á¤µÈ°ª Á¦¿Ü :: ÆÖ ¹Ì Å¾½Â ¾ÈÇßÀ»¶§..
+  int16_t     m_nRunSPEED[ 0 ]; // íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ì—ì˜í•´ ë³´ì •ëœ ê°’ê¹Œì§€ : ì§€ì†ì— ì˜í•´ ë³´ì •ëœê°’ ì œì™¸ :: íŒ» ë¯¸ íƒ‘ìŠ¹ ì•ˆí–ˆì„ë•Œ..
 };
 
 struct cli_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
-  int16_t m_nRidingPartIDX; // t_eRidePARTÀÇ°ª.
-  int16_t m_nRidingInvIDX;  // cli_EQUIP_ITEM::m_nWeaponInvIDX Ã³·³...
+  int16_t m_nRidingPartIDX; // t_eRidePARTì˜ê°’.
+  int16_t m_nRidingInvIDX;  // cli_EQUIP_ITEM::m_nWeaponInvIDX ì²˜ëŸ¼...
 };
 
 struct gsv_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
@@ -1526,22 +1478,22 @@ struct gsv_ASSEMBLE_RIDE_ITEM : public t_PACKETHEADER {
   int16_t  m_nRidingPartIDX;
   //	int16_t		m_nItemNO;
   tagPartITEM m_RideITEM;
-  int16_t     m_nRunSPEED[ 0 ]; // ÆÐ½Ãºê ½ºÅ³¿¡ÀÇÇØ º¸Á¤µÈ °ª±îÁö : Áö¼Ó¿¡ ÀÇÇØ º¸Á¤µÈ°ª Á¦¿Ü :: ÆÖ Å¾½Â ÇßÀ»¶§...
+  int16_t     m_nRunSPEED[ 0 ]; // íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ì—ì˜í•´ ë³´ì •ëœ ê°’ê¹Œì§€ : ì§€ì†ì— ì˜í•´ ë³´ì •ëœê°’ ì œì™¸ :: íŒ» íƒ‘ìŠ¹ í–ˆì„ë•Œ...
 };
 
 struct cli_USE_ITEM_TO_REPAIR : public t_PACKETHEADER {
-  int16_t m_nUseItemInvIDX;      // ¼ö¸®¿¡ »ç¿ëÇÒ ¾ÆÀÌÅÛÀÇ ÀÎº¥ ¹øÈ£
-  int16_t m_nRepairTargetInvIDX; // ¼ö¸®µÉ ¾ÆÀÌÅÛÀÇ ÀÎº¥ ¹øÈ£
+  int16_t m_nUseItemInvIDX;      // ìˆ˜ë¦¬ì— ì‚¬ìš©í•  ì•„ì´í…œì˜ ì¸ë²¤ ë²ˆí˜¸
+  int16_t m_nRepairTargetInvIDX; // ìˆ˜ë¦¬ë  ì•„ì´í…œì˜ ì¸ë²¤ ë²ˆí˜¸
 };
 
 struct cli_REPAIR_FROM_NPC : public t_PACKETHEADER {
-  uint16_t m_wNPCObjIDX;          // ¼ö¸® ¿äÃ»ÇÒ NPC ¼­¹ö ÀÎµ¦½º
-  int16_t  m_nRepairTargetInvIDX; // ¼ö¸®µÉ ¾ÆÀÌÅÛÀÇ ÀÎº¥ ¹øÈ£
+  uint16_t m_wNPCObjIDX;          // ìˆ˜ë¦¬ ìš”ì²­í•  NPC ì„œë²„ ì¸ë±ìŠ¤
+  int16_t  m_nRepairTargetInvIDX; // ìˆ˜ë¦¬ë  ì•„ì´í…œì˜ ì¸ë²¤ ë²ˆí˜¸
 };
 
 struct gsv_SET_ITEM_LIFE : public t_PACKETHEADER {
-  int16_t m_nInventoryIDX; // ¼ö¸íÀÌ º¯°æµÉ ¾ÆÀÌÅÛÀÇ ÀÎº¥Åä¸® ¹øÈ£
-  int16_t m_nLife;         // ¼­¹ö¿¡¼­ÀÇ ÇöÀç ¼ö¸í
+  int16_t m_nInventoryIDX; // ìˆ˜ëª…ì´ ë³€ê²½ë  ì•„ì´í…œì˜ ì¸ë²¤í† ë¦¬ ë²ˆí˜¸
+  int16_t m_nLife;         // ì„œë²„ì—ì„œì˜ í˜„ìž¬ ìˆ˜ëª…
 };
 
 //struct cli_CHANGE_SKIN : public t_PACKETHEADER {
@@ -1557,24 +1509,24 @@ struct gsv_CHANGE_SKIN : public t_PACKETHEADER {
 struct cli_MOVE_ITEM : public t_PACKETHEADER {
   uint8_t     m_btMoveTYPE;
   uint8_t     m_btFromIDX;
-  tagBaseITEM m_MoveITEM; // <<-- ¿Å±æ °¹¼ö¸¸ ÀÖ¾îµµ.. uint16_t m_wQuantity;
+  tagBaseITEM m_MoveITEM; // <<-- ì˜®ê¸¸ ê°¯ìˆ˜ë§Œ ìžˆì–´ë„.. uint16_t m_wQuantity;
 #ifdef	__INC_PLATINUM
-  uint8_t m_btUseSpecialTAB; // °ªÀÌ 1ÀÌ¸é .. ÇÁ·¹Æ¼³Ñ ¼­ºñ½º·Î Ãß°¡µÈ ÅÇ¿¡ ¾ÆÀÌÅÛ ³Ö±â..
+  uint8_t m_btUseSpecialTAB; // ê°’ì´ 1ì´ë©´ .. í”„ë ˆí‹°ë„˜ ì„œë¹„ìŠ¤ë¡œ ì¶”ê°€ëœ íƒ­ì— ì•„ì´í…œ ë„£ê¸°..
 #endif
 };
 
 #define	MOVE_ITEM_TYPE_INV2BANK		0x00		// ITEM :: Inventory --> Bank
 #define	MOVE_ITEM_TYPE_BANK2INV		0x01		// ITEM :: Bank --> Inventory
 
-// ÆÐÅ¶ »çÀÌÁî == gsv_MOVE_ITEM ÀÌ¸é				Ã¢°í=>ÀÎº¥Åä¸® ÀÌµ¿
-// ÆÐÅ¶ »çÀÌÁî == gsv_MOVE_ITEM+sizeof(int64_t)¸é	ÀÎº¥=>Ã¢°í, m_iCurMoney[0]¿¡ µ·µé¾î ÀÖÀ½
+// íŒ¨í‚· ì‚¬ì´ì¦ˆ == gsv_MOVE_ITEM ì´ë©´				ì°½ê³ =>ì¸ë²¤í† ë¦¬ ì´ë™
+// íŒ¨í‚· ì‚¬ì´ì¦ˆ == gsv_MOVE_ITEM+sizeof(int64_t)ë©´	ì¸ë²¤=>ì°½ê³ , m_iCurMoney[0]ì— ëˆë“¤ì–´ ìžˆìŒ
 struct gsv_MOVE_ITEM : public t_PACKETHEADER {
-  int16_t m_nInvIDX;  // IDX == -1 ½ÇÆÐ
-  int16_t m_nBankIDX; // IDX == -1 ½ÇÆÐ
+  int16_t m_nInvIDX;  // IDX == -1 ì‹¤íŒ¨
+  int16_t m_nBankIDX; // IDX == -1 ì‹¤íŒ¨
 
   tagBaseITEM m_InvItem;
   tagBaseITEM m_BankITEM;
-  int64_t     m_iCurMoney[0]; // º¸°ü·á ºüÁø °á°úµ·...
+  int64_t     m_iCurMoney[0]; // ë³´ê´€ë£Œ ë¹ ì§„ ê²°ê³¼ëˆ...
 };
 
 #define	MOVE_ZULY_TYPE_INV2BANK		0x10		// ZULY :: Inventory --> Bank
@@ -1582,39 +1534,39 @@ struct gsv_MOVE_ITEM : public t_PACKETHEADER {
 
 struct cli_MOVE_ZULY : public t_PACKETHEADER {
   uint8_t m_btMoveTYPE;
-  int64_t m_i64MoveZuly; // ÀÌµ¿ ÇÒ ÁÙ¸®·®
+  int64_t m_i64MoveZuly; // ì´ë™ í•  ì¤„ë¦¬ëŸ‰
 };
 
 struct gsv_MOVE_ZULY : public t_PACKETHEADER {
-  int64_t m_i64InvZuly;  // ÀÌµ¿ÈÄ ¼ÒÁöÇÑ ÁÙ¸®·®
-  int64_t m_i64BankZuly; // ÀÌµ¿ÈÄ º¸°üµÈ ÁÙ¸®·®
+  int64_t m_i64InvZuly;  // ì´ë™í›„ ì†Œì§€í•œ ì¤„ë¦¬ëŸ‰
+  int64_t m_i64BankZuly; // ì´ë™í›„ ë³´ê´€ëœ ì¤„ë¦¬ëŸ‰
 };
 
-#define	BANK_REQ_OPEN				0x00		// Ã¢°í ¿­¶§..
-#define	BANK_REQ_CHANGE_PASSWORD	0x01		// Ã¢°í ºñ¹ø ¹Ù²Ü¶§...¹Ýµå½Ã Ã¢°í°¡ ¿­·Á ÀÖ´Â »óÅÂ¿¡¼­...
+#define	BANK_REQ_OPEN				0x00		// ì°½ê³  ì—´ë•Œ..
+#define	BANK_REQ_CHANGE_PASSWORD	0x01		// ì°½ê³  ë¹„ë²ˆ ë°”ê¿€ë•Œ...ë°˜ë“œì‹œ ì°½ê³ ê°€ ì—´ë ¤ ìžˆëŠ” ìƒíƒœì—ì„œ...
 
 struct cli_BANK_LIST_REQ : public t_PACKETHEADER {
   uint8_t m_btREQ;
   int8_t  m_szPassword[0];
 };
 
-#define	BANK_REPLY_INIT_DATA		0x00		// Ã¢°í µ¥ÀÌÅ¸ ÃÊ±âÈ­ & º¸¿©ÁØ´Ù
-#define	BANK_REPLY_SHOW_DATA		0x01		// Ã¢°í º¸¿© ÁØ´Ù m_btItemCNT == 0
-#define	BANK_REPLY_NEED_PASSWORD	0x02		// Ã¢°í ºñ¹øÀÌ ÇÊ¿ä..
-#define	BANK_REPLY_CHANGED_PASSWORD	0x03		// Ã¢°í ºñ¹øÀÌ º¯°æµÆÀ½
-#define	BANK_REPLY_INVALID_PASSWORD	0x04		// Ã¢°í ºñ¹øÀÌ Æ²¸²
-#define	BANK_REPLY_CLEARED_PASSWORD	0x05		// Ã¢°í ºñ¹ø »èÁ¦µÊ
-#define	BANK_REPLY_PLATINUM			0x06		// ÇÃ·¹Æ¼³Ñ Ã¢°í ³»¿ë( BANK_REPLY_INIT_DATAµÚ¿¡ ÀÌ¾î¼­ Àü¼ÛµÊ )
+#define	BANK_REPLY_INIT_DATA		0x00		// ì°½ê³  ë°ì´íƒ€ ì´ˆê¸°í™” & ë³´ì—¬ì¤€ë‹¤
+#define	BANK_REPLY_SHOW_DATA		0x01		// ì°½ê³  ë³´ì—¬ ì¤€ë‹¤ m_btItemCNT == 0
+#define	BANK_REPLY_NEED_PASSWORD	0x02		// ì°½ê³  ë¹„ë²ˆì´ í•„ìš”..
+#define	BANK_REPLY_CHANGED_PASSWORD	0x03		// ì°½ê³  ë¹„ë²ˆì´ ë³€ê²½ëìŒ
+#define	BANK_REPLY_INVALID_PASSWORD	0x04		// ì°½ê³  ë¹„ë²ˆì´ í‹€ë¦¼
+#define	BANK_REPLY_CLEARED_PASSWORD	0x05		// ì°½ê³  ë¹„ë²ˆ ì‚­ì œë¨
+#define	BANK_REPLY_PLATINUM			0x06		// í”Œë ˆí‹°ë„˜ ì°½ê³  ë‚´ìš©( BANK_REPLY_INIT_DATAë’¤ì— ì´ì–´ì„œ ì „ì†¡ë¨ )
 
 struct gsv_BANK_LIST_REPLY : public t_PACKETHEADER {
   uint8_t         m_btREPLY;
   uint8_t         m_btItemCNT;
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // º¯°æµÈ °¹¼ö ¸¸Å­ µé¾î ÀÖ´Ù...
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ë³€ê²½ëœ ê°¯ìˆ˜ ë§Œí¼ ë“¤ì–´ ìžˆë‹¤...
 };
 
 struct cli_TELEPORT_REQ : public t_PACKETHEADER {
   int16_t m_nWarpIDX;
-  tPOINTF m_PosCUR; // ½ºÇÙ ¹æÁö¿ë :: Å¬¶óÀÌ¾ðÆ®ÀÇ ÇöÀç ÁÂÇ¥¸¦ ÁÖ¸é ¼­¹ö ÁÂÇ¥¿Í ºñ±³
+  tPOINTF m_PosCUR; // ìŠ¤í•µ ë°©ì§€ìš© :: í´ë¼ì´ì–¸íŠ¸ì˜ í˜„ìž¬ ì¢Œí‘œë¥¼ ì£¼ë©´ ì„œë²„ ì¢Œí‘œì™€ ë¹„êµ
 };
 
 struct gsv_TELEPORT_REPLY : public t_PACKETHEADER {
@@ -1625,7 +1577,7 @@ struct gsv_TELEPORT_REPLY : public t_PACKETHEADER {
   uint8_t  m_btRideMODE;
 };
 
-// m_btAbilityNO >= 100	: ½ºÅ³ Æ÷ÀÎÆ® ÀÎµ¦½º´Â +100ÇØ¼­ Àü¼Û...
+// m_btAbilityNO >= 100	: ìŠ¤í‚¬ í¬ì¸íŠ¸ ì¸ë±ìŠ¤ëŠ” +100í•´ì„œ ì „ì†¡...
 struct cli_USE_BPOINT_REQ : public t_PACKETHEADER {
   uint8_t m_btAbilityNO;
 };
@@ -1651,7 +1603,7 @@ struct cli_SET_BULLET : public t_PACKETHEADER {
 
 struct gsv_SET_BULLET : public t_PACKETHEADER {
   uint16_t    m_wObjectIDX;
-  tagShotDATA m_sShot; // m_sShot.m_wItemNO == 0 ÀÏ°æ¿ì ÃÑ¾Ë ´Ù ½è´Ù !!!
+  tagShotDATA m_sShot; // m_sShot.m_wItemNO == 0 ì¼ê²½ìš° ì´ì•Œ ë‹¤ ì¼ë‹¤ !!!
 };
 
 struct gsv_SKILL_LEARN_REPLY : public t_PACKETHEADER {
@@ -1661,17 +1613,17 @@ struct gsv_SKILL_LEARN_REPLY : public t_PACKETHEADER {
   int16_t m_nSkillPOINT;
 };
 
-#define	RESULT_SKILL_LEARN_FAILED			0x00		// ¹è¿ì±â ½ÇÆÐ.
-#define	RESULT_SKILL_LEARN_SUCCESS			0x01		// ¹è¿ì±â ¼º°ø.
-#define	RESULT_SKILL_LEARN_NEED_JOB			0x02		// Á÷¾÷ÀÌ ÀÏÄ¡ÇÏÁö ¾Ê´Â´Ù.
-#define	RESULT_SKILL_LEARN_NEED_SKILL		0x03		// º¸À¯ÇÒ ½ºÅ³ÀÌ ÇÊ¿äÇÑ´Ù.
-#define	RESULT_SKILL_LEARN_NEED_ABILITY		0x04		// ´É·ÂÄ¡°¡ ºÎÁ·ÇÏ´Ù
-#define	RESULT_SKILL_LEARN_OUTOFSLOT		0x05		// ´õÀÌ»ó ½ºÅ³À» ¹è¿ï¼ö ¾ø´Ù.
-#define	RESULT_SKILL_LEARN_INVALID_SKILL	0x06		// Àß¸øµÈ ½ºÅ³ ¹øÈ£´Ù.
-#define	RESULT_SKILL_LEARN_OUTOFPOINT		0x07		// ½ºÅ³ Æ÷ÀÎÆ® ºÎÁ·
-#define	RESULT_SKILL_LEARN_DELETE			0x08		// m_btSkillSLOTÀÇ m_nSkillIDX¹ø ½ºÅ³À» »èÁ¦ÇØ¶ó..
+#define	RESULT_SKILL_LEARN_FAILED			0x00		// ë°°ìš°ê¸° ì‹¤íŒ¨.
+#define	RESULT_SKILL_LEARN_SUCCESS			0x01		// ë°°ìš°ê¸° ì„±ê³µ.
+#define	RESULT_SKILL_LEARN_NEED_JOB			0x02		// ì§ì—…ì´ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ”ë‹¤.
+#define	RESULT_SKILL_LEARN_NEED_SKILL		0x03		// ë³´ìœ í•  ìŠ¤í‚¬ì´ í•„ìš”í•œë‹¤.
+#define	RESULT_SKILL_LEARN_NEED_ABILITY		0x04		// ëŠ¥ë ¥ì¹˜ê°€ ë¶€ì¡±í•˜ë‹¤
+#define	RESULT_SKILL_LEARN_OUTOFSLOT		0x05		// ë”ì´ìƒ ìŠ¤í‚¬ì„ ë°°ìš¸ìˆ˜ ì—†ë‹¤.
+#define	RESULT_SKILL_LEARN_INVALID_SKILL	0x06		// ìž˜ëª»ëœ ìŠ¤í‚¬ ë²ˆí˜¸ë‹¤.
+#define	RESULT_SKILL_LEARN_OUTOFPOINT		0x07		// ìŠ¤í‚¬ í¬ì¸íŠ¸ ë¶€ì¡±
+#define	RESULT_SKILL_LEARN_DELETE			0x08		// m_btSkillSLOTì˜ m_nSkillIDXë²ˆ ìŠ¤í‚¬ì„ ì‚­ì œí•´ë¼..
 
-// ½ºÅ³ ·¹º§¾÷½Ã...
+// ìŠ¤í‚¬ ë ˆë²¨ì—…ì‹œ...
 struct cli_SKILL_LEVELUP_REQ : public t_PACKETHEADER {
   uint8_t m_btSkillSLOT;
   int16_t m_nNextLevelSkillIDX;
@@ -1690,9 +1642,9 @@ struct gsv_SKILL_LEVELUP_REPLY : public t_PACKETHEADER {
 #define	RESULT_SKILL_LEVELUP_NEED_ABILITY	0x03
 #define	RESULT_SKILL_LEVELUP_NEED_JOB		0x04
 #define	RESULT_SKILL_LEVELUP_NEED_SKILL		0x05
-#define	RESULT_SKILL_LEVELUP_OUTOFZULY		0x06		// 05.05.25 ÁÙ¸®°¡ ¸ðÀÚ¸£´Ù
+#define	RESULT_SKILL_LEVELUP_OUTOFZULY		0x06		// 05.05.25 ì¤„ë¦¬ê°€ ëª¨ìžë¥´ë‹¤
 
-/// ½ºÅ³ÀÌ Áï½Ã Àû¿ë : Àû¿ëÈÄ Á¤ÁöµÊ
+/// ìŠ¤í‚¬ì´ ì¦‰ì‹œ ì ìš© : ì ìš©í›„ ì •ì§€ë¨
 struct cli_SELF_SKILL : public t_PACKETHEADER {
   uint8_t m_btSkillSLOT;
 };
@@ -1703,7 +1655,7 @@ struct gsv_SELF_SKILL : public t_PACKETHEADER {
   int8_t   cNpcSkillMOTION[ 0 ];
 };
 
-/// ½ºÅ³À» Å¸°Ù¿¡ Àû¿ë : Àû¿ëÈÄ Á¤ÁöµÊ
+/// ìŠ¤í‚¬ì„ íƒ€ê²Ÿì— ì ìš© : ì ìš©í›„ ì •ì§€ë¨
 struct cli_TARGET_SKILL : public t_PACKETHEADER {
   uint16_t m_wDestObjIDX;
   uint8_t  m_btSkillSLOT;
@@ -1715,12 +1667,12 @@ struct gsv_TARGET_SKILL : public t_PACKETHEADER {
   int16_t  m_nSkillIDX;
 
   uint16_t m_wSrvDIST;
-  tPOINTF  m_PosTO; // ÁÂÇ¥ º¸Á¤¿ë	2004. 5. 1 Ãß°¡
+  tPOINTF  m_PosTO; // ì¢Œí‘œ ë³´ì •ìš©	2004. 5. 1 ì¶”ê°€
 
   int8_t cNpcSkillMOTION[ 0 ];
 };
 
-/// ½ºÅ³À» Áö¿ª¿¡ Àû¿ë : Àû¿ëÈÄ Á¤ÁöµÊ
+/// ìŠ¤í‚¬ì„ ì§€ì—­ì— ì ìš© : ì ìš©í›„ ì •ì§€ë¨
 struct cli_POSITION_SKILL : public t_PACKETHEADER {
   uint8_t m_btSkillSLOT;
   tPOINTF m_PosTARGET;
@@ -1737,7 +1689,7 @@ struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
   uint16_t m_wSpellObjIDX;
 
-  // È«±Ù
+  // í™ê·¼
 #ifdef _GBC
   uint16_t m_nSkillIDX;
   uint16_t m_nINT;
@@ -1746,13 +1698,13 @@ struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
   union {
     struct {
       uint16_t	m_nSkillIDX		: 12;
-      uint16_t	m_btSuccessBITS : 2;	// ¼º°ø¿©ºÎ
+      uint16_t	m_btSuccessBITS : 2;	// ì„±ê³µì—¬ë¶€
       uint8_t			m_tmp1;
     } ;
     struct {
       uint8_t			m_tmp2;
       uint16_t	m_tmp3			: 6;
-      uint16_t	m_nINT			: 10;	// ½ÃÀüÀÚÀÇ Áö·Â
+      uint16_t	m_nINT			: 10;	// ì‹œì „ìžì˜ ì§€ë ¥
     } ;
   } ;
 #endif
@@ -1761,11 +1713,11 @@ struct gsv_EFFECT_OF_SKILL : public t_PACKETHEADER {
 
 struct gsv_DAMAGE_OF_SKILL : public gsv_EFFECT_OF_SKILL {
   union {
-    uniDAMAGE m_Damage; // ÇÇÇØ°¡ ÀÖÀ»°æ¿ì °ªÀÌ µé¾î ÀÖÀ½.
+    uniDAMAGE m_Damage; // í”¼í•´ê°€ ìžˆì„ê²½ìš° ê°’ì´ ë“¤ì–´ ìžˆìŒ.
     uint16_t  m_wDamage;
   };
 
-  tag_DROPITEM m_DropITEM[ 0 ]; // Á×´Â µ¥¹ÌÁöÀÏ°æ¿ì¿¡¸¸ °ªÀÌ µé¾î ÀÖ´Ù. µå·ÓµÈ ¾ÆÀÌÅÛ ÀÎµ¦½º
+  tag_DROPITEM m_DropITEM[ 0 ]; // ì£½ëŠ” ë°ë¯¸ì§€ì¼ê²½ìš°ì—ë§Œ ê°’ì´ ë“¤ì–´ ìžˆë‹¤. ë“œë¡­ëœ ì•„ì´í…œ ì¸ë±ìŠ¤
 };
 
 struct gsv_RESULT_OF_SKILL : public t_PACKETHEADER {
@@ -1777,9 +1729,9 @@ struct gsv_SKILL_START : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
 };
 
-#define	SKILL_CANCEL_NEED_ABILITY		0x01	// ´É·ÂÄ¡ ºÎÁ·
-#define	SKILL_CANCEL_NEED_TARGET		0x02	// ÄÉ½ºÆÃ ½ÃµµÀü Å¸°ÙÀÌ ¾ø¾îÁ³´Ù... MP¼Ò¸ð ¾øÀ½
-#define	SKILL_CANCEL_TARGET_NOT_FOUND	0x03	// ÄÉ½ºÆÃÈÄ ½ÇÁ¦µ¿ÀÛÀü Å¸°ÙÀÌ ¾ø¾îÁ³´Ù... MP¼Ò¸ð ÀÖÀ½
+#define	SKILL_CANCEL_NEED_ABILITY		0x01	// ëŠ¥ë ¥ì¹˜ ë¶€ì¡±
+#define	SKILL_CANCEL_NEED_TARGET		0x02	// ì¼€ìŠ¤íŒ… ì‹œë„ì „ íƒ€ê²Ÿì´ ì—†ì–´ì¡Œë‹¤... MPì†Œëª¨ ì—†ìŒ
+#define	SKILL_CANCEL_TARGET_NOT_FOUND	0x03	// ì¼€ìŠ¤íŒ…í›„ ì‹¤ì œë™ìž‘ì „ íƒ€ê²Ÿì´ ì—†ì–´ì¡Œë‹¤... MPì†Œëª¨ ìžˆìŒ
 
 struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
@@ -1787,10 +1739,10 @@ struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
 };
 
 /*
-  **	¼­¹ö¿¡¼­ ÆÐÅ¶¿¡ °ªÀÌ ÀÔ·ÂµÇ´Â ¹æ¹ý... AND ½ÃÅ³ ÇÃ·¹±×´Â DataType.h¿¡ ¼±¾ðµÈ °ªÀÇ Å©±â ¼øÀ¸·Î
-    m_gsv_CLEAR_STATUS.m_nAdjVALUE[x]¿¡ °ªÀÌ ÀÔ·ÂµÇ¾î ÀÖÀ½.
+  **	ì„œë²„ì—ì„œ íŒ¨í‚·ì— ê°’ì´ ìž…ë ¥ë˜ëŠ” ë°©ë²•... AND ì‹œí‚¬ í”Œë ˆê·¸ëŠ” DataType.hì— ì„ ì–¸ëœ ê°’ì˜ í¬ê¸° ìˆœìœ¼ë¡œ
+    m_gsv_CLEAR_STATUS.m_nAdjVALUE[x]ì— ê°’ì´ ìž…ë ¥ë˜ì–´ ìžˆìŒ.
 
-  dwClearedFLAG = Å¬¶óÀÌ¾ðÆ®»óÅÂ & ~¼­¹ö»óÅÂ
+  dwClearedFLAG = í´ë¼ì´ì–¸íŠ¸ìƒíƒœ & ~ì„œë²„ìƒíƒœ
 
   uint8_t btIDX=0;	
   if ( dwClearedFLAG &  FLAG_ING_HP )
@@ -1801,18 +1753,18 @@ struct gsv_SKILL_CANCEL : public t_PACKETHEADER {
 */
 struct gsv_CLEAR_STATUS : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  uint32_t m_dwStatusFLAG; // »èÁ¦µÈÈÄ ³²Àº ÇÃ·¹±×...
-  int16_t  m_nAdjVALUE[0]; // »èÁ¦µÈÈÄ º¸Á¤µÈ °ª...
+  uint32_t m_dwStatusFLAG; // ì‚­ì œëœí›„ ë‚¨ì€ í”Œë ˆê·¸...
+  int16_t  m_nAdjVALUE[0]; // ì‚­ì œëœí›„ ë³´ì •ëœ ê°’...
 };
 
 struct gsv_SPEED_CHANGED : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  int16_t  m_nRunSPEED;    // ÆÐ½Ãºê »óÅÂ¸¦ Æ÷ÇÔ, Áö¼Ó »óÅÂ Á¦¿Ü
-  int16_t  m_nPsvAtkSPEED; // ÆÐ½Ãºê °ª¸¸...
-  uint8_t  m_btWeightRate; // ÇöÀç¼ÒÁö·®/ÃÖ´ë¼ÒÁö·®*100
+  int16_t  m_nRunSPEED;    // íŒ¨ì‹œë¸Œ ìƒíƒœë¥¼ í¬í•¨, ì§€ì† ìƒíƒœ ì œì™¸
+  int16_t  m_nPsvAtkSPEED; // íŒ¨ì‹œë¸Œ ê°’ë§Œ...
+  uint8_t  m_btWeightRate; // í˜„ìž¬ì†Œì§€ëŸ‰/ìµœëŒ€ì†Œì§€ëŸ‰*100
 };
 
-// Àåºñ ¾ÆÀÌÅÛÀÇ °¨Á¤ÀÇ·Ú :: m_nInventoryIndexÀÇ ¾ÆÀÌÅÛ °¨Á¤ ¿äÃ» ..
+// ìž¥ë¹„ ì•„ì´í…œì˜ ê°ì •ì˜ë¢° :: m_nInventoryIndexì˜ ì•„ì´í…œ ê°ì • ìš”ì²­ ..
 struct cli_APPRAISAL_REQ : public t_PACKETHEADER {
   uint16_t m_wInventoryIndex;
 };
@@ -1824,30 +1776,30 @@ struct gsv_APPRAISAL_REPLY : public t_PACKETHEADER {
   };
 };
 
-#define	RESULT_APPRAISAL_REPLY_OK		0	// ¼º°ø
-#define	RESULT_APPRAISAL_REPLY_FAILED	1	// µ·¾ø´Ù.
+#define	RESULT_APPRAISAL_REPLY_OK		0	// ì„±ê³µ
+#define	RESULT_APPRAISAL_REPLY_FAILED	1	// ëˆì—†ë‹¤.
 
-/// °Å·¡ ´ë»ó m_wObjectIDX¿¡°Ô ÀÀ´äÀ» º¸³½´Ù.
+/// ê±°ëž˜ ëŒ€ìƒ m_wObjectIDXì—ê²Œ ì‘ë‹µì„ ë³´ë‚¸ë‹¤.
 struct cli_TRADE_P2P : public t_PACKETHEADER {
   uint8_t  m_btRESULT;
   uint16_t m_wObjectIDX;
   int8_t   m_cTradeSLOT;
 };
 
-#define	RESULT_TRADE_REQUEST			0x00	// °Å·¡ ¿ä±¸
-#define	RESULT_TRADE_ACCEPT				0x01	// °Å·¡ ½Â³«
-#define	RESULT_TRADE_REJECT				0x02	// °Å·¡ °ÅºÎ
-#define	RESULT_TRADE_CANCEL				0x03	// °Å·¡ µµÁß Ãë¼Ò
-#define	RESULT_TRADE_CHECK_READY		0x04	// °Å·¡ ÁØºñ ¿Ï·á
-#define	RESULT_TRADE_UNCHECK_READY		0x05	// °Å·¡ ÁØºñ Ãë¼Ò
-#define	RESULT_TRADE_DONE				0x06	// °Å·¡ ½ÇÇà
-#define	RESULT_TRADE_BUSY				0x07	// °Å·¡¸¦ ÇÒ¼ö ¾ø´Ù.
-#define	RESULT_TRADE_TOO_FAR			0x08	// °Å¸®°¡ ¸Ö´Ù.	5m ÀÌ³»..
-#define	RESULT_TRADE_NOT_TARGET			0x09	// ´ë»óÀÌ ¾ø´Ù.
-#define	RESULT_TRADE_OUT_OF_INV			0x0a	// »ó´ë¹æÀÌ ÀÎº¥Åä¸®°¡ ºÎÁ·ÇÏ´Ù.
+#define	RESULT_TRADE_REQUEST			0x00	// ê±°ëž˜ ìš”êµ¬
+#define	RESULT_TRADE_ACCEPT				0x01	// ê±°ëž˜ ìŠ¹ë‚™
+#define	RESULT_TRADE_REJECT				0x02	// ê±°ëž˜ ê±°ë¶€
+#define	RESULT_TRADE_CANCEL				0x03	// ê±°ëž˜ ë„ì¤‘ ì·¨ì†Œ
+#define	RESULT_TRADE_CHECK_READY		0x04	// ê±°ëž˜ ì¤€ë¹„ ì™„ë£Œ
+#define	RESULT_TRADE_UNCHECK_READY		0x05	// ê±°ëž˜ ì¤€ë¹„ ì·¨ì†Œ
+#define	RESULT_TRADE_DONE				0x06	// ê±°ëž˜ ì‹¤í–‰
+#define	RESULT_TRADE_BUSY				0x07	// ê±°ëž˜ë¥¼ í• ìˆ˜ ì—†ë‹¤.
+#define	RESULT_TRADE_TOO_FAR			0x08	// ê±°ë¦¬ê°€ ë©€ë‹¤.	5m ì´ë‚´..
+#define	RESULT_TRADE_NOT_TARGET			0x09	// ëŒ€ìƒì´ ì—†ë‹¤.
+#define	RESULT_TRADE_OUT_OF_INV			0x0a	// ìƒëŒ€ë°©ì´ ì¸ë²¤í† ë¦¬ê°€ ë¶€ì¡±í•˜ë‹¤.
 #define	RESULT_TRADE_NO_CHARGE_TARGET	0x0b
 
-/// ¼­¹ö¿¡¼­ Àü¼ÛµÈ m_wObjectIDXÀÇ °Å·¡¿¡ ÀÀ´ä.
+/// ì„œë²„ì—ì„œ ì „ì†¡ëœ m_wObjectIDXì˜ ê±°ëž˜ì— ì‘ë‹µ.
 struct gsv_TRADE_P2P : public t_PACKETHEADER {
   uint8_t  m_btRESULT;
   uint16_t m_wObjectIDX;
@@ -1859,8 +1811,8 @@ struct gsv_TRADE_P2P : public t_PACKETHEADER {
 
 struct cli_TRADE_P2P_ITEM : public t_PACKETHEADER {
   int8_t   m_cTradeSLOT;
-  int16_t  m_nInventoryIndex; // ÀÎº¥Åä¸® ¹øÈ£
-  uint32_t m_uiQuantity;      // ¼ö·®
+  int16_t  m_nInventoryIndex; // ì¸ë²¤í† ë¦¬ ë²ˆí˜¸
+  uint32_t m_uiQuantity;      // ìˆ˜ëŸ‰
 };
 
 struct gsv_TRADE_P2P_ITEM : public t_PACKETHEADER {
@@ -1873,29 +1825,29 @@ struct cli_SET_WISHITEM : public t_PACKETHEADER {
   tagBaseITEM m_ITEM;
 };
 
-// °³ÀÎ »óÁ¡ °ü·Ã....
+// ê°œì¸ ìƒì  ê´€ë ¨....
 #define	MAX_P_STORE_ITEM_SLOT	31
 
-// ÆÇ¸ÅÇÒ ¾ÆÀÌÅÛ
+// íŒë§¤í•  ì•„ì´í…œ
 struct tagPS_ITEM {
   union {
-    uint8_t m_btInvIDX;  // ÆÇ¸Å½Ã ÀÎº¥¹øÈ£
-    uint8_t m_btWishIDX; // ±¸¸Å½Ã WishList ½½·Ô ¹øÈ£
+    uint8_t m_btInvIDX;  // íŒë§¤ì‹œ ì¸ë²¤ë²ˆí˜¸
+    uint8_t m_btWishIDX; // êµ¬ë§¤ì‹œ WishList ìŠ¬ë¡¯ ë²ˆí˜¸
   };
 
-  tagBaseITEM m_ITEM;         // ¾ÆÀÌÅÛ( Áßº¹°¹¼ö ¾ÆÀÌÅÛÀÏ°æ¿ì ÆÈ·Á´Â °¹¼ö Æ÷ÇÔ)
-  uint32_t    m_dwPricePerEA; // 1°³´ç ÆÇ¸Å Èñ¸Á °¡°Ý
+  tagBaseITEM m_ITEM;         // ì•„ì´í…œ( ì¤‘ë³µê°¯ìˆ˜ ì•„ì´í…œì¼ê²½ìš° íŒ”ë ¤ëŠ” ê°¯ìˆ˜ í¬í•¨)
+  uint32_t    m_dwPricePerEA; // 1ê°œë‹¹ íŒë§¤ í¬ë§ ê°€ê²©
 };
 
 #define	STORE_MODE_TO_SELL		0x01
 #define	STORE_MODE_TO_BUY		0x02
 
 struct cli_P_STORE_OPEN : public t_PACKETHEADER {
-  uint8_t m_btSellItemCNT; // ÆÇ¸Å Èñ¸Á ¾ÆÀÌÅÛ µî·Ï °¹¼ö
-  uint8_t m_btWishItemCNT; // ±¸ÀÔ Èñ¸Á ¾ÆÀÌÅÛ µî·Ï °¹¼ö
+  uint8_t m_btSellItemCNT; // íŒë§¤ í¬ë§ ì•„ì´í…œ ë“±ë¡ ê°¯ìˆ˜
+  uint8_t m_btWishItemCNT; // êµ¬ìž… í¬ë§ ì•„ì´í…œ ë“±ë¡ ê°¯ìˆ˜
 
-  // µî·ÏÇÒ ¾ÆÀÌÅÛ
-  tagPS_ITEM m_ITEMs[ 0 ]; // ÆÇ¸Å 3, ±¸¸Å 2 ÀÏ°æ¿ì 0~2´Â ÆÇ¸Å, 3~4´Â ±¸ÀÔÈñ¸Á ¾ÆÀÌÅÛ
+  // ë“±ë¡í•  ì•„ì´í…œ
+  tagPS_ITEM m_ITEMs[ 0 ]; // íŒë§¤ 3, êµ¬ë§¤ 2 ì¼ê²½ìš° 0~2ëŠ” íŒë§¤, 3~4ëŠ” êµ¬ìž…í¬ë§ ì•„ì´í…œ
   // char	m_szStoreTITLE[0]
 };
 
@@ -1917,7 +1869,7 @@ struct tagPS_SLOT_PRICE {
 };
 
 struct cli_P_STORE_LIST_REQ : public t_PACKETHEADER {
-  // °³ÀÎ »óÁ¡ ¾ÆÀÌÅÛ ¸ñ·Ï ¿ä±¸
+  // ê°œì¸ ìƒì  ì•„ì´í…œ ëª©ë¡ ìš”êµ¬
   uint16_t m_wStoreObjectIDX;
 };
 
@@ -1932,7 +1884,7 @@ struct tagPS_SLOT_ITEM {
   tagBaseITEM m_SlotITEM;
 };
 
-// °³ÀÎ »óÁ¡¿¡ ±¸ÀÔ ¿äÃ»
+// ê°œì¸ ìƒì ì— êµ¬ìž… ìš”ì²­
 struct cli_P_STORE_BUY_REQ : public t_PACKETHEADER {
   uint16_t        m_wStoreObjectIDX;
   uint8_t         m_btItemCNT;
@@ -1940,12 +1892,12 @@ struct cli_P_STORE_BUY_REQ : public t_PACKETHEADER {
 };
 
 struct tagSELL_ITEM {
-  uint8_t     m_btInvIDX;   // ÆÈ·Á´Â ¾ÆÀÌÅÛÀÌ À§Ä¡ÇÑ ÀÎº¥Åä¸® ¹øÈ£
-  uint8_t     m_btWishSLOT; // »óÁ¡ ÁÖÀÎÀÌ ¿øÇÏ´Â ¾ÆÀÌÅÛÀÌ À§Ä¡ÇÑ ¹øÈ£
-  tagBaseITEM m_SellITEM;   // ÆÈ·Á´Â ¾ÆÀÌÅÛ(Áßº¹°¹¼ö ¾ÆÀÌÅÛÀÇ °æ¿ì ÆÈ·Á´Â °¹¼öÁ¶Á¤ °¡´É)
+  uint8_t     m_btInvIDX;   // íŒ”ë ¤ëŠ” ì•„ì´í…œì´ ìœ„ì¹˜í•œ ì¸ë²¤í† ë¦¬ ë²ˆí˜¸
+  uint8_t     m_btWishSLOT; // ìƒì  ì£¼ì¸ì´ ì›í•˜ëŠ” ì•„ì´í…œì´ ìœ„ì¹˜í•œ ë²ˆí˜¸
+  tagBaseITEM m_SellITEM;   // íŒ”ë ¤ëŠ” ì•„ì´í…œ(ì¤‘ë³µê°¯ìˆ˜ ì•„ì´í…œì˜ ê²½ìš° íŒ”ë ¤ëŠ” ê°¯ìˆ˜ì¡°ì • ê°€ëŠ¥)
 };
 
-// °³ÀÎ »óÁ¡¿¡ ÆÇ¸Å ¿äÃ»
+// ê°œì¸ ìƒì ì— íŒë§¤ ìš”ì²­
 struct cli_P_STORE_SELL_REQ : public t_PACKETHEADER {
   uint16_t     m_wStoreObjectIDX;
   uint8_t      m_btItemCNT;
@@ -1959,13 +1911,13 @@ struct gsv_P_STORE_RESULT : public t_PACKETHEADER {
   tagPS_SLOT_ITEM m_UpdatedITEM[0];
 };
 
-#define	RESULT_P_STORE_CANCLED				0x01	// °Å·¡ Ãë¼Ò,
-#define	RESULT_P_STORE_TRADE_SOLD_OUT		0x02	// ¹°°ÇÀÌ Ç°Àý
-#define	RESULT_P_STORE_TRADE_NO_MORE_NEED	0x03	// »óÁ¡ ÁÖÀÎÀÌ ¿øÇÏ´Â ¾ÆÀÌÅÛÀ» ´©±º°¡ ¸ÕÀú ÆÈ¾Ò´Ù.
-#define RESULT_P_STORE_BOUGHT_PART			0x04	// ±¸ÀÔ ¿Ï·á...´Ü, ÀÏºÎ Ç°¸ñÀº Ç°ÀýµÇ¾î ±¸ÀÔ ½ÇÆÐ...
-#define RESULT_P_STORE_BOUGHT_ALL			0x05	// ¿äÃ»ÇÑ Ç°¸ñ ÀüÃ¼ ±¸ÀÔ ¿Ï·á 
-#define RESULT_P_STORE_SOLD_PART			0x06	// ÆÇ¸Å ¿Ï·á...´Ü, ÀÏºÎ Ç°¸ñÀº ±¸ÀÔ¿Ï·áµÇ¾î ÆÇ¸Å ½ÇÆÐ...
-#define RESULT_P_STORE_SOLD_ALL				0x07	// ¿äÃ»ÇÑ Ç°¸ñ ÀüÃ¼ ÆÇ¸Å ¿Ï·á
+#define	RESULT_P_STORE_CANCLED				0x01	// ê±°ëž˜ ì·¨ì†Œ,
+#define	RESULT_P_STORE_TRADE_SOLD_OUT		0x02	// ë¬¼ê±´ì´ í’ˆì ˆ
+#define	RESULT_P_STORE_TRADE_NO_MORE_NEED	0x03	// ìƒì  ì£¼ì¸ì´ ì›í•˜ëŠ” ì•„ì´í…œì„ ëˆ„êµ°ê°€ ë¨¼ì € íŒ”ì•˜ë‹¤.
+#define RESULT_P_STORE_BOUGHT_PART			0x04	// êµ¬ìž… ì™„ë£Œ...ë‹¨, ì¼ë¶€ í’ˆëª©ì€ í’ˆì ˆë˜ì–´ êµ¬ìž… ì‹¤íŒ¨...
+#define RESULT_P_STORE_BOUGHT_ALL			0x05	// ìš”ì²­í•œ í’ˆëª© ì „ì²´ êµ¬ìž… ì™„ë£Œ 
+#define RESULT_P_STORE_SOLD_PART			0x06	// íŒë§¤ ì™„ë£Œ...ë‹¨, ì¼ë¶€ í’ˆëª©ì€ êµ¬ìž…ì™„ë£Œë˜ì–´ íŒë§¤ ì‹¤íŒ¨...
+#define RESULT_P_STORE_SOLD_ALL				0x07	// ìš”ì²­í•œ í’ˆëª© ì „ì²´ íŒë§¤ ì™„ë£Œ
 
 /*
   party structure ...
@@ -1981,12 +1933,12 @@ struct gsv_PARTY_REQ : public t_PACKETHEADER {
   //	int16_t	m_nZoneNO;
 };
 
-#define	PARTY_REQ_MAKE				0x00	// ÆÄÆ¼ °á¼º ¿äÃ» 
-#define	PARTY_REQ_JOIN				0x01	// ÆÄÆ¼ Âü°¡ ¿äÃ»
-#define	PARTY_REQ_LEFT				0x02	// ÆÄÆ¼ Å»Åð ¿äÃ»
-#define	PARTY_REQ_CHANGE_OWNER		0x03	// ÆÄÂ¯ º¯°æ ¿äÃ».
+#define	PARTY_REQ_MAKE				0x00	// íŒŒí‹° ê²°ì„± ìš”ì²­ 
+#define	PARTY_REQ_JOIN				0x01	// íŒŒí‹° ì°¸ê°€ ìš”ì²­
+#define	PARTY_REQ_LEFT				0x02	// íŒŒí‹° íƒˆí‡´ ìš”ì²­
+#define	PARTY_REQ_CHANGE_OWNER		0x03	// íŒŒì§± ë³€ê²½ ìš”ì²­.
 
-#define	PARTY_REQ_BAN				0x81	// ÆÄÆ¼ °­Åð ¿äÃ»
+#define	PARTY_REQ_BAN				0x81	// íŒŒí‹° ê°•í‡´ ìš”ì²­
 
 struct cli_PARTY_REPLY : public t_PACKETHEADER {
   uint8_t  m_btREPLY;
@@ -1998,57 +1950,57 @@ struct gsv_PARTY_REPLY : public t_PACKETHEADER {
   uint32_t m_dwFromIDXorTAG;
 };
 
-#define	PARTY_REPLY_NOT_FOUND				0x00	// ´ë»óÀ» Ã£Áö ¸øÇß´Ù.
-#define	PARTY_REPLY_BUSY					0x01	// ´ë»óÀÌ ÆÄÆ¼¿¡ Âü°¡ ÇÒ¼ö ¾ø´Â »óÅÂ´Ù.
+#define	PARTY_REPLY_NOT_FOUND				0x00	// ëŒ€ìƒì„ ì°¾ì§€ ëª»í–ˆë‹¤.
+#define	PARTY_REPLY_BUSY					0x01	// ëŒ€ìƒì´ íŒŒí‹°ì— ì°¸ê°€ í• ìˆ˜ ì—†ëŠ” ìƒíƒœë‹¤.
 #define	PARTY_REPLY_ACCEPT_MAKE				0x02
 #define	PARTY_REPLY_ACCEPT_JOIN				0x03
-#define	PARTY_REPLY_REJECT_JOIN				0x04	// ÆÄÆ¼ °á¼º/Âü°¡¿¡ °ÅÀý ..
-#define	PARTY_REPLY_DESTROY					0x05	// ÆÄÆ¼ »Ç°³ Á³´Ù
-#define PARTY_REPLY_FULL_MEMBERS			0x06	// Á¤¿ø ¸¸¶¥ÀÌ´Ù.
-#define	PARTY_REPLY_INVALID_LEVEL			0x07	// ·¹º§ÀÌ ¸ÂÁö ¾Ê´Â´Ù
+#define	PARTY_REPLY_REJECT_JOIN				0x04	// íŒŒí‹° ê²°ì„±/ì°¸ê°€ì— ê±°ì ˆ ..
+#define	PARTY_REPLY_DESTROY					0x05	// íŒŒí‹° ë½€ê°œ ì¡Œë‹¤
+#define PARTY_REPLY_FULL_MEMBERS			0x06	// ì •ì› ë§Œë•…ì´ë‹¤.
+#define	PARTY_REPLY_INVALID_LEVEL			0x07	// ë ˆë²¨ì´ ë§žì§€ ì•ŠëŠ”ë‹¤
 #define	PARTY_REPLY_CHANGE_OWNER			0x08
-#define	PARTY_REPLY_CHANGE_OWNERnDISCONN	0x09	// PARTY_REPLY_CHANGE_OWNER¿Í °°´Ù...´Ü ±âÁ¸ ÆÄÂ¯À» disconnectµÈ »óÅÂ·Î º¯°æ.
+#define	PARTY_REPLY_CHANGE_OWNERnDISCONN	0x09	// PARTY_REPLY_CHANGE_OWNERì™€ ê°™ë‹¤...ë‹¨ ê¸°ì¡´ íŒŒì§±ì„ disconnectëœ ìƒíƒœë¡œ ë³€ê²½.
 #define	PAATY_REPLY_NO_CHARGE_TARGET		0x0a
 
 #define	PARTY_REPLY_BAN						0x80
-#define PARTY_REPLY_DISCONNECT				0x81	// ºñÁ¤»ó Á¾·á µÆ´Ù...
-#define	PARTY_REPLY_REJOIN					0x82	// ºñÁ¤»ó Á¾·áÈÄ ÀçÁ¢Çß´Ù.
+#define PARTY_REPLY_DISCONNECT				0x81	// ë¹„ì •ìƒ ì¢…ë£Œ ëë‹¤...
+#define	PARTY_REPLY_REJOIN					0x82	// ë¹„ì •ìƒ ì¢…ë£Œí›„ ìž¬ì ‘í–ˆë‹¤.
 
 /*
-struct tag_PARTY_USER {		// ¿ùµå ¼­¹ö¿¡¼­ Àü¼ÛµÊ
+struct tag_PARTY_USER {		// ì›”ë“œ ì„œë²„ì—ì„œ ì „ì†¡ë¨
   uint16_t	m_wUserTAG;
   //char	m_szCharName[]
 } ;
 struct wsv_PARTY_USER : public t_PACKETHEADER {
-  char	m_cUserCNT;					// -1ÀÌ¸é ÆÄÆ¼¿ø¿¡¼­ Á¦¿Ü, ¾ç¼ö m_cTypeÀº Ãß°¡µÉ »ç¿ëÀÚ¼ö...
-  uint16_t	m_wUserTAG[0];				// ÆÄÆ¼¿ø Á¦¿ÜÀÏ °æ¿ì ÂüÁ¶...
-//	tag_PARTY_USER[ m_cUserCNT ];		// ÆÄÆ¼¿ø Ãß°¡ÀÏ °æ¿ì ÂüÁ¶
+  char	m_cUserCNT;					// -1ì´ë©´ íŒŒí‹°ì›ì—ì„œ ì œì™¸, ì–‘ìˆ˜ m_cTypeì€ ì¶”ê°€ë  ì‚¬ìš©ìžìˆ˜...
+  uint16_t	m_wUserTAG[0];				// íŒŒí‹°ì› ì œì™¸ì¼ ê²½ìš° ì°¸ì¡°...
+//	tag_PARTY_USER[ m_cUserCNT ];		// íŒŒí‹°ì› ì¶”ê°€ì¼ ê²½ìš° ì°¸ì¡°
 } ;
 */
 struct tag_PARTY_MEMBER {
-  // Á¸ ¼­¹ö¿¡¼­ Àü¼ÛµÊ
+  // ì¡´ ì„œë²„ì—ì„œ ì „ì†¡ë¨
   uint32_t m_dwUserTAG;
   uint16_t m_wObjectIDX;
   uint32_t m_nMaxHP;
   uint32_t m_nHP;
   uint32_t m_dwStatusFALG;
 
-  int16_t m_nCON; // uint8_t	m_btCON; //ÃÖ´ë ½ºÅÝ ¹üÀ§°¡ 300À¸·Î Áõ°¡µÊ 2004. 7. 21
+  int16_t m_nCON; // uint8_t	m_btCON; //ìµœëŒ€ ìŠ¤í…Ÿ ë²”ìœ„ê°€ 300ìœ¼ë¡œ ì¦ê°€ë¨ 2004. 7. 21
 
   uint16_t m_btRecoverHP; // item_recover_hp + passive_recover_hp
   uint16_t m_btRecoverMP; // item_recover_mp + passive_recover_mp
 
   int16_t m_nSTAMINA;
 
-  //char	m_szCharName[];				// ** PARTY_MEMBER_ADDÀÏ °æ¿ì¸¸ °ªÀÌ µé¾î ÀÖÀ½
+  //char	m_szCharName[];				// ** PARTY_MEMBER_ADDì¼ ê²½ìš°ë§Œ ê°’ì´ ë“¤ì–´ ìžˆìŒ
 };
 
 struct gsv_PARTY_MEMBER : public t_PACKETHEADER {
-  uint8_t  m_btPartyRULE;    // ÆÄÆ¼ ±ÔÄ¢(¾ÆÀÌÅÛºÐ¹è, °æÇèÄ¡ºÐ¹è¹æ½Ä)
-  int8_t   m_cUserCNT;       // -1ÀÌ¸é ÆÄÆ¼¿ø¿¡¼­ Á¦¿Ü, ¾ç¼ö m_cTypeÀº Ãß°¡µÉ »ç¿ëÀÚ¼ö, ObjTAG...
-  uint32_t m_dwObjectTAG[0]; // ÆÄÆ¼¿ø Á¦¿ÜÀÏ °æ¿ì ÂüÁ¶...
+  uint8_t  m_btPartyRULE;    // íŒŒí‹° ê·œì¹™(ì•„ì´í…œë¶„ë°°, ê²½í—˜ì¹˜ë¶„ë°°ë°©ì‹)
+  int8_t   m_cUserCNT;       // -1ì´ë©´ íŒŒí‹°ì›ì—ì„œ ì œì™¸, ì–‘ìˆ˜ m_cTypeì€ ì¶”ê°€ë  ì‚¬ìš©ìžìˆ˜, ObjTAG...
+  uint32_t m_dwObjectTAG[0]; // íŒŒí‹°ì› ì œì™¸ì¼ ê²½ìš° ì°¸ì¡°...
   /*
-  tag_PARTY_MEMBER[ m_cUserCNT ];		// ÆÄÆ¼¿ø Ãß°¡ÀÏ °æ¿ì ÂüÁ¶
+  tag_PARTY_MEMBER[ m_cUserCNT ];		// íŒŒí‹°ì› ì¶”ê°€ì¼ ê²½ìš° ì°¸ì¡°
   */
 };
 
@@ -2072,8 +2024,8 @@ struct gsv_PARTY_ITEM : public t_PACKETHEADER {
   tagBaseITEM m_ITEM;
 };
 
-#define	BIT_PARTY_RULE_EXP_PER_PLAYER		0x001	// °æÇèÄ¡¸¦ ·¹º§ºñ·Ê·Î ³ª´«´Ù...
-#define	BIT_PARTY_RULE_ITEM_TO_ORDER		0x080	// ¼ø¼­´ë·Î ¿ì¼±±Ç ºÎ¿©...
+#define	BIT_PARTY_RULE_EXP_PER_PLAYER		0x001	// ê²½í—˜ì¹˜ë¥¼ ë ˆë²¨ë¹„ë¡€ë¡œ ë‚˜ëˆˆë‹¤...
+#define	BIT_PARTY_RULE_ITEM_TO_ORDER		0x080	// ìˆœì„œëŒ€ë¡œ ìš°ì„ ê¶Œ ë¶€ì—¬...
 
 struct cli_PARTY_RULE : public t_PACKETHEADER {
   uint8_t m_btPartyRUEL;
@@ -2099,31 +2051,31 @@ struct gsv_SUB_EVENTOBJ : public t_PACKETHEADER {
 
 struct gsv_SET_NPC_SHOW : public t_PACKETHEADER {
   uint16_t m_wObjectIDX;
-  bool     m_bShow; // m_bShow == trueÀÌ¸é º¸ÀÓ/falseÀÌ¸é ¼û±è
+  bool     m_bShow; // m_bShow == trueì´ë©´ ë³´ìž„/falseì´ë©´ ìˆ¨ê¹€
 };
 
-//--------------------------- CLAN °ü·Ã ÆÐÅ¶
-#define	GCMD_CREATE				0x000		//±æµå»ý¼º, /guildcreate [±æµå¸í]
-#define	GCMD_INFO				0x001		//±æµåÁ¤º¸, /ginfo - ±æµå¿¡ ´ëÇÑ ±âº»ÀûÀÎ Á¤º¸
-#define	GCMD_INVITE				0x002		//±æµåÃÊ´ë, /ginvite <ÇÃ·¹ÀÌ¾î> - ±æµå¿¡ ÇØ´ç ÇÃ·¹ÀÌ¾î ÃÊ´ëÇÏ±â
-#define	GCMD_REMOVE				0x003		//±æµåÃß¹æ, /gremove <ÇÃ·¹ÀÌ¾î> - ±æµå¿¡¼­ ÇØ´ç ÇÃ·¹ÀÌ¾î Ãß¹æÇÏ±â
-#define	GCMD_PROMOTE			0x004		//±æµå½Â±Þ, /gpromote <ÇÃ·¹ÀÌ¾î> - ÇØ´ç ÇÃ·¹ÀÌ¾î ±æµå µî±Þ ¿Ã¸®±â
-#define	GCMD_DEMOTE				0x005		//±æµå°­µî, /gdemote <ÇÃ·¹ÀÌ¾î> - ÇØ´ç ÇÃ·¹ÀÌ¾î ±æµå µî±Þ ³»¸®±â
-#define	GCMD_MOTD				0x006		//±æµå°øÁö, /gmotd <ÇÒ¸»> - ¿À´ÃÀÇ ±æµå ¸Þ½ÃÁö Á¤ÇÏ±â
-#define	GCMD_QUIT				0x007		//±æµåÅ»Åð, /gquit - ±æµå¿¡¼­ Å»ÅðÇÏ±â
-#define	GCMD_ROSTER				0x008		//±æµå¸ñ·Ï, /groster - ÀüÃ¼ ±æµå¿ø ¸ñ·Ï º¸±â
-#define	GCMD_LEADER				0x009		//±æµåÀ§ÀÓ, /gleader <ÇÃ·¹ÀÌ¾î> - ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿¡°Ô ±æµåÀå À§ÀÓÇÏ±â (±æµåÀå Àü¿ë)
-#define	GCMD_DISBAND			0x00a		//±æµåÇØÃ¼, /gdisband - ±æµå ÇØÃ¼ÇÏ±â (±æµåÀå Àü¿ë) 
+//--------------------------- CLAN ê´€ë ¨ íŒ¨í‚·
+#define	GCMD_CREATE				0x000		//ê¸¸ë“œìƒì„±, /guildcreate [ê¸¸ë“œëª…]
+#define	GCMD_INFO				0x001		//ê¸¸ë“œì •ë³´, /ginfo - ê¸¸ë“œì— ëŒ€í•œ ê¸°ë³¸ì ì¸ ì •ë³´
+#define	GCMD_INVITE				0x002		//ê¸¸ë“œì´ˆëŒ€, /ginvite <í”Œë ˆì´ì–´> - ê¸¸ë“œì— í•´ë‹¹ í”Œë ˆì´ì–´ ì´ˆëŒ€í•˜ê¸°
+#define	GCMD_REMOVE				0x003		//ê¸¸ë“œì¶”ë°©, /gremove <í”Œë ˆì´ì–´> - ê¸¸ë“œì—ì„œ í•´ë‹¹ í”Œë ˆì´ì–´ ì¶”ë°©í•˜ê¸°
+#define	GCMD_PROMOTE			0x004		//ê¸¸ë“œìŠ¹ê¸‰, /gpromote <í”Œë ˆì´ì–´> - í•´ë‹¹ í”Œë ˆì´ì–´ ê¸¸ë“œ ë“±ê¸‰ ì˜¬ë¦¬ê¸°
+#define	GCMD_DEMOTE				0x005		//ê¸¸ë“œê°•ë“±, /gdemote <í”Œë ˆì´ì–´> - í•´ë‹¹ í”Œë ˆì´ì–´ ê¸¸ë“œ ë“±ê¸‰ ë‚´ë¦¬ê¸°
+#define	GCMD_MOTD				0x006		//ê¸¸ë“œê³µì§€, /gmotd <í• ë§> - ì˜¤ëŠ˜ì˜ ê¸¸ë“œ ë©”ì‹œì§€ ì •í•˜ê¸°
+#define	GCMD_QUIT				0x007		//ê¸¸ë“œíƒˆí‡´, /gquit - ê¸¸ë“œì—ì„œ íƒˆí‡´í•˜ê¸°
+#define	GCMD_ROSTER				0x008		//ê¸¸ë“œëª©ë¡, /groster - ì „ì²´ ê¸¸ë“œì› ëª©ë¡ ë³´ê¸°
+#define	GCMD_LEADER				0x009		//ê¸¸ë“œìœ„ìž„, /gleader <í”Œë ˆì´ì–´> - ë‹¤ë¥¸ í”Œë ˆì´ì–´ì—ê²Œ ê¸¸ë“œìž¥ ìœ„ìž„í•˜ê¸° (ê¸¸ë“œìž¥ ì „ìš©)
+#define	GCMD_DISBAND			0x00a		//ê¸¸ë“œí•´ì²´, /gdisband - ê¸¸ë“œ í•´ì²´í•˜ê¸° (ê¸¸ë“œìž¥ ì „ìš©) 
 
-#define GCMD_INVITE_REQ			0x00b		//³ª¿¡°Ô Å¬·£ °¡ÀÔÀ» ¿äÃ»Çß´Ù. <¿äÃ»ÀÚÀÌ¸§>
-#define	GCMD_INVITE_REPLY_YES	0x00c		//Å¬·£°¡ÀÔ ½Â³« <¿äÃ»ÀÚÀÌ¸§>
-#define	GCMD_INVITE_REPLY_NO	0x00d		//Å¬·£°¡ÀÔ °ÅÀý <¿äÃ»ÀÚÀÌ¸§>
+#define GCMD_INVITE_REQ			0x00b		//ë‚˜ì—ê²Œ í´ëžœ ê°€ìž…ì„ ìš”ì²­í–ˆë‹¤. <ìš”ì²­ìžì´ë¦„>
+#define	GCMD_INVITE_REPLY_YES	0x00c		//í´ëžœê°€ìž… ìŠ¹ë‚™ <ìš”ì²­ìžì´ë¦„>
+#define	GCMD_INVITE_REPLY_NO	0x00d		//í´ëžœê°€ìž… ê±°ì ˆ <ìš”ì²­ìžì´ë¦„>
 
-#define	GCMD_SLOGAN				0x00e		//±æµå½½·Î°Ç /clan slotan ½½·Î°Ç
+#define	GCMD_SLOGAN				0x00e		//ê¸¸ë“œìŠ¬ë¡œê±´ /clan slotan ìŠ¬ë¡œê±´
 
-#define	GCMD_MEMBER_JOBnLEV		0x00f		//ÀÚ½ÅÀÇ Á÷¾÷/·¹º§À» ´Ù¸¥ ¸â¹ö¿¡°Ô Åëº¸( ·Î±×ÀÎÈÄ/·¹º§¾÷ÈÄ/ÀüÁ÷ÈÄ¿¡ Àü¼Û )
+#define	GCMD_MEMBER_JOBnLEV		0x00f		//ìžì‹ ì˜ ì§ì—…/ë ˆë²¨ì„ ë‹¤ë¥¸ ë©¤ë²„ì—ê²Œ í†µë³´( ë¡œê·¸ì¸í›„/ë ˆë²¨ì—…í›„/ì „ì§í›„ì— ì „ì†¡ )
 
-//-- ¼­¹ö Àü¿ë Å¸ÀÔ...
+//-- ì„œë²„ ì „ìš© íƒ€ìž…...
 #define	GCMD_LOGIN				0x0f0
 #define	GCMD_LOGOUT				0x0f1
 #define	GCMD_CHAT				0x0f2
@@ -2157,19 +2109,19 @@ struct wsv_CLAN_MEMBER_JOBnLEV : public t_PACKETHEADER {
 //struct tag_CLAN_INFO {
 //	int16_t		m_nClanLEVEL;
 //	int32_t			m_iClanSCORE;
-//	int32_t			m_iClanRATE;	// Ã¢°íÈ¿À²
+//	int32_t			m_iClanRATE;	// ì°½ê³ íš¨ìœ¨
 //	int64_t		m_biClanMONEY;
-//	char szName[];				ÀÌ¸§
-//	char szDesc[];				½½·Î°Ç ¾øÀ¸¸é NULL
-//	char szAlliedGroup[]		µ¿¸Í ÀÌ¸§ ¾øÀ¸¸é NULL
+//	char szName[];				ì´ë¦„
+//	char szDesc[];				ìŠ¬ë¡œê±´ ì—†ìœ¼ë©´ NULL
+//	char szAlliedGroup[]		ë™ë§¹ ì´ë¦„ ì—†ìœ¼ë©´ NULL
 //} ;
 
 #define	MAX_CLAN_SKILL_SLOT		20
 #ifdef	MAX_CLAN_SKILL_SLOT
 struct tagClanSKILL {
   int16_t  m_nSkillIDX;
-  uint32_t m_dwExpiredAbsSEC; // »ç¿ë ¸¸·á ½Ã°£
-  //	int16_t	m_nCount;			// »ç¿ë °¡´É È½¼ö -> ´©°¡ »ç¿ë°¡´ÉÇÑ È½¼ö?? ¸¶½ºÅÍ¸¸??
+  uint32_t m_dwExpiredAbsSEC; // ì‚¬ìš© ë§Œë£Œ ì‹œê°„
+  //	int16_t	m_nCount;			// ì‚¬ìš© ê°€ëŠ¥ íšŸìˆ˜ -> ëˆ„ê°€ ì‚¬ìš©ê°€ëŠ¥í•œ íšŸìˆ˜?? ë§ˆìŠ¤í„°ë§Œ??
 };
 
 struct tagClanBIN {
@@ -2182,13 +2134,13 @@ struct tagClanBIN {
 #endif
 
 struct tag_MY_CLAN : public tag_CLAN_ID {
-  int32_t m_iClanSCORE; // Å¬·£ Æ÷ÀÎÆ®
-  int32_t m_iClanRATE;  // Ã¢°íÈ¿À²
+  int32_t m_iClanSCORE; // í´ëžœ í¬ì¸íŠ¸
+  int32_t m_iClanRATE;  // ì°½ê³ íš¨ìœ¨
   int64_t m_biClanMONEY;
-  int16_t m_nMemberCNT; // ¸â¹ö ¼ö
-  int32_t m_iClanCONT;  // Å¬·£ ±â¿©µµ
+  int16_t m_nMemberCNT; // ë©¤ë²„ ìˆ˜
+  int32_t m_iClanCONT;  // í´ëžœ ê¸°ì—¬ë„
 #ifdef	MAX_CLAN_SKILL_SLOT
-  tagClanBIN m_ClanBIN; // Å¬·£ ¹ÙÀÌ³Ê¸® µ¥ÀÌÅ¸..
+  tagClanBIN m_ClanBIN; // í´ëžœ ë°”ì´ë„ˆë¦¬ ë°ì´íƒ€..
 #endif
   // char m_szClanName[];
   // char m_szClanDESC[];
@@ -2197,7 +2149,7 @@ struct tag_MY_CLAN : public tag_CLAN_ID {
 
 struct tag_CLAN_MEMBER {
   uint8_t m_btClanPOS;
-  uint8_t m_btChannelNO; // °ªÀÌ 0xffÀÌ¸é Á¢¼ÓÇÏÁö ¾Ê´Â À¯Àú´Ù...
+  uint8_t m_btChannelNO; // ê°’ì´ 0xffì´ë©´ ì ‘ì†í•˜ì§€ ì•ŠëŠ” ìœ ì €ë‹¤...
   int32_t m_iClanCONTRIBUTE;
   int16_t m_nLEVEL;
   int16_t m_nJOB;
@@ -2215,28 +2167,28 @@ struct wsv_CLAN_COMMAND : public t_PACKETHEADER {
   */
 
   /*
-  // m_btRESULT == RESULT_CLAN_INFO ÀÏ°æ¿ì
+  // m_btRESULT == RESULT_CLAN_INFO ì¼ê²½ìš°
   struct tag_CLAN_INFO
   */
   /*
-  // m_btRESULT == RESULT_CLAN_ROSTER ÀÏ°æ¿ì
+  // m_btRESULT == RESULT_CLAN_ROSTER ì¼ê²½ìš°
   tag_CLAN_MEMBER	m_Members[ x ];
   */
   /*
-  // m_btRESULT == RESULT_CLAN_KICK, RESULT_CLAN_POSITION ÀÏ°æ¿ì
+  // m_btRESULT == RESULT_CLAN_KICK, RESULT_CLAN_POSITION ì¼ê²½ìš°
   strujct {
-    char *m_szMember;	Å»ÅðÀÚ
-    char *m_szMaster;	Å»Åð½ÃÅ²ÀÚ == NULLÀÏ°æ¿ì ½º½º·Î ³ª°£°Í
+    char *m_szMember;	íƒˆí‡´ìž
+    char *m_szMaster;	íƒˆí‡´ì‹œí‚¨ìž == NULLì¼ê²½ìš° ìŠ¤ìŠ¤ë¡œ ë‚˜ê°„ê²ƒ
   */
   /*
   // m_btRESULT == RESULT_CLAN_JOINED
   struct {
-    char *m_szMember;	½Å±Ô °¡ÀÔÀÚ
-    char *m_szMaster;	°¡ÀÔ½ÃÅ²ÀÚ
+    char *m_szMember;	ì‹ ê·œ ê°€ìž…ìž
+    char *m_szMaster;	ê°€ìž…ì‹œí‚¨ìž
   } ;
   */
   /*
-  // m_btRESULT == RESULT_CLAN_SET :: ÁÖº¯ »ç¿ëÀÚÀÇ Å¬·£ Á¤º¸ ¼³Á¤
+  // m_btRESULT == RESULT_CLAN_SET :: ì£¼ë³€ ì‚¬ìš©ìžì˜ í´ëžœ ì •ë³´ ì„¤ì •
   struct {
     uint16_t		m_wObjIDX;
     tag_CLAN_ID	;
@@ -2250,63 +2202,63 @@ struct wsv_RESULT_CLAN_SET : public t_PACKETHEADER {
   tag_CLAN_ID m_ClanID;
 };
 
-#define	RESULT_CLAN_CREATE_OK			0x030		// ³»°¡ Ã¢¼³ Çß´Ù.
-#define RESULT_CLAN_JOIN_OK				0x031		// ³»°¡ ½Å±Ô °¡ÀÔµÆ´Ù
+#define	RESULT_CLAN_CREATE_OK			0x030		// ë‚´ê°€ ì°½ì„¤ í–ˆë‹¤.
+#define RESULT_CLAN_JOIN_OK				0x031		// ë‚´ê°€ ì‹ ê·œ ê°€ìž…ëë‹¤
 #define	RESULT_CLAN_DESTROY_OK			0x032
-#define RESULT_CLAN_MY_DATA				0x033		// ÀÌ¹Ì °¡ÀÔµÈ Å¬·£ÀÌ ÀÖ´Â »óÅÂ¿¡¼­ ³ªÀÇ Å¬·£ Á¤º¸
-#define	RESULT_CLAN_MOTD				0x034		// Å¬·£ °øÁö ¹Ù²î¾ú´Ù.
-#define	RESULT_CLAN_SET					0x035		// ÁÖº¯ »ç¿ëÀÚÀÇ Å¬·£ Á¤º¸ ¼³Á¤
-#define	RESULT_CLAN_SLOGAN				0x036		// Å¬·£ ½½·Î°Ç ¹Ù²î¾ú´Ù
+#define RESULT_CLAN_MY_DATA				0x033		// ì´ë¯¸ ê°€ìž…ëœ í´ëžœì´ ìžˆëŠ” ìƒíƒœì—ì„œ ë‚˜ì˜ í´ëžœ ì •ë³´
+#define	RESULT_CLAN_MOTD				0x034		// í´ëžœ ê³µì§€ ë°”ë€Œì—ˆë‹¤.
+#define	RESULT_CLAN_SET					0x035		// ì£¼ë³€ ì‚¬ìš©ìžì˜ í´ëžœ ì •ë³´ ì„¤ì •
+#define	RESULT_CLAN_SLOGAN				0x036		// í´ëžœ ìŠ¬ë¡œê±´ ë°”ë€Œì—ˆë‹¤
 
 #define	RESULT_CLAN_CREATE_FAILED		0x041
 #define	RESULT_CLAN_CREATE_DUP_NAME		0x042
-#define	RESULT_CLAN_CREATE_NO_RIGHT		0x043		// Ã¢¼³ ±ÇÇÑ ¾ø´Ù.
-#define	RESULT_CLAN_CREATE_NO_CONDITION	0x044		// Ã¢¼³ Á¶°Ç ¾È¸Â´Â´Ù.
+#define	RESULT_CLAN_CREATE_NO_RIGHT		0x043		// ì°½ì„¤ ê¶Œí•œ ì—†ë‹¤.
+#define	RESULT_CLAN_CREATE_NO_CONDITION	0x044		// ì°½ì„¤ ì¡°ê±´ ì•ˆë§žëŠ”ë‹¤.
 
-#define	RESULT_CLAN_DESTROYED			0x051		// Å¬·£ »Ç°³ Á³´Ù..
+#define	RESULT_CLAN_DESTROYED			0x051		// í´ëžœ ë½€ê°œ ì¡Œë‹¤..
 #define	RESULT_CLAN_DESTROY_FAILED		0x052
-#define	RESULT_CLAN_DESTROY_NO_RIGHT	0x053		// »Ç°¶ ±ÇÇÑ ¾ø´Ù.
+#define	RESULT_CLAN_DESTROY_NO_RIGHT	0x053		// ë½€ê°¤ ê¶Œí•œ ì—†ë‹¤.
 
-#define	RESULT_CLAN_JOIN_MEMBER			0x061		// ½Å±Ô °¡ÀÔÇß´Ù :: Àü Å¬·£¿ø ÇÑÅ× Àü¼Û..
+#define	RESULT_CLAN_JOIN_MEMBER			0x061		// ì‹ ê·œ ê°€ìž…í–ˆë‹¤ :: ì „ í´ëžœì› í•œí…Œ ì „ì†¡..
 #define	RESULT_CLAN_JOIN_FAILED			0x062
-#define	RESULT_CLAN_JOIN_NO_RIGHT		0x063		// °¡ÀÔ ½ÃÅ³ ±ÇÇÑÀÌ ¾ø´Ù.
-#define	RESULT_CLAN_JOIN_HAS_CLAN		0x064		// ´Ù¸¥ ±æµå¿¡ °¡ÀÔÇØ ÀÖ´Ù.
-#define	RESULT_CLAN_JOIN_MEMBER_FULL	0x065		// ¸â¹ö ²ËÃ¡´Ù.
+#define	RESULT_CLAN_JOIN_NO_RIGHT		0x063		// ê°€ìž… ì‹œí‚¬ ê¶Œí•œì´ ì—†ë‹¤.
+#define	RESULT_CLAN_JOIN_HAS_CLAN		0x064		// ë‹¤ë¥¸ ê¸¸ë“œì— ê°€ìž…í•´ ìžˆë‹¤.
+#define	RESULT_CLAN_JOIN_MEMBER_FULL	0x065		// ë©¤ë²„ ê½‰ì°¼ë‹¤.
 
-#define	RESULT_CLAN_INFO				0x071		// Å¬·£ Á¤º¸
-#define	RESULT_CLAN_ROSTER				0x072		// Å¬·£ ¸®½ºÆ®
+#define	RESULT_CLAN_INFO				0x071		// í´ëžœ ì •ë³´
+#define	RESULT_CLAN_ROSTER				0x072		// í´ëžœ ë¦¬ìŠ¤íŠ¸
 
-#define	RESULT_CLAN_MEMBER_LOGIN		0x073		// ÀüÃ¼¿¡°Ô º¸³»Áö´Â ¸â¹ö ·Î±×ÀÎ
-#define	RESULT_CLAN_MEMBER_LOGOUT		0x074		// ÀüÃ¼¿¡°Ô º¸³»Áö´Â ¸â¹ö ·Î±×¾Æ¿ô
-#define	RESULT_CLAN_MEMBER_POSITION		0x075		// ÀüÃ¼¿¡°Ô º¸³»Áö´Â ¸â¹ö Á÷À§Á¶Àý
+#define	RESULT_CLAN_MEMBER_LOGIN		0x073		// ì „ì²´ì—ê²Œ ë³´ë‚´ì§€ëŠ” ë©¤ë²„ ë¡œê·¸ì¸
+#define	RESULT_CLAN_MEMBER_LOGOUT		0x074		// ì „ì²´ì—ê²Œ ë³´ë‚´ì§€ëŠ” ë©¤ë²„ ë¡œê·¸ì•„ì›ƒ
+#define	RESULT_CLAN_MEMBER_POSITION		0x075		// ì „ì²´ì—ê²Œ ë³´ë‚´ì§€ëŠ” ë©¤ë²„ ì§ìœ„ì¡°ì ˆ
 
-#define	RESULT_CLAN_KICK				0x081		// Å¬·£¿¡¼­ Ãß¹æµÊ
-#define	RESULT_CLAN_QUIT				0x082		// ¼Ò¼Ó Å¬·£¿¡¼­ »èÁ¦µÊ( Å¬·£º¯¼ö ÃÊ±âÈ­ )
-#define	RESULT_CLAN_POSITION			0x083		// Å¬·£¿¡¼­ÀÇ µî±ÞÀÌ Á¶Á¤µÆ´Ù.
-#define	RESULT_CLAN_MEMBER_JOBnLEV		0x084		// ·Î±×ÀÎµÈ ¸â¹öÀÇ ·¹º§/Á÷¾÷
+#define	RESULT_CLAN_KICK				0x081		// í´ëžœì—ì„œ ì¶”ë°©ë¨
+#define	RESULT_CLAN_QUIT				0x082		// ì†Œì† í´ëžœì—ì„œ ì‚­ì œë¨( í´ëžœë³€ìˆ˜ ì´ˆê¸°í™” )
+#define	RESULT_CLAN_POSITION			0x083		// í´ëžœì—ì„œì˜ ë“±ê¸‰ì´ ì¡°ì •ëë‹¤.
+#define	RESULT_CLAN_MEMBER_JOBnLEV		0x084		// ë¡œê·¸ì¸ëœ ë©¤ë²„ì˜ ë ˆë²¨/ì§ì—…
 
-// m_dwClanIDÀÇ Å¬·£ ¸¶Å©¸¦ ¼­¹ö¿¡ ¿äÃ»
+// m_dwClanIDì˜ í´ëžœ ë§ˆí¬ë¥¼ ì„œë²„ì— ìš”ì²­
 struct cli_CLANMARK_REQ : public t_PACKETHEADER {
   uint32_t m_dwClanID;
 };
 
-// m_btMARKµ¥ÀÌÅ¸¸¦ ÀÚ½ÅÀÇ Å¬·£ ¸¶Å©·Î ¼³Á¤
+// m_btMARKë°ì´íƒ€ë¥¼ ìžì‹ ì˜ í´ëžœ ë§ˆí¬ë¡œ ì„¤ì •
 struct cli_CLANMARK_SET : public t_PACKETHEADER {
   uint16_t m_wMarkCRC16;
   //	uint8_t	m_btMARK[ 0 ];
 };
 
-// m_dwClanIDÅ¬·£ÀÇ Å¬·£¸¶Å© µ¥ÀÌÅ¸
-#define	RESULT_CLANMARK_TOO_MANY_UPDATE		0x0001	// ¸¶Å© °»½ÅÀº ÀÏÁ¤½Ã°£ ÈÄ¿¡ ÇØ¾ß ÇÑ´Ù...
-#define	RESULT_CLANMARK_DB_ERROR			0x0002	// µðºñ °»½Å ¿À·ù
-#define	RESULT_CLANMAKR_SP_ERROR			0x0003	// µðºñ SP ¿À·ù
+// m_dwClanIDí´ëžœì˜ í´ëžœë§ˆí¬ ë°ì´íƒ€
+#define	RESULT_CLANMARK_TOO_MANY_UPDATE		0x0001	// ë§ˆí¬ ê°±ì‹ ì€ ì¼ì •ì‹œê°„ í›„ì— í•´ì•¼ í•œë‹¤...
+#define	RESULT_CLANMARK_DB_ERROR			0x0002	// ë””ë¹„ ê°±ì‹  ì˜¤ë¥˜
+#define	RESULT_CLANMAKR_SP_ERROR			0x0003	// ë””ë¹„ SP ì˜¤ë¥˜
 
 struct wsv_CLANMARK_REPLY : public t_PACKETHEADER {
   uint32_t m_dwClanID;
 
   union {
     uint16_t m_wMarkCRC16;
-    uint16_t m_wFailedReason; // m_dwClanID == 0 ÀÏ°æ¿ì ½ÇÆÐ ¿øÀÎ µé¾î ÀÖÀ½.
+    uint16_t m_wFailedReason; // m_dwClanID == 0 ì¼ê²½ìš° ì‹¤íŒ¨ ì›ì¸ ë“¤ì–´ ìžˆìŒ.
   };
 
   //	uint8_t	m_btMARK[ 0 ];
@@ -2329,41 +2281,41 @@ struct gsv_CHEAT_CODE : public t_PACKETHEADER {
 };
 
 /*
-  ¾ÆÀÌÅÛ Á¦Á¶ °ü·Ã...
+  ì•„ì´í…œ ì œì¡° ê´€ë ¨...
 */
 #define	CREATE_ITEM_STEP	4
 
 struct cli_CREATE_ITEM_REQ : public t_PACKETHEADER {
-  uint8_t m_btSkillSLOT;                     // »ç¿ëÇÒ Á¦Á¶ ½ºÅ³
-  int8_t  m_cTargetItemTYPE;                 // Á¦Á¶ÇÒ ¾ÆÀÌÅÛ Å¸ÀÔ( t_eITEMÀÇ °ª )
-  int16_t m_nTargetItemNO;                   // Á¦Á¶ÇÒ ¾ÆÀÌÅÛ ¹øÈ£
-  int16_t m_nUseItemINV[ CREATE_ITEM_STEP ]; // Á¦Á¶½Ã ¼Ò¸ðÇÒ ¾ÆÀÌÅÛ ÀÎº¥Åä¸® ¹øÈ£
-  //	int16_t	m_nUseItemCNT[ CREATE_ITEM_STEP ];		// Á¦Á¶½Ã ¼Ò¸ðÇÒ ¾ÆÀÌÅÛ °¹¼ö
+  uint8_t m_btSkillSLOT;                     // ì‚¬ìš©í•  ì œì¡° ìŠ¤í‚¬
+  int8_t  m_cTargetItemTYPE;                 // ì œì¡°í•  ì•„ì´í…œ íƒ€ìž…( t_eITEMì˜ ê°’ )
+  int16_t m_nTargetItemNO;                   // ì œì¡°í•  ì•„ì´í…œ ë²ˆí˜¸
+  int16_t m_nUseItemINV[ CREATE_ITEM_STEP ]; // ì œì¡°ì‹œ ì†Œëª¨í•  ì•„ì´í…œ ì¸ë²¤í† ë¦¬ ë²ˆí˜¸
+  //	int16_t	m_nUseItemCNT[ CREATE_ITEM_STEP ];		// ì œì¡°ì‹œ ì†Œëª¨í•  ì•„ì´í…œ ê°¯ìˆ˜
 };
 
 struct gsv_CREATE_ITEM_REPLY : public t_PACKETHEADER {
-  uint8_t     m_btRESULT;                       // °á°ú...
-  int16_t     m_nStepORInvIDX;                  // Á¦Á¶ ½ÇÆÐ½Ã ½ÇÆÐµÈ ½ºÅÜ, ¼º°ø½Ã µé¾î°£ ÀÎº¥Åä¸®¹øÈ£
-  int16_t     m_nPRO_POINT[ CREATE_ITEM_STEP ]; // ÁøÇà Æ÷ÀÎÆ®
-  tagBaseITEM m_CreatedITEM;                    // Á¦Á¶ ¼º°ø½Ã Á¦Á¶µÈ ¾ÆÀÌÅÛ
+  uint8_t     m_btRESULT;                       // ê²°ê³¼...
+  int16_t     m_nStepORInvIDX;                  // ì œì¡° ì‹¤íŒ¨ì‹œ ì‹¤íŒ¨ëœ ìŠ¤í…, ì„±ê³µì‹œ ë“¤ì–´ê°„ ì¸ë²¤í† ë¦¬ë²ˆí˜¸
+  int16_t     m_nPRO_POINT[ CREATE_ITEM_STEP ]; // ì§„í–‰ í¬ì¸íŠ¸
+  tagBaseITEM m_CreatedITEM;                    // ì œì¡° ì„±ê³µì‹œ ì œì¡°ëœ ì•„ì´í…œ
 };
 
-#define	RESULT_CREATE_ITEM_SUCCESS				0x00	// ¼º°ø
-#define	RESULT_CREATE_ITEM_FAILED				0x01	// ½ÇÆÐ
-#define	RESULT_CREATE_ITEM_INVALID_CONDITION	0x02	// ¸¶³ª°¡ ºÎÁ·ÇÏ´Ù.
-#define	RESULT_CREATE_ITEM_NEED_ITEM			0x03	// ¼Ò¸ðµÉ ¾ÆÀÌÅÛÀÌ ºÎÁ·ÇÏ´Ù
-#define	RESULT_CREATE_ITEM_INVALID_ITEM			0x04	// ¼Ò¸ðµÉ ¾ÆÀÌÅÛÀÌ ºÎÀûÇÕÇÏ´Ù
-#define	RESULT_CREATE_ITEM_NEED_SKILL_LEV		0x05	// Á¦Á¶ ½ºÅ³ ·¹º§ÀÌ ºÎÁ·ÇÏ´Ù
+#define	RESULT_CREATE_ITEM_SUCCESS				0x00	// ì„±ê³µ
+#define	RESULT_CREATE_ITEM_FAILED				0x01	// ì‹¤íŒ¨
+#define	RESULT_CREATE_ITEM_INVALID_CONDITION	0x02	// ë§ˆë‚˜ê°€ ë¶€ì¡±í•˜ë‹¤.
+#define	RESULT_CREATE_ITEM_NEED_ITEM			0x03	// ì†Œëª¨ë  ì•„ì´í…œì´ ë¶€ì¡±í•˜ë‹¤
+#define	RESULT_CREATE_ITEM_INVALID_ITEM			0x04	// ì†Œëª¨ë  ì•„ì´í…œì´ ë¶€ì í•©í•˜ë‹¤
+#define	RESULT_CREATE_ITEM_NEED_SKILL_LEV		0x05	// ì œì¡° ìŠ¤í‚¬ ë ˆë²¨ì´ ë¶€ì¡±í•˜ë‹¤
 
 //struct cli_CREATE_ITEM_EXP_REQ : public t_PACKETHEADER {
 //} ;
 
-#define	REPORT_ITEM_CREATE_START				0x00	// ¾ÆÀÌÅÛ Á¦Á¶ ½ÃÀÛ
-#define	REPORT_ITEM_CREATE_SUCCESS				0x01	// ¾ÆÀÌÅÛ Á¦Á¶ ¼º°ø
-#define	REPORT_ITEM_CREATE_FAILED				0x02	// ¾ÆÀÌÅÛ Á¦Á¶ ½ÇÆÐ
-#define	REPORT_ITEM_UPGRADE_START				0x03	// ¾ÆÀÌÅÛ Á¦·Ã ½ÃÀÛ
-#define	REPORT_ITEM_UPGRADE_SUCCESS				0x04	// ¾ÆÀÌÅÛ Á¦·Ã ¼º°ø
-#define	REPORT_ITEM_UPGRADE_FAILED				0x05	// ¾ÆÀÌÅÛ Á¦·Ã ½ÇÆÐ
+#define	REPORT_ITEM_CREATE_START				0x00	// ì•„ì´í…œ ì œì¡° ì‹œìž‘
+#define	REPORT_ITEM_CREATE_SUCCESS				0x01	// ì•„ì´í…œ ì œì¡° ì„±ê³µ
+#define	REPORT_ITEM_CREATE_FAILED				0x02	// ì•„ì´í…œ ì œì¡° ì‹¤íŒ¨
+#define	REPORT_ITEM_UPGRADE_START				0x03	// ì•„ì´í…œ ì œë ¨ ì‹œìž‘
+#define	REPORT_ITEM_UPGRADE_SUCCESS				0x04	// ì•„ì´í…œ ì œë ¨ ì„±ê³µ
+#define	REPORT_ITEM_UPGRADE_FAILED				0x05	// ì•„ì´í…œ ì œë ¨ ì‹¤íŒ¨
 
 struct cli_ITEM_RESULT_REPORT : public t_PACKETHEADER {
   uint8_t m_btREPORT;
@@ -2379,58 +2331,58 @@ struct gsv_ITEM_RESULT_REPORT : public t_PACKETHEADER {
 };
 
 //---------------------------------------------------------
-#define	CRAFT_GEMMING_REQ			0x01			// Àç¹Ö
-#define CRAFT_BREAKUP_USE_SKILL		0x02			// ½ºÅ³·Î ºÐÇØ
-#define CRAFT_BREAKUP_FROM_NPC		0x03			// npc ÅëÇØ ºÐÇØ
-#define	CRAFT_UPGRADE_USE_SKILL		0x04			// ½ºÅ³·Î Àç·Ã
-#define	CRAFT_UPGRADE_FROM_NPC		0x05			// npc ÅëÇØ Àç·Ã
+#define	CRAFT_GEMMING_REQ			0x01			// ìž¬ë°
+#define CRAFT_BREAKUP_USE_SKILL		0x02			// ìŠ¤í‚¬ë¡œ ë¶„í•´
+#define CRAFT_BREAKUP_FROM_NPC		0x03			// npc í†µí•´ ë¶„í•´
+#define	CRAFT_UPGRADE_USE_SKILL		0x04			// ìŠ¤í‚¬ë¡œ ìž¬ë ¨
+#define	CRAFT_UPGRADE_FROM_NPC		0x05			// npc í†µí•´ ìž¬ë ¨
 
 struct cli_CRAFT_ITEM_REQ : public t_PACKETHEADER {
   uint8_t m_btTYPE;
 };
 
 struct cli_CRAFT_GEMMING_REQ : public cli_CRAFT_ITEM_REQ {
-  uint8_t m_btEquipInvIDX; // ÀåÂøµÈ ¹«±â ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
-  uint8_t m_btJemInvIDX;   // º¸¼® ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
+  uint8_t m_btEquipInvIDX; // ìž¥ì°©ëœ ë¬´ê¸° ì•„ì´í…œ ì¸ë²¤ ë²ˆí˜¸
+  uint8_t m_btJemInvIDX;   // ë³´ì„ ì•„ì´í…œ ì¸ë²¤ ë²ˆí˜¸
 };
 
 struct cli_CRAFT_BREAKUP_REQ : public cli_CRAFT_ITEM_REQ {
-  int16_t m_nSkillSLOTorNpcIDX; // »ç¿ë ½ºÅ³½½·Ô ¹øÈ£¶Ç´Â npc¹øÈ£
-  uint8_t m_btTargetInvIDX;     // ºÐ¸®ÇÒ ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
+  int16_t m_nSkillSLOTorNpcIDX; // ì‚¬ìš© ìŠ¤í‚¬ìŠ¬ë¡¯ ë²ˆí˜¸ë˜ëŠ” npcë²ˆí˜¸
+  uint8_t m_btTargetInvIDX;     // ë¶„ë¦¬í•  ì•„ì´í…œ ì¸ë²¤ ë²ˆí˜¸
 };
 
 #define	UPGRADE_ITEM_STEP		3
 
 struct cli_CRAFT_UPGRADE_REQ : public cli_CRAFT_ITEM_REQ {
-  int16_t m_nSkillSLOTorNpcIDX;                // »ç¿ë ½ºÅ³½½·Ô ¹øÈ£¶Ç´Â npc¹øÈ£
-  uint8_t m_btTargetInvIDX;                    // Àç·ÃÇÒ ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
-  uint8_t m_btUseItemINV[ UPGRADE_ITEM_STEP ]; // Àç·Ã½Ã ¼Ò¸ðÇÒ ¾ÆÀÌÅÛ ÀÎº¥Åä¸® ¹øÈ£
+  int16_t m_nSkillSLOTorNpcIDX;                // ì‚¬ìš© ìŠ¤í‚¬ìŠ¬ë¡¯ ë²ˆí˜¸ë˜ëŠ” npcë²ˆí˜¸
+  uint8_t m_btTargetInvIDX;                    // ìž¬ë ¨í•  ì•„ì´í…œ ì¸ë²¤ ë²ˆí˜¸
+  uint8_t m_btUseItemINV[ UPGRADE_ITEM_STEP ]; // ìž¬ë ¨ì‹œ ì†Œëª¨í•  ì•„ì´í…œ ì¸ë²¤í† ë¦¬ ë²ˆí˜¸
 };
 
 #define	CRAFT_GEMMING_SUCCESS		0x01
-#define	CRAFT_GEMMING_NEED_SOCKET	0x02	// ¼ÒÄÏ¾ø´Ù.
-#define	CRAFT_GEMMING_USED_SOCKET	0x03	// Àç¹ÖµÈ °æ¿ìµî....
+#define	CRAFT_GEMMING_NEED_SOCKET	0x02	// ì†Œì¼“ì—†ë‹¤.
+#define	CRAFT_GEMMING_USED_SOCKET	0x03	// ìž¬ë°ëœ ê²½ìš°ë“±....
 
-#define	CRAFT_BREAKUP_SUCCESS_GEM	0x04	// º¸¼® ºÐ¸® ¼º°ø
-#define	CRAFT_BREAKUP_DEGRADE_GEM	0x05	// º¸¼® ºÐ¸® ¼º°ø, º¸¼®µî±Þ °­µî
-#define	CRAFT_BREAKUP_CLEARED_GEM	0x06	// º¸¼® ºÐ¸® ¼º°ø, º¸¼® »èÁ¦µÊ
+#define	CRAFT_BREAKUP_SUCCESS_GEM	0x04	// ë³´ì„ ë¶„ë¦¬ ì„±ê³µ
+#define	CRAFT_BREAKUP_DEGRADE_GEM	0x05	// ë³´ì„ ë¶„ë¦¬ ì„±ê³µ, ë³´ì„ë“±ê¸‰ ê°•ë“±
+#define	CRAFT_BREAKUP_CLEARED_GEM	0x06	// ë³´ì„ ë¶„ë¦¬ ì„±ê³µ, ë³´ì„ ì‚­ì œë¨
 
-#define	CRAFT_BREAKUP_SUCCESS		0x07	// ¾ÆÀÌÅÛ ºÐÇØ ¼º°ø
+#define	CRAFT_BREAKUP_SUCCESS		0x07	// ì•„ì´í…œ ë¶„í•´ ì„±ê³µ
 
-#define	CRAFT_UPGRADE_SUCCESS		0x10	// Àç·Ã ¼º°ø
-#define	CRAFT_UPGRADE_FAILED		0x11	// Àç·Ã ½ÇÆÐ
-#define	CRAFT_UPGRADE_INVALID_MAT	0x12	// Àç·á ¾ÆÀÌÅÛÀÌ Àß¸øµÆ´Ù.
+#define	CRAFT_UPGRADE_SUCCESS		0x10	// ìž¬ë ¨ ì„±ê³µ
+#define	CRAFT_UPGRADE_FAILED		0x11	// ìž¬ë ¨ ì‹¤íŒ¨
+#define	CRAFT_UPGRADE_INVALID_MAT	0x12	// ìž¬ë£Œ ì•„ì´í…œì´ ìž˜ëª»ëë‹¤.
 
 struct gsv_CRAFT_ITEM_REPLY : public t_PACKETHEADER {
   uint8_t         m_btRESULT;
-  uint8_t         m_btOutCNT;      // º¯°æµÈ ¾ÆÀÌÅÛ °¹¼ö
-  tag_SET_INVITEM m_sInvITEM[ 0 ]; // º¯°æµÈ °¹¼ö ¸¸Å­ µé¾î ÀÖ´Ù... 
-  // ¿¹¿Ü) CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED ÀÏ°æ¿ì
-  // m_sInvITEM[ m_btOutCNT-1 ].m_iQuantity¿¡ ¼º°øµµ °è»êµÈ°ªÀÌ µé¾îÀÖÀ½
+  uint8_t         m_btOutCNT;      // ë³€ê²½ëœ ì•„ì´í…œ ê°¯ìˆ˜
+  tag_SET_INVITEM m_sInvITEM[ 0 ]; // ë³€ê²½ëœ ê°¯ìˆ˜ ë§Œí¼ ë“¤ì–´ ìžˆë‹¤... 
+  // ì˜ˆì™¸) CRAFT_UPGRADE_SUCCESS, CRAFT_UPGRADE_FAILED ì¼ê²½ìš°
+  // m_sInvITEM[ m_btOutCNT-1 ].m_iQuantityì— ì„±ê³µë„ ê³„ì‚°ëœê°’ì´ ë“¤ì–´ìžˆìŒ
 };
 
 /*
-///	Äù½ºÆ® °ü·Ã ...
+///	í€˜ìŠ¤íŠ¸ ê´€ë ¨ ...
 */
 struct cli_QUEST_REQ : public t_PACKETHEADER {
   uint8_t m_btTYPE;
@@ -2460,86 +2412,86 @@ struct gsv_QUEST_REPLY : public t_PACKETHEADER {
 #define	RESULT_QUEST_REPLY_ADD_FAILED			0x02
 #define	RESULT_QUEST_REPLY_DEL_SUCCESS			0x03
 #define	RESULT_QUEST_REPLY_DEL_FAILED			0x04
-#define	RESULT_QUEST_REPLY_TRIGGER_SUCCESS		0x05		// ÀÌ ÆÐÅ¶À» ¹ÞÀ¸¸é Å¬¶óÀÌ¾ðÆ®¿¡¼­µµ º¸»óÀ» Àû¿ëÇÑ´Ù.
+#define	RESULT_QUEST_REPLY_TRIGGER_SUCCESS		0x05		// ì´ íŒ¨í‚·ì„ ë°›ìœ¼ë©´ í´ë¼ì´ì–¸íŠ¸ì—ì„œë„ ë³´ìƒì„ ì ìš©í•œë‹¤.
 #define	RESULT_QUEST_REPLY_TRIGGER_FAILED		0x06
 
-// ¼­¹ö°¡ Å¬¶óÀÌ¾ðÆ®¿¡°Ô NPC°¡ °®°í ÀÖ´Â ÀÌº¥Æ®¸¦ Ã¼Å©ÇØ ºÁ¶ó....
+// ì„œë²„ê°€ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ NPCê°€ ê°–ê³  ìžˆëŠ” ì´ë²¤íŠ¸ë¥¼ ì²´í¬í•´ ë´ë¼....
 struct gsv_CHECK_NPC_EVENT : public t_PACKETHEADER {
   int16_t m_nNpcIDX;
 };
 
-//--------------------------- Messenger °ü·Ã ÆÐÅ¶
-// ÆÐÅ¶ Å¸ÀÔÀº CLI_MESSENGER, WSV_MESSENGER·Î ÅëÀÏ, ¼¼ºÎ Å¸ÀÔ m_btCMD¿¡ ÀÇÇØ ÆÐÅ¶ ±¸Á¶°¡ °áÁ¤µÊ.
-#define	FRIEND_STATUS_NORMAL		0x000		// ÀÏ¹Ý
-#define FRIEND_STATUS_HUNT			0x001		// »ç³ÉÁß
-#define	FRIEND_STATUS_STORE			0x002		// Àå»çÁß
-#define	FRIEND_STATUS_QUEST			0x003		// Äù½ºÆ®Áß
-#define	FRIEND_STATUS_EAT			0x004		// ½Ä»çÁß
-#define	FRIEND_STATUS_REST			0x005		// ÈÞ½ÄÁß
-#define	FRIEND_STATUS_ONLINE		0x007		// Á¢¼ÓµÊ		: Ä£±¸¸ñ·ÏÀÇ m_dwUserTAG°¡ Á¢¼ÓÇß´Ù.
-#define	FRIEND_STATUS_OFFLINE		0x008		// Á¢¼Ó²÷±è		: Ä£±¸¸ñ·ÏÀÇ m_dwUserTAG°¡ Á¢¼Ó²÷±è
-#define	FRIEND_STATUS_REFUSE_MSG	0x009		// ¸ðµç ¸Þ¼¼Áö °ÅºÎ
+//--------------------------- Messenger ê´€ë ¨ íŒ¨í‚·
+// íŒ¨í‚· íƒ€ìž…ì€ CLI_MESSENGER, WSV_MESSENGERë¡œ í†µì¼, ì„¸ë¶€ íƒ€ìž… m_btCMDì— ì˜í•´ íŒ¨í‚· êµ¬ì¡°ê°€ ê²°ì •ë¨.
+#define	FRIEND_STATUS_NORMAL		0x000		// ì¼ë°˜
+#define FRIEND_STATUS_HUNT			0x001		// ì‚¬ëƒ¥ì¤‘
+#define	FRIEND_STATUS_STORE			0x002		// ìž¥ì‚¬ì¤‘
+#define	FRIEND_STATUS_QUEST			0x003		// í€˜ìŠ¤íŠ¸ì¤‘
+#define	FRIEND_STATUS_EAT			0x004		// ì‹ì‚¬ì¤‘
+#define	FRIEND_STATUS_REST			0x005		// íœ´ì‹ì¤‘
+#define	FRIEND_STATUS_ONLINE		0x007		// ì ‘ì†ë¨		: ì¹œêµ¬ëª©ë¡ì˜ m_dwUserTAGê°€ ì ‘ì†í–ˆë‹¤.
+#define	FRIEND_STATUS_OFFLINE		0x008		// ì ‘ì†ëŠê¹€		: ì¹œêµ¬ëª©ë¡ì˜ m_dwUserTAGê°€ ì ‘ì†ëŠê¹€
+#define	FRIEND_STATUS_REFUSE_MSG	0x009		// ëª¨ë“  ë©”ì„¸ì§€ ê±°ë¶€
 
-#define	FRIEND_STATUS_REFUSED		0x080		// ³» ´ëÈ­¸¦ Â÷´ÜÇß´Ù
-#define	FRIEND_STATUS_DELETED		0x081		// ³ª¸¦ Ä£±¸¸ñ·Ï¿¡¼­ »èÁ¦Çß´Ù
+#define	FRIEND_STATUS_REFUSED		0x080		// ë‚´ ëŒ€í™”ë¥¼ ì°¨ë‹¨í–ˆë‹¤
+#define	FRIEND_STATUS_DELETED		0x081		// ë‚˜ë¥¼ ì¹œêµ¬ëª©ë¡ì—ì„œ ì‚­ì œí–ˆë‹¤
 
-#define	MSGR_CMD_APPEND_REQ			0x001		// Ä£±¸ Ãß°¡ ¿äÃ»	: ´ë»óÀº ¹Ýµå½Ã Á¢¼ÓÇØ ÀÖ¾î¾ß ÇÔ
-#define MSGR_CMD_APPEND_ACCEPT		0x002		// Ä£±¸ Ãß°¡ ¿äÃ» ½Â³«
-#define	MSGR_CMD_APPEND_REJECT		0x003		// Ä£±¸ Ãß°¡ ¿äÃ» °ÅÀý
-#define	MSGR_CMD_NOT_FOUND			0x004		// Ä£±¸ Ãß°¡ ½ÇÆÐ(´ë»óÀÌ Á¢¼ÓÀÌ ²÷±ä°æ¿ìµî...)
-#define	MSGR_CMD_DELETE				0x005		// Ä£±¸ »èÁ¦		: ¸ñ·ÏÁß¿¡¼­ m_dwUserTAG¸¦ »èÁ¦..
-#define	MSGR_CMD_LIST				0x006		// Ä£±¸ ¸®½ºÆ®	: Ä£±¸¸ñ·Ï ¿ä±¸
-#define	MSGR_CMD_REFUSE				0x007		// ¸Þ½ÃÁö Â÷´Ü	: ¸ñ·ÏÁß¿¡¼­ m_dwUserTAGÀÇ ¸Þ¼¼Áö °ÅºÎ
-#define	MSGR_CMD_CHANGE_STATUS		0x008		// »óÅÂ º¯°æ
+#define	MSGR_CMD_APPEND_REQ			0x001		// ì¹œêµ¬ ì¶”ê°€ ìš”ì²­	: ëŒ€ìƒì€ ë°˜ë“œì‹œ ì ‘ì†í•´ ìžˆì–´ì•¼ í•¨
+#define MSGR_CMD_APPEND_ACCEPT		0x002		// ì¹œêµ¬ ì¶”ê°€ ìš”ì²­ ìŠ¹ë‚™
+#define	MSGR_CMD_APPEND_REJECT		0x003		// ì¹œêµ¬ ì¶”ê°€ ìš”ì²­ ê±°ì ˆ
+#define	MSGR_CMD_NOT_FOUND			0x004		// ì¹œêµ¬ ì¶”ê°€ ì‹¤íŒ¨(ëŒ€ìƒì´ ì ‘ì†ì´ ëŠê¸´ê²½ìš°ë“±...)
+#define	MSGR_CMD_DELETE				0x005		// ì¹œêµ¬ ì‚­ì œ		: ëª©ë¡ì¤‘ì—ì„œ m_dwUserTAGë¥¼ ì‚­ì œ..
+#define	MSGR_CMD_LIST				0x006		// ì¹œêµ¬ ë¦¬ìŠ¤íŠ¸	: ì¹œêµ¬ëª©ë¡ ìš”êµ¬
+#define	MSGR_CMD_REFUSE				0x007		// ë©”ì‹œì§€ ì°¨ë‹¨	: ëª©ë¡ì¤‘ì—ì„œ m_dwUserTAGì˜ ë©”ì„¸ì§€ ê±°ë¶€
+#define	MSGR_CMD_CHANGE_STATUS		0x008		// ìƒíƒœ ë³€ê²½
 
-#define	MSGR_CMD_LOGIN				0x080		// ¼­¹ö¿¡¼­¸¸ »ç¿ë
-#define	MSGR_CMD_LOGOUT				0x081		// ¼­¹ö¿¡¼­¸¸ »ç¿ë
+#define	MSGR_CMD_LOGIN				0x080		// ì„œë²„ì—ì„œë§Œ ì‚¬ìš©
+#define	MSGR_CMD_LOGOUT				0x081		// ì„œë²„ì—ì„œë§Œ ì‚¬ìš©
 
 struct tag_MCMD_HEADER : public t_PACKETHEADER {
   uint8_t m_btCMD;
 };
 
 struct cli_MCMD_APPEND_REQ : public tag_MCMD_HEADER {
-  // Ä£±¸ Ãß°¡ ¿äÃ»ÇÒ¶§
+  // ì¹œêµ¬ ì¶”ê°€ ìš”ì²­í• ë•Œ
   char m_szName[0];
 };
 
 struct cli_MCMD_APPEND_REPLY : public tag_MCMD_HEADER {
-  // Ä£±¸ Ãß°¡ ¿äÃ»¿¡ ´ëÇÑ ÀÀ´ä
+  // ì¹œêµ¬ ì¶”ê°€ ìš”ì²­ì— ëŒ€í•œ ì‘ë‹µ
   uint16_t m_wUserIDX;
 };
 
 struct cli_MCMD_TAG : public tag_MCMD_HEADER {
-  // »èÁ¦, Â÷´Ü ¿äÃ»
+  // ì‚­ì œ, ì°¨ë‹¨ ìš”ì²­
   uint32_t m_dwUserTAG;
 };
 
 struct cli_MCMD_STATUS_REQ : public tag_MCMD_HEADER {
-  // ³» »óÅÂ º¯°æ ¿äÃ»
+  // ë‚´ ìƒíƒœ ë³€ê²½ ìš”ì²­
   uint8_t m_btStatus;
 };
 
 struct wsv_MCMD_APPEND_REQ : public tag_MCMD_HEADER {
-  // Ä£±¸ Ãß°¡ ¿äÃ»¹Þ¾ÒÀ»¶§
+  // ì¹œêµ¬ ì¶”ê°€ ìš”ì²­ë°›ì•˜ì„ë•Œ
   uint16_t m_wUserIDX;
   char     m_szName[0];
 };
 
 struct wsv_MCMD_APPEND_ACCEPT : public tag_MCMD_HEADER {
-  // Ä£±¸ Ãß°¡ ½Â³«ÀÏ°æ¿ì ¸®½ºÆ®¿¡ Ãß°¡ÇÔ
+  // ì¹œêµ¬ ì¶”ê°€ ìŠ¹ë‚™ì¼ê²½ìš° ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•¨
   uint32_t m_dwUserTAG;
   uint8_t  m_btStatus;
   char     m_szName[0];
 };
 
 struct wsv_MCMD_STATUS_REPLY : public tag_MCMD_HEADER {
-  // ¼­¹ö¿¡¼­ÀÇ ÀÀ´ä:: m_dwUserTAG»óÅÂ º¯°æ Åëº¸
+  // ì„œë²„ì—ì„œì˜ ì‘ë‹µ:: m_dwUserTAGìƒíƒœ ë³€ê²½ í†µë³´
   uint32_t m_dwUserTAG;
   uint8_t  m_btStatus;
 };
 
 struct wsv_MCMD_LIST : public tag_MCMD_HEADER {
-  // Ä£±¸ ¸ñ·Ï
+  // ì¹œêµ¬ ëª©ë¡
   uint8_t m_btFriendCNT;
   /*
   {
@@ -2559,7 +2511,7 @@ struct wsv_MESSENGER_CHAT : public t_PACKETHEADER {
   char     m_szMSG[0];
 };
 
-//--------------------------- Chatting room °ü·Ã ÆÐÅ¶
+//--------------------------- Chatting room ê´€ë ¨ íŒ¨í‚·
 #define	CHAT_REQ_ROOM_LIST		0x001
 #define	CHAT_REQ_MAKE			0x002
 #define	CHAT_REQ_JOIN			0x003
@@ -2574,7 +2526,7 @@ struct tag_CHAT_HEADER : public t_PACKETHEADER {
 
 struct cli_CHAT_ROOM_MAKE : public tag_CHAT_HEADER {
   uint8_t m_btRoomTYPE;
-  uint8_t m_btMaxUSER; // ÃÖ´ë ¼ö¿ëÀÎ¿ø
+  uint8_t m_btMaxUSER; // ìµœëŒ€ ìˆ˜ìš©ì¸ì›
   // szTitle[]
   // szPassword[]
 };
@@ -2608,8 +2560,8 @@ struct wsv_CHAT_ROOM_USER : public tag_CHAT_HEADER {
 
 /*
 struct wsv_CHAT_ROOM_JOIN : public tag_CHAT_HEADER {
-  uint16_t	m_wUserID;	// ÀÚ½Å
-  szRoomName[]		// ¹æÀÌ¸§
+  uint16_t	m_wUserID;	// ìžì‹ 
+  szRoomName[]		// ë°©ì´ë¦„
   {
     uint16_t	m_wUserID;
     szUserName[];
@@ -2621,17 +2573,17 @@ struct wsv_CHAT_ROOM_LIST : public tag_CHAT_HEADER {
   // tag_CHAT_ROOM[]
 };
 
-#define	CHAT_REPLY_ROOM_MAKED		0x001	// ¸¸µé±â ¼º°ø			m_wUserID(ÀÚ½Å)
+#define	CHAT_REPLY_ROOM_MAKED		0x001	// ë§Œë“¤ê¸° ì„±ê³µ			m_wUserID(ìžì‹ )
 #define	CHAT_REPLY_MAKE_FAILED		0x002
 
-#define	CHAT_REPLY_ROOM_JOINED		0x010	// Âü°¡ ¼º°ø			wsv_CHAT_ROOM_JOIN[]
-#define	CHAT_REPLY_FULL_USERS		0x011	// ÀÎ¿ø ¸¸¶¥
-#define	CHAT_REPLY_INVALIED_PASS	0x012	// ºñ¹ø Æ²¸²
-#define CHAT_REPLY_ROOM_NOT_FOUND	0x013	// ¹æ ¾ø¾î Á³´Ù
-#define CHAT_REPLY_USER_ADD			0x014	// »ç¿ëÀÚ Ãß°¡			m_wUserID, szName[]
-#define	CHAT_REPLY_KICKED			0x015	// Ãß¹æ ´çÇß´Ù			m_wUserID
-#define CHAT_REPLY_USER_LEFT		0x016	// ¹æ¿¡¼­ ³ª°¬´Ù.		m_wUserID
-#define	CHAT_REPLY_USER_LEFT_NAME	0x017	// ¹æ¿¡¼­ ³ª°¬´Ù.		»ç¿ëÀÚ ÀÌ¸§À¸·Î Å»Åð...
+#define	CHAT_REPLY_ROOM_JOINED		0x010	// ì°¸ê°€ ì„±ê³µ			wsv_CHAT_ROOM_JOIN[]
+#define	CHAT_REPLY_FULL_USERS		0x011	// ì¸ì› ë§Œë•…
+#define	CHAT_REPLY_INVALIED_PASS	0x012	// ë¹„ë²ˆ í‹€ë¦¼
+#define CHAT_REPLY_ROOM_NOT_FOUND	0x013	// ë°© ì—†ì–´ ì¡Œë‹¤
+#define CHAT_REPLY_USER_ADD			0x014	// ì‚¬ìš©ìž ì¶”ê°€			m_wUserID, szName[]
+#define	CHAT_REPLY_KICKED			0x015	// ì¶”ë°© ë‹¹í–ˆë‹¤			m_wUserID
+#define CHAT_REPLY_USER_LEFT		0x016	// ë°©ì—ì„œ ë‚˜ê°”ë‹¤.		m_wUserID
+#define	CHAT_REPLY_USER_LEFT_NAME	0x017	// ë°©ì—ì„œ ë‚˜ê°”ë‹¤.		ì‚¬ìš©ìž ì´ë¦„ìœ¼ë¡œ íƒˆí‡´...
 
 #define	CHAT_REPLY_ROOM_LIST		0x020
 #define	CHAT_REPLY_ROOM_LIST_END	0x021
@@ -2645,58 +2597,58 @@ struct wsv_CHATROOM_MSG : public t_PACKETHEADER {
   char     m_szMSG[0];
 };
 
-//--------------------------- ÂÊÁö °ü·Ã ÆÐÅ¶
-#define	MEMO_REQ_CONTENTS			0x001	// ¼ö½ÅµÈ ÀüÃ¼ ÂÊÁö ³»¿ë ¿ä±¸
-#define MEMO_REQ_SEND				0x002	// ÂÊÁö Àü¼Û ¿ä±¸
-#define MEMO_REQ_RECEIVED_CNT		0x003	// º¸°üµÈ ÂÊÁö °¹¼ö ¿ä±¸
+//--------------------------- ìª½ì§€ ê´€ë ¨ íŒ¨í‚·
+#define	MEMO_REQ_CONTENTS			0x001	// ìˆ˜ì‹ ëœ ì „ì²´ ìª½ì§€ ë‚´ìš© ìš”êµ¬
+#define MEMO_REQ_SEND				0x002	// ìª½ì§€ ì „ì†¡ ìš”êµ¬
+#define MEMO_REQ_RECEIVED_CNT		0x003	// ë³´ê´€ëœ ìª½ì§€ ê°¯ìˆ˜ ìš”êµ¬
 
 struct cli_MEMO : public t_PACKETHEADER {
   uint8_t m_btTYPE;
   /*
   struct tagReqMemoSend {
     // szTargetCHAR[]
-    // szMemoContent[]			// 255ÀÚ ¹Ì¸¸
+    // szMemoContent[]			// 255ìž ë¯¸ë§Œ
   } ;
   */
 };
 
-#define	MEMO_REPLY_RECEIVED_CNT			0x001	// º¸°üµÈ ÂÊÁö °¹¼ö
-#define	MEMO_REPLY_CONTENTS				0x002	// ÂÊÁö ³»¿ëµé...
-#define	MEMO_REPLY_SEND_OK				0x003	// Àü¼Û ¼º°ø
-#define	MEMO_REPLY_SEND_INVALID_TARGET	0x004	// ´ë»ó ¿À·ù, º¸³»±â ½ÇÆÐ
-#define	MEMO_REPLY_SEND_NOT_EXIST		0x005	// ´ë»óÀÌ Á¸Á¦ÇÏÁö ¾Ê´Â´Ù.
-#define	MEMO_REPLY_SEND_REFUSED			0x006	// ÂÊÁö ¼ö½Å °ÅºÎ »óÅÂ·Î º¸³»±â ½ÇÆÐ
-#define MEMO_REPLY_SEND_FULL_MEMO		0x007	// »ó´ë¹æ ¼ö½ÅÇÔÀÌ ²ËÂ÷¼­ º¸³»±â ½ÇÆÐ
-#define MEMO_REPLY_SEND_INVALID_CONTENT	0x008	// ³»¿ë¿À·ù
+#define	MEMO_REPLY_RECEIVED_CNT			0x001	// ë³´ê´€ëœ ìª½ì§€ ê°¯ìˆ˜
+#define	MEMO_REPLY_CONTENTS				0x002	// ìª½ì§€ ë‚´ìš©ë“¤...
+#define	MEMO_REPLY_SEND_OK				0x003	// ì „ì†¡ ì„±ê³µ
+#define	MEMO_REPLY_SEND_INVALID_TARGET	0x004	// ëŒ€ìƒ ì˜¤ë¥˜, ë³´ë‚´ê¸° ì‹¤íŒ¨
+#define	MEMO_REPLY_SEND_NOT_EXIST		0x005	// ëŒ€ìƒì´ ì¡´ì œí•˜ì§€ ì•ŠëŠ”ë‹¤.
+#define	MEMO_REPLY_SEND_REFUSED			0x006	// ìª½ì§€ ìˆ˜ì‹  ê±°ë¶€ ìƒíƒœë¡œ ë³´ë‚´ê¸° ì‹¤íŒ¨
+#define MEMO_REPLY_SEND_FULL_MEMO		0x007	// ìƒëŒ€ë°© ìˆ˜ì‹ í•¨ì´ ê½‰ì°¨ì„œ ë³´ë‚´ê¸° ì‹¤íŒ¨
+#define MEMO_REPLY_SEND_INVALID_CONTENT	0x008	// ë‚´ìš©ì˜¤ë¥˜
 
 struct wsv_MEMO : public t_PACKETHEADER {
   uint8_t m_btTYPE;
-  int16_t m_nRecvCNT[0]; //  m_btTYPE == MEMO_REPLY_RECEIVED_CNT ÀÏ°æ¿ì ¹ÞÀº ÂÊÁö °¹¼ö
+  int16_t m_nRecvCNT[0]; //  m_btTYPE == MEMO_REPLY_RECEIVED_CNT ì¼ê²½ìš° ë°›ì€ ìª½ì§€ ê°¯ìˆ˜
   /*
   struct tagReplyMemoCONTENTS {
-    // uint32_t dwReceivedDATE			// classTIME::GetCurrentAbsSecond()ÇÔ¼ö·Î ¾ò¾îÁø ½Ã°£ÀÓ.
-    // szFrom[]						// º¸³½ÀÌ
-    // szMemo[]						// ³»¿ë
+    // uint32_t dwReceivedDATE			// classTIME::GetCurrentAbsSecond()í•¨ìˆ˜ë¡œ ì–»ì–´ì§„ ì‹œê°„ìž„.
+    // szFrom[]						// ë³´ë‚¸ì´
+    // szMemo[]						// ë‚´ìš©
   } ;
   */
 };
 
-#define	REQ_MALL_ITEM_LIST					0x01	// ¸®½ºÆ® ¿äÃ»
-#define	REQ_MALL_ITEM_FIND_CHAR				0x02	// ÄÉ¸¯ ÀÌ¸§ Ã¼Å©
-#define	REQ_MALL_ITEM_BRING					0x03	// ²¨³»¿À±â
-#define	REQ_MALL_ITEM_GIVE					0x04	// ¼±¹°ÇÏ±â
+#define	REQ_MALL_ITEM_LIST					0x01	// ë¦¬ìŠ¤íŠ¸ ìš”ì²­
+#define	REQ_MALL_ITEM_FIND_CHAR				0x02	// ì¼€ë¦­ ì´ë¦„ ì²´í¬
+#define	REQ_MALL_ITEM_BRING					0x03	// êº¼ë‚´ì˜¤ê¸°
+#define	REQ_MALL_ITEM_GIVE					0x04	// ì„ ë¬¼í•˜ê¸°
 
 struct cli_MALL_ITEM_REQ : public t_PACKETHEADER {
   uint8_t m_btReqTYPE;
-  int16_t m_nDupCnt;     // REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE½Ã¿¡ °¹¼ö..
-  uint8_t m_btInvIDX[0]; // REQ_MALL_ITEM_GIVEÀÏ°æ¿ì 0~39 »çÀÌÀÇ ÀÎº¥Åä¸® ¹øÈ£
-  // char m_szCharName[]							// REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE ¿äÃ»½Ã
-  // char m_szDesc[]								// REQ_MALL_ITEM_GIVE ¿äÃ»½Ã µ¡ºÙÀÏ¸»(¼±¹°ÇÒ¶§ ¸Þ¼¼Áö)::ÃÖ´ë 80ÀÚ
+  int16_t m_nDupCnt;     // REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVEì‹œì— ê°¯ìˆ˜..
+  uint8_t m_btInvIDX[0]; // REQ_MALL_ITEM_GIVEì¼ê²½ìš° 0~39 ì‚¬ì´ì˜ ì¸ë²¤í† ë¦¬ ë²ˆí˜¸
+  // char m_szCharName[]							// REQ_MALL_ITEM_BRING, REQ_MALL_ITEM_GIVE ìš”ì²­ì‹œ
+  // char m_szDesc[]								// REQ_MALL_ITEM_GIVE ìš”ì²­ì‹œ ë§ë¶™ì¼ë§(ì„ ë¬¼í• ë•Œ ë©”ì„¸ì§€)::ìµœëŒ€ 80ìž
 };
 
-#define	REPLY_MALL_ITEM_CHECK_CHAR_FOUND	0x01	// ´ë»ó Ã£¾Ò´Ù
-#define	REPLY_MALL_ITEM_CHECK_CHAR_NONE		0x02	// ´ë»ó ¾ø´Ù.
-#define	REPLY_MALL_ITEM_CHECK_CHAR_INVALID	0x03	// ÀÚ±â ÀÚ½Å °èÁ¤µî..Àß¸øµÈ ´ë»ó
+#define	REPLY_MALL_ITEM_CHECK_CHAR_FOUND	0x01	// ëŒ€ìƒ ì°¾ì•˜ë‹¤
+#define	REPLY_MALL_ITEM_CHECK_CHAR_NONE		0x02	// ëŒ€ìƒ ì—†ë‹¤.
+#define	REPLY_MALL_ITEM_CHECK_CHAR_INVALID	0x03	// ìžê¸° ìžì‹  ê³„ì •ë“±..ìž˜ëª»ëœ ëŒ€ìƒ
 #define	REPLY_MALL_ITEM_BRING_SUCCESS		0x04
 #define	REPLY_MALL_ITEM_BRING_FAILED		0x05
 #define	REPLY_MALL_ITME_GIVE_SUCCESS		0x06
@@ -2708,62 +2660,62 @@ struct cli_MALL_ITEM_REQ : public t_PACKETHEADER {
 
 struct gsv_MALL_ITEM_REPLY : public t_PACKETHEADER {
   uint8_t m_btReplyTYPE;
-  uint8_t m_btCntOrIdx; // °¹¼ö / ¸ô ÀÎº¥Åä¸® ÀÎµ¦½º
+  uint8_t m_btCntOrIdx; // ê°¯ìˆ˜ / ëª° ì¸ë²¤í† ë¦¬ ì¸ë±ìŠ¤
 
-  /* MALL_ITEM_REQ_LIST ÀÀ´ä :: m_nCntOrIdx °¹¼ö¸¸Å­..
+  /* MALL_ITEM_REQ_LIST ì‘ë‹µ :: m_nCntOrIdx ê°¯ìˆ˜ë§Œí¼..
     m_btReplyTYPE == REPLY_MALL_ITEM_LIST_START
       m_btReplyTYPE == REPLY_MALL_ITEM_LIST_DATA
       {
-        m_btCntOrIdx :: °¹¼ö
+        m_btCntOrIdx :: ê°¯ìˆ˜
         {
           tagBaseITEM
-          szFrom[]		// ¼±¹°ÇÑ ÄÉ¸¯
+          szFrom[]		// ì„ ë¬¼í•œ ì¼€ë¦­
           if ( '\0' != szFrom[0] ) {
-            // szDesc[]	// ¼±¹°ÇÒ¶§ ¸Þ¼¼Áö
-            // szTo[]	// ¼±¹°ÇÑ ´ë»ó ÄÉ¸¯ ÀÌ¸§
+            // szDesc[]	// ì„ ë¬¼í• ë•Œ ë©”ì„¸ì§€
+            // szTo[]	// ì„ ë¬¼í•œ ëŒ€ìƒ ì¼€ë¦­ ì´ë¦„
           }
         }
       }
     m_btReplyTYPE == REPLY_MALL_ITEM_LIST_END
   */
-  // REPLY_MALL_ITEM_BRING_SUCCESSÀÀ´ä :: m_nCntOrIdx¿¡´Â ¸ô ÀÎº¥Åä¸® ÀÎµ¦½º m_BringITEM[0]¿¡´Â Ãß°¡µÈ ¾ÆÀÌÅÛ
+  // REPLY_MALL_ITEM_BRING_SUCCESSì‘ë‹µ :: m_nCntOrIdxì—ëŠ” ëª° ì¸ë²¤í† ë¦¬ ì¸ë±ìŠ¤ m_BringITEM[0]ì—ëŠ” ì¶”ê°€ëœ ì•„ì´í…œ
   union {
-    tag_SET_INVITEM m_BringITEM[0]; // MALL_ITEM_REQ_BRING¿¡ ´ëÇÑ ÀÀ´ä(º¯°æµÈ ÀÎº¥Åä¸® Á¤º¸) :: m_btCntOrIdxÀÇ ¸ô ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÌ ÀÌµ¿
+    tag_SET_INVITEM m_BringITEM[0]; // MALL_ITEM_REQ_BRINGì— ëŒ€í•œ ì‘ë‹µ(ë³€ê²½ëœ ì¸ë²¤í† ë¦¬ ì •ë³´) :: m_btCntOrIdxì˜ ëª° ì¸ë²¤í† ë¦¬ ì•„ì´í…œì´ ì´ë™
   };
 };
 
 #define	BILLING_MSG_FREE_USER				0x00	//
 
-//#define	BILLING_MSG_FEE_TYPE1				0x01	//  /¿ä±Ý: ±ÍÇÏ´Â Á¤¾×¿ä±ÝÁ¦ »ç¿ëÀÚ ÀÔ´Ï´Ù. (2004³â06¿ù01ÀÏ)
-//#define	BILLING_MSG_FEE_TYPE2				0x02	//         ±ÍÇÏ´Â Á¤·®¿ä±ÝÁ¦ »ç¿ëÀÚ ÀÔ´Ï´Ù. (18½Ã°£20ºÐ20ÃÊ)
+//#define	BILLING_MSG_FEE_TYPE1				0x01	//  /ìš”ê¸ˆ: ê·€í•˜ëŠ” ì •ì•¡ìš”ê¸ˆì œ ì‚¬ìš©ìž ìž…ë‹ˆë‹¤. (2004ë…„06ì›”01ì¼)
+//#define	BILLING_MSG_FEE_TYPE2				0x02	//         ê·€í•˜ëŠ” ì •ëŸ‰ìš”ê¸ˆì œ ì‚¬ìš©ìž ìž…ë‹ˆë‹¤. (18ì‹œê°„20ë¶„20ì´ˆ)
 
-#define	BILLING_MSG_PAY_FU					0x01	// FU	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â ¹«·á ¾ÆÀÌµð »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	BILLING_MSG_PAY_FA					0x02	// FA	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤¾× »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	BILLING_MSG_PAY_FAP					0x03	// FAP	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤¾× »ç¿ëÀÚ(ÇÃ·¹Æ¼³Ñ)ÀÓÀ» ³ªÅ¸³½´Ù.
-#define	BILLING_MSG_PAY_FQ					0x04	// FQ	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤·® »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	BILLING_MSG_PAY_GU					0x05	// GU	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °ÔÀÓ¹æ »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	BILLING_MSG_PAY_GQ					0x06	// GQ	°ÔÀÓ¹æ¿¡¼­ ·Î±×ÀÎÀ» ½ÃµµÇÏ¿´À¸³ª °ÔÀÓ¹æÀÇ °ú±Ý±â°£(½Ã°£)ÀÌ ¸¸·áµÇ¾î °³ÀÎÁ¤·®À¸·Î ·Î±×ÀÎ µÇ¾úÀ½À» ³ªÅ¸³½´Ù.
-#define	BILLING_MSG_PAY_IQ					0x07	// IQ	°ÔÀÓ¹æ¿¡¼­ ·Î±×ÀÎÀ» ½ÃµµÇÏ¿´À¸³ª ÀÌ¹Ì °è¾àµÈ IP ¼ýÀÚ¸¦ ¸ðµÎ »ç¿ëÇÏ°í ÀÖ¾î °³ÀÎÁ¤·®À¸·Î ·Î±×ÀÎ µÇ¾úÀ½À» ³ªÅ¸³½´Ù.
+#define	BILLING_MSG_PAY_FU					0x01	// FU	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ë¬´ë£Œ ì•„ì´ë”” ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	BILLING_MSG_PAY_FA					0x02	// FA	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê°œì¸ì •ì•¡ ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	BILLING_MSG_PAY_FAP					0x03	// FAP	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê°œì¸ì •ì•¡ ì‚¬ìš©ìž(í”Œë ˆí‹°ë„˜)ìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	BILLING_MSG_PAY_FQ					0x04	// FQ	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê°œì¸ì •ëŸ‰ ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	BILLING_MSG_PAY_GU					0x05	// GU	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê²Œìž„ë°© ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	BILLING_MSG_PAY_GQ					0x06	// GQ	ê²Œìž„ë°©ì—ì„œ ë¡œê·¸ì¸ì„ ì‹œë„í•˜ì˜€ìœ¼ë‚˜ ê²Œìž„ë°©ì˜ ê³¼ê¸ˆê¸°ê°„(ì‹œê°„)ì´ ë§Œë£Œë˜ì–´ ê°œì¸ì •ëŸ‰ìœ¼ë¡œ ë¡œê·¸ì¸ ë˜ì—ˆìŒì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	BILLING_MSG_PAY_IQ					0x07	// IQ	ê²Œìž„ë°©ì—ì„œ ë¡œê·¸ì¸ì„ ì‹œë„í•˜ì˜€ìœ¼ë‚˜ ì´ë¯¸ ê³„ì•½ëœ IP ìˆ«ìžë¥¼ ëª¨ë‘ ì‚¬ìš©í•˜ê³  ìžˆì–´ ê°œì¸ì •ëŸ‰ìœ¼ë¡œ ë¡œê·¸ì¸ ë˜ì—ˆìŒì„ ë‚˜íƒ€ë‚¸ë‹¤.
 
-#define	BILLING_MSG_KICKOUT_CHEAT_DETECT	0x21	// ½ºÇÙµî Ä¡Æ® ¹ß°ßµÇ¼­ Á¾·á
-#define	BILLING_MSG_KICKOUT_ALREADY_LOGIN	0x22	// ÀÌ¹Ì Á¢¼ÓµÈ °èÁ¤ÀÌ¶ó Á¢¼Ó Á¾·á
-#define	BILLING_MSG_KICKOUT_TIME_EXPIRED	0x23	// °ú±Ý ½Ã°£ ¸¸·á
-#define	BILLING_MSG_KICKOUT_DUP_LOGIN		0x24	// ´Ù¸¥ ³ÑÀÌ Á¢¼ÓÇØ¼­ Á¢¼Ó Á¾·á
-#define BILLING_MSG_KICKOUT_NO_RIGHT		0x25	// Á¢¼ÓÇÒ ±ÇÇÑÀÌ ¾ø´Ù...
-#define	BILLING_MSG_KICKOUT_OUT_OF_IP		0x26	// pc¹æ¿¡¼­ Á¢¼ÓÇÒ¼ö ÀÖ´Â ip °¹¼ö°¡ ÃÊ°ú
-#define	BILLING_MSG_KICKOUT_EXIST_ACCOUNT	0x27	// Á¢¼ÓµÇ¾î ÀÖ´Â °èÁ¤À» Â©¶ú´Ù.
+#define	BILLING_MSG_KICKOUT_CHEAT_DETECT	0x21	// ìŠ¤í•µë“± ì¹˜íŠ¸ ë°œê²¬ë˜ì„œ ì¢…ë£Œ
+#define	BILLING_MSG_KICKOUT_ALREADY_LOGIN	0x22	// ì´ë¯¸ ì ‘ì†ëœ ê³„ì •ì´ë¼ ì ‘ì† ì¢…ë£Œ
+#define	BILLING_MSG_KICKOUT_TIME_EXPIRED	0x23	// ê³¼ê¸ˆ ì‹œê°„ ë§Œë£Œ
+#define	BILLING_MSG_KICKOUT_DUP_LOGIN		0x24	// ë‹¤ë¥¸ ë„˜ì´ ì ‘ì†í•´ì„œ ì ‘ì† ì¢…ë£Œ
+#define BILLING_MSG_KICKOUT_NO_RIGHT		0x25	// ì ‘ì†í•  ê¶Œí•œì´ ì—†ë‹¤...
+#define	BILLING_MSG_KICKOUT_OUT_OF_IP		0x26	// pcë°©ì—ì„œ ì ‘ì†í• ìˆ˜ ìžˆëŠ” ip ê°¯ìˆ˜ê°€ ì´ˆê³¼
+#define	BILLING_MSG_KICKOUT_EXIST_ACCOUNT	0x27	// ì ‘ì†ë˜ì–´ ìžˆëŠ” ê³„ì •ì„ ì§¤ëžë‹¤.
 
-#define	BILLING_MSG_JPN_NEED_CHARGE			0x41	// ÀÏº» °ú±Ý ÃæÀü ÇÊ¿ä!!! gsv_BILLING_MESSAGE2 ÆÐÅ¶±¸Á¶·Î Àü¼ÛµÇ°í m_dwPayFlag¿¡ ÇÊ¿äÇÑ °ú±Ý ÇÃ·¹±× ¼ÂÆÃµÇ¾î ÀÖÀ½
+#define	BILLING_MSG_JPN_NEED_CHARGE			0x41	// ì¼ë³¸ ê³¼ê¸ˆ ì¶©ì „ í•„ìš”!!! gsv_BILLING_MESSAGE2 íŒ¨í‚·êµ¬ì¡°ë¡œ ì „ì†¡ë˜ê³  m_dwPayFlagì— í•„ìš”í•œ ê³¼ê¸ˆ í”Œë ˆê·¸ ì…‹íŒ…ë˜ì–´ ìžˆìŒ
 
-//#define	BILLING_MSG_TIME_ALERT				0x31	// ³²Àº ½Ã°£ Åëº¸
-//#define	BILLING_MSG_TIME_EXPIRED			0x32	// <Á¾·á> °áÁ¦ ½Ã°£ÀÌ ´ÙµÇ¾î °ÔÀÓÀ» Á¾·áÇÕ´Ï´Ù.
+//#define	BILLING_MSG_TIME_ALERT				0x31	// ë‚¨ì€ ì‹œê°„ í†µë³´
+//#define	BILLING_MSG_TIME_EXPIRED			0x32	// <ì¢…ë£Œ> ê²°ì œ ì‹œê°„ì´ ë‹¤ë˜ì–´ ê²Œìž„ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.
 
-#define	BILLING_MSG_TYPE_SET_DATE			0x81	// ¸¸·á ÀÏÀÚ ¼³Á¤	szMsg = 200309101025
-#define	BILLING_MSG_TYPE_SET_TIME			0x82	// ¸¸·á ½Ã°£ ¼³Á¤	szMsg = ³²ÀººÐ
-#define	BILLING_MSG_TYPE_TIME_ALERT			0x83	// ³²Àº ½Ã°£ °æ°í	szMsg = ³²ÀººÐ
+#define	BILLING_MSG_TYPE_SET_DATE			0x81	// ë§Œë£Œ ì¼ìž ì„¤ì •	szMsg = 200309101025
+#define	BILLING_MSG_TYPE_SET_TIME			0x82	// ë§Œë£Œ ì‹œê°„ ì„¤ì •	szMsg = ë‚¨ì€ë¶„
+#define	BILLING_MSG_TYPE_TIME_ALERT			0x83	// ë‚¨ì€ ì‹œê°„ ê²½ê³ 	szMsg = ë‚¨ì€ë¶„
 
-#define	BILLING_MSG_KICKOUT_TAIWAN			0xf0	// ´ë¸¸ °ú±Ý¼­¹ö¿¡¼­ Â©¶ó¶ó Åëº¸ ¹Þ¾ÒÀ»¶§..
-#define	BILLING_MSG_TYPE_TAIWAN				0xf1	// ´ë¸¸ °ú±Ý¼­¹ö¿¡¼­ ¹ÞÀº ¸Þ¼¼Áö.. º¸¿©ÁÖ±â¸¸ ÇÏ¸é µÊ
+#define	BILLING_MSG_KICKOUT_TAIWAN			0xf0	// ëŒ€ë§Œ ê³¼ê¸ˆì„œë²„ì—ì„œ ì§¤ë¼ë¼ í†µë³´ ë°›ì•˜ì„ë•Œ..
+#define	BILLING_MSG_TYPE_TAIWAN				0xf1	// ëŒ€ë§Œ ê³¼ê¸ˆì„œë²„ì—ì„œ ë°›ì€ ë©”ì„¸ì§€.. ë³´ì—¬ì£¼ê¸°ë§Œ í•˜ë©´ ë¨
 
 struct gsv_BILLING_MESSAGE : public t_PACKETHEADER {
   uint8_t m_btTYPE;
@@ -2772,79 +2724,79 @@ struct gsv_BILLING_MESSAGE : public t_PACKETHEADER {
 
 struct gsv_BILLING_MESSAGE2 : public t_PACKETHEADER {
   uint8_t  m_btTYPE;
-  int8_t   m_cFunctionTYPE; // ¼ÒºÐ·ù( A ~ R )
+  int8_t   m_cFunctionTYPE; // ì†Œë¶„ë¥˜( A ~ R )
   uint32_t m_dwPayFlag;
 };
 
-// ÇÑ±¹ °ú±Ý °áÁ¦ ºñÆ®~
-#define	PAY_FLAG_KR_FU				(0x01 << BILLING_MSG_PAY_FU)	// FU	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â ¹«·á ¾ÆÀÌµð »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	PAY_FLAG_KR_FA				(0x01 << BILLING_MSG_PAY_FA)	// FA	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤¾× »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	PAY_FLAG_KR_FAP				(0x01 << BILLING_MSG_PAY_FAP)	// FAP	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤¾× »ç¿ëÀÚ(ÇÃ·¹Æ¼³Ñ)ÀÓÀ» ³ªÅ¸³½´Ù.
-#define	PAY_FLAG_KR_FQ				(0x01 << BILLING_MSG_PAY_FQ)	// FQ	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤·® »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	PAY_FLAG_KR_GU				(0x01 << BILLING_MSG_PAY_GU)	// GU	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °ÔÀÓ¹æ »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
-#define	PAY_FLAG_KR_GQ				(0x01 << BILLING_MSG_PAY_GQ)	// GQ	°ÔÀÓ¹æ¿¡¼­ ·Î±×ÀÎÀ» ½ÃµµÇÏ¿´À¸³ª °ÔÀÓ¹æÀÇ °ú±Ý±â°£(½Ã°£)ÀÌ ¸¸·áµÇ¾î °³ÀÎÁ¤·®À¸·Î ·Î±×ÀÎ µÇ¾úÀ½À» ³ªÅ¸³½´Ù.
-#define	PAY_FLAG_KR_IQ				(0x01 << BILLING_MSG_PAY_IQ)	// IQ	°ÔÀÓ¹æ¿¡¼­ ·Î±×ÀÎÀ» ½ÃµµÇÏ¿´À¸³ª ÀÌ¹Ì °è¾àµÈ IP ¼ýÀÚ¸¦ ¸ðµÎ »ç¿ëÇÏ°í ÀÖ¾î °³ÀÎÁ¤·®À¸·Î ·Î±×ÀÎ µÇ¾úÀ½À» ³ªÅ¸³½´Ù.
+// í•œêµ­ ê³¼ê¸ˆ ê²°ì œ ë¹„íŠ¸~
+#define	PAY_FLAG_KR_FU				(0x01 << BILLING_MSG_PAY_FU)	// FU	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ë¬´ë£Œ ì•„ì´ë”” ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	PAY_FLAG_KR_FA				(0x01 << BILLING_MSG_PAY_FA)	// FA	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê°œì¸ì •ì•¡ ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	PAY_FLAG_KR_FAP				(0x01 << BILLING_MSG_PAY_FAP)	// FAP	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê°œì¸ì •ì•¡ ì‚¬ìš©ìž(í”Œë ˆí‹°ë„˜)ìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	PAY_FLAG_KR_FQ				(0x01 << BILLING_MSG_PAY_FQ)	// FQ	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê°œì¸ì •ëŸ‰ ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	PAY_FLAG_KR_GU				(0x01 << BILLING_MSG_PAY_GU)	// GU	ë¡œê·¸ì¸ ëœ ì‚¬ìš©ìžëŠ” ê²Œìž„ë°© ì‚¬ìš©ìžìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	PAY_FLAG_KR_GQ				(0x01 << BILLING_MSG_PAY_GQ)	// GQ	ê²Œìž„ë°©ì—ì„œ ë¡œê·¸ì¸ì„ ì‹œë„í•˜ì˜€ìœ¼ë‚˜ ê²Œìž„ë°©ì˜ ê³¼ê¸ˆê¸°ê°„(ì‹œê°„)ì´ ë§Œë£Œë˜ì–´ ê°œì¸ì •ëŸ‰ìœ¼ë¡œ ë¡œê·¸ì¸ ë˜ì—ˆìŒì„ ë‚˜íƒ€ë‚¸ë‹¤.
+#define	PAY_FLAG_KR_IQ				(0x01 << BILLING_MSG_PAY_IQ)	// IQ	ê²Œìž„ë°©ì—ì„œ ë¡œê·¸ì¸ì„ ì‹œë„í•˜ì˜€ìœ¼ë‚˜ ì´ë¯¸ ê³„ì•½ëœ IP ìˆ«ìžë¥¼ ëª¨ë‘ ì‚¬ìš©í•˜ê³  ìžˆì–´ ê°œì¸ì •ëŸ‰ìœ¼ë¡œ ë¡œê·¸ì¸ ë˜ì—ˆìŒì„ ë‚˜íƒ€ë‚¸ë‹¤.
 
 // #define	PAY_FLAG_KR_PLATINUM		( FLAG_PAY_FAP|FLAG_PAY_GU )
 
-// ÀÏº» °ú±Ý °áÁ¦ ºñÆ®~
-//#define	FLAG_JPAY_CHAT			(0x01 << 0)						// 0	Free Play 	Ä³¸¯ÀÛ¼º, Ã¤ÆÃ
-#define	PAY_FLAG_JP_BATTLE			(0x01 << 0)	 					// 1	Entry	¹èÆ², º£ÀÌ½Ä ÇÊµå
-#define	PAY_FLAG_JP_COMMUNITY		(0x01 << 1)	 					// 2	Community	Ä£±¸¸ñ·Ï, Ã¤ÆÃ¹æ
-#define	PAY_FLAG_JP_TRADE			(0x01 << 2)	 					// 3	Trade	°Å·¡, »óÁ¡
-#define	PAY_FLAG_JP_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	¹ðÅ©
-#define	PAY_FLAG_JP_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	Ãß°¡¹ðÅ© ½ºÆäÀÌ½º
-#define	PAY_FLAG_JP_STARSHIP_PASS	(0x01 << 5)	 					// 6	Starship Pass	Çà¼º°£ ÀÌµ¿
-#define	PAY_FLAG_JP_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	´øÁ¯ ÇÊµå
-#define	PAY_FLAG_JP_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	ÀÛ¼º°¡´É Ä³¸¯ Ãß°¡
+// ì¼ë³¸ ê³¼ê¸ˆ ê²°ì œ ë¹„íŠ¸~
+//#define	FLAG_JPAY_CHAT			(0x01 << 0)						// 0	Free Play 	ìºë¦­ìž‘ì„±, ì±„íŒ…
+#define	PAY_FLAG_JP_BATTLE			(0x01 << 0)	 					// 1	Entry	ë°°í‹€, ë² ì´ì‹ í•„ë“œ
+#define	PAY_FLAG_JP_COMMUNITY		(0x01 << 1)	 					// 2	Community	ì¹œêµ¬ëª©ë¡, ì±„íŒ…ë°©
+#define	PAY_FLAG_JP_TRADE			(0x01 << 2)	 					// 3	Trade	ê±°ëž˜, ìƒì 
+#define	PAY_FLAG_JP_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	ë±…í¬
+#define	PAY_FLAG_JP_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	ì¶”ê°€ë±…í¬ ìŠ¤íŽ˜ì´ìŠ¤
+#define	PAY_FLAG_JP_STARSHIP_PASS	(0x01 << 5)	 					// 6	Starship Pass	í–‰ì„±ê°„ ì´ë™
+#define	PAY_FLAG_JP_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	ë˜ì ¼ í•„ë“œ
+#define	PAY_FLAG_JP_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	ìž‘ì„±ê°€ëŠ¥ ìºë¦­ ì¶”ê°€
 
-#define	PAY_FLAG_JP_ALL				(0xff << 0)						//      ¸ðµç °ú±Ý °áÁ¦~
+#define	PAY_FLAG_JP_ALL				(0xff << 0)						//      ëª¨ë“  ê³¼ê¸ˆ ê²°ì œ~
 
-// °ú±ÝÇüÅÂ¿¡ µû¶ó ÇÃ·¹ÀÌ °¡´É¿©ºÎ¸¦ Ã¼Å©ÇÒ ºñÆ®...
-// ÇÑ±¹ °ú±ÝÁß FLAG_PAY_FAP,FLAG_PAY_GUÀÇ °æ¿ì´Â ¾Æ·¡ ¸ðµç ºñÆ® on 
-// ÀÌ¿Ü ÇÑ±¹ °ú±ÝÀº PLAY_FLAG_EXTRA_STOCK, PLAY_FLAG_EXTRA_CHAR ºñÆ® off
-#define	PLAY_FLAG_BATTLE			(0x01 << 0)	 					// 1	Entry	¹èÆ², º£ÀÌ½Ä ÇÊµå
-#define	PLAY_FLAG_COMMUNITY			(0x01 << 1)	 					// 2	Community	Ä£±¸¸ñ·Ï, Ã¤ÆÃ¹æ
-#define	PLAY_FLAG_TRADE				(0x01 << 2)	 					// 3	Trade	°Å·¡, »óÁ¡
-#define	PLAY_FLAG_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	¹ðÅ©
-#define	PLAY_FLAG_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	Ãß°¡¹ðÅ© ½ºÆäÀÌ½º
-#define	PLAY_FLAG_STARSHIP_PASS		(0x01 << 5)	 					// 6	Starship Pass	Çà¼º°£ ÀÌµ¿
-#define	PLAY_FLAG_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	´øÁ¯ ÇÊµå
-#define	PLAY_FLAG_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	ÀÛ¼º°¡´É Ä³¸¯ Ãß°¡
+// ê³¼ê¸ˆí˜•íƒœì— ë”°ë¼ í”Œë ˆì´ ê°€ëŠ¥ì—¬ë¶€ë¥¼ ì²´í¬í•  ë¹„íŠ¸...
+// í•œêµ­ ê³¼ê¸ˆì¤‘ FLAG_PAY_FAP,FLAG_PAY_GUì˜ ê²½ìš°ëŠ” ì•„ëž˜ ëª¨ë“  ë¹„íŠ¸ on 
+// ì´ì™¸ í•œêµ­ ê³¼ê¸ˆì€ PLAY_FLAG_EXTRA_STOCK, PLAY_FLAG_EXTRA_CHAR ë¹„íŠ¸ off
+#define	PLAY_FLAG_BATTLE			(0x01 << 0)	 					// 1	Entry	ë°°í‹€, ë² ì´ì‹ í•„ë“œ
+#define	PLAY_FLAG_COMMUNITY			(0x01 << 1)	 					// 2	Community	ì¹œêµ¬ëª©ë¡, ì±„íŒ…ë°©
+#define	PLAY_FLAG_TRADE				(0x01 << 2)	 					// 3	Trade	ê±°ëž˜, ìƒì 
+#define	PLAY_FLAG_STOCK_SPACE		(0x01 << 3)	 					// 4	Stock Space	ë±…í¬
+#define	PLAY_FLAG_EXTRA_STOCK		(0x01 << 4)	 					// 5	Extra Stock	ì¶”ê°€ë±…í¬ ìŠ¤íŽ˜ì´ìŠ¤
+#define	PLAY_FLAG_STARSHIP_PASS		(0x01 << 5)	 					// 6	Starship Pass	í–‰ì„±ê°„ ì´ë™
+#define	PLAY_FLAG_DUNGEON_ADV		(0x01 << 6)	 					// 7	Dungeon Adventure	ë˜ì ¼ í•„ë“œ
+#define	PLAY_FLAG_EXTRA_CHAR		(0x01 << 7)	 					// 8	Extra Character	ìž‘ì„±ê°€ëŠ¥ ìºë¦­ ì¶”ê°€
 
-// ÇÑ±¹ ±âº» °ú±Ý
+// í•œêµ­ ê¸°ë³¸ ê³¼ê¸ˆ
 #define	PLAY_FLAG_KOREA_DEFAULT		( PLAY_FLAG_BATTLE | PLAY_FLAG_COMMUNITY | PLAY_FLAG_TRADE | PLAY_FLAG_STOCK_SPACE | PLAY_FLAG_STARSHIP_PASS | PLAY_FLAG_DUNGEON_ADV )
 #define	PLAY_FLAG_TAIWAN_DEFAULT	PLAY_FLAG_KOREA_DEFAULT
 
-#define	EXT_BILLING_MSG_PAY_KOREA			0x1001	// ÇÑ±¹ °ú±Ý Á¤º¸
-#define	EXT_BILLING_MSG_PAY_JAPAN			0x1002	// ÀÏº» °ú±Ý ÇÃ·¡±×
-#define	EXT_BILLING_MSG_PAY_TAIWAN			0x1003	// ´ë¸¸ °ú±Ý Å¸ÀÔ¹øÈ£
+#define	EXT_BILLING_MSG_PAY_KOREA			0x1001	// í•œêµ­ ê³¼ê¸ˆ ì •ë³´
+#define	EXT_BILLING_MSG_PAY_JAPAN			0x1002	// ì¼ë³¸ ê³¼ê¸ˆ í”Œëž˜ê·¸
+#define	EXT_BILLING_MSG_PAY_TAIWAN			0x1003	// ëŒ€ë§Œ ê³¼ê¸ˆ íƒ€ìž…ë²ˆí˜¸
 
-#define	EXT_BILLING_MSG_TYPE_SET_DATE		0x1010	// ¸¸·á ÀÏÀÚ ¼³Á¤	m_dwPayType = m_dwPlayingFlag = 0	szMsg = Å¸ÀÔ\t200309101025\tÅ¸ÀÔ\t200309101025...
-#define	EXT_BILLING_MSG_TYPE_SET_TIME		0x1011	// ¸¸·á ½Ã°£ ¼³Á¤	m_dwPayType = m_dwPlayingFlag = 0	szMsg = Å¸ÀÔ\t³²ÀººÐ\tÅ¸ÀÔ\t³²ÀººÐ...
-#define EXT_BILLING_MSG_TYPE_TIME_EXPIRED	0x1012	// PayType=0ÀÌ°í m_dwPlayingFlag[0]¿¡ ¸¸·áµÈ °ú±Ý ÇÃ·¹±×ÀÖÀ½
-#define EXT_BILLING_MSG_TYPE_TIME_ALERT		0x1013	// PayType=0ÀÌ°í m_dwPlayingFlag[0]¿¡ ½Ã°£°æ°íµÇ´Â °ú±Ý ÇÃ·¹±×ÀÖÀ½
+#define	EXT_BILLING_MSG_TYPE_SET_DATE		0x1010	// ë§Œë£Œ ì¼ìž ì„¤ì •	m_dwPayType = m_dwPlayingFlag = 0	szMsg = íƒ€ìž…\t200309101025\tíƒ€ìž…\t200309101025...
+#define	EXT_BILLING_MSG_TYPE_SET_TIME		0x1011	// ë§Œë£Œ ì‹œê°„ ì„¤ì •	m_dwPayType = m_dwPlayingFlag = 0	szMsg = íƒ€ìž…\të‚¨ì€ë¶„\tíƒ€ìž…\të‚¨ì€ë¶„...
+#define EXT_BILLING_MSG_TYPE_TIME_EXPIRED	0x1012	// PayType=0ì´ê³  m_dwPlayingFlag[0]ì— ë§Œë£Œëœ ê³¼ê¸ˆ í”Œë ˆê·¸ìžˆìŒ
+#define EXT_BILLING_MSG_TYPE_TIME_ALERT		0x1013	// PayType=0ì´ê³  m_dwPlayingFlag[0]ì— ì‹œê°„ê²½ê³ ë˜ëŠ” ê³¼ê¸ˆ í”Œë ˆê·¸ìžˆìŒ
 
 struct gsv_BILLING_MESSAGE_EXT : public t_PACKETHEADER {
   uint16_t m_wMsgTYPE;
   uint32_t m_dwPayType;
-  uint32_t m_dwPlayingFlag[ 4 ]; // ¿©À¯ÀÖ°Ô~ :: 32 * 4 = 128
+  uint32_t m_dwPlayingFlag[ 4 ]; // ì—¬ìœ ìžˆê²Œ~ :: 32 * 4 = 128
   // char m_szMsg[];
 };
 
 //-------------------------------------------------------------------------------------------------
 struct gsv_GODDNESS_MODE : public t_PACKETHEADER {
-  uint8_t  m_btOnOff;    // Àû¿ë/»èÁ¦
-  uint16_t m_wObjectIDX; // ´ë»ó ¼­¹ö ÄÉ¸¯ÅÍ ÀÎµ¦½º
+  uint8_t  m_btOnOff;    // ì ìš©/ì‚­ì œ
+  uint16_t m_wObjectIDX; // ëŒ€ìƒ ì„œë²„ ì¼€ë¦­í„° ì¸ë±ìŠ¤
 };
 
 //-------------------------------------------------------------------------------------------------
 struct gsv_PATSTATE_CHANGE : public t_PACKETHEADER {
   // GSV_PATSTATE_CHANGE
-  uint8_t  m_btOnOff;    // Ä«Æ® ¼ÒÈ¯ °¡´É/ºÒ°¡´É(1/0) 
-  uint32_t m_dwCoolTIME; // Ä«Æ® ¼ÒÈ¯ ºÒ°¡´É »óÅÂÀÌ¸é ¿©±â¿¡ ÄðÅ¸ÀÓ °ª
-  int16_t  m_nMaxPatHP;  // Ä«Æ® Ã¼·Â
-  uint16_t m_wObjectIDX; // »ç¿ëÇÒ Ä«Æ® Ã¼·Â 
+  uint8_t  m_btOnOff;    // ì¹´íŠ¸ ì†Œí™˜ ê°€ëŠ¥/ë¶ˆê°€ëŠ¥(1/0) 
+  uint32_t m_dwCoolTIME; // ì¹´íŠ¸ ì†Œí™˜ ë¶ˆê°€ëŠ¥ ìƒíƒœì´ë©´ ì—¬ê¸°ì— ì¿¨íƒ€ìž„ ê°’
+  int16_t  m_nMaxPatHP;  // ì¹´íŠ¸ ì²´ë ¥
+  uint16_t m_wObjectIDX; // ì‚¬ìš©í•  ì¹´íŠ¸ ì²´ë ¥ 
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -2855,17 +2807,17 @@ struct gsv_CHARSTATE_CHANGE : public t_PACKETHEADER {
 
 struct cli_CART_RIDE : public t_PACKETHEADER {
   uint8_t  m_btType;
-  uint16_t m_wOwnerObjIDX; // ÅÂ¿ï ¾Æ¹ÙÅ¸
-  uint16_t m_wGuestObjIDX; // Å» ¾Æ¹ÙÅ¸
+  uint16_t m_wOwnerObjIDX; // íƒœìš¸ ì•„ë°”íƒ€
+  uint16_t m_wGuestObjIDX; // íƒˆ ì•„ë°”íƒ€
 };
 
 struct gsv_CART_RIDE : public cli_CART_RIDE {};
 
-#define	CART_RIDE_REQ				0x01	// Å»·¡ ?	m_wGuestObjIDX¿¡°Ô¸¸ Àü¼ÛµÊ
-#define	CART_RIDE_ACCEPT			0x02	// Å»²²		ÁÖº¯ ¸ðµç ÄÉ¸¯¿¡ Àü¼ÛµÊ
-#define	CART_RIDE_REFUSE			0x03	// ¾ÈÅ»·¡	m_wOwnerObjIDX¿¡°Ô¸¸ Àü¼ÛµÊ
-#define	CART_RIDE_OWNER_NOT_FOUND	0x04	// ÅÂ¿ö ÁØ´Ù´ø ÄÉ¸¯ÀÌ »ç¶óÁ³´Ù
-#define	CART_RIDE_GUEST_NOT_FOUND	0x05	// ÅÂ¿ì·Á´ø ÄÉ¸¯ÀÌ »ç¶óÁ³´Ù
+#define	CART_RIDE_REQ				0x01	// íƒˆëž˜ ?	m_wGuestObjIDXì—ê²Œë§Œ ì „ì†¡ë¨
+#define	CART_RIDE_ACCEPT			0x02	// íƒˆê»˜		ì£¼ë³€ ëª¨ë“  ì¼€ë¦­ì— ì „ì†¡ë¨
+#define	CART_RIDE_REFUSE			0x03	// ì•ˆíƒˆëž˜	m_wOwnerObjIDXì—ê²Œë§Œ ì „ì†¡ë¨
+#define	CART_RIDE_OWNER_NOT_FOUND	0x04	// íƒœì›Œ ì¤€ë‹¤ë˜ ì¼€ë¦­ì´ ì‚¬ë¼ì¡Œë‹¤
+#define	CART_RIDE_GUEST_NOT_FOUND	0x05	// íƒœìš°ë ¤ë˜ ì¼€ë¦­ì´ ì‚¬ë¼ì¡Œë‹¤
 
 struct gsv_UPDATE_NAME : public t_PACKETHEADER {
   /*
@@ -2911,10 +2863,6 @@ struct t_PACKET {
     gsv_LOGOUT_REPLY m_gsv_LOGOUT_REPLY;
 
     // CLI <-> LSV
-    cli_ACCEPT_REQ  m_cli_ACCEPT_REQ;
-    cli_LOGIN_REQ   m_cli_LOGIN_REQ;
-    srv_LOGIN_REPLY m_srv_LOGIN_REPLY;
-
     cli_CHANNEL_LIST_REQ   m_cli_CHANNEL_LIST_REQ;
     lsv_CHANNEL_LIST_REPLY m_lsv_CHANNEL_LIST_REPLY;
 

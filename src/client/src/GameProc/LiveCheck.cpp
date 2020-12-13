@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "./LiveCheck.h"
 #include "../Network/CNetwork.h"
+#include "cli_alive.h"
 
 /// for singleton
 CLiveCheck _liveCheck;
@@ -27,7 +28,7 @@ void        CLiveCheck::Check() {
   m_dwElapsedTime += dwFrameElapsedTime;
 
   if ( m_dwElapsedTime > iCheckTime ) {
-    g_pNet->Send_cli_HEADER( CLI_ALIVE, false );
+    g_pNet->Send_PACKET(RoseCommon::Packet::CliAlive::create());
     LogString(LOG_NORMAL, "Send Live Packet[ %d ]", dwCurrentTime / 1000);
 
     m_dwElapsedTime -= iCheckTime;

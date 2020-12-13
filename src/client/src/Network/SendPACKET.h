@@ -3,22 +3,23 @@
 */
 #ifndef	__CSENDPACKET_H
 #define	__CSENDPACKET_H
+
+#include "crosepacket.h"
 //-------------------------------------------------------------------------------------------------
 
 typedef int tagPS_SellITEMs;
 
 class CSendPACKET {
 protected:
-  std::string m_pMD5Buff;
+  std::string   m_pMD5Buff;
   t_PACKET*     m_pSendPacket;
 
-  virtual void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) = 0 { *(int*)nullptr = 10; }
+  virtual void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) = 0;
+  virtual void Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld = false) = 0;
 
 public :
           CSendPACKET();
   virtual ~CSendPACKET();
-
-  void Send_cli_HEADER(WORD wType, bool bSendToWorld);
 
   void Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEncode);
   void Send_cli_LOGOUT_REQ();
@@ -67,18 +68,18 @@ public :
   void Send_cli_EQUIP_ITEM(short            nEquipInvIDX, short nWeaponInvIDX);
   bool Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int          iServerObject);
 
-  // « µÂø° æ∆¿Ã≈€¿ª ∂≥±∫¥Ÿ...
+  // ÌïÑÎìúÏóê ÏïÑÏù¥ÌÖúÏùÑ Îñ®Íµ∞Îã§...
   void Send_cli_DROP_ITEM(short nInventoryIndex, int iQuantity);
 
   void Send_cli_TELEPORT_REQ(CGameOBJ* pUSER, short nWarpIDX);
 
-  // ∫∏≥ Ω∫ ∆˜¿Œ∆Æ∏¶ ¿ÃøÎ«ÿº≠ ±‚∫ª ¥…∑¬ƒ°∏¶ «‚ªÛ Ω√≈≤¥Ÿ...
+  // Î≥¥ÎÑàÏä§ Ìè¨Ïù∏Ìä∏Î•º Ïù¥Ïö©Ìï¥ÏÑú Í∏∞Î≥∏ Îä•Î†•ÏπòÎ•º Ìñ•ÏÉÅ ÏãúÌÇ®Îã§...
   void Send_cli_USE_BPOINT_REQ(BYTE btAbilityTYPE);
 
   void Send_cli_TRADE_REQ(void  );
   void Send_cli_TRADE_REPLY(void);
 
-  /// º≠πˆø° «ÿ¥Á ø¿∫Í¡ß∆Æ HP ¡§∫∏ ø‰±∏
+  /// ÏÑúÎ≤ÑÏóê Ìï¥Îãπ Ïò§Î∏åÏ†ùÌä∏ HP Ï†ïÎ≥¥ ÏöîÍµ¨
   void Send_cli_HP_REQ(int iClientTarget);
 
   void Send_cli_P_STORE_OPEN(BYTE         btSellItemCount, BYTE btBuyItemCount, tagPS_ITEM* SellItems, tagPS_ITEM* BuyItems, char* pszTitle);
@@ -94,26 +95,26 @@ public :
 
   void Send_cli_QUEST_REQ(BYTE btReqTYPE, BYTE btQuestSLOT, int iQuestID, char* szQuestTriggerName = nullptr);
 
-  ///∆Æ∑π¿ÃµÂ ∞¸∑√ Method
+  ///Ìä∏Î†àÏù¥Îìú Í¥ÄÎ†® Method
   bool Send_cli_TRADE_P2P(WORD      wServerIdx, BYTE  btResult, char         cSlotIdx = 0);
   void Send_cli_TRADE_P2P_ITEM(char cTradeSLOT, short nInventoryIndex, DWORD iQuantity);
-  ///∆ƒ∆º ∞¸∑√
+  ///ÌååÌã∞ Í¥ÄÎ†®
   void Send_cli_PARTY_REQ(BYTE   btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_REPLY(BYTE btRequest, DWORD dwDestIDXorTAG);
   void Send_cli_PARTY_RULE(BYTE  btRule);
-  ///¡¶¡∂ ∞¸∑√
+  ///Ï†úÏ°∞ Í¥ÄÎ†®
   void Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYPE, short nTargetItemNO, short* pnUseItemINV);
   //	void Send_cli_CREATE_ITEM_EXP_REQ();
 
   void Send_cli_ITEM_RESULT_REPORT(BYTE btREPORT, BYTE btItemType, short nItemNo);
 
-  ///√¢∞Ì ∞¸∑√
+  ///Ï∞ΩÍ≥† Í¥ÄÎ†®
   void Send_cli_MOVE_ITEM(BYTE     btMoveTYPE, BYTE btFromIDX,tagITEM& MoveITEM, bool bPlatinum);
   void Send_cli_BANK_LIST_REQ(BYTE btREQ, char*     pszPassword);
-  ///º“∏≈∫ ∞¸∑√
+  ///ÏÜåÎ™®ÌÉÑ Í¥ÄÎ†®
   void Send_cli_SET_BULLET(BYTE btShotType, short nInvenIdx);
 
-  ///PAT ∞¸∑√
+  ///PAT Í¥ÄÎ†®
   void Send_cli_ASSEMBLE_RIDE_ITEM(short nPartIdx, short nInvenIdx);
 
   void Send_cli_SET_WEIGHT_RATE(BYTE btWeightRate);
@@ -143,7 +144,7 @@ public :
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief ¿Áπ÷ ¿Á∑√∞¸∑√
+  /// @brief Ïû¨Î∞ç Ïû¨Î†®Í¥ÄÎ†®
   ///
   //----------------------------------------------------------------------------------------------------
   void Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvIDX);
@@ -178,7 +179,7 @@ public :
 
   void Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuestObjIDX_);
 
-  //---Ω∫º¶∞¸∑√...--------------------------------------------------------------------------------------
+  //---Ïä§ÏÉ∑Í¥ÄÎ†®...--------------------------------------------------------------------------------------
   void Send_cli_SCREEN_SHOT_TIME();
   void Send_cli_UPDATE_NAME(char* szName);
   void Send_cli_SET_RIGHTS(DWORD  dwRight);

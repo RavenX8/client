@@ -20,17 +20,8 @@ enum {
 
 class CNetwork : public CRecvPACKET, public CSendPACKET {
 private :
-  bool bAllInONE; /// ¿ùµå/Á¸¼­¹ö°¡ °°Àº ¼­¹ö³Ä?
-  void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) override {
-#ifdef	__VIRTUAL_SERVER
-		m_ZoneSOCKET.Packet_Register2RecvQ( pSendPacket );
-#else
-    if ( bSendToWorld || bAllInONE )
-      m_WorldSOCKET.Packet_Register2SendQ( pSendPacket );
-    else
-      m_ZoneSOCKET.Packet_Register2SendQ( pSendPacket );
-#endif
-  }
+  bool bAllInONE; /// ì›”ë“œ/ì¡´ì„œë²„ê°€ ê°™ì€ ì„œë²„ëƒ?
+  void Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld = false) override;
 
   short m_nProcLEVEL;
   bool  m_bMoveingZONE;
@@ -41,7 +32,7 @@ private :
                    ~CNetwork();
 
   void Proc_WorldPacket();
-  void Proc_ZonePacket();
+  void Proc_ZonePacket(t_PACKET* packet);
 
   void MoveZoneServer(bool reconnect = false);
 
@@ -52,14 +43,16 @@ public :
   CshoClientSOCK m_WorldSOCKET;
   CshoClientSOCK m_ZoneSOCKET;
 #endif
-  bool m_bWarping; // Á¸ ¿öÇÁ ÁßÀÎ°¡...
+  bool m_bWarping; // ì¡´ ì›Œí”„ ì¤‘ì¸ê°€...
 
   static CNetwork* Instance(HINSTANCE hInstance);
   void             Destroy();
 
+  void Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld = false) override;
+
   bool ConnectToServer(char*      szServerIP, WORD wTcpPORT, short nProcLEVEL = 0);
   void DisconnectFromServer(short nProcLEVEL                                  = 0) override;
-  // ¹Ú ÁöÈ£ 
+  // ë°• ì§€í˜¸ 
   void Send_AuthMsg(void);
 
   // Playing packet ..
