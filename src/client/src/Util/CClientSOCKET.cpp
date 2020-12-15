@@ -221,7 +221,6 @@ void CClientSOCKET::Set_NetSTATUS(BYTE btStatus) {
 
 //-------------------------------------------------------------------------------------------------
 void CClientSOCKET::Packet_Register2SendQ(const t_PACKET* const pRegPacket) {
-  LogString(LOG_DEBUG, "Sent Packet type [0x%x]\n", pRegPacket->m_HEADER.m_wType);
   if ( m_cStatus != CLIENTSOCKET_CONNECTED )
     return;
 
