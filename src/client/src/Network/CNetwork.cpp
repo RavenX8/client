@@ -233,7 +233,7 @@ void              CNetwork::Proc_WorldPacket() {
         break;
       case WSV_CHATROOM_MSG: Recv_wsv_CHATROOM_MSG(packet.get());
         break;
-      case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE(packet.get());
+      case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE(RoseCommon::Packet::SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
         // 존 서버를 이동해라...
       case WSV_MOVE_SERVER: {
@@ -596,7 +596,8 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
       break;
 
     case WSV_CHAR_CHANGE: { //Fixed by Davidixx
-        Recv_wsv_CHAR_CHANGE(packet);
+        using RoseCommon::Packet::SrvChanCharReply;
+        Recv_wsv_CHAR_CHANGE(SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet)));
         m_btZoneSocketSTATUS = 0;
         CshoClientSOCK* pSocket = &this->m_ZoneSOCKET;
         pSocket->Close();

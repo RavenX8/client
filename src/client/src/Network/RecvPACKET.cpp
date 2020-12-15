@@ -4806,7 +4806,7 @@ void CRecvPACKET::Recv_gsv_PARTY_RULE(t_PACKET* packet) {
   _RPT1(_CRT_WARN, "Recv_gsv_PARTY_RULE_2(%d)\n", g_GameDATA.GetGameTime());
 }
 
-void CRecvPACKET::Recv_wsv_CHAR_CHANGE(t_PACKET* packet) {
+void CRecvPACKET::Recv_wsv_CHAR_CHANGE(RoseCommon::Packet::SrvChanCharReply&& packet) {
   CGame::GetInstance().ChangeState( CGame::GS_EXITMAIN );
 }
 
