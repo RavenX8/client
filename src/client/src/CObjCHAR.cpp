@@ -4487,8 +4487,11 @@ void                 CObjAVT::CreateGradeEffect() {
             pCharPART = g_DATA.Get_CharPartMODEL( i, iItemIDX, this->IsFemale() );
             if ( pCharPART ) {
               for ( int j = 0; j < pCharPART->m_nPartCNT; j++ ) {
-                if ( m_phPartVIS[i] && m_phPartVIS[i][j] )
-                  setVisibleGlow( m_phPartVIS[i][j], ZZ_GLOW_TEXTURE, color.r, color.g, color.b );
+                if ( m_phPartVIS[i] && m_phPartVIS[i][j] ) {
+                  float glowEffect = 1.0f * (m_sPartItemIDX[i].m_cGrade / 10.0f);
+                  setVisibleGlow( m_phPartVIS[i][j], ZZ_GLOW_TEXTURE, glowEffect, glowEffect, glowEffect);
+                }
+                  
               }
             }
           } else {
