@@ -233,7 +233,7 @@ void              CNetwork::Proc_WorldPacket() {
         break;
       case WSV_CHATROOM_MSG: Recv_wsv_CHATROOM_MSG(packet.get());
         break;
-      case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE(packet.get());
+      case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE(RoseCommon::Packet::SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
         // 존 서버를 이동해라...
       case WSV_MOVE_SERVER: {
@@ -595,8 +595,14 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
     case SRV_UPDATE_NAME: Recv_gsv_UPDATE_NAME(packet);
       break;
 
-    case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE(packet);
-      break;
+    case WSV_CHAR_CHANGE: { //Fixed by Davidixx
+        using RoseCommon::Packet::SrvChanCharReply;
+        Recv_wsv_CHAR_CHANGE(SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet)));
+        m_btZoneSocketSTATUS = 0;
+        CshoClientSOCK* pSocket = &this->m_ZoneSOCKET;
+        pSocket->Close();
+        break;
+    }
 
     default:
       //_ASSERT(0);
@@ -659,7 +665,6 @@ void CNetwork::Proc() {
         if ( dwRet ) {
           pSocket->OnAccepted( (int *)&dwRet );
           // 처음 접속한 존 서버? 면...
-
           CLiveCheck::GetSingleton().ResetTime();
         } else {
           // TODO:: error

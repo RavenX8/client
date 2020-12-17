@@ -5,6 +5,7 @@
 #define	__CRECVPACKET_H
 
 #include "srv_login_reply.h"
+#include "srv_chan_char_reply.h"
 
 //-------------------------------------------------------------------------------------------------
 
@@ -202,7 +203,7 @@ public :
   void Recv_gsv_REWARD_ADD_ABILITY(t_PACKET* packet);
   void Recv_gsv_REWARD_SET_ABILITY(t_PACKET* packet);
 
-  void Recv_wsv_CHAR_CHANGE(t_PACKET* packet);
+  void Recv_wsv_CHAR_CHANGE(RoseCommon::Packet::SrvChanCharReply&& packet);
 
   //----------------------------------------------------------------------------------------------------	
   ///
