@@ -4477,6 +4477,7 @@ void                 CObjAVT::CreateGradeEffect() {
       //----------------------------------------------------------------------------------------------------
       /// Glow effect
       //----------------------------------------------------------------------------------------------------
+      float glowEffect = 1.0f * (m_sPartItemIDX[i].m_cGrade / 9.0f);
       unsigned int iColor = ITEMGRADE_GLOW_COLOR( m_sPartItemIDX[ i ].m_cGrade );
       if ( iColor ) {
         D3DXCOLOR color = CGameUtil::GetRGBFromString( iColor );
@@ -4488,7 +4489,6 @@ void                 CObjAVT::CreateGradeEffect() {
             if ( pCharPART ) {
               for ( int j = 0; j < pCharPART->m_nPartCNT; j++ ) {
                 if ( m_phPartVIS[i] && m_phPartVIS[i][j] ) {
-                  float glowEffect = 1.0f * (m_sPartItemIDX[i].m_cGrade / 10.0f);
                   setVisibleGlow( m_phPartVIS[i][j], ZZ_GLOW_TEXTURE, glowEffect, glowEffect, glowEffect);
                 }
                   
@@ -4499,7 +4499,7 @@ void                 CObjAVT::CreateGradeEffect() {
             std::list<int>::iterator begin = m_pCharMODEL->m_RenderUnitPart[i].begin();
             for ( ; begin != m_pCharMODEL->m_RenderUnitPart[i].end(); ++begin ) {
               int iRenderUnitIndex = *begin;
-              setVisibleRenderUnitGlow( this->GetZMODEL(), iRenderUnitIndex, ZZ_GLOW_TEXTURE, color.r, color.g, color.b );
+              setVisibleRenderUnitGlow( this->GetZMODEL(), iRenderUnitIndex, ZZ_GLOW_TEXTURE, glowEffect, glowEffect, glowEffect );
               //::setVisibleGlow( this->GetZMODEL(), ZZ_GLOW_SIMPLE, 1.0f, 1.0f, 1.0f );
             }
           }
