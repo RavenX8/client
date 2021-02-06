@@ -310,9 +310,6 @@ bool CTCmdDragItemFromInvenInItemDlg::Exec(CTObject* pObj) {
       pSourceSlot->DetachIcon();
       pTargetSlot->AttachIcon( pSourceItem->CreateItemIcon() );
     }
-    //TODO: Switch item places is here :>
-    //pTempItem.GetIndex(); //davidixx
-    //pSourceItem.GetIndex(); //davidixx
   }
 
   return true;
