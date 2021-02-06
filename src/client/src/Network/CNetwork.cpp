@@ -124,6 +124,7 @@ void              CNetwork::Proc_WorldPacket() {
 
   std::unique_ptr<t_PACKET> packet(new t_PACKET);
   while ( m_WorldSOCKET.Peek_Packet( packet.get(), true ) ) {
+    LogString(LOG_DEBUG,"Received World_Packet type [0x%x]\n", packet->m_HEADER.m_wType);
     switch ( packet->m_HEADER.m_wType ) {
       case SOCKET_NETWORK_STATUS: {
         switch ( packet->m_NetSTATUS.m_btStatus ) {
@@ -254,6 +255,7 @@ void              CNetwork::Proc_WorldPacket() {
 }
 
 void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
+  LogString(LOG_DEBUG, "Received Zone_Packet type [0x%x]\n", packet->m_HEADER.m_wType);
   switch ( packet->m_HEADER.m_wType ) {
     case WSV_MOVE_SERVER: {
       this->m_bWarping = true;

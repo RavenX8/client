@@ -221,6 +221,7 @@ void CClientSOCKET::Set_NetSTATUS(BYTE btStatus) {
 
 //-------------------------------------------------------------------------------------------------
 void CClientSOCKET::Packet_Register2SendQ(const t_PACKET* const pRegPacket) {
+  LogString(LOG_DEBUG, "Sent t_Packet type [0x%x]\n", pRegPacket->m_HEADER.m_wType);
   if ( m_cStatus != CLIENTSOCKET_CONNECTED )
     return;
 
@@ -245,6 +246,7 @@ void CClientSOCKET::Packet_Register2SendQ(const t_PACKET* const pRegPacket) {
 
 void CClientSOCKET::Packet_Register2SendQ(RoseCommon::CRosePacket&& pRegPacket)
 {
+    LogString(LOG_DEBUG, "Sent CRosePacket type [0x%x]\n", pRegPacket.get_type());
     if (m_cStatus != CLIENTSOCKET_CONNECTED)
       return;
     auto packet = pRegPacket.getPacked();
