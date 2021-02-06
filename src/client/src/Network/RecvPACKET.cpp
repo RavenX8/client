@@ -723,6 +723,7 @@ void CRecvPACKET::Recv_gsv_SELECT_CHAR(t_PACKET* packet) {
     packet->m_gsv_SELECT_CHAR.m_nReviveZoneNO;
   refGame.m_SelectedAvataInfo.m_dwUniqueTAG =
     packet->m_gsv_SELECT_CHAR.m_dwUniqueTAG;
+
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -764,20 +765,19 @@ void    CRecvPACKET::Recv_gsv_CHEAT_CODE(t_PACKET* packet) {
 
 //-------------------------------------------------------------------------------------------------
 /// 일단 정지상태에서만 동작한다..
-void        CRecvPACKET::Recv_gsv_SET_MOTION(t_PACKET* packet) {
+void        CRecvPACKET::Recv_gsv_SET_MOTION(RoseCommon::Packet::SrvSetAnimation&& packet) {
   CObjCHAR* pCHAR = g_pObjMGR->Get_ClientCharOBJ(
-    packet->m_gsv_SET_MOTION.m_wObjectIDX, false );
+    packet.get_object_id(), false );
   if ( pCHAR ) {
-    // 2003. 11. 27 추가..
-    // 몬스터, 아바타를 구분하여 받은 동작을 적용할곳...
+    
 #pragma message("TODO:: 케릭터에 동작 적용할 부분 테스트 안된곳.." __FILE__)
-
-    if ( packet->m_gsv_SET_MOTION.m_wIsSTOP ) {
+    gsv_SET_MOTION p_MotionValues;
+    p_MotionValues.m_wValue = packet.get_value();   
+    if ( p_MotionValues.m_wIsSTOP ) {
       pCHAR->SetCMD_STOP();
     }
 
-    // 현재 이동속도유지(?) 혹시 이동 중일지 몰라서... 애니 속도는 디폴트...
-    pCHAR->Set_MOTION( packet->m_gsv_SET_MOTION.m_nMotionNO,
+    pCHAR->Set_MOTION( packet.get_id(),
                        pCHAR->m_fCurMoveSpeed );
     setRepeatCount( pCHAR->GetZMODEL(), 1 );
 

@@ -353,8 +353,12 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
     case GSV_CHEAT_CODE: Recv_gsv_CHEAT_CODE(packet);
       break;
 
-    case GSV_SET_MOTION: Recv_gsv_SET_MOTION(packet);
+    case GSV_SET_MOTION:
+    {
+      using RoseCommon::Packet::SrvSetAnimation;
+      Recv_gsv_SET_MOTION(SrvSetAnimation::create(reinterpret_cast<const uint8_t*>(packet)));
       break;
+    }
 
     case GSV_TOGGLE: Recv_gsv_TOGGLE(packet);
       break;

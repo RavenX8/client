@@ -77,23 +77,23 @@ struct tagMaintainSTATUS {
 
 /// 성장 능력치 데이터 ...
 struct tagGrowAbility {
-  short m_nHP; // 0~2000
-  short m_nMP; // 0~1000
+  int32_t m_nHP; // 0~2000
+  int32_t m_nMP; // 0~1000
 
-  int64_t m_lEXP;        // 경험치 1~100000
-  short   m_nLevel;      // 0~250
-  short   m_nBonusPoint; // 1~999
-  short   m_nSkillPoint; // 1~
+  uint32_t m_lEXP;        // 경험치 1~100000
+  uint16_t   m_nLevel;      // 0~250
+  uint32_t   m_nBonusPoint; // 1~999
+  uint32_t   m_nSkillPoint; // 1~
   BYTE    m_btBodySIZE;  // 몸통크기
   BYTE    m_btHeadSIZE;  // 머리크기
-  int64_t m_lPenalEXP;   // 추가 경험치...
+  uint32_t m_lPenalEXP;   // 추가 경험치...
 
   short m_nFameG;                         // 선행지수	: 퀘스트에 의해 증감됨	: 2004.5.27 추가
   short m_nFameB;                         // 선행지수 : 퀘스트에 의해 증감됨	: 2004.5.27 추가
   short m_nUnionPOINT[ MAX_UNION_COUNT ]; // 조합 포인트		: 2004.5.27 추가
 
-  int   m_iGuildNO;    // 길드 번호	: 2004.5.27 추가
-  short m_nGuildCNTRB; // 길드 기여도	: 2004.5.27 추가
+  uint32_t   m_iGuildNO;    // 길드 번호	: 2004.5.27 추가
+  uint16_t m_nGuildCNTRB; // 길드 기여도	: 2004.5.27 추가
   BYTE  m_btGuildPOS;  // 길드 직위	: 2004.5.27 추가
 
   short m_nPKFlag;  // 2004. 6. 17 추가..

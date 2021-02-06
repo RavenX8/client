@@ -6,6 +6,7 @@
 
 #include "srv_login_reply.h"
 #include "srv_chan_char_reply.h"
+#include "srv_set_animation.h"
 
 //-------------------------------------------------------------------------------------------------
 
@@ -63,7 +64,7 @@ public :
 
   void Recv_gsv_CHEAT_CODE(t_PACKET* packet);
 
-  void Recv_gsv_SET_MOTION(t_PACKET* packet);
+  void Recv_gsv_SET_MOTION(RoseCommon::Packet::SrvSetAnimation&& packet);
   void Recv_gsv_TOGGLE(t_PACKET* packet);
   void Recv_gsv_CHAT(t_PACKET* packet);
   void Recv_gsv_WHISPER(t_PACKET* packet);
