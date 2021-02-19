@@ -304,12 +304,18 @@ bool CTCmdDragItemFromInvenInItemDlg::Exec(CTObject* pObj) {
 
       pTargetSlot->AttachIcon( pSourceItem->CreateItemIcon() );
       pSourceSlot->AttachIcon( pTempItem->CreateItemIcon() );
+      g_pNet->Send_cli_SWAP_ITEM((uint8_t)pTempItem->GetIndex(), (uint8_t)pSourceItem->GetIndex()); //davidixx
+      LogString(LOG_DEBUG, "src = %d\n",pTempItem->GetIndex()); //davidixx
+      LogString(LOG_DEBUG, "dest = %d\n",pSourceItem->GetIndex()); //davidixx
     } else {
       CSlot* pSourceSlot = pItemIcon->GetSlot();
       CItem* pSourceItem = pItemIcon->GetCItem();
       pSourceSlot->DetachIcon();
       pTargetSlot->AttachIcon( pSourceItem->CreateItemIcon() );
     }
+    //TODO: Switch item places is here :>
+    // pTempItem->GetIndex(); //davidixx
+    // pSourceItem->GetIndex(); //davidixx
   }
 
   return true;

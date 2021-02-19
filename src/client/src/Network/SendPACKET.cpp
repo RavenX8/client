@@ -479,6 +479,23 @@ void CSendPACKET::Send_cli_CANTMOVE() {
 #endif
 }
 
+
+void CSendPACKET::Send_cli_SWAP_ITEM(uint8_t sourcePos, uint8_t targetPos) { //davidixx
+#ifdef	__VIRTUAL_SERVER
+    m_pSendPacket->m_HEADER.m_wType = SRV_SWAP_ITEM;
+    m_pSendPacket->m_HEADER.m_nSize = sizeof(srv_SWAP_ITEM);
+#else
+  m_pSendPacket->m_HEADER.m_wType = CLI_SWAP_ITEM;
+  m_pSendPacket->m_HEADER.m_nSize = sizeof(cli_SWAP_ITEM);
+
+  m_pSendPacket->m_cli_SWAP_ITEM.sourcePosition = sourcePos;
+  m_pSendPacket->m_cli_SWAP_ITEM.targetPosition = targetPos;
+
+  this->Send_PACKET(m_pSendPacket);
+#endif
+}
+
+
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_ATTACK(int iClientTarget) {
   if ( CCountry::GetSingleton().IsJapan() ) {

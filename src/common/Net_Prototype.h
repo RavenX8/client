@@ -300,6 +300,9 @@
 
 #define	GSV_CHECK_NPC_EVENT			0x0731
 
+#define CLI_SWAP_ITEM     0x0732
+#define SRV_SWAP_ITEM     0x0732
+
 #define	GSV_CHEAT_CODE				0x0751
 
 #define	CLI_JOIN_ZONE				0x0753
@@ -1211,6 +1214,13 @@ struct gsv_MOUSECMD : public t_PACKETHEADER {
 struct cli_ATTACK : public t_PACKETHEADER {
   uint16_t m_wTargetObjectIndex;
 };
+
+struct cli_SWAP_ITEM : public t_PACKETHEADER { //davidixx
+  uint8_t sourcePosition;
+  uint8_t targetPosition;
+};
+
+struct srv_SWAP_ITEM : public t_PACKETHEADER {}; //davidixx
 
 struct gsv_ATTACK : public t_PACKETHEADER {
   uint16_t m_wAtkObjIDX;
@@ -3100,6 +3110,8 @@ struct t_PACKET {
     gsv_QUEST_REPLY m_gsv_QUEST_REPLY;
 
     gsv_CHECK_NPC_EVENT m_gsv_CHECK_NPC_EVENT;
+
+    cli_SWAP_ITEM m_cli_SWAP_ITEM; //davidixx
 
     cli_PARTY_REQ m_cli_PARTY_REQ;
     gsv_PARTY_REQ m_gsv_PARTY_REQ;

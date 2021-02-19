@@ -124,6 +124,7 @@ void              CNetwork::Proc_WorldPacket() {
 
   std::unique_ptr<t_PACKET> packet(new t_PACKET);
   while ( m_WorldSOCKET.Peek_Packet( packet.get(), true ) ) {
+    LogString(LOG_DEBUG,"Received World_Packet type [0x%x]\n", packet->m_HEADER.m_wType);
     switch ( packet->m_HEADER.m_wType ) {
       case SOCKET_NETWORK_STATUS: {
         switch ( packet->m_NetSTATUS.m_btStatus ) {
@@ -223,6 +224,8 @@ void              CNetwork::Proc_WorldPacket() {
       case WSV_CREATE_CHAR: Recv_wsv_CREATE_CHAR(packet.get());
 
         break;
+      case SRV_SWAP_ITEM: Recv_srv_SWAP_ITEM(packet.get());
+          break;
       case WSV_MESSENGER: Recv_tag_MCMD_HEADER(packet.get());
         break;
       case WSV_MESSENGER_CHAT: Recv_wsv_MESSENGER_CHAT(packet.get());
@@ -254,6 +257,7 @@ void              CNetwork::Proc_WorldPacket() {
 }
 
 void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
+  LogString(LOG_DEBUG, "Received Zone_Packet type [0x%x]\n", packet->m_HEADER.m_wType);
   switch ( packet->m_HEADER.m_wType ) {
     case WSV_MOVE_SERVER: {
       this->m_bWarping = true;
@@ -312,7 +316,8 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
 
     case GSV_SET_GLOBAL_FLAG: Recv_gsv_SET_GLOVAL_FLAG(packet);
       break;
-
+    case SRV_SWAP_ITEM: Recv_srv_SWAP_ITEM(packet);
+        break;
     case SRV_ANNOUNCE_TEXT: Recv_srv_ANNOUNCE_TEXT(packet);
       break;
     case GSV_ANNOUNCE_CHAT: Recv_gsv_ANNOUNCE_CHAT(packet);
