@@ -280,15 +280,15 @@
 
 #define	GSV_QUEST_DATA				0x071b
 
-#define	CLI_CHAR_CHANGE				0x071c		// 케릭터 선택창으로 이동요청 :: 게임 서버로 패킷 전송해야함.
-#define	WSV_CHAR_CHANGE				0x071c		// 이 패킷 받으면 CLI_CHAR_LIST을 서버에 요청 :: 월드 서버에서 전송되어짐
+#define	CLI_CHAR_CHANGE				0x071c		
+#define	WSV_CHAR_CHANGE				0x071c		
 
-#define GSV_SET_MONEY_ONLY			0x071d		// 서버에서의 현재돈... 
+#define GSV_SET_MONEY_ONLY			0x071d		 
 
-#define	GSV_REWARD_MONEY			0x071e		// 돈이 보상 되었다... 구조는 gsv_SET_MONEY_ONLY
-#define	GSV_REWARD_ITEM				0x071f		// 아이템 보상 되었다
-#define	GSV_REWARD_ADD_ABILITY		0x0720		// 능력치 추가
-#define	GSV_REWARD_SET_ABILITY		0x0721		// 능력치 설정
+#define	GSV_REWARD_MONEY			0x071e		
+#define	GSV_REWARD_ITEM				0x071f		
+#define	GSV_REWARD_ADD_ABILITY		0x0720		
+#define	GSV_REWARD_SET_ABILITY		0x0721		
 
 #define	CLI_LOGOUT_CANCEL			0x0722
 
@@ -1215,12 +1215,10 @@ struct cli_ATTACK : public t_PACKETHEADER {
   uint16_t m_wTargetObjectIndex;
 };
 
-struct cli_SWAP_ITEM : public t_PACKETHEADER { //davidixx
+struct cli_SWAP_ITEM : public t_PACKETHEADER {
   uint8_t sourcePosition;
   uint8_t targetPosition;
 };
-
-struct srv_SWAP_ITEM : public t_PACKETHEADER {}; //davidixx
 
 struct gsv_ATTACK : public t_PACKETHEADER {
   uint16_t m_wAtkObjIDX;
@@ -3111,7 +3109,7 @@ struct t_PACKET {
 
     gsv_CHECK_NPC_EVENT m_gsv_CHECK_NPC_EVENT;
 
-    cli_SWAP_ITEM m_cli_SWAP_ITEM; //davidixx
+    cli_SWAP_ITEM m_cli_SWAP_ITEM;
 
     cli_PARTY_REQ m_cli_PARTY_REQ;
     gsv_PARTY_REQ m_gsv_PARTY_REQ;

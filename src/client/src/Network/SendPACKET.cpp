@@ -480,7 +480,7 @@ void CSendPACKET::Send_cli_CANTMOVE() {
 }
 
 
-void CSendPACKET::Send_cli_SWAP_ITEM(uint8_t sourcePos, uint8_t targetPos) { //davidixx
+void CSendPACKET::Send_cli_SWAP_ITEM(uint8_t sourcePos, uint8_t targetPos) {
 #ifdef	__VIRTUAL_SERVER
     m_pSendPacket->m_HEADER.m_wType = SRV_SWAP_ITEM;
     m_pSendPacket->m_HEADER.m_nSize = sizeof(srv_SWAP_ITEM);

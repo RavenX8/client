@@ -577,6 +577,21 @@ CSlot* CItemDlg::GetInvenSlot(POINT pt) {
   return nullptr;
 }
 
+int CItemDlg::GetInvenIndex(POINT pt) { //davidixx
+    int  iInvenType = 0;
+
+    if (m_iEquipTab == 1)
+        iInvenType = MAX_INV_TYPE - 1;
+    else
+        iInvenType = m_iInventoryTab;
+
+    for (int iSlot = 0; iSlot < INVENTORY_PAGE_SIZE; ++iSlot)
+        if (m_ItemSlots[iInvenType][iSlot].IsInside(pt.x, pt.y))
+            return iSlot;
+
+    return -1;
+}
+
 CWinCtrl*   CItemDlg::FindChildInPane(unsigned uiPaneID, unsigned uiChildID) {
   CWinCtrl* pCtrl = Find( uiPaneID );
   if ( pCtrl && pCtrl->GetControlType() == CTRL_PANE ) {

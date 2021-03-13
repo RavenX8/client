@@ -191,11 +191,6 @@ void CRecvPACKET::Recv_srv_ANNOUNCE_TEXT(t_PACKET* packet) {
 #pragma message("TODO:: 받은 공지 사항 처리..." __FILE__)
 }
 
-void CRecvPACKET::Recv_srv_SWAP_ITEM(t_PACKET* packet) {
-    LogString(LOG_DEBUG, "Im here inside srv_swap_item");
-    g_pAVATAR->UpdateAbility();
-}
-
 //-------------------------------------------------------------------------------------------------
 void    CRecvPACKET::Recv_gsv_ANNOUNCE_CHAT(t_PACKET* packet) {
   short nOffset = sizeof( t_PACKETHEADER );

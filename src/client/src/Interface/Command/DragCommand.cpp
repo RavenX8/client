@@ -288,34 +288,34 @@ bool CTCmdDragItemFromInvenInItemDlg::Exec(CTObject* pObj) {
     }
 
     /// 사용아이템은 드래그로 기본 동작( 장착 )을 처리하지 않는다.
-    if ( pItemIcon->GetItem().GetTYPE() != ITEM_TYPE_USE )
-      pItemIcon->ExecuteCommand();
+    if (pItemIcon->GetItem().GetTYPE() != ITEM_TYPE_USE) {
+        pItemIcon->ExecuteCommand();
+    }
+      
   } else if ( CSlot* pTargetSlot = pItemDlg->GetInvenSlot( ptMouse ) ) {
     if ( CIcon*      pTargetIcon = pTargetSlot->GetIcon() ) {
       CItem*         pTempItem   = ((CIconItem*)pTargetIcon)->GetCItem();
       assert( pTempItem );
-      pTargetSlot->DetachIcon();
+      //pTargetSlot->DetachIcon();
 
       CSlot* pSourceSlot = pItemIcon->GetSlot();
       assert( pSourceSlot );
       CItem* pSourceItem = pItemIcon->GetCItem();
       assert( pSourceItem );
-      pSourceSlot->DetachIcon();
-
-      pTargetSlot->AttachIcon( pSourceItem->CreateItemIcon() );
-      pSourceSlot->AttachIcon( pTempItem->CreateItemIcon() );
-      g_pNet->Send_cli_SWAP_ITEM((uint8_t)pTempItem->GetIndex(), (uint8_t)pSourceItem->GetIndex()); //davidixx
-      LogString(LOG_DEBUG, "src = %d\n",pTempItem->GetIndex()); //davidixx
-      LogString(LOG_DEBUG, "dest = %d\n",pSourceItem->GetIndex()); //davidixx
+      g_pNet->Send_cli_SWAP_ITEM((uint8_t)pSourceItem->GetIndex(), (uint8_t)pTempItem->GetIndex());
+      LogString(LOG_DEBUG, "src = %d\n",pTempItem->GetIndex());
+      LogString(LOG_DEBUG, "dest = %d\n",pSourceItem->GetIndex()); 
     } else {
+      LogString(LOG_DEBUG, "im inside dragocommand else\n");
       CSlot* pSourceSlot = pItemIcon->GetSlot();
       CItem* pSourceItem = pItemIcon->GetCItem();
-      pSourceSlot->DetachIcon();
-      pTargetSlot->AttachIcon( pSourceItem->CreateItemIcon() );
+      if (int pTargetIndex = pItemDlg->GetInvenIndex(ptMouse) != -1)
+      {
+          LogString(LOG_DEBUG, "pTargetIndex is %d\n", pTargetIndex);
+          //g_pNet->Send_cli_SWAP_ITEM((uint8_t)pSourceItem->GetIndex(), (uint8_t)pTargetIndex);
+      }
+      //TODO: Send_cli_SWAP_ITEM with no source (moving to an empty slot)
     }
-    //TODO: Switch item places is here :>
-    // pTempItem->GetIndex(); //davidixx
-    // pSourceItem->GetIndex(); //davidixx
   }
 
   return true;

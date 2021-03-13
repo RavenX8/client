@@ -224,8 +224,6 @@ void              CNetwork::Proc_WorldPacket() {
       case WSV_CREATE_CHAR: Recv_wsv_CREATE_CHAR(packet.get());
 
         break;
-      case SRV_SWAP_ITEM: Recv_srv_SWAP_ITEM(packet.get());
-          break;
       case WSV_MESSENGER: Recv_tag_MCMD_HEADER(packet.get());
         break;
       case WSV_MESSENGER_CHAT: Recv_wsv_MESSENGER_CHAT(packet.get());
@@ -316,8 +314,6 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
 
     case GSV_SET_GLOBAL_FLAG: Recv_gsv_SET_GLOVAL_FLAG(packet);
       break;
-    case SRV_SWAP_ITEM: Recv_srv_SWAP_ITEM(packet);
-        break;
     case SRV_ANNOUNCE_TEXT: Recv_srv_ANNOUNCE_TEXT(packet);
       break;
     case GSV_ANNOUNCE_CHAT: Recv_gsv_ANNOUNCE_CHAT(packet);

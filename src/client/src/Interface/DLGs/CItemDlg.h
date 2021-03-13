@@ -38,6 +38,7 @@ public:
   bool IsInsideEquip(POINT pt); /// 좌표가 장착 슬롯 영역 위인가?
 
   int    GetEquipSlot(POINT pt); /// 좌표로 장비 장착창 슬롯 번호를 구한다.
+  int    GetInvenIndex(POINT pt);
   CSlot* GetInvenSlot(POINT pt); /// 좌표로 인벤토리 슬롯 번호를 구한다.
 
   void ApplySavedVirtualInventory(std::list<S_InventoryData>& list);

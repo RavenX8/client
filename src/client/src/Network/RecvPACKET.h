@@ -107,8 +107,6 @@ public :
   void Recv_gsv_CHANGE_SKIN(t_PACKET* packet);
   void Recv_gsv_EQUIP_ITEM(t_PACKET* packet);
 
-  void Recv_srv_SWAP_ITEM(t_PACKET* packet); //davidixx
-
   void Recv_gsv_ADD_FIELDITEM(t_PACKET* packet);
   void Recv_gsv_GET_FIELDITEM_REPLY(t_PACKET* packet);
 
