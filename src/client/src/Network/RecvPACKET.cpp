@@ -5923,7 +5923,7 @@ void CRecvPACKET::Recv_gsv_BILLING_MESSAGE_EXT(t_PACKET* packet) {
 
       if ( packet->m_gsv_BILLING_MESSAGE_EXT.m_dwPayType == 0 &&
            packet->m_gsv_BILLING_MESSAGE_EXT.m_dwPlayingFlag[0] == 0 ) {
-        short      nOffset       = sizeof(GSV_BILLING_MESSAGE_EXT);
+        short      nOffset       = sizeof(gsv_BILLING_MESSAGE_EXT);
         if ( char* pszRemainTime = Packet_GetStringPtr( packet, nOffset ) ) {
 
           //남은 시간

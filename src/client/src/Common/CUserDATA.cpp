@@ -2117,7 +2117,8 @@ bool  CUserDATA::Reward_CalMONEY(BYTE btEquation, int iBaseValue, BYTE btRewardT
 
   if ( btRewardToParty ) { } else {
     iR = CCal::Get_RewardVALUE( btEquation, iBaseValue, this, nDupCNT );
-    this->Add_MoneyNSend( iR, GSV_REWARD_MONEY );
+    //this->Add_MoneyNSend( iR, GSV_REWARD_MONEY );
+    // TODO: implement this?
   }
   return true;
 }
