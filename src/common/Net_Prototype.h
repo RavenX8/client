@@ -220,7 +220,7 @@
 
 //-------------------------------------------------------------------------------------------------
 
-#define	SRV_ERROR					0x0700
+/*#define	SRV_ERROR					0x0700
 
 #define	SRV_ANNOUNCE_TEXT			0x0701
 #define	GSV_ANNOUNCE_CHAT			0x0702
@@ -242,10 +242,10 @@
 #define	CLI_SELECT_SERVER			0x070a
 #define	LSV_SELECT_SERVER			0x070a
 
-/*
-#define	CLI_JOIN_WORLD				0x070b
-#define WSV_JOIN_WORLD				0x070c		// 월드 서버로 부터 접속 검증 여부...
-*/
+
+// #define	CLI_JOIN_WORLD				0x070b
+// #define WSV_JOIN_WORLD				0x070c		// 월드 서버로 부터 접속 검증 여부...
+
 
 #define	CLI_JOIN_SERVER_REQ			0x070b		// 월드/존 서버로 접속을 요청한다.
 #define	SRV_JOIN_SERVER_REPLY		0x070c
@@ -582,6 +582,7 @@
 #define SRV_UPDATE_NAME				0x07ec
 #define PXY_UPDATE_NAME				0x07ed
 #define PXY_SET_RIGHTS				0x07ef
+*/
 
 //-------------------------------------------------------------------------------------------------
 
