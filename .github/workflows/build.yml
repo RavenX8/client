@@ -129,7 +129,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [ windows_release ]
-    if: $${ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
+    if: ${ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
     steps:
       - name: Download windows build
         uses: actions/download-artifact@v2
