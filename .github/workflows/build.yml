@@ -143,9 +143,9 @@ jobs:
           omitBodyDuringUpdate: true
           omitNameDuringUpdate: true
           replacesArtifacts: true
-          name: ${GITHUB_REF##*/}_v1.1.5.$GITHUB_RUN_NUMBER
           body: latest client build
           commit: $GITHUB_SHA
+          tag: ${GITHUB_REF##*/}_v1.1.5.$GITHUB_RUN_NUMBER
           artifacts: "windows_release_build.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
 
