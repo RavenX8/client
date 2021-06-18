@@ -4,9 +4,12 @@ on: [push, pull_request]
 jobs:
   windows_debug:
     runs-on: windows-latest
+    env:
+      BUILD_TYPE: Debug
     steps:
       - uses: actions/checkout@v2
         with:
+          lfs: true
           submodules: recursive
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
@@ -67,6 +70,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          lfs: true
           submodules: recursive
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
