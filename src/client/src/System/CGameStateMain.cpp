@@ -847,7 +847,7 @@ bool    CGameStateMain::On_WM_MOUSEWHEEL(WPARAM wParam, LPARAM lParam) {
 #ifdef _DEBUG
   if( g_GameDATA.m_bObserverCameraMode )
   {
-    ObserverCameraZoomInOut( (float)-(zDelta) );
+    ObserverCameraZoomInOut( (int)((float)-(zDelta)) );
   }else
 #endif
   {

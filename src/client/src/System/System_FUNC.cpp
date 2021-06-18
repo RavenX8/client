@@ -506,7 +506,7 @@ void             SC_RemoveCoordinatesIndicator(int index) {
 //------------------------------------------------------------------------------------------------
 
 int SC_GetAvatarEXP() {
-  return g_pAVATAR->Get_EXP();
+  return (int)g_pAVATAR->Get_EXP();
 }
 
 int SC_GetAvatarLEVEL() {

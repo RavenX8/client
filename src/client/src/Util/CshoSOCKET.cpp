@@ -32,7 +32,7 @@ CshoClientSOCK::~CshoClientSOCK() {
 //-------------------------------------------------------------------------------------------------
 void CshoClientSOCK::Set_NetSTATUS(BYTE btStatus) {
   if ( NETWORK_STATUS_CONNECT == btStatus ) {
-    // ÃÊ±âÈ­...
+    // ì´ˆê¸°í™”...
     m_iSendSEQ = 0;
   }
 
@@ -53,17 +53,17 @@ void CshoClientSOCK::mF_Init(DWORD dwInitCODE) {
 
  WORD CshoClientSOCK::mF_ESP (t_PACKETHEADER *pPacket)
  {
- 	// ¼­¹ö¿¡ º¸³¾ ÆÐÅ¶ ¾ÏÈ£È­....
+ 	// ì„œë²„ì— ë³´ë‚¼ íŒ¨í‚· ì•”í˜¸í™”....
  	return ((CPacketCODEC*)m_hEncSOCK)->Encode_SendClientPACKET( pPacket, m_iSendSEQ );
  }
 
 WORD CshoClientSOCK::mF_DRH(t_PACKETHEADER* pPacket) {
-  // ¼­¹ö¿¡¼­ ¹ÞÀº ÆÐÅ¶Çì´õ º¹È£È­...
+  // ì„œë²„ì—ì„œ ë°›ì€ íŒ¨í‚·í—¤ë” ë³µí˜¸í™”...
   return ((CPacketCODEC*)m_hEncSOCK)->Decode_RecvServerHEADER( pPacket );
 }
 
 short CshoClientSOCK::mF_DRB(t_PACKETHEADER* pPacket) {
-  // ¼­¹ö¿¡¼­ ¹ÞÀº ÆÐÅ¶¸öÃ¼ º¹È£È­...
+  // ì„œë²„ì—ì„œ ë°›ì€ íŒ¨í‚·ëª¸ì²´ ë³µí˜¸í™”...
   return ((CPacketCODEC*)m_hEncSOCK)->Decode_RecvServerBODY( pPacket );
 }
 
@@ -86,7 +86,7 @@ bool  CshoClientSOCK::WndPROC(WPARAM wParam, LPARAM lParam) {
         this->Set_NetSTATUS( NETWORK_STATUS_DERVERDEAD );
       break;
     }
-    case FD_CLOSE: // Close()ÇÔ¼ö¸¦ È£ÃâÇØ¼­ Á¾·áµÉ¶§´Â ¹ß»ý ¾ÈÇÑ´Ù.
+    case FD_CLOSE: // Close()í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•´ì„œ ì¢…ë£Œë ë•ŒëŠ” ë°œìƒ ì•ˆí•œë‹¤.
     {
       this->OnClose( nErrorCode );
       this->Set_NetSTATUS( NETWORK_STATUS_DISCONNECT );

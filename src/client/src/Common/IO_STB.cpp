@@ -73,7 +73,7 @@ bool       STBDATA::Load2(char* szFileName, bool bHasTYPE, bool bMakeKEY) {
 					pStr = cFILE.GetString ( nX, nY );
 #endif
         if ( pStr ) {
-          this->m_ppVALUE[nY][nX].SetTYPE( 0 == strcmpi( pStr, "string" ) );
+          this->m_ppVALUE[nY][nX].SetTYPE( 0 == _strcmpi( pStr, "string" ) );
         } else
           this->m_ppVALUE[nY][nX].SetTYPE( false );
       }

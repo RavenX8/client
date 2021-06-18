@@ -37,7 +37,7 @@ void CIndicate::Draw() {
     g_pCApp->GetHEIGHT() / 3 + m_iLineHeight
   };
 
-  std::list<string>::iterator iter;
+  std::list<std::string>::iterator iter;
   for ( iter = m_Descriptions.begin(); iter != m_Descriptions.end(); ++iter ) {
     drawFont( g_GameDATA.m_hFONT[FONT_DESCRIPTION], true, &rcDrawDesc, g_dwWHITE, DT_CENTER, iter->c_str() );
 

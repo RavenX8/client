@@ -5,12 +5,11 @@
 #include <map>
 #include <string>
 #include <list>
-using namespace std;
 
-typedef map<string, int>         TABLE_IMAGE_ID;
+typedef std::map<std::string, int>         TABLE_IMAGE_ID;
 typedef TABLE_IMAGE_ID::iterator TABLE_IMAGE_ID_ITER;
 
-typedef map<int, TABLE_IMAGE_ID> TABLE_MODULE;
+typedef std::map<int, TABLE_IMAGE_ID> TABLE_MODULE;
 typedef TABLE_MODULE::iterator   TABLE_MODULE_ITER;
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------

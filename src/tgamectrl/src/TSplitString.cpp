@@ -61,7 +61,7 @@ bool CTSplitString::Split(int iFont, char* pszStr, int iDisplayWidth, unsigned u
             break;
           }
 
-          if ( strTemp.size() < (pCurrPos - pPrevPos) * 3 ) {
+          if ( (int)strTemp.size() < (int)((pCurrPos - pPrevPos) * 3) ) {
             pPrevPos = CharPrevExA( uiCodePage, pStartPos, pCurrPos, 0 );
             break;
           }

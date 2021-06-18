@@ -9,5 +9,5 @@ bool CLibString::CompareNI(const char* s1, const char* s2) {
   if ( s1 == nullptr || s2 == nullptr )
     return false;
 
-  return (stricmp( s1, s2 ) == 0);
+  return (_stricmp( s1, s2 ) == 0);
 }

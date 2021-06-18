@@ -2699,7 +2699,7 @@ void            display_debug_message() {
   drawFontLater(0, 0, 0, "DEBUG");
 #endif
 
-  sprintf( msg, "%s. m% 3d, t% 3d, p% 6d, (%s%s%s%s)\n",
+  sprintf( msg, "%s. m% 3d, t% 3d, p% 6d, (%s%s%s%s%s)\n",
            (znzin->get_rs()->use_delayed_loading) ? "On" : "Off",
            num_meshes, num_textures, num_polygons,
            msg_total, msg_texture, msg_normal_mesh, msg_terrain_mesh, msg_ocean_mesh );

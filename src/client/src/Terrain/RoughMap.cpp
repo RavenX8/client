@@ -32,8 +32,8 @@ void CRoughMap::SetDetailLevel(int iLevel) {
 //----------------------------------------------------------------------------------------------------
 
 bool CRoughMap::Load(char* szMapName, int iZoneMapX, int iZoneMapY) {
-  m_fWorldOffsetX = iZoneMapX * nGRID_SIZE * GRID_COUNT_PER_MAP_AXIS;
-  m_fWorldOffsetY = iZoneMapY * nGRID_SIZE * GRID_COUNT_PER_MAP_AXIS;
+  m_fWorldOffsetX = (float)(iZoneMapX * nGRID_SIZE * GRID_COUNT_PER_MAP_AXIS);
+  m_fWorldOffsetY = (float)(iZoneMapY * nGRID_SIZE * GRID_COUNT_PER_MAP_AXIS);
 
   ///////////////////////////////////////////////////////////////////////////////
   /// HeightsMap info file
@@ -152,6 +152,7 @@ bool    CRoughMap::LoadEngineObject(char* szMapName, int iZoneMapX, int iZoneMap
     g_pCApp->ErrorBOX( "loadTerrainBlockExt Error", "ERROR" );
     return false;
   }
+  return true;
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -265,7 +265,7 @@ void CTEditBox::Draw() {
 
     iInsertPos = m_iPromptPos - m_iViewPos;
 
-    if ( iInsertPos > strView.size() )
+    if ( iInsertPos > (int)strView.size() )
       iInsertPos = strView.size();
 
     if ( iInsertPos < 0 )
@@ -345,7 +345,7 @@ void CTEditBox::Draw() {
 
         rcDraw.right = rcDraw.left + size.cx - 1;
 
-        for ( int i = 0; i < dwClauseLen; ++i ) ///속성에 따라서 Underline이 틀리게 해야한다.
+        for ( size_t i = 0; i < dwClauseLen; ++i ) ///속성에 따라서 Underline이 틀리게 해야한다.
         {
           switch ( compAttr[*iterClauseInfo] ) {
             case ATTR_TARGET_CONVERTED: strunderline.append( TIme.GetStr_ATTR_TARGET_CONVERTED() );
@@ -523,10 +523,10 @@ bool CTEditBox::OnChar(WPARAM wParam, LPARAM lParam) {
             break;
 
         if ( IsDBCSLeadByteEx( CTControlMgr::GetInstance()->GetCodePage(), wParam & 0xff ) ) {
-          if ( strlen( m_pszBuffer ) + 2 > m_iMaxCharCnt )
+          if ( strlen( m_pszBuffer ) + 2 > (size_t)m_iMaxCharCnt )
             break;
         } else {
-          if ( strlen( m_pszBuffer ) >= m_iMaxCharCnt )
+          if ( strlen( m_pszBuffer ) >= (size_t)m_iMaxCharCnt )
             break;
         }
         //if( strlen( m_pszBuffer )

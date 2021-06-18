@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project("Client")
 
 #set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_CXX_COMPILER_LAUNCHER)
   set(ENV{CCACHE_SLOPPINESS} "pch_defines,time_macros")
@@ -82,11 +82,6 @@ else()
 endif()
 
 find_package(Threads REQUIRED)
-find_package(PacketGenerator)
-
-if(NOT IDL_FOUND)
-  include(Build-packet-generator)
-endif()
 
 include(Build-ogg)
 include(Build-lua)
@@ -95,16 +90,16 @@ include(Build-expat)
 include(Build-ijl15) # This doesn't actually build anything, just sets up the target
 include(Build-sqlite3)
 include(Build-vorbis)
+include(Build-osirose-common)
 #include(Build-Ultralight)
 
-include(PacketGenerator)
 include(LuaIncludeGenerator)
 
 include_directories(${CMAKE_GEN_SRC_DIR})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_CRT_SECURE_NO_WARNINGS")
 
-#add_subdirectory(3rdparty)
+#add_subdirectory(3rdParty)
 add_subdirectory(src)
 
 #--------------------------------

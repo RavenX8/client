@@ -9,26 +9,21 @@
 #include <process.h>
 #include <tchar.h>
 #include <windows.h>
+#include "Net_Prototype.h"
+#include "packetfactory.h"
 
 #define CLIENTSOCKET_SERVERDEAD (-1)
 #define CLIENTSOCKET_DISCONNECTED 0x000
 #define CLIENTSOCKET_CONNECTED 0x001
 #define CLIENTSOCKET_CLOSING 0x002
 
-struct t_PACKET {
-  union {
-    t_PACKETHEADER m_HEADER;
-    BYTE           m_pDATA[1];
-  };
-};
-
 struct t_SendPACKET {
-  WORD m_wSize;
+    WORD m_wSize;
 
-  union {
-    t_PACKET m_Packet;
-    BYTE     m_pDATA[MAX_PACKET_SIZE];
-  };
+    union {
+        t_PACKET m_Packet;
+        BYTE     m_pDATA[MAX_PACKET_SIZE];
+    };
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -45,16 +40,18 @@ unsigned __stdcall ClientSOCKET_SendTHREAD(void* lpParameter) {
     if ( pClientSocket->m_cStatus != CLIENTSOCKET_CONNECTED )
       break;
 
-    EnterCriticalSection( &pClientSocket->m_csThread );
-    pClientSocket->m_SendPacketQ.AppendNodeList( &pClientSocket->m_WaitPacketQ );
-    pClientSocket->m_WaitPacketQ.Init();
-    LeaveCriticalSection( &pClientSocket->m_csThread );
+    {
+      std::scoped_lock guard(pClientSocket->m_waitMutex, pClientSocket->m_sendMutex);
+      pClientSocket->m_SendPacketQ.splice(
+        pClientSocket->m_SendPacketQ.end(), std::move(pClientSocket->m_WaitPacketQ));
+      pClientSocket->m_WaitPacketQ.clear();
+    }
 
     if ( pClientSocket->m_bWritable &&
-         pClientSocket->m_SendPacketQ.GetNodeCount() > 0 ) {
+         pClientSocket->m_SendPacketQ.size() > 0 ) {
       if ( !pClientSocket->Packet_Send() ) {
-        // º“ƒœ ø¿∑˘ πﬂª˝...
-#pragma message("!!!!!! >>>> º“ƒœ ø¿∑˘ πﬂª˝Ω√ ¥Î√≥....")
+        // ÏÜåÏºì Ïò§Î•ò Î∞úÏÉù...
+#pragma message("!!!!!! >>>> ÏÜåÏºì Ïò§Î•ò Î∞úÏÉùÏãú ÎåÄÏ≤ò....")
       }
     }
 #ifdef _DEBUG
@@ -62,7 +59,7 @@ unsigned __stdcall ClientSOCKET_SendTHREAD(void* lpParameter) {
       g_LOG.OutputString(
           LOG_DEBUG,
           " >>>>>>>> Send Failed[ %d Packet(s) ] :: Writable == false \n",
-          pClientSocket->m_SendPacketQ.GetNodeCount());
+          pClientSocket->m_SendPacketQ.size());
 #endif
   }
 
@@ -85,7 +82,6 @@ short CClientSOCKET::mF_DRB(t_PACKETHEADER* pPacket) {
 
 //-------------------------------------------------------------------------------------------------
 bool CClientSOCKET::_Init(void) {
-  m_pRecvPacket = (t_PACKET *)new char[MAX_PACKET_SIZE];
   m_nPacketSize = 0;
   m_nRecvBytes  = 0;
   m_nSendBytes  = 0;
@@ -96,81 +92,38 @@ bool CClientSOCKET::_Init(void) {
 
   m_cStatus = CLIENTSOCKET_DISCONNECTED;
 
-  InitializeCriticalSection( &m_csThread );
-
   return true;
 }
 
 //-------------------------------------------------------------------------------------------------
-void                            CClientSOCKET::_Free(void) {
-  classDLLNODE<t_SendPACKET *>* pSendNode;
-
-  pSendNode = m_WaitPacketQ.GetHeadNode();
-  while ( pSendNode ) {
-    m_WaitPacketQ.DeleteNode( pSendNode );
-
-    delete[] pSendNode->DATA;
-    delete pSendNode;
-
-    pSendNode = m_WaitPacketQ.GetHeadNode();
-  }
+void CClientSOCKET::_Free(void) {
+  m_WaitPacketQ.clear();
 
   // Clear Send Queue.
-  pSendNode = m_SendPacketQ.GetHeadNode();
-  while ( pSendNode ) {
-    m_SendPacketQ.DeleteNode( pSendNode );
-
-    delete[] pSendNode->DATA;
-    delete pSendNode;
-
-    pSendNode = m_SendPacketQ.GetHeadNode();
-  }
+  m_SendPacketQ.clear();
 
   // Clear Receive Qeueue.
-  classDLLNODE<t_PACKET *>* pRecvNode;
-  pRecvNode = m_RecvPacketQ.GetHeadNode();
-  while ( pRecvNode ) {
-    delete[] pRecvNode->DATA;
-    m_RecvPacketQ.DeleteNFree( pRecvNode );
-
-    pRecvNode = m_RecvPacketQ.GetHeadNode();
-  }
-
-  if ( m_pRecvPacket ) {
-    delete[] m_pRecvPacket;
-    m_pRecvPacket = nullptr;
-  }
+  m_RecvPacketQ.clear();
 
   m_cStatus = CLIENTSOCKET_DISCONNECTED;
+}
 
-  DeleteCriticalSection( &m_csThread );
+//---------------------------------------------------------------------------------
+void CClientSOCKET::Packet_Register2RecvQ(RoseCommon::CRosePacket&& pRegPacket) {
+    auto data = pRegPacket.getPacked();
+    auto size = pRegPacket.get_size();
+    std::lock_guard guard(m_recvMutex);
+    m_RecvPacketQ.emplace_back(size, std::move(data));
 }
 
 //-------------------------------------------------------------------------------------------------
 void CClientSOCKET::OnConnect(int nErrorCode) {
   if ( !nErrorCode ) {
-    classDLLNODE<t_SendPACKET *>* pSendNode;
-
     // Clear Send Queue.
-    pSendNode = m_SendPacketQ.GetHeadNode();
-    while ( pSendNode ) {
-      m_SendPacketQ.DeleteNode( pSendNode );
+    m_SendPacketQ.clear();
 
-      delete[] pSendNode->DATA;
-      delete pSendNode;
-
-      pSendNode = m_SendPacketQ.GetHeadNode();
-    }
-
-    // Clear Receive Qeueue.
-    classDLLNODE<t_PACKET *>* pRecvNode;
-    pRecvNode = m_RecvPacketQ.GetHeadNode();
-    while ( pRecvNode ) {
-      delete[] pRecvNode->DATA;
-      m_RecvPacketQ.DeleteNFree( pRecvNode );
-
-      pRecvNode = m_RecvPacketQ.GetHeadNode();
-    }
+    // Clear Receive Queue.
+    m_RecvPacketQ.clear();
 
     m_cStatus = CLIENTSOCKET_CONNECTED;
 
@@ -221,7 +174,7 @@ void    CClientSOCKET::OnReceive(int nErrorCode) {
 void CClientSOCKET::OnSend(int nErrorCode) {
   if ( !nErrorCode ) {
     m_bWritable = true;
-    SetEvent( m_hThreadEvent ); // æ≤∑πµÂø° ≈Î∫∏ !!!
+    SetEvent( m_hThreadEvent ); // Ïì∞Î†àÎìúÏóê ÌÜµÎ≥¥ !!!
   }
 }
 
@@ -247,49 +200,62 @@ t_SendPACKET *pRegPacket)
 */
 
 //-------------------------------------------------------------------------------------------------
-void        CClientSOCKET::Packet_Register2RecvQ(t_PACKET* pRegPacket) {
-  t_PACKET* pNewPacket;
-  pNewPacket = (t_PACKET *)new char[pRegPacket->m_HEADER.m_nSize];
-  if ( pNewPacket ) {
-    ::CopyMemory(pNewPacket, pRegPacket, pRegPacket->m_HEADER.m_nSize);
-    m_RecvPacketQ.AllocNAppend( pNewPacket );
+void        CClientSOCKET::Packet_Register2RecvQ(const t_PACKET* const pRegPacket) {
+  const uint16_t size = pRegPacket->m_HEADER.m_nSize;
+  std::unique_ptr<uint8_t[]> data(new uint8_t[size]);
+  if (data) {
+    ::CopyMemory(data.get(), pRegPacket, size);
+    std::lock_guard guard(m_recvMutex);
+    m_RecvPacketQ.emplace_back(size, std::move(data));
   }
 }
 
 void CClientSOCKET::Set_NetSTATUS(BYTE btStatus) {
-  m_pRecvPacket->m_HEADER.m_wType                 = SOCKET_NETWORK_STATUS;
-  m_pRecvPacket->m_HEADER.m_nSize                 = sizeof( t_NETWORK_STATUS );
-  ((t_NETWORK_STATUS *)m_pRecvPacket)->m_btStatus = btStatus;
+  t_PACKET tmp;
+  tmp.m_HEADER.m_wType = SOCKET_NETWORK_STATUS;
+  tmp.m_HEADER.m_nSize = sizeof(t_NETWORK_STATUS);
+  ((t_NETWORK_STATUS *)&tmp)->m_btStatus = btStatus;
 
-  this->Packet_Register2RecvQ( m_pRecvPacket );
+  this->Packet_Register2RecvQ(&tmp);
 }
 
 //-------------------------------------------------------------------------------------------------
-void CClientSOCKET::Packet_Register2SendQ(t_PACKET* pRegPacket) {
+void CClientSOCKET::Packet_Register2SendQ(const t_PACKET* const pRegPacket) {
   if ( m_cStatus != CLIENTSOCKET_CONNECTED )
     return;
 
-  t_SendPACKET* pSendPacket = new t_SendPACKET;
-  if ( nullptr == pSendPacket )
+  const uint16_t packetSize = pRegPacket->m_HEADER.m_nSize;
+  std::unique_ptr<uint8_t[]> data(new uint8_t[packetSize]);
+  if (!data) {
     return;
-
-  ::CopyMemory(&pSendPacket->m_Packet, pRegPacket,
-    pRegPacket->m_HEADER.m_nSize);
+  }
+  std::memcpy(data.get(), pRegPacket, packetSize);
 
   //	if ( m_cStatus == CLIENTSOCKET_CONNECTED )
   {
-    EnterCriticalSection( &m_csThread );
-    {
-      // Encoding pSendPacket->m_Packet ... ¿ßø° ¿÷¥¯∞Õ¿ª æ»¿∏∑Œ... ¿Œƒ⁄µ˘µ»
-      // ºˆº≠øÕ ∫∏≥ª¥¬ º¯º≠∞° ∏÷∆ºæ≤∑πµÂø° ¿««ÿ ∆≤∑¡¡˙ºˆ ¿÷±‚∂ßπÆø°...
-      pSendPacket->m_wSize = this->mF_ESP( &pSendPacket->m_Packet.m_HEADER );
-
-      m_WaitPacketQ.AllocNAppend( pSendPacket );
-    }
-    LeaveCriticalSection( &m_csThread );
-
-    SetEvent( m_hThreadEvent ); // æ≤∑πµÂø° ≈Î∫∏ !!!
+    std::lock_guard guard(m_waitMutex);
+    
+    // Encoding pSendPacket->m_Packet ... ÏúÑÏóê ÏûàÎçòÍ≤ÉÏùÑ ÏïàÏúºÎ°ú... Ïù∏ÏΩîÎî©Îêú
+    // ÏàòÏÑúÏôÄ Î≥¥ÎÇ¥Îäî ÏàúÏÑúÍ∞Ä Î©ÄÌã∞Ïì∞Î†àÎìúÏóê ÏùòÌï¥ ÌãÄÎ†§ÏßàÏàò ÏûàÍ∏∞ÎïåÎ¨∏Ïóê...
+    m_crypt.encodeClientPacket(data.get());
+    m_WaitPacketQ.emplace_back(packetSize, std::move(data));
   }
+  SetEvent( m_hThreadEvent ); // Ïì∞Î†àÎìúÏóê ÌÜµÎ≥¥ !!!
+}
+
+void CClientSOCKET::Packet_Register2SendQ(RoseCommon::CRosePacket&& pRegPacket)
+{
+    if (m_cStatus != CLIENTSOCKET_CONNECTED)
+      return;
+    auto packet = pRegPacket.getPacked();
+    uint16_t size = pRegPacket.get_size();
+    {
+      std::lock_guard guard(m_waitMutex);
+      m_crypt.encodeClientPacket(packet.get());
+      m_WaitPacketQ.emplace_back(size, std::move(packet));
+    }
+
+    SetEvent(m_hThreadEvent); // Ìå®ÌÇ∑ Ïò§Î•ò !!!
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -299,12 +265,12 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
   do {
     if ( this->m_nRecvBytes < sizeof( t_PACKETHEADER ) ) {
       iRecvBytes =
-          this->Receive( (char *)m_pRecvPacket + this->m_nRecvBytes,
+          this->Receive( m_pRecvPacket + this->m_nRecvBytes,
                          sizeof( t_PACKETHEADER ) - this->m_nRecvBytes, 0 );
     } else {
       // iRecvBytes = this->Receive ((char*)m_pRecvPacket + m_nRecvBytes,
       // m_pRecvPacket->m_HEADER.m_nSize - m_nRecvBytes, 0);
-      iRecvBytes = this->Receive( (char *)m_pRecvPacket + this->m_nRecvBytes,
+      iRecvBytes = this->Receive( m_pRecvPacket + this->m_nRecvBytes,
                                   this->m_nPacketSize - this->m_nRecvBytes, 0 );
     }
 
@@ -327,9 +293,9 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
     if ( this->m_nRecvBytes >= sizeof( t_PACKETHEADER ) ) {
       if ( this->m_nRecvBytes == sizeof( t_PACKETHEADER ) ) {
         // Decoding Packet Header ...
-        this->m_nPacketSize = this->mF_DRH( &m_pRecvPacket->m_HEADER );
+        this->m_nPacketSize = this->mF_DRH( &(reinterpret_cast<t_PACKET*>(m_pRecvPacket)->m_HEADER) );
         if ( !this->m_nPacketSize ) {
-          // ∆–≈∂ ø¿∑˘ !!!
+          // Ìå®ÌÇ∑ Ïò§Î•ò !!!
           this->Close();
           return;
         }
@@ -342,21 +308,21 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
       if ( this->m_nRecvBytes >= this->m_nPacketSize ) {
         // this->Packet_Register2RecvQ (m_pRecvPacket);
 
-        t_PACKET* pNewPacket;
+        std::unique_ptr<uint8_t[]> data(new uint8_t[m_nPacketSize]);
         // pNewPacket  = (t_PACKET *) new char[ m_pRecvPacket->m_HEADER.m_nSize
         // ];
-        pNewPacket = (t_PACKET *)new char[this->m_nPacketSize];
-        if ( pNewPacket ) {
+        if (data) {
           // ::CopyMemory (pNewPacket, m_pRecvPacket,
           // m_pRecvPacket->m_HEADER.m_nSize);
-          ::CopyMemory(pNewPacket, m_pRecvPacket, this->m_nPacketSize);
+          ::CopyMemory(data.get(), m_pRecvPacket, this->m_nPacketSize);
 
           // Decoing Packet Body ...
-          if ( !this->mF_DRB( &pNewPacket->m_HEADER ) ) {
+          if ( !this->mF_DRB( &(reinterpret_cast<t_PACKET*>(data.get())->m_HEADER) ) ) {
             _ASSERT(0);
           }
 
-          m_RecvPacketQ.AllocNAppend( pNewPacket );
+          std::lock_guard guard(m_recvMutex);
+          m_RecvPacketQ.emplace_back(m_nPacketSize, std::move(data));
         }
 
         this->m_nPacketSize = 0;
@@ -370,15 +336,15 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
 }
 
 //-------------------------------------------------------------------------------------------------
-bool                            CClientSOCKET::Packet_Send(void) {
-  classDLLNODE<t_SendPACKET *>* pNode;
+bool CClientSOCKET::Packet_Send(void) {
   int                           iRetValue;
 
-  while ( m_SendPacketQ.GetNodeCount() > 0 ) {
-    pNode = m_SendPacketQ.GetHeadNode();
+  std::lock_guard guard(m_sendMutex);
+  while ( m_SendPacketQ.size() > 0 ) {
+    const auto& [size, data] = m_SendPacketQ.front();
 
-    iRetValue = this->Send( (char *)pNode->DATA->m_pDATA + m_nSendBytes,
-                            pNode->DATA->m_wSize - m_nSendBytes, 0 );
+    iRetValue = this->Send( (char *)(data.get() + m_nSendBytes),
+                            size - m_nSendBytes, 0 );
     if ( iRetValue == SOCKET_ERROR ) {
       int WSAErr = WSAGetLastError();
 
@@ -394,15 +360,8 @@ bool                            CClientSOCKET::Packet_Send(void) {
     }
 
     m_nSendBytes += iRetValue;
-    if ( m_nSendBytes == pNode->DATA->m_wSize ) {
-      classDLLNODE<t_SendPACKET *>* pDelNode;
-
-      pDelNode = pNode;
-      pNode    = m_SendPacketQ.GetNextNode( pDelNode );
-
-      delete pDelNode->DATA;
-      m_SendPacketQ.DeleteNFree( pDelNode );
-
+    if ( m_nSendBytes == size ) {
+      m_SendPacketQ.pop_front();
       m_nSendBytes = 0;
     }
   }
@@ -475,25 +434,37 @@ void CClientSOCKET::Packet_RecvFrom(void) {
 }
 
 //-------------------------------------------------------------------------------------------------
-bool CClientSOCKET::Peek_Packet(t_PACKET* pPacket, bool bRemoveFromQ) {
-  if ( this->m_RecvPacketQ.GetNodeCount() > 0 ) {
-    classDLLNODE<t_PACKET *>* pNode;
-
-    pNode = this->m_RecvPacketQ.GetHeadNode();
+bool CClientSOCKET::Peek_Packet(t_PACKET* outPacket, bool bRemoveFromQ) {
+  std::lock_guard guard(m_recvMutex);
+  if ( this->m_RecvPacketQ.size() > 0 ) {
+    const auto& [size, data] = this->m_RecvPacketQ.front();
     // pPacket = pNode->DATA;
-    CopyMemory(pPacket, pNode->DATA, pNode->DATA->m_HEADER.m_nSize);
+    CopyMemory(outPacket, data.get(), size);
 
-    // ∆–≈∂ ªË¡¶.
+    // Ìå®ÌÇ∑ ÏÇ≠Ï†ú.
     if ( bRemoveFromQ ) {
-      this->m_RecvPacketQ.DeleteNode( pNode );
-      delete[] pNode->DATA;
-      delete pNode;
+      this->m_RecvPacketQ.pop_front();
     }
-
     return true;
   }
-
   return false;
+}
+
+std::optional<std::unique_ptr<RoseCommon::CRosePacket>> CClientSOCKET::Peek_Packet(bool bRemoveFromQ) {
+  std::lock_guard guard(m_recvMutex);
+  if ( this->m_RecvPacketQ.size() > 0 ) {
+    const auto& [size, data] = this->m_RecvPacketQ.front();
+
+    // we assume the packet is from the server
+    auto res = RoseCommon::fetchPacket<true>(data.get());
+
+    // Ìå®ÌÇ∑ ÏÇ≠Ï†ú.
+    if ( bRemoveFromQ ) {
+      this->m_RecvPacketQ.pop_front();
+    }
+    return res;
+  }
+  return {};
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -526,7 +497,7 @@ void CClientSOCKET::Close() {
     m_cStatus = CLIENTSOCKET_CLOSING;
 
     do {
-      SetEvent( m_hThreadEvent ); // æ≤∑πµÂ ¡◊¿∏∂Û∞Ì ≈Î∫∏...
+      SetEvent( m_hThreadEvent ); // Ïì∞Î†àÎìú Ï£ΩÏúºÎùºÍ≥† ÌÜµÎ≥¥...
       Sleep( 100 );
     }
     while ( m_cStatus == CLIENTSOCKET_CLOSING );

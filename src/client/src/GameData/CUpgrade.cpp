@@ -316,7 +316,7 @@ int CUpgrade::ComputeSuccessProb() {
   if ( fDivisor <= 0 )
     return 0;
 
-  int iRet = fDividend / fDivisor - 60;
+  int iRet = (int)(fDividend / fDivisor - 60);
 
   if ( iRet <= 0 ) iRet   = 1;
   if ( iRet >= 100 ) iRet = 99;

@@ -2222,10 +2222,10 @@ bool CQuestDATA::LoadQuestTable(char* szQuestFile, char* szQuestListSTB, char* s
     m_QuestFILE.Set( szQuestFile );
     m_QuestListSTB.Set( szQuestListSTB );
   } else {
-    m_QuestFILE.Alloc( strlen( szQuestFile ) + strlen( szBaseDIR ) + 10 );
+    m_QuestFILE.Alloc( (WORD)(strlen( szQuestFile ) + strlen( szBaseDIR ) + 10) );
     m_QuestFILE.Printf( "%s%s", szBaseDIR, szQuestFile );
 
-    m_QuestListSTB.Alloc( strlen( szQuestListSTB ) + strlen( szBaseDIR ) + 10 );
+    m_QuestListSTB.Alloc( (WORD)(strlen( szQuestListSTB ) + strlen( szBaseDIR ) + 10) );
     m_QuestListSTB.Printf( "%s%s", szBaseDIR, szQuestListSTB );
   }
 

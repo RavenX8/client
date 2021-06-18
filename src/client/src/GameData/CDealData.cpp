@@ -210,7 +210,7 @@ unsigned CDealData::GetSellItemCnt() {
 void   CDealData::SendTradeReq() {
   long lTotalSELL = GetTotal_SELL();
   long lTotalBUY  = GetTotal_BUY();
-  long lCurMoney  = g_pAVATAR->Get_MONEY() + lTotalSELL;
+  long lCurMoney  = (long)(g_pAVATAR->Get_MONEY() + lTotalSELL);
 
   if ( CStore::GetInstance().IsUnionStore() ) {
     if ( lTotalBUY > g_pAVATAR->Get_AbilityValue( AT_UNION_POINT1 - 1 + g_pAVATAR->Get_UNION() ) ) {
@@ -233,7 +233,7 @@ void   CDealData::SendTradeReq() {
 
   tagITEM                               TempItem;
   std::list<tagITEM>                    appendItems;
-  std::list<pair<int, tagITEM>>         removeItems;
+  std::list<std::pair<int, tagITEM>>         removeItems;
   std::vector<CItemFragment*>::iterator iter;
   int                                   iCount = 0;
 
@@ -256,7 +256,7 @@ void   CDealData::SendTradeReq() {
     if ( TempItem.IsEnableDupCNT() )
       TempItem.m_uiQuantity = (*iter)->GetQuantity();
 
-    removeItems.push_back( make_pair( (*iter)->GetIndex(), TempItem ) );
+    removeItems.push_back( std::make_pair( (*iter)->GetIndex(), TempItem ) );
   }
 
   if ( g_pAVATAR->IsInventoryFull( appendItems, removeItems ) ) {

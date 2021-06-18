@@ -143,14 +143,14 @@ void     zz_profiler_end(const char* profile_name) {
 }
 
 template <class Type>
-struct profiler_greater_time : public binary_function<Type, Type, bool> {
+struct profiler_greater_time {
   bool operator()(const Type& a, const Type& b) const {
     return a->total > b->total;
   }
 };
 
 template <class Type>
-struct profiler_greater_count : public binary_function<Type, Type, bool> {
+struct profiler_greater_count {
   bool operator()(const Type& a, const Type& b) const {
     return a->count > b->count;
   }

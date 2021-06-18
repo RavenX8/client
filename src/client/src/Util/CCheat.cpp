@@ -224,7 +224,7 @@ char*   classPARSESTR::ParseString(char* pStr, short nStrNo) {
 
 short         classPARSESTR::ParseCheatCodeIdx(char* pStr) {
   for ( short nI = 0; nI < CHEAT_MAX_CNT; nI++ ) {
-    if ( !strcmpi( pStr, s_pCheatStr[nI] ) )
+    if ( !_strcmpi( pStr, s_pCheatStr[nI] ) )
       return nI;
   }
   return -1;
@@ -438,7 +438,7 @@ bool classPARSESTR::DoSET(char* pStr) {
 
 short         classPARSESTR::GetSET_CodeIdx(char* pStr) {
   for ( short nI = 0; nI < 8; nI++ ) {
-    if ( !strcmpi( pStr, s_SET[nI] ) )
+    if ( !_strcmpi( pStr, s_SET[nI] ) )
       return nI;
   }
   return -1;
@@ -468,7 +468,7 @@ bool classPARSESTR::DoADD(char* pStr) {
 
 short         classPARSESTR::GetADD_CodeIdx(char* pStr) {
   for ( short nI = 0; nI < 5; nI++ ) {
-    if ( !strcmpi( pStr, s_ADD[nI] ) )
+    if ( !_strcmpi( pStr, s_ADD[nI] ) )
       return nI;
   }
   return -1;
@@ -497,7 +497,7 @@ bool classPARSESTR::DoFULL(char* pStr) {
 
 short         classPARSESTR::GetFULL_CodeIdx(char* pStr) {
   for ( short nI = 0; nI < 3; nI++ ) {
-    if ( !strcmpi( pStr, s_FULL[nI] ) )
+    if ( !_strcmpi( pStr, s_FULL[nI] ) )
       return nI;
   }
   return -1;
@@ -669,22 +669,22 @@ bool    classPARSESTR::DoQuestVal(char* pStr) {
   // ½½·Ô¹øÈ£ number
   pARG = ParseString( pStr, 1 );
 
-  if ( stricmp( "VJ", pARG ) == 0 ) {
+  if ( _stricmp( "VJ", pARG ) == 0 ) {
     for ( int i = 0; i < QUEST_JOB_VAR_CNT; ++i )
       g_itMGR.AppendChatMsg( CStr::Printf( "[ JOB%d : %d ]", i + 1, g_pAVATAR->m_Quests.m_nJobVAR[i] ), IT_MGR::CHAT_TYPE_SYSTEM );
   }
 
-  if ( stricmp( "VP", pARG ) == 0 ) {
+  if ( _stricmp( "VP", pARG ) == 0 ) {
     for ( int i = 0; i < QUEST_PLANET_VAR_CNT; ++i )
       g_itMGR.AppendChatMsg( CStr::Printf( "[PLANET%d : %d ]", i + 1, g_pAVATAR->m_Quests.m_nPlanetVAR[i] ), IT_MGR::CHAT_TYPE_SYSTEM );
   }
 
-  if ( stricmp( "VE", pARG ) == 0 ) {
+  if ( _stricmp( "VE", pARG ) == 0 ) {
     for ( int i = 0; i < QUEST_EPISODE_VAR_CNT; ++i )
       g_itMGR.AppendChatMsg( CStr::Printf( "[EPISODE%d : %d ]", i + 1, g_pAVATAR->m_Quests.m_nEpisodeVAR[i] ), IT_MGR::CHAT_TYPE_SYSTEM );
   }
 
-  if ( stricmp( "VU", pARG ) == 0 ) {
+  if ( _stricmp( "VU", pARG ) == 0 ) {
     for ( int i = 0; i < QUEST_UNION_VAR_CNT; ++i )
       g_itMGR.AppendChatMsg( CStr::Printf( "[UNION%d : %d ]", i + 1, g_pAVATAR->m_Quests.m_nUnionVAR[i] ), IT_MGR::CHAT_TYPE_SYSTEM );
   }
@@ -739,7 +739,7 @@ bool    classPARSESTR::DoFree(char* pStr) {
   // ON, OFF
   pARG = ParseString( pStr, 1 );
 
-  if ( strcmpi( "WEIGHT", pARG ) == 0 ) {
+  if ( _strcmpi( "WEIGHT", pARG ) == 0 ) {
     if ( CGame::GetInstance().GetRight() ) {
       g_GameDATA.m_bNoWeight = !g_GameDATA.m_bNoWeight;
       if ( g_GameDATA.m_bNoWeight )
@@ -749,7 +749,7 @@ bool    classPARSESTR::DoFree(char* pStr) {
     }
   }
 
-  if ( strcmpi( "CHAT", pARG ) == 0 ) {
+  if ( _strcmpi( "CHAT", pARG ) == 0 ) {
     CTDialog* pDlg = g_itMGR.FindDlg( DLG_TYPE_CHAT );
     if ( CGame::GetInstance().GetRight() && pDlg ) {
       CChatDLG* pChatDlg = (CChatDLG*)pDlg;

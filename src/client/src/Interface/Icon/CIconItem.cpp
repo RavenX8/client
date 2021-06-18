@@ -202,7 +202,7 @@ void CIconItem::Draw() {
   {
     int  iImageIndex = CResourceMgr::GetInstance()->GetImageNID( IMAGE_RES_UI, "ID_BLACK_PANEL" );
     char szCount[32] = { 0 };
-    itoa( GetQuantity(), szCount, 10 );
+    _itoa( GetQuantity(), szCount, 10 );
     HNODE hFont = g_GameDATA.m_hFONT[FONT_NORMAL];
 
     SIZE size   = getFontTextExtent( hFont, szCount );

@@ -76,7 +76,7 @@ void          QF_NpcTalkinterfaceHide(int iTime) {
     return;
   }
 
-  pDlg->SetNpctalkinterfaceHide( iTime );
+  pDlg->SetNpctalkinterfaceHide( (float)iTime );
 }
 
 // ȫ�� : ����� ����Ʈ
@@ -196,9 +196,9 @@ void        QF_CameraworkingPoint(ZSTRING szCameraName, int PosX, int PosY) {
     g_pCamera->Init( hMotion_camera );
 
     D3DVECTOR PosENZIN;
-    PosENZIN.x = PosX;
-    PosENZIN.y = PosY;
-    PosENZIN.z = g_pTerrain->GetHeightTop( PosX, PosY );
+    PosENZIN.x = (float)PosX;
+    PosENZIN.y = (float)PosY;
+    PosENZIN.z = g_pTerrain->GetHeightTop( (float)PosX, (float)PosY );
 
     g_pCamera->Set_Position( PosENZIN );
 

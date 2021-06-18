@@ -768,7 +768,7 @@ CObjCHAR* CObjectMANAGER::Get_ClientCharOBJByName(const char* szName) {
     pObject         = (CObjCHAR *)g_pObjMGR->m_pOBJECTS[i];
     if ( pObject && pObject->IsCHAR() ) {
       ///대소문자 구별하지 않고 비교한다.
-      if ( pObject->Get_NAME() && stricmp( pObject->Get_NAME(), szName ) == 0 )
+      if ( pObject->Get_NAME() && _stricmp( pObject->Get_NAME(), szName ) == 0 )
         return pObject;
     }
   }

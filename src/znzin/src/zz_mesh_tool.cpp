@@ -884,7 +884,7 @@ bool     zz_mesh_tool::save_mesh(const char* file_name, zz_mesh* mesh, bool text
   mesh_file.write_endl();
 
   // [bone_indices]
-  mesh_file.write_uint16( "num_bones", mesh->bone_indices.size() );
+  mesh_file.write_uint16( "num_bones", (uint16_t)mesh->bone_indices.size() );
   mesh_file.write_endl();
   for ( i = 0; i < mesh->bone_indices.size(); ++i ) {
     //mesh_file.write_uint32("bone", i);
@@ -1330,7 +1330,7 @@ bool           zz_mesh_tool::unweld_vertices(zz_mesh* mesh) {
       ivertex = face[i];
       bubble.set_from( *mesh, ivertex );
       // insert this vertex into bubbles
-      face[i] = (int)bubbles.size();
+      face[i] = (unsigned short)bubbles.size();
       bubbles.push_back( bubble );
     }
     // update face index
@@ -1340,7 +1340,7 @@ bool           zz_mesh_tool::unweld_vertices(zz_mesh* mesh) {
 
   // copy bubbles into new vertex
   mesh->set_num_verts( 0 );
-  mesh->set_num_verts( bubbles.size() );
+  mesh->set_num_verts( (uint16_t)bubbles.size() );
 
   for ( ivertex = 0; ivertex < (int)bubbles.size(); ivertex++ ) {
     bubbles[ivertex].set_to( *mesh, ivertex );
@@ -1374,7 +1374,7 @@ bool                       zz_mesh_tool::weld_vertices(zz_mesh* mesh) {
       if ( found_index < 0 ) {
         // if not found same
         // insert this vertex into bubbles
-        face[i] = (int)bubbles.size();
+        face[i] = (unsigned short)bubbles.size();
         bubbles.push_back( bubble );
       } else {
         // if found same
@@ -1388,7 +1388,7 @@ bool                       zz_mesh_tool::weld_vertices(zz_mesh* mesh) {
   }
 
   // copy bubbles into new vertex
-  mesh->set_num_verts( (int)bubbles.size() );
+  mesh->set_num_verts( (uint16_t)bubbles.size() );
   ZZ_LOG( "-> after(#%d). faces(%d)\n", mesh->get_num_verts(), mesh->get_num_faces() );
 
   for ( ivertex = 0; ivertex < (int)bubbles.size(); ivertex++ ) {

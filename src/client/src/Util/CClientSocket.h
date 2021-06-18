@@ -3,39 +3,52 @@
 */
 #ifndef	__CClientSOCKET_H
 #define	__CClientSOCKET_H
-#include "../Util/DLLIST.h"
 #include "CRawSOCKET.h"
 #include "PacketHEADER.h"
+#include "crosepacket.h"
+#include "crosecrypt.h"
+#include <list>
+#include <tuple>
+#include <mutex>
+#include <optional>
+#include <cstddef>
+
 //-------------------------------------------------------------------------------------------------
 
 struct t_PACKET;
-struct t_SendPACKET;
 
 class CClientSOCKET : public CRawSOCKET {
 private:
   bool _Init(void);
   void _Free(void);
 
-  t_PACKET* m_pRecvPacket;
+  RoseCommon::PacketCodec m_crypt;
+
+  std::byte m_pRecvPacket[MAX_PACKET_SIZE];
   short     m_nRecvBytes;
   short     m_nPacketSize;
 
   short m_nSendBytes;
   bool  m_bWritable;
 
-  CRITICAL_SECTION m_csThread;
-  HANDLE           m_hThreadEvent;
-  HANDLE           m_hThread;
-  // DWORD			m_dwThreadID;
+  std::mutex   m_recvMutex;
+  std::mutex   m_waitMutex;
+  std::mutex   m_sendMutex;
+  HANDLE       m_hThreadEvent;
+  HANDLE       m_hThread;
+  // DWORD	   m_dwThreadID;
   unsigned int m_dwThreadID;
 
   char m_cStatus;
 
-  classDLLIST<t_PACKET *>     m_RecvPacketQ;
-  classDLLIST<t_SendPACKET *> m_SendPacketQ;
-  classDLLIST<t_SendPACKET *> m_WaitPacketQ;
+  // <size, data>
+  using Node = std::tuple<uint16_t, std::unique_ptr<uint8_t[]>>;
 
-  classDLLIST<struct tagUDPPACKET *> m_RecvUDPPacketQ;
+  std::list<Node> m_RecvPacketQ;
+  std::list<Node> m_SendPacketQ;
+  std::list<Node> m_WaitPacketQ;
+
+  //classDLLIST<struct tagUDPPACKET *> m_RecvUDPPacketQ;
 
 protected:
   //friend	DWORD WINAPI ClientSOCKET_SendTHREAD (LPVOID lpParameter);
@@ -73,9 +86,12 @@ public:
 
   virtual void Set_NetSTATUS(BYTE btStatus);
 
-  void Packet_Register2RecvQ(t_PACKET* pRegPacket);
-  void Packet_Register2SendQ(t_PACKET* pRegPacket);
-  bool Peek_Packet(t_PACKET*           pPacket, bool bRemoveFromQ = true);
+  void Packet_Register2RecvQ(const t_PACKET* const pRegPacket);
+  void Packet_Register2RecvQ(RoseCommon::CRosePacket&& pRegPacket);
+  void Packet_Register2SendQ(const t_PACKET* const pRegPacket);
+  void Packet_Register2SendQ(RoseCommon::CRosePacket&& pRegPacket);
+  bool Peek_Packet(t_PACKET* outPacket, bool bRemoveFromQ = true);
+  std::optional<std::unique_ptr<RoseCommon::CRosePacket>> Peek_Packet(bool bRemoveFromQ = true);
 };
 
 //-------------------------------------------------------------------------------------------------

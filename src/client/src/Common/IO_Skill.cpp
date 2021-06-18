@@ -143,7 +143,7 @@ bool CSkillLIST::LoadSkillTable(const char* pFileName) {
 // 2005. 5. 30 ¹Ú ÁöÈ£ 
 float CSkillLIST::GetDelayTickCount(DWORD i) {
 
-  if ( (i < 0) || (i >= m_SkillDATA.m_nDataCnt) )
+  if ( (i < 0) || (i >= (unsigned short)m_SkillDATA.m_nDataCnt) )
     return 1.0f;
 
   return m_pReloadTIME[i];

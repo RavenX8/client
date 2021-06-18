@@ -74,7 +74,7 @@ unsigned CGoodsDlg::Process(unsigned uiMsg, WPARAM wParam, LPARAM lParam) {
                 if ( Item.IsEnableDupCNT() ) {
                   if ( iQuantity < 0 )
                     iQuantity = 1;
-                  if ( iQuantity > Item.GetQuantity() )
+                  if ( (unsigned int)iQuantity > Item.GetQuantity() )
                     iQuantity = Item.GetQuantity();
                 } else {
                   iQuantity = 1;
@@ -114,9 +114,9 @@ void CGoodsDlg::Show() {
 
       int iPrice = 1;
       if ( m_iType == ADD_SELLLIST )
-        iPrice = ITEM_BASE_PRICE( Item.GetTYPE(), Item.GetItemNO() ) * 0.6;
+        iPrice = (int)(ITEM_BASE_PRICE( Item.GetTYPE(), Item.GetItemNO() ) * 0.6);
       else
-        iPrice = ITEM_BASE_PRICE( Item.GetTYPE(), Item.GetItemNO() ) * 0.7;
+        iPrice = (int)(ITEM_BASE_PRICE( Item.GetTYPE(), Item.GetItemNO() ) * 0.7);
 
       pEdit->AppendText( CStr::Printf( "%d", iPrice ) );
     } else {

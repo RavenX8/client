@@ -3,8 +3,6 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
 class CFilterWord {
   CFilterWord(void );
   ~CFilterWord(void);
@@ -18,13 +16,13 @@ public:
   bool CheckString(char*         pszString);
   bool CheckName(char*           pszName);
 
-  string& GetChangedString();
-  string& GetCheckedWord();
+  std::string& GetChangedString();
+  std::string& GetCheckedWord();
 
-  int MulityByte2WideString(const char* pszMultyByte, wstring& wstrWide);
+  int MulityByte2WideString(const char* pszMultyByte, std::wstring& wstrWide);
   int MulityByte2WideString(const char* pszMultyByte, wchar_t* pwszWide, int iBufSize);
 
-  int Wide2MultyByteString(wstring& wstrWide, string& strMultyByte);
+  int Wide2MultyByteString(std::wstring& wstrWide, std::string& strMultyByte);
 
   bool IsEnglish(wchar_t  wchar);
   bool IsNumber(wchar_t   wchar);
@@ -40,12 +38,12 @@ public:
 
 private:
 
-  string m_strCheckedWord;
-  string m_strChangedString;
+  std::string m_strCheckedWord;
+  std::string m_strChangedString;
 
-  wstring m_wstrChangeWord;
+  std::wstring m_wstrChangeWord;
 
-  std::map<wstring, wstring> m_BadWords;
-  std::list<wstring>         m_BadNames;
+  std::map<std::wstring, std::wstring> m_BadWords;
+  std::list<std::wstring>         m_BadNames;
 };
 #endif

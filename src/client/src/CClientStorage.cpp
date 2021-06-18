@@ -11,7 +11,7 @@ CClientStorage g_ClientStorage;
 const char     g_szIniFileName[]                     = "./Sevenhearts.ini";
 const long     g_ListBgmVolume[MAX_BGM_VOLUME]       = { -10000, -3000, -1000, -500, -100, -50, -10, -5, 0 };
 const long     g_ListEffectVolume[MAX_EFFECT_VOLUME] = { -10000, -3000, -1000, -500, -100, -50, -10, -5, 0 };
-const   float	c_GammaValues[MAX_GAMMA_COUNT] = {0.5, 0.7, 1.0, 1.2, 1.5 };
+const   float	c_GammaValues[MAX_GAMMA_COUNT] = {0.5f, 0.7f, 1.0f, 1.2f, 1.5f };
 const int c_iPeformances[MAX_PERFORMANCE_COUNT] = { 5, 4, 3, 2, 1 };
 
 CClientStorage::CClientStorage(void) {
@@ -66,9 +66,6 @@ void CClientStorage::Load() {
   char szBuffer[64];
   ZeroMemory( szBuffer, sizeof( szBuffer) );
   if ( GetPrivateProfileString( "LASTCONNECT", "ID", "", szBuffer, sizeof(szBuffer), g_szIniFileName ) ) {
-    if ( szBuffer == nullptr )
-      m_strLastConnectID.c_str();
-    else
       m_strLastConnectID = szBuffer;
   }
 
@@ -140,65 +137,65 @@ void   CClientStorage::Save() {
     WritePrivateProfileString( "PARTY", "SHOWHPGUAGE", "0", g_szIniFileName );
 
   ///RESOLUTION
-  itoa( m_VideoOption.tResolution.iWidth, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iWidth, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "WIDTH", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.tResolution.iHeight, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iHeight, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "HEIGHT", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.tResolution.iDepth, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iDepth, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "DEPTH", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.tResolution.iFrequency, szTemp, 10 );
+  _itoa( m_VideoOption.tResolution.iFrequency, szTemp, 10 );
   WritePrivateProfileString( "RESOLUTION", "FREQUENCY", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.iCamera, szTemp, 10 );
+  _itoa( m_VideoOption.iCamera, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "Camera", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.iPerformance, szTemp, 10 );
+  _itoa( m_VideoOption.iPerformance, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "PERFORMANCE", szTemp, g_szIniFileName );
 
-  itoa( m_VideoOption.iFullScreen, szTemp, 10 );
+  _itoa( m_VideoOption.iFullScreen, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "FULLSCREEN", szTemp, g_szIniFileName );
 
   // <AntiAlising>
-  itoa( m_VideoOption.iAntiAlising, szTemp, 10 );
+  _itoa( m_VideoOption.iAntiAlising, szTemp, 10 );
   WritePrivateProfileString( "VIDEO", "ANTIALISING", szTemp, g_szIniFileName );
   // </AntiAlising>
 
-  itoa( m_SoundOption.iBgmVolume, szTemp, 10 );
+  _itoa( m_SoundOption.iBgmVolume, szTemp, 10 );
   WritePrivateProfileString( "SOUND", "BGMVOLUME", szTemp, g_szIniFileName );
 
-  itoa( m_SoundOption.iEffectVolume, szTemp, 10 );
+  _itoa( m_SoundOption.iEffectVolume, szTemp, 10 );
   WritePrivateProfileString( "SOUND", "EFFECTVOLUME", szTemp, g_szIniFileName );
 
   /// Play
-  itoa( m_PlayOption.uiControlType, szTemp, 10 );
+  _itoa( m_PlayOption.uiControlType, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "CONTROL", szTemp, g_szIniFileName );
 
-  itoa( m_PlayOption.iShowPcName, szTemp, 10 );
+  _itoa( m_PlayOption.iShowPcName, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "SHOWPCNAME", szTemp, g_szIniFileName );
 
-  itoa( m_PlayOption.iShowNpcName, szTemp, 10 );
+  _itoa( m_PlayOption.iShowNpcName, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "SHOWNPCNAME", szTemp, g_szIniFileName );
 
-  itoa( m_PlayOption.iShowMobName, szTemp, 10 );
+  _itoa( m_PlayOption.iShowMobName, szTemp, 10 );
   WritePrivateProfileString( "PLAY", "SHOWMOBNAME", szTemp, g_szIniFileName );
 
   ///<-community option
-  itoa( m_CommunityOption.iWhisper, szTemp, 10 );
+  _itoa( m_CommunityOption.iWhisper, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "WHISPER", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iAddFriend, szTemp, 10 );
+  _itoa( m_CommunityOption.iAddFriend, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "ADDFRIEND", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iExchange, szTemp, 10 );
+  _itoa( m_CommunityOption.iExchange, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "EXCHANGE", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iParty, szTemp, 10 );
+  _itoa( m_CommunityOption.iParty, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "PARTY", szTemp, g_szIniFileName );
 
-  itoa( m_CommunityOption.iMessanger, szTemp, 10 );
+  _itoa( m_CommunityOption.iMessanger, szTemp, 10 );
   WritePrivateProfileString( "COMMUNITY", "MESSANGER", szTemp, g_szIniFileName );
 
   ///->
@@ -210,10 +207,10 @@ void   CClientStorage::Save() {
   WritePrivateProfileStruct( "DIALOG", "POSITION", m_DialogPos, sizeof(m_DialogPos), g_szIniFileName );
   m_bHasSavedDialogPos = true;
 
-  itoa( m_iQuickBarDlgType, szTemp, 10 );
+  _itoa( m_iQuickBarDlgType, szTemp, 10 );
   WritePrivateProfileString( "DIALOG", "QUICKBARDLGTYPE", szTemp, g_szIniFileName );
 
-  itoa( m_iChatDlgType, szTemp, 10 );
+  _itoa( m_iChatDlgType, szTemp, 10 );
   WritePrivateProfileString( "DIALOG", "CHATDLGTYPE", szTemp, g_szIniFileName );
 
 }
@@ -265,17 +262,17 @@ void CClientStorage::ApplyCameraOption(short i) {
   }
 
   if ( i >= 0 && i < g_TblCamera.m_nDataCnt ) {
-    float fFogNear = CAMERA_NEAR_ALPHA_FOG(i) * 100;
-    float fFogFar  = CAMERA_FAR_ALPHA_FOG(i) * 100;
+    float fFogNear = (float)(CAMERA_NEAR_ALPHA_FOG(i) * 100);
+    float fFogFar  = (float)(CAMERA_FAR_ALPHA_FOG(i) * 100);
     setAlphaFogRange( fFogNear, fFogFar );
 
-    fFogNear = CAMERA_NEAR_FOG(i) * 100;
-    fFogFar  = CAMERA_FAR_FOG(i) * 100;
+    fFogNear = (float)(CAMERA_NEAR_FOG(i) * 100);
+    fFogFar  = (float)(CAMERA_FAR_FOG(i) * 100);
     setFogRange( fFogNear, fFogFar );
 
     HNODE camera = findNode( "avatar_camera" );
-    setCameraAspectRatio( camera, atof( CAMERA_ASPECT_RATIO(i) ) );
-    setCameraPerspective( camera, CAMERA_FOV(i), atof( CAMERA_ASPECT_RATIO(i) ), CAMERA_NEAR_PLANE(i) * 100, CAMERA_FAR_PLANE(i) * 100 );
+    setCameraAspectRatio( camera, (float)(atof( CAMERA_ASPECT_RATIO(i) )) );
+    setCameraPerspective( camera, (float)CAMERA_FOV(i), (float)(atof( CAMERA_ASPECT_RATIO(i) )), (float)(CAMERA_NEAR_PLANE(i) * 100), (float)(CAMERA_FAR_PLANE(i) * 100) );
     g_GameDATA.m_nSightRange = CAMERA_MAX_RANGE(i) / 10;
   }
 }
@@ -373,7 +370,7 @@ void CClientStorage::SetInventoryData(const char* pszName, std::list<S_Inventory
       if ( iSlot < 0 || iSlot >= INVENTORY_PAGE_SIZE )
         continue;
 
-      Inventory[iType][iSlot] = iter->lRealIndex;
+      Inventory[iType][iSlot] = (short)iter->lRealIndex;
     }
     WritePrivateProfileStruct( pszName, "INVENTORY", Inventory, sizeof(Inventory), g_szIniFileName );
   }

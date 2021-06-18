@@ -167,7 +167,7 @@ void zz_model::render(bool recursive) {
   uint16 iskel, imeshbone;
   uint16 imesh;
   uint16 num_mesh_bones;
-  uint16 num_bones( bones.size() );
+  uint16 num_bones( (uint16_t)bones.size() );
 
   zz_mesh* mesh;
 
@@ -181,7 +181,7 @@ void zz_model::render(bool recursive) {
     if ( !mesh->get_device_updated() )
       mesh->flush_device( true ); // immediate load. if the mesh was not loaded, bone_indices is not set.
 
-    num_mesh_bones  = mesh->bone_indices.size();
+    num_mesh_bones  = (uint16_t)mesh->bone_indices.size();
     for ( imeshbone = 0; imeshbone < num_mesh_bones; ++imeshbone ) {
       // for all bones
       iskel = mesh->bone_indices[imeshbone]; // Get the current bone index(=skeleton index).

@@ -4,12 +4,14 @@
 #ifndef	__CRECVPACKET_H
 #define	__CRECVPACKET_H
 
+#include "srv_login_reply.h"
+#include "srv_chan_char_reply.h"
+#include "srv_set_animation.h"
+
 //-------------------------------------------------------------------------------------------------
 
 class CRecvPACKET {
 protected:
-  t_PACKET* m_pRecvPacket;
-
   CStrVAR m_WSV_IP;
   WORD    m_wWSV_PORT;
   DWORD   m_dwWSV_ID;
@@ -18,7 +20,7 @@ protected:
   WORD    m_wGSV_PORT;
   DWORD   m_dwGSV_IDs[2];
 
-  virtual void DisconnectFromServer(short) = 0 { *(int*)nullptr = 10; };
+  virtual void DisconnectFromServer(short) = 0;
 
 public :
 
@@ -28,248 +30,248 @@ public :
           CRecvPACKET();
   virtual ~CRecvPACKET();
 
-  void Recv_srv_ERROR();
-  void Recv_gsv_GM_COMMAND();
+  void Recv_srv_ERROR(t_PACKET* packet);
+  void Recv_gsv_GM_COMMAND(t_PACKET* packet);
 
-  void Recv_gsv_SET_GLOBAL_VAR();
-  void Recv_gsv_SET_GLOVAL_FLAG();
+  void Recv_gsv_SET_GLOBAL_VAR(t_PACKET* packet);
+  void Recv_gsv_SET_GLOVAL_FLAG(t_PACKET* packet);
 
-  void Recv_srv_ANNOUNCE_TEXT();
-  void Recv_gsv_ANNOUNCE_CHAT();
+  void Recv_srv_ANNOUNCE_TEXT(t_PACKET* packet);
+  void Recv_gsv_ANNOUNCE_CHAT(t_PACKET* packet);
 
-  bool Recv_lsv_LOGIN_REPLY();
+  bool Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& packet);
 
-  void Recv_lsv_CHANNEL_LIST_REPLY();
-  int  Recv_lsv_SELECT_SERVER();
+  void Recv_lsv_CHANNEL_LIST_REPLY(t_PACKET* packet);
+  int  Recv_lsv_SELECT_SERVER(t_PACKET* packet);
 
-  int  Recv_srv_JOIN_SERVER_REPLY();
-  void Recv_gsv_INIT_DATA();
+  int  Recv_srv_JOIN_SERVER_REPLY(t_PACKET* packet);
+  void Recv_gsv_INIT_DATA(t_PACKET* packet);
 
-  void Recv_wsv_CHAR_LIST();
-  void Recv_wsv_DELETE_CHAR();
-  bool Recv_wsv_CREATE_CHAR();
+  void Recv_wsv_CHAR_LIST(t_PACKET* packet);
+  void Recv_wsv_DELETE_CHAR(t_PACKET* packet);
+  bool Recv_wsv_CREATE_CHAR(t_PACKET* packet);
 
-  void Recv_wsv_MOVE_SERVER();
+  void Recv_wsv_MOVE_SERVER(t_PACKET* packet);
 
-  void Recv_gsv_JOIN_ZONE();
-  void Recv_gsv_SELECT_CHAR();
+  void Recv_gsv_JOIN_ZONE(t_PACKET* packet);
+  void Recv_gsv_SELECT_CHAR(t_PACKET* packet);
 
-  void Recv_gsv_INVENTORY_DATA();
-  void Recv_gsv_QUEST_DATA();
+  void Recv_gsv_INVENTORY_DATA(t_PACKET* packet);
+  void Recv_gsv_QUEST_DATA(t_PACKET* packet);
 
-  void Recv_gsv_REVIVE_REPLY();
-  void Recv_gsv_SET_VAR_REPLY();
+  void Recv_gsv_REVIVE_REPLY(t_PACKET* packet);
+  void Recv_gsv_SET_VAR_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_CHEAT_CODE();
+  void Recv_gsv_CHEAT_CODE(t_PACKET* packet);
 
-  void Recv_gsv_SET_MOTION();
-  void Recv_gsv_TOGGLE();
-  void Recv_gsv_CHAT();
-  void Recv_gsv_WHISPER();
-  void Recv_gsv_SHOUT();
-  void Recv_gsv_PARTY_CHAT();
+  void Recv_gsv_SET_MOTION(RoseCommon::Packet::SrvSetAnimation&& packet);
+  void Recv_gsv_TOGGLE(t_PACKET* packet);
+  void Recv_gsv_CHAT(t_PACKET* packet);
+  void Recv_gsv_WHISPER(t_PACKET* packet);
+  void Recv_gsv_SHOUT(t_PACKET* packet);
+  void Recv_gsv_PARTY_CHAT(t_PACKET* packet);
 
-  void Recv_gsv_SET_NPC_SHOW();
+  void Recv_gsv_SET_NPC_SHOW(t_PACKET* packet);
 
-  void Recv_gsv_NPC_CHAR();
-  void Recv_gsv_MOB_CHAR();
-  void Recv_gsv_AVT_CHAR();
-  void Recv_gsv_SUB_OBJECT();
+  void Recv_gsv_NPC_CHAR(t_PACKET* packet);
+  void Recv_gsv_MOB_CHAR(t_PACKET* packet);
+  void Recv_gsv_AVT_CHAR(t_PACKET* packet);
+  void Recv_gsv_SUB_OBJECT(t_PACKET* packet);
 
-  void Recv_gsv_SET_WEIGHT_RATE();
-  void Recv_gsv_ADJUST_POS();
+  void Recv_gsv_SET_WEIGHT_RATE(t_PACKET* packet);
+  void Recv_gsv_ADJUST_POS(t_PACKET* packet);
 
-  void Recv_gsv_STOP();
-  void Recv_gsv_ATTACK();
-  void Recv_gsv_ATTACK_START();
+  void Recv_gsv_STOP(t_PACKET* packet);
+  void Recv_gsv_ATTACK(t_PACKET* packet);
+  void Recv_gsv_ATTACK_START(t_PACKET* packet);
 
-  void Recv_gsv_MOUSECMD();
-  void Recv_gsv_MOVE();
+  void Recv_gsv_MOUSECMD(t_PACKET* packet);
+  void Recv_gsv_MOVE(t_PACKET* packet);
 
-  void Recv_gsv_DAMAGE();
+  void Recv_gsv_DAMAGE(t_PACKET* packet);
 
-  void Recv_gsv_CHANGE_NPC();
+  void Recv_gsv_CHANGE_NPC(t_PACKET* packet);
 
-  void Recv_gsv_SETEXP();
-  void Recv_gsv_LEVELUP();
+  void Recv_gsv_SETEXP(t_PACKET* packet);
+  void Recv_gsv_LEVELUP(t_PACKET* packet);
 
-  void Recv_gsv_HP_REPLY();
+  void Recv_gsv_HP_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_STORE_TRADE_REPLY();
+  void Recv_gsv_STORE_TRADE_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_P_STORE_MONEYnINV();
-  void Recv_gsv_SET_MONEYnINV();
-  void Recv_gsv_SET_INV_ONLY();
-  void Recv_gsv_USE_ITEM();
+  void Recv_gsv_P_STORE_MONEYnINV(t_PACKET* packet);
+  void Recv_gsv_SET_MONEYnINV(t_PACKET* packet);
+  void Recv_gsv_SET_INV_ONLY(t_PACKET* packet);
+  void Recv_gsv_USE_ITEM(t_PACKET* packet);
 
-  void Recv_gsv_CHANGE_SKIN();
-  void Recv_gsv_EQUIP_ITEM();
+  void Recv_gsv_CHANGE_SKIN(t_PACKET* packet);
+  void Recv_gsv_EQUIP_ITEM(t_PACKET* packet);
 
-  void Recv_gsv_ADD_FIELDITEM();
-  void Recv_gsv_GET_FIELDITEM_REPLY();
+  void Recv_gsv_ADD_FIELDITEM(t_PACKET* packet);
+  void Recv_gsv_GET_FIELDITEM_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_TELEPORT_REPLY();
+  void Recv_gsv_TELEPORT_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_SET_HOTICON();
+  void Recv_gsv_SET_HOTICON(t_PACKET* packet);
 
-  void Recv_gsv_USE_BPOINT_REPLY();
+  void Recv_gsv_USE_BPOINT_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_SKILL_LEARN_REPLY();
-  void Recv_gsv_SKILL_LEVELUP_REPLY();
+  void Recv_gsv_SKILL_LEARN_REPLY(t_PACKET* packet);
+  void Recv_gsv_SKILL_LEVELUP_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_SELF_SKILL();
-  void Recv_gsv_TARGET_SKILL();
-  void Recv_gsv_POSITION_SKILL();
-  void Recv_gsv_SKILL_START();
+  void Recv_gsv_SELF_SKILL(t_PACKET* packet);
+  void Recv_gsv_TARGET_SKILL(t_PACKET* packet);
+  void Recv_gsv_POSITION_SKILL(t_PACKET* packet);
+  void Recv_gsv_SKILL_START(t_PACKET* packet);
 
-  void Recv_gsv_SKILL_CANCEL();
+  void Recv_gsv_SKILL_CANCEL(t_PACKET* packet);
 
   ///
   /// result of skill
   ///
-  void Recv_gsv_EFFECT_OF_SKILL();
-  void Recv_gsv_DAMAGE_OF_SKILL(); // 7,17π¯ ≈∏¿‘¿« ∞ÊøÏ.
-  void Recv_gsv_RESULT_OF_SKILL();
+  void Recv_gsv_EFFECT_OF_SKILL(t_PACKET* packet);
+  void Recv_gsv_DAMAGE_OF_SKILL(t_PACKET* packet); // 7,17Î≤à ÌÉÄÏûÖÏùò Í≤ΩÏö∞.
+  void Recv_gsv_RESULT_OF_SKILL(t_PACKET* packet);
 
-  void Recv_gsv_CLEAR_STATUS();
-  void Recv_gsv_SPEED_CHANGED();
+  void Recv_gsv_CLEAR_STATUS(t_PACKET* packet);
+  void Recv_gsv_SPEED_CHANGED(t_PACKET* packet);
 
-  void Recv_gsv_TRADE_REQ();
-  void Recv_gsv_TRADE_REPLY();
+  void Recv_gsv_TRADE_REQ(t_PACKET* packet);
+  void Recv_gsv_TRADE_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_P_STORE_OPENED();
-  void Recv_gsv_P_STORE_CLOSED();
-  void Recv_gsv_P_STORE_LIST_REPLY();
-  void Recv_gsv_P_STORE_RESULT();
-  void Recv_gsv_QUEST_REPLY();
+  void Recv_gsv_P_STORE_OPENED(t_PACKET* packet);
+  void Recv_gsv_P_STORE_CLOSED(t_PACKET* packet);
+  void Recv_gsv_P_STORE_LIST_REPLY(t_PACKET* packet);
+  void Recv_gsv_P_STORE_RESULT(t_PACKET* packet);
+  void Recv_gsv_QUEST_REPLY(t_PACKET* packet);
 
-  ///∆Æ∑π¿ÃµÂ ∞¸∑√
-  void Recv_gsv_TRADE_P2P();
-  void Recv_gsv_TRADE_P2P_ITEM();
+  ///Ìä∏Î†àÏù¥Îìú Í¥ÄÎ†®
+  void Recv_gsv_TRADE_P2P(t_PACKET* packet);
+  void Recv_gsv_TRADE_P2P_ITEM(t_PACKET* packet);
 
-  ///∆ƒ∆º ∞¸∑√
-  void Recv_gsv_PARTY_REQ();
-  void Recv_gsv_PARTY_REPLY();
-  void Recv_gsv_PARTY_MEMBER();
-  void Recv_gsv_PARTY_LEVnEXP();
-  void Recv_gsv_PARTY_ITEM();
-  void Recv_gsv_PARTY_RULE();
-  void Recv_gsv_CHANGE_OBJIDX();
-  ///¡¶¡∂∞¸∑√
-  void Recv_gsv_CREATE_ITEM_REPLY();
-  ///π≈©( ∞Ë¡§√¢∞Ì) ∞¸∑√
-  void Recv_gsv_BANK_LIST_REPLY();
-  void Recv_gsv_MOVE_ITEM();
-  ///º“∏≈∫ ∞¸∑√
-  void Recv_gsv_SET_BULLET();
+  ///ÌååÌã∞ Í¥ÄÎ†®
+  void Recv_gsv_PARTY_REQ(t_PACKET* packet);
+  void Recv_gsv_PARTY_REPLY(t_PACKET* packet);
+  void Recv_gsv_PARTY_MEMBER(t_PACKET* packet);
+  void Recv_gsv_PARTY_LEVnEXP(t_PACKET* packet);
+  void Recv_gsv_PARTY_ITEM(t_PACKET* packet);
+  void Recv_gsv_PARTY_RULE(t_PACKET* packet);
+  void Recv_gsv_CHANGE_OBJIDX(t_PACKET* packet);
+  ///Ï†úÏ°∞Í¥ÄÎ†®
+  void Recv_gsv_CREATE_ITEM_REPLY(t_PACKET* packet);
+  ///Î±ÖÌÅ¨( Í≥ÑÏ†ïÏ∞ΩÍ≥†) Í¥ÄÎ†®
+  void Recv_gsv_BANK_LIST_REPLY(t_PACKET* packet);
+  void Recv_gsv_MOVE_ITEM(t_PACKET* packet);
+  ///ÏÜåÎ™®ÌÉÑ Í¥ÄÎ†®
+  void Recv_gsv_SET_BULLET(t_PACKET* packet);
 
-  void Recv_gsv_SERVER_DATA();
-  ///PAT ∞¸∑√
-  void Recv_gsv_ASSEMBLE_RIDE_ITEM();
+  void Recv_gsv_SERVER_DATA(t_PACKET* packet);
+  ///PAT Í¥ÄÎ†®
+  void Recv_gsv_ASSEMBLE_RIDE_ITEM(t_PACKET* packet);
 
-  /// Ω«Ω√∞£ ºˆ¡§µ«¥¬ ¿Ã∫•∆Æ ∞™( m_nEventSTATUS ) ¿¸º€
-  void Recv_GSV_SET_EVENT_STATUS();
+  /// Ïã§ÏãúÍ∞Ñ ÏàòÏ†ïÎêòÎäî Ïù¥Î≤§Ìä∏ Í∞í( m_nEventSTATUS ) Ï†ÑÏÜ°
+  void Recv_GSV_SET_EVENT_STATUS(t_PACKET* packet);
 
-  void Recv_GSV_SET_ITEM_LIFE();
+  void Recv_GSV_SET_ITEM_LIFE(t_PACKET* packet);
 
-  void Recv_wsv_CHATROOM();
-  void Recv_tag_MCMD_HEADER();
+  void Recv_wsv_CHATROOM(t_PACKET* packet);
+  void Recv_tag_MCMD_HEADER(t_PACKET* packet);
 
-  void Recv_wsv_MESSENGER_CHAT();
-  void Recv_wsv_MEMO();
+  void Recv_wsv_MESSENGER_CHAT(t_PACKET* packet);
+  void Recv_wsv_MEMO(t_PACKET* packet);
 
-  void Recv_wsv_CHATROOM_MSG();
+  void Recv_wsv_CHATROOM_MSG(t_PACKET* packet);
 
-  void Recv_gsv_USED_ITEM_TO_REPAIR();
-  void Recv_gsv_REPAIRED_FROM_NPC();
+  void Recv_gsv_USED_ITEM_TO_REPAIR(t_PACKET* packet);
+  void Recv_gsv_REPAIRED_FROM_NPC(t_PACKET* packet);
 
-  void Recv_gsv_APPRAISAL_REPLY();
+  void Recv_gsv_APPRAISAL_REPLY(t_PACKET* packet);
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief ¿Áπ÷ ¿Á∑√∞¸∑√
+  /// @brief Ïû¨Î∞ç Ïû¨Î†®Í¥ÄÎ†®
   ///
   //----------------------------------------------------------------------------------------------------
-  void Recv_gsv_CRAFT_ITEM_REPLY();
-  void Recv_gsv_SET_MONEY_ONLY();
-  void Recv_gsv_REWARD_MONEY();
+  void Recv_gsv_CRAFT_ITEM_REPLY(t_PACKET* packet);
+  void Recv_gsv_SET_MONEY_ONLY(t_PACKET* packet);
+  void Recv_gsv_REWARD_MONEY(t_PACKET* packet);
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief ƒ˘Ω∫∆Æ ∫∏ªÛ∞¸∑√
+  /// @brief ÌÄòÏä§Ìä∏ Î≥¥ÏÉÅÍ¥ÄÎ†®
   ///
   //----------------------------------------------------------------------------------------------------
-  void Recv_gsv_REWARD_ITEM();
-  void Recv_gsv_REWARD_ADD_ABILITY();
-  void Recv_gsv_REWARD_SET_ABILITY();
+  void Recv_gsv_REWARD_ITEM(t_PACKET* packet);
+  void Recv_gsv_REWARD_ADD_ABILITY(t_PACKET* packet);
+  void Recv_gsv_REWARD_SET_ABILITY(t_PACKET* packet);
 
-  void Recv_wsv_CHAR_CHANGE();
-
-  //----------------------------------------------------------------------------------------------------	
-  ///
-  /// @brief ¿Ã∫•∆Æ ø¿∫Í¡ß∆Æ √≥∏Æ ∞¸∑√
-  ///
-  //----------------------------------------------------------------------------------------------------	
-  void Recv_gsv_ADD_EVENTOBJ();
+  void Recv_wsv_CHAR_CHANGE(RoseCommon::Packet::SrvChanCharReply&& packet);
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief HP, MP π∞æ‡ ¡æ∑· ∆–≈∂.
+  /// @brief Ïù¥Î≤§Ìä∏ Ïò§Î∏åÏ†ùÌä∏ Ï≤òÎ¶¨ Í¥ÄÎ†®
   ///
   //----------------------------------------------------------------------------------------------------	
-  void Recv_gsv_SET_HPnMP();
+  void Recv_gsv_ADD_EVENTOBJ(t_PACKET* packet);
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// @brief Do_DeadEvent ø°º≠ »£√‚«œ¥¯∞Õ¿ª º≠πˆø°º≠ ø‰√ªΩ√ √≥∏Æ«œ∞‘ ∫Ø∞Ê..
+  /// @brief HP, MP Î¨ºÏïΩ Ï¢ÖÎ£å Ìå®ÌÇ∑.
+  ///
+  //----------------------------------------------------------------------------------------------------	
+  void Recv_gsv_SET_HPnMP(t_PACKET* packet);
+
+  //----------------------------------------------------------------------------------------------------	
+  ///
+  /// @brief Do_DeadEvent ÏóêÏÑú Ìò∏Ï∂úÌïòÎçòÍ≤ÉÏùÑ ÏÑúÎ≤ÑÏóêÏÑú ÏöîÏ≤≠Ïãú Ï≤òÎ¶¨ÌïòÍ≤å Î≥ÄÍ≤Ω..
   ///
   //----------------------------------------------------------------------------------------------------
-  void Recv_gsv_CHECK_NPC_EVENT();
+  void Recv_gsv_CHECK_NPC_EVENT(t_PACKET* packet);
 
-  void Recv_wsv_CLAN_COMMAND();
-  void Recv_wsv_CLAN_CHAT();
-  void Recv_wsv_CLANMARK_REPLY();
+  void Recv_wsv_CLAN_COMMAND(t_PACKET* packet);
+  void Recv_wsv_CLAN_CHAT(t_PACKET* packet);
+  void Recv_wsv_CLANMARK_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_ALLIED_CHAT();
-  void Recv_gsv_ALLIED_SHOUT();
+  void Recv_gsv_ALLIED_CHAT(t_PACKET* packet);
+  void Recv_gsv_ALLIED_SHOUT(t_PACKET* packet);
 
-  void Recv_gsv_LOGOUT_REPLY();
-  void Recv_gsv_ITEM_RESULT_REPORT();
+  void Recv_gsv_LOGOUT_REPLY(t_PACKET* packet);
+  void Recv_gsv_ITEM_RESULT_REPORT(t_PACKET* packet);
 
-  void Recv_gsv_MALL_ITEM_REPLY();
+  void Recv_gsv_MALL_ITEM_REPLY(t_PACKET* packet);
 
-  void Recv_gsv_BILLING_MESSAGE();
+  void Recv_gsv_BILLING_MESSAGE(t_PACKET* packet);
 
-  void Recv_gsv_BILLING_MESSAGE_EXT();
-  void Set_BILLING_MESSAGE_EXT_KOR_And_PH();
-  void Set_BILLING_MESSAGE_EXT_JPN();
-  void Set_BILLING_MESSAGE_EXT_TW();
-  void Set_BILLING_MESSAGE_EXT_Other();
+  void Recv_gsv_BILLING_MESSAGE_EXT(t_PACKET* packet);
+  void Set_BILLING_MESSAGE_EXT_KOR_And_PH(t_PACKET* packet);
+  void Set_BILLING_MESSAGE_EXT_JPN(t_PACKET* packet);
+  void Set_BILLING_MESSAGE_EXT_TW(t_PACKET* packet);
+  void Set_BILLING_MESSAGE_EXT_Other(t_PACKET* packet);
 
-  void Recv_wsv_CLANMARK_REG_TIME();
+  void Recv_wsv_CLANMARK_REG_TIME(t_PACKET* packet);
 
-  void Recv_gsv_MOVE_ZULY();
+  void Recv_gsv_MOVE_ZULY(t_PACKET* packet);
 
   //----------------------------------------------------------------------------------------------------	
   ///
-  /// π⁄ ¡ˆ»£    ø©Ω≈ º“»Ø ∆–≈∂√≥∏Æ 
+  /// Î∞ï ÏßÄÌò∏    Ïó¨Ïã† ÏÜåÌôò Ìå®ÌÇ∑Ï≤òÎ¶¨
   ///
   //----------------------------------------------------------------------------------------------------	
-  void Recv_gsv_GODDNESS_MODE();
+  void Recv_gsv_GODDNESS_MODE(t_PACKET* packet);
   //----------------------------------------------------------------------------------------------------	
-  /// πË∆≤ƒ´∆Æ ∞¸∑√
-  void Recv_gsv_PATSTATE_CHANGE();
+  /// Î∞∞ÌãÄÏπ¥Ìä∏ Í¥ÄÎ†®
+  void Recv_gsv_PATSTATE_CHANGE(t_PACKET* packet);
 
-  // ƒ…∏Ø≈Õ ªÛ≈¬ ∫Ø»Ø (≈ı∏Ì)
-  void Recv_gsv_CHARSTATE_CHANGE();
+  // ÏºÄÎ¶≠ÌÑ∞ ÏÉÅÌÉú Î≥ÄÌôò (Ìà¨Î™Ö)
+  void Recv_gsv_CHARSTATE_CHANGE(t_PACKET* packet);
 
-  // 2¿ŒΩ¬ ƒ´∆Æ.
-  void Recv_gsv_CART_RIDE();
+  // 2Ïù∏Ïäπ Ïπ¥Ìä∏.
+  void Recv_gsv_CART_RIDE(t_PACKET* packet);
 
-  //Ω∫º¶∞¸∑√..
-  void Recv_gsv_SCREEN_SHOT_TIME();
+  //Ïä§ÏÉ∑Í¥ÄÎ†®..
+  void Recv_gsv_SCREEN_SHOT_TIME(t_PACKET* packet);
 
   // Updates a player name
-  void Recv_gsv_UPDATE_NAME();
+  void Recv_gsv_UPDATE_NAME(t_PACKET* packet);
 };
 
 //-------------------------------------------------------------------------------------------------

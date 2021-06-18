@@ -45,7 +45,7 @@ void CDropItemInfo::SetDropItemInfo(CObjITEM* pItem) {
 
   D3DVECTOR PosSCR;
   m_pDropItem->GetScreenPOS( PosSCR );
-  POINT pt = { PosSCR.x, PosSCR.y };
+  POINT pt = { (long)PosSCR.x, (long)PosSCR.y };
   m_Info.SetPosition( pt );
 }
 
@@ -115,6 +115,5 @@ bool CItemInfoView::PushDropItemInfo(CObjITEM* pItem) {
 void  CItemInfoView::Draw() {
   int i = m_ViewedItemList.size();
 
-  std::for_each( m_ViewedItemList.begin(), m_ViewedItemList.end(),
-                 std::mem_fun<void, CDropItemInfo>( &CDropItemInfo::Draw ) );
+  std::for_each(m_ViewedItemList.begin(), m_ViewedItemList.end(), [](auto* item) { item->Draw(); });
 }

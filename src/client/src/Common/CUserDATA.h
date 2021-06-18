@@ -77,23 +77,23 @@ struct tagMaintainSTATUS {
 
 /// 성장 능력치 데이터 ...
 struct tagGrowAbility {
-  short m_nHP; // 0~2000
-  short m_nMP; // 0~1000
+  int32_t m_nHP; // 0~2000
+  int32_t m_nMP; // 0~1000
 
-  int64_t m_lEXP;        // 경험치 1~100000
-  short   m_nLevel;      // 0~250
-  short   m_nBonusPoint; // 1~999
-  short   m_nSkillPoint; // 1~
+  uint32_t m_lEXP;        // 경험치 1~100000
+  uint16_t   m_nLevel;      // 0~250
+  uint32_t   m_nBonusPoint; // 1~999
+  uint32_t   m_nSkillPoint; // 1~
   BYTE    m_btBodySIZE;  // 몸통크기
   BYTE    m_btHeadSIZE;  // 머리크기
-  int64_t m_lPenalEXP;   // 추가 경험치...
+  uint32_t m_lPenalEXP;   // 추가 경험치...
 
   short m_nFameG;                         // 선행지수	: 퀘스트에 의해 증감됨	: 2004.5.27 추가
   short m_nFameB;                         // 선행지수 : 퀘스트에 의해 증감됨	: 2004.5.27 추가
   short m_nUnionPOINT[ MAX_UNION_COUNT ]; // 조합 포인트		: 2004.5.27 추가
 
-  int   m_iGuildNO;    // 길드 번호	: 2004.5.27 추가
-  short m_nGuildCNTRB; // 길드 기여도	: 2004.5.27 추가
+  uint32_t   m_iGuildNO;    // 길드 번호	: 2004.5.27 추가
+  uint16_t m_nGuildCNTRB; // 길드 기여도	: 2004.5.27 추가
   BYTE  m_btGuildPOS;  // 길드 직위	: 2004.5.27 추가
 
   short m_nPKFlag;  // 2004. 6. 17 추가..
@@ -397,7 +397,7 @@ public :
   int GetCur_FAME() { return this->m_BasicINFO.m_cFame; }        // 명성
   int GetCur_JOB() { return this->m_BasicINFO.m_nClass; }        // 직업
 
-  int  GetCur_EXP() { return this->m_GrowAbility.m_lEXP; }
+  int64_t  GetCur_EXP() { return this->m_GrowAbility.m_lEXP; }
   int  GetCur_BonusPOINT() { return this->m_GrowAbility.m_nBonusPoint; }
   int  GetCur_SkillPOINT() { return this->m_GrowAbility.m_nSkillPoint; }
   BYTE GetCur_HeadSIZE() { return this->m_GrowAbility.m_btHeadSIZE; }
@@ -552,7 +552,7 @@ public :
   short m_PassiveAbilityFromRate [ BA_MAX ]; // 기본 능력치 :: 비율 패시브 스킬에 의해 보정된 값
   short m_nPassiveAttackSpeed;               // 한국/일본/IRose를 위한 패시브 스킬에 의한 공속 추가
 
-  int m_iAppliedPenaltyEXP; /// 부활시 경험치 복구를 위한 변수..
+  int64_t m_iAppliedPenaltyEXP; /// 부활시 경험치 복구를 위한 변수..
 
   tagITEM  Get_EquipITEM(WORD    wEquipIDX) { return m_Inventory.m_ItemEQUIP[wEquipIDX]; }
   tagITEM* Get_EquipItemPTR(WORD wEquipIDX) { return &m_Inventory.m_ItemEQUIP[wEquipIDX]; }
@@ -648,8 +648,8 @@ public :
   void Set_PenalEXP(BYTE btAddPercent) {
     if ( this->GetCur_LEVEL() >= 10 ) {
       // 10렙 이상이면 페널티 적용..
-      int iNeedEXP         = CCal::Get_NeedRawEXP( m_GrowAbility.m_nLevel );
-      int iPenalEXP        = (int)(iNeedEXP * btAddPercent / 100.f);
+      int64_t iNeedEXP         = CCal::Get_NeedRawEXP( m_GrowAbility.m_nLevel );
+      int64_t iPenalEXP        = (int)(iNeedEXP * btAddPercent / 100.f);
       m_iAppliedPenaltyEXP = iPenalEXP;
 
       if ( m_GrowAbility.m_lEXP >= iPenalEXP ) {

@@ -192,16 +192,16 @@ void CDayNNightProc::SetWorldTime(int iZoneNO, DWORD dwWorldTime) {
 //----------------------------------------------------------------------------------------------------
 
 int CDayNNightProc::GetCurrentTimeState() {
-  if ( m_dwZoneTime > ZONE_NIGHT_TIME( m_iZoneNO ) ) /// 밤
+  if ( m_dwZoneTime > (DWORD)(ZONE_NIGHT_TIME( m_iZoneNO )) ) /// 밤
   {
     m_iCurrentTimeState = TIME_DN_NIGHT;
-  } else if ( m_dwZoneTime > ZONE_EVENING_TIME( m_iZoneNO ) ) /// 저녁
+  } else if ( m_dwZoneTime > (DWORD)ZONE_EVENING_TIME( m_iZoneNO ) ) /// 저녁
   {
     m_iCurrentTimeState = TIME_DN_EVENING;
-  } else if ( m_dwZoneTime > ZONE_DAY_TIME( m_iZoneNO ) ) /// 낮
+  } else if ( m_dwZoneTime > (DWORD)ZONE_DAY_TIME( m_iZoneNO ) ) /// 낮
   {
     m_iCurrentTimeState = TIME_DN_DAY;
-  } else if ( m_dwZoneTime > ZONE_MORNING_TIME( m_iZoneNO ) ) /// 아침
+  } else if ( m_dwZoneTime > (DWORD)ZONE_MORNING_TIME( m_iZoneNO ) ) /// 아침
   {
     m_iCurrentTimeState = TIME_DN_MORNING;
   }
@@ -288,7 +288,7 @@ void CDayNNightProc::SetGlobalIllumination(float fBlendRatio) {
 
   /// Readability is best property.. !!
   /// 후반부 진행
-  if ( m_dwElapsedTime > (m_iChangeStep * m_iDAYENVIR_TICK) / 2 ) {
+  if ( m_dwElapsedTime > (DWORD)((m_iChangeStep * m_iDAYENVIR_TICK) / 2) ) {
     switch ( m_iCurrentState ) {
       case DN_DAY: {
         /// Background color
@@ -466,13 +466,13 @@ void    CDayNNightProc::Proc() {
 
   /// zone time 증가..	
   DWORD dwTempTime = (dwCurrentTime - m_dwStartWorldTime) - m_dwElapsedWorldTime;
-  if ( dwTempTime > m_iDAYENVIR_TICK ) /// 10 초마다 1씩 증가.
+  if ( dwTempTime > (DWORD)m_iDAYENVIR_TICK ) /// 10 초마다 1씩 증가.
   {
     m_dwElapsedWorldTime += (dwTempTime - dwTempTime % m_iDAYENVIR_TICK);
 
     m_dwWorldTime += dwTempTime / m_iDAYENVIR_TICK;
     m_dwZoneTime += dwTempTime / m_iDAYENVIR_TICK;
-    if ( m_dwZoneTime >= m_iZoneTimeCycle )
+    if ( m_dwZoneTime >= (DWORD)m_iZoneTimeCycle )
       m_dwZoneTime = 0;
 
     /// 시간에 따른 환경을 갱신해야된다면..
@@ -490,7 +490,7 @@ void    CDayNNightProc::Proc() {
 
   m_dwElapsedTime = (dwCurrentTime - m_dwStartTime) + m_dwAddiditionalTime;
 
-  if ( m_dwElapsedTime > (m_iChangeStep * m_iDAYENVIR_TICK) || m_iChangeStep == 0 )
+  if ( m_dwElapsedTime > (DWORD)(m_iChangeStep * m_iDAYENVIR_TICK) || m_iChangeStep == 0 )
     m_fBlendFactor = 1.0f;
   else
     m_fBlendFactor = (float)m_dwElapsedTime / (float)(m_iChangeStep * m_iDAYENVIR_TICK);

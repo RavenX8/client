@@ -37,7 +37,7 @@ void CSysInfo::GetOSInfo (void)
 {
 	m_mapOS.clear ();
 
-	m_mapOS[ "Language" ] = (string)m_system->m_szLanguagesEnglish; // 현재 언어.
+	m_mapOS[ "Language" ] = m_system->m_szLanguagesEnglish; // 현재 언어.
 
 	OSVERSIONINFOEX osvi;
 	BOOL bOsVersionInfoEx;
@@ -137,7 +137,7 @@ void CSysInfo::GetOSInfo (void)
 				{
 					RegCloseKey( hKey );
 
-					string strEdition;
+					std::string strEdition;
 					if ( lstrcmpi( "WINNT", szProductType) == 0 )
 						strEdition = "Workstation ";
 					if ( lstrcmpi( "LANMANNT", szProductType) == 0 )
@@ -252,9 +252,9 @@ void CSysInfo::GetVideoInfo (void)
 //	string directxversion = (string)m_system->m_szDirectXVersionEnglish;
 //	m_mapVideo[ "DirectX Version" ] = strDxVersion + "(" + directxversion + ")";
 
-	m_mapVideo[ "GraphicCardMemory" ] = (string)m_display1.m_szDisplayMemoryLocalized; // 그래픽카드 메모리 정보.
-	m_mapVideo[ "DisplayMode" ] = (string)m_display1.m_szDisplayModeLocalized; // 현재 디스플레이 정보.
-	m_mapVideo[ "DirectX Version" ] = (string)m_system->m_szDirectXVersionLongEnglish; // 다이렉트 X 버젼 정보.
+	m_mapVideo[ "GraphicCardMemory" ] = m_display1.m_szDisplayMemoryLocalized; // 그래픽카드 메모리 정보.
+	m_mapVideo[ "DisplayMode" ] = m_display1.m_szDisplayModeLocalized; // 현재 디스플레이 정보.
+	m_mapVideo[ "DirectX Version" ] = m_system->m_szDirectXVersionLongEnglish; // 다이렉트 X 버젼 정보.
 }
 
 bool CSysInfo::GetDXInfo (void)
@@ -435,8 +435,8 @@ std::string CSysInfo::GetAllInfo (void)
 {
 	struct sInfo 
 	{
-		map<string, string> *	pMap;
-		string					Part;
+		std::map<std::string, std::string> *	pMap;
+		std::string					Part;
 	};
 
 	sInfo Infos[ ] = {	{&m_mapCPU	, "CPU"		}, 
@@ -444,7 +444,7 @@ std::string CSysInfo::GetAllInfo (void)
 						{&m_mapVideo, "Video"	},
 						{&m_mapDisc	, "Disk"	},
 						{&m_mapMem	, "Memory"} };
-	std::map<string, string>::iterator im;
+	std::map<std::string, std::string>::iterator im;
 
 	GetCpuInfo ();
 	GetDiskInfo ();
@@ -452,7 +452,7 @@ std::string CSysInfo::GetAllInfo (void)
 	GetVideoInfo ();
 	GetMemInfo ();
 
-	string strInfo;
+	std::string strInfo;
 	for(int i = 0; i < sizeof (Infos) / sizeof (sInfo); i++)
 	{
 		strInfo += "[ ";
@@ -473,8 +473,8 @@ std::string CSysInfo::MakeWebString (void)
 {
 	struct sInfo 
 	{
-		map<string, string> *	pMap;
-		string					Part;
+		std::map<std::string, std::string> *	pMap;
+		std::string					Part;
 	};
 
 	sInfo Infos[ ] = {	{&m_mapCPU	, "CPU"		}, 
@@ -482,9 +482,9 @@ std::string CSysInfo::MakeWebString (void)
 						{&m_mapVideo, "Video"	},
 						{&m_mapDisc	, "Disk"	},
 						{&m_mapMem	, "Memory"} };
-	std::map<string, string>::iterator im;
+	std::map<std::string, std::string>::iterator im;
 
-	string strInfo;
+	std::string strInfo;
 	for(int i = 0; i < sizeof (Infos) / sizeof (sInfo); i++)
 	{
 		strInfo += "&";

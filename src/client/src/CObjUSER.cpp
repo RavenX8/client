@@ -276,7 +276,7 @@ bool CObjUSER::Skill_LevelUp(int iSkillSlotNo, int iSkillIndex) {
 }
 
 void CObjUSER::Update_SPEED() {
-  m_nRunSPEED = Cal_RunSPEED();
+  m_nRunSPEED = (short)Cal_RunSPEED();
   /*m_fRunAniSPEED  = Cal_RunAniSPEED( m_nRunSPEED );
   m_nAtkAniSPEED  = Cal_AtkAniSPEED( Get_R_WEAPON() );	*/
   if ( this->GetPetMode() < 0 ) {
@@ -306,7 +306,7 @@ void CObjUSER::Update_SPEED() {
 void CObjUSER::Add_EXP(short nExp) {
   m_GrowAbility.m_lEXP += nExp;
 
-  int  iNeedEXP = this->Get_NeedEXP( this->Get_LEVEL() );
+  int64_t  iNeedEXP = this->Get_NeedEXP( this->Get_LEVEL() );
   bool bLevelUp = false;
 
   while ( m_GrowAbility.m_lEXP >= iNeedEXP ) {
@@ -780,12 +780,12 @@ void CObjUSER::Set_JOB(int iValue) {
   UpdateAbility();
 }
 
-bool         CObjUSER::IsInventoryFull(std::list<tagITEM>& appendItems, std::list<pair<int,tagITEM>>& removeItems) {
+bool         CObjUSER::IsInventoryFull(std::list<tagITEM>& appendItems, std::list<std::pair<int,tagITEM>>& removeItems) {
   CInventory TempInventory;
   memcpy( &TempInventory, &m_Inventory, sizeof( CInventory ) );
 
   std::list<tagITEM>::iterator            iterAppend;
-  std::list<pair<int, tagITEM>>::iterator iterRemove;
+  std::list<std::pair<int, tagITEM>>::iterator iterRemove;
   short                                   nInvenIndex = 0;
   short                                   nWeight     = 0;
 
@@ -897,11 +897,11 @@ void CObjUSER::Calc_AruaAddAbility() {
   //if( CCountry::GetSingleton().IsApplyNewVersion() )
   {
     if ( m_IsAroa ) {
-      m_AruaAddHp          = GetDef_MaxHP() * 0.2;
-      m_AruaAddMp          = GetDef_MaxMP() * 0.2;
-      m_AruaAddCritical    = GetDef_CRITICAL() * 0.2;
-      m_AruaAddAttackPower = GetDef_ATK() * 0.2;
-      m_AruaAddDefence     = GetDef_DEF() * 0.2;
+      m_AruaAddHp          = (int)(GetDef_MaxHP() * 0.2);
+      m_AruaAddMp          = (int)(GetDef_MaxMP() * 0.2);
+      m_AruaAddCritical    = (int)(GetDef_CRITICAL() * 0.2);
+      m_AruaAddAttackPower = (int)(GetDef_ATK() * 0.2);
+      m_AruaAddDefence     = (int)(GetDef_DEF() * 0.2);
     } else {
       m_AruaAddHp          = 0;
       m_AruaAddMp          = 0;

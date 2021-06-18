@@ -55,7 +55,7 @@ public :
 #ifdef	__SERVER
 	CMotionLIST () : CFileLIST<tagMOTION*>("ANI ", 2048)	{	;	}
 #else
-  CMotionLIST() : CFileLIST<tagMOTION*>( "ANI " ) { }
+  CMotionLIST() : CFileLIST<tagMOTION*>( "ANI " ), m_pTmpMotion(nullptr), m_nFemaleIndex(0) { }
 #endif
   ~CMotionLIST();
 

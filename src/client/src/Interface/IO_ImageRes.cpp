@@ -6,8 +6,6 @@
 #include "tgamectrl/ResourceMgr.h"
 #include <algorithm>
 
-using namespace std;
-
 ////////////////////////////////////////////////////////////////////////////////////////
 /// Image resource for UI
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +48,7 @@ bool CImageRes::LoadRES(CFileSystem* pFileSystem, const char* strResPath) {
 
     //지금까지 등록된 이름을 비교한다 
     for ( short nB = 0; nB < nC; nB++ ) {
-      if ( stricmp( m_TextureVec[nB].m_szName, tempTexture.m_szName ) == 0 ) {
+      if ( _stricmp( m_TextureVec[nB].m_szName, tempTexture.m_szName ) == 0 ) {
         tempTexture.m_nTXID   = nB;
         tempTexture.m_Texture = NULL;
         m_TextureVec.push_back( tempTexture );
@@ -267,7 +265,7 @@ bool CImageResManager::Add_NpcFaceFileInfo(int index, const char* filename) {
     _RPT1( _CRT_ASSERT,"Duplicated Npc Face File(%s)", filename );
     return false;
   }
-  m_NpcFaceFiles.insert( make_pair( index, filename ) );
+  m_NpcFaceFiles.insert( std::make_pair( index, filename ) );
   return true;
 }
 

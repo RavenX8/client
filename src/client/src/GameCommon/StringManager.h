@@ -9,7 +9,7 @@
 #include "../Util/JResourceContainer.h"
 
 template <typename T>
-class LessThen_TableEntity : public std::binary_function<T, T, bool> {
+class LessThen_TableEntity {
 public:
   bool operator ()(T& lhs, const std::string& rhs) {
     return lhs < rhs;

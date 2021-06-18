@@ -21,7 +21,7 @@ public:
 protected:
   std::string       m_strTitle;
   std::string       m_strSubTitle;
-  std::list<string> m_Descriptions;
+  std::list<std::string> m_Descriptions;
 
   DWORD m_dwShowTime;    ///보이기 시작한 시간
   DWORD m_dwDisplayTime; ///보여줄 시간

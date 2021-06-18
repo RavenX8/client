@@ -339,7 +339,7 @@ void zz_manager_sfx::pop_sfx() {
 }
 
 void zz_manager_sfx::render_sfx() {
-  std::for_each( sequence.begin(), sequence.end(), std::mem_fun<bool, zz_sfx>( &zz_sfx::render ) );
+    std::for_each(sequence.begin(), sequence.end(), [](auto* sfx) { sfx->render(); });
 }
 
 zz_screen_sfx::zz_screen_sfx() {

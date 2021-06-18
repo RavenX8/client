@@ -291,7 +291,7 @@ bool           CEffectDATA::Load(char* szFileName) {
     }
 
     if ( m_pMeshAni[iL].m_bUseAniFile ) {
-      if ( strcmpi( szName, "NULL" ) == 0 ) {
+      if ( _strcmpi( szName, "NULL" ) == 0 ) {
         return NULL;
       }
 

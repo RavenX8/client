@@ -163,7 +163,7 @@ t_HASHKEY CMatLIST::Add_MATERIAL(
   pFindData = this->KEY_Find_DATA( HashKEY );
   if ( pFindData ) {
     /// 이미있는 파일과 입력 파일의 이름이 같다는걸 보증해야한다..
-    if ( !strcmpi( szKeyName, pFindData->m_FileName.Get() ) )
+    if ( !_strcmpi( szKeyName, pFindData->m_FileName.Get() ) )
       return HashKEY;
 
     assert( 0 && "같은 키가 생성되서 문제가 생겼다." );

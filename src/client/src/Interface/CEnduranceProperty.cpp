@@ -1139,7 +1139,7 @@ bool  CEnduranceItem::Proc(CObjCHAR* pObjCHAR) {
     return true;
 
   /// expire
-  if ( (iCurrentTime - m_iStartTime) >= m_iEnduranceTime ) {
+  if ( (int)(iCurrentTime - m_iStartTime) >= m_iEnduranceTime ) {
     for ( int i = 0; i < STATE_APPLY_ABILITY_CNT; i++ ) {
       /// 서버로 부터 종료결과를 받지못했지만 클라이언트는 다채웠다. 그렇다면 그냥 진행..
       if ( m_iTotalAppliedProperty[i] >= USEITEM_ADD_DATA_VALUE( m_iEndityIdx ) )

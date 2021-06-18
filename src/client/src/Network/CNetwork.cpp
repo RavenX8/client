@@ -11,8 +11,10 @@
 #include "Debug.h"
 #include "Game.h"
 #include "IO_Terrain.h"
+#include "cli_accept_req.h"
+#include "epackettype.h"
 
-////005. 5. 23 π⁄ ¡ˆ»£
+////005. 5. 23 Î∞ï ÏßÄÌò∏
 //#include "../nProtect/NProtect.h"
 
 CNetwork* g_pNet;
@@ -21,6 +23,8 @@ CNetwork* CNetwork::m_pInstance = nullptr;
 
 #define WM_WORLD_SOCKET_NOTIFY (WM_SOCKETWND_MSG + 0)
 #define WM_ZONE_SOCKET_NOTIFY (WM_SOCKETWND_MSG + 1)
+
+using namespace RoseCommon;
 
 /*
 void	(*fpCMDProc )	(t_unit *pUnit);
@@ -63,10 +67,26 @@ void CNetwork::Destroy() {
   SAFE_DELETE(m_pInstance);
 }
 
+void CNetwork::Send_PACKET(t_PACKET* pSendPacket, bool bSendToWorld) {
+    if ( bSendToWorld || bAllInONE )
+      m_WorldSOCKET.Packet_Register2SendQ( pSendPacket );
+    else
+      m_ZoneSOCKET.Packet_Register2SendQ( pSendPacket );
+  }
+
+void CNetwork::Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld)
+{
+  if (sendToWorld || bAllInONE) {
+    m_WorldSOCKET.Packet_Register2SendQ(std::move(packet));
+  } else {
+    m_ZoneSOCKET.Packet_Register2SendQ(std::move(packet));
+  }
+}
+
 //-------------------------------------------------------------------------------------------------
 bool CNetwork::ConnectToServer(char* szServerIP, WORD wTcpPORT,
                                short nProcLEVEL) {
-  // World º“ƒœ...
+  // World ÏÜåÏºì...
   if ( m_nProcLEVEL == nProcLEVEL )
     return true;
 
@@ -86,7 +106,7 @@ void CNetwork::DisconnectFromServer(short nProcLEVEL) {
 //-------------------------------------------------------------------------------------------------
 void CNetwork::MoveZoneServer(const bool reconnect) {
   if ( NETWORK_STATUS_CONNECT == m_btZoneSocketSTATUS ) {
-    // ¡∏ º≠πˆ º“ƒœ¿ª ≤˜∞Ì ªı∑Œ ¡¢º”«—¥Ÿ...
+    // Ï°¥ ÏÑúÎ≤Ñ ÏÜåÏºìÏùÑ ÎÅäÍ≥† ÏÉàÎ°ú Ï†ëÏÜçÌïúÎã§...
     m_bMoveingZONE = true;
     m_ZoneSOCKET.Close();
 
@@ -95,7 +115,7 @@ void CNetwork::MoveZoneServer(const bool reconnect) {
     }
     LogString(LOG_NORMAL, "MoveZoneServer reconnection logic hit\n");
   }
-  // πŸ∑Œ ¡¢º”...
+  // Î∞îÎ°ú Ï†ëÏÜç...
   m_bMoveingZONE = false;
   m_ZoneSOCKET.Connect( CSocketWND::GetInstance()->GetWindowHandle(),
                         m_GSV_IP.Get(), m_wGSV_PORT, WM_ZONE_SOCKET_NOTIFY );
@@ -105,32 +125,33 @@ void CNetwork::MoveZoneServer(const bool reconnect) {
 void              CNetwork::Proc_WorldPacket() {
   CshoClientSOCK* pSocket = &this->m_WorldSOCKET;
 
-  while ( m_WorldSOCKET.Peek_Packet( m_pRecvPacket, true ) ) {
-    switch ( m_pRecvPacket->m_HEADER.m_wType ) {
+  std::unique_ptr<t_PACKET> packet(new t_PACKET);
+  while ( m_WorldSOCKET.Peek_Packet( packet.get(), true ) ) {
+    switch ( packet->m_HEADER.m_wType ) {
       case SOCKET_NETWORK_STATUS: {
-        switch ( m_pRecvPacket->m_NetSTATUS.m_btStatus ) {
+        switch ( packet->m_NetSTATUS.m_btStatus ) {
           case NETWORK_STATUS_ACCEPTED: {
-            pSocket->OnAccepted( (int *)m_pRecvPacket->m_NetSTATUS.m_dwSocketIDs );
+            pSocket->OnAccepted( (int *)packet->m_NetSTATUS.m_dwSocketIDs );
             CGame::GetInstance().AcceptedConnectLoginSvr();
             continue;
           }
           case NETWORK_STATUS_CONNECT: {
-            // º≠πˆøÕ ø¨∞·µ∆¥Ÿ...
+            // ÏÑúÎ≤ÑÏôÄ Ïó∞Í≤∞ÎêêÎã§...
             switch ( m_nProcLEVEL ) {
-              case NS_CON_TO_WSV: // ø˘µÂ º≠πˆø° ¡¢º”«ﬂ¥Ÿ.
+              case NS_CON_TO_WSV: // ÏõîÎìú ÏÑúÎ≤ÑÏóê Ï†ëÏÜçÌñàÎã§.
                 Send_cli_JOIN_SERVER_REQ( m_dwWSV_ID, true );
                 m_bWarping = false;
                 bAllInONE  = true;
                 break;
-              case NS_CON_TO_LSV: // ∑Œ±‰ º≠πˆø° ¡¢º”«ﬂ¥Ÿ.
+              case NS_CON_TO_LSV: // Î°úÍ∏¥ ÏÑúÎ≤ÑÏóê Ï†ëÏÜçÌñàÎã§.
                 pSocket->mF_Init( 0 );
-                Send_cli_HEADER( CLI_ACCEPT_REQ, true );
+                Send_PACKET(RoseCommon::Packet::CliAcceptReq::create(), true);
                 break;
             }
 
             g_pCApp->SetCaption( "ROSE online" );
 #ifdef __VIRTUAL_SERVER
-        g_pCApp->ErrorBOX("∞°ªÛ º≠πˆ∞° º≥¡§µ«æÓ ¿÷¿Ω..", "ERROR !!!", MB_OK);
+        g_pCApp->ErrorBOX("Í∞ÄÏÉÅ ÏÑúÎ≤ÑÍ∞Ä ÏÑ§Ï†ïÎêòÏñ¥ ÏûàÏùå..", "ERROR !!!", MB_OK);
 #endif
             continue;
           }
@@ -138,7 +159,7 @@ void              CNetwork::Proc_WorldPacket() {
             // g_pCApp->SetCaption ( "Disconnected" );
 
             if ( NS_DIS_FORM_LSV == m_nProcLEVEL ) {
-              // ∞‘¿” º≠πˆø° ¿Á¡¢º” «—¥Ÿ...
+              // Í≤åÏûÑ ÏÑúÎ≤ÑÏóê Ïû¨Ï†ëÏÜç ÌïúÎã§...
               this->ConnectToServer( m_WSV_IP.Get(), m_wWSV_PORT, NS_CON_TO_WSV );
               continue;
             }
@@ -159,16 +180,16 @@ void              CNetwork::Proc_WorldPacket() {
         }
 
         // CGame::GetInstance().ProcWndMsg( WM_USER_SERVER_DISCONNECTED,0,0 );
-        // º≠πˆøÕ ¡¢º” Ω«∆– «ﬂ¥Ÿ.
-        // LogString(LOG_NORMAL, "º≠πˆøÕ¿« ¡¢º”ø° Ω«∆–«ﬂΩ¿¥œ¥Ÿ.\n");
+        // ÏÑúÎ≤ÑÏôÄ Ï†ëÏÜç Ïã§Ìå® ÌñàÎã§.
+        // LogString(LOG_NORMAL, "ÏÑúÎ≤ÑÏôÄÏùò Ï†ëÏÜçÏóê Ïã§Ìå®ÌñàÏäµÎãàÎã§.\n");
         break;
       }
-      case SRV_ERROR: Recv_srv_ERROR();
+      case to_underlying(ePacketType::PAKSS_ERROR): Recv_srv_ERROR(packet.get());
         break;
 
-      case SRV_JOIN_SERVER_REPLY: // ø˘µÂ º≠πˆø° ¡¢º”«ﬂ¥Ÿ.
+      case to_underlying(ePacketType::PAKSC_JOIN_SERVER_REPLY): // ÏõîÎìú ÏÑúÎ≤ÑÏóê Ï†ëÏÜçÌñàÎã§.
       {
-        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY();
+        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(packet.get());
         if ( dwRet ) {
           pSocket->OnAccepted( (int *)&dwRet );
           this->Send_cli_CHAR_LIST();
@@ -180,408 +201,408 @@ void              CNetwork::Proc_WorldPacket() {
         break;
       }
 
-      case LSV_LOGIN_REPLY: if ( !Recv_lsv_LOGIN_REPLY() ) {
+      case to_underlying(ePacketType::PAKLC_LOGIN_REPLY):
+        using RoseCommon::Packet::SrvLoginReply;
+        if ( !Recv_lsv_LOGIN_REPLY(SrvLoginReply::create(reinterpret_cast<const uint8_t*>(packet.get()))) ) {
           this->DisconnectFromServer();
           return;
         }
         break;
-      case LSV_SELECT_SERVER: {
-        DWORD dwRet = Recv_lsv_SELECT_SERVER();
+      case to_underlying(ePacketType::PAKLC_SRV_SELECT_REPLY): {
+        DWORD dwRet = Recv_lsv_SELECT_SERVER(packet.get());
         if ( dwRet )
           pSocket->mF_Init( dwRet );
         break;
       }
-      case LSV_CHANNEL_LIST_REPLY: Recv_lsv_CHANNEL_LIST_REPLY();
+      case to_underlying(ePacketType::PAKLC_CHANNEL_LIST_REPLY): Recv_lsv_CHANNEL_LIST_REPLY(packet.get());
         break;
-        // ƒ≥∏Ø≈Õ ∏ÆΩ∫∆Æ πﬁæ“¿Ω
-      case WSV_CHAR_LIST: Recv_wsv_CHAR_LIST();
+        // Ï∫êÎ¶≠ÌÑ∞ Î¶¨Ïä§Ìä∏ Î∞õÏïòÏùå
+      case to_underlying(ePacketType::PAKCC_CHAR_LIST_REPLY): Recv_wsv_CHAR_LIST(packet.get());
         break;
 
-      case WSV_DELETE_CHAR: Recv_wsv_DELETE_CHAR();
+      case to_underlying(ePacketType::PAKCC_DELETE_CHAR_REPLY): Recv_wsv_DELETE_CHAR(packet.get());
         break;
-        // ƒ≥∏Ø≈Õ ª˝º∫ø‰√ª ∞·∞˙ ≈Î∫∏πﬁ¿Ω
-      case WSV_CREATE_CHAR: Recv_wsv_CREATE_CHAR();
+        // Ï∫êÎ¶≠ÌÑ∞ ÏÉùÏÑ±ÏöîÏ≤≠ Í≤∞Í≥º ÌÜµÎ≥¥Î∞õÏùå
+      case to_underlying(ePacketType::PAKCC_CREATE_CHAR_REPLY): Recv_wsv_CREATE_CHAR(packet.get());
 
         break;
-      case WSV_MESSENGER: Recv_tag_MCMD_HEADER();
+      case to_underlying(ePacketType::PAKCC_MESSENGER): Recv_tag_MCMD_HEADER(packet.get());
         break;
-      case WSV_MESSENGER_CHAT: Recv_wsv_MESSENGER_CHAT();
+        case to_underlying(ePacketType::PAKCC_MESSENGER_CHAT): Recv_wsv_MESSENGER_CHAT(packet.get());
         break;
-      case WSV_MEMO: Recv_wsv_MEMO();
+      case to_underlying(ePacketType::PAKCC_MEMO): Recv_wsv_MEMO(packet.get());
         break;
-      case WSV_CHATROOM: Recv_wsv_CHATROOM();
+      case to_underlying(ePacketType::PAKCC_CHATROOM): Recv_wsv_CHATROOM(packet.get());
         break;
-      case WSV_CHATROOM_MSG: Recv_wsv_CHATROOM_MSG();
+      case to_underlying(ePacketType::PAKCC_CHATROOM_MESSAGE): Recv_wsv_CHATROOM_MSG(packet.get());
         break;
-      case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE();
+      case to_underlying(ePacketType::PAKCC_CHAN_CHAR_REPLY): Recv_wsv_CHAR_CHANGE(RoseCommon::Packet::SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
-        // ¡∏ º≠πˆ∏¶ ¿Ãµø«ÿ∂Û...
-      case WSV_MOVE_SERVER: {
+        // Ï°¥ ÏÑúÎ≤ÑÎ•º Ïù¥ÎèôÌï¥Îùº...
+      case to_underlying(ePacketType::PAKCC_SWITCH_SERVER): {
         bAllInONE = false;
-        Recv_wsv_MOVE_SERVER();
+        Recv_wsv_MOVE_SERVER(packet.get());
         MoveZoneServer();
         break;
       }
 
-      case GSV_GODDNESS_MODE: {
-        Recv_gsv_GODDNESS_MODE();
+      case to_underlying(ePacketType::PAKWC_FAIRY): {
+        Recv_gsv_GODDNESS_MODE(packet.get());
         break;
       }
 
-      default: Proc_ZonePacket();
+      default: Proc_ZonePacket(packet.get());
     }
   }
 }
 
-void CNetwork::Proc_ZonePacket() {
-  switch ( m_pRecvPacket->m_HEADER.m_wType ) {
-    case WSV_MOVE_SERVER: {
+void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
+  switch ( packet->m_HEADER.m_wType ) {
+  case to_underlying(ePacketType::PAKCC_SWITCH_SERVER): {
       this->m_bWarping = true;
       bAllInONE        = false;
-      Recv_wsv_MOVE_SERVER();
+      Recv_wsv_MOVE_SERVER(packet);
       MoveZoneServer( true );
       this->m_bWarping = false;
       break;
     }
 
-    case GSV_CART_RIDE: Recv_gsv_CART_RIDE();
+  case to_underlying(ePacketType::PAKWC_RIDE_REQUEST): Recv_gsv_CART_RIDE(packet);
       break;
 
-    case GSV_PATSTATE_CHANGE: Recv_gsv_PATSTATE_CHANGE();
+  case to_underlying(ePacketType::PAKWC_RIDE_STATE_CHANGE): Recv_gsv_PATSTATE_CHANGE(packet);
       break;
 
-    case SRV_CHECK_AUTH:
-      // 2005.5.23 π⁄¡ˆ»£
-      /*m_nProtectSys.Auth_FromServer(m_pRecvPacket->m_srv_CHECK_AUTH.m_btModuleTYPE,
-            (GG_AUTH_DATA*)&m_pRecvPacket->m_pDATA[sizeof(srv_CHECK_AUTH)]);*/
-
-      break;
-    case GSV_SET_NPC_SHOW: Recv_gsv_SET_NPC_SHOW();
+    case to_underlying(ePacketType::PAKWC_NPC_SHOW): Recv_gsv_SET_NPC_SHOW(packet);
       break;
 
-    case GSV_MOVE_ZULY: Recv_gsv_MOVE_ZULY();
+    case to_underlying(ePacketType::PAKWC_BANK_MOVE_MONEY): Recv_gsv_MOVE_ZULY(packet);
       break;
-    case WSV_CLANMARK_REG_TIME: Recv_wsv_CLANMARK_REG_TIME();
+    case to_underlying(ePacketType::PAKCC_CLAN_ICON_TIMESTAMP): Recv_wsv_CLANMARK_REG_TIME(packet);
       break;
-    case GSV_BILLING_MESSAGE: Recv_gsv_BILLING_MESSAGE();
+      case to_underlying(ePacketType::PAKWC_BILLING_MESSAGE): Recv_gsv_BILLING_MESSAGE(packet);
       break;
-    case GSV_BILLING_MESSAGE_EXT: Recv_gsv_BILLING_MESSAGE_EXT();
+    case to_underlying(ePacketType::PAKWC_CRAFT_STATUS): Recv_gsv_ITEM_RESULT_REPORT(packet);
       break;
-    case GSV_MALL_ITEM_REPLY: Recv_gsv_MALL_ITEM_REPLY();
-      break;
-    case GSV_ITEM_RESULT_REPORT: Recv_gsv_ITEM_RESULT_REPORT();
-      break;
-    case GSV_LOGOUT_REPLY: Recv_gsv_LOGOUT_REPLY();
+    case to_underlying(ePacketType::PAKWC_LOGOUT_REPLY): Recv_gsv_LOGOUT_REPLY(packet);
       break;
 
-    case WSV_CLAN_COMMAND: Recv_wsv_CLAN_COMMAND();
+    case to_underlying(ePacketType::PAKCC_CLAN_COMMAND): Recv_wsv_CLAN_COMMAND(packet);
       break;
-    case WSV_CLAN_CHAT: Recv_wsv_CLAN_CHAT();
+    case to_underlying(ePacketType::PAKWC_CLAN_CHAT): Recv_wsv_CLAN_CHAT(packet);
       break;
-    case WSV_CLANMARK_REPLY: Recv_wsv_CLANMARK_REPLY();
-      break;
-
-    case SRV_ERROR: Recv_srv_ERROR();
+    case to_underlying(ePacketType::PAKCC_CLAN_ICON_REPLY): Recv_wsv_CLANMARK_REPLY(packet);
       break;
 
-    case GSV_RELAY_REQ: this->Send_PACKET( m_pRecvPacket );
+    case to_underlying(ePacketType::PAKSS_ERROR): Recv_srv_ERROR(packet);
       break;
 
-    case GSV_SET_GLOBAL_VAR: Recv_gsv_SET_GLOBAL_VAR();
+    //case GSV_RELAY_REQ: this->Send_PACKET( packet );
+    //  break;
+
+    case to_underlying(ePacketType::PAKWC_GLOBAL_VARS): Recv_gsv_SET_GLOBAL_VAR(packet);
       break;
 
-    case GSV_SET_GLOBAL_FLAG: Recv_gsv_SET_GLOVAL_FLAG();
+    case to_underlying(ePacketType::PAKWC_GLOBAL_FLAGS): Recv_gsv_SET_GLOVAL_FLAG(packet);
       break;
 
-    case SRV_ANNOUNCE_TEXT: Recv_srv_ANNOUNCE_TEXT();
+    case to_underlying(ePacketType::PAKSS_ANNOUNCE_TEXT): Recv_srv_ANNOUNCE_TEXT(packet);
       break;
-    case GSV_ANNOUNCE_CHAT: Recv_gsv_ANNOUNCE_CHAT();
-      break;
-
-    case GSV_GM_COMMAND: Recv_gsv_GM_COMMAND();
+    case to_underlying(ePacketType::PAKSW_ANNOUNCE_CHAT): Recv_gsv_ANNOUNCE_CHAT(packet);
       break;
 
-      // ƒ≥∏Ø≈Õ º±≈√ ∞·∞˙ ≈Î∫∏πﬁ¿Ω
-    case GSV_SELECT_CHAR: Recv_gsv_SELECT_CHAR();
-
-      // Send_cli_JOIN_ZONE ();		// GSV_SELECT_CHAR
+    case to_underlying(ePacketType::PAKWC_GM_COMMAND): Recv_gsv_GM_COMMAND(packet);
       break;
 
-    case GSV_JOIN_ZONE: Recv_gsv_JOIN_ZONE();
+      // Ï∫êÎ¶≠ÌÑ∞ ÏÑ†ÌÉù Í≤∞Í≥º ÌÜµÎ≥¥Î∞õÏùå
+    case to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY): Recv_gsv_SELECT_CHAR(packet);
+
+      // Send_cli_JOIN_ZONE ();		// to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY)
       break;
 
-    case GSV_REVIVE_REPLY: Recv_gsv_REVIVE_REPLY();
+    case to_underlying(ePacketType::PAKWC_CHANGE_MAP_REPLY): Recv_gsv_JOIN_ZONE(packet);
       break;
 
-    case GSV_SET_VAR_REPLY: Recv_gsv_SET_VAR_REPLY();
+    case to_underlying(ePacketType::PAKWC_REVIVE_REPLY): Recv_gsv_REVIVE_REPLY(packet);
       break;
 
-    case GSV_TELEPORT_REPLY: this->m_bWarping = false;
-      Recv_gsv_TELEPORT_REPLY();
+    case to_underlying(ePacketType::PAKWC_SET_SERVER_VAR_REPLY): Recv_gsv_SET_VAR_REPLY(packet);
+      break;
+
+    case to_underlying(ePacketType::PAKWC_TELEPORT_REPLY): this->m_bWarping = false;
+      Recv_gsv_TELEPORT_REPLY(packet);
       //				Send_cli_JOIN_ZONE ();		//
-      // GSV_TELEPORT_REPLY
+      // to_underlying(ePacketType::PAKWC_TELEPORT_REPLY)
       break;
 
-    case GSV_INVENTORY_DATA: Recv_gsv_INVENTORY_DATA();
+    case to_underlying(ePacketType::PAKWC_INVENTORY_DATA): Recv_gsv_INVENTORY_DATA(packet);
       //				g_pCApp->SetStatus( AS_MAIN_GAME );
       break;
-    case GSV_QUEST_DATA: Recv_gsv_QUEST_DATA();
+    case to_underlying(ePacketType::PAKWC_QUEST_DATA): Recv_gsv_QUEST_DATA(packet);
       break;
-    case GSV_INIT_DATA: Recv_gsv_INIT_DATA();
-      break;
-
-    case GSV_CHEAT_CODE: Recv_gsv_CHEAT_CODE();
+    case to_underlying(ePacketType::PAKWC_INIT_DATA): Recv_gsv_INIT_DATA(packet);
       break;
 
-    case GSV_SET_MOTION: Recv_gsv_SET_MOTION();
+    case to_underlying(ePacketType::PAKWC_GM_COMMAND_CODE): Recv_gsv_CHEAT_CODE(packet);
       break;
 
-    case GSV_TOGGLE: Recv_gsv_TOGGLE();
+    case to_underlying(ePacketType::PACWC_SET_ANIMATION):
+    {
+      using RoseCommon::Packet::SrvSetAnimation;
+      Recv_gsv_SET_MOTION(SrvSetAnimation::create(reinterpret_cast<const uint8_t*>(packet)));
       break;
-    case GSV_PARTY_CHAT: Recv_gsv_PARTY_CHAT();
+    }
+
+    case to_underlying(ePacketType::PAKWC_TOGGLE_MOVE): Recv_gsv_TOGGLE(packet);
       break;
-    case GSV_CHAT: Recv_gsv_CHAT();
+    case to_underlying(ePacketType::PAKWC_PARTY_CHAT): Recv_gsv_PARTY_CHAT(packet);
       break;
-    case GSV_WHISPER: Recv_gsv_WHISPER();
+    case to_underlying(ePacketType::PAKWC_NORMAL_CHAT): Recv_gsv_CHAT(packet);
       break;
-    case GSV_SHOUT: Recv_gsv_SHOUT();
+    case to_underlying(ePacketType::PAKWC_WHISPER_CHAT): Recv_gsv_WHISPER(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_SHOUT_CHAT): Recv_gsv_SHOUT(packet);
       break;
 
-    case GSV_NPC_CHAR: Recv_gsv_NPC_CHAR();
+    case to_underlying(ePacketType::PAKWC_NPC_CHAR): Recv_gsv_NPC_CHAR(packet);
       break;
-    case GSV_MOB_CHAR: Recv_gsv_MOB_CHAR();
+    case to_underlying(ePacketType::PAKWC_MOB_CHAR): Recv_gsv_MOB_CHAR(packet);
       break;
-    case GSV_AVT_CHAR: Recv_gsv_AVT_CHAR();
-      break;
-
-    case GSV_SUB_OBJECT: Recv_gsv_SUB_OBJECT();
-      break;
-    case GSV_STOP: Recv_gsv_STOP();
+    case to_underlying(ePacketType::PAKWC_PLAYER_CHAR): Recv_gsv_AVT_CHAR(packet);
       break;
 
-    case GSV_MOVE: Recv_gsv_MOVE();
+    case to_underlying(ePacketType::PAKWC_REMOVE_OBJECT): Recv_gsv_SUB_OBJECT(packet);
       break;
-    case GSV_ATTACK: Recv_gsv_ATTACK();
-      break;
-      // case GSV_ATTACK_START :
-      //	Recv_gsv_ATTACK_START ();
-      //	break;
-
-    case GSV_CHANGE_NPC: Recv_gsv_CHANGE_NPC();
+    case to_underlying(ePacketType::PAKWC_STOP): Recv_gsv_STOP(packet);
       break;
 
-    case GSV_DAMAGE: Recv_gsv_DAMAGE();
+    case to_underlying(ePacketType::PAKWC_MOVE): Recv_gsv_MOVE(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_ATTACK): Recv_gsv_ATTACK(packet);
       break;
 
-    case GSV_SETEXP: Recv_gsv_SETEXP();
-      break;
-    case GSV_LEVELUP: Recv_gsv_LEVELUP();
+    case to_underlying(ePacketType::PAKWC_UPDATE_NPC): Recv_gsv_CHANGE_NPC(packet);
       break;
 
-    case GSV_HP_REPLY: Recv_gsv_HP_REPLY();
+    case to_underlying(ePacketType::PAKWC_DAMAGE): Recv_gsv_DAMAGE(packet);
       break;
 
-    case GSV_CHANGE_SKIN: Recv_gsv_CHANGE_SKIN();
+    case to_underlying(ePacketType::PAKWC_SET_EXP): Recv_gsv_SETEXP(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_LEVELUP): Recv_gsv_LEVELUP(packet);
       break;
 
-    case GSV_EQUIP_ITEM: Recv_gsv_EQUIP_ITEM();
+    case to_underlying(ePacketType::PAKWC_HP_REPLY): Recv_gsv_HP_REPLY(packet);
       break;
 
-    case GSV_ADD_FIELDITEM: Recv_gsv_ADD_FIELDITEM();
+    case to_underlying(ePacketType::PAKWC_CHANGE_SKIN): Recv_gsv_CHANGE_SKIN(packet);
       break;
 
-    case GSV_GET_FIELDITEM_REPLY: Recv_gsv_GET_FIELDITEM_REPLY();
-      break;
-    case GSV_MOUSECMD: Recv_gsv_MOUSECMD();
+    case to_underlying(ePacketType::PAKWC_EQUIP_ITEM): Recv_gsv_EQUIP_ITEM(packet);
       break;
 
-    case GSV_SET_WEIGHT_RATE: Recv_gsv_SET_WEIGHT_RATE();
+    case to_underlying(ePacketType::PAKWC_DROP_ITEM): Recv_gsv_ADD_FIELDITEM(packet);
       break;
 
-    case GSV_ADJUST_POS: Recv_gsv_ADJUST_POS();
+    case to_underlying(ePacketType::PAKWC_PICKUP_ITEM_REPLY): Recv_gsv_GET_FIELDITEM_REPLY(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_MOUSE_CMD): Recv_gsv_MOUSECMD(packet);
       break;
 
-    case GSV_CANTMOVE: Recv_gsv_STOP();
+    //case GSV_SET_WEIGHT_RATE: Recv_gsv_SET_WEIGHT_RATE(packet);
+    //  break;
+
+    case to_underlying(ePacketType::PAKWC_SET_POSITION): Recv_gsv_ADJUST_POS(packet);
       break;
 
-    case GSV_SKILL_LEARN_REPLY: Recv_gsv_SKILL_LEARN_REPLY();
+    case to_underlying(ePacketType::PAKWC_STOP_MOVING): Recv_gsv_STOP(packet);
       break;
 
-    case GSV_SKILL_LEVELUP_REPLY: Recv_gsv_SKILL_LEVELUP_REPLY();
+    case to_underlying(ePacketType::PAKWC_SKILL_LEARN): Recv_gsv_SKILL_LEARN_REPLY(packet);
       break;
 
-    case GSV_SELF_SKILL: Recv_gsv_SELF_SKILL();
-      break;
-    case GSV_TARGET_SKILL: Recv_gsv_TARGET_SKILL();
-      break;
-    case GSV_POSITION_SKILL: Recv_gsv_POSITION_SKILL();
+    case to_underlying(ePacketType::PAKWC_SKILL_LEVEL_REPLY): Recv_gsv_SKILL_LEVELUP_REPLY(packet);
       break;
 
-    case GSV_EFFECT_OF_SKILL: Recv_gsv_EFFECT_OF_SKILL();
+    case to_underlying(ePacketType::PAKWC_SKILL_CAST_SELF): Recv_gsv_SELF_SKILL(packet);
       break;
-    case GSV_DAMAGE_OF_SKILL: Recv_gsv_DAMAGE_OF_SKILL();
+    case to_underlying(ePacketType::PAKWC_SKILL_CAST_TARGET): Recv_gsv_TARGET_SKILL(packet);
       break;
-    case GSV_RESULT_OF_SKILL: Recv_gsv_RESULT_OF_SKILL();
-      break;
-
-    case GSV_SKILL_START: Recv_gsv_SKILL_START();
+    case to_underlying(ePacketType::PAKWC_SKILL_CAST_POSITION): Recv_gsv_POSITION_SKILL(packet);
       break;
 
-    case GSV_SKILL_CANCEL: Recv_gsv_SKILL_CANCEL();
+    case to_underlying(ePacketType::PAKWC_SKILL_EFFECT): Recv_gsv_EFFECT_OF_SKILL(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_SKILL_DAMAGE): Recv_gsv_DAMAGE_OF_SKILL(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_SKILL_FINISH): Recv_gsv_RESULT_OF_SKILL(packet);
       break;
 
-    case GSV_CLEAR_STATUS: Recv_gsv_CLEAR_STATUS();
+    case to_underlying(ePacketType::PAKWC_SKILL_START): Recv_gsv_SKILL_START(packet);
       break;
 
-    case GSV_SPEED_CHANGED: Recv_gsv_SPEED_CHANGED();
+    case to_underlying(ePacketType::PAKWC_SKILL_CANCEL): Recv_gsv_SKILL_CANCEL(packet);
       break;
 
-      /// æ∆¿Ã≈€¿ª ªÁøÎ«ﬂ¥Ÿ.
-    case GSV_USE_ITEM: Recv_gsv_USE_ITEM();
+    case to_underlying(ePacketType::PAKWC_CLEAR_STATUS): Recv_gsv_CLEAR_STATUS(packet);
       break;
 
-    case GSV_P_STORE_MONEYnINV: Recv_gsv_P_STORE_MONEYnINV();
-      break;
-    case GSV_SET_MONEYnINV: Recv_gsv_SET_MONEYnINV();
+    case to_underlying(ePacketType::PAKWC_SPEED_CHANGED): Recv_gsv_SPEED_CHANGED(packet);
       break;
 
-    case GSV_REWARD_ITEM: {
-      Recv_gsv_REWARD_ITEM();
+      /// ÏïÑÏù¥ÌÖúÏùÑ ÏÇ¨Ïö©ÌñàÎã§.
+    case to_underlying(ePacketType::PAKWC_USE_ITEM): Recv_gsv_USE_ITEM(packet);
+      break;
+
+    //case GSV_P_STORE_MONEYnINV: Recv_gsv_P_STORE_MONEYnINV(packet);
+    //  break;
+    case to_underlying(ePacketType::PAKWC_SET_MONEY_AND_ITEM): Recv_gsv_SET_MONEYnINV(packet);
+      break;
+
+    case to_underlying(ePacketType::PAKWC_QUEST_REWARD_ITEM): {
+      Recv_gsv_REWARD_ITEM(packet);
       // Missing break is intentional.
     }
 
-    case GSV_SET_INV_ONLY: Recv_gsv_SET_INV_ONLY();
+    [[fallthrough]];
+    case to_underlying(ePacketType::PAKWC_SET_ITEM): Recv_gsv_SET_INV_ONLY(packet);
       break;
 
-    case GSV_SET_HOTICON: Recv_gsv_SET_HOTICON();
+    case to_underlying(ePacketType::PAKWC_HOTBAR_SET_ICON_REPLY): Recv_gsv_SET_HOTICON(packet);
       break;
 
-    case GSV_USE_BPOINT_REPLY: Recv_gsv_USE_BPOINT_REPLY();
+    case to_underlying(ePacketType::PAKWC_STAT_ADD_REPLY): Recv_gsv_USE_BPOINT_REPLY(packet);
       break;
 
-    case GSV_QUEST_REPLY: Recv_gsv_QUEST_REPLY();
+    case to_underlying(ePacketType::PAKWC_QUEST_DATA_REPLY): Recv_gsv_QUEST_REPLY(packet);
       break;
       /*
-      case GSV_QUEST_DATA_REPLY :
+      case to_underlying(ePacketType::PAKWC_QUEST_DATA)_REPLY :
         Recv_gsv_QUEST_DATA_REPLY ();
         break;
       */
-    case GSV_TRADE_P2P: Recv_gsv_TRADE_P2P();
+    case to_underlying(ePacketType::PAKWC_TRADE): Recv_gsv_TRADE_P2P(packet);
       break;
-    case GSV_TRADE_P2P_ITEM: Recv_gsv_TRADE_P2P_ITEM();
-      break;
-
-    case GSV_PARTY_REQ: Recv_gsv_PARTY_REQ();
-      break;
-    case GSV_PARTY_REPLY: Recv_gsv_PARTY_REPLY();
-      break;
-    case GSV_PARTY_MEMBER: Recv_gsv_PARTY_MEMBER();
-      break;
-    case GSV_PARTY_LEVnEXP: Recv_gsv_PARTY_LEVnEXP();
-      break;
-    case GSV_PARTY_ITEM: Recv_gsv_PARTY_ITEM();
-      break;
-    case GSV_PARTY_RULE: Recv_gsv_PARTY_RULE();
-      break;
-    case GSV_CHANGE_OBJIDX: Recv_gsv_CHANGE_OBJIDX();
-      break;
-    case GSV_STORE_TRADE_REPLY: Recv_gsv_STORE_TRADE_REPLY();
-      break;
-    case GSV_CREATE_ITEM_REPLY: Recv_gsv_CREATE_ITEM_REPLY();
-      break;
-    case GSV_BANK_LIST_REPLY: Recv_gsv_BANK_LIST_REPLY();
-      break;
-    case GSV_MOVE_ITEM: Recv_gsv_MOVE_ITEM();
-      break;
-    case GSV_SET_BULLET: Recv_gsv_SET_BULLET();
-      break;
-    case GSV_SERVER_DATA: Recv_gsv_SERVER_DATA();
-      break;
-    case GSV_ASSEMBLE_RIDE_ITEM: Recv_gsv_ASSEMBLE_RIDE_ITEM();
+    case to_underlying(ePacketType::PAKWC_TRADE_ITEM): Recv_gsv_TRADE_P2P_ITEM(packet);
       break;
 
-    case GSV_SET_EVENT_STATUS: Recv_GSV_SET_EVENT_STATUS();
+    case to_underlying(ePacketType::PAKWC_PARTY_REQ): Recv_gsv_PARTY_REQ(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_REPLY): Recv_gsv_PARTY_REPLY(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_MEMBER): Recv_gsv_PARTY_MEMBER(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_LEVELEXP): Recv_gsv_PARTY_LEVnEXP(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_ITEM): Recv_gsv_PARTY_ITEM(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_RULE): Recv_gsv_PARTY_RULE(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_MEMBER_UPDATE): Recv_gsv_CHANGE_OBJIDX(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_STORE_TRADE_REPLY): Recv_gsv_STORE_TRADE_REPLY(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_CRAFT_REPLY): Recv_gsv_CREATE_ITEM_REPLY(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_BANK_LIST_REPLY): Recv_gsv_BANK_LIST_REPLY(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_BANK_MOVE_ITEM): Recv_gsv_MOVE_ITEM(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_EQUIP_PROJECTILE): Recv_gsv_SET_BULLET(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_SERVER_DATA): Recv_gsv_SERVER_DATA(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_EQUIP_ITEM_RIDE): Recv_gsv_ASSEMBLE_RIDE_ITEM(packet);
       break;
 
-    case GSV_SET_ITEM_LIFE: Recv_GSV_SET_ITEM_LIFE();
+    case to_underlying(ePacketType::PAKWC_EVENT_STATUS): Recv_GSV_SET_EVENT_STATUS(packet);
       break;
 
-    case GSV_P_STORE_OPENED: Recv_gsv_P_STORE_OPENED();
-      break;
-    case GSV_P_STORE_CLOSED: Recv_gsv_P_STORE_CLOSED();
-      break;
-    case GSV_P_STORE_LIST_REPLY: Recv_gsv_P_STORE_LIST_REPLY();
-      break;
-    case GSV_P_STORE_RESULT: Recv_gsv_P_STORE_RESULT();
+    case to_underlying(ePacketType::PAKWC_SET_ITEM_LIFE): Recv_GSV_SET_ITEM_LIFE(packet);
       break;
 
-    case GSV_USED_ITEM_TO_REPAIR: Recv_gsv_USED_ITEM_TO_REPAIR();
+    case to_underlying(ePacketType::PAKWC_SHOP_OPEN): Recv_gsv_P_STORE_OPENED(packet);
       break;
-    case GSV_REPAIRED_FROM_NPC: Recv_gsv_REPAIRED_FROM_NPC();
+    case to_underlying(ePacketType::PAKWC_SHOP_CLOSE): Recv_gsv_P_STORE_CLOSED(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_SHOP_LIST_REPLY): Recv_gsv_P_STORE_LIST_REPLY(packet);
+      break;
+    case to_underlying(ePacketType::PAKCS_SHOP_BUYSELL_REPLY): Recv_gsv_P_STORE_RESULT(packet);
       break;
 
-    case GSV_SET_MONEY_ONLY: Recv_gsv_SET_MONEY_ONLY();
+    case to_underlying(ePacketType::PAKCS_REPAIR_USE_ITEM): Recv_gsv_USED_ITEM_TO_REPAIR(packet);
       break;
-    case GSV_REWARD_MONEY: Recv_gsv_REWARD_MONEY();
+    case to_underlying(ePacketType::PAKCS_REPAIR_NPC): Recv_gsv_REPAIRED_FROM_NPC(packet);
       break;
 
-    case GSV_REWARD_ADD_ABILITY: {
-      Recv_gsv_REWARD_ADD_ABILITY();
+    case to_underlying(ePacketType::PAKWC_SET_MONEY): Recv_gsv_SET_MONEY_ONLY(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_QUEST_REWARD_MONEY): Recv_gsv_REWARD_MONEY(packet);
+      break;
+
+    case to_underlying(ePacketType::PAKWC_QUEST_REWARD_ADD_VALUE): {
+      Recv_gsv_REWARD_ADD_ABILITY(packet);
       break;
     }
-    case GSV_REWARD_SET_ABILITY: {
-      Recv_gsv_REWARD_SET_ABILITY();
-      break;
-    }
-
-    case GSV_GODDNESS_MODE: {
-      Recv_gsv_GODDNESS_MODE();
+    case to_underlying(ePacketType::PAKWC_QUEST_REWARD_SET_VALUE): {
+      Recv_gsv_REWARD_SET_ABILITY(packet);
       break;
     }
 
-      //----------------------------------------------------------------------------------------------------
-      /// @brief æ∆¿Ã≈€ ¿Áπ÷∞¸∑√
-      //----------------------------------------------------------------------------------------------------
-    case GSV_CRAFT_ITEM_REPLY: Recv_gsv_CRAFT_ITEM_REPLY();
+    case to_underlying(ePacketType::PAKWC_FAIRY): {
+      Recv_gsv_GODDNESS_MODE(packet);
       break;
+    }
 
       //----------------------------------------------------------------------------------------------------
-      /// @brief ¿Ã∫•∆Æ ø¿∫Í¡ß∆Æ ∞¸∑√
+      /// @brief ÏïÑÏù¥ÌÖú Ïû¨Î∞çÍ¥ÄÎ†®
       //----------------------------------------------------------------------------------------------------
-    case GSV_ADD_EVENTOBJ: Recv_gsv_ADD_EVENTOBJ();
+    case to_underlying(ePacketType::PAKWC_CRAFT_ENHANCE_REPLY): Recv_gsv_CRAFT_ITEM_REPLY(packet);
       break;
 
-    case GSV_APPRAISAL_REPLY: Recv_gsv_APPRAISAL_REPLY();
+      //----------------------------------------------------------------------------------------------------
+      /// @brief Ïù¥Î≤§Ìä∏ Ïò§Î∏åÏ†ùÌä∏ Í¥ÄÎ†®
+      //----------------------------------------------------------------------------------------------------
+    case to_underlying(ePacketType::PAKWC_EVENT_ADD): Recv_gsv_ADD_EVENTOBJ(packet);
       break;
 
-    case GSV_SET_HPnMP: Recv_gsv_SET_HPnMP();
+    case to_underlying(ePacketType::PAKWC_APPRAISAL_REPLY): Recv_gsv_APPRAISAL_REPLY(packet);
       break;
 
-    case GSV_CHECK_NPC_EVENT: Recv_gsv_CHECK_NPC_EVENT();
+    case to_underlying(ePacketType::PAKWC_SET_HP_AND_MP): Recv_gsv_SET_HPnMP(packet);
       break;
 
-    case GSV_ALLIED_CHAT: Recv_gsv_ALLIED_CHAT();
-      break;
-    case GSV_ALLIED_SHOUT: Recv_gsv_ALLIED_SHOUT();
+    case to_underlying(ePacketType::PAKWC_NPC_EVENT): Recv_gsv_CHECK_NPC_EVENT(packet);
       break;
 
-    case GSV_CHARSTATE_CHANGE: Recv_gsv_CHARSTATE_CHANGE();
+    case to_underlying(ePacketType::PAKWC_ALLIED_CHAT): Recv_gsv_ALLIED_CHAT(packet);
+      break;
+    case to_underlying(ePacketType::PAKWC_ALLIED_SHOUT_CHAT): Recv_gsv_ALLIED_SHOUT(packet);
       break;
 
-    case GSV_SCREEN_SHOT_TIME: Recv_gsv_SCREEN_SHOT_TIME();
+    case to_underlying(ePacketType::PAWKC_CHAR_STATE_CHANGE): Recv_gsv_CHARSTATE_CHANGE(packet);
       break;
 
-    case SRV_UPDATE_NAME: Recv_gsv_UPDATE_NAME();
+    case to_underlying(ePacketType::PAKSC_SCREEN_SHOT_TIME_REPLY): Recv_gsv_SCREEN_SHOT_TIME(packet);
       break;
 
-    case WSV_CHAR_CHANGE: Recv_wsv_CHAR_CHANGE();
+    case to_underlying(ePacketType::PAKWC_UPDATE_NAME): Recv_gsv_UPDATE_NAME(packet);
       break;
+
+    case to_underlying(ePacketType::PAKCC_CHAN_CHAR_REPLY): { //Fixed by Davidixx
+        using RoseCommon::Packet::SrvChanCharReply;
+        Recv_wsv_CHAR_CHANGE(SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet)));
+        m_btZoneSocketSTATUS = 0;
+        CshoClientSOCK* pSocket = &this->m_ZoneSOCKET;
+        pSocket->Close();
+        break;
+    }
 
     default:
       //_ASSERT(0);
       LogString(LOG_NORMAL,
                 "received Invalid packet type ... type: 0x%x , size: %d \n",
-                m_pRecvPacket->m_HEADER.m_wType, m_pRecvPacket->m_HEADER.m_nSize);
+                packet->m_HEADER.m_wType, packet->m_HEADER.m_nSize);
   }
 }
 
@@ -590,28 +611,29 @@ void CNetwork::Proc() {
   this->Proc_WorldPacket();
 
   CshoClientSOCK* pSocket = &this->m_ZoneSOCKET;
-  while ( m_ZoneSOCKET.Peek_Packet( m_pRecvPacket, true ) ) {
+  std::unique_ptr<t_PACKET> packet(new t_PACKET);
+  while ( m_ZoneSOCKET.Peek_Packet( packet.get(), true ) ) {
     LogString(LOG_DEBUG, "Packet_Proc:: Type: 0x%x, Size: %d \n",
-              m_pRecvPacket->m_HEADER.m_wType, m_pRecvPacket->m_HEADER.m_nSize);
-    switch ( m_pRecvPacket->m_HEADER.m_wType ) {
+              packet->m_HEADER.m_wType, packet->m_HEADER.m_nSize);
+    switch ( packet->m_HEADER.m_wType ) {
       case SOCKET_NETWORK_STATUS: {
-        m_btZoneSocketSTATUS = m_pRecvPacket->m_NetSTATUS.m_btStatus;
-        switch ( m_pRecvPacket->m_NetSTATUS.m_btStatus ) {
+        m_btZoneSocketSTATUS = packet->m_NetSTATUS.m_btStatus;
+        switch ( packet->m_NetSTATUS.m_btStatus ) {
           case NETWORK_STATUS_ACCEPTED: {
-            pSocket->OnAccepted( (int *)m_pRecvPacket->m_NetSTATUS.m_dwSocketIDs );
+            pSocket->OnAccepted( (int *)packet->m_NetSTATUS.m_dwSocketIDs );
             _ASSERT(0);
             continue;
           }
           case NETWORK_STATUS_CONNECT: {
-            // ¡∏ º≠πˆøÕ ø¨∞·µ∆¥Ÿ...
-            // ƒ…∏Ø≈Õ º±≈√»ƒ Ω«¡¶ ¡∏ø° µÈæÓ∞£¥Ÿ.
+            // Ï°¥ ÏÑúÎ≤ÑÏôÄ Ïó∞Í≤∞ÎêêÎã§...
+            // ÏºÄÎ¶≠ÌÑ∞ ÏÑ†ÌÉùÌõÑ Ïã§Ï†ú Ï°¥Ïóê Îì§Ïñ¥Í∞ÑÎã§.
             m_bWarping = false;
             pSocket->mF_Init( m_dwGSV_IDs[1] );
             this->Send_cli_JOIN_SERVER_REQ( m_dwGSV_IDs[0] );
             continue;
           }
           case NETWORK_STATUS_DISCONNECT: {
-            // º≠πˆ∏¶ ø≈±‚±‚ ¿ß«ÿ ¡¢º”¿ª ≤˜¿∫∞Õ¿Œ∞° ? ≤˜±‰∞Õ¿Œ∞° ?
+            // ÏÑúÎ≤ÑÎ•º ÏòÆÍ∏∞Í∏∞ ÏúÑÌï¥ Ï†ëÏÜçÏùÑ ÎÅäÏùÄÍ≤ÉÏù∏Í∞Ä ? ÎÅäÍ∏¥Í≤ÉÏù∏Í∞Ä ?
             if ( m_bMoveingZONE ) {
               LogString(LOG_DEBUG,
                         "m_bMoveingZONE set to true, reconnecting.... \n");
@@ -627,17 +649,16 @@ void CNetwork::Proc() {
           }
         }
 
-        LogString(LOG_NORMAL, "¡∏ º≠πˆøÕ¿« ¡¢º”ø° Ω«∆–«ﬂΩ¿¥œ¥Ÿ.\n");
+        LogString(LOG_NORMAL, "Ï°¥ ÏÑúÎ≤ÑÏôÄÏùò Ï†ëÏÜçÏóê Ïã§Ìå®ÌñàÏäµÎãàÎã§.\n");
         break;
       }
 
-      case SRV_JOIN_SERVER_REPLY: // ¡∏ º≠πˆø° ¡¢º”«ﬂ¥Ÿ.
+      case to_underlying(ePacketType::PAKSC_JOIN_SERVER_REPLY): // Ï°¥ ÏÑúÎ≤ÑÏôÄÏùò Ï†ëÏÜçÏóê Ïã§Ìå®ÌñàÏäµÎãàÎã§.
       {
-        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY();
+        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(packet.get());
         if ( dwRet ) {
           pSocket->OnAccepted( (int *)&dwRet );
-          // √≥¿Ω ¡¢º”«— ¡∏ º≠πˆ? ∏È...
-
+          // Ï≤òÏùå Ï†ëÏÜçÌïú Ï°¥ ÏÑúÎ≤Ñ? Î©¥...
           CLiveCheck::GetSingleton().ResetTime();
         } else {
           // TODO:: error
@@ -647,20 +668,20 @@ void CNetwork::Proc() {
         break;
       }
 
-      default: this->Proc_ZonePacket();
+      default: this->Proc_ZonePacket(packet.get());
     }
   }
 }
 
 //-------------------------------------------------------------------------------------------------
-// 2005. 5. 23 π⁄ ¡ˆ»£
+// 2005. 5. 23 Î∞ï ÏßÄÌò∏
 void CNetwork::Send_AuthMsg(void) {
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHECK_AUTH;
-  m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHECK_AUTH );
+  //m_pSendPacket->m_HEADER.m_wType = CLI_CHECK_AUTH;
+  //m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHECK_AUTH );
   // Packet_AppendData( m_pSendPacket, &m_nProtectSys.GetAuthData(),sizeof(
   // GG_AUTH_DATA ) );
-  Send_PACKET( m_pSendPacket );
+  //Send_PACKET( m_pSendPacket );
 }
 
 //-------------------------------------------------------------------------------------------------

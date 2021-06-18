@@ -531,12 +531,12 @@ void         CTDrawImpl::DrawCover(int iX, int iY, int iModuleID, int iGraphicID
   drawSpriteCover( hTexture,
                    &(pSpriteInfo->m_Rect),
                    nullptr,
-                   &D3DXVECTOR3( iX, iY, 0 ),
+                   &D3DXVECTOR3( (FLOAT)iX, (FLOAT)iY, 0 ),
                    color,
                    coverColor,
                    value );
 
-  D3DXMatrixTranslation( &mat, iX, iY, 0 );
+  D3DXMatrixTranslation( &mat, (FLOAT)iX, (FLOAT)iY, 0 );
   setTransformSprite( mat );
 }
 

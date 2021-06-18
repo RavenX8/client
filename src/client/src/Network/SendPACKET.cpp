@@ -20,6 +20,14 @@
 #include "../System/CGame.h"
 #include "../System/GameStateMovePlanet.h"
 
+#include "cli_login_req.h"
+#include "cli_logout_req.h"
+#include "cli_srv_select_req.h"
+
+#include "epackettype.h"
+
+using namespace RoseCommon;
+
 #ifdef	__VIRTUAL_SERVER
 void CSendPACKET::Send_gsv_ADD_CHAR (int iObjectIndex, short nCharIdx, tPOINTF &PosSET)
 {
@@ -75,69 +83,31 @@ CSendPACKET::~CSendPACKET() {
 }
 
 //-------------------------------------------------------------------------------------------------
-void CSendPACKET::Send_cli_HEADER(WORD wType, bool bSendToWorld) {
-#ifdef	__VIRTUAL_SERVER
-  ;
-  return;
-  ;
-#else
-  m_pSendPacket->m_HEADER.m_wType = wType;
-  m_pSendPacket->m_HEADER.m_nSize = sizeof( t_PACKETHEADER );
-#endif
-
-  this->Send_PACKET( m_pSendPacket, bSendToWorld );
-}
-
-//-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEncode) {
   if ( !szAccount || !szAccount[0] )
     return;
 
-  int       iStrLen = strlen( szAccount );
-  for ( int iC      = 0; iC < iStrLen; iC++ ) {
-    if ( szAccount[iC] == '\'' ) // °èÁ¤¿¡ ' ¹®ÀÚ´Â µé¾î°¡¸é ¾ÈµÊ...
-      return;
+  std::string account(szAccount);
+
+  // ê³„ì •ì— ' ë¬¸ìžëŠ” ë“¤ì–´ê°€ë©´ ì•ˆë¨...
+  if (account.find('\'') != std::string::npos) {
+    return;
   }
-
-  m_pSendPacket->m_HEADER.m_wType = CLI_LOGIN_REQ;
-  m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_LOGIN_REQ );
-
-  std::string password = szPassword;
 
   if ( bEncode ) {
+    std::string password(szPassword);
     picosha2::hash256_hex_string(password, m_pMD5Buff);
-    //GetMD5( m_pMD5Buff, (unsigned char*)szPassword, strlen( szPassword ) );
-    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
-    Packet_AppendString( m_pSendPacket, szAccount );
   } else {
-
     m_pMD5Buff = g_GameDATA.m_PasswordMD5;
-    ::CopyMemory( m_pSendPacket->m_cli_LOGIN_REQ.m_MD5Password, g_GameDATA.m_PasswordMD5.c_str(), 64);
-    Packet_AppendString( m_pSendPacket, g_GameDATA.m_Account.Get() );
+    account = g_GameDATA.m_Account.Get();
   }
 
-#if defined(_TAIWAN) || defined(_PHILIPPIN)
-  short codepage = 950;
-  Packet_AppendData( m_pSendPacket, &codepage, sizeof( codepage ) );
-#endif
-
-  this->Send_PACKET( m_pSendPacket, true );
+  this->Send_PACKET(RoseCommon::Packet::CliLoginReq::create(m_pMD5Buff, account), true);
 }
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_SELECT_SERVER(int iServerID, int iChannelNo) {
-#ifdef	__VIRTUAL_SERVER
-  ;
-  _ASSERT( 0 );
-  ;
-#else
-  m_pSendPacket->m_HEADER.m_wType                  = CLI_SELECT_SERVER;
-  m_pSendPacket->m_HEADER.m_nSize                  = sizeof( cli_SELECT_SERVER );
-  m_pSendPacket->m_cli_SELECT_SERVER.m_dwServerID  = (DWORD)iServerID;
-  m_pSendPacket->m_cli_SELECT_SERVER.m_btChannelNO = (BYTE)iChannelNo;
-#endif
-
-  this->Send_PACKET( m_pSendPacket, true );
+  this->Send_PACKET( RoseCommon::Packet::CliSrvSelectReq::create(iServerID, iChannelNo), true );
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -164,7 +134,7 @@ void CSendPACKET::Send_cli_JOIN_SERVER_REQ(DWORD dwLSVID, bool bWorldServer) {
   _ASSERT( 0 );
   ;
 #else
-  m_pSendPacket->m_HEADER.m_wType             = CLI_JOIN_SERVER_REQ;
+  m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_JOIN_SERVER_REQ);
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_JOIN_SERVER_REQ );
   m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_dwID = dwLSVID;
   ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
@@ -175,19 +145,11 @@ void CSendPACKET::Send_cli_JOIN_SERVER_REQ(DWORD dwLSVID, bool bWorldServer) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_LOGOUT_REQ() {
-#ifdef	__VIRTUAL_SERVER
-  ;
-  //_ASSERT( 0 );
-  ;
-#else
-  m_pSendPacket->m_HEADER.m_wType = CLI_LOGOUT_REQ;
-  m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_LOGOUT_REQ );
-#endif
-  this->Send_PACKET( m_pSendPacket );
+  this->Send_PACKET(RoseCommon::Packet::CliLogoutReq::create());
 }
 
 void CSendPACKET::Send_cli_LOGOUT_CANCEL() {
-  m_pSendPacket->m_HEADER.m_wType = CLI_LOGOUT_CANCEL;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CANCEL_LOGOUT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( t_PACKETHEADER );
   this->Send_PACKET( m_pSendPacket );
 }
@@ -199,7 +161,7 @@ void CSendPACKET::Send_cli_CHAR_LIST() {
   _ASSERT( 0 );
   ;
 #else
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHAR_LIST;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHAR_LIST_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHAR_LIST );
 #endif
   this->Send_PACKET( m_pSendPacket, true );
@@ -212,7 +174,7 @@ void CSendPACKET::Send_cli_CREATE_CHAR(char* szCharName, BYTE btCharRACE, char c
   _ASSERT( 0 );
   ;
 #else
-  m_pSendPacket->m_HEADER.m_wType = CLI_CREATE_CHAR;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CREATE_CHAR_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CREATE_CHAR );
 
   m_pSendPacket->m_cli_CREATE_CHAR.m_btCharRACE  = btCharRACE;
@@ -235,7 +197,7 @@ void CSendPACKET::Send_cli_DELETE_CHAR(BYTE btCharNO, bool bDeleteOrRevive, char
   _ASSERT( 0 );
   ;
 #else
-  m_pSendPacket->m_HEADER.m_wType             = CLI_DELETE_CHAR;
+  m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_DELETE_CHAR_REQ);
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_DELETE_CHAR );
   m_pSendPacket->m_cli_DELETE_CHAR.m_bDelete  = bDeleteOrRevive;
   m_pSendPacket->m_cli_DELETE_CHAR.m_btCharNO = btCharNO;
@@ -252,7 +214,7 @@ void CSendPACKET::Send_cli_SELECT_CHAR(BYTE btCharNO, char* szCharName) {
   _ASSERT( 0 );
   ;
 #else
-  m_pSendPacket->m_HEADER.m_wType             = CLI_SELECT_CHAR;
+  m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_SELECT_CHAR_REQ);
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_SELECT_CHAR );
   m_pSendPacket->m_cli_SELECT_CHAR.m_btCharNO = btCharNO;
   Packet_AppendString( m_pSendPacket, szCharName );
@@ -262,7 +224,7 @@ void CSendPACKET::Send_cli_SELECT_CHAR(BYTE btCharNO, char* szCharName) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_JOIN_ZONE(BYTE btWeightRate) {
-  m_pSendPacket->m_HEADER.m_wType               = CLI_JOIN_ZONE;
+  m_pSendPacket->m_HEADER.m_wType               = to_underlying(ePacketType::PAKCS_CHANGE_MAP_REQ);
   m_pSendPacket->m_HEADER.m_nSize               = sizeof( cli_JOIN_ZONE );
   m_pSendPacket->m_cli_JOIN_ZONE.m_btWeightRate = btWeightRate;
   this->Send_PACKET( m_pSendPacket );
@@ -276,7 +238,7 @@ void CSendPACKET::Send_cli_REVIVE_REQ(BYTE btReviveTYPE) {
 #else
   g_pNet->m_bWarping = true;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_REVIVE_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_REVIVE_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_REVIVE_REQ );
 
   m_pSendPacket->m_cli_REVIVE_REQ.m_btReviveTYPE = btReviveTYPE;
@@ -290,7 +252,7 @@ void CSendPACKET::Send_cli_SET_REVIVE_POS() {
   return;
 
 #else
-  m_pSendPacket->m_HEADER.m_wType = CLI_SET_REVIVE_POS;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_REVIVE_SET_POS);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_SET_REVIVE_POS );
 #endif
 
@@ -302,7 +264,7 @@ void CSendPACKET::Send_cli_SET_VAR_REQ(BYTE btVarTYPE, int iValue) {
 #ifdef	__VIRTUAL_SERVER
   return;
 #else
-  m_pSendPacket->m_HEADER.m_wType              = CLI_SET_VAR_REQ;
+  m_pSendPacket->m_HEADER.m_wType              = to_underlying(ePacketType::PAKCS_SET_SERVER_VAR_REQ);
   m_pSendPacket->m_HEADER.m_nSize              = sizeof( cli_SET_VAR_REQ );
   m_pSendPacket->m_cli_SET_VAR_REQ.m_btVarTYPE = btVarTYPE;
   m_pSendPacket->m_cli_SET_VAR_REQ.m_iValue    = iValue;
@@ -313,12 +275,12 @@ void CSendPACKET::Send_cli_SET_VAR_REQ(BYTE btVarTYPE, int iValue) {
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_SET_MOTION(short nMotionNO, BYTE btStopCMD, WORD wETC) {
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_SET_MOTION;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SET_ANIMATION);
   m_pSendPacket->m_HEADER.m_nSize	= sizeof( gsv_SET_MOTION );
   m_pSendPacket->m_gsv_SET_MOTION.m_wObjectIDX = g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex );
   m_pSendPacket->m_gsv_SET_MOTION.m_nMotionNO = nMotionNO;
 #else
-  m_pSendPacket->m_HEADER.m_wType             = CLI_SET_MOTION;
+  m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_SET_ANIMATION);
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_SET_MOTION );
   m_pSendPacket->m_cli_SET_MOTION.m_nMotionNO = nMotionNO;
   m_pSendPacket->m_cli_SET_MOTION.m_wIsSTOP   = btStopCMD;
@@ -333,12 +295,12 @@ void CSendPACKET::Send_cli_SET_MOTION(short nMotionNO, BYTE btStopCMD, WORD wETC
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_TOGGLE(short nToggleTYPE) {
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType			 = GSV_TOGGLE;
+  m_pSendPacket->m_HEADER.m_wType			 = to_underlying(ePacketType::PAKCS_TOGGLE_MOVE);
   m_pSendPacket->m_HEADER.m_nSize			 = sizeof( gsv_TOGGLE );
   m_pSendPacket->m_gsv_TOGGLE.m_wObjectIDX = g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex );
   m_pSendPacket->m_gsv_TOGGLE.m_btTYPE	 = nToggleTYPE;
 #else
-  m_pSendPacket->m_HEADER.m_wType      = CLI_TOGGLE;
+  m_pSendPacket->m_HEADER.m_wType      = to_underlying(ePacketType::PAKCS_TOGGLE_MOVE);
   m_pSendPacket->m_HEADER.m_nSize      = sizeof( cli_TOGGLE );
   m_pSendPacket->m_cli_TOGGLE.m_btTYPE = (BYTE)nToggleTYPE;
 #endif
@@ -350,7 +312,7 @@ void CSendPACKET::Send_cli_TOGGLE(short nToggleTYPE) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_PARTY_CHAT(char* szMsg) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_PARTY_CHAT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_PARTY_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_PARTY_CHAT );
   Packet_AppendString( m_pSendPacket, szMsg );
   this->Send_PACKET( m_pSendPacket );
@@ -358,7 +320,7 @@ void CSendPACKET::Send_cli_PARTY_CHAT(char* szMsg) {
 
 void CSendPACKET::Send_cli_CHAT(char* szMsg) {
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_CHAT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_NORMAL_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_CHAT );
   m_pSendPacket->m_gsv_CHAT.m_wObjectIDX = g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex );
   Packet_AppendString (m_pSendPacket, szMsg);
@@ -366,12 +328,12 @@ void CSendPACKET::Send_cli_CHAT(char* szMsg) {
   if ( g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHAT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_NORMAL_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHAT );
   Packet_AppendString( m_pSendPacket, szMsg );
 
-  /// Å¬¶óÀÌ¾ðÆ®¿¡¼­¸¸ »ç¿ëÇÏ´Â Ä¡Æ® »ç¿ë..
-  /// Å¬¶óÀÌ¾ðÆ®¿¡¼­ »ç¿ëÇÏ´Â Ä¡Æ®°¡ µ¿ÀÛµÇ¸é.. ÃÂÆÃÀ» ³¯¸®Áö ¸¶¶ó..
+  /// í´ë¼ì´ì–¸íŠ¸ì—ì„œë§Œ ì‚¬ìš©í•˜ëŠ” ì¹˜íŠ¸ ì‚¬ìš©..
+  /// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì¹˜íŠ¸ê°€ ë™ìž‘ë˜ë©´.. ì³‡íŒ…ì„ ë‚ ë¦¬ì§€ ë§ˆë¼..
   if ( g_Cheat.DoCheat( szMsg, false ) == CHEAT_RESULT_CLIENT )
     return;
 
@@ -385,7 +347,7 @@ void CSendPACKET::Send_cli_ALLIED_CHAT(char* pszMsg) {
   if ( pszMsg == nullptr || g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_ALLIED_CHAT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_ALLIED_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_ALLIED_CHAT );
   Packet_AppendString( m_pSendPacket, pszMsg );
 
@@ -397,7 +359,7 @@ void CSendPACKET::Send_cli_ALLIED_SHOUT(char* pszMsg) {
   if ( pszMsg == nullptr || g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_ALLIED_SHOUT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_ALLIED_SHOUT_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_ALLIED_SHOUT );
   Packet_AppendString( m_pSendPacket, pszMsg );
 
@@ -406,7 +368,7 @@ void CSendPACKET::Send_cli_ALLIED_SHOUT(char* pszMsg) {
 
 void CSendPACKET::Send_cli_WHISPER(char* szTargetAccount, char* szMsg) {
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_WHISPER;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_WHISPER_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_WHISPER );
   Packet_AppendString (m_pSendPacket, szTargetAccount);
   Packet_AppendString (m_pSendPacket, szMsg);
@@ -414,7 +376,7 @@ void CSendPACKET::Send_cli_WHISPER(char* szTargetAccount, char* szMsg) {
   if ( g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_WHISPER;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_WHISPER_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_WHISPER );
   Packet_AppendString( m_pSendPacket, szTargetAccount );
   Packet_AppendString( m_pSendPacket, szMsg );
@@ -424,12 +386,12 @@ void CSendPACKET::Send_cli_WHISPER(char* szTargetAccount, char* szMsg) {
 
 void CSendPACKET::Send_cli_SHOUT(char* szMsg) {
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_SHOUT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SHOUT_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_SHOUT );
   Packet_AppendString (m_pSendPacket, g_pAVATAR->Get_NAME() );
   Packet_AppendString (m_pSendPacket, szMsg);
 #else
-  m_pSendPacket->m_HEADER.m_wType = CLI_SHOUT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SHOUT_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_SHOUT );
   Packet_AppendString( m_pSendPacket, szMsg );
 #endif
@@ -439,13 +401,13 @@ void CSendPACKET::Send_cli_SHOUT(char* szMsg) {
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_STOP(D3DVECTOR& PosCUR) {
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_STOP;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_STOP);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_STOP );
   m_pSendPacket->m_gsv_STOP.m_wObjectIDX = g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex );
   m_pSendPacket->m_gsv_STOP.m_PosCUR.x = PosCUR.x;
   m_pSendPacket->m_gsv_STOP.m_PosCUR.y = PosCUR.y;
 #else
-  m_pSendPacket->m_HEADER.m_wType      = CLI_STOP;
+  m_pSendPacket->m_HEADER.m_wType      = to_underlying(ePacketType::PAKCS_STOP);
   m_pSendPacket->m_HEADER.m_nSize      = sizeof( cli_STOP );
   m_pSendPacket->m_cli_STOP.m_PosCUR.x = PosCUR.x;
   m_pSendPacket->m_cli_STOP.m_PosCUR.y = PosCUR.y;
@@ -458,13 +420,13 @@ void CSendPACKET::Send_cli_STOP(D3DVECTOR& PosCUR) {
 
 //----------------------------------------------------------------------------------------------------
 /// @param
-/// @brief ÀÌµ¿ÀÇ ¸ñÀû¿¡ »ç¿ë
-/// @bug Á¶½É...m_nPosZ°¡ short ÇüÀÌ±â¶§¹®¿¡...
+/// @brief ì´ë™ì˜ ëª©ì ì— ì‚¬ìš©
+/// @bug ì¡°ì‹¬...m_nPosZê°€ short í˜•ì´ê¸°ë•Œë¬¸ì—...
 //----------------------------------------------------------------------------------------------------
 
 void CSendPACKET::Send_cli_MOUSECMD(int iClientTarget, D3DVECTOR& PosTO) {
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_MOUSECMD;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_MOUSE_CMD);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_MOUSECMD);
   m_pSendPacket->m_gsv_MOUSECMD.m_wSourObjIDX = g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex );
   m_pSendPacket->m_gsv_MOUSECMD.m_wDestObjIDX = g_pObjMGR->Get_ServerObjectIndex( iClientTarget );
@@ -477,19 +439,19 @@ void CSendPACKET::Send_cli_MOUSECMD(int iClientTarget, D3DVECTOR& PosTO) {
     return;
 
   //-------------------------------------------------------------------------------
-  /// ¾É±â »óÅÂ¿¡¼± ±ÝÁö..
+  /// ì•‰ê¸° ìƒíƒœì—ì„  ê¸ˆì§€..
   //-------------------------------------------------------------------------------				
   if ( g_pAVATAR->Get_STATE() == CS_SIT )
     Send_cli_TOGGLE( TOGGLE_TYPE_SIT );
 
-  m_pSendPacket->m_HEADER.m_wType                  = CLI_MOUSECMD;
+  m_pSendPacket->m_HEADER.m_wType                  = to_underlying(ePacketType::PAKCS_MOUSE_CMD);
   m_pSendPacket->m_HEADER.m_nSize                  = sizeof( cli_MOUSECMD );
   m_pSendPacket->m_cli_MOUSECMD.m_wTargetObjectIDX = g_pObjMGR->Get_ServerObjectIndex( iClientTarget );
   m_pSendPacket->m_cli_MOUSECMD.m_PosTO.x          = PosTO.x;
   m_pSendPacket->m_cli_MOUSECMD.m_PosTO.y          = PosTO.y;
 
-  // ¾Æ¹ÙÅ¸ÀÇ ÀÌµ¿ ½ÃÀÛ À§Ä¡ÀÇ ³ôÀÌ¸¦ °°ÀÌ ½Ç¾î º¸³½´Ù.
-  // ÀÌ ³ôÀÌ´Â ÃÖÁ¾ À§Ä¡ÀÇ ³ôÀÌ°¡ ¾Æ´Ï¶ó, ÇöÀç(Áï, ÀÌµ¿ ½ÃÀÛ½Ã)ÀÇ ³ôÀÌÀÓÀ» ¸í½ÉÇÏÀÚ.
+  // ì•„ë°”íƒ€ì˜ ì´ë™ ì‹œìž‘ ìœ„ì¹˜ì˜ ë†’ì´ë¥¼ ê°™ì´ ì‹¤ì–´ ë³´ë‚¸ë‹¤.
+  // ì´ ë†’ì´ëŠ” ìµœì¢… ìœ„ì¹˜ì˜ ë†’ì´ê°€ ì•„ë‹ˆë¼, í˜„ìž¬(ì¦‰, ì´ë™ ì‹œìž‘ì‹œ)ì˜ ë†’ì´ìž„ì„ ëª…ì‹¬í•˜ìž.
   m_pSendPacket->m_cli_MOUSECMD.m_nPosZ = (short)(g_pAVATAR->Get_CurPOS().z);
 #endif
 
@@ -500,15 +462,15 @@ void CSendPACKET::Send_cli_MOUSECMD(int iClientTarget, D3DVECTOR& PosTO) {
 
 //----------------------------------------------------------------------------------------------------
 /// @param
-/// @brief Å¬¶óÀÌ¾ðÆ® ÆÇ´Ü¿¡ ÀÇÇØ ¾Æ¹ÙÅ¸°¡ ¿òÁ÷ÀÌÁö ¸øÇÒ¶§ Åëº¸ÇÏ´Â ÆÐÅ¶
-/// @bug Á¶½É...m_nPosZ°¡ short ÇüÀÌ±â¶§¹®¿¡...
+/// @brief í´ë¼ì´ì–¸íŠ¸ íŒë‹¨ì— ì˜í•´ ì•„ë°”íƒ€ê°€ ì›€ì§ì´ì§€ ëª»í• ë•Œ í†µë³´í•˜ëŠ” íŒ¨í‚·
+/// @bug ì¡°ì‹¬...m_nPosZê°€ short í˜•ì´ê¸°ë•Œë¬¸ì—...
 //----------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CANTMOVE() {
 #ifndef	__VIRTUAL_SERVER
   if ( g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_CANTMOVE;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_STOP_MOVING);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CANTMOVE );
 
   m_pSendPacket->m_cli_CANTMOVE.m_PosCUR.x = g_pAVATAR->Get_CurPOS().x;
@@ -531,24 +493,24 @@ void CSendPACKET::Send_cli_ATTACK(int iClientTarget) {
   }
 
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_ATTACK;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_ATTACK);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_ATTACK );
   m_pSendPacket->m_gsv_ATTACK.m_wAtkObjIDX = g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex );
   m_pSendPacket->m_gsv_ATTACK.m_wDefObjIDX = g_pObjMGR->Get_ServerObjectIndex( iClientTarget );
 #else
   //-------------------------------------------------------------------------------
-  /// ¾É±â »óÅÂ¿¡¼± ±ÝÁö..
+  /// ì•‰ê¸° ìƒíƒœì—ì„  ê¸ˆì§€..
   //-------------------------------------------------------------------------------				
   if ( g_pAVATAR->Get_STATE() == CS_SIT )
     Send_cli_TOGGLE( TOGGLE_TYPE_SIT );
 
-  m_pSendPacket->m_HEADER.m_wType                  = CLI_ATTACK;
+  m_pSendPacket->m_HEADER.m_wType                  = to_underlying(ePacketType::PAKCS_ATTACK);
   m_pSendPacket->m_HEADER.m_nSize                  = sizeof( cli_ATTACK );
   m_pSendPacket->m_cli_ATTACK.m_wTargetObjectIndex = g_pObjMGR->Get_ServerObjectIndex( iClientTarget );
 #endif
 
   //----------------------------------------------------------------------------------------------------
-  /// PVP °¡´ÉÁ¸ÀÏ°æ¿ì¿¡´Â PVP ÇÃ·¡±×°¡ ON »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¸ðµç °ø°Ý¸í·É ÆÐÁö
+  /// PVP ê°€ëŠ¥ì¡´ì¼ê²½ìš°ì—ëŠ” PVP í”Œëž˜ê·¸ê°€ ON ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ëª¨ë“  ê³µê²©ëª…ë ¹ íŒ¨ì§€
   //----------------------------------------------------------------------------------------------------
   if ( g_pTerrain->IsPVPZone() ) {
     if ( g_GameDATA.m_iPvPState == PVP_CANT )
@@ -573,7 +535,7 @@ void CSendPACKET::Send_cli_DAMAGE(CObjCHAR* pAtkOBJ, CObjCHAR* pDefOBJ, WORD wDa
   switch( pDefOBJ->Get_TYPE() ) {
     case OBJ_USER :
       if ( pDefOBJ->Get_HP() - nDamage <= 0 ) {
-        // Á×Áö ¾Ê°Ô..
+        // ì£½ì§€ ì•Šê²Œ..
          //nDamage *= -1;
         pDefOBJ->Set_HP( ((CObjUSER*)pDefOBJ)->Get_MaxHP() );
         nDamage = 0;
@@ -589,23 +551,23 @@ void CSendPACKET::Send_cli_DAMAGE(CObjCHAR* pAtkOBJ, CObjCHAR* pDefOBJ, WORD wDa
             this->Send_gsv_ADD_FIELDITEM ( 0, sITEM );
           }
         } else {
-          // Á×¿´À»¶§..
+          // ì£½ì˜€ì„ë•Œ..
           g_AI_LIST.AI_Kill( NPC_AI_TYPE( pAtkOBJ->Get_CharNO() ), pAtkOBJ, pDefOBJ, nDamage );
         }
 
-        if ( pAtkOBJ->m_iServerTarget == pDefOBJ->m_nIndex )	// Å¸°Ù »èÁ¦.
+        if ( pAtkOBJ->m_iServerTarget == pDefOBJ->m_nIndex )	// íƒ€ê²Ÿ ì‚­ì œ.
           pAtkOBJ->m_iServerTarget = 0;
 
-        // Á×À»¶§...
+        // ì£½ì„ë•Œ...
         pDefOBJ->Check_EVENT( pAtkOBJ, QUEST_EVENT_ON_DEAD );	// on_dead ..
         g_AI_LIST.AI_Dead( NPC_AI_TYPE( pDefOBJ->Get_CharNO() ), pDefOBJ, pAtkOBJ, nDamage );
         sDamage.m_wACTION |= DMG_ACT_DEAD;
 
         LogString (LOG_NORMAL, " Obj:%d ,  %s dead .. damage : %d \n", pDefOBJ->m_nIndex, pDefOBJ->Get_NAME(), nDamage);
       } else  {
-        // ¸÷ÀÌ¸é ¹Ý°Ý.
+        // ëª¹ì´ë©´ ë°˜ê²©.
         if ( pAtkOBJ && pAtkOBJ->Get_HP() > 0 ) {
-          // °ø°ÝÀÚ°¡ »ì¾Æ ÀÖÀ¸¸é...
+          // ê³µê²©ìžê°€ ì‚´ì•„ ìžˆìœ¼ë©´...
           pDefOBJ->SetCMD_ATTACK( g_pObjMGR->Get_ServerObjectIndex( pAtkOBJ->Get_INDEX() ) );
         }
         g_AI_LIST.AI_Damaged( NPC_AI_TYPE( pDefOBJ->Get_CharNO() ), pDefOBJ, pAtkOBJ, nDamage );
@@ -613,13 +575,13 @@ void CSendPACKET::Send_cli_DAMAGE(CObjCHAR* pAtkOBJ, CObjCHAR* pDefOBJ, WORD wDa
       break;
   }
 
-  m_pSendPacket->m_HEADER.m_wType = GSV_DAMAGE;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_DAMAGE);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_DAMAGE );
   m_pSendPacket->m_gsv_DAMAGE.m_wAtkObjIDX = g_pObjMGR->Get_ServerObjectIndex( pAtkOBJ->m_nIndex );
   m_pSendPacket->m_gsv_DAMAGE.m_wDefObjIDX = g_pObjMGR->Get_ServerObjectIndex( pDefOBJ->m_nIndex );
   m_pSendPacket->m_gsv_DAMAGE.m_Damage = sDamage;
 #else
-  m_pSendPacket->m_HEADER.m_wType          = CLI_DAMAGE;
+  m_pSendPacket->m_HEADER.m_wType          = to_underlying(ePacketType::PAKCS_DAMAGE);
   m_pSendPacket->m_HEADER.m_nSize          = sizeof( cli_DAMAGE );
   m_pSendPacket->m_cli_DAMAGE.m_wDefObjIDX = g_pObjMGR->Get_ServerObjectIndex( pDefOBJ->m_nIndex );
   m_pSendPacket->m_cli_DAMAGE.m_wRandomIDX = 0;
@@ -628,10 +590,10 @@ void CSendPACKET::Send_cli_DAMAGE(CObjCHAR* pAtkOBJ, CObjCHAR* pDefOBJ, WORD wDa
 }
 
 //-------------------------------------------------------------------------------------------------
-// wNPCObjIDX : °Å·¡ÇÒ NPC ...
-// cBuyCNT    : »ì ¾ÆÀÌÅÛ °¹¼ö
-// cSellCNT   : ÆÈ ¾ÆÀÌÅÛ °¹¼ö
-// pINDEXs[]  : °Å·¡ npcÀÇ sell tab index + my avatar inventory item list index
+// wNPCObjIDX : ê±°ëž˜í•  NPC ...
+// cBuyCNT    : ì‚´ ì•„ì´í…œ ê°¯ìˆ˜
+// cSellCNT   : íŒ” ì•„ì´í…œ ê°¯ìˆ˜
+// pINDEXs[]  : ê±°ëž˜ npcì˜ sell tab index + my avatar inventory item list index
 void CSendPACKET::Send_cli_STORE_TRADE_REQ(WORD wNPCObjIDX, char cBuyCNT, char cSellCNT, tag_BUY_ITEM* pBuyITEMs, tag_SELL_ITEM* pSellITEMs) {
   _ASSERT( cBuyCNT >= 0 && cSellCNT >= 0 );
 
@@ -661,7 +623,7 @@ void CSendPACKET::Send_cli_STORE_TRADE_REQ(WORD wNPCObjIDX, char cBuyCNT, char c
     }
   }
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_STORE_TRADE_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_STORE_TRADE_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_STORE_TRADE_REQ );
 
   m_pSendPacket->m_cli_STORE_TRADE_REQ.m_wNPCObjIdx    = wNPCObjIDX,
@@ -678,9 +640,9 @@ void CSendPACKET::Send_cli_STORE_TRADE_REQ(WORD wNPCObjIDX, char cBuyCNT, char c
   this->Send_PACKET( m_pSendPacket );
 }
 
-/// ¼­¹ö¿¡ ÇØ´ç ¿ÀºêÁ§Æ® HP Á¤º¸ ¿ä±¸
+/// ì„œë²„ì— í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ HP ì •ë³´ ìš”êµ¬
 void CSendPACKET::Send_cli_HP_REQ(int iClientTarget) {
-  m_pSendPacket->m_HEADER.m_wType          = CLI_HP_REQ;
+  m_pSendPacket->m_HEADER.m_wType          = to_underlying(ePacketType::PAKCS_HP_REQ);
   m_pSendPacket->m_HEADER.m_nSize          = sizeof( cli_HP_REQ );
   m_pSendPacket->m_cli_HP_REQ.m_wObjectIDX = g_pObjMGR->Get_ServerObjectIndex( iClientTarget );
 
@@ -698,12 +660,12 @@ bool      CSendPACKET::Send_cli_USE_ITEM(short nInventoryIndex, bool bTargetSkil
     return false;
 
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_USE_ITEM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_USE_ITEM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_USE_ITEM );
   m_pSendPacket->m_gsv_USE_ITEM.m_wObjectIDX = g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex );
   m_pSendPacket->m_gsv_USE_ITEM.m_nUseItemNO = sITEM.m_nItemNo;
 #else
-  m_pSendPacket->m_HEADER.m_wType                 = CLI_USE_ITEM;
+  m_pSendPacket->m_HEADER.m_wType                 = to_underlying(ePacketType::PAKCS_USE_ITEM);
   m_pSendPacket->m_HEADER.m_nSize                 = sizeof( cli_USE_ITEM );
   m_pSendPacket->m_cli_USE_ITEM.m_nInventoryIndex = nInventoryIndex;
 
@@ -751,7 +713,7 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
     tagITEM *pEquipITEM = &g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ];
 
     short nInvIDX = g_pAVATAR->Add_ITEM( *pEquipITEM );
-    // Àåºñ Å»°Å...
+    // ìž¥ë¹„ íƒˆê±°...
     if ( nInvIDX > 0 ) {
       m_pSendPacket->m_gsv_SET_INV_ONLY.m_btItemCNT = 2;
 
@@ -760,11 +722,11 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
 
       m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 1 ].m_btInvIDX =  nInvIDX;
       m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 1 ].m_ITEM     = *pEquipITEM;
-    } // else ºó ÀÎº¥Åä¸®°¡ ¾ø¾î¼­ Àåºñ¸¦ ¹þÀ»¼ö ¾ø´Ù...
+    } // else ë¹ˆ ì¸ë²¤í† ë¦¬ê°€ ì—†ì–´ì„œ ìž¥ë¹„ë¥¼ ë²—ì„ìˆ˜ ì—†ë‹¤...
   } else {
     m_pSendPacket->m_gsv_SET_INV_ONLY.m_btItemCNT = 2;
 
-    // Àåºñ ±³È¯.
+    // ìž¥ë¹„ êµí™˜.
     m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 0 ].m_btInvIDX = nWeaponInvIDX;
     m_pSendPacket->m_gsv_SET_INV_ONLY.m_sInvITEM[ 0 ].m_ITEM     = g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ];
 
@@ -778,7 +740,7 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
 
     this->Send_PACKET( m_pSendPacket );
 
-    m_pSendPacket->m_HEADER.m_wType = GSV_EQUIP_ITEM;
+    m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_EQUIP_ITEM);
     m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_EQUIP_ITEM);
     m_pSendPacket->m_gsv_EQUIP_ITEM.m_wObjectIDX  = g_pObjMGR->Get_ServerObjectIndex(  g_pAVATAR->m_nIndex );
     m_pSendPacket->m_gsv_EQUIP_ITEM.m_nEquipIndex = nEquipInvIDX;
@@ -788,22 +750,22 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
     return;
 #else
   if ( nWeaponInvIDX && EQUIP_IDX_WEAPON_L == nEquipInvIDX && g_pAVATAR->m_Inventory.m_ItemLIST[EQUIP_IDX_WEAPON_R].IsTwoHands() ) {
-    // ¾ç¼Õ ¹«±â ÀåÂø »óÅÂ¿¡¼­ ¿Þ¼Õ ¹«±â¸¦ µî·ÏÇÒ¼ö ¾ø´Ù.
+    // ì–‘ì† ë¬´ê¸° ìž¥ì°© ìƒíƒœì—ì„œ ì™¼ì† ë¬´ê¸°ë¥¼ ë“±ë¡í• ìˆ˜ ì—†ë‹¤.
     return;
   }
 
   //----------------------------------------------------------------------------------------------
-  /// Àåºñ±³Ã¼¸¦ ÇÒ¼ö¾ø´Â »óÅÂ Ã¼Å©
+  /// ìž¥ë¹„êµì²´ë¥¼ í• ìˆ˜ì—†ëŠ” ìƒíƒœ ì²´í¬
   //----------------------------------------------------------------------------------------------
 
-  /// °³ÀÎ»óÁ¡ »óÅÂ.
+  /// ê°œì¸ìƒì  ìƒíƒœ.
   /*if( g_pAVATAR->IsPersonalStoreMode() )
     return;*/
 
   _ASSERT( nEquipInvIDX >= 1 && nEquipInvIDX < MAX_EQUIP_IDX );
 
   if ( 0 == nWeaponInvIDX ) {
-    // Àåºñ Å»°Å...
+    // ìž¥ë¹„ íƒˆê±°...
     _ASSERT( g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ].GetTYPE() &&
       g_pAVATAR->m_Inventory.m_ItemLIST[ nEquipInvIDX ].GetTYPE() < ITEM_TYPE_USE );
   } else {
@@ -813,7 +775,7 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
       g_pAVATAR->m_Inventory.m_ItemLIST[ nWeaponInvIDX ].GetTYPE() < ITEM_TYPE_USE );
   }
 
-  m_pSendPacket->m_HEADER.m_wType                 = CLI_EQUIP_ITEM;
+  m_pSendPacket->m_HEADER.m_wType                 = to_underlying(ePacketType::PAKCS_EQUIP_ITEM);
   m_pSendPacket->m_HEADER.m_nSize                 = sizeof( cli_EQUIP_ITEM );
   m_pSendPacket->m_cli_EQUIP_ITEM.m_nEquipInvIDX  = nEquipInvIDX;
   m_pSendPacket->m_cli_EQUIP_ITEM.m_nWeaponInvIDX = nWeaponInvIDX;
@@ -823,8 +785,8 @@ void CSendPACKET::Send_cli_EQUIP_ITEM(short nEquipInvIDX, short nWeaponInvIDX) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// ÇÊµå¿¡ ¾ÆÀÌÅÛÀ» ¶³¾î ¶ß¸°´Ù...
-// ¾ÆÀÌÅÛÀÌ µ·ÀÏ °æ¿ì nInventoryIndex == 0 !!!
+// í•„ë“œì— ì•„ì´í…œì„ ë–¨ì–´ ëœ¨ë¦°ë‹¤...
+// ì•„ì´í…œì´ ëˆì¼ ê²½ìš° nInventoryIndex == 0 !!!
 void CSendPACKET::Send_cli_DROP_ITEM(short nInventoryIndex, int iQuantity) {
 #ifdef	__VIRTUAL_SERVER
   m_pSendPacket->m_HEADER.m_wType = GSV_ADD_FIELDITEM;
@@ -839,7 +801,7 @@ void CSendPACKET::Send_cli_DROP_ITEM(short nInventoryIndex, int iQuantity) {
   m_pSendPacket->m_gsv_ADD_FIELDITEM.m_wServerItemIDX = nInventoryIndex;	
   
 #else
-  m_pSendPacket->m_HEADER.m_wType                   = CLI_DROP_ITEM;
+  m_pSendPacket->m_HEADER.m_wType                   = to_underlying(ePacketType::PAKCS_DROP_ITEM);
   m_pSendPacket->m_HEADER.m_nSize                   = sizeof( cli_DROP_ITEM );
   m_pSendPacket->m_cli_DROP_ITEM.m_btInventoryIndex = (BYTE)nInventoryIndex;
   m_pSendPacket->m_cli_DROP_ITEM.m_uiQuantity       = iQuantity;
@@ -852,11 +814,11 @@ bool CSendPACKET::Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int iServerObject)
   if ( !pUSER )
     return false;
 
-  if ( pUSER->Get_TYPE() == OBJ_CART || pUSER->Get_TYPE() == OBJ_CGEAR ) //Ä«Æ®ÀÌ°Å³ª Ä³½½±â¾îÀÏ°æ¿ì
+  if ( pUSER->Get_TYPE() == OBJ_CART || pUSER->Get_TYPE() == OBJ_CGEAR ) //ì¹´íŠ¸ì´ê±°ë‚˜ ìºìŠ¬ê¸°ì–´ì¼ê²½ìš°
   {
-    if ( ((CObjCART*)pUSER)->GetParent() != g_pAVATAR ) // µå¶óÀÌ¹ö°¡ ³»°¡ ¾Æ´Ï¸é..
+    if ( ((CObjCART*)pUSER)->GetParent() != g_pAVATAR ) // ë“œë¼ì´ë²„ê°€ ë‚´ê°€ ì•„ë‹ˆë©´..
       return true;
-  } else if ( pUSER->Get_TYPE() != OBJ_USER || pUSER != g_pAVATAR ) //À¯Àú°¡ ¾Æ´Ï°Å³ª ³»°¡ ¾Æ´Ï¸é.. 
+  } else if ( pUSER->Get_TYPE() != OBJ_USER || pUSER != g_pAVATAR ) //ìœ ì €ê°€ ì•„ë‹ˆê±°ë‚˜ ë‚´ê°€ ì•„ë‹ˆë©´..
   {
     return true;
   }
@@ -874,7 +836,7 @@ bool CSendPACKET::Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int iServerObject)
 
   if ( pITEM ) {
 #ifdef	__VIRTUAL_SERVER
-    m_pSendPacket->m_HEADER.m_wType = GSV_GET_FIELDITEM_REPLY;
+    m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_PICKUP_ITEM_REQ);
     m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_GET_FIELDITEM_REPLY );
 
     m_pSendPacket->m_gsv_GET_FIELDITEM_REPLY.m_wServerItemIDX   = iServerObject;
@@ -885,14 +847,14 @@ bool CSendPACKET::Send_cli_GET_FIELDITEM_REQ(CGameOBJ* pUSER, int iServerObject)
 #else
     DWORD dwPassTIME = g_GameDATA.GetGameTime() - pITEM->m_dwCreatedTIME;
     if ( pITEM->m_wOwnerServerObjIDX && (int)(pITEM->m_wRemainTIME - dwPassTIME) > 62 * 1000 ) {
-      // È¹µæ ±ÇÇÑÀÌ ÀÖ´ÂÁö Á¶»ç...
+      // íšë“ ê¶Œí•œì´ ìžˆëŠ”ì§€ ì¡°ì‚¬...
       if ( pITEM->m_wOwnerServerObjIDX != g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->m_nIndex ) ) {
         g_itMGR.AppendChatMsg( STR_NOTIFY_02, IT_MGR::CHAT_TYPE_SYSTEM );
         return false;
       }
     }
 
-    m_pSendPacket->m_HEADER.m_wType = CLI_GET_FIELDITEM_REQ;
+    m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_PICKUP_ITEM_REQ);
     m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_GET_FIELDITEM_REQ );
 
     m_pSendPacket->m_cli_GET_FIELDITEM_REQ.m_wServerItemIDX = iServerObject;
@@ -943,7 +905,7 @@ void CSendPACKET::Send_cli_TELEPORT_REQ(CGameOBJ* pUSER, short nWarpIDX) {
   if ( !pUSER->IsA( OBJ_USER ) ) return;
 
 #ifdef	__VIRTUAL_SERVER
-  m_pSendPacket->m_HEADER.m_wType = GSV_TELEPORT_REPLY;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_TELEPORT_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_TELEPORT_REPLY );
 
   m_pSendPacket->m_gsv_TELEPORT_REPLY.m_wObjectIDX  = g_pObjMGR->Get_ServerObjectIndex(  g_pAVATAR->m_nIndex );
@@ -952,7 +914,7 @@ void CSendPACKET::Send_cli_TELEPORT_REQ(CGameOBJ* pUSER, short nWarpIDX) {
 #else
   g_pNet->m_bWarping = true;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_TELEPORT_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_TELEPORT_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_TELEPORT_REQ );
 
   m_pSendPacket->m_cli_TELEPORT_REQ.m_nWarpIDX = nWarpIDX;
@@ -973,7 +935,7 @@ void CSendPACKET::Send_cli_SET_HOTICON(BYTE btListIDX, tagHotICON HotICON) {
   if ( g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_SET_HOTICON;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_HOTBAR_SET_ICON_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_SET_HOTICON );
 
   m_pSendPacket->m_cli_SET_HOTICON.m_btListIDX = btListIDX;
@@ -985,7 +947,7 @@ void CSendPACKET::Send_cli_SET_HOTICON(BYTE btListIDX, tagHotICON HotICON) {
 /*
 void CSendPACKET::Send_cli_CLICK_HOTICON (BYTE btListIDX)
 {
-  /// µî·ÏµÇ¾î ÀÖ´ÂÁö Á¡°Ë..
+  /// ë“±ë¡ë˜ì–´ ìžˆëŠ”ì§€ ì ê²€..
   if ( g_pAVATAR->m_HotICONS.m_IconLIST[ btListIDX ].m_cType == 0 )
     return;
 
@@ -994,7 +956,7 @@ void CSendPACKET::Send_cli_CLICK_HOTICON (BYTE btListIDX)
   return;
   ;
 #else
-  m_pSendPacket->m_HEADER.m_wType = CLI_SET_HOTICON ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_HOTBAR_SET_ICON_REQ) ;
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_SET_HOTICON );
 
   m_pSendPacket->m_cli_CLICK_HOTICON.m_btListIDX = btListIDX;
@@ -1008,7 +970,7 @@ void CSendPACKET::Send_cli_USE_BPOINT_REQ(BYTE btAbilityTYPE) {
 #ifdef	__VIRTUAL_SERVER
   return;
 #else
-  m_pSendPacket->m_HEADER.m_wType                   = CLI_USE_BPOINT_REQ;
+  m_pSendPacket->m_HEADER.m_wType                   = to_underlying(ePacketType::PAKCS_STAT_ADD_REQ);
   m_pSendPacket->m_HEADER.m_nSize                   = sizeof( cli_USE_BPOINT_REQ );
   m_pSendPacket->m_cli_USE_BPOINT_REQ.m_btAbilityNO = btAbilityTYPE;
 
@@ -1021,8 +983,8 @@ void    CSendPACKET::Send_cli_SKILL_LEVELUP_REQ(BYTE btSkillSLOT, short nNextLev
   short nCurLevelSkillIDX = g_pAVATAR->m_Skills.m_nSkillINDEX[btSkillSLOT];
 
   if ( 0 == nNextLevelSkillIDX ) {
-    /// ÀÏ¹ÝÀûÀ¸·Î ´ÙÀ½ ·¹º§ÀÇ ½ºÅ³ÀÌ ÇöÀç ·¹º§ ½ºÅ³ÀÇ ´ÙÀ½ ¶óÀÎ¿¡ ¿Í¾ß ÇÏÁö¸¸
-    /// ±×·¸Áö ¾ÊÀ»°æ¿ì Å¬¶óÀÌ¾ðÆ®¿¡¼­ stb¸¦ µÚÃÄ¼­ ´ÙÀ½ ·¹º§ÀÇ ½ºÅ³ ÀÎµ¦½º¸¦ ¾ò¾î¾ß ÇÑ´Ù.
+    /// ì¼ë°˜ì ìœ¼ë¡œ ë‹¤ìŒ ë ˆë²¨ì˜ ìŠ¤í‚¬ì´ í˜„ìž¬ ë ˆë²¨ ìŠ¤í‚¬ì˜ ë‹¤ìŒ ë¼ì¸ì— ì™€ì•¼ í•˜ì§€ë§Œ
+    /// ê·¸ë ‡ì§€ ì•Šì„ê²½ìš° í´ë¼ì´ì–¸íŠ¸ì—ì„œ stbë¥¼ ë’¤ì³ì„œ ë‹¤ìŒ ë ˆë²¨ì˜ ìŠ¤í‚¬ ì¸ë±ìŠ¤ë¥¼ ì–»ì–´ì•¼ í•œë‹¤.
     nNextLevelSkillIDX = nCurLevelSkillIDX + 1;
   }
 
@@ -1035,17 +997,17 @@ void    CSendPACKET::Send_cli_SKILL_LEVELUP_REQ(BYTE btSkillSLOT, short nNextLev
 #ifdef	__VIRTUAL_SERVER
   return;
 #else
-  m_pSendPacket->m_HEADER.m_wType                             = CLI_SKILL_LEVELUP_REQ;
+  m_pSendPacket->m_HEADER.m_wType                             = to_underlying(ePacketType::PAKCS_SKILL_LEVEL_REQ);
   m_pSendPacket->m_HEADER.m_nSize                             = sizeof( cli_SKILL_LEVELUP_REQ );
-  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_btSkillSLOT        = btSkillSLOT;        /// ÇöÀç ·¹º§¾÷À» ÇÒ ½ºÅ³ÀÌ ÀÖ´Â ½½·Ô
-  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_nNextLevelSkillIDX = nNextLevelSkillIDX; /// ·¹º§¾÷ ÇÏ·Á´Â ½ºÅ³¹øÈ£.
+  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_btSkillSLOT        = btSkillSLOT;        /// í˜„ìž¬ ë ˆë²¨ì—…ì„ í•  ìŠ¤í‚¬ì´ ìžˆëŠ” ìŠ¬ë¡¯
+  m_pSendPacket->m_cli_SKILL_LEVELUP_REQ.m_nNextLevelSkillIDX = nNextLevelSkillIDX; /// ë ˆë²¨ì—… í•˜ë ¤ëŠ” ìŠ¤í‚¬ë²ˆí˜¸.
 #endif
   this->Send_PACKET( m_pSendPacket );
 }
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_P_STORE_OPEN(BYTE btSellItemCount, BYTE btBuyItemCount, tagPS_ITEM* SellItems, tagPS_ITEM* BuyItems, char* pszTitle) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_P_STORE_OPEN;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SHOP_OPEN);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_P_STORE_OPEN ) +
                                     btSellItemCount * sizeof( tagPS_ITEM ) +
                                     btBuyItemCount * sizeof( tagPS_ITEM );
@@ -1068,14 +1030,14 @@ void CSendPACKET::Send_cli_P_STORE_OPEN(BYTE btSellItemCount, BYTE btBuyItemCoun
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_P_STORE_CLOSE(void) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_P_STORE_CLOSE;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SHOP_CLOSE);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_P_STORE_CLOSE );
   Send_PACKET( m_pSendPacket );
 }
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_P_STORE_LIST_REQ(WORD wStoreObjectIDX) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_P_STORE_LIST_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SHOP_LIST_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_P_STORE_LIST_REQ );
   assert( wStoreObjectIDX );
   m_pSendPacket->m_cli_P_STORE_LIST_REQ.m_wStoreObjectIDX = wStoreObjectIDX;
@@ -1084,7 +1046,7 @@ void CSendPACKET::Send_cli_P_STORE_LIST_REQ(WORD wStoreObjectIDX) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_P_STORE_SELL_REQ(WORD wStoreObjectIDX, int iItemCount, tagSELL_ITEM* pSellItems) {
-  m_pSendPacket->m_HEADER.m_wType                         = CLI_P_STORE_SELL_REQ;
+  m_pSendPacket->m_HEADER.m_wType                         = to_underlying(ePacketType::PAKCS_SHOP_BUYSELL_REPLY);
   m_pSendPacket->m_HEADER.m_nSize                         = sizeof( cli_P_STORE_SELL_REQ ) + iItemCount * sizeof( tagSELL_ITEM );
   m_pSendPacket->m_cli_P_STORE_SELL_REQ.m_wStoreObjectIDX = wStoreObjectIDX;
   m_pSendPacket->m_cli_P_STORE_SELL_REQ.m_btItemCNT       = iItemCount;
@@ -1099,7 +1061,7 @@ void CSendPACKET::Send_cli_P_STORE_SELL_REQ(WORD wStoreObjectIDX, int iItemCount
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_P_STORE_BUY_REQ(WORD wStoreObjectIDX, int iItemCount, tagPS_SLOT_ITEM* pBuyItems) {
-  m_pSendPacket->m_HEADER.m_wType                        = CLI_P_STORE_BUY_REQ;
+  m_pSendPacket->m_HEADER.m_wType                        = to_underlying(ePacketType::PAKCS_SHOP_BUY_REQ);
   m_pSendPacket->m_HEADER.m_nSize                        = sizeof( cli_P_STORE_BUY_REQ ) + iItemCount * sizeof( tagPS_SLOT_ITEM );
   m_pSendPacket->m_cli_P_STORE_BUY_REQ.m_wStoreObjectIDX = wStoreObjectIDX;
   m_pSendPacket->m_cli_P_STORE_BUY_REQ.m_btItemCNT       = iItemCount;
@@ -1123,7 +1085,7 @@ void CSendPACKET::Send_cli_SELF_SKILL(BYTE btSkillSLOT) {
 #ifdef	__VIRTUAL_SERVER
   //g_pAVATAR->Sub_MP( nNeedMP );
 
-  m_pSendPacket->m_HEADER.m_wType = GSV_SELF_SKILL;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SKILL_CAST_SELF);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_SELF_SKILL );
 
   m_pSendPacket->m_gsv_SELF_SKILL.m_wSourObjIDX = g_pObjMGR->Get_ServerObjectIndex(  g_pAVATAR->m_nIndex );
@@ -1134,19 +1096,19 @@ void CSendPACKET::Send_cli_SELF_SKILL(BYTE btSkillSLOT) {
 
   g_CommandFilter.SetPrevCommand( nullptr );
 
-  /// ÀÌÀü¸í·É ÇÊÅÍ¸µ...
+  /// ì´ì „ëª…ë ¹ í•„í„°ë§...
   if ( !g_CommandFilter.CanSendSelfSkillCommand( btSkillSLOT ) )
     return;
 
   //--------------------------------------------------------------------------------------
-  /// ½ºÅ³ ¿¬Å¸ ¹æÁö..
+  /// ìŠ¤í‚¬ ì—°íƒ€ ë°©ì§€..
   //--------------------------------------------------------------------------------------
   if ( CPreventDuplicatedCommand::GetSingleton().CanSendSelfSkillCommand( btSkillSLOT ) ) {
     CPreventDuplicatedCommand::GetSingleton().PushSelfSkillCommand( btSkillSLOT );
   } else
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_SELF_SKILL;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SKILL_CAST_SELF);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_SELF_SKILL );
 
   m_pSendPacket->m_cli_SELF_SKILL.m_btSkillSLOT = btSkillSLOT;
@@ -1166,7 +1128,7 @@ void CSendPACKET::Send_cli_TARGET_SKILL(int iClientTarget, BYTE btSkillSLOT) {
   }
 
 #ifdef	__VIRTUAL_SERVER
-    m_pSendPacket->m_HEADER.m_wType = GSV_TARGET_SKILL;
+    m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SKILL_CAST_TARGET);
     m_pSendPacket->m_HEADER.m_nSize = sizeof( gsv_TARGET_SKILL );
 
     m_pSendPacket->m_gsv_TARGET_SKILL.m_wSourObjIDX = g_pObjMGR->Get_ServerObjectIndex(  g_pAVATAR->m_nIndex );
@@ -1175,12 +1137,12 @@ void CSendPACKET::Send_cli_TARGET_SKILL(int iClientTarget, BYTE btSkillSLOT) {
 #else
 
   g_CommandFilter.SetPrevCommand( nullptr );
-  /// ÀÌÀü¸í·É ÇÊÅÍ¸µ...
+  /// ì´ì „ëª…ë ¹ í•„í„°ë§...
   if ( !g_CommandFilter.CanSendTargetSkillCommand( iClientTarget, btSkillSLOT ) )
     return;
 
   //--------------------------------------------------------------------------------------
-  /// ½ºÅ³ ¿¬Å¸ ¹æÁö..
+  /// ìŠ¤í‚¬ ì—°íƒ€ ë°©ì§€..
   //--------------------------------------------------------------------------------------
   if ( CPreventDuplicatedCommand::GetSingleton().CanSendTargetSkillCommand( iClientTarget, btSkillSLOT ) ) {
     CPreventDuplicatedCommand::GetSingleton().PushTargetSkillCommand( iClientTarget, btSkillSLOT );
@@ -1190,7 +1152,7 @@ void CSendPACKET::Send_cli_TARGET_SKILL(int iClientTarget, BYTE btSkillSLOT) {
   if ( g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_TARGET_SKILL;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SKILL_CAST_TARGET);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_TARGET_SKILL );
 
   m_pSendPacket->m_cli_TARGET_SKILL.m_wDestObjIDX = g_pObjMGR->Get_ServerObjectIndex( iClientTarget );
@@ -1217,19 +1179,19 @@ void CSendPACKET::Send_cli_POSITION_SKILL(D3DVECTOR& PosTO, BYTE btSkillSLOT) {
     return;
 
   g_CommandFilter.SetPrevCommand( nullptr );
-  /// ÀÌÀü¸í·É ÇÊÅÍ¸µ...
+  /// ì´ì „ëª…ë ¹ í•„í„°ë§...
   if ( !g_CommandFilter.CanSendPositionSkillCommand( PosTO, btSkillSLOT ) )
     return;
 
   //--------------------------------------------------------------------------------------
-  /// ½ºÅ³ ¿¬Å¸ ¹æÁö..
+  /// ìŠ¤í‚¬ ì—°íƒ€ ë°©ì§€..
   //--------------------------------------------------------------------------------------
   if ( CPreventDuplicatedCommand::GetSingleton().CanSendPositionSkillCommand( PosTO, btSkillSLOT ) ) {
     CPreventDuplicatedCommand::GetSingleton().PushPositionSkillCommand( PosTO, btSkillSLOT );
   } else
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_POSITION_SKILL;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_SKILL_CAST_POSITION);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_POSITION_SKILL );
 
   m_pSendPacket->m_cli_POSITION_SKILL.m_PosTARGET.x = PosTO.x;
@@ -1244,7 +1206,7 @@ void CSendPACKET::Send_cli_QUEST_REQ(BYTE btReqTYPE, BYTE btQuestSLOT, int iQues
 #ifdef	__VIRTUAL_SERVER
   return;
 #else
-  m_pSendPacket->m_HEADER.m_wType = CLI_QUEST_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_QUEST_DATA_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_QUEST_REQ );
 
   m_pSendPacket->m_cli_QUEST_REQ.m_btTYPE      = btReqTYPE;
@@ -1362,7 +1324,7 @@ bool CSendPACKET::Send_cli_TRADE_P2P(WORD wServerIdx, BYTE btResult, char cSlotI
     }
   }
 
-  m_pSendPacket->m_HEADER.m_wType             = CLI_TRADE_P2P;
+  m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_TRADE);
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_TRADE_P2P );
   m_pSendPacket->m_cli_TRADE_P2P.m_btRESULT   = btResult;
   m_pSendPacket->m_cli_TRADE_P2P.m_wObjectIDX = wServerIdx;
@@ -1372,7 +1334,7 @@ bool CSendPACKET::Send_cli_TRADE_P2P(WORD wServerIdx, BYTE btResult, char cSlotI
 }
 
 void CSendPACKET::Send_cli_TRADE_P2P_ITEM(char cTradeSLOT, short nInventoryIndex, DWORD iQuantity) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_TRADE_P2P_ITEM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_TRADE_ITEM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_TRADE_P2P_ITEM );
 
   m_pSendPacket->m_cli_TRADE_P2P_ITEM.m_cTradeSLOT      = cTradeSLOT;
@@ -1392,7 +1354,7 @@ void CSendPACKET::Send_cli_PARTY_REQ(BYTE btRequest, DWORD dwDestIDXorTAG) {
     }
   }
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_PARTY_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_PARTY_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_PARTY_REQ );
 
   m_pSendPacket->m_cli_PARTY_REQ.m_btREQUEST      = btRequest;
@@ -1402,7 +1364,7 @@ void CSendPACKET::Send_cli_PARTY_REQ(BYTE btRequest, DWORD dwDestIDXorTAG) {
 }
 
 void CSendPACKET::Send_cli_PARTY_REPLY(BYTE btRequest, DWORD dwDestIDXorTAG) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_PARTY_REPLY;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_PARTY_REPLY);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_PARTY_REPLY );
 
   m_pSendPacket->m_cli_PARTY_REPLY.m_btREPLY        = btRequest;
@@ -1411,9 +1373,9 @@ void CSendPACKET::Send_cli_PARTY_REPLY(BYTE btRequest, DWORD dwDestIDXorTAG) {
 }
 
 //-------------------------------------------------------------------------------------------------
-///Á¦Á¶ °ü·Ã
+///ì œì¡° ê´€ë ¨
 void CSendPACKET::Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYPE, short nTargetItemNO, short* pnUseItemINV) {
-  m_pSendPacket->m_HEADER.m_wType                        = CLI_CREATE_ITEM_REQ;
+  m_pSendPacket->m_HEADER.m_wType                        = to_underlying(ePacketType::PAKCS_CRAFT_REQ);
   m_pSendPacket->m_HEADER.m_nSize                        = sizeof( cli_CREATE_ITEM_REQ );
   m_pSendPacket->m_cli_CREATE_ITEM_REQ.m_btSkillSLOT     = btSkillSLOT;
   m_pSendPacket->m_cli_CREATE_ITEM_REQ.m_cTargetItemTYPE = cTargetItemTYPE;
@@ -1422,7 +1384,7 @@ void CSendPACKET::Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYP
   this->Send_PACKET( m_pSendPacket );
 }
 
-///Á¦Á¶ °á°ú AnimaitionÈÄ¿¡ ¾òÀº °æÇèÄ¡¸¦ ´Þ¶ó°í ¿äÃ»ÇÑ´Ù.
+///ì œì¡° ê²°ê³¼ Animaitioní›„ì— ì–»ì€ ê²½í—˜ì¹˜ë¥¼ ë‹¬ë¼ê³  ìš”ì²­í•œë‹¤.
 //void CSendPACKET::Send_cli_CREATE_ITEM_EXP_REQ()
 //{
 //	m_pSendPacket->m_HEADER.m_wType = CLI_CREATE_ITEM_EXP_REQ;
@@ -1431,7 +1393,7 @@ void CSendPACKET::Send_cli_CREATE_ITEM_REQ(BYTE btSkillSLOT, char cTargetItemTYP
 //}
 
 void CSendPACKET::Send_cli_ITEM_RESULT_REPORT(BYTE btREPORT, BYTE btItemType, short nItemNo) {
-  m_pSendPacket->m_HEADER.m_wType                      = CLI_ITEM_RESULT_REPORT;
+  m_pSendPacket->m_HEADER.m_wType                      = to_underlying(ePacketType::PAKCS_CRAFT_STATUS);
   m_pSendPacket->m_HEADER.m_nSize                      = sizeof( cli_ITEM_RESULT_REPORT );
   m_pSendPacket->m_cli_ITEM_RESULT_REPORT.m_btREPORT   = btREPORT;
   m_pSendPacket->m_cli_ITEM_RESULT_REPORT.m_btItemType = btItemType;
@@ -1449,7 +1411,7 @@ void CSendPACKET::Send_cli_MOVE_ITEM(BYTE btMoveTYPE, BYTE btFromIDX,tagITEM& Mo
     }
   }
 
-  m_pSendPacket->m_HEADER.m_wType             = CLI_MOVE_ITEM;
+  m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_BANK_MOVE_ITEM);
   m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_MOVE_ITEM );
   m_pSendPacket->m_cli_MOVE_ITEM.m_btMoveTYPE = btMoveTYPE;
   m_pSendPacket->m_cli_MOVE_ITEM.m_btFromIDX  = btFromIDX;
@@ -1464,7 +1426,7 @@ void CSendPACKET::Send_cli_MOVE_ITEM(BYTE btMoveTYPE, BYTE btFromIDX,tagITEM& Mo
 }
 
 void CSendPACKET::Send_cli_BANK_LIST_REQ(BYTE btREQ, char* pszPassword) {
-  m_pSendPacket->m_HEADER.m_wType            = CLI_BANK_LIST_REQ;
+  m_pSendPacket->m_HEADER.m_wType            = to_underlying(ePacketType::PAKCS_BANK_LIST_REQ);
   m_pSendPacket->m_HEADER.m_nSize            = sizeof( cli_BANK_LIST_REQ );
   m_pSendPacket->m_cli_BANK_LIST_REQ.m_btREQ = btREQ;
   if ( pszPassword )
@@ -1474,8 +1436,8 @@ void CSendPACKET::Send_cli_BANK_LIST_REQ(BYTE btREQ, char* pszPassword) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_SET_BULLET(BYTE btShotType, short nInvenIdx) {
-  /// Å»Âø½Ã nInvenIdx == 0;
-  m_pSendPacket->m_HEADER.m_wType                 = CLI_SET_BULLET;
+  /// íƒˆì°©ì‹œ nInvenIdx == 0;
+  m_pSendPacket->m_HEADER.m_wType                 = to_underlying(ePacketType::PAKCS_EQUIP_PROJECTILE);
   m_pSendPacket->m_HEADER.m_nSize                 = sizeof( cli_SET_BULLET );
   m_pSendPacket->m_cli_SET_BULLET.m_wShotTYPE     = btShotType;
   m_pSendPacket->m_cli_SET_BULLET.m_wInventoryIDX = nInvenIdx;
@@ -1484,7 +1446,7 @@ void CSendPACKET::Send_cli_SET_BULLET(BYTE btShotType, short nInvenIdx) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_ASSEMBLE_RIDE_ITEM(short nPartIdx, short nInvenIdx) {
-  m_pSendPacket->m_HEADER.m_wType                          = CLI_ASSEMBLE_RIDE_ITEM;
+  m_pSendPacket->m_HEADER.m_wType                          = to_underlying(ePacketType::PAKCS_EQUIP_ITEM_RIDE);
   m_pSendPacket->m_HEADER.m_nSize                          = sizeof( cli_ASSEMBLE_RIDE_ITEM );
   m_pSendPacket->m_cli_ASSEMBLE_RIDE_ITEM.m_nRidingInvIDX  = nInvenIdx;
   m_pSendPacket->m_cli_ASSEMBLE_RIDE_ITEM.m_nRidingPartIDX = nPartIdx;
@@ -1493,7 +1455,8 @@ void CSendPACKET::Send_cli_ASSEMBLE_RIDE_ITEM(short nPartIdx, short nInvenIdx) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_SET_WEIGHT_RATE(BYTE btWeightRate) {
-  if ( g_pNet->m_bWarping )
+  // TODO: implement this?
+    /*if ( g_pNet->m_bWarping )
     return;
 
   m_pSendPacket->m_HEADER.m_wType = CLI_SET_WEIGHT_RATE;
@@ -1504,7 +1467,7 @@ void CSendPACKET::Send_cli_SET_WEIGHT_RATE(BYTE btWeightRate) {
   else
     m_pSendPacket->m_cli_SET_WEIGHT_RATE.m_btWeightRate = btWeightRate;
 
-  this->Send_PACKET( m_pSendPacket );
+  this->Send_PACKET( m_pSendPacket );*/
 }
 
 void CSendPACKET::Send_cli_SET_WISHITEM(int iIndex, tagITEM& Item) {
@@ -1513,7 +1476,7 @@ void CSendPACKET::Send_cli_SET_WISHITEM(int iIndex, tagITEM& Item) {
     return;
   }
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_SET_WISHITEM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_WISHLIST_ADD);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_SET_WISHITEM );
 
   m_pSendPacket->m_cli_SET_WISHITEM.m_ITEM       = Item;
@@ -1523,7 +1486,7 @@ void CSendPACKET::Send_cli_SET_WISHITEM(int iIndex, tagITEM& Item) {
 }
 
 void CSendPACKET::Send_cli_CHANNEL_LIST_REQ(int iServerID) {
-  m_pSendPacket->m_HEADER.m_wType                 = CLI_CHANNEL_LIST_REQ;
+  m_pSendPacket->m_HEADER.m_wType                 = to_underlying(ePacketType::PAKCS_CHANNEL_LIST_REQ);
   m_pSendPacket->m_HEADER.m_nSize                 = sizeof( cli_CHANNEL_LIST_REQ );
   m_pSendPacket->m_cli_SELECT_SERVER.m_dwServerID = (DWORD)iServerID;
 
@@ -1531,10 +1494,10 @@ void CSendPACKET::Send_cli_CHANNEL_LIST_REQ(int iServerID) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// Ä£±¸ Ãß°¡ ¿äÃ»
+// ì¹œêµ¬ ì¶”ê°€ ìš”ì²­
 void CSendPACKET::Send_cli_MCMD_APPEND_REQ(char* szName) {
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_MESSENGER;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_MESSENGER);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_MCMD_APPEND_REQ );
 
   m_pSendPacket->m_cli_MCMD_APPEND_REQ.m_btCMD = MSGR_CMD_APPEND_REQ;
@@ -1544,9 +1507,9 @@ void CSendPACKET::Send_cli_MCMD_APPEND_REQ(char* szName) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// Ä£±¸ Ãß°¡ ¿äÃ»¿¡ ´ëÇÑ ÀÀ´ä
+// ì¹œêµ¬ ì¶”ê°€ ìš”ì²­ì— ëŒ€í•œ ì‘ë‹µ
 void CSendPACKET::Send_cli_MCMD_APPEND_REPLY(BYTE btCMD, WORD wUserIDX, char* pszName) {
-  m_pSendPacket->m_HEADER.m_wType                   = CLI_MESSENGER;
+  m_pSendPacket->m_HEADER.m_wType                   = to_underlying(ePacketType::PAKCS_MESSENGER);
   m_pSendPacket->m_HEADER.m_nSize                   = sizeof( cli_MCMD_APPEND_REPLY );
   m_pSendPacket->m_cli_MCMD_APPEND_REPLY.m_btCMD    = btCMD;
   m_pSendPacket->m_cli_MCMD_APPEND_REPLY.m_wUserIDX = wUserIDX;
@@ -1557,9 +1520,9 @@ void CSendPACKET::Send_cli_MCMD_APPEND_REPLY(BYTE btCMD, WORD wUserIDX, char* ps
 }
 
 //-------------------------------------------------------------------------------------------------
-// ´ë»óÀ» »èÁ¦, ¼ö½Å°ÅºÎ »óÅÂ·Î º¯°æ.
+// ëŒ€ìƒì„ ì‚­ì œ, ìˆ˜ì‹ ê±°ë¶€ ìƒíƒœë¡œ ë³€ê²½.
 void CSendPACKET::Send_cli_MCMD_TAG(BYTE btCMD, DWORD dwUserTAG) {
-  m_pSendPacket->m_HEADER.m_wType           = CLI_MESSENGER;
+  m_pSendPacket->m_HEADER.m_wType           = to_underlying(ePacketType::PAKCS_MESSENGER);
   m_pSendPacket->m_HEADER.m_nSize           = sizeof( cli_MCMD_TAG );
   m_pSendPacket->m_cli_MCMD_TAG.m_btCMD     = btCMD;
   m_pSendPacket->m_cli_MCMD_TAG.m_dwUserTAG = dwUserTAG;
@@ -1568,9 +1531,9 @@ void CSendPACKET::Send_cli_MCMD_TAG(BYTE btCMD, DWORD dwUserTAG) {
 }
 
 //-------------------------------------------------------------------------------------------------
-// ³ªÀÇ »óÅÂ º¯°æ.
+// ë‚˜ì˜ ìƒíƒœ ë³€ê²½.
 void CSendPACKET::Send_cli_MCMD_STATUS_REQ(BYTE btStatus) {
-  m_pSendPacket->m_HEADER.m_wType                 = CLI_MESSENGER;
+  m_pSendPacket->m_HEADER.m_wType                 = to_underlying(ePacketType::PAKCS_MESSENGER);
   m_pSendPacket->m_HEADER.m_nSize                 = sizeof( cli_MCMD_STATUS_REQ );
   m_pSendPacket->m_cli_MCMD_STATUS_REQ.m_btCMD    = MSGR_CMD_CHANGE_STATUS;
   m_pSendPacket->m_cli_MCMD_STATUS_REQ.m_btStatus = btStatus;
@@ -1581,7 +1544,7 @@ void CSendPACKET::Send_cli_MCMD_STATUS_REQ(BYTE btStatus) {
 //-------------------------------------------------------------------------------------------------
 // CHAT_REQ_LEFT
 void CSendPACKET::Send_tag_CHAT_HEADER(BYTE btRoomCMD) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHATROOM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( tag_CHAT_HEADER );
 
   m_pSendPacket->m_tag_CHAT_HEADER.m_btCMD = btRoomCMD;
@@ -1591,7 +1554,7 @@ void CSendPACKET::Send_tag_CHAT_HEADER(BYTE btRoomCMD) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CHAT_ROOM_MAKE(BYTE btRoomTYPE, BYTE btMaxUSER, char* szRoomTitle, char* szPasswd) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHATROOM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHAT_ROOM_MAKE );
 
   m_pSendPacket->m_cli_CHAT_ROOM_MAKE.m_btCMD      = CHAT_REQ_MAKE;
@@ -1607,7 +1570,7 @@ void CSendPACKET::Send_cli_CHAT_ROOM_MAKE(BYTE btRoomTYPE, BYTE btMaxUSER, char*
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CHAT_ROOM_JOIN(BYTE btRoomTYPE, WORD wRoomID, char* szPasswd) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHATROOM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHAT_ROOM_JOIN );
 
   m_pSendPacket->m_cli_CHAT_ROOM_JOIN.m_btCMD      = CHAT_REQ_JOIN;
@@ -1622,7 +1585,7 @@ void CSendPACKET::Send_cli_CHAT_ROOM_JOIN(BYTE btRoomTYPE, WORD wRoomID, char* s
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CHAT_ROOM_KICK(t_HASHKEY HashUSER) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHATROOM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHAT_ROOM_KICK );
 
   m_pSendPacket->m_tag_CHAT_HEADER.m_btCMD       = CHAT_REQ_KICK_USER;
@@ -1633,7 +1596,7 @@ void CSendPACKET::Send_cli_CHAT_ROOM_KICK(t_HASHKEY HashUSER) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CHAT_ROOM_LIST(BYTE btRoomTYPE, WORD wFromRoomID) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHATROOM;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHAT_ROOM_LIST );
 
   m_pSendPacket->m_cli_CHAT_ROOM_LIST.m_btCMD       = CHAT_REQ_ROOM_LIST;
@@ -1650,7 +1613,7 @@ void CSendPACKET::Send_cli_CHATROOM_MSG(char* pszMsg) {
   assert( strlen( pszMsg ) >= 1 );
   if ( strlen( pszMsg ) < 1 ) return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHATROOM_MSG;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHATROOM_MSG );
   Packet_AppendString( m_pSendPacket, pszMsg );
   this->Send_PACKET( m_pSendPacket, true );
@@ -1662,7 +1625,7 @@ void CSendPACKET::Send_cli_MESSENGER_CHAT(DWORD dwUserTag, char* pszMsg) {
   assert( pszMsg );
   if ( pszMsg == nullptr ) return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_MESSENGER_CHAT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_MESSENGER_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_MESSENGER_CHAT );
 
   m_pSendPacket->m_cli_MESSENGER_CHAT.m_dwUserTAG = dwUserTag;
@@ -1678,10 +1641,10 @@ void CSendPACKET::Send_cli_MEMO(char* pszName, char* pszMemo) {
     assert( iStrLen < 255 );
     if ( iStrLen < 255 ) {
       for ( int iC                             = 0; iC < iStrLen; iC++ ) {
-        if ( pszMemo[iC] == '\'' ) pszMemo[iC] = ' '; // ¸Þ¸ð ³»¿ë¿¡ '¹®ÀÚ ¿Ã¼ö ¾øÀ½
+        if ( pszMemo[iC] == '\'' ) pszMemo[iC] = ' '; // ë©”ëª¨ ë‚´ìš©ì— 'ë¬¸ìž ì˜¬ìˆ˜ ì—†ìŒ
       }
 
-      m_pSendPacket->m_HEADER.m_wType    = CLI_MEMO;
+      m_pSendPacket->m_HEADER.m_wType    = to_underlying(ePacketType::PAKCS_MEMO);
       m_pSendPacket->m_HEADER.m_nSize    = sizeof( cli_MEMO );
       m_pSendPacket->m_cli_MEMO.m_btTYPE = MEMO_REQ_SEND;
       Packet_AppendString( m_pSendPacket, pszName );
@@ -1693,7 +1656,7 @@ void CSendPACKET::Send_cli_MEMO(char* pszName, char* pszMemo) {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_MEMO_REQ() {
-  m_pSendPacket->m_HEADER.m_wType    = CLI_MEMO;
+  m_pSendPacket->m_HEADER.m_wType    = to_underlying(ePacketType::PAKCS_MEMO);
   m_pSendPacket->m_HEADER.m_nSize    = sizeof( cli_MEMO );
   m_pSendPacket->m_cli_MEMO.m_btTYPE = MEMO_REQ_CONTENTS;
   this->Send_PACKET( m_pSendPacket, true );
@@ -1701,19 +1664,19 @@ void CSendPACKET::Send_cli_MEMO_REQ() {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_MEMO_CNT_REQ() {
-  m_pSendPacket->m_HEADER.m_wType    = CLI_MEMO;
+  m_pSendPacket->m_HEADER.m_wType    = to_underlying(ePacketType::PAKCS_MEMO);
   m_pSendPacket->m_HEADER.m_nSize    = sizeof( cli_MEMO );
   m_pSendPacket->m_cli_MEMO.m_btTYPE = MEMO_REQ_RECEIVED_CNT;
   this->Send_PACKET( m_pSendPacket, true );
 }
 
 //----------------------------------------------------------------------------------------------------	
-/// @param btEquipInvNO : Àç¹ÖµÉ Àåºñ ½½·Ô ¹øÈ£
-/// @param btGemInvNO : Àç¹Ö¿¡ »ç¿ëÇÒ º¸¼®ÀÇ ½½·Ô ¹øÈ£
-/// @brief Àç¹Ö Àç·Ã°ü·Ã
+/// @param btEquipInvNO : ìž¬ë°ë  ìž¥ë¹„ ìŠ¬ë¡¯ ë²ˆí˜¸
+/// @param btGemInvNO : ìž¬ë°ì— ì‚¬ìš©í•  ë³´ì„ì˜ ìŠ¬ë¡¯ ë²ˆí˜¸
+/// @brief ìž¬ë° ìž¬ë ¨ê´€ë ¨
 //----------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvIDX) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CRAFT_ITEM_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CRAFT_ENHANCE_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CRAFT_GEMMING_REQ );
 
   m_pSendPacket->m_cli_CRAFT_GEMMING_REQ.m_btTYPE        = CRAFT_GEMMING_REQ;
@@ -1724,12 +1687,12 @@ void CSendPACKET::Send_cli_CRAFT_GEMMING_REQ(BYTE btEquipInvIDX, BYTE btGemInvID
 }
 
 //----------------------------------------------------------------------------------------------------	
-/// @param nSkillSLOTorNpcIDX;					// »ç¿ë ½ºÅ³½½·Ô ¹øÈ£¶Ç´Â npc¹øÈ£
-/// @param btTargetInvIDX;						// ºÐ¸®ÇÒ ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
-/// @brief Àç¹Ö Àç·Ã°ü·Ã
+/// @param nSkillSLOTorNpcIDX;					// ì‚¬ìš© ìŠ¤í‚¬ìŠ¬ë¡¯ ë²ˆí˜¸ë˜ëŠ” npcë²ˆí˜¸
+/// @param btTargetInvIDX;						// ë¶„ë¦¬í•  ì•„ì´í…œ ì¸ë²¤ ë²ˆí˜¸
+/// @brief ìž¬ë° ìž¬ë ¨ê´€ë ¨
 //----------------------------------------------------------------------------------------------------	
 void CSendPACKET::Send_cli_CRAFT_BREAKUP_REQ(BYTE btType, short nSkillSLOTorNpcIDX, BYTE btTargetInvIDX) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CRAFT_ITEM_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CRAFT_ENHANCE_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CRAFT_BREAKUP_REQ );
 
   m_pSendPacket->m_cli_CRAFT_BREAKUP_REQ.m_btTYPE             = btType;
@@ -1741,13 +1704,13 @@ void CSendPACKET::Send_cli_CRAFT_BREAKUP_REQ(BYTE btType, short nSkillSLOTorNpcI
 
 //----------------------------------------------------------------------------------------------------	
 /// @param btType								//
-/// @param nSkillSLOTorNpcIDX;					// »ç¿ë ½ºÅ³½½·Ô ¹øÈ£¶Ç´Â npc¹øÈ£
-/// @param btTargetInvIDX;						// ºÐ¸®ÇÒ ¾ÆÀÌÅÛ ÀÎº¥ ¹øÈ£
-/// @param btUseItemINV[ UPGRADE_ITEM_STEP ];	// Àç·Ã½Ã ¼Ò¸ðÇÒ ¾ÆÀÌÅÛ ÀÎº¥Åä¸® ¹øÈ£
-/// @brief Á¦·Ã
+/// @param nSkillSLOTorNpcIDX;					// ì‚¬ìš© ìŠ¤í‚¬ìŠ¬ë¡¯ ë²ˆí˜¸ë˜ëŠ” npcë²ˆí˜¸
+/// @param btTargetInvIDX;						// ë¶„ë¦¬í•  ì•„ì´í…œ ì¸ë²¤ ë²ˆí˜¸
+/// @param btUseItemINV[ UPGRADE_ITEM_STEP ];	// ìž¬ë ¨ì‹œ ì†Œëª¨í•  ì•„ì´í…œ ì¸ë²¤í† ë¦¬ ë²ˆí˜¸
+/// @brief ì œë ¨
 //----------------------------------------------------------------------------------------------------	
 void CSendPACKET::Send_cli_CRAFT_UPGRADE_REQ(BYTE btType, short nSkillSLOTorNpcIDX, BYTE btTargetInvIDX, BYTE btUseItemINV[ UPGRADE_ITEM_STEP ]) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CRAFT_ITEM_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CRAFT_ENHANCE_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CRAFT_UPGRADE_REQ );
 
   m_pSendPacket->m_cli_CRAFT_UPGRADE_REQ.m_btTYPE             = btType;
@@ -1761,7 +1724,7 @@ void CSendPACKET::Send_cli_CRAFT_UPGRADE_REQ(BYTE btType, short nSkillSLOTorNpcI
 }
 
 void CSendPACKET::Send_cli_USE_ITEM_TO_REPAIR(short nUsedItemInvenIdx, short nTargetItemInvenIdx) {
-  m_pSendPacket->m_HEADER.m_wType                               = CLI_USE_ITEM_TO_REPAIR;
+  m_pSendPacket->m_HEADER.m_wType                               = to_underlying(ePacketType::PAKCS_REPAIR_USE_ITEM);
   m_pSendPacket->m_HEADER.m_nSize                               = sizeof( cli_USE_ITEM_TO_REPAIR );
   m_pSendPacket->m_cli_USE_ITEM_TO_REPAIR.m_nUseItemInvIDX      = nUsedItemInvenIdx;
   m_pSendPacket->m_cli_USE_ITEM_TO_REPAIR.m_nRepairTargetInvIDX = nTargetItemInvenIdx;
@@ -1769,7 +1732,7 @@ void CSendPACKET::Send_cli_USE_ITEM_TO_REPAIR(short nUsedItemInvenIdx, short nTa
 }
 
 void CSendPACKET::Send_cli_REPAIR_FROM_NPC(WORD wNpcSvrIdx, short nTargetItemInvenIdx) {
-  m_pSendPacket->m_HEADER.m_wType                            = CLI_REPAIR_FROM_NPC;
+  m_pSendPacket->m_HEADER.m_wType                            = to_underlying(ePacketType::PAKCS_REPAIR_NPC);
   m_pSendPacket->m_HEADER.m_nSize                            = sizeof( cli_REPAIR_FROM_NPC );
   m_pSendPacket->m_cli_REPAIR_FROM_NPC.m_wNPCObjIDX          = wNpcSvrIdx;
   m_pSendPacket->m_cli_REPAIR_FROM_NPC.m_nRepairTargetInvIDX = nTargetItemInvenIdx;
@@ -1777,27 +1740,27 @@ void CSendPACKET::Send_cli_REPAIR_FROM_NPC(WORD wNpcSvrIdx, short nTargetItemInv
 }
 
 void CSendPACKET::Send_cli_PARTY_RULE(BYTE btRule) {
-  m_pSendPacket->m_HEADER.m_wType               = CLI_PARTY_RULE;
+  m_pSendPacket->m_HEADER.m_wType               = to_underlying(ePacketType::PAKCS_PARTY_RULE);
   m_pSendPacket->m_HEADER.m_nSize               = sizeof( cli_PARTY_RULE );
   m_pSendPacket->m_cli_PARTY_RULE.m_btPartyRUEL = btRule;
   Send_PACKET( m_pSendPacket );
 }
 
 void CSendPACKET::Send_cli_CHAR_CHANGE() {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CHAR_CHANGE;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHANGE_CHAR_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( t_PACKETHEADER );
   Send_PACKET( m_pSendPacket );
 }
 
 void CSendPACKET::Send_cli_APPRAISAL_REQ(int iInventoryIndex) {
-  m_pSendPacket->m_HEADER.m_wType                      = CLI_APPRAISAL_REQ;
+  m_pSendPacket->m_HEADER.m_wType                      = to_underlying(ePacketType::PAKCS_APPRAISAL_REQ);
   m_pSendPacket->m_HEADER.m_nSize                      = sizeof( cli_APPRAISAL_REQ );
   m_pSendPacket->m_cli_APPRAISAL_REQ.m_wInventoryIndex = iInventoryIndex;
   Send_PACKET( m_pSendPacket );
 }
 
 void CSendPACKET::Send_cli_CLAN_COMMAND(BYTE btCmd, char* pszMsg) {
-  m_pSendPacket->m_HEADER.m_wType           = CLI_CLAN_COMMAND;
+  m_pSendPacket->m_HEADER.m_wType           = to_underlying(ePacketType::PAKCS_CLAN_COMMAND);
   m_pSendPacket->m_HEADER.m_nSize           = sizeof( cli_CLAN_COMMAND );
   m_pSendPacket->m_cli_CLAN_COMMAND.m_btCMD = btCmd;
 
@@ -1813,7 +1776,7 @@ void CSendPACKET::Send_cli_CLAN_CREATE(WORD wMarkBack, WORD wMarkCenter, char* p
   assert( wMarkCenter > 0 );
   assert( wMarkBack > 0 );
   if ( pszName && pszSlogan && wMarkCenter && wMarkBack ) {
-    m_pSendPacket->m_HEADER.m_wType                = CLI_CLAN_COMMAND;
+    m_pSendPacket->m_HEADER.m_wType                = to_underlying(ePacketType::PAKCS_CLAN_COMMAND);
     m_pSendPacket->m_HEADER.m_nSize                = sizeof( cli_CLAN_CREATE );
     m_pSendPacket->m_cli_CLAN_CREATE.m_btCMD       = GCMD_CREATE;
     m_pSendPacket->m_cli_CLAN_CREATE.m_wMarkIDX[0] = wMarkBack;
@@ -1837,14 +1800,14 @@ void CSendPACKET::Send_cli_CLAN_CHAT(char* szMsg) {
   if ( szMsg == nullptr || g_pNet->m_bWarping )
     return;
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_CLAN_CHAT;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CLAN_CHAT);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CLAN_CHAT );
   Packet_AppendString( m_pSendPacket, szMsg );
   this->Send_PACKET( m_pSendPacket, true );
 }
 
 void CSendPACKET::Send_cli_CLANMARK_REQ(int iClanID) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CLANMARK_REQ;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CLAN_ICON_REQ);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CLANMARK_REQ );
 
   m_pSendPacket->m_cli_CLANMARK_REQ.m_dwClanID = iClanID;
@@ -1852,7 +1815,7 @@ void CSendPACKET::Send_cli_CLANMARK_REQ(int iClanID) {
 }
 
 void CSendPACKET::Send_cli_CLANMARK_SET(unsigned char* pDATA, int iSize, WORD crc16) {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CLANMARK_SET;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CLAN_ICON_SET);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CLANMARK_SET );
 
   m_pSendPacket->m_cli_CLANMARK_SET.m_wMarkCRC16 = crc16;
@@ -1861,7 +1824,7 @@ void CSendPACKET::Send_cli_CLANMARK_SET(unsigned char* pDATA, int iSize, WORD cr
 }
 
 void CSendPACKET::Send_cli_CLAN_MEMBER_JOBnLEV(short nLev, short nJob) {
-  m_pSendPacket->m_HEADER.m_wType                   = CLI_CLAN_COMMAND;
+  m_pSendPacket->m_HEADER.m_wType                   = to_underlying(ePacketType::PAKCS_CLAN_COMMAND);
   m_pSendPacket->m_HEADER.m_nSize                   = sizeof( cli_CLAN_MEMBER_JOBnLEV );
   m_pSendPacket->m_cli_CLAN_MEMBER_JOBnLEV.m_btCMD  = GCMD_MEMBER_JOBnLEV;
   m_pSendPacket->m_cli_CLAN_MEMBER_JOBnLEV.m_nJOB   = nJob;
@@ -1871,24 +1834,27 @@ void CSendPACKET::Send_cli_CLAN_MEMBER_JOBnLEV(short nLev, short nJob) {
 }
 
 void CSendPACKET::Send_cli_MALL_ITEM_LIST_REQ() {
-  m_pSendPacket->m_HEADER.m_wType                = CLI_MALL_ITEM_REQ;
+  // TODO: implement this?
+  /*m_pSendPacket->m_HEADER.m_wType                = CLI_MALL_ITEM_REQ;
   m_pSendPacket->m_HEADER.m_nSize                = sizeof( cli_MALL_ITEM_REQ );
   m_pSendPacket->m_cli_MALL_ITEM_REQ.m_btReqTYPE = REQ_MALL_ITEM_LIST;
-  Send_PACKET( m_pSendPacket );
+  Send_PACKET( m_pSendPacket );*/
 }
 
 void CSendPACKET::Send_cli_MAIL_ITEM_FIND_CHAR(char* pszName) {
-  assert( pszName );
+  // TODO: implement this?
+  /*assert( pszName );
   if ( pszName == nullptr ) return;
   m_pSendPacket->m_HEADER.m_wType                = CLI_MALL_ITEM_REQ;
   m_pSendPacket->m_HEADER.m_nSize                = sizeof( cli_MALL_ITEM_REQ );
   m_pSendPacket->m_cli_MALL_ITEM_REQ.m_btReqTYPE = REQ_MALL_ITEM_FIND_CHAR;
   Packet_AppendString( m_pSendPacket, pszName );
-  Send_PACKET( m_pSendPacket );
+  Send_PACKET( m_pSendPacket );*/
 }
 
 void CSendPACKET::Send_cli_MALL_ITEM_GIVE(BYTE slotindex, char* pszName) {
-  assert( pszName );
+  // TODO: implement this?
+  /*assert( pszName );
   if ( pszName == nullptr ) return;
   m_pSendPacket->m_HEADER.m_wType                  = CLI_MALL_ITEM_REQ;
   m_pSendPacket->m_HEADER.m_nSize                  = sizeof( cli_MALL_ITEM_REQ ) + 1;
@@ -1896,20 +1862,21 @@ void CSendPACKET::Send_cli_MALL_ITEM_GIVE(BYTE slotindex, char* pszName) {
   m_pSendPacket->m_cli_MALL_ITEM_REQ.m_btInvIDX[0] = slotindex;
   Packet_AppendString( m_pSendPacket, pszName );
   Packet_AppendString( m_pSendPacket, "" );
-  Send_PACKET( m_pSendPacket );
+  Send_PACKET( m_pSendPacket );*/
 }
 
 void CSendPACKET::Send_cli_MALL_ITEM_BRING(BYTE slotindex, short nDupCount) {
-  m_pSendPacket->m_HEADER.m_wType                  = CLI_MALL_ITEM_REQ;
+  // TODO: implement this?
+  /*m_pSendPacket->m_HEADER.m_wType                  = CLI_MALL_ITEM_REQ;
   m_pSendPacket->m_HEADER.m_nSize                  = sizeof( cli_MALL_ITEM_REQ ) + 1;
   m_pSendPacket->m_cli_MALL_ITEM_REQ.m_btReqTYPE   = REQ_MALL_ITEM_BRING;
   m_pSendPacket->m_cli_MALL_ITEM_REQ.m_btInvIDX[0] = slotindex;
   m_pSendPacket->m_cli_MALL_ITEM_REQ.m_nDupCnt     = nDupCount;
-  Send_PACKET( m_pSendPacket );
+  Send_PACKET( m_pSendPacket );*/
 }
 
 void CSendPACKET::Send_cli_CLANMARK_REG_TIME() {
-  m_pSendPacket->m_HEADER.m_wType = CLI_CLANMARK_REG_TIME;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CLAN_ICON_TIMESTAMP);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CLANMARK_REG_TIME );
   Send_PACKET( m_pSendPacket, true );
 }
@@ -1922,7 +1889,7 @@ void CSendPACKET::Send_cli_MOVE_ZULY_INV2BANK(int64_t i64MoveZuly) {
     }
   }
 
-  m_pSendPacket->m_HEADER.m_wType              = CLI_MOVE_ZULY;
+  m_pSendPacket->m_HEADER.m_wType              = to_underlying(ePacketType::PAKCS_BANK_MOVE_MONEY);
   m_pSendPacket->m_HEADER.m_nSize              = sizeof( cli_MOVE_ZULY );
   m_pSendPacket->m_cli_MOVE_ZULY.m_btMoveTYPE  = MOVE_ZULY_TYPE_INV2BANK;
   m_pSendPacket->m_cli_MOVE_ZULY.m_i64MoveZuly = i64MoveZuly;
@@ -1938,17 +1905,17 @@ void CSendPACKET::Send_cli_MOVE_ZULY_BANK2INV(int64_t i64MoveZuly) {
     }
   }
 
-  m_pSendPacket->m_HEADER.m_wType              = CLI_MOVE_ZULY;
+  m_pSendPacket->m_HEADER.m_wType              = to_underlying(ePacketType::PAKCS_BANK_MOVE_MONEY);
   m_pSendPacket->m_HEADER.m_nSize              = sizeof( cli_MOVE_ZULY );
   m_pSendPacket->m_cli_MOVE_ZULY.m_btMoveTYPE  = MOVE_ZULY_TYPE_BANK2INV;
   m_pSendPacket->m_cli_MOVE_ZULY.m_i64MoveZuly = i64MoveZuly;
   Send_PACKET( m_pSendPacket );
 }
 
-//2ÀÎ½Â Ä«Æ®.
+//2ì¸ìŠ¹ ì¹´íŠ¸.
 void CSendPACKET::Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuestObjIDX_) {
 
-  m_pSendPacket->m_HEADER.m_wType = CLI_CART_RIDE;
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_RIDE_REQUEST);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CART_RIDE );
 
   m_pSendPacket->m_cli_CART_RIDE.m_btType       = bType;
@@ -1959,24 +1926,26 @@ void CSendPACKET::Send_cli_CART_RIDE(BYTE bType, WORD wOwnerObjIDX_, WORD wGuest
 }
 
 void CSendPACKET::Send_cli_SCREEN_SHOT_TIME() {
-  m_pSendPacket->m_HEADER.m_wType            = CLI_SCREEN_SHOT_TIME;
+  m_pSendPacket->m_HEADER.m_wType            = to_underlying(ePacketType::PAKCS_SCREEN_SHOT_TIME_REQ);
   m_pSendPacket->m_HEADER.m_nSize            = sizeof( cli_SCREEN_SHOT_TIME );
   m_pSendPacket->m_cli_SCREEN_SHOT_TIME.wCnt = 1;
   Send_PACKET( m_pSendPacket );
 }
 
 void CSendPACKET::Send_cli_UPDATE_NAME(char* szName) {
-  m_pSendPacket->m_HEADER.m_wType = PXY_UPDATE_NAME;
+  // TODO: implement this?
+  /*m_pSendPacket->m_HEADER.m_wType = PXY_UPDATE_NAME;
   m_pSendPacket->m_HEADER.m_nSize = sizeof( pxy_UPDATE_NAME );
   Packet_AppendString( m_pSendPacket, szName );
 
-  Send_PACKET( m_pSendPacket );
+  Send_PACKET( m_pSendPacket );*/
 }
 
 void CSendPACKET::Send_cli_SET_RIGHTS(DWORD dwRight) {
-  m_pSendPacket->m_HEADER.m_wType        = PXY_SET_RIGHTS;
+  // TODO: implement this?
+  /*m_pSendPacket->m_HEADER.m_wType        = PXY_SET_RIGHTS;
   m_pSendPacket->m_HEADER.m_nSize        = sizeof( pxy_SET_RIGHTS );
   m_pSendPacket->m_pxy_SET_RIGHTS.wRIGHT = dwRight;
 
-  Send_PACKET( m_pSendPacket );
+  Send_PACKET( m_pSendPacket );*/
 }

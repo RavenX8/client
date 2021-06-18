@@ -18,7 +18,7 @@ void CBlankInfo::DoStep(void) {
   if ( procCallBack ) {
     int iPerCnt = 100;
     if ( iMaxCount > 0 ) {
-      iPerCnt = ((float)iDealedCount / iMaxCount) * 1000;
+      iPerCnt = (int)(((float)iDealedCount / iMaxCount) * 1000.f);
     }
 
     if ( iPerCnt > iCurPercent ) {
@@ -34,7 +34,7 @@ void CBlankInfo::SetStep(int iPos) {
   if ( procCallBack ) {
     int iPerCnt = 100;
     if ( iMaxCount > 0 ) {
-      iPerCnt = ((float)iDealedCount / iMaxCount) * 1000;
+      iPerCnt = (int)(((float)iDealedCount / iMaxCount) * 1000.f);
     }
 
     if ( iPerCnt > iCurPercent ) {

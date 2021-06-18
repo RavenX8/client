@@ -1556,8 +1556,6 @@ public:
 // 여신소환 연출 클래스 
 ///////////////////////////////////////////////////////////////////////////////////////////	
 
-using namespace std;
-
 typedef enum {
   GOD_NONE=0,
   GOD_APPEAR_PARTCLE,
@@ -1601,7 +1599,7 @@ typedef struct _tagGODDESSSTR {
     hGoddess = NULL;
     hSprite  = NULL;
 
-    for ( register int i = 0; i < 2; i++ ) {
+    for ( int i = 0; i < 2; i++ ) {
       pEffect[i]         = nullptr;
       hParticle[i]       = NULL;
     }
@@ -1619,13 +1617,13 @@ typedef struct _tagGODDESSSTR {
 
 } GODDESSSTR, *LPGODDESSSTR;
 
-typedef map<WORD, GODDESSSTR>::iterator GODLIST;
+typedef std::map<WORD, GODDESSSTR>::iterator GODLIST;
 
 class CGoddessMgr {
 
   BOOL                  m_IsUse;
   DWORD                 m_Count;
-  map<WORD, GODDESSSTR> m_list;
+  std::map<WORD, GODDESSSTR> m_list;
 
   DWORD m_dwAvata; //아바타 자신의 On/Off
   BOOL  m_IsAvata;

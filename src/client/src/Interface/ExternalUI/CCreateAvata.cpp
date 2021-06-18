@@ -72,7 +72,7 @@ void CCreateAvata::SendCreateAvata() {
                                 m_AvataInfo.m_cHairIDX,
                                 m_AvataInfo.m_cFaceIDX,
                                 0,
-                                m_AvataInfo.m_nZoneNO );
+                                (char)m_AvataInfo.m_nZoneNO );
   g_EUILobby.ShowWaitMsgBox();
 }
 
@@ -158,7 +158,7 @@ void CCreateAvata::OnLButtonUp(unsigned iProcID) {
         m_iSelectedBirthStone = m_mapBirthStone.size() - 1;
       break;
     case IID_BTN_RIGHT_SEX: ++m_iSelectedSex;
-      if ( m_iSelectedSex >= m_mapSex.size() )
+      if ( (size_t)m_iSelectedSex >= m_mapSex.size() )
         m_iSelectedSex = 0;
 
       CSystemProcScript::GetSingleton().CallLuaFunction( "OnChangeSex", ZZ_PARAM_INT,
@@ -166,7 +166,7 @@ void CCreateAvata::OnLButtonUp(unsigned iProcID) {
 
       break;
     case IID_BTN_RIGHT_FACE: ++m_iSelectedFace;
-      if ( m_iSelectedFace >= m_mapFace.size() )
+      if ( (size_t) m_iSelectedFace >= m_mapFace.size() )
         m_iSelectedFace = 0;
 
       CSystemProcScript::GetSingleton().CallLuaFunction( "OnChangeFace", ZZ_PARAM_INT,
@@ -174,7 +174,7 @@ void CCreateAvata::OnLButtonUp(unsigned iProcID) {
 
       break;
     case IID_BTN_RIGHT_HAIR: ++m_iSelectedHair;
-      if ( m_iSelectedHair >= m_mapHair.size() )
+      if ( (size_t)m_iSelectedHair >= m_mapHair.size() )
         m_iSelectedHair = 0;
 
       CSystemProcScript::GetSingleton().CallLuaFunction( "OnChangeHair", ZZ_PARAM_INT,
@@ -182,11 +182,11 @@ void CCreateAvata::OnLButtonUp(unsigned iProcID) {
 
       break;
     case IID_BTN_RIGHT_STARTPOS: ++m_iSelectedStartPos;
-      if ( m_iSelectedStartPos >= m_mapStartPos.size() )
+      if ( (size_t)m_iSelectedStartPos >= m_mapStartPos.size() )
         m_iSelectedStartPos = 0;
       break;
     case IID_BTN_RIGHT_BIRTHSTONE: ++m_iSelectedBirthStone;
-      if ( m_iSelectedBirthStone >= m_mapBirthStone.size() )
+      if ( (size_t)m_iSelectedBirthStone >= m_mapBirthStone.size() )
         m_iSelectedBirthStone = 0;
       break;
     default: break;
