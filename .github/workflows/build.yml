@@ -145,7 +145,7 @@ jobs:
           replacesArtifacts: true
           body: latest client build
           commit: ${{ github.sha }}
-          tag: ${{ github.ref##*/ }}_v1.1.5.${{ github.run_number }}
+          tag: v1.1.6.${{ github.run_number }}
           artifacts: "windows_release_build.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
 
