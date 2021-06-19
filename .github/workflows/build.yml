@@ -146,6 +146,6 @@ jobs:
           body: latest client build
           commit: ${{ github.sha }}
           tag: v1.1.6.${{ github.run_number }}
-          artifact: ${{github.workspace}}/windows_release_build.zip
+          artifacts: "windows_release_build"
           token: ${{ secrets.GITHUB_TOKEN }}
 
