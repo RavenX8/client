@@ -132,17 +132,17 @@ jobs:
     if: ${{ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
     steps:
       - name: Checkout
-        if: ${{ github.ref == 'refs/heads/tags' }}
+        #if: ${{ github.ref == 'refs/heads/tags' }}
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Release Changelog Builder
         id: build_changelog
-        if: ${{ github.ref == 'refs/heads/tags' }}
+        #if: ${{ github.ref == 'refs/heads/tags' }}
         uses: mikepenz/release-changelog-builder-action@v2.0.0
         with:
+          commitMode: ${{ github.ref != 'refs/heads/tags' }}
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
-          outputFile: ${{github.workspace}}/build/bin/changelog.txt
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download windows build
@@ -175,6 +175,7 @@ jobs:
           omitBodyDuringUpdate: true
           omitNameDuringUpdate: true
           commit: ${{ github.sha }}
-          tag: v1.1.6.${{ github.run_number }}
+          body: ${{steps.build_changelog.outputs.changelog}}
+          tag: v1.1.6.${{ github.run_number }}-a
           artifacts: ${{steps.build_download.outputs.download-path}}/*.zip
           token: ${{ secrets.GITHUB_TOKEN }}
