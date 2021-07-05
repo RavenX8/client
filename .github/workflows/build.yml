@@ -131,21 +131,31 @@ jobs:
     needs: [ windows_release ]
     if: ${{ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Release Changelog Builder
+        id: build_changelog
+        if: ${{ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
+        uses: mikepenz/release-changelog-builder-action@v2.0.0
+        with:
+          outputFile: ${{github.workspace}}/build/bin/changelog.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Download windows build
-        uses: actions/download-artifact@v2
+        id: build_download
+        uses: actions/download-artifact@v2.0.10
         with:
           name: windows_release_build
+
       - name: Release
         uses: ncipollo/release-action@v1.8.6
         with:
           prerelease: true
           allowUpdates: true
-          omitBodyDuringUpdate: true
-          omitNameDuringUpdate: true
           replacesArtifacts: true
-          body: latest client build
+          body: ${{steps.build_changelog.outputs.changelog}}
           commit: ${{ github.sha }}
           tag: v1.1.6.${{ github.run_number }}
-          artifacts: "windows_release_build"
+          artifacts: ${{steps.build_download.outputs.download-path}}
           token: ${{ secrets.GITHUB_TOKEN }}
 
