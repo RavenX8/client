@@ -158,7 +158,6 @@ jobs:
           prerelease: ${{ contains(github.event.inputs.version, '-rc') || contains(github.event.inputs.version, '-b') || contains(github.event.inputs.version, '-a') }}
           allowUpdates: true
           replacesArtifacts: true
-          omitBodyDuringUpdate: true
           omitNameDuringUpdate: true
           body: ${{steps.build_changelog.outputs.changelog}}
           name: v1.1.6.${{ github.run_number }}
