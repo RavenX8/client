@@ -161,21 +161,20 @@ jobs:
           omitBodyDuringUpdate: true
           omitNameDuringUpdate: true
           body: ${{steps.build_changelog.outputs.changelog}}
-          commit: ${{ github.sha }}
           name: v1.1.6.${{ github.run_number }}
-          artifacts: ${{steps.build_download.outputs.download-path}}
+          artifacts: ${{steps.build_download.outputs.download-path}}/*.zip
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Release
+      - name: Pre-Release
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: ncipollo/release-action@v1.8.6
         with:
-          prerelease: ${{ contains(github.event.inputs.version, '-rc') || contains(github.event.inputs.version, '-b') || contains(github.event.inputs.version, '-a') }}
+          prerelease: true
           allowUpdates: true
           replacesArtifacts: true
           omitBodyDuringUpdate: true
           omitNameDuringUpdate: true
           commit: ${{ github.sha }}
           tag: v1.1.6.${{ github.run_number }}
-          artifacts: ${{steps.build_download.outputs.download-path}}
+          artifacts: ${{steps.build_download.outputs.download-path}}/*.zip
           token: ${{ secrets.GITHUB_TOKEN }}
