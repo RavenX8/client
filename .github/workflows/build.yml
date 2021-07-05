@@ -133,11 +133,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - name: Release Changelog Builder
         id: build_changelog
-        if: ${{ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
         uses: mikepenz/release-changelog-builder-action@v2.0.0
         with:
+          ignorePreReleases: true
           outputFile: ${{github.workspace}}/build/bin/changelog.txt
           token: ${{ secrets.GITHUB_TOKEN }}
 
