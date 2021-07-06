@@ -14,9 +14,7 @@
     },
     {
       "title": "## 💬 Other",
-      "labels": [
-        "other"
-      ]
+      "labels": ["other"]
     }
   ],
   "ignore_labels": [
