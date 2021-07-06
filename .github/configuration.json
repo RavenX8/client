@@ -1,19 +1,19 @@
 {
   "categories": [
     {
-      "title": "## \uD83D\uDE80 Features",
+      "title": "## 🚀 Features",
       "labels": ["feature"]
     },
     {
-      "title": "## \uD83D\uDC1B Fixes",
+      "title": "## 🐛 Fixes",
       "labels": ["fix", "fixed", "fixes"]
     },
     {
-      "title": "## \uD83E\uDDEA Tests",
+      "title": "## 🧪 Tests",
       "labels": ["test"]
     },
     {
-      "title": "## \uD83D\uDCAC Other",
+      "title": "## 💬 Other",
       "labels": [
         "other"
       ]
