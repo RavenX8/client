@@ -24,9 +24,9 @@ jobs:
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{github.workspace}}/build
-#      - name: Get Submodule Info
-#        id: get-submodule-info
-#        run: git ls-tree -r HEAD:3rdparty > ${{github.workspace}}/submodule_info
+      - name: Get Submodule Info
+        id: get-submodule-info
+        run: git ls-remote https://github.com/dev-osrose/packets HEAD > ${{github.workspace}}/submodule_info
       - name: Cache 3rdparty builds
         uses: actions/cache@v2
         with:
@@ -88,9 +88,9 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory ${{github.workspace}}/build
 
-#      - name: Get Submodule Info
-#        id: get-submodule-info
-#        run: git ls-tree -r HEAD:3rdparty > ${{github.workspace}}/submodule_info
+      - name: Get Submodule Info
+        id: get-submodule-info
+        run: git ls-remote https://github.com/dev-osrose/packets HEAD > ${{github.workspace}}/submodule_info
 
       - name: Cache 3rdparty builds
         uses: actions/cache@v2
