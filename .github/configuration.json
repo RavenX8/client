@@ -6,7 +6,7 @@
     },
     {
       "title": "## ? Fixes",
-      "labels": ["fix"]
+      "labels": ["fix", "fixed", "fixes"]
     },
     {
       "title": "## ? Tests",
@@ -14,7 +14,8 @@
     }
   ],
   "ignore_labels": [
-    "ignore"
+    "ignore",
+    "ci"
   ],
   "sort": "ASC",
   "template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
@@ -42,12 +43,10 @@
   "max_pull_requests": 200,
   "max_back_track_time_days": 365,
   "exclude_merge_branches": [
-    "Owner/qa"
+    "RavenX8/qa"
   ],
   "tag_resolver": {
     "method": "semver"
   },
-  "base_branches": [
-    "main"
-  ]
+  "base_branches": []
 }

@@ -48,13 +48,15 @@ jobs:
         working-directory: ${{github.workspace}}/build
         run: ctest -C ${{env.BUILD_TYPE}}
 
+      - name: Archive build
+        working-directory: ${{github.workspace}}/build/bin
+        run: tar.exe --exclude='*.pdb' --exclude='./symbols' --exclude='./unity' -cf ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip *
+
       - name: Upload windows build
         uses: actions/upload-artifact@v2
         with:
           name: windows_debug_build
-          path: |
-            ${{github.workspace}}/build/bin/*
-            !${{github.workspace}}/build/bin/*.pdb
+          path: ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip
       - name: Upload windows pdbs
         uses: actions/upload-artifact@v2
         with:
@@ -111,14 +113,15 @@ jobs:
         working-directory: ${{github.workspace}}/build
         run: ctest -C ${{env.BUILD_TYPE}}
 
+      - name: Archive build
+        working-directory: ${{github.workspace}}/build/bin
+        run: tar.exe --exclude='*.pdb' --exclude='*.lib' --exclude='./symbols' --exclude='./unity' -cf ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip *
+
       - name: Upload windows build
         uses: actions/upload-artifact@v2
         with:
           name: windows_release_build
-          path: |
-            ${{github.workspace}}/build/bin/*
-            !${{github.workspace}}/build/bin/*.lib
-            !${{github.workspace}}/build/bin/*.pdb
+          path: ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip
       - name: Upload windows pdbs
         uses: actions/upload-artifact@v2
         with:
@@ -132,17 +135,15 @@ jobs:
     if: ${{ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
     steps:
       - name: Checkout
-        #if: ${{ github.ref == 'refs/heads/tags' }}
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Release Changelog Builder
         id: build_changelog
-        #if: ${{ github.ref == 'refs/heads/tags' }}
         uses: mikepenz/release-changelog-builder-action@v2.0.0
         with:
           configuration: ".github/configuration.json"
-          commitMode: ${{ github.ref != 'refs/heads/tags' }}
+          commitMode: ${{ !startsWith(github.ref, 'refs/tags/') }}
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -165,7 +166,7 @@ jobs:
           omitNameDuringUpdate: true
           body: ${{steps.build_changelog.outputs.changelog}}
           name: v1.1.6.${{ github.run_number }}
-          artifacts: ${{steps.build_download.outputs.download-path}}/windows_release_build*
+          artifacts: "windows_release_build.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pre-Release
@@ -180,5 +181,5 @@ jobs:
           commit: ${{ github.sha }}
           body: ${{steps.build_changelog.outputs.changelog}}
           tag: v1.1.6.${{ github.run_number }}-a
-          artifacts: ${{steps.build_download.outputs.download-path}}/windows_release_build*
+          artifacts: "windows_release_build.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
