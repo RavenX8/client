@@ -161,7 +161,7 @@ jobs:
           omitNameDuringUpdate: true
           body: ${{steps.build_changelog.outputs.changelog}}
           name: v1.1.6.${{ github.run_number }}
-          artifacts: ${{steps.build_download.outputs.download-path}}/*.zip
+          artifacts: ${{steps.build_download.outputs.download-path}}/windows_release_build*
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pre-Release
@@ -176,5 +176,5 @@ jobs:
           commit: ${{ github.sha }}
           body: ${{steps.build_changelog.outputs.changelog}}
           tag: v1.1.6.${{ github.run_number }}-a
-          artifacts: ${{steps.build_download.outputs.download-path}}/*.zip
+          artifacts: ${{steps.build_download.outputs.download-path}}/windows_release_build*
           token: ${{ secrets.GITHUB_TOKEN }}
