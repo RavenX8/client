@@ -141,6 +141,7 @@ jobs:
         #if: ${{ github.ref == 'refs/heads/tags' }}
         uses: mikepenz/release-changelog-builder-action@v2.0.0
         with:
+          configuration: ".github/configuration.json"
           commitMode: ${{ github.ref != 'refs/heads/tags' }}
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -150,6 +151,9 @@ jobs:
         uses: actions/download-artifact@v2.0.10
         with:
           name: windows_release_build
+
+      - name: List Files
+        run: ls -ltra ${{steps.build_download.outputs.download-path}}
 
       - name: Release
         if: ${{ github.ref == 'refs/heads/tags' }}
