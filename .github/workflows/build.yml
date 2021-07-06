@@ -50,13 +50,13 @@ jobs:
 
       - name: Archive build
         working-directory: ${{github.workspace}}/build/bin
-        run: tar.exe --exclude='*.pdb' --exclude='./symbols' --exclude='./unity' -cf ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip *
+        run: tar.exe --exclude='*.pdb' --exclude='./symbols' --exclude='./unity' -cf ${{github.workspace}}/windows_debug_build.zip *
 
       - name: Upload windows build
         uses: actions/upload-artifact@v2
         with:
           name: windows_debug_build
-          path: ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip
+          path: ${{github.workspace}}/windows_debug_build.zip
       - name: Upload windows pdbs
         uses: actions/upload-artifact@v2
         with:
@@ -115,13 +115,13 @@ jobs:
 
       - name: Archive build
         working-directory: ${{github.workspace}}/build/bin
-        run: tar.exe --exclude='*.pdb' --exclude='*.lib' --exclude='./symbols' --exclude='./unity' -cf ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip *
+        run: tar.exe --exclude='*.pdb' --exclude='*.lib' --exclude='./symbols' --exclude='./unity' -cf ${{github.workspace}}/windows_release_build.zip *
 
       - name: Upload windows build
         uses: actions/upload-artifact@v2
         with:
           name: windows_release_build
-          path: ${{github.workspace}}/${{ runner.os }}-${{ env.PROCESSOR_ARCH }}-${{env.BUILD_TYPE}}-client.zip
+          path: ${{github.workspace}}/windows_release_build.zip
       - name: Upload windows pdbs
         uses: actions/upload-artifact@v2
         with:
