@@ -1,16 +1,22 @@
 {
   "categories": [
     {
-      "title": "## ? Features",
+      "title": "## \uD83D\uDE80 Features",
       "labels": ["feature"]
     },
     {
-      "title": "## ? Fixes",
+      "title": "## \uD83D\uDC1B Fixes",
       "labels": ["fix", "fixed", "fixes"]
     },
     {
-      "title": "## ? Tests",
+      "title": "## \uD83E\uDDEA Tests",
       "labels": ["test"]
+    },
+    {
+      "title": "## \uD83D\uDCAC Other",
+      "labels": [
+        "other"
+      ]
     }
   ],
   "ignore_labels": [

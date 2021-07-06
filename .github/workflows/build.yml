@@ -132,7 +132,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [ windows_release ]
-    if: ${{ github.ref == 'refs/heads/tags' || github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/tags' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -153,9 +153,6 @@ jobs:
         with:
           name: windows_release_build
 
-      - name: List Files
-        run: ls -ltra ${{steps.build_download.outputs.download-path}}
-
       - name: Release
         if: ${{ github.ref == 'refs/heads/tags' }}
         uses: ncipollo/release-action@v1.8.6
@@ -169,17 +166,17 @@ jobs:
           artifacts: "windows_release_build.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pre-Release
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: ncipollo/release-action@v1.8.6
-        with:
-          prerelease: true
-          allowUpdates: true
-          replacesArtifacts: true
-          omitBodyDuringUpdate: true
-          omitNameDuringUpdate: true
-          commit: ${{ github.sha }}
-          body: ${{steps.build_changelog.outputs.changelog}}
-          tag: v1.1.6.${{ github.run_number }}-a
-          artifacts: "windows_release_build.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Pre-Release
+#        if: ${{ github.ref == 'refs/heads/main' }}
+#        uses: ncipollo/release-action@v1.8.6
+#        with:
+#          prerelease: true
+#          allowUpdates: true
+#          replacesArtifacts: true
+#          omitBodyDuringUpdate: true
+#          omitNameDuringUpdate: true
+#          commit: ${{ github.sha }}
+#          body: ${{steps.build_changelog.outputs.changelog}}
+#          tag: v1.1.6.${{ github.run_number }}-a
+#          artifacts: "windows_release_build.zip"
+#          token: ${{ secrets.GITHUB_TOKEN }}
