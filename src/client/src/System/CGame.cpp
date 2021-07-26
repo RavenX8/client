@@ -329,7 +329,10 @@ int CGame::Init() {
   //	if( CreateAllStringTables( &g_TblString ) == false )
   //		return false;
 
-  CSystemProcScript::GetSingleton().InitSystem();
+  if (!CSystemProcScript::GetSingleton().InitSystem()) {
+    MessageBox( nullptr, "Load SystemFunc.lua failed", "ERROR", MB_OK );
+    return 1;
+  }
 
   CCursor::GetInstance().Initialize();
   CCursor::GetInstance().SetCursorType( CCursor::CURSOR_DEFAULT );
@@ -338,7 +341,7 @@ int CGame::Init() {
   CSkillCommandDelay::GetSingleton().Init();
 
   /// Tutorial Event
-  if ( CTutorialEventManager::GetSingleton().Init() == false ) {
+  if ( !CTutorialEventManager::GetSingleton().Init() ) {
     MessageBox( nullptr, "Load tutorial failed", "ERROR", MB_OK );
     return 0;
   }
