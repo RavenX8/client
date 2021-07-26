@@ -9,7 +9,8 @@
 #define	SYSTEM_SCRIPT
 typedef const char*	ZSTRING;
 
-
+SYSTEM_SCRIPT
+void randomseed ( int );
 
 SYSTEM_SCRIPT
 void SC_InitGame ( void );
@@ -278,7 +279,7 @@ int SC_QF_checkQuestCondition ( ZSTRING szQuestTriggerName );
 /// �ڼ��� ������ SC_�� �� ��ũ��Ʈ ����
 //------------------------------------------------------------------------------------------------
 SYSTEM_SCRIPT
-int SC_GF_getVariable ( int iVarTYPE );	
+int SC_GF_getVariable ( int iVarTYPE );
 
 SYSTEM_SCRIPT
 int SC_QF_getNpcQuestZeroVal ( int iNpcNO );

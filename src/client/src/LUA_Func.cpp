@@ -212,6 +212,9 @@ int   lua_CallFUNC(lua_State* L, const char* function_name, va_list va) {
     */
   }
 
+  fprintf(stderr, "%s\n", lua_tostring(L, -1));
+  lua_pop(L, 1);/* pop error message from the stack */
+
   // error code print
   char* szErrMSG;
 

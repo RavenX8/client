@@ -103,7 +103,7 @@ public :
   void SetGolbalValue(const char* VarName, char*  szValue);
 
 #ifdef ZZ_LUA500
-    int		Call(int iArgCnt, int iResultCnt) { return lua_pcall(m_pState, iArgCnt, iResultCnt, 0); }
+  int		Call(int iArgCnt, int iResultCnt) { return lua_pcall(m_pState, iArgCnt, iResultCnt, 0); }
 #else // 40
   int Call(int iArgCnt, int iResultCnt) { return lua_call( m_pState, iArgCnt, iResultCnt ); }
 #endif

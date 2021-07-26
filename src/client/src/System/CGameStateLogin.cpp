@@ -44,7 +44,7 @@ int CGameStateLogin::Update(bool bLostFocus) {
 
   // processing  ...
   if ( !bLostFocus ) {
-    if ( !beginScene() ) //  µð¹ÙÀÌ½º°¡ ¼Õ½ÇµÈ »óÅÂ¶ó¸é 0À» ¸®ÅÏÇÏ¹Ç·Î, ¸ðµç ·»´õ¸µ ½ºÅµ
+    if ( !beginScene() ) //  ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Õ½Çµï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
     {
       return 0;
     }
@@ -127,7 +127,7 @@ int CGameStateLogin::Enter(int iPrevStateID) {
     CTDialog* pDlg      = g_EUILobby.GetEUI( EUI_LOGIN );
     CLogin*   pLoginDlg = (CLogin*)pDlg;
     pLoginDlg->SetID( g_GameDATA.m_Account.Get() );
-    ///DecodingÈÄ ³Ö´Â´Ù.
+    ///Decodingï¿½ï¿½ ï¿½Ö´Â´ï¿½.
     //pLoginDlg->SetPassword( g_GameDATA.m_Password.Get() );
     pLoginDlg->ConnectLoginServer();
     pLoginDlg->Hide();
@@ -150,7 +150,7 @@ void CGameStateLogin::ServerDisconnected() {
 
 void CGameStateLogin::AcceptedConnectLoginSvr() {
   CGame::GetInstance().ProcWndMsg( WM_USER_CLOSE_MSGBOX, 0, 0 );
-  ///Á¢¼ÓµÇ¾ú´Ù ID¿Í ÆÐ½º¿öµå¸¦ ³¯¸®ÀÚ.
+  ///ï¿½ï¿½ï¿½ÓµÇ¾ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ð½ï¿½ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
   CTDialog* pDlg = g_EUILobby.GetEUI( EUI_LOGIN );
   assert( pDlg );

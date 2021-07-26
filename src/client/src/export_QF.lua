@@ -13,7 +13,7 @@ function read_interfaces ( hin, hout )
 
     while ( word ) do
         if (word ~= "QF_SCRIPT") then
-            word = hin:read( "l" ) -- skip current line
+            --word = hin:read( "l" ) -- skip current line
         else
             local return_type
             local name
@@ -48,6 +48,7 @@ function read_interfaces ( hin, hout )
                 if (words[1] == ")") then break end
                 words[1], words[2] = words[2]:match( "(%g+)(.+)" ) -- read next
                 if (not words[1]) then break end
+                if (words[1] == ")") then break end
                 param_index = param_index + 1
             end
             i = i + 1
