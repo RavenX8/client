@@ -9,7 +9,7 @@
 /// Managing delay of casting time
 ///
 
-class CSkillCommandDelay : public CJSingleton<CSkillCommandDelay> {
+class CSkillCommandDelay {
 private:
   const DWORD m_dwCastingTimeDelay;
 
@@ -20,9 +20,19 @@ private:
   HNODE m_hCoverTexture;
   int   m_iAnimationFrame;
 
-public:
   CSkillCommandDelay(void );
+public:
   ~CSkillCommandDelay(void);
+
+  CSkillCommandDelay(const CSkillCommandDelay&) = delete;
+  CSkillCommandDelay& operator=(const CSkillCommandDelay &) = delete;
+  CSkillCommandDelay(CSkillCommandDelay &&) = delete;
+  CSkillCommandDelay & operator=(CSkillCommandDelay &&) = delete;
+
+  static auto& GetSingleton(){
+    static CSkillCommandDelay inst;
+    return inst;
+  }
 
   bool Init();
   void Release();

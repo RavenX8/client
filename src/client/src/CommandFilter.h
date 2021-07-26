@@ -7,19 +7,29 @@
 //----------------------------------------------------------------------------------------------------
 ///
 /// class CCommandFilter
-/// ¼­¹ö·Î Àü¼ÛÇÒ ¸í·ÉÀ» ÇÊÅÍ¸µ ÇÕ´Ï´Ù.
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Õ´Ï´ï¿½.
 ///
 //----------------------------------------------------------------------------------------------------
 
-class CCommandFilter : public CJSingleton<CCommandFilter> {
+class CCommandFilter {
 private:
   /// Object command pool
   CObjCommand* m_ObjCommandPool[ OBJECT_COMMAND_MAX ];
   CObjCommand* m_pPrevCommand;
 
-public:
   CCommandFilter(void );
+public:
   ~CCommandFilter(void);
+
+  CCommandFilter(const CCommandFilter&) = delete;
+  CCommandFilter& operator=(const CCommandFilter &) = delete;
+  CCommandFilter(CCommandFilter &&) = delete;
+  CCommandFilter & operator=(CCommandFilter &&) = delete;
+
+  static auto& GetSingleton(){
+    static CCommandFilter inst;
+    return inst;
+  }
 
   CObjCommand* GetCommandObject(int        iObjectType);
   void         SetPrevCommand(CObjCommand* pCommand) { m_pPrevCommand = pCommand; }
@@ -27,7 +37,7 @@ public:
   bool CanSendAttackCommand();
 
   //----------------------------------------------------------------------------------------------------
-  /// ½ºÅ³°ü·Ã ¸í·ÉÀº Ä³½ºÆÃÀÌ ½ÃÀÛµÇ¸é ÀÌÀü½ºÅ³¸í·ÉÀ» ¸®¼Â
+  /// ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //----------------------------------------------------------------------------------------------------
   bool CanSendSelfSkillCommand(int            iSkillSlot);
   bool CanSendTargetSkillCommand(int          iClientTarget, int iSkillSlot);

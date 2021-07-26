@@ -9,7 +9,11 @@
 #include "Util/DLLIST.h"
 #include "Util/classHASH.h"
 
+#ifdef _WIN64
+typedef size_t HNODE;
+#else
 typedef unsigned int HNODE;
+#endif
 
 /////////////////////////////////////////////////////////////////////////////////////
 /// CParticle
@@ -102,8 +106,8 @@ struct tagEFFECT_MESHANI {
 
 /////////////////////////////////////////////////////////////////////////////////////
 /// CEffectDATA
-/// ½ÇÁ¦·Î µ¥ÀÌÅÍ¸¦ º¸°üÇÏ°í ÀÖ°í,
-/// »ý¼ºÀº CFileList ¸ÞÄ«´ÏÁò¿¡ ÀÇÇØ »ý¼ºµÈ´Ù.
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö°ï¿½,
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CFileList ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 /////////////////////////////////////////////////////////////////////////////////////
 class CEffectDATA {
 public :
@@ -138,11 +142,11 @@ private:
   bool  m_bIsVisible;
 
   HNODE     m_hParent;
-  CObjCHAR* m_pParent; // ¸µÅ©°¡ °É¸° ºÎ¸ð..
+  CObjCHAR* m_pParent; // ï¿½ï¿½Å©ï¿½ï¿½ ï¿½É¸ï¿½ ï¿½Î¸ï¿½..
 
-  bool m_bNightEffect; /// ¹ã¿¡¸¸ ³ª¿À´Â ÀÌÆåÆ® ÀÎ°¡?
+  bool m_bNightEffect; /// ï¿½ã¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Î°ï¿½?
 
-  static int m_iEffectCnt; /// »ý¼ºµÈ ÀüÃ¼ ÀÌÆåÆ®ÀÇ °³¼ö
+  static int m_iEffectCnt; /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 public:
   void      SetParentCHAR(CObjCHAR* pParent) { m_pParent = pParent; }
@@ -232,7 +236,7 @@ public :
 
 /////////////////////////////////////////////////////////////////////////////////////
 /// CEffectLIST
-/// Á÷Á¢ hash Å×ÀÌºíÀ» °ü¸®ÇÏ°í, CFileList ÀÇ ±â´ÉÀ» ´ë½ÅÇÑ´Ù.
+/// ï¿½ï¿½ï¿½ï¿½ hash ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, CFileList ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 /////////////////////////////////////////////////////////////////////////////////////
 class CEffectLIST {
 private :
@@ -240,7 +244,7 @@ private :
   classDLLIST<CEffect*>   m_LIST;
 
   short      m_nFileEffectCNT;
-  t_HASHKEY* m_pHashKEY; /// FILE_EFFECT.STb ÀÇ ¸®½ºÆ®¸¦ À§ÇÑ ¹è¿­ÀÌ´Ù.
+  t_HASHKEY* m_pHashKEY; /// FILE_EFFECT.STb ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½Ì´ï¿½.
 
 public :
   CEffectLIST(char* szFileEFFECT);

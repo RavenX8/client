@@ -5,8 +5,6 @@
 
 #include <algorithm>
 
-CVFSManager __SingletonVFSManager;
-
 CVFSManager::CVFSManager() {
   // Construct
   m_hVFile   = nullptr;
@@ -50,7 +48,7 @@ bool CVFSManager::InitVFS(int iVFSType, int iReserveCount /*=10*/) {
 
   if ( iVFSType == VFS_TRIGGER_VFS && m_hVFile == nullptr ) {
     if ( g_pCApp )
-      g_pCApp->ErrorBOX( "¸ÕÀú VFS¸¦ ¼³Á¤ÇÏ½Ã¿À", "ERROR" );
+      g_pCApp->ErrorBOX( "ï¿½ï¿½ï¿½ï¿½ VFSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã¿ï¿½", "ERROR" );
     return false;
   }
 

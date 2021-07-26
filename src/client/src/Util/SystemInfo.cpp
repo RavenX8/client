@@ -14,18 +14,18 @@ void CSystemInfo::CollectingSystemInfo() {
   GetLocaleInfo( LOCALE_SYSTEM_DEFAULT, LOCALE_SENGLANGUAGE,
                  m_szLanguageBuffer, sizeof(m_szLanguageBuffer) );
 
-  GetVersionEx( &m_OSVerInfo );
-  
-  switch(m_OSVerInfo.dwMajorVersion) {
-  case 4: //windows 98/NT
-    m_iWindowsVersion = WINDOWS_98;
-  case 5: //windows 2000
+//  GetVersionEx( &m_OSVerInfo );
+//
+//  switch(m_OSVerInfo.dwMajorVersion) {
+//  case 4: //windows 98/NT
+//    m_iWindowsVersion = WINDOWS_98;
+//  case 5: //windows 2000
+//    m_iWindowsVersion = WINDOWS_2000;
+//  case 6: //windows 8+
+//  default:
     m_iWindowsVersion = WINDOWS_2000;
-  case 6: //windows 8+
-  default:
-    m_iWindowsVersion = WINDOWS_2000;
-    break;
-  }
+//    break;
+//  }
 
   GetWindowsDirectory( m_szWindowsFolder, sizeof(m_szWindowsFolder) );
 }

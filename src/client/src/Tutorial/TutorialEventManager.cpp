@@ -4,10 +4,10 @@
 #include "TutorialEventManager.h"
 #include "../Game.h"
 //---------------------------------------------------------------------------------------
-///  Tutorial Image°ü¸®±â´É Ãß°¡			2005/5/29		nAvy
+///  Tutorial Imageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½			2005/5/29		nAvy
 //---------------------------------------------------------------------------------------
 
-CTutorialEventManager _TutorialEventManager;
+//CTutorialEventManager _TutorialEventManager;
 
 CTutorialEventManager::CTutorialEventManager(void) {}
 
@@ -34,7 +34,7 @@ void CTutorialEventManager::Release() {
   m_TutorialEvent.Release();
   m_LevelUpEvent.Release();
 
-  ///±âÁ¸¿¡ draw ÁßÀÌ°Å³ª »èÁ¦ ´ë±âÁßÀÎ ¸ðµç ÀÌ¹ÌÁö¸¦ »èÁ¦ÇÑ´Ù.
+  ///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ draw ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
   if ( !m_tutorial_images.empty() ) {
     stopSpriteSFX(); ///znzin
     S_TutorialImage item;
@@ -58,13 +58,13 @@ void CTutorialEventManager::CheckLevelUpEvent(int iLevel) {
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------
-/// Æ©Åä¸®¾ó ÀÌ¹ÌÁö¸¦ È­¸é¿¡ ÁöÁ¤µÈ À§Ä¡¿¡ ÀÏÁ¤½Ã°£µ¿¾È º¸¿©ÁÖ°Å³ª Å¥¿¡ ÀúÀåÇÑ´Ù.
-/// @param const char* filename	: ÀÌ¹ÌÁö È­ÀÏ³×ÀÓ( path/filename )
-/// @param int		x			: Ãâ·ÂÇÒ È­¸éÀÇ xÁÂÇ¥
-/// @param int		y			: Ãâ·ÂÇÒ È­¸éÀÇ yÁÂÇ¥
-/// @param float	fade_time	: Ãâ·ÂÁßÀÎ ÀÌ¹ÌÁö°¡ È­¸é¿¡¼­ »ç¶óÁö±â ½ÃÀÛÇÏ´Â ½Ã°£( max_time º¸´Ù´Â ÀÛ¾Æ¾ß ÇÑ´Ù )
-/// @param float	max_time	: ÀÌ¹ÌÁö°¡ È­¸é¿¡ Ç¥½ÃµÉ ÃÑ ½Ã°£
-/// @param int		append_or_renewal	: ±âÁ¸ Ãâ·ÂÁßÀÎ ÀÌ¹ÌÁö°¡ ÀÖÀ»°æ¿ì »èÁ¦ÇÏ°í º¸¿©ÁÙ°ÍÀÎ°¡? Ãâ·ÂÀÌ ³¡³­ÈÄ º¸¿©ÁÙ°ÍÀÎ°¡?
+/// Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°Å³ï¿½ Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+/// @param const char* filename	: ï¿½Ì¹ï¿½ï¿½ï¿½ È­ï¿½Ï³ï¿½ï¿½ï¿½( path/filename )
+/// @param int		x			: ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥
+/// @param int		y			: ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ yï¿½ï¿½Ç¥
+/// @param float	fade_time	: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã°ï¿½( max_time ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½Û¾Æ¾ï¿½ ï¿½Ñ´ï¿½ )
+/// @param float	max_time	: ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ Ç¥ï¿½Ãµï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½
+/// @param int		append_or_renewal	: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ï¿½Î°ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ï¿½Î°ï¿½?
 //---------------------------------------------------------------------------------------------------------------------------------
 void CTutorialEventManager::RegistImage(const char* filename, int x, int y, float fadein_endtime, float fadeout_starttime, float max_time, int append_or_renewal) {
   assert( filename );
@@ -92,7 +92,7 @@ void CTutorialEventManager::RegistImage(const char* filename, int x, int y, floa
   } else {
     S_TutorialImage item;
 
-    ///±âÁ¸¿¡ draw ÁßÀÌ°Å³ª »èÁ¦ ´ë±âÁßÀÎ ¸ðµç ÀÌ¹ÌÁö¸¦ »èÁ¦ÇÑ´Ù.
+    ///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ draw ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     if ( !m_tutorial_images.empty() ) {
       stopSpriteSFX(); ///znzin
 
@@ -103,7 +103,7 @@ void CTutorialEventManager::RegistImage(const char* filename, int x, int y, floa
       }
     }
 
-    /// znzin¿¡ Draw ¿äÃ»ÈÄ queue¿¡ ÀúÀå
+    /// znzinï¿½ï¿½ Draw ï¿½ï¿½Ã»ï¿½ï¿½ queueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     S_TutorialImage newitem;
     newitem.m_drawstart_time    = 0;
     newitem.m_filename          = filename;
@@ -126,7 +126,7 @@ void CTutorialEventManager::RegistImage(const char* filename, int x, int y, floa
 }
 
 //-----------------------------------------------------------------------------------------------------
-/// @brief Tutorial Image¸¦ LoadingÇÏ°í queue¿¡ pushÇÒ item¸¦ ¸®ÅÏÇÑ´Ù.
+/// @brief Tutorial Imageï¿½ï¿½ Loadingï¿½Ï°ï¿½ queueï¿½ï¿½ pushï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------------------------------
 bool CTutorialEventManager::LoadImage(S_TutorialImage& newitem) {
 
@@ -146,9 +146,9 @@ bool CTutorialEventManager::LoadImage(S_TutorialImage& newitem) {
 }
 
 //-----------------------------------------------------------------------------------------------------
-/// @brief Tutorial Image°ü·Ã Update Method
-///			- queue¿¡ ¾ÆÁ÷ DisplayµÇÁö ¾ÊÀº Image°¡ ÀÖ´Ù¸é Load, znzin¿¡ ¿äÃ»
-///			- queueÀÇ front¿¡ Display°¡ ³¡³­ Image°¡ ÀÖ´Ù¸é unload
+/// @brief Tutorial Imageï¿½ï¿½ï¿½ï¿½ Update Method
+///			- queueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Displayï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Imageï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ Load, znzinï¿½ï¿½ ï¿½ï¿½Ã»
+///			- queueï¿½ï¿½ frontï¿½ï¿½ Displayï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Imageï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ unload
 //-----------------------------------------------------------------------------------------------------
 void CTutorialEventManager::ProcImage() {
   if ( m_tutorial_images.empty() )
@@ -161,7 +161,7 @@ void CTutorialEventManager::ProcImage() {
 
   DWORD dwDrawEndExpectTime = (DWORD)(front_item.m_drawstart_time + front_item.m_max_time * 1000);
 
-  ///Show ´ë±â ÁßÀÎ itemÀÌ ÀÖÀ»°æ¿ì
+  ///Show ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   if ( front_item.m_drawstart_time == 0 ) {
     if ( front_item.m_drawstart_time == 0 ) {
       m_tutorial_images.pop_front();
@@ -173,7 +173,7 @@ void CTutorialEventManager::ProcImage() {
       front_item.m_drawstart_time = g_GameDATA.GetTime();
       m_tutorial_images.push_front( front_item );
     }
-  } else if ( dwDrawEndExpectTime < curr_time ) ///Draw°¡ ³¡³­ itemÀÌ ÀÖÀ»°æ¿ì
+  } else if ( dwDrawEndExpectTime < curr_time ) ///Drawï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   {
     HNODE hCurrentTextureNode = getSpriteSFXCurrentTexNode();
     if ( hCurrentTextureNode ) {

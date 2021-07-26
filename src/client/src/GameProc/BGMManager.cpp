@@ -6,7 +6,7 @@
 #include "../CClientStorage.h"
 #include "../Game.h"
 
-CBGMManager _bgmManager;
+//CBGMManager _bgmManager;
 
 CBGMManager::CBGMManager(void) {
   m_iCurrentVolumeIdx = 0;
@@ -23,9 +23,9 @@ CBGMManager::CBGMManager(void) {
 
 CBGMManager::~CBGMManager(void) {}
 
-/// ¹ã³· º¯°æ¿¡ µû¸¥ ¹è°æÀ½¾Ç ÀüÀÌ..
+/// ï¿½ã³· ï¿½ï¿½ï¿½æ¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 void CBGMManager::ChangeBGMMusicWithDayAndNight(int iZoneNO, bool bToNight) {
-  /// ¹ãÀ¸·Î º¯ÇÏ´Â°Å¶ó¸é..
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´Â°Å¶ï¿½ï¿½..
   //if( bToNight )
   //{		
   //	CMusicMgr::GetSingleton().Play ( ZONE_BG_MUSIC_DAY( iZoneNO ) );
@@ -64,7 +64,7 @@ void CBGMManager::Proc() {
 
   m_dwElapsedTime += dwElapsedPrevFrame;
 
-  /// 1ÃÊ¿¡ ÇÑ¹ø¾¿ °»½Ì
+  /// 1ï¿½Ê¿ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
   if ( m_dwElapsedTime > 1000 ) {
     m_dwElapsedTime -= 1000;
@@ -76,7 +76,7 @@ void CBGMManager::Proc() {
         m_bToFadeOut      = false;
         m_iStartVolumeIdx = 0;
 
-        /// ¹ãÀ¸·Î º¯ÇÏ´Â°Å¶ó¸é..
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´Â°Å¶ï¿½ï¿½..
         if ( m_bToNight ) {
           CMusicMgr::GetSingleton().Play( ZONE_BG_MUSIC_NIGHT( m_iZoneNO ) );
         } else {

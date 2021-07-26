@@ -49,7 +49,7 @@ void zz_assert_shared_struct::assertf(T exp, const char* msg_format, ...) {
   va_end(va);
 
   if ( !_zz_assert( buffer, s_current_file, s_current_line ) ) {
-    _asm { int 3 }
+    __debugbreak();
   }
 }
 
@@ -67,7 +67,7 @@ void zz_assert_shared_struct::assertf(T exp, const char* msg_format, ...) {
 //--------------------------------------------------------------------------------
 // simple assertions as standard assert()
 #ifdef _SHOW_ASSERTIONS
-#define zz_assert( EXP ) if (!(EXP)) { if (!_zz_assert( #EXP, __FILE__, __LINE__ )) _asm { int 3 } }
+#define zz_assert( EXP ) if (!(EXP)) { if (!_zz_assert( #EXP, __FILE__, __LINE__ )) __debugbreak(); }
 #else
 #define zz_assert( EXP )
 #endif

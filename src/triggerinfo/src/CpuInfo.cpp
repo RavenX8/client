@@ -255,8 +255,10 @@ bool __cdecl CPUInfo::DoesCPUSupportCPUID ()
 {
 	int CPUIDPresent = 0;
 
-#ifdef _WIN32 
-	
+#ifdef _WIN64
+#else
+#ifdef _WIN32
+
 	// Use SEH to determine CPUID presence
     __try {
         _asm {
@@ -269,7 +271,7 @@ bool __cdecl CPUInfo::DoesCPUSupportCPUID ()
 			push ecx
 			push edx
 #endif
-			; <<CPUID>> 
+			; <<CPUID>>
             mov eax, 0
 			CPUID_INSTRUCTION
 
@@ -301,25 +303,26 @@ bool __cdecl CPUInfo::DoesCPUSupportCPUID ()
 			pushfd
 			pop     eax
 			xor     eax, edx            ; See if bit changeable.
-			jnz     short cpuid_present ; if so, mark 
+			jnz     short cpuid_present ; if so, mark
 			mov     eax, -1             ; CPUID not present - disable its usage
 			jmp     no_features
 
 	cpuid_present:
 			mov		eax, 0				; CPUID capable CPU - enable its usage.
-			
+
 	no_features:
 			mov     CPUIDPresent, eax	; Save the value in eax to a variable.
 		}
 	}
-	
+
 	// A generic catch-all just to be sure...
 	__except (1) {
 		// Stop the class from trying to use CPUID again!
         CPUIDPresent = false;
 		return false;
     }
-		
+
+#endif
 #endif
 
 	// Return true to indicate support or false to indicate lack.
@@ -331,6 +334,8 @@ bool __cdecl CPUInfo::RetrieveCPUFeatures ()
 	int CPUFeatures = 0;
 	int CPUAdvanced = 0;
 
+#ifdef _WIN64
+#else
 	// Use assembly to detect CPUID information...
 	__try {
 		_asm {
@@ -343,7 +348,7 @@ bool __cdecl CPUInfo::RetrieveCPUFeatures ()
 			push ecx
 			push edx
 #endif
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 1 --> eax: CPU ID - bits 31..16 - unused, bits 15..12 - type, bits 11..8 - family, bits 7..4 - model, bits 3..0 - mask revision
 			;			  ebx: 31..24 - default APIC ID, 23..16 - logical processsor ID, 15..8 - CFLUSH chunk size , 7..0 - brand ID
 			;			  edx: CPU feature flags
@@ -365,7 +370,7 @@ bool __cdecl CPUInfo::RetrieveCPUFeatures ()
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Retrieve the features of CPU present.
 	Features.HasFPU =		((CPUFeatures & 0x00000001) != 0);		// FPU Present --> Bit 0
 	Features.HasTSC =		((CPUFeatures & 0x00000010) != 0);		// TSC Present --> Bit 4
@@ -382,25 +387,27 @@ bool __cdecl CPUInfo::RetrieveCPUFeatures ()
 
 	// Retrieve extended SSE capabilities if SSE is available.
 	if (Features.HasSSE) {
-		
+#ifdef _WIN64
+#else
 		// Attempt to __try some SSE FP instructions.
 		__try {
 			// Perform: orps xmm0, xmm0
 			_asm {
 				_emit 0x0f
 	    		_emit 0x56
-	    		_emit 0xc0	
+	    		_emit 0xc0
 			}
 
 			// SSE FP capable processor.
 			Features.HasSSEFP = true;
 	    }
-	    
+
 		// A generic catch-all just to be sure...
 		__except (1) {
 	    	// bad instruction - processor or OS cannot handle SSE FP.
 			Features.HasSSEFP = false;
 		}
+#endif
 	} else {
 		// Set the advanced SSE capabilities to not available.
 		Features.HasSSEFP = false;
@@ -424,7 +431,8 @@ bool __cdecl CPUInfo::RetrieveCPUIdentity ()
 {
 	int CPUVendor[3];
 	int CPUSignature;
-
+#ifdef _WIN64
+#else
 	// Use assembly to detect CPUID information...
 	__try {
 		_asm {
@@ -448,7 +456,7 @@ bool __cdecl CPUInfo::RetrieveCPUIdentity ()
 			mov CPUVendor[1 * TYPE int], edx
 			mov CPUVendor[2 * TYPE int], ecx
 
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 1 --> eax: CPU ID - bits 31..16 - unused, bits 15..12 - type, bits 11..8 - family, bits 7..4 - model, bits 3..0 - mask revision
 			;			  ebx: 31..24 - default APIC ID, 23..16 - logical processsor ID, 15..8 - CFLUSH chunk size , 7..0 - brand ID
 			;			  edx: CPU feature flags
@@ -469,7 +477,7 @@ bool __cdecl CPUInfo::RetrieveCPUIdentity ()
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Process the returned information.
 	memcpy (ChipID.Vendor, &(CPUVendor[0]), sizeof (int));
 	memcpy (&(ChipID.Vendor[4]), &(CPUVendor[1]), sizeof (int));
@@ -508,6 +516,8 @@ bool __cdecl CPUInfo::RetrieveCPUCacheDetails ()
 
 	// Check to see if what we are about to do is supported...
 	if (RetrieveCPUExtendedLevelSupport (0x80000005)) {
+#ifdef _WIN64
+#else
 		// Use assembly to retrieve the L1 cache information ...
 		__try {
 			_asm {
@@ -545,7 +555,7 @@ bool __cdecl CPUInfo::RetrieveCPUCacheDetails ()
 		__except (1) {
 			return false;
 		}
-
+#endif
 		// Save the L1 data cache size (in KB) from ecx: bits 31..24 as well as data cache size from edx: bits 31..24.
 		Features.L1CacheSize = ((L1Cache[2] & 0xFF000000) >> 24);
 		Features.L1CacheSize += ((L1Cache[3] & 0xFF000000) >> 24);
@@ -556,6 +566,8 @@ bool __cdecl CPUInfo::RetrieveCPUCacheDetails ()
 
 	// Check to see if what we are about to do is supported...
 	if (RetrieveCPUExtendedLevelSupport (0x80000006)) {
+#ifdef _WIN64
+#else
 		// Use assembly to retrieve the L2 cache information ...
 		__try {
 			_asm {
@@ -585,7 +597,7 @@ bool __cdecl CPUInfo::RetrieveCPUCacheDetails ()
 				pop ecx
 				pop ebx
 				pop eax
-#endif			
+#endif
 			}
 		}
 
@@ -593,7 +605,7 @@ bool __cdecl CPUInfo::RetrieveCPUCacheDetails ()
 		__except (1) {
 			return false;
 		}
-
+#endif
 		// Save the L2 unified cache size (in KB) from ecx: bits 31..16.
 		Features.L2CacheSize = ((L2Cache[2] & 0xFFFF0000) >> 16);
 	} else {
@@ -616,6 +628,8 @@ bool __cdecl CPUInfo::RetrieveClassicalCPUCacheDetails ()
 	int TLBCacheUnit = 0;
 
 	do {
+#ifdef _WIN64
+#else
 		// Use assembly to retrieve the L2 cache information ...
 		__try {
 			_asm {
@@ -653,7 +667,7 @@ bool __cdecl CPUInfo::RetrieveClassicalCPUCacheDetails ()
 		__except (1) {
 			return false;
 		}
-
+#endif
 		int bob = ((TLBCacheData[0] & 0x00FF0000) >> 16);
 
 		// Process the returned TLB and cache information.
@@ -794,23 +808,24 @@ bool __cdecl CPUInfo::RetrieveClassicalCPUClockSpeed ()
 
 	// Attempt to get a starting tick count.
 	QueryPerformanceCounter (&liStart);
-
+#ifdef _WIN64
+#else
 	__try {
 		_asm {
 			mov eax, 0x80000000
 			mov ebx, CLASSICAL_CPU_FREQ_LOOP
-			Timer_Loop: 
+			Timer_Loop:
 			bsf ecx,eax
 			dec ebx
 			jnz Timer_Loop
-		}	
+		}
 	}
 
 	// A generic catch-all just to be sure...
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Attempt to get a starting tick count.
 	QueryPerformanceCounter (&liEnd);
 
@@ -868,7 +883,8 @@ bool __cdecl CPUInfo::RetrieveCPUExtendedLevelSupport (int CPULevelToCheck)
 	} else if (ChipManufacturer == Intel) {
 		if (ChipID.Family < 0xf) return false;
 	}
-		
+#ifdef _WIN64
+#else
 	// Use assembly to detect CPUID information...
 	__try {
 		_asm {
@@ -881,7 +897,7 @@ bool __cdecl CPUInfo::RetrieveCPUExtendedLevelSupport (int CPULevelToCheck)
 			push ecx
 			push edx
 #endif
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 0x80000000 --> eax: maximum supported extended level
 			mov eax,0x80000000
 			CPUID_INSTRUCTION
@@ -900,7 +916,7 @@ bool __cdecl CPUInfo::RetrieveCPUExtendedLevelSupport (int CPULevelToCheck)
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Now we have to check the level wanted vs level returned...
 	int nLevelWanted = (CPULevelToCheck & 0x7FFFFFFF);
 	int nLevelReturn = (MaxCPUExtendedLevel & 0x7FFFFFFF);
@@ -920,7 +936,8 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUFeatures ()
 
 	// Check to see if what we are about to do is supported...
 	if (!RetrieveCPUExtendedLevelSupport (0x80000001)) return false;
-
+#ifdef _WIN64
+#else
 	// Use assembly to detect CPUID information...
 	__try {
 		_asm {
@@ -933,7 +950,7 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUFeatures ()
 			push ecx
 			push edx
 #endif
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 0x80000001 --> eax: CPU ID - bits 31..16 - unused, bits 15..12 - type, bits 11..8 - family, bits 7..4 - model, bits 3..0 - mask revision
 			;					   ebx: 31..24 - default APIC ID, 23..16 - logical processsor ID, 15..8 - CFLUSH chunk size , 7..0 - brand ID
 			;					   edx: CPU feature flags
@@ -954,7 +971,7 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUFeatures ()
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Retrieve the extended features of CPU present.
 	Features.ExtendedFeatures.Has3DNow =		((CPUExtendedFeatures & 0x80000000) != 0);	// 3DNow Present --> Bit 31.
 	Features.ExtendedFeatures.Has3DNowPlus =	((CPUExtendedFeatures & 0x40000000) != 0);	// 3DNow+ Present -- > Bit 30.
@@ -980,7 +997,8 @@ bool __cdecl CPUInfo::RetrieveProcessorSerialNumber ()
 
 	// Check to see if the processor supports the processor serial number.
 	if (!Features.HasSerial) return false;
-
+#ifdef _WIN64
+#else
 		// Use assembly to detect CPUID information...
 	__try {
 		_asm {
@@ -1016,7 +1034,7 @@ bool __cdecl CPUInfo::RetrieveProcessorSerialNumber ()
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Process the returned information.
 	sprintf (ChipID.SerialNumber, "%.2x%.2x-%.2x%.2x-%.2x%.2x-%.2x%.2x-%.2x%.2x-%.2x%.2x",
 			 ((SerialNumber[0] & 0xff000000) >> 24),
@@ -1046,7 +1064,8 @@ bool __cdecl CPUInfo::RetrieveCPUPowerManagement ()
 		Features.ExtendedFeatures.PowerManagement.HasTempSenseDiode = false;
 		return false;
 	}
-
+#ifdef _WIN64
+#else
 	// Use assembly to detect CPUID information...
 	__try {
 		_asm {
@@ -1059,12 +1078,12 @@ bool __cdecl CPUInfo::RetrieveCPUPowerManagement ()
 			push ecx
 			push edx
 #endif
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 0x80000007 --> edx: get processor power management
 			mov eax,0x80000007
 			CPUID_INSTRUCTION
 			mov CPUPowerManagement, edx
-			
+
 #ifdef CPUID_AWARE_COMPILER
 			pop edx
 			pop ecx
@@ -1078,7 +1097,7 @@ bool __cdecl CPUInfo::RetrieveCPUPowerManagement ()
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Check for the power management capabilities of the CPU.
 	Features.ExtendedFeatures.PowerManagement.HasTempSenseDiode =	((CPUPowerManagement & 0x00000001) != 0);
 	Features.ExtendedFeatures.PowerManagement.HasFrequencyID =		((CPUPowerManagement & 0x00000002) != 0);
@@ -1096,7 +1115,8 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUIdentity ()
 	if (!RetrieveCPUExtendedLevelSupport (0x80000002)) return false;
 	if (!RetrieveCPUExtendedLevelSupport (0x80000003)) return false;
 	if (!RetrieveCPUExtendedLevelSupport (0x80000004)) return false;
-
+#ifdef _WIN64
+#else
 	// Use assembly to detect CPUID information...
 	__try {
 		_asm {
@@ -1109,7 +1129,7 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUIdentity ()
 			push ecx
 			push edx
 #endif
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 0x80000002 --> eax, ebx, ecx, edx: get processor name string (part 1)
 			mov eax,0x80000002
 			CPUID_INSTRUCTION
@@ -1118,7 +1138,7 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUIdentity ()
 			mov CPUExtendedIdentity[2 * TYPE int], ecx
 			mov CPUExtendedIdentity[3 * TYPE int], edx
 
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 0x80000003 --> eax, ebx, ecx, edx: get processor name string (part 2)
 			mov eax,0x80000003
 			CPUID_INSTRUCTION
@@ -1127,7 +1147,7 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUIdentity ()
 			mov CPUExtendedIdentity[6 * TYPE int], ecx
 			mov CPUExtendedIdentity[7 * TYPE int], edx
 
-			; <<CPUID>> 
+			; <<CPUID>>
 			; eax = 0x80000004 --> eax, ebx, ecx, edx: get processor name string (part 3)
 			mov eax,0x80000004
 			CPUID_INSTRUCTION
@@ -1149,7 +1169,7 @@ bool __cdecl CPUInfo::RetrieveExtendedCPUIdentity ()
 	__except (1) {
 		return false;
 	}
-
+#endif
 	// Process the returned information.
 	memcpy (ChipID.ProcessorName, &(CPUExtendedIdentity[0]), sizeof (int));
 	memcpy (&(ChipID.ProcessorName[4]), &(CPUExtendedIdentity[1]), sizeof (int));
@@ -1220,7 +1240,7 @@ bool _cdecl CPUInfo::RetrieveClassicalCPUIdentity ()
 						case 3: STORE_CLASSICAL_NAME ("P24T OverDrive"); break;
 						case 4: STORE_CLASSICAL_NAME ("P55C"); break;
 						case 7: STORE_CLASSICAL_NAME ("P54C"); break;
-						case 8: STORE_CLASSICAL_NAME ("P55C (0.25µm)"); break;
+						case 8: STORE_CLASSICAL_NAME ("P55C (0.25ï¿½m)"); break;
 						default: STORE_CLASSICAL_NAME ("Unknown Pentium?family"); return false;
 					}
 					break;
@@ -1228,13 +1248,13 @@ bool _cdecl CPUInfo::RetrieveClassicalCPUIdentity ()
 					switch (ChipID.Model) {
 						case 0: STORE_CLASSICAL_NAME ("P6 A-Step"); break;
 						case 1: STORE_CLASSICAL_NAME ("P6"); break;
-						case 3: STORE_CLASSICAL_NAME ("Pentium?II (0.28 µm)"); break;
-						case 5: STORE_CLASSICAL_NAME ("Pentium?II (0.25 µm)"); break;
+						case 3: STORE_CLASSICAL_NAME ("Pentium?II (0.28 ï¿½m)"); break;
+						case 5: STORE_CLASSICAL_NAME ("Pentium?II (0.25 ï¿½m)"); break;
 						case 6: STORE_CLASSICAL_NAME ("Pentium?II With On-Die L2 Cache"); break;
-						case 7: STORE_CLASSICAL_NAME ("Pentium?III (0.25 µm)"); break;
-						case 8: STORE_CLASSICAL_NAME ("Pentium?III (0.18 µm) With 256 KB On-Die L2 Cache "); break;
-						case 0xa: STORE_CLASSICAL_NAME ("Pentium?III (0.18 µm) With 1 Or 2 MB On-Die L2 Cache "); break;
-						case 0xb: STORE_CLASSICAL_NAME ("Pentium?III (0.13 µm) With 256 Or 512 KB On-Die L2 Cache "); break;
+						case 7: STORE_CLASSICAL_NAME ("Pentium?III (0.25 ï¿½m)"); break;
+						case 8: STORE_CLASSICAL_NAME ("Pentium?III (0.18 ï¿½m) With 256 KB On-Die L2 Cache "); break;
+						case 0xa: STORE_CLASSICAL_NAME ("Pentium?III (0.18 ï¿½m) With 1 Or 2 MB On-Die L2 Cache "); break;
+						case 0xb: STORE_CLASSICAL_NAME ("Pentium?III (0.13 ï¿½m) With 256 Or 512 KB On-Die L2 Cache "); break;
 						default: STORE_CLASSICAL_NAME ("Unknown P6 family"); return false;
 					}
 					break;
@@ -1246,9 +1266,9 @@ bool _cdecl CPUInfo::RetrieveClassicalCPUIdentity ()
 					switch (ChipID.ExtendedFamily) {
 						case 0:
 							switch (ChipID.Model) {
-								case 0: STORE_CLASSICAL_NAME ("Pentium?IV (0.18 µm)"); break;
-								case 1: STORE_CLASSICAL_NAME ("Pentium?IV (0.18 µm)"); break;
-								case 2: STORE_CLASSICAL_NAME ("Pentium?IV (0.13 µm)"); break;
+								case 0: STORE_CLASSICAL_NAME ("Pentium?IV (0.18 ï¿½m)"); break;
+								case 1: STORE_CLASSICAL_NAME ("Pentium?IV (0.18 ï¿½m)"); break;
+								case 2: STORE_CLASSICAL_NAME ("Pentium?IV (0.13 ï¿½m)"); break;
 								default: STORE_CLASSICAL_NAME ("Unknown Pentium 4 family"); return false;
 							}
 							break;
@@ -1283,18 +1303,18 @@ bool _cdecl CPUInfo::RetrieveClassicalCPUIdentity ()
 						case 1: STORE_CLASSICAL_NAME ("5k86 (PR120, PR133)"); break;
 						case 2: STORE_CLASSICAL_NAME ("5k86 (PR166)"); break;
 						case 3: STORE_CLASSICAL_NAME ("5k86 (PR200)"); break;
-						case 6: STORE_CLASSICAL_NAME ("K6 (0.30 µm)"); break;
-						case 7: STORE_CLASSICAL_NAME ("K6 (0.25 µm)"); break;
+						case 6: STORE_CLASSICAL_NAME ("K6 (0.30 ï¿½m)"); break;
+						case 7: STORE_CLASSICAL_NAME ("K6 (0.25 ï¿½m)"); break;
 						case 8: STORE_CLASSICAL_NAME ("K6-2"); break;
 						case 9: STORE_CLASSICAL_NAME ("K6-III"); break;
-						case 0xd: STORE_CLASSICAL_NAME ("K6-2+ or K6-III+ (0.18 µm)"); break;
+						case 0xd: STORE_CLASSICAL_NAME ("K6-2+ or K6-III+ (0.18 ï¿½m)"); break;
 						default: STORE_CLASSICAL_NAME ("Unknown 80586 family"); return false;
 					}
 					break;
 				case 6:
 					switch (ChipID.Model) {
-						case 1: STORE_CLASSICAL_NAME ("Athlon?(0.25 µm)"); break;
-						case 2: STORE_CLASSICAL_NAME ("Athlon?(0.18 µm)"); break;
+						case 1: STORE_CLASSICAL_NAME ("Athlon?(0.25 ï¿½m)"); break;
+						case 2: STORE_CLASSICAL_NAME ("Athlon?(0.18 ï¿½m)"); break;
 						case 3: STORE_CLASSICAL_NAME ("Duron?(SF core)"); break;
 						case 4: STORE_CLASSICAL_NAME ("Athlon?(Thunderbird core)"); break;
 						case 6: STORE_CLASSICAL_NAME ("Athlon?(Palomino core)"); break;
@@ -1331,8 +1351,8 @@ bool _cdecl CPUInfo::RetrieveClassicalCPUIdentity ()
 			switch (ChipID.Family) {	
 				case 5:
 					switch (ChipID.Model) {
-						case 0: STORE_CLASSICAL_NAME ("mP6 (0.25 µm)"); break;
-						case 2: STORE_CLASSICAL_NAME ("mP6 (0.18 µm)"); break;
+						case 0: STORE_CLASSICAL_NAME ("mP6 (0.25 ï¿½m)"); break;
+						case 2: STORE_CLASSICAL_NAME ("mP6 (0.18 ï¿½m)"); break;
 						default: STORE_CLASSICAL_NAME ("Unknown Rise family"); return false;
 					}
 					break;
@@ -1473,7 +1493,8 @@ __int64	__cdecl CPUSpeed::GetCyclesDifference (DELAY_FUNC DelayFunction, unsigne
 {
 	unsigned int edx1, eax1;
 	unsigned int edx2, eax2;
-		
+#ifdef _WIN64
+#else
 	// Calculate the frequency of the CPU instructions.
 	__try {
 		_asm {
@@ -1503,7 +1524,7 @@ __int64	__cdecl CPUSpeed::GetCyclesDifference (DELAY_FUNC DelayFunction, unsigne
 	__except (1) {
 		return -1;
 	}
-
+#endif
 	return (CPUSPEED_I32TO64 (edx2, eax2) - CPUSPEED_I32TO64 (edx1, eax1));
 }
 
@@ -1545,7 +1566,7 @@ void CPUSpeed::DelayOverhead (unsigned int uiMS)
 
 /**********************************************
  * 
- * CPU Speed °è»ê - °è»ê ¹æ½Ä
+ * CPU Speed ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
  *
  */
 unsigned long ProcSpeedCalc (void)
@@ -1572,27 +1593,30 @@ unsigned long ProcSpeedCalc (void)
 	// add the frequency to the counter-value:
 	nCtrStop += nFreq;
 
-
+#ifdef _WIN64
+#else
 	_asm
 	{// retrieve the clock-cycles for the start value:
 		RdTSC
 			mov DWORD PTR cyclesStart, eax
 			mov DWORD PTR [cyclesStart + 4], edx
 	}
-
+#endif
 	do{
 		// retrieve the value of the performance counter
 		// until 1 sec has gone by:
 		QueryPerformanceCounter((LARGE_INTEGER *) &nCtr);
 	}while (nCtr < nCtrStop);
 
+#ifdef _WIN64
+#else
 	_asm
 	{// retrieve again the clock-cycles after 1 sec. has gone by:
 		RdTSC
 			mov DWORD PTR cyclesStop, eax
 			mov DWORD PTR [cyclesStop + 4], edx
 	}
-
+#endif
 	// stop-start is speed in Hz divided by 1,000,000 is speed in MHz
 	// return    ((float)cyclesStop-(float)cyclesStart) / 1000000;
 	return    (unsigned long)((cyclesStop - cyclesStart) / 1000000);
@@ -1601,7 +1625,7 @@ unsigned long ProcSpeedCalc (void)
 
 /**********************************************
  * 
- * CPU Speed °è»ê - ·¹Áö½ºÆ®¸®¿¡¼­ °¡Áö°í ¿È.
+ * CPU Speed ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
  *
  */
 unsigned long GetCpuNormSpeed(int clocks)

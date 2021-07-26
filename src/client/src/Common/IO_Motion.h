@@ -1,7 +1,11 @@
 #ifndef	__IO_MOTION_H
 #define	__IO_MOTION_H
 #include "../Util/CFileLIST.h"
+#ifdef _WIN64
+typedef size_t HNODE;
+#else
 typedef unsigned int HNODE;
+#endif
 
 //-------------------------------------------------------------------------------------------------
 struct tagMOTION {
@@ -29,14 +33,14 @@ struct tagMOTION {
 
   bool LoadZMO(char* szFileName);
 
-  // dwPassTIMEµ¿¾È ÁøÇàµÉ ÇÁ·¹ÀÓ¼ö... dwPassTIME == 1000ÀÌ¸é 1ÃÊ !!
+  // dwPassTIMEï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½... dwPassTIME == 1000ï¿½Ì¸ï¿½ 1ï¿½ï¿½ !!
   WORD Get_TotalFRAME() { return m_wTotalFrame; }
 
   WORD Get_ReaminFRAME(WORD wCurFrame) { return (m_wTotalFrame - wCurFrame); }
 
   WORD Get_PassFRAME(DWORD dwPassTIME, float fRatio) { return (WORD)((fRatio * m_wFPS * dwPassTIME) / 1000.f); }
 
-  // wFrameµ¿¾È ¼Ò¿ëµÉ ½Ã°£...
+  // wFrameï¿½ï¿½ï¿½ï¿½ ï¿½Ò¿ï¿½ï¿½ ï¿½Ã°ï¿½...
   DWORD Get_NeedTIME(WORD wFrame) { return (DWORD)((1000 * wFrame) / m_wFPS); }
   DWORD Get_NeedTIME(WORD wFrame, float fRatio) { return (DWORD)((1000 * wFrame) / (fRatio * m_wFPS)); }
 };

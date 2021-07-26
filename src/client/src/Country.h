@@ -5,13 +5,23 @@
 
 //---------------------------------------------------------------------------------------
 ///
-/// °¢ ±¹°¡º° Á¤º¸¸¦ Á¦°ø..
+/// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 ///
 //---------------------------------------------------------------------------------------
-class CCountry : public CJSingleton<CCountry> {
-public:
+class CCountry {
   CCountry(void );
+public:
   ~CCountry(void);
+
+  CCountry(const CCountry&) = delete;
+  CCountry& operator=(const CCountry &) = delete;
+  CCountry(CCountry &&) = delete;
+  CCountry & operator=(CCountry &&) = delete;
+
+  static auto& GetSingleton(){
+    static CCountry inst;
+    return inst;
+  }
 
   bool CheckCountry();
   bool IsUseItemDelayNewVersion();
@@ -43,17 +53,17 @@ public:
 
 private:
   /*
-  ¼­¹ö ½ÇÇà½Ã »ç¿ëµÇ´Â ÀÎÀÚ´Â Å¬¶óÀÌ¾ðÆ®¶û Æ²¸®´Ù
+  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Ú´ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½ï¿½
   LANGUAGE_KOR = 0,
   LANGUAGE_USA = 1,
   LANGUAGE_JPN = 2,
   LANGUAGE_CHA_TRADITIONAL = 3,
   LANGUAGE_CHA_SIMPLE = 4,
-  ¼­¹ö¿ÍÀÇ È¥¶õ.. Â÷ÈÄ¿¡ ¸ÂÃßÀÚ.. ¼­¹öÀÇ ±¹°¡ÄÚµå°¡ ´ë¸¸ÀÌ 4¹øÀ¸·Î µÇ¾îÀÖ´Ù.. ±×·¯³ª ¸ðµç ½ºÆ®¸µ Å×ÀÌºíÀº 3¹øÀÌ..
+  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¥ï¿½ï¿½.. ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Úµå°¡ ï¿½ë¸¸ï¿½ï¿½ 4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½.. ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½..
   */
 
-  bool  m_bIsThatCountry[ COUNTRY_MAX ];
-  DWORD m_dwCountryCode;
+  bool  m_bIsThatCountry[ COUNTRY_MAX ] = {};
+  DWORD m_dwCountryCode = 0;
 
 };
 

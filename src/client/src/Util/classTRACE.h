@@ -17,7 +17,7 @@
 #define EXTENDEDTRACE_H_INCLUDED
 //-------------------------------------------------------------------------------------------------
 
-#if defined(_DEBUG) && defined(WIN32)
+#if defined(_DEBUG) && !defined(_WIN64) && defined(WIN32)
 //-------------------------------------------------------------------------------------------------
 	#include <windows.h>
 	#include <tchar.h>

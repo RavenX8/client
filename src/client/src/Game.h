@@ -36,10 +36,20 @@ enum {
   PVP_NON_PARTY_ALL = 2,
 };
 
-class CGAMEDATA : public CJSingleton<CGAMEDATA> {
-public:
+class CGAMEDATA {
   CGAMEDATA();
+public:
   ~CGAMEDATA();
+
+  CGAMEDATA(const CGAMEDATA&) = delete;
+  CGAMEDATA& operator=(const CGAMEDATA &) = delete;
+  CGAMEDATA(CVFSManager &&) = delete;
+  CGAMEDATA & operator=(CGAMEDATA &&) = delete;
+
+  static auto& GetSingleton(){
+      static CGAMEDATA inst;
+      return inst;
+  }
 
 public:
 
@@ -58,15 +68,15 @@ public:
   HNODE m_hShader_lit;
   HNODE m_hShader_sky;
 
-  bool m_bNoUI;     // ÀÎÅÍÆäÀÌ½º Ç¥½ÃÇÒÁö ¿©ºÎ. µðÆúÆ® false - zho
-  bool m_bNoWeight; ///¹«°ÔÁ¦ÇÑ ¹«½Ã flag: ÃßÈÄ Å¬¶óÀÌ¾ðÆ®¿¡¼­ »¬°Í 
+  bool m_bNoUI;     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½Æ® false - zho
+  bool m_bNoWeight; ///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ flag: ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 
   bool    m_bTranslate; // Raven - Translate Tool
   CStrVAR m_cLang;      // Raven- Language
 
-  bool m_bFilmingMode;      // ÇÃ·¹ÀÌ µ¿¿µ»ó ÃÔ¿µ ¸ðµå
-  bool m_bShowCursor;       // ¸¶¿ì½º Ä¿¼­ º¸ÀÌ³Ä ¾Èº¸ÀÌ³Ä
-  bool m_bShowDropItemInfo; // µå¶ø¾ÆÀÌÅÛ Á¤º¸ º¸ÀÌ±â( ÇöÀç alt Å°°¡ ´­¸±°æ¿ì È°¼ºÈ­ )
+  bool m_bFilmingMode;      // ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½
+  bool m_bShowCursor;       // ï¿½ï¿½ï¿½ì½º Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½Èºï¿½ï¿½Ì³ï¿½
+  bool m_bShowDropItemInfo; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½( ï¿½ï¿½ï¿½ï¿½ alt Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ )
 
 #ifdef _DEBUG
   bool				m_bShowCurPos;
@@ -74,7 +84,7 @@ public:
 
   int m_iPvPState; /// PvP State
 
-  /// ½Ã½ºÅÛ Å¸ÀÓ.
+  /// ï¿½Ã½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½.
   SYSTEMTIME m_SystemTime;
 
   bool  m_bDisplayDebugInfo;
@@ -83,7 +93,7 @@ public:
   bool  m_bForOpenTestServer;
 
   int  m_iTemp;
-  bool m_bCheckDupRUN; /// Áßº¹½ÇÇà ¹æÁö...
+  bool m_bCheckDupRUN; /// ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
 
   HNODE m_hLight;
   HNODE m_hCharacterLight;
@@ -97,10 +107,10 @@ public:
   POINTS           m_PosPATCH;
   CRITICAL_SECTION m_csNZIN;
 
-  /// ½Ã¾ß°ü·Ã µ¥ÀÌÅÍ.
+  /// ï¿½Ã¾ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
   short m_nSightRange;
 
-  /// ½ºÅÂ¹Ì³Ê µ¥ÀÌÅÍ
+  /// ï¿½ï¿½ï¿½Â¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   int m_iWorldStaminaVal;
   int AdjustAvatarStamina(int iGetExp);
 
@@ -118,21 +128,21 @@ public:
   void Unlock() { LeaveCriticalSection( &m_csNZIN ); }
 
   ///
-  ///	Game time °ü·Ã..
+  ///	Game time ï¿½ï¿½ï¿½ï¿½..
   ///
 
   //DWORD				GetGameTime(){ return ::timeGetTime(); }
-  DWORD m_dwGameStartTime;    /// °ÔÀÓ ½ÃÀÛ ½Ã°£.
-  DWORD m_dwElapsedGameTime;  /// °ÔÀÓ ½ÃÀÛÈÄ ÁøÇà½Ã°£.
-  DWORD m_dwFrevFrameTime;    /// ÀÌÀü ÇÁ·¹ÀÓ Å¸ÀÓ
-  DWORD m_dwElapsedFrameTime; /// ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­ÀÇ ÁøÇà½Ã°£..
+  DWORD m_dwGameStartTime;    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+  DWORD m_dwElapsedGameTime;  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½.
+  DWORD m_dwFrevFrameTime;    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+  DWORD m_dwElapsedFrameTime; /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½..
 
   void  UpdateGameTime();
   DWORD GetTime() { return timeGetTime(); }
   DWORD GetGameTime() { return GetTime(); }
-  DWORD GetElapsedFrameTime() { return m_dwElapsedFrameTime; } // ÀÌÀü ÇÁ·¹ÀÓÀ¸·ÎºÎÅÍÀÇ °æ°ú ½Ã°£.
+  DWORD GetElapsedFrameTime() { return m_dwElapsedFrameTime; } // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
 
-  /// °ÔÀÓ½ÃÀÛÈÄ ÁøÇàµÈ ÇÁ·¹ÀÓ¼ö
+  /// ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½
   DWORD m_dwElapsedGameFrame;
 
   ///
@@ -145,27 +155,27 @@ public:
   void Update();
 
   //--------------------------------------------------------------------------------------
-  /// °ÔÀÓ ¿¬Ãâ°ü·Ã
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   //--------------------------------------------------------------------------------------
-  bool m_bJustObjectLoadMode; /// ÁöÇü ºí¶ôÀ» µî·ÏÇÏÁö ¾ÊÀ» °ÍÀÎ°¡?
+  bool m_bJustObjectLoadMode; /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½?
 
 #if defined( _DEBUG ) || defined( _D_RELEASE )
-  bool				m_bObserverCameraMode; /// µð¹ö±ë¿ë ¾÷Á®¹ö Ä«¸Þ¶ó..
+  bool				m_bObserverCameraMode; /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½..
 #endif
 
   //--------------------------------------------------------------------------------------
-  /// °æÇèÄ¡ È¹µæ µô·¹ÀÌ¸¦ À§ÇÑ º¯¼ö
+  /// ï¿½ï¿½ï¿½ï¿½Ä¡ È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //--------------------------------------------------------------------------------------
   int64_t m_iReceivedAvatarEXP;
 
   //--------------------------------------------------------------------------------------
-  /// ¼­¹ö¹× Ã¤³Î Á¤º¸
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //--------------------------------------------------------------------------------------
   std::string m_strJoinServerName;
   std::string m_strJoinChannelName;
 
   //--------------------------------------------------------------------------------------
-  /// NHN JapanÀ» À§ÇÑ Data
+  /// NHN Japanï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Data
   //--------------------------------------------------------------------------------------
   bool m_is_NHN_JAPAN;
 private:

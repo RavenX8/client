@@ -8,9 +8,9 @@ struct EXP_DATA {
   int iOwnerIndex;
   int64_t iAddExp;
   int64_t iExp;
-  int iGetTime; /// ¼­¹ö·Î ºÎÅÍ ¹ÞÀº½Ã°£. 
+  int iGetTime; /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½. 
 
-  int iStamina; /// ½ºÅÂ¹Ì³Êµµ ÇöÀç ½ºÅÂ¹Ì³Ê°¡ ¼­¹ö¿¡¼­ ³¯¶ó¿À±â¶§¹®¿¡..
+  int iStamina; /// ï¿½ï¿½ï¿½Â¹Ì³Êµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹Ì³Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶§ï¿½ï¿½ï¿½ï¿½..
 };
 
 //------------------------------------------------------------------------------------------
@@ -20,13 +20,23 @@ struct EXP_DATA {
 ///
 //------------------------------------------------------------------------------------------
 
-class CDelayedExp : public CJSingleton<CDelayedExp> {
+class CDelayedExp {
 private:
   std::list<EXP_DATA> m_ExpData;
 
-public:
   CDelayedExp(void );
+public:
   ~CDelayedExp(void);
+
+  CDelayedExp(const CDelayedExp&) = delete;
+  CDelayedExp& operator=(const CDelayedExp &) = delete;
+  CDelayedExp(CDelayedExp &&) = delete;
+  CDelayedExp & operator=(CDelayedExp &&) = delete;
+
+  static auto& GetSingleton(){
+    static CDelayedExp inst;
+    return inst;
+  }
 
   void PushEXPData(int iOwnerIndex, int64_t iAddExp, int64_t iEXP, int iStamina);
   void GetExp(int      iOwnerIndex);

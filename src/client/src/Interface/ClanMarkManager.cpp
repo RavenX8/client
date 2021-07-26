@@ -4,7 +4,7 @@
 #include "ClanMarkTransfer.h"
 #include "Util/classCRC.h"
 
-CClanMarkManager _ClanMarkManager;
+//CClanMarkManager _ClanMarkManager;
 
 CClanMarkManager::CClanMarkManager(void) {}
 
@@ -49,7 +49,7 @@ void                    CClanMarkManager::ReloadTexture(const char* FileName, WO
 }
 
 //------------------------------------------------------------------
-/// Æ¯Á¤ÇÑ ½Ã°£µ¿¾È »ç¿ëµÇÁö ¾ÊÀº ³ëµåµéÀ» Á¤¸®
+/// Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //------------------------------------------------------------------
 const int GC_BOUNDARY_TIME = 100000;
 
@@ -63,14 +63,14 @@ void    CClanMarkManager::UpdatePool() {
 
     DWORD dwLastUsedTime = pUserDefinedMark->GetLastUsedTime();
 
-    /// °ÔÀÓ¿¡¼­ ¼³Á¤ÇÑ Á¤¸® ´ë»ó Å¸ÀÓÀ» ÃÊ°úÇÑ °Íµé¿¡ ´ëÇØ¼­´Â..
+    /// ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½ï¿½ ï¿½Íµé¿¡ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½..
     if ( pUserDefinedMark->GetRefCount() <= 0 && dwCurrentTime - dwLastUsedTime > GC_BOUNDARY_TIME ) {
       iter = m_TextureNodePool.erase( iter );
       delete pUserDefinedMark;
       continue;
     }
 
-    /// ·ÎµåÇØ¾ßÇÒ ÅØ½ºÃÄ°¡ ÀÖ´Ù¸é ·Îµå...
+    /// ï¿½Îµï¿½ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½Ä°ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½Îµï¿½...
     if ( pUserDefinedMark->IsLoaded() == false ) {
       LoadRealTexture( pUserDefinedMark );
     }
@@ -80,12 +80,12 @@ void    CClanMarkManager::UpdatePool() {
 }
 
 //------------------------------------------------------------------
-/// ÅØ½ºÃÄ ·Îµå ÇÃ·¡±×°¡ ÄÑÁø ³ëµåµé¿¡ ´ëÇÑ ÅØ½ºÃÄ ·Îµù..
+/// ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ã·ï¿½ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½Îµï¿½..
 //------------------------------------------------------------------
 void    CClanMarkManager::LoadRealTexture(CClanMarkUserDefined* pUserDefinedMark) {
   HNODE hNode = LoadNewTexture( pUserDefinedMark->GetName().c_str(), pUserDefinedMark->GetFileCRC() );
   if ( hNode == 0 ) {
-    /// ¼­¹ö¿¡ ¿äÃ»..			
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»..			
     CClanMarkTransfer::GetSingleton().RequestMarkFromServer( pUserDefinedMark->GetClanID() );
   }
 
@@ -108,7 +108,7 @@ CClanMarkUserDefined* CClanMarkManager::SearchTexture(const char* pstrName) {
 
 //--------------------------------------------------------------------
 /// Load new texture form HDD.
-/// ÀÌ¸§À¸·Î ÇØ´ç È­ÀÏÀÌ ÀÖ´ÂÁö¸¦ Ã£°í ¿øÇÏ´Â Æ÷¸Ë¿¡ ¸Â´ÂÁö¸¦ Ã¼Å©ÇÑ´Ù.
+/// ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ È­ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ë¿ï¿½ ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 //--------------------------------------------------------------------
 HNODE CClanMarkManager::LoadNewTexture(const char* pstrName, WORD crc16) {
   assert( pstrName );

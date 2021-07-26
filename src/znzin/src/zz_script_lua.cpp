@@ -119,6 +119,7 @@
 // for saved return type
 int          f_return_int    = 0;
 unsigned int f_return_uint   = 0;
+unsigned long long f_return_uint64   = 0;
 float        f_return_float  = 0.0f;
 const float* f_return_float3 = nullptr;
 const char*  f_return_string = nullptr;
@@ -129,13 +130,15 @@ ZZ_IMPLEMENT_DYNCREATE(zz_script_lua, zz_script)
 
 zz_script_lua::zz_script_lua(const char* filename) : zz_script(), param_count( 0 ) {
 #ifdef ZZ_LUA500 
-  L = lua_open();
-  luaopen_base( L );
-  luaopen_string( L );
-  luaopen_table( L );
-  luaopen_math( L );
-  luaopen_io( L );
-  luaopen_debug( L );
+  L = luaL_newstate();
+  luaL_openlibs(L);
+//  luaopen_base( L );
+//  luaopen_string( L );
+//  luaopen_table( L );
+//  luaopen_math( L );
+//  luaopen_io( L );
+//  luaopen_os( L );
+//  luaopen_debug( L );
 #else // 401
   L = lua_open(0);
   lua_baselibopen(L);
@@ -178,7 +181,10 @@ bool     zz_script_lua::do_script(const char* filename, const char* buffer) {
   int lua_error = 0;
 
   if ( ret != false ) {
-    lua_error = lua_dobuffer( L, data, size, nullptr );
+    lua_error = luaL_loadbuffer( L, data, size, nullptr );
+    if (lua_error == LUA_OK)
+      lua_call(L, 0, 0);
+//    lua_error = luaL_dostring( L, data );
     //script_file.dump();
   }
 
@@ -203,7 +209,7 @@ bool     zz_script_lua::do_script(const char* filename, const char* buffer) {
     }
     ret = false;
   } // end of if (lua_error...
-  return true;
+  return ret;
 }
 
 bool zz_script_lua::get_global(const char* variable_name, int& variable_to_set) {
@@ -283,7 +289,7 @@ void zz_script_lua::set_param_string(const char* val) {
 
 void zz_script_lua::set_param_hnode(void* val) {
   assert(L);
-  lua_pushnumber( L, double( reinterpret_cast<int>(val) ) );
+  lua_pushinteger( L, reinterpret_cast<long long>(val) );
   param_count++;
 }
 
@@ -413,6 +419,16 @@ unsigned int get_param_uint(lua_State* L, int& param_index, const char* where) {
   return (unsigned int)lua_tonumber( L, param_index++ );
 }
 
+unsigned long long get_param_uint64(lua_State* L, int& param_index, const char* where) {
+  assert(param_index <= lua_gettop(L));
+  assert(param_index >= 1);
+  if ( !lua_isinteger( L, param_index ) ) {
+    ZZ_LOG( "script_lua: %s().parameter(uint64:%d) match failed\n", where, param_index );
+    return 0;
+  }
+  return (unsigned long long)lua_tointeger( L, param_index++ );
+}
+
 int get_param_int(lua_State* L, int& param_index, const char* where) {
   assert(param_index <= lua_gettop(L));
   assert(param_index >= 1);
@@ -460,6 +476,12 @@ float* get_param_float3(lua_State* L, int& param_index, const char* where) {
 void set_param_uint(lua_State* L, int& return_num, unsigned int val) {
   f_return_uint = val;
   lua_pushnumber( L, val );
+  return_num++;
+}
+
+void set_param_uint64(lua_State* L, long long& return_num, unsigned long long val) {
+  f_return_uint64 = val;
+  lua_pushinteger( L, val );
   return_num++;
 }
 
@@ -520,12 +542,12 @@ int zz_lua_setLight (lua_State * L)
 // lua error message receiver
 // redefinition of luaB__ALERT() in lbaselib.c
 static int my_ERROR_MESSAGE(lua_State* L) {
-  ZZ_LOG( "script_lua:error: %s in [%s]\n", luaL_check_string(L, 1), current_lua_file );
+  ZZ_LOG( "script_lua:error: %s in [%s]\n", luaL_checkstring(L, 1), current_lua_file );
   return 0;
 }
 
 static int my_ALERT_MESSAGE(lua_State* L) {
-  ZZ_LOG( "script_lua:alert: %s in [%s]\n", luaL_check_string(L, 1), current_lua_file );
+  ZZ_LOG( "script_lua:alert: %s in [%s]\n", luaL_checkstring(L, 1), current_lua_file );
   return 0;
 }
 

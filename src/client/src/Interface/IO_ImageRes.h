@@ -6,9 +6,9 @@
 #include <vector>
 #include <map>
 
-/// ÄÁÆ®·ÑÀÇ ¸®¼Ò½º°ü¸®¿Í µå·Î¿ì 
+/// ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ 
 struct stTexture {
-  char  m_szName[MAX_PATH]; //ÀÌ¸§ 
+  char  m_szName[MAX_PATH]; //ï¿½Ì¸ï¿½ 
   DWORD m_dwColorKey;
   HNODE m_Texture;
   short m_nTXID;
@@ -55,12 +55,12 @@ public:
 
 };
 
-/// °ÔÀÓ³»ºÎ¿¡¼­ »ç¿ëµÇ´Â ÀÌ¹ÌÁö ¸®¼Ò½ºµé..
+/// ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½..
 enum {
   IMAGE_RES_UI = 0,
   IMAGE_RES_ITEM = 1,
   IMAGE_RES_NPCFACE = 2,
-  ///¾ø¾îÁü .EXUIÀÇ XML¿¡¼­ÀÇ MODULE INDEX¶§¹®¿¡ ±×´ë·Î µÒ.
+  ///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ .EXUIï¿½ï¿½ XMLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ MODULE INDEXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½.
   IMAGE_RES_EXUI = 3,
   IMAGE_RES_SKILL_ICON = 4,
   IMAGE_RES_STATE_ICON = 5,
@@ -79,23 +79,33 @@ enum {
 typedef std::map<int, std::string>  LIST_INDEX_STRING;
 typedef LIST_INDEX_STRING::iterator LIST_INDEX_STRING_ITER;
 
-class CImageResManager : public CJSingleton<CImageResManager> {
+class CImageResManager {
 private:
   CImageRes m_ImageRes[ IMAGE_RES_MAX ];
 
   void ReleaseResource(short i);
-  ///list_npcfaceÀÇ Á¤º¸¸¦ ÀúÀå
+  ///list_npcfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   LIST_INDEX_STRING m_NpcFaceFiles;
-public:
   CImageResManager();
+public:
   ~CImageResManager();
+
+  CImageResManager(const CImageResManager&) = delete;
+  CImageResManager& operator=(const CImageResManager &) = delete;
+  CImageResManager(CImageResManager &&) = delete;
+  CImageResManager & operator=(CImageResManager &&) = delete;
+
+  static auto& GetSingleton(){
+    static CImageResManager inst;
+    return inst;
+  }
 
   bool LoadImageResources();
   void ReleaseResources();
 
   CImageRes* GetImageRes(int iType);
 
-  /// NPC Face Image °ü·Ã
+  /// NPC Face Image ï¿½ï¿½ï¿½ï¿½
   bool  Add_NpcFaceFileInfo(int  index, const char* filename);
   HNODE Load_NpcFace(int         index);
   HNODE Load_NpcFace(const char* szName_);

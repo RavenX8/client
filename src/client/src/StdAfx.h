@@ -25,7 +25,7 @@
 #include <crtdbg.h>
 
 #include <d3d9.h>
-#include <D3DX9.h>
+#include <d3dx9.h>
 
 // TODO: reference additional headers your program requires here
 //-------------------------------------------------------------------------------------------------

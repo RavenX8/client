@@ -6,24 +6,34 @@
 #include "../GameProc/LoadingImageManager.h"
 
 /**
-* Á¸°£ ¿öÇÁ½Ã ·ÎµùÀÌ¹ÌÁö¸¦ º¸¿©ÁÖ´Â Class 
-*	- CLoadingImageManager°¡ stb¸¦ ÂüÁ¶ÇÏ¿© º¸¿©ÁÖ¾î¾ßÇÒ ÀÌ¹ÌÁö¸¦ ¹Ù²Ù¾î ÁØ´Ù.
+* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ Class 
+*	- CLoadingImageManagerï¿½ï¿½ stbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù¾ï¿½ ï¿½Ø´ï¿½.
 *
-* @Author	ÃÖÁ¾Áø
+* @Author	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * @Date		2005/9/5
 */
-class CLoading : public CJSingleton<CLoading> {
+class CLoading {
 
   HNODE m_hTexture;
 
   CLoadingImageManager m_LoadingImageManager;
 
-  /// m_LoadingImageManager °¡ ÃÊ±âÈ­ µÇ¾ú´Â°¡?
+  /// m_LoadingImageManager ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ç¾ï¿½ï¿½Â°ï¿½?
   bool m_bInitLoadingImageManager;
 
-public:
   CLoading();
+public:
   ~CLoading();
+
+  CLoading(const CLoading&) = delete;
+  CLoading& operator=(const CLoading &) = delete;
+  CLoading(CLoading &&) = delete;
+  CLoading & operator=(CLoading &&) = delete;
+
+  static auto& GetSingleton(){
+    static CLoading inst;
+    return inst;
+  }
 
   bool InitLoadingImageManager();
 

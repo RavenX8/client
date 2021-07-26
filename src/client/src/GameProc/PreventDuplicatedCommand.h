@@ -18,19 +18,29 @@ struct SendedCommand {
 //------------------------------------------------------------------------------------
 ///
 /// class CPreventDuplicatedCommand
-/// ¼­¹ö·Î Áßº¹µÈ ¸í·Â( Æ¯È÷ ½ºÅ³¸í·É ) Àü¼ÛÀ» ¸·½À´Ï´Ù.
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½( Æ¯ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 ///
 //------------------------------------------------------------------------------------
 
-class CPreventDuplicatedCommand : public CJSingleton<CPreventDuplicatedCommand> {
+class CPreventDuplicatedCommand {
 private:
   std::list<CObjCommand*>   m_CommandPool[ OBJECT_COMMAND_MAX ];
   std::list<SendedCommand*> m_CommandStructPool;
   std::list<SendedCommand*> m_SendedCommandQueue;
 
-public:
   CPreventDuplicatedCommand(void );
+public:
   ~CPreventDuplicatedCommand(void);
+
+  CPreventDuplicatedCommand(const CPreventDuplicatedCommand&) = delete;
+  CPreventDuplicatedCommand& operator=(const CPreventDuplicatedCommand &) = delete;
+  CPreventDuplicatedCommand(CPreventDuplicatedCommand &&) = delete;
+  CPreventDuplicatedCommand & operator=(CPreventDuplicatedCommand &&) = delete;
+
+  static auto& GetSingleton(){
+    static CPreventDuplicatedCommand inst;
+    return inst;
+  }
 
   void Init();
   void ClearCommandQueue();
@@ -42,7 +52,7 @@ public:
   SendedCommand* GetSendedCommand();
 
   //----------------------------------------------------------------------------------------------------
-  /// ÀÏ´Ü ½ºÅ³µéÀº Æ¯Á¤ ½Ã°£ÀÌÀü¿¡ ¿¬¼Ó »ç¿ëÀÌ ºÒ°¡´ÉÇÏ´Ù..
+  /// ï¿½Ï´ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ï´ï¿½..
   //----------------------------------------------------------------------------------------------------
   bool PushSelfSkillCommand(int            iSkillSlot);
   bool PushTargetSkillCommand(int          iServerTarget, int iSkillSlot);

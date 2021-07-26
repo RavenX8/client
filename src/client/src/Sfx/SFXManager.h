@@ -13,13 +13,23 @@ class ISFX;
 ///
 //-------------------------------------------------------------------------------------------
 
-class CSFXManager : public CJSingleton<CSFXManager> {
+class CSFXManager {
 private:
   std::list<ISFX*> m_SFXList;
 
-public:
   CSFXManager(void );
+public:
   ~CSFXManager(void);
+
+  CSFXManager(const CSFXManager&) = delete;
+  CSFXManager& operator=(const CSFXManager &) = delete;
+  CSFXManager(CSFXManager &&) = delete;
+  CSFXManager & operator=(CSFXManager &&) = delete;
+
+  static auto& GetSingleton(){
+    static CSFXManager inst;
+    return inst;
+  }
 
   //-----------------------------------------------------------------------------------------
   /// General purpose..

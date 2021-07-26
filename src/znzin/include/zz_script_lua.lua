@@ -1,15 +1,15 @@
 -------------------------------------------------------------------------------------------
---- ·ç¾Æ¿ë ÀÎÅÍÆäÀÌ½º ¸ðµâ ÀÚµ¿ »ý¼ºÇÏ´Â ½ºÅ©¸³Æ®
---- ÀÔ·ÂÆÄÀÏ : zz_interface.h
---- Ãâ·ÂÆÄÀÏ : zz_script_lua.inc
+--- ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
+--- ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ : zz_interface.h
+--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : zz_script_lua.inc
 ---
---- ½ÇÇà¹æ¹ý : $(SolutionDir)..\..\lua401\bin\lua.exe $(SolutionDir)..\..\include\zz_script_lua.lua
+--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : $(SolutionDir)..\..\lua401\bin\lua.exe $(SolutionDir)..\..\include\zz_script_lua.lua
 ---
 --- $Header: /engine/include/zz_script_lua.lua 3     04-02-29 10:31p Zho $
 ---
 --- 2003-11-30 zho
----   zz_api_define.inc ¿Í zz_api_register.inc ¸¦ zz_script_lua.inc ·Î ÇÕÄ§.
----   ÆÄÀÏ ÀÌ¸§À» export_interface.lua ¿¡¼­ zz_script_lua.lua ·Î º¯°æ.
+---   zz_api_define.inc ï¿½ï¿½ zz_api_register.inc ï¿½ï¿½ zz_script_lua.inc ï¿½ï¿½ ï¿½ï¿½Ä§.
+---   ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ export_interface.lua ï¿½ï¿½ï¿½ï¿½ zz_script_lua.lua ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 --- 
 --- 2003-11-29 zho
 ---   converted to perfect cpp format not to confuse parameter evaluation ordering.
@@ -21,11 +21,11 @@
 IN_FILENAME  = "zz_interface.h"
 OUT_FILENAME = "zz_script_lua.inc"
 
-interfaces = {} -- ÀÎÅÍÆäÀÌ½º Á¤º¸ Å×ÀÌºí
+interfaces = {} -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 
-names = {} --- Á¤·Ä¿ë ÀÌ¸§ Å×ÀÌºí
+names = {} --- ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 
---- ¸ÅÅ©·Î ÂüÁ¶ Å×ÀÌºíµé
+--- ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½
 map_return_types = {
     void    = "RETURNS_NONE",
     int     = "RETURNS_INT",
@@ -48,23 +48,23 @@ section1 = "//------------------------------------------------------------------
 "{\n"..
 "\tint param_index = 1;\n"..
 "\tconst char where[] = \"%s\";\n"..
-"\tint return_num = 0;\n"..
+"\tlong long return_num = 0;\n"..
 "\n"
 
 section2 = {
 	void = "\t// no parameter\n",
 	int = "\tint %s = get_param_int( L, param_index, where );\n",
 	float = "\tfloat %s = get_param_float( L, param_index, where );\n",
-	HNODE = "\tHNODE %s = get_param_uint( L, param_index, where );\n",
+	HNODE = "\tHNODE %s = get_param_uint64( L, param_index, where );\n",
 	ZSTRING = "\tZSTRING %s = get_param_string( L, param_index, where );\n"
 }	
 
 section3 = {
 	void = "\t%s( ", -- no return value
-	int = "\n\tset_param_int( L, return_num, %s( ",
-	float = "\n\tset_param_float( L, return_num, %s( ",
-	HNODE = "\n\tset_param_uint( L, return_num, %s( ",
-	ZSTRING = "\n\tset_param_string( L, return_num, %s( ",
+	int = "\n\tset_param_int( L, (int&)return_num, %s( ",
+	float = "\n\tset_param_float( L, (int&)return_num, %s( ",
+	HNODE = "\n\tset_param_uint64( L, return_num, %s( ",
+	ZSTRING = "\n\tset_param_string( L, (int&)return_num, %s( ",
 }
 
 section4 = {
@@ -83,16 +83,16 @@ section5 = {
 	ZSTRING = ") );\n\n\treturn return_num;\n}\n\n",
 }
 
---- °æ°í ¸Þ¼¼Áö
+--- ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 message_autogen =
 "//--------------------------------------------------------------------------------\n"..
-"// ÀÌ ÆÄÀÏÀº zz_script_lua.lua ½ºÅ©¸³Æ®¿¡ ÀÇÇØ ÀÚµ¿»ý¼ºµÈ ÄÚµåÀÔ´Ï´Ù.\n"..
+"// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ zz_script_lua.lua ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½Ô´Ï´ï¿½.\n"..
 "//\n"..
-"// Á÷Á¢ ¼öÁ¤ÇÏÁö ¸¶½Ê½Ã¿À.\n"..
-"// »ý¼º½Ã°£: "..os.date().."\n"..
+"// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê½Ã¿ï¿½.\n"..
+"// ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½: "..os.date().."\n"..
 "//--------------------------------------------------------------------------------\n\n"
 
---- ÆÄÀÏÀÇ ³¡ Ç¥½Ã
+--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ç¥ï¿½ï¿½
 message_end_of_file = "// end of file.\n"
 
 --------------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ end
 --------------------------------------------------------------------------------------
 --- read_interfaces
 --------------------------------------------------------------------------------------
---- ÆÄÀÏÀ» ÀÐ¾î interfaces Å×ÀÌºí¿¡ Á¤º¸ ÀúÀå
+--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ interfaces ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 function read_interfaces ( )
     i = 1
     word = read_word ()
@@ -199,38 +199,38 @@ function read_interfaces ( )
 end
 
 --------------------------------------------------------------------------------------
---- ÃÊ±âÈ­. ÀÎÅÍÆäÀÌ½º Çì´õÆÄÀÏ ÀÐ°í, Àü¿ª º¯¼ö ¼¼ÆÃ
+--- ï¿½Ê±ï¿½È­. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 --------------------------------------------------------------------------------------
 function initialize ()
-    --- ÀÎÅÍÆäÀÌ½º Á¤º¸ ÀÐ¾îµéÀÌ±â
+    --- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½Ì±ï¿½
     h_in   = io.open ( IN_FILENAME   ) -- input file handle
 	io.input( h_in )
     read_interfaces ()
     io.close ( h_in )
     
     i = 1
-    index = next(interfaces, nil) -- ÀÌ¸§À¸·Î ÂüÁ¶ÇÏ´Â Å×ÀÌºíÀÌ¹Ç·Î, interfaces[i] ¸¦ »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    index = next(interfaces, nil) -- ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¹Ç·ï¿½, interfaces[i] ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     while (index) do
         names[i] = index
         index = next(interfaces, index)
         i = i + 1
     end
-    --- ÀÌ¸§¼øÀ¸·Î Á¤·ÄÇÏ±â
+    --- ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
     table.sort( names )
 end
 
 --------------------------------------------------------------------------------------
---- ½ºÅ©¸³Æ® ÀÎÅÍÆäÀÌ½º Á¤ÀÇ Ãâ·Â
+--- ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 --------------------------------------------------------------------------------------
 function write_definition ( )
     io.write ( message_autogen )
     
-    for i = 1, table.getn(names) do
+    for i = 1, #names do
         -- section1
         definition = string.format( section1, names[i], names[i], names[i] )
         
         -- section2
-        for j = 1, table.getn(interfaces[names[i]].params) do
+        for j = 1, #(interfaces[names[i]].params) do
             definition = definition..string.format(
                 section2[ interfaces[ names[i] ].params[j]["type"] ],
                 interfaces[ names[i] ].params[j]["name"] )
@@ -240,8 +240,8 @@ function write_definition ( )
         definition = definition..string.format( section3[ interfaces[ names[i] ].return_type ], names[i] )
         
         -- section4
-        for j = 1, table.getn( interfaces[ names[ i ] ].params ) do
-            if ( j == table.getn( interfaces[ names[ i ] ].params ) ) then
+        for j = 1, #( interfaces[ names[ i ] ].params ) do
+            if ( j == #( interfaces[ names[ i ] ].params ) ) then
                 definition = definition..string.format( section4[ interfaces[ names[i] ].params[j]["type"] ], 
                     interfaces[ names[i] ].params[j]["name"], "" )
             else
@@ -258,7 +258,7 @@ function write_definition ( )
 end
 
 --------------------------------------------------------------------------------------
---- ½ºÅ©¸³Æ® ÀÎÅÍÆäÀÌ½º µî·ÏºÎºÐ Ãâ·Â
+--- ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ÏºÎºï¿½ ï¿½ï¿½ï¿½
 --------------------------------------------------------------------------------------
 function write_register ( )
 	io.write ( "//--------------------------------------------------------------------------------\n// register api interfaces\n"..
@@ -266,7 +266,7 @@ function write_register ( )
     io.write ( "void register_api_interfaces (lua_State * L)\n{\n" )
     register_section = "\tlua_register( L, \"%s\", zz_lua_%s );\n"
     
-    for i = 1, table.getn(names) do
+    for i = 1, #(names) do
         register = string.format( register_section, names[i], names[i] )
         io.write ( register )
     end
@@ -274,7 +274,7 @@ function write_register ( )
 end
 
 --------------------------------------------------------------------------------------
---- ¸ÞÀÎ ÇÔ¼ö
+--- ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 --------------------------------------------------------------------------------------
 function main ()
     initialize()

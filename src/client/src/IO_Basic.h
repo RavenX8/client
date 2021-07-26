@@ -1,6 +1,10 @@
 #ifndef	__IO_BASIC_H
 #define	__IO_BASIC_H
+#ifdef _WIN64
+typedef size_t HNODE;
+#else
 typedef unsigned int HNODE;
+#endif
 
 #include "Common/IO_Motion.h"
 #include "IO_Skeleton.h"
@@ -11,7 +15,7 @@ typedef unsigned int HNODE;
 
 //-------------------------------------------------------------------------------------------------
 ///
-/// ±âº»µ¥ÀÌÅÍ ¹× Á¸µ¥ÀÌÅÍ¸¦ ÀÐ´Â´Ù.
+/// ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ð´Â´ï¿½.
 ///
 class CBasicDATA {
 private :
@@ -34,8 +38,8 @@ public :
   CMorpherDATA m_MORPHER;
 
   //	CModelDATA<CFixedPART>	m_ModelBULLET;
-  CModelDATA<CFixedPART> m_ModelSpecial; /// ¿öÇÁ, Ãæµ¹µî..
-  CModelDATA<CFixedPART> m_ModelEvent;   /// ÀÌº¥Æ® ¿ÀºêÁ§Æ®
+  CModelDATA<CFixedPART> m_ModelSpecial; /// ï¿½ï¿½ï¿½ï¿½, ï¿½æµ¹ï¿½ï¿½..
+  CModelDATA<CFixedPART> m_ModelEvent;   /// ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
   CModelDATA<CFixedPART> m_ModelCNST;
   CModelDATA<CFixedPART> m_ModelDECO;
@@ -48,11 +52,11 @@ public :
   bool Load3DDATA();
   void Free3DDATA();
 
-  /// Zone type ¿¡ µû¸¥ ·Îµùµ¥ÀÌÅÍ
+  /// Zone type ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   bool LoadZoneData(short nZoneNO);
   void FreeZoneData();
 
-  /// Planet type ¿¡ µû¸¥ ·Îµùµ¥ÀÌÅÍ
+  /// Planet type ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   bool LoadPlanetData(short nZoneNO) {};
   void FreePlanetData() {};
 

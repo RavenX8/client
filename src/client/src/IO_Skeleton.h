@@ -3,7 +3,11 @@
 */
 #ifndef	__IO_SKEL_H
 #define	__IO_SKEL_H
+#ifdef _WIN64
+typedef size_t HNODE;
+#else
 typedef unsigned int HNODE;
+#endif
 //-------------------------------------------------------------------------------------------------
 
 #define	DEFAULT_UNIT_TYPE(I)		g_DATA.GetDefaultITEM (I, 1)

@@ -44,6 +44,8 @@ namespace zz_os
 
   // checks if support rdtsc
   inline bool check_rdtsc() {
+#ifdef _WIN64
+#else
     __try {
       __asm {
         rdtsc
@@ -51,6 +53,7 @@ namespace zz_os
     } __except ( EXCEPTION_EXECUTE_HANDLER ) {
       return false;
     }
+#endif
     return true;
   }
 
@@ -63,12 +66,16 @@ namespace zz_os
   // get fast cpu clock ticks (using rdtsc)
   inline void get_ticks_rdtsc(uint64& ticks) {
     uint32    _low, _high;
+#ifdef _WIN64
+#else
     __asm {
       rdtsc
       mov _low, eax
       mov _high, edx
     }
-    ticks = ((unsigned __int64)_high << 32) | (unsigned __int64)_low;
+#endif
+    ticks = __rdtsc();
+    //ticks = ((unsigned __int64)_high << 32) | (unsigned __int64)_low;
     // ticks = static_cast<long>(GetTickCount()); // slow version
   }
 

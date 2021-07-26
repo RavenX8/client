@@ -8,13 +8,23 @@ class CActionProcessChain;
 //------------------------------------------------------------------------------------------------
 /// Managing for CActionProcessChain
 //------------------------------------------------------------------------------------------------
-class CObjectActionProcessor : public CJSingleton<CObjectActionProcessor> {
+class CObjectActionProcessor {
 private:
   CActionProcessChain* m_pRootActionChain;
 
-public:
   CObjectActionProcessor(void );
+public:
   ~CObjectActionProcessor(void);
+
+  CObjectActionProcessor(const CObjectActionProcessor&) = delete;
+  CObjectActionProcessor& operator=(const CObjectActionProcessor &) = delete;
+  CObjectActionProcessor(CObjectActionProcessor &&) = delete;
+  CObjectActionProcessor & operator=(CObjectActionProcessor &&) = delete;
+
+  static auto& GetSingleton(){
+    static CObjectActionProcessor inst;
+    return inst;
+  }
 
   void MakeChain();
   void ClearChain();

@@ -9,7 +9,7 @@
 
 #define		TL_SETVAR(NAME)		set_global( #NAME, NAME );
 
-CSystemProcScript __SystemProcScript;
+//CSystemProcScript __SystemProcScript;
 
 CSystemProcScript::CSystemProcScript(void) {
   m_pLUA = nullptr;

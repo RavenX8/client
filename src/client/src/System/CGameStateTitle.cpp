@@ -50,7 +50,7 @@ int CGameStateTitle::Enter(int iPrevStateID) {
   CGame::GetInstance().Load_DataNotUseThread();
 
   ///
-  /// ¹è°æÀ¸·Î »ç¿ëÇÒ Á¸ ¹øÈ£¸¦ ¾ò¾î¿Â´Ù.
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
   ///
   m_iBackGroundZone = SC_GetBGZoneNO();
 
@@ -70,7 +70,7 @@ int CGameStateTitle::Enter(int iPrevStateID) {
 		tDone = false;
 		ResumeThread( m_hThread );
 	}
-	else///Thread »ý¼º ½ÇÆÐ½Ã ¸ÞÀÎ¾²·¹µå¿¡¼­ ·ÎµùÇÏ°í State¸¦ ¹Ù²Ù¾î ÁØ´Ù.
+	else///Thread ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½Î¾ï¿½ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï°ï¿½ Stateï¿½ï¿½ ï¿½Ù²Ù¾ï¿½ ï¿½Ø´ï¿½.
 #endif
   {
 #ifndef __THREADED_LOADING
@@ -98,7 +98,7 @@ int CGameStateTitle::Leave(int iNextStateID) {
 
 unsigned __stdcall CGameStateTitle::ThreadFunc(void* pArguments) {
   setDelayedLoad( 0 );
-  CImageResManager::GetSingletonPtr()->LoadImageResources();
+  CImageResManager::GetSingleton().LoadImageResources();
 
   g_itMGR.Init();
 
@@ -108,7 +108,7 @@ unsigned __stdcall CGameStateTitle::ThreadFunc(void* pArguments) {
   g_pTerrain->LoadZONE( m_iBackGroundZone, false );
 
   ///
-  /// Ä«¸Þ¶ó ¸ð¼ÇÀº 32_32 ±âÁØÀ¸·Î ¸¸µé¾îÁ³´Ù.. ¸ð¼ÇÀû¿ëÀ» À§ÇØ¼­ º¸Á¤ÇÑ´Ù.
+  /// Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 32_32 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
   ///
   D3DVECTOR PosENZIN;
   PosENZIN.x = 520000.0f;
@@ -124,7 +124,7 @@ unsigned __stdcall CGameStateTitle::ThreadFunc(void* pArguments) {
 void CGameStateTitle::Draw() {
   setClearColor( 1, 1, 1 );
   if ( g_pCApp->IsActive() ) {
-    if ( !beginScene() ) //  µð¹ÙÀÌ½º°¡ ¼Õ½ÇµÈ »óÅÂ¶ó¸é 0À» ¸®ÅÏÇÏ¹Ç·Î, ¸ðµç ·»´õ¸µ ½ºÅµ
+    if ( !beginScene() ) //  ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Õ½Çµï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
     {
       return;
     }

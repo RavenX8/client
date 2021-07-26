@@ -32,15 +32,25 @@ struct S_TutorialImage {
 };
 
 //---------------------------------------------------------------------------------------
-class CTutorialEventManager : public CJSingleton<CTutorialEventManager> {
+class CTutorialEventManager {
 private:
 
   CTutorialEvent              m_TutorialEvent;
   CLevelUpEvent               m_LevelUpEvent;
   std::deque<S_TutorialImage> m_tutorial_images;
-public:
   CTutorialEventManager(void );
+public:
   ~CTutorialEventManager(void);
+
+  CTutorialEventManager(const CTutorialEventManager&) = delete;
+  CTutorialEventManager& operator=(const CTutorialEventManager &) = delete;
+  CTutorialEventManager(CTutorialEventManager &&) = delete;
+  CTutorialEventManager & operator=(CTutorialEventManager &&) = delete;
+
+  static auto& GetSingleton(){
+    static CTutorialEventManager inst;
+    return inst;
+  }
 
   bool Init();
   void Release();

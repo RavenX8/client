@@ -9,7 +9,7 @@ extern bool CustomAssertFunction( bool, char*, int, char*, bool & );
 		if( !ignoreAlways ) { \
 			if( CustomAssertFunction( exp, description, \
 							__LINE__, __FILE__, ignoreAlways ) ) \
-			{ _asm { int 3 } } \
+			{ __debugbreak(); } \
 		} \
 	}
 #else

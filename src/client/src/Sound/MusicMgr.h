@@ -18,15 +18,25 @@ enum PLAYER_TYPE {
 ///
 //---------------------------------------------------------------------------------------------
 
-class CMusicMgr : public CJSingleton<CMusicMgr> {
+class CMusicMgr {
 private:
-  /// ÇöÀç ¹ÂÁ÷ ÇÃ·¹ÀÌ¾î.
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½.
   CMusicPlayer* m_pPlayer;
   bool          m_bReadyDevice;
 
-public:
   CMusicMgr(void );
+public:
   ~CMusicMgr(void);
+
+  CMusicMgr(const CMusicMgr&) = delete;
+  CMusicMgr& operator=(const CMusicMgr &) = delete;
+  CMusicMgr(CMusicMgr &&) = delete;
+  CMusicMgr & operator=(CMusicMgr &&) = delete;
+
+  static auto& GetSingleton(){
+    static CMusicMgr inst;
+    return inst;
+  }
 
   bool Init(PLAYER_TYPE playerType);
   bool bIsReady() { return m_bReadyDevice; }

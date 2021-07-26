@@ -22,8 +22,6 @@ unsigned long ReadRegistryKeyValue(HKEY hRootKey, const char* Path, const char* 
   return 0;
 }
 
-CCountry _country;
-
 CCountry::CCountry(void) {
   m_dwCountryCode = 0;
   ZeroMemory(&m_bIsThatCountry, sizeof(m_bIsThatCountry));
@@ -35,8 +33,8 @@ bool            CCountry::CheckCountry() {
   char*         Path    = "SOFTWARE\\TriggerSoft\\Rose Online";
   unsigned long dwValue = ReadRegistryKeyValue( HKEY_LOCAL_MACHINE, Path, "Language" );
 
-  memset( m_bIsThatCountry, 0, sizeof(m_bIsThatCountry) );
-  m_dwCountryCode = 0;
+//  memset( m_bIsThatCountry, 0, sizeof(m_bIsThatCountry) );
+//  m_dwCountryCode = 0;
 
   if ( dwValue < COUNTRY_MAX ) {
     m_dwCountryCode           = dwValue;
@@ -48,7 +46,7 @@ bool            CCountry::CheckCountry() {
 }
 
 //*-----------------------------------------------------------------------------------------/
-/// »õ·Î¿î ½Ã½ºÅÛÀ» Àû¿ë½ÃÄÑ¾ß ÇÏ´Â°¡?
+/// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½Ï´Â°ï¿½?
 //*-----------------------------------------------------------------------------------------/
 bool CCountry::IsApplyNewVersion() {
   //	if( this->IsTAIWAN() || this->IsPhilipplines() || this->IsUSA() || this->IsEU() ) 
@@ -64,7 +62,7 @@ bool CCountry::IsApplyNewVersion() {
 }
 
 //*-----------------------------------------------------------------------------------------/
-///UseItem Delay¸¦ »õ·Ó°Ô Àû¿ëµÉ ±¹°¡Ã¼Å© 
+///UseItem Delayï¿½ï¿½ ï¿½ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼Å© 
 //*-----------------------------------------------------------------------------------------/
 bool CCountry::IsUseItemDelayNewVersion() {
   return true;
@@ -104,10 +102,10 @@ bool CCountry::IsEU() {
 }
 
 //---------------------------------------------------------------------------------------
-/// @brief Å¬¶óÀÌ¾ðÆ® ½ÇÇà½Ã ·ÎµåµÈ ·¹Áö½ºÆ®¸®¿¡¼­ ÀÎÀÚ·Î ³Ñ¾î¿Â ±¹°¡ÄÚµå°¡ °°ÀºÁö ÆÇ´ÜÇÑ´Ù.
+/// @brief Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Úµå°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 //---------------------------------------------------------------------------------------
 bool CCountry::IsCountry(int country) {
-  /// ¹è¿­ ¹üÀ§ Ã¼Å©
+  /// ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
   assert( country >= 0 && country < COUNTRY_MAX );
   if ( country < 0 && country >= COUNTRY_MAX ) return false;
 

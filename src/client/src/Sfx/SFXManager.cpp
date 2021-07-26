@@ -7,7 +7,7 @@
 #include "SFXWideScreen.h"
 
 /// for singleton
-CSFXManager __sfxManager;
+//CSFXManager __sfxManager;
 
 CSFXManager::CSFXManager(void) {}
 

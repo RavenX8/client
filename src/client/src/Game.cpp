@@ -44,7 +44,7 @@
 #include "GameProc/CDayNNightProc.h"
 #include "System/CGame.h"
 
-CGAMEDATA _GameData;
+//CGAMEDATA _GameData;
 
 CObjUSER* g_pAVATAR = nullptr;
 
@@ -71,7 +71,7 @@ D3DCOLOR g_dwCOLOR[] = {
   g_dwPINK
 };
 
-//// Util ÀÇ Output string ÀÇ ±¸Çö
+//// Util ï¿½ï¿½ Output string ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void WriteLOG(char*) {}
 
 //
@@ -88,7 +88,7 @@ void DrawLoadingImage() {
   //
   //if( !bLostFocus )
   {
-    if ( !beginScene() ) //  µð¹ÙÀÌ½º°¡ ¼Õ½ÇµÈ »óÅÂ¶ó¸é 0À» ¸®ÅÏÇÏ¹Ç·Î, ¸ðµç ·»´õ¸µ ½ºÅµ
+    if ( !beginScene() ) //  ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Õ½Çµï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
     {
       return;
     }
@@ -135,10 +135,10 @@ CGAMEDATA::CGAMEDATA() {
   //ZeroMemory(&m_PasswordMD5, sizeof(m_PasswordMD5));
   m_PasswordMD5.clear();
 
-  m_dwGameStartTime    = GetTime(); /// °ÔÀÓ ½ÃÀÛ ½Ã°£.
-  m_dwFrevFrameTime    = 0;         /// ÀÌÀü ÇÁ·¹ÀÓ Å¸ÀÓ
-  m_dwElapsedGameTime  = 0;         /// °ÔÀÓ ½ÃÀÛÈÄ ÁøÇà½Ã°£.
-  m_dwElapsedFrameTime = 0;         /// ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­ÀÇ ÁøÇà½Ã°£..
+  m_dwGameStartTime    = GetTime(); /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
+  m_dwFrevFrameTime    = 0;         /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+  m_dwElapsedGameTime  = 0;         /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½.
+  m_dwElapsedFrameTime = 0;         /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½..
   m_bForOpenTestServer = false;
 
   GetSystemTime( &m_SystemTime );
@@ -160,7 +160,7 @@ CGAMEDATA::CGAMEDATA() {
   m_bJustObjectLoadMode = false;
 
 #ifdef _DEBUG
-	m_bObserverCameraMode	= false; /// µð¹ö±ë¿ë ¾÷Á®¹ö Ä«¸Þ¶ó..
+	m_bObserverCameraMode	= false; /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½..
 #endif
 
   m_iReceivedAvatarEXP = 0;

@@ -91,11 +91,12 @@ if(WIN32)
   ExternalProject_Add(
     lua5_core
     DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
     CONFIGURE_COMMAND ""
     BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /EHsc
     <SOURCE_DIR>/src/lapi.c
     <SOURCE_DIR>/src/lcode.c
+    <SOURCE_DIR>/src/lctype.c
     <SOURCE_DIR>/src/ldebug.c
     <SOURCE_DIR>/src/ldo.c
     <SOURCE_DIR>/src/ldump.c
@@ -109,12 +110,11 @@ if(WIN32)
     <SOURCE_DIR>/src/lstate.c
     <SOURCE_DIR>/src/lstring.c
     <SOURCE_DIR>/src/ltable.c
-    <SOURCE_DIR>/src/ltests.c
     <SOURCE_DIR>/src/ltm.c
     <SOURCE_DIR>/src/lundump.c
     <SOURCE_DIR>/src/lvm.c
     <SOURCE_DIR>/src/lzio.c
-    && lib lapi.obj lcode.obj ldebug.obj ldo.obj ldump.obj lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj lparser.obj lstate.obj lstring.obj ltable.obj ltests.obj ltm.obj lundump.obj lvm.obj lzio.obj
+    && lib lapi.obj lcode.obj lctype.obj ldebug.obj ldo.obj ldump.obj lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj lparser.obj lstate.obj lstring.obj ltable.obj ltm.obj lundump.obj lvm.obj lzio.obj
     /OUT:${LUA_INSTALL_DIR}/liblua5.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
@@ -125,18 +125,22 @@ if(WIN32)
   ExternalProject_Add(
     lua5_std
     DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /EHsc
-    <SOURCE_DIR>/src/lib/lauxlib.c
-    <SOURCE_DIR>/src/lib/lbaselib.c
-    <SOURCE_DIR>/src/lib/ldblib.c
-    <SOURCE_DIR>/src/lib/liolib.c
-    <SOURCE_DIR>/src/lib/lmathlib.c
-    <SOURCE_DIR>/src/lib/ltablib.c
-    <SOURCE_DIR>/src/lib/lstrlib.c
-    <SOURCE_DIR>/src/lib/loadlib.c
-    && lib lauxlib.obj lbaselib.obj ldblib.obj liolib.obj lmathlib.obj ltablib.obj lstrlib.obj loadlib.obj /OUT:${LUA_INSTALL_DIR}/liblua5lib.lib
+    BUILD_COMMAND cl /c /I <SOURCE_DIR>/src /EHsc
+    <SOURCE_DIR>/src/lauxlib.c
+    <SOURCE_DIR>/src/lbaselib.c
+    <SOURCE_DIR>/src/lcorolib.c
+    <SOURCE_DIR>/src/ldblib.c
+    <SOURCE_DIR>/src/liolib.c
+    <SOURCE_DIR>/src/lmathlib.c
+    <SOURCE_DIR>/src/loadlib.c
+    <SOURCE_DIR>/src/loslib.c
+    <SOURCE_DIR>/src/lstrlib.c
+    <SOURCE_DIR>/src/ltablib.c
+    <SOURCE_DIR>/src/lutf8lib.c
+    <SOURCE_DIR>/src/linit.c
+    && lib lauxlib.obj lbaselib.obj lcorolib.obj ldblib.obj liolib.obj lmathlib.obj ltablib.obj lstrlib.obj loadlib.obj loslib.obj lutf8lib.obj linit.obj /OUT:${LUA_INSTALL_DIR}/liblua5lib.lib
     INSTALL_COMMAND ""
     BUILD_IN_SOURCE true
     INSTALL_DIR ${LUA_INSTALL_DIR}
@@ -147,10 +151,10 @@ if(WIN32)
     lua5_interp
     DEPENDS lua5_core lua5_std
     DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src/EHsc -DLUA_OPNAMES
-    <SOURCE_DIR>/src/lua/lua.c
+    BUILD_COMMAND cl /I <SOURCE_DIR>/src/EHsc -DLUA_OPNAMES
+    <SOURCE_DIR>/src/lua.c
     ${LUA_INSTALL_DIR}/liblua5.lib
     ${LUA_INSTALL_DIR}/liblua5lib.lib
     INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/lua.exe <INSTALL_DIR>/lua5.exe
@@ -163,12 +167,10 @@ if(WIN32)
     lua5_compiler
     DEPENDS lua5_core lua5_std
     DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.0.0
+    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /I <SOURCE_DIR>/include /I <SOURCE_DIR>/src /I <SOURCE_DIR>/src/luac /EHsc -DLUA_OPNAMES
-    <SOURCE_DIR>/src/luac/luac.c
-    <SOURCE_DIR>/src/luac/print.c
-    <SOURCE_DIR>/src/lopcodes.c
+    BUILD_COMMAND cl /I <SOURCE_DIR>/src /EHsc -DLUA_OPNAMES
+    <SOURCE_DIR>/src/luac.c
     ${LUA_INSTALL_DIR}/liblua5.lib
     ${LUA_INSTALL_DIR}/liblua5lib.lib
     INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/luac.exe <INSTALL_DIR>/luac5.exe
@@ -242,7 +244,7 @@ if(WIN32)
 endif()
 
 
-set(LUA_INCLUDE_DIR "${source_dir}/include")
+set(LUA_INCLUDE_DIR "${source_dir}/src")
 
 if(NOT TARGET lua::lua5)
   add_library(lua::lua5 INTERFACE IMPORTED)
