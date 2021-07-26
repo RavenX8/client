@@ -26,10 +26,9 @@ link_directories(
 
 add_linker_flags("/SAFESEH:NO")
 add_linker_flags("/SUBSYSTEM:WINDOWS")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
 
 set(args
-  LUA4
   TARGET TRose_GM
   LUAFILES src/export_GM.lua
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/Game_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/Game_FUNC_REG.inc
@@ -39,7 +38,6 @@ generate_lua_includes(GAME_LUA_HEADERS ${args})
 set(GEN_HEADERS ${GAME_LUA_HEADERS})
 
 set(args
-  LUA4
   TARGET TRose_QF
   LUAFILES src/export_QF.lua
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_REG.inc
@@ -49,7 +47,6 @@ generate_lua_includes(GAME_LUA_HEADERS ${args})
 set(GEN_HEADERS ${GEN_HEADERS} ${GAME_LUA_HEADERS})
 
 set(args
-  LUA4
   TARGET TRose_System
   LUAFILES src/export_System.lua
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/System/System_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/System/System_FUNC_REG.inc
@@ -840,7 +837,7 @@ if (NOT 64BIT)
     target_link_libraries(${PROJECT} PRIVATE unicows.lib)
 endif()
 target_link_libraries(${PROJECT} PRIVATE WSock32.lib ws2_32.lib)
-target_link_libraries(${PROJECT} PRIVATE lua::lua4)
+target_link_libraries(${PROJECT} PRIVATE lua::lua5)
 #target_link_libraries(${PROJECT} PRIVATE ultralight::ultralight)
 target_link_libraries(${PROJECT} PRIVATE utils::zlib)
 target_link_libraries(${PROJECT} PRIVATE utils::expat)

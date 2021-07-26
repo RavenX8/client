@@ -183,7 +183,7 @@ bool     zz_script_lua::do_script(const char* filename, const char* buffer) {
   if ( ret != false ) {
     lua_error = luaL_loadbuffer( L, data, size, nullptr );
     if (lua_error == LUA_OK)
-      lua_call(L, 0, 0);
+      lua_error = lua_pcall(L, 0, 0, 0);
 //    lua_error = luaL_dostring( L, data );
     //script_file.dump();
   }

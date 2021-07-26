@@ -28,8 +28,10 @@ public:
   CSystemProcScript & operator=(CSystemProcScript &&) = delete;
 
   static auto& GetSingleton(){
-    static CSystemProcScript inst;
-    return inst;
+    static CSystemProcScript* inst = nullptr;
+    if(inst == nullptr)
+      inst = new CSystemProcScript();
+    return *inst;
   }
 
   ///

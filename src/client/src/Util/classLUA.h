@@ -13,7 +13,7 @@ extern "C" {
 //-------------------------------------------------------------------------------------------------
 
 /*
-LUA¿¡¼­ È£ÃâµÇµµ·Ï µî·ÏÇÒ ÇÔ¼öÀÇ ÇüÅÂ.
+LUAï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 int lua_Write (lua_State *L)
 {
   int i, n = lua_gettop(L);	//
@@ -31,7 +31,7 @@ int lua_Write (lua_State *L)
 */
 
 /*
-    static index´Â 1ºÎÅÍ !!! 0ºÎÅÍ ¾Æ´Ô.
+    static indexï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ !!! 0ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½.
 */
 class classLUA {
 private :
@@ -44,31 +44,31 @@ public :
   classLUA(int iStackSize = 0);
   ~classLUA();
 
-  // ½ÇÇà.
+  // ï¿½ï¿½ï¿½ï¿½.
   int LoadToBuffer(const char* szFileName);
-  int Do_File(const char*      szFileName) { return lua_dofile( m_pState, szFileName ); }
-  int Do_String(const char*    pString) { return lua_dostring( m_pState, pString ); }
+  int Do_File(const char*      szFileName) { return luaL_dofile( m_pState, szFileName ); }
+  int Do_String(const char*    pString) { return luaL_dostring( m_pState, pString ); }
   int Do_Buffer(const char*    pBuffer, size_t iSize, const char* szNameOfTheChunk = nullptr);
   int Do_Buffer(void           ) { return ((m_pBuffer) ? Do_Buffer( (const char*)m_pBuffer, m_lBufferSize ) : -1); }
 
-  // C ÇÔ¼ö µî·Ï.
+  // C ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½.
   void Reg_Function(const char* szFunctionName, lua_CFunction Function);
 
-  // ½ºÅØ °Ë»ç.  iIndex == ½ºÅØ ÀÎµ¦½º
-  int         Stack_QueryType(int iIndex) { return lua_type( m_pState, iIndex ); }   // ½ºÅØÀÇ iIndexÀÇ element ÀÚ·á ÇüÅÂ¸¦ ÆÇ´ÜÇÑ´Ù.
-  const char* Stack_TypeName(int  iType) { return lua_typename( m_pState, iType ); } // ½ºÅØÀÇ Stack_QueryType¿¡¼­ ¾òÀº ÇüÅÂÀÇ ÀÌ¸§À» ¾ò´Â´Ù.
-  int         Stack_GetSpaceCount() { return lua_stackspace( m_pState ); }           // ½ºÅØÀÇ ³²Àº °ø°£À» ¾ò´Â´Ù.
-  int         Stack_GetElementCount() { return lua_gettop( m_pState ); }             // ½ºÅØÀÇ element ¼ö¸¦ ¾ò´Â´Ù.
-  void        Stack_Clear() { lua_settop( m_pState, 0 ); }                           // ½ºÅØÀ» ºñ¿î´Ù.
-  void        Stack_SetTop(int    iIndex) { lua_settop( m_pState, iIndex ); }        // ½ºÅØÀÇ top index¸¦ iIndex·Î ¹Ù²Û´Ù.
-  void        Stack_PushValue(int iIndex) { lua_pushvalue( m_pState, iIndex ); }     // ½ºÅØÀÇ iIndexÀÇ element¸¦ ½ºÅØ¿¡ pushÇÑ´Ù.
-  void        Stack_Remove(int    iIndex) { lua_remove( m_pState, iIndex ); }        // ½ºÅØÀÇ iIndex¸¦ »èÁ¦ÇÑ´Ù.
-  void        Stack_Move(int      iIndex) { lua_insert( m_pState, iIndex ); }        // ½ºÅØÀÇ top element¸¦ iIndex·Î ¿Å±ä´Ù.
-  int         Stack_Tag(int       iIndex) { return lua_tag( m_pState, iIndex ); }
+  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½.  iIndex == ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+  int         Stack_QueryType(int iIndex) { return lua_type( m_pState, iIndex ); }   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ iIndexï¿½ï¿½ element ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
+  const char* Stack_TypeName(int  iType) { return lua_typename( m_pState, iType ); } // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Stack_QueryTypeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
+//  int         Stack_GetSpaceCount() { return lua_stackspace( m_pState ); }           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
+  int         Stack_GetElementCount() { return lua_gettop( m_pState ); }             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ element ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
+  void        Stack_Clear() { lua_settop( m_pState, 0 ); }                           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+  void        Stack_SetTop(int    iIndex) { lua_settop( m_pState, iIndex ); }        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ top indexï¿½ï¿½ iIndexï¿½ï¿½ ï¿½Ù²Û´ï¿½.
+  void        Stack_PushValue(int iIndex) { lua_pushvalue( m_pState, iIndex ); }     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ iIndexï¿½ï¿½ elementï¿½ï¿½ ï¿½ï¿½ï¿½Ø¿ï¿½ pushï¿½Ñ´ï¿½.
+  void        Stack_Remove(int    iIndex) { lua_remove( m_pState, iIndex ); }        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ iIndexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+  void        Stack_Move(int      iIndex) { lua_insert( m_pState, iIndex ); }        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ top elementï¿½ï¿½ iIndexï¿½ï¿½ ï¿½Å±ï¿½ï¿½.
+//  int         Stack_Tag(int       iIndex) { return lua_tag( m_pState, iIndex ); }
 
   void Stack_PushNumber(double      dbValue) { lua_pushnumber( m_pState, dbValue ); }
   void Stack_PushString(const char* pStr, size_t iLen = -1);
-  void Stack_PushUserTag(void*      pData, int   iTag) { lua_pushusertag( m_pState, pData, iTag ); }
+//  void Stack_PushUserTag(void*      pData, int   iTag) { lua_pushusertag( m_pState, pData, iTag ); }
   void Stack_PushNil() { lua_pushnil( m_pState ); }
 
   void Stack_PushCFunction(lua_CFunction Func) {
@@ -76,7 +76,7 @@ public :
   }
 
   bool Is_Nil(int       iIndex) { return lua_isnil (m_pState, iIndex); }
-  bool Is_Null(int      iIndex) { return lua_isnull (m_pState, iIndex); }
+//  bool Is_Null(int      iIndex) { return lua_isnull (m_pState, iIndex); }
   bool Is_Number(int    iIndex) { return (0 != lua_isnumber( m_pState, iIndex )); }
   bool Is_String(int    iIndex) { return (0 != lua_isstring( m_pState, iIndex )); }
   bool Is_CFunction(int iIndex) { return (0 != lua_iscfunction( m_pState, iIndex )); }
@@ -87,7 +87,7 @@ public :
   double        To_Double(int    iIndex) { return lua_tonumber( m_pState, iIndex ); }
   int           To_Number(int    iIndex) { return (int)lua_tonumber( m_pState, iIndex ); }
   const char*   To_String(int    iIndex) { return lua_tostring( m_pState, iIndex ); }
-  size_t        StringLength(int iIndex) { return lua_strlen( m_pState, iIndex ); }
+//  size_t        StringLength(int iIndex) { return lua_strlen( m_pState, iIndex ); }
   lua_CFunction To_CFunction(int iIndex) { return lua_tocfunction( m_pState, iIndex ); }
   void*         To_UserData(int  iIndex) { return lua_touserdata( m_pState, iIndex ); }
 
@@ -110,7 +110,13 @@ public :
 };
 
 inline int classLUA::Do_Buffer(const char* pBuffer, size_t iSize, const char* szNameOfTheChunk) {
-  return lua_dobuffer( m_pState, pBuffer, iSize, szNameOfTheChunk );
+  auto lua_error = luaL_loadbuffer( m_pState, pBuffer, iSize, szNameOfTheChunk );
+  if (lua_error == LUA_OK) lua_error = lua_pcall(m_pState, 0, LUA_MULTRET, 0);
+  if (lua_error != LUA_OK) {
+    fprintf(stderr, "%s\n", lua_tostring(m_pState, -1));
+    lua_pop(m_pState, 1);/* pop error message from the stack */
+  }
+  return lua_error;
 }
 
 inline void classLUA::Reg_Function(const char* szFunctionName, lua_CFunction Function) {

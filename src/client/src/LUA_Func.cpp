@@ -28,15 +28,14 @@ unsigned int get_param_uint(lua_State* L, int& index_from_end, const char* where
 }
 
 unsigned long long get_param_uint64(lua_State* L, int& index_from_end, const char* where) {
-//  int        index = lua_gettop( L ) - index_from_end;
-//  _ASSERT(index >= 1);
-//  index_from_end++;
-//  if ( !lua_isinteger( L, index ) ) {
-//    LogString(LOG_DEBUG, "script_lua: %s().parameter(uint) match failed\n", where);
-//    return 0;
-//  }
-//  return (unsigned long long)lua_tointeger( L, index );
-  return get_param_uint(L, index_from_end, where);
+  int        index = lua_gettop( L ) - index_from_end;
+  _ASSERT(index >= 1);
+  index_from_end++;
+  if ( !lua_isinteger( L, index ) ) {
+    LogString(LOG_DEBUG, "script_lua: %s().parameter(uint) match failed\n", where);
+    return 0;
+  }
+  return (unsigned long long)lua_tointeger( L, index );
 }
 
 int   get_param_int(lua_State* L, int& index_from_end, const char* where) {
@@ -97,10 +96,9 @@ void set_param_uint(lua_State* L, int& return_num, unsigned int val) {
 }
 
 void set_param_uint64(lua_State* L, long long& return_num, unsigned long long val) {
-//  f_return_uint64 = val;
-//  lua_pushinteger( L, val );
-//  return_num++;
-  set_param_uint(L, (int&)return_num, val);
+  f_return_uint64 = val;
+  lua_pushinteger( L, val );
+  return_num++;
 }
 
 void set_param_int(lua_State* L, int& return_num, int val) {
