@@ -7,51 +7,17 @@ set(_byproducts
   ${VORBIS_INSTALL_DIR}/lib/libvorbis.a
 )
 
-if(WIN32 OR MINGW)
-#  if(MINGW)
-#    ExternalProject_Add(
-#      vorbis
-#      DOWNLOAD_COMMAND ""
-#      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/libvorbis-1.2.0
-#      CONFIGURE_COMMAND ""
-#      BUILD_COMMAND gcc -shared <SOURCE_DIR>/lib/analysis.c
-#        <SOURCE_DIR>/lib/bitrate.c
-#        <SOURCE_DIR>/lib/block.c
-#        <SOURCE_DIR>/lib/codebook.c
-#        <SOURCE_DIR>/lib/envelope.c
-#        <SOURCE_DIR>/lib/floor0.c
-#        <SOURCE_DIR>/lib/floor1.c
-#        <SOURCE_DIR>/lib/info.c
-#        <SOURCE_DIR>/lib/lookup.c
-#        <SOURCE_DIR>/lib/lpc.c
-#        <SOURCE_DIR>/lib/lsp.c
-#        <SOURCE_DIR>/lib/mapping0.c
-#        <SOURCE_DIR>/lib/mdct.c
-#        <SOURCE_DIR>/lib/psy.c
-#        <SOURCE_DIR>/lib/registry.c
-#        <SOURCE_DIR>/lib/res0.c
-#        <SOURCE_DIR>/lib/sharedbook.c
-#        <SOURCE_DIR>/lib/smallft.c
-#        <SOURCE_DIR>/lib/synthesis.c
-#        <SOURCE_DIR>/lib/window.c
-#        -o ${VORBIS_INSTALL_DIR}/libvorbis.a
-#      BUILD_IN_SOURCE true
-#      BUILD_BYPRODUCTS ${_byproducts}
-#      INSTALL_COMMAND ""
-#      INSTALL_DIR ${VORBIS_INSTALL_DIR}
-#    )
-#  else()
+#if(WIN32 OR MINGW)
     ExternalProject_Add(
-      vorbis
+      vorbis DEPENDS utils::ogg
       GIT_REPOSITORY https://gitlab.xiph.org/xiph/vorbis.git
-      GIT_TAG v1.3.7
+      GIT_TAG 0657aee69dec8508a0011f47f3b69d7538e9d262
       GIT_SHALLOW true
       CMAKE_ARGS -G ${CMAKE_GENERATOR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${VORBIS_INSTALL_DIR} -DOGG_LIBRARY=${OGG_LIBRARY} -DOGG_INCLUDE_DIR=${OGG_INCLUDE_DIR}
       BUILD_BYPRODUCTS ${_byproducts}
       INSTALL_DIR ${VORBIS_INSTALL_DIR}
     )
-#  endif()
-endif()
+#endif()
 
 
 ExternalProject_Get_Property(

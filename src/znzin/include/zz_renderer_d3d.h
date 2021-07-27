@@ -172,7 +172,7 @@ protected:
   int          num_polygons_;      // number of rendered polygons in a frame
   int          num_meshes_;        // number of rendered meshes in a frame
   unsigned int max_texture_memory; // maximum(initial) available texture memory by GetAvailableTextureMem
-  unsigned int min_texture_memory; // minimum          available texture memory 
+  unsigned int min_texture_memory; // minimum          available texture memory
   //bool create_update_vertex_buffer (zz_mesh * mesh, bool only_update);
 
   ZZ_RENDERWHERE render_where; // render to where. controlled by begin_scene() end_scene()

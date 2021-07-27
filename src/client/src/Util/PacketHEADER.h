@@ -5,7 +5,6 @@
 //-------------------------------------------------------------------------------------------------
 
 #define	MAX_PACKET_SIZE			( (size_t)1024 )
-#define SOCKET_NETWORK_STATUS	0x07ff
 
 #pragma pack (push, 1)
 #ifndef	__T_PACKETHEADER
@@ -32,7 +31,7 @@ struct t_NETWORK_STATUS : public t_PACKETHEADER {
 
 #define NETWORK_STATUS_CONNECT			0x001
 #define	NETWORK_STATUS_ACCEPTED			0x002
-#define NETWORK_STATUS_DISCONNECT		0x003	// ¼­¹ö¿ÍÀÇ Á¢¼ÓÀÌ ²÷°å´Ù.. But TGNet_DisconnectFromServerÈ£ÃâÇØ¾ßµÇ~~
+#define NETWORK_STATUS_DISCONNECT		0x003	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.. But TGNet_DisconnectFromServerÈ£ï¿½ï¿½ï¿½Ø¾ßµï¿½~~
 #define NETWORK_STATUS_DERVERDEAD		0x004
 #pragma pack (pop)
 //-------------------------------------------------------------------------------------------------

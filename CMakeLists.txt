@@ -91,7 +91,7 @@ include(Build-ijl15) # This doesn't actually build anything, just sets up the ta
 include(Build-sqlite3)
 include(Build-vorbis)
 include(Build-osirose-common)
-include(Build-Ultralight)
+#include(Build-Ultralight)
 
 include(LuaIncludeGenerator)
 
