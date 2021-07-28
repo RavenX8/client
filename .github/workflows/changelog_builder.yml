@@ -19,9 +19,8 @@ jobs:
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: update-pull-request
-        uses: kt3k/update-pr-description@v1.0.1
+      - name: Update Pull Request Description
+        uses: riskledger/update-pr-description@v2
         with:
-          pr_body: ${{steps.build_changelog.outputs.changelog}}
-          destination_branch: ${{ github.base_ref }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          body: ${{steps.build_changelog.outputs.changelog}}
+          token: ${{ secrets.GITHUB_TOKEN }}
