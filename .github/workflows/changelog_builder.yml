@@ -15,7 +15,7 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v2.0.0
         with:
           configuration: ".github/config/configuration.json"
-          commitMode: ${{ !startsWith(github.ref, 'refs/tags/') }}
+          commitMode: ${{ !startsWith(github.ref, 'refs/pull/') }}
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -23,4 +23,5 @@ jobs:
         uses: kt3k/update-pr-description@v1.0.1
         with:
           pr_body: ${{steps.build_changelog.outputs.changelog}}
+          destination_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
