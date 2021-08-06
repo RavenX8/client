@@ -24,7 +24,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DTRIGGERINFO_EXPORTS -D_WINDOWS -D_USRD
 set( SOURCES_HEADER
   include/triggerinfo/reg.h
   include/triggerinfo/AdapterInfo.h
-  include/triggerinfo/CpuInfo.h
   include/triggerinfo/dispinfo.h
   include/triggerinfo/Http.h
   include/triggerinfo/SysInfo.h
@@ -38,7 +37,6 @@ set( SOURCES_HEADER
 set( SOURCES_MAIN
   src/reg.cpp
   src/AdapterInfo.cpp
-  src/CpuInfo.cpp
   src/getdxver.cpp
   src/Http.cpp
   src/SysInfo.cpp
