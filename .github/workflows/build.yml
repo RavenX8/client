@@ -142,7 +142,7 @@ jobs:
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v2.0.0
         with:
-          configuration: ".github/configuration.json"
+          configuration: ".github/config/configuration.json"
           commitMode: ${{ !startsWith(github.ref, 'refs/tags/') }}
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
           token: ${{ secrets.GITHUB_TOKEN }}

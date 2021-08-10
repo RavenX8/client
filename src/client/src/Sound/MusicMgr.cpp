@@ -6,7 +6,7 @@
 #include "MSSMusicPlayer.h"
 
 /// for singleton
-CMusicMgr _MusicMgr;
+//CMusicMgr _MusicMgr;
 
 CMusicMgr::CMusicMgr(void) {
   m_pPlayer      = nullptr;

@@ -3,7 +3,11 @@
 */
 #ifndef	__IO_MESH_H
 #define	__IO_MESH_H
+#ifdef _WIN64
+typedef size_t HNODE;
+#else
 typedef unsigned int HNODE;
+#endif
 
 //-------------------------------------------------------------------------------------------------
 

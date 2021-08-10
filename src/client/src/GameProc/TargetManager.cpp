@@ -11,7 +11,7 @@
 #include "tgamectrl/ResourceMgr.h"
 #include "../Interface/CNameBox.h"
 
-CTargetManager _TargetManager;
+//CTargetManager _TargetManager;
 
 CTargetManager::CTargetManager(void) {}
 
@@ -26,11 +26,11 @@ void CTargetManager::Proc() {
     g_pViewMSG->AddObjIDX( m_iCurrentMouseTargetObject );
   }
 
-  /// ÇöÀç ¼±ÅÃµÈ ¿ÀºêÁ§Æ®°¡ ÀÖ°í
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö°ï¿½
   if ( g_UserInputSystem.GetCurrentTarget() ) {
-    /// ±×°ÍÀÌ ¸÷ÀÌ¶ó¸é
+    /// ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½
     CObjCHAR* pObj = (CObjCHAR*)g_pObjMGR->Get_CharOBJ( g_UserInputSystem.GetCurrentTarget(), true );
-    /// À¯È¿ÇÏÁö ¾ÊÀº Å¸°ÙÀÌ´Ù.. ¸¶¿ì½º ÄÄ¸Çµå ÃÊ±âÈ­
+    /// ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½Ì´ï¿½.. ï¿½ï¿½ï¿½ì½º ï¿½Ä¸Çµï¿½ ï¿½Ê±ï¿½È­
     if ( pObj != nullptr ) {
       if ( pObj->IsA( OBJ_MOB ) ) {
         g_pViewMSG->AddObjIDX( g_UserInputSystem.GetCurrentTarget() );
@@ -40,7 +40,7 @@ void CTargetManager::Proc() {
 }
 
 void CTargetManager::Draw() {
-  /// ¼±ÅÃµÈ Å¸°Ù Ãâ·Â.
+  /// ï¿½ï¿½ï¿½Ãµï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½.
   //if ( g_UserInputSystem.GetCurrentTarget() ) 
   //{		
   //	
@@ -50,7 +50,7 @@ void CTargetManager::Draw() {
   //		return;
 
   //	CObjCHAR *pObj = (CObjCHAR*)g_pObjMGR->Get_CharOBJ( g_UserInputSystem.GetCurrentTarget(), true );
-  //	/// À¯È¿ÇÏÁö ¾ÊÀº Å¸°ÙÀÌ´Ù.. ¸¶¿ì½º ÄÄ¸Çµå ÃÊ±âÈ­
+  //	/// ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½Ì´ï¿½.. ï¿½ï¿½ï¿½ì½º ï¿½Ä¸Çµï¿½ ï¿½Ê±ï¿½È­
   //	if( pObj == NULL )
   //	{
   //		g_UserInputSystem.ClearMouseState();

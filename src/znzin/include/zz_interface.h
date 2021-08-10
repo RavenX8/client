@@ -83,7 +83,8 @@ extern "C" {
 
 // 포인터를 unsigned int로 사용하기 위해
 // 주의! 32-bit 머신에서만 동작함
-typedef unsigned int HNODE;
+typedef size_t HNODE;
+
 
 typedef const char * ZSTRING;
 

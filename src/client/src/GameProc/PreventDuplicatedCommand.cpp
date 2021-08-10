@@ -3,14 +3,14 @@
 #include "../Game.h"
 
 /// for singleton
-CPreventDuplicatedCommand _PreventDuplicatedCommand;
+//CPreventDuplicatedCommand _PreventDuplicatedCommand;
 
 CPreventDuplicatedCommand::CPreventDuplicatedCommand(void) {}
 
 CPreventDuplicatedCommand::~CPreventDuplicatedCommand(void) {}
 
 //----------------------------------------------------------------------------------------------------
-/// °¢ Ç®µé ÃÊ±âÈ­
+/// ï¿½ï¿½ Ç®ï¿½ï¿½ ï¿½Ê±ï¿½È­
 //----------------------------------------------------------------------------------------------------
 void  CPreventDuplicatedCommand::Init() {
   int i = 0;
@@ -56,7 +56,7 @@ void  CPreventDuplicatedCommand::Init() {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// ¸í·É Ã¼Å© Å¥ ÃÊ±âÈ­
+/// ï¿½ï¿½ï¿½ Ã¼Å© Å¥ ï¿½Ê±ï¿½È­
 //----------------------------------------------------------------------------------------------------
 void                                  CPreventDuplicatedCommand::ClearCommandQueue() {
   std::list<SendedCommand*>::iterator begin = m_SendedCommandQueue.begin();
@@ -71,7 +71,7 @@ void                                  CPreventDuplicatedCommand::ClearCommandQue
 }
 
 //----------------------------------------------------------------------------------------------------
-/// ¸ðµç ¸®¼Ò½ºÅ¬¸®¾î
+/// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½Å¬ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 void CPreventDuplicatedCommand::ClearAll() {
   ClearCommandQueue();
@@ -104,7 +104,7 @@ void CPreventDuplicatedCommand::ClearAll() {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// Å¸ÀÌ¸Ó °»½Å..
+/// Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½..
 //----------------------------------------------------------------------------------------------------
 const int SKILL_DUPLICATED_DELAY = 1000;
 
@@ -117,7 +117,7 @@ void                                  CPreventDuplicatedCommand::Proc() {
     SendedCommand* pSendedCommand = *begin;
     CObjCommand*   pCommand       = pSendedCommand->pCommand;
 
-    /// 2ÃÊ°¡ °æ°ú µÇ¾ú´Ù¸é ÆÄ±«..
+    /// 2ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½ ï¿½Ä±ï¿½..
     if ( (dwCurrentTime - pSendedCommand->iElapsedTime) > SKILL_DUPLICATED_DELAY ) {
       if ( pCommand ) {
         m_CommandPool[pCommand->GetType()].push_back( pCommand );
@@ -133,7 +133,7 @@ void                                  CPreventDuplicatedCommand::Proc() {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// Ç®¿¡¼­ ÄÄ¸Çµå °´Ã¼¸¦ ±¸ÇÑ´Ù.
+/// Ç®ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¸Çµï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------------------------------------
 
 CObjCommand* CPreventDuplicatedCommand::GetObjCommand(int iType) {
@@ -162,7 +162,7 @@ CObjCommand* CPreventDuplicatedCommand::GetObjCommand(int iType) {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// º¸³½ ¸í·É ±¸Á¶Ã¼¸¦ º¸°üÇÑ´Ù.
+/// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------------------------------------
 
 SendedCommand* CPreventDuplicatedCommand::GetSendedCommand() {
@@ -178,12 +178,12 @@ SendedCommand* CPreventDuplicatedCommand::GetSendedCommand() {
 
 //----------------------------------------------------------------------------------------------------
 ///
-/// ÀÏ´Ü ½ºÅ³µéÀº Æ¯Á¤ ½Ã°£ÀÌÀü¿¡ ¿¬¼Ó »ç¿ëÀÌ ºÒ°¡´ÉÇÏ´Ù..
+/// ï¿½Ï´ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ï´ï¿½..
 ///
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------
-/// ¼¿ÇÁ ½ºÅ³
+/// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³
 //----------------------------------------------------------------------------------------------------
 bool                     CPreventDuplicatedCommand::PushSelfSkillCommand(int iSkillSlot) {
   CObjSkill2SelfCommand* pCommand = (CObjSkill2SelfCommand*)GetObjCommand( OBJECT_COMMAND_Skill2SELF );
@@ -203,7 +203,7 @@ bool                     CPreventDuplicatedCommand::PushSelfSkillCommand(int iSk
 }
 
 //----------------------------------------------------------------------------------------------------
-/// Å¸°Ù ½ºÅ³
+/// Å¸ï¿½ï¿½ ï¿½ï¿½Å³
 //----------------------------------------------------------------------------------------------------
 bool                    CPreventDuplicatedCommand::PushTargetSkillCommand(int iServerTarget, int iSkillSlot) {
   CObjSkill2ObjCommand* pCommand = (CObjSkill2ObjCommand*)GetObjCommand( OBJECT_COMMAND_Skill2OBJ );
@@ -223,7 +223,7 @@ bool                    CPreventDuplicatedCommand::PushTargetSkillCommand(int iS
 }
 
 //----------------------------------------------------------------------------------------------------
-/// Áö¿ª½ºÅ³
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³
 //----------------------------------------------------------------------------------------------------
 bool                    CPreventDuplicatedCommand::PushPositionSkillCommand(D3DVECTOR& PosTO, int iSkillSlot) {
   CObjSkill2PosCommand* pCommand = (CObjSkill2PosCommand*)GetObjCommand( OBJECT_COMMAND_Skill2POS );

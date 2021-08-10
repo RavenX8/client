@@ -6,7 +6,7 @@
 #include "../GameCommon/StringManager.h"
 
 /// for singleton
-CDelayedExp _DealyedExp;
+//CDelayedExp _DealyedExp;
 
 CDelayedExp::CDelayedExp(void) {}
 
@@ -32,12 +32,12 @@ void                            CDelayedExp::GetExp(int iOwnerIndex) {
 
     /// It's the time to apply to avatar.
     if ( expData.iOwnerIndex == iOwnerIndex ) {
-      /// °»½ÅµÈ ³» °æÇèÄ¡´Ù...
-      /// ¼ø¼­¿¡ ÀÇÇØ °è»ê°á°ú°¡ - °¡ ³ª¿Ã¼ö ÀÖ´Ù.. °á±¹ ÇöÀç °æÇèÄ¡°¡ ¾Æ´Ï¶ó.. Ãß°¡µÈ °æÇèÄ¡¸¦ 
-      /// Ã³¸®ÇÏ´Â°É·Î º¯°æ..
+      /// ï¿½ï¿½ï¿½Åµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½...
+      /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¼ï¿½ ï¿½Ö´ï¿½.. ï¿½á±¹ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½.. ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ 
+      /// Ã³ï¿½ï¿½ï¿½Ï´Â°É·ï¿½ ï¿½ï¿½ï¿½ï¿½..
       ///long lDiff = expData.iExp - g_pAVATAR->GetCur_EXP();
 
-      /// lDiffÀÇ °æÇèÄ¡¸¦ È¹µæÇß´Ù... ¸Þ¼¼ÁöÃâ·Â..
+      /// lDiffï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ß´ï¿½... ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
       char szMsg[256];
       sprintf( szMsg, STR_GET_EXP, expData.iAddExp );
       g_itMGR.AppendChatMsg( szMsg, IT_MGR::CHAT_TYPE_SYSTEM );
@@ -75,7 +75,7 @@ void                            CDelayedExp::Proc() {
 
     /// erase exp
     if ( bProcessExp ) {
-      /// lDiffÀÇ °æÇèÄ¡¸¦ È¹µæÇß´Ù... ¸Þ¼¼ÁöÃâ·Â..
+      /// lDiffï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ß´ï¿½... ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
       char szMsg[256];
       sprintf( szMsg, STR_GET_EXP, expData.iAddExp );
       g_itMGR.AppendChatMsg( szMsg, IT_MGR::CHAT_TYPE_SYSTEM );

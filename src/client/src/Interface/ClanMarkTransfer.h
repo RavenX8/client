@@ -11,10 +11,20 @@
 ///
 //----------------------------------------------------------------------------------
 
-class CClanMarkTransfer : public CJSingleton<CClanMarkTransfer> {
-public:
+class CClanMarkTransfer {
   CClanMarkTransfer(void );
+public:
   ~CClanMarkTransfer(void);
+
+  CClanMarkTransfer(const CClanMarkTransfer&) = delete;
+  CClanMarkTransfer& operator=(const CClanMarkTransfer &) = delete;
+  CClanMarkTransfer(CClanMarkTransfer &&) = delete;
+  CClanMarkTransfer & operator=(CClanMarkTransfer &&) = delete;
+
+  static auto& GetSingleton(){
+    static CClanMarkTransfer inst;
+    return inst;
+  }
 
   //----------------------------------------------------------------------------------
   /// Register clan mark to server.

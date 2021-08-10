@@ -4,7 +4,7 @@
 #include "../OBJECT.h"
 #include "../Interface/it_mgr.h"
 
-CTutorialEventUtility _TutorialEventUtility;
+//CTutorialEventUtility _TutorialEventUtility;
 
 CTutorialEventUtility::CTutorialEventUtility(void) {}
 
@@ -22,7 +22,7 @@ void CTutorialEventUtility::Release() {
   m_TblNotifyButtonEvent.Free();
 }
 
-/// ¾Ë¸² ¹öÆ° ÀÌº¥Æ®¸¦ »ý¼ºÇÑ´Ù.
+/// ï¿½Ë¸ï¿½ ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 bool CTutorialEventUtility::CreateNotifyEventButton(int iEventIdx) {
   if ( iEventIdx <= 0 )
     return false;
@@ -36,7 +36,7 @@ bool CTutorialEventUtility::CreateNotifyEventButton(int iEventIdx) {
 }
 
 //-------------------------------------------------------------------------------------------
-/// EventButton.STB¿¡ ¼³Á¤µÈ ¾Ë¸² ¹öÆ° ÀÌº¥Æ®¸¦ ½ÇÇàÇÑ´Ù.
+/// EventButton.STBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-------------------------------------------------------------------------------------------
 bool CTutorialEventUtility::ExecNotifyEvent(int iEventIdx) {
   if ( iEventIdx <= 0 )

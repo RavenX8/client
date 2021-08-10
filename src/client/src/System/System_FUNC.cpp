@@ -21,16 +21,17 @@
 #include "../Game_FUNC.h"
 
 void SC_InitGame() {}
+void randomseed(int) {}
 
 ///
-/// »õ·Î¿î½ºÅ©¸³Æ® ½ÇÇà
+/// ï¿½ï¿½ï¿½Î¿î½ºÅ©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 ///
 int SC_DoScript(ZSTRING strName) {
   return CSystemProcScript::GetSingleton().DoScript( strName );
 }
 
 ///
-/// Ä³¸¯ÅÍ »ý¼º°ü·Ã
+/// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ///
 
 HNODE SC_CreateAVT(ZSTRING strName, int    iRace, int     iFACE, int iHAIR, int iHELMET,
@@ -47,7 +48,7 @@ HNODE SC_CreateAVT(ZSTRING strName, int    iRace, int     iFACE, int iHAIR, int 
   return reinterpret_cast<HNODE>(pAvt);
 }
 
-/// ¾Æ¹ÙÅ¸ »èÁ¦
+/// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½
 void             SC_DestroyAVT(HNODE hAVT) {
   CJustModelAVT* pAvt = reinterpret_cast<CJustModelAVT*>(hAVT);
 
@@ -60,7 +61,7 @@ void             SC_DestroyAVT(HNODE hAVT) {
   }
 }
 
-/// ¸ð¼Ç ¼¼ÆÃ
+/// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void             SC_SetAvatarMotionByName(ZSTRING strName, ZSTRING strMotion) {
   CJustModelAVT* pAvt = CGameDataCreateAvatar::GetInstance().FindAvatar( strName );
   if ( pAvt )
@@ -154,7 +155,7 @@ void SC_AttachMotion(HNODE hNode, HNODE hMotion) {
 }
 
 //------------------------------------------------------------------------------------------
-/// ¸ð¼Ç Á¶ÀÛ °ü·Ã
+/// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------------------
 void SC_SetMotionFrame(HNODE hNode, int iFrame) {
   setAnimatableFrame( hNode, iFrame );
@@ -236,7 +237,7 @@ void SC_SetScale(HNODE hVisible, float x, float y, float z) {
 }
 
 ///
-/// Á¸ °ü¸®
+/// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 ///
 
 int SC_GetBGZoneNO(void) {
@@ -294,9 +295,9 @@ void             SC_SetAvatarHair(ZSTRING pszName, int iHair) {
 }
 
 ///
-/// ÀÌº¥Æ® ¿ÀºêÁ§Æ® °ü·Ã..
-/// type 0 : Æ÷Áö¼Ç ³ëµå
-/// type 1 : ¾Ö´Ï¸ÅÀÌ¼Ç ³ëµå
+/// ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½..
+/// type 0 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+/// type 1 : ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½
 ///
 HNODE             SC_GetEventObject(int iEventID, int iType) {
   CObjFixedEvent* pObj = g_pObjMGR->GetEventObject( iEventID );
@@ -315,8 +316,8 @@ int               SC_GetEventObjectIndex(int iEventID) {
 }
 
 ///
-/// Con ÆÄÀÏ ½ÇÇà
-/// NPC ´ëÈ­Ã¢..
+/// Con ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+/// NPC ï¿½ï¿½È­Ã¢..
 ///
 
 void SC_RunEvent(int iOwnerIndex, ZSTRING szQuestFILE, int iEventIDX) {
@@ -327,8 +328,8 @@ void SC_RunEvent(int iOwnerIndex, ZSTRING szQuestFILE, int iEventIDX) {
 }
 
 ///
-/// Con ÆÄÀÏ ½ÇÇà
-/// ÇÊµå ¿öÇÁÃ¢
+/// Con ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+/// ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢
 ///
 
 void SC_RunEventFieldWarp(int iOwnerIndex, ZSTRING szQuestFILE, int iEventIDX) {
@@ -339,8 +340,8 @@ void SC_RunEventFieldWarp(int iOwnerIndex, ZSTRING szQuestFILE, int iEventIDX) {
 }
 
 ///
-/// Con ÆÄÀÏ ½ÇÇà
-/// ÀÌº¥Æ® ´ëÈ­Ã¢ »ý¼º
+/// Con ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+/// ï¿½Ìºï¿½Æ® ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½
 ///
 
 void SC_RunEventObjectEvent(int iOwnerIndex, ZSTRING szQuestFILE, int iEventIDX) {
@@ -352,7 +353,7 @@ void SC_RunEventObjectEvent(int iOwnerIndex, ZSTRING szQuestFILE, int iEventIDX)
 }
 
 ///
-/// ¾Ë¸² ¸Þ¼¼Áö¹Ú½º
+/// ï¿½Ë¸ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½Ú½ï¿½
 ///
 void          SC_ShowNotifyMessage(int iStringIDX) {
   const char* pMsg = CStringManager::GetSingleton().GetNotifyMessageString( iStringIDX );
@@ -375,7 +376,7 @@ void SC_LogString(ZSTRING szMessage) {
 }
 
 //------------------------------------------------------------------------------------------------
-/// ÄÆ¾À Á¸°ü·Ã
+/// ï¿½Æ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------------------------
 int SC_ChangeState(int iNewState) {
   CGame::GetInstance().ChangeState( iNewState );
@@ -391,7 +392,7 @@ int SC_ScreenFadeInStart(float fade_in_t, float fade_m_t, float fade_out_t, int 
 
 //----------------------------------------------------------------------------------------------------
 /// @param
-/// @brief ÀÌÆåÆ® ÆÄÀÏÀ» ÀÌÆåÆ® ¸®¼Ò½º °ü¸®ÀÚ¿¡ ³Ö´Â´Ù.
+/// @brief ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½Ö´Â´ï¿½.
 //----------------------------------------------------------------------------------------------------
 int SC_GetEffectUseFile(ZSTRING szEffectFile) {
   return (int)g_pEffectLIST->Add_EffectFILE( (char*)szEffectFile );
@@ -403,7 +404,7 @@ int SC_GetEffectUseIndex(int iEffectIndex) {
 
 //----------------------------------------------------------------------------------------------------
 /// @param
-/// @brief CObjCHAR ¿¡ ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+/// @brief CObjCHAR ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 //----------------------------------------------------------------------------------------------------
 void        SC_EffectOnChar(int iObject, int iEffectHash) {
   CObjCHAR* pObjCHAR = g_pObjMGR->Get_CharOBJ( iObject, false );
@@ -414,7 +415,7 @@ void        SC_EffectOnChar(int iObject, int iEffectHash) {
 
 //----------------------------------------------------------------------------------------------------
 /// @param
-/// @brief CObjCHAR ¿¡ ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+/// @brief CObjCHAR ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 //----------------------------------------------------------------------------------------------------
 void       SC_EffectOnObject(HNODE hNode, int iEffectHash) {
   CEffect* pEffect = g_pEffectLIST->Add_EFFECT( (t_HASHKEY)iEffectHash, true );
@@ -422,16 +423,16 @@ void       SC_EffectOnObject(HNODE hNode, int iEffectHash) {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// @param interface/interfacetype.h¿¡ ÀÖ´Â DialogType
-/// @brief ÀÎÀÚ·Î ³Ñ¾î¿Â Dialog¸¦ ¿¬´Ù
+/// @param interface/interfacetype.hï¿½ï¿½ ï¿½Ö´ï¿½ DialogType
+/// @brief ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Ñ¾ï¿½ï¿½ Dialogï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 void SC_OpenDialog(int iDialog) {
   g_itMGR.OpenDialog( iDialog, false );
 }
 
 //----------------------------------------------------------------------------------------------------
-/// @param Ãâ·ÂµÉ ¸Þ¼¼Áö
-/// @brief MODALESS ¸Þ¼¼Áö ¹Ú½º¸¦ ¿¬´Ù
+/// @param ï¿½ï¿½Âµï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
+/// @brief MODALESS ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 SYSTEM_SCRIPT
 
@@ -440,9 +441,9 @@ void SC_OpenMsgbox(ZSTRING pszMsg) {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// @param iParentDlg	ButtonÀÇ Parent Dialog
-/// @param iButtonID	ButtonÀÇ ID( ÇØ´ç DialogÀÇ xml¿¡¼­ ID ÂüÁ¶ )
-/// @brief ÇØ´ç ´ÙÀÌ¾ó·Î±×ÀÇ Â÷ÀÏµå ¹öÆ°À» Blink½ÃÅ²´Ù( ChildÀÇ ChildÀÏ °æ¿ì ¾ÈµÈ´Ù )
+/// @param iParentDlg	Buttonï¿½ï¿½ Parent Dialog
+/// @param iButtonID	Buttonï¿½ï¿½ ID( ï¿½Ø´ï¿½ Dialogï¿½ï¿½ xmlï¿½ï¿½ï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½ )
+/// @brief ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Blinkï¿½ï¿½Å²ï¿½ï¿½( Childï¿½ï¿½ Childï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ÈµÈ´ï¿½ )
 //----------------------------------------------------------------------------------------------------
 SYSTEM_SCRIPT
 
@@ -502,7 +503,7 @@ void             SC_RemoveCoordinatesIndicator(int index) {
 }
 
 //------------------------------------------------------------------------------------------------
-/// ¾Æ¹ÙÅ¸ Á¤º¸
+/// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------------------------
 
 int SC_GetAvatarEXP() {
@@ -521,14 +522,14 @@ void SC_SendMsgToWeb(ZSTRING pstrURL, ZSTRING pstrPage, ZSTRING pstrMsg) {
 }
 
 //------------------------------------------------------------------------------------------------
-/// Äù½ºÆ® Æ®¸®°Å¸¦ ½ÇÇàÇÑ´Ù 2005-05-26 ±èÃ¢¼ö
+/// ï¿½ï¿½ï¿½ï¿½Æ® Æ®ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ 2005-05-26 ï¿½ï¿½Ã¢ï¿½ï¿½
 //------------------------------------------------------------------------------------------------
 void SC_QF_doQuestTrigger(ZSTRING TriggerName) {
   QF_doQuestTrigger( TriggerName );
 }
 
 //------------------------------------------------------------------------------------------------
-/// Äù½ºÆ® Æ®¸®°Å ÄÁµð¼ÇÀ» Ã¼Å©ÇÑ. 2005-05-26 ±èÃ¢¼ö
+/// ï¿½ï¿½ï¿½ï¿½Æ® Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½. 2005-05-26 ï¿½ï¿½Ã¢ï¿½ï¿½
 //------------------------------------------------------------------------------------------------
 int SC_QF_checkQuestCondition(ZSTRING szQuestTriggerName) {
   return QF_checkQuestCondition( szQuestTriggerName );
@@ -544,13 +545,13 @@ void SC_GF_setRevivePosition() {
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-/// Æ©Åä¸®¾ó ÀÌ¹ÌÁö¸¦ È­¸é¿¡ ÁöÁ¤µÈ À§Ä¡¿¡ ÀÏÁ¤½Ã°£µ¿¾È º¸¿©ÁØ´Ù.
-/// @param ZSTRING	filename: ÀÌ¹ÌÁö È­ÀÏ³×ÀÓ( path/filename )
-/// @param int		x		: Ãâ·ÂÇÒ È­¸éÀÇ xÁÂÇ¥
-/// @param int		y		: Ãâ·ÂÇÒ È­¸éÀÇ yÁÂÇ¥
-/// @param float	fade_time	: Ãâ·ÂÁßÀÎ ÀÌ¹ÌÁö°¡ È­¸é¿¡¼­ »ç¶óÁö±â ½ÃÀÛÇÏ´Â ½Ã°£( max_time º¸´Ù´Â ÀÛ¾Æ¾ß ÇÑ´Ù )
-/// @param float	max_time	: ÀÌ¹ÌÁö°¡ È­¸é¿¡ Ç¥½ÃµÉ ÃÑ ½Ã°£
-/// @param int		append_or_renewal	: ±âÁ¸ Ãâ·ÂÁßÀÎ ÀÌ¹ÌÁö°¡ ÀÖÀ»°æ¿ì »èÁ¦ÇÏ°í º¸¿©ÁÙ°ÍÀÎ°¡? Ãâ·ÂÀÌ ³¡³­ÈÄ º¸¿©ÁÙ°ÍÀÎ°¡?
+/// Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+/// @param ZSTRING	filename: ï¿½Ì¹ï¿½ï¿½ï¿½ È­ï¿½Ï³ï¿½ï¿½ï¿½( path/filename )
+/// @param int		x		: ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥
+/// @param int		y		: ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ yï¿½ï¿½Ç¥
+/// @param float	fade_time	: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã°ï¿½( max_time ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½Û¾Æ¾ï¿½ ï¿½Ñ´ï¿½ )
+/// @param float	max_time	: ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ Ç¥ï¿½Ãµï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½
+/// @param int		append_or_renewal	: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ï¿½Î°ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ï¿½Î°ï¿½?
 //-------------------------------------------------------------------------------------------------------------------
 void SC_ShowTutorialImage(ZSTRING filename, int x, int y, float fadein_endtime, float fadeout_starttime, float max_time, int append_or_renewal) {
   //CTutorialEventManager::GetSingleton().RegistImage( filename, x, y, fadein_time,fadeout_time, max_time, append_or_renewal );
@@ -558,8 +559,8 @@ void SC_ShowTutorialImage(ZSTRING filename, int x, int y, float fadein_endtime, 
 }
 
 //------------------------------------------------------------------------------------------------
-/// SC => GF/QF ¿¬µ¿ ½ºÅ©¸³µå
-/// ÀÚ¼¼ÇÑ ¼³¸íÀº SC_¸¦ »« ½ºÅ©¸³Æ® ÂüÁ¶
+/// SC => GF/QF ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½
+/// ï¿½Ú¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SC_ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------------------------
 SYSTEM_SCRIPT
 
@@ -617,7 +618,7 @@ int SC_QF_getQuestSwitch(int hQUEST, int iSwitchNO) {
 
 SYSTEM_SCRIPT
 
-int SC_QF_getQuestItemQuantity(int iQuestID, int iItemNo/*5ÀÚ¸®:Type+No*/) {
+int SC_QF_getQuestItemQuantity(int iQuestID, int iItemNo/*5ï¿½Ú¸ï¿½:Type+No*/) {
   return QF_getQuestItemQuantity( iQuestID, iItemNo );
 }
 

@@ -10,7 +10,7 @@
 /// Managing for CActionProcessChain
 //------------------------------------------------------------------------------------------------
 
-CObjectActionProcessor __objectActionProcess;
+//CObjectActionProcessor __objectActionProcess;
 
 CObjectActionProcessor::CObjectActionProcessor(void) {
   m_pRootActionChain = nullptr;
@@ -101,7 +101,7 @@ void    CWarpObjectActionProcessor::ProcessChain(HNODE hNode) {
   if ( hUserData ) {
     CGameOBJ* pObj = reinterpret_cast<CGameOBJ*>(hUserData);
 
-    /// warp object ÀÎÁö °Ë»ç..
+    /// warp object ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½..
     if ( pObj->IsA( OBJ_GROUND ) ) {
       int iSpecialData = pObj->GetSpecialUserNumericData();
 
@@ -136,18 +136,18 @@ void CEventObjectActionProcessor::ProcessChain(HNODE hNode) {
   if ( hUserData ) {
     CGameOBJ* pObj = reinterpret_cast<CGameOBJ*>(hUserData);
 
-    /// Event object ÀÎÁö °Ë»ç..
+    /// Event object ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½..
     if ( pObj->IsA( OBJ_EVENTOBJECT ) ) {
       CObjFixedEvent* pEventObj = (CObjFixedEvent*)pObj;
 
       //----------------------------------------------------------------------------------------
-      /// ÇÑ¹ø Ãæµ¹ÈÄ 10ÃÊµ¿¾È( 30 FPS ±âÁØ ) ´Ù½Ã Ãæµ¹ÇÏÁö ¾ÊÀ½
+      /// ï¿½Ñ¹ï¿½ ï¿½æµ¹ï¿½ï¿½ 10ï¿½Êµï¿½ï¿½ï¿½( 30 FPS ï¿½ï¿½ï¿½ï¿½ ) ï¿½Ù½ï¿½ ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
       //----------------------------------------------------------------------------------------
       if ( pEventObj->GetCollisionCheckFrame() < (g_GameDATA.m_dwElapsedGameFrame - 1) )
         ///if( pEventObj->CanCheckCollision() )
       {
 
-        /// Æ®¸®°Å°¡ ¼³Á¤µÈ ¿ÀºêÁ§Æ®¶ó¸é..
+        /// Æ®ï¿½ï¿½ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½..
         if ( pEventObj->GetTriggerName() != nullptr ) {
           QF_doQuestTrigger( pEventObj->GetTriggerName() );
           ///::setUserData( hNode, (HNODE)0 );

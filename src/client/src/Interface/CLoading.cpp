@@ -2,7 +2,7 @@
 #include "CLoading.h"
 #include "Game.h"
 
-CLoading _Loading;
+//CLoading _Loading;
 
 CLoading::CLoading() {
   m_bInitLoadingImageManager = false;
@@ -40,7 +40,7 @@ bool CLoading::LoadTexture(int iZoneNo, int iPlanetNO) {
                               0 );
   } else {
     //------------------------------------------------------------------------------
-    /// 2005/04/27 ¿©·¯°¡Áö ·ÎµùÀÌ¹ÌÁö¸¦ »óÈ²¿¡ ¸Â°Ô Ãâ·ÂÇÏµµ·Ï ¼öÁ¤
+    /// 2005/04/27 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     //------------------------------------------------------------------------------
     m_hTexture = m_LoadingImageManager.GetLoadingImage( iZoneNo, iPlanetNO );
     if ( m_hTexture == 0 ) {
@@ -56,7 +56,7 @@ bool CLoading::LoadTexture(int iZoneNo, int iPlanetNO) {
 #ifdef _DEBUG
 			g_pCApp->ErrorBOX( "Loading image load failed !!", "File open error" );
 #endif
-    //½ÇÆÐÇÑ ÀÌÀ¯¸¦ Àû¾îÁØ´Ù..
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½..
     return false;
   }
 

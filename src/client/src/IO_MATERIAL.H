@@ -3,7 +3,11 @@
 */
 #ifndef	__IO_MATERIAL_H
 #define	__IO_MATERIAL_H
+#ifdef _WIN64
+typedef size_t HNODE;
+#else
 typedef unsigned int HNODE;
+#endif
 
 //-------------------------------------------------------------------------------------------------
 
@@ -15,7 +19,7 @@ struct tagMATERIAL {
   short   m_nAlpha;
   short   m_nTwoSide;
 
-  /// »õ·Î Ãß°¡µÈ ¼Ó¼ºµé
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½
   short m_nAlphaTest;
   short m_nAlphaRef;
   short m_nZTest;

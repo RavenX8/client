@@ -31,11 +31,11 @@ struct tagFileDATA {
 
 //-------------------------------------------------------------------------------------------------
 ///
-/// ** ÁÖÀÇ !!!
-/// »ó¼Ó ¹ÞÀº Å¬·¡½º¿¡ÀÇ ÆÄ±«ÀÚ¿¡¼­ ¾Æ·¡ÀÇ ÇÔ¼ö
-/// CFileLIST< dType >::Free () ¸¦ È£ÃâÇØ¾ß ¸Þ¸ð¸®°¡ Ç®¸°´Ù.
-/// ~CFileLIST() ¿¡¼­ this->Free()ÀÏ °æ¿ì »ó¼Ó ¹ÞÀº Å¬·¡½ºÀÇ Sub_DATA( ... ) ÇÔ¼ö°¡
-/// ÀÌ¹Ì ¼Ò¸êµÇ¾î °¡»ó ÇÔ¼ö È£Ãâ½Ã ¿À·ù ¹ß»ýÇÔ.
+/// ** ï¿½ï¿½ï¿½ï¿½ !!!
+/// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+/// CFileLIST< dType >::Free () ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Þ¸ð¸®°ï¿½ Ç®ï¿½ï¿½ï¿½ï¿½.
+/// ~CFileLIST() ï¿½ï¿½ï¿½ï¿½ this->Free()ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Sub_DATA( ... ) ï¿½Ô¼ï¿½ï¿½ï¿½
+/// ï¿½Ì¹ï¿½ ï¿½Ò¸ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½.
 ///
 #ifdef	_DEBUG
 //	#define	__VIEW_GETDATA
@@ -75,12 +75,12 @@ public :
   virtual bool Load(char*        szSTBFile, short nFileNameColNO = 0);
   virtual void Free(void         );
 
-  // ¸®½ºÆ®¿¡ µî·Ï½Ã ¸Þ¸ð¸®¸¦ ÇÒ´çÇÑ°Í(CMatLISTµî..)¿¡¼­ ¸Þ¸ð¸® ÇØÁ¦ÇÒ ºÎºÐ..
+  // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ï½ï¿½ ï¿½Þ¸ð¸®¸ï¿½ ï¿½Ò´ï¿½ï¿½Ñ°ï¿½(CMatLISTï¿½ï¿½..)ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½..
   virtual void Mem_FREE(tagFileDATA<dType>* pDATA) {
     /* nop */
   }
 
-  // list¿¡ µî·ÏµÇÁö ¾ÊÀº ÆÄÀÏÀÌ¸§ µî·Ï½Ã¿¡´Â nIndex=-1·Î... µî·ÏÈÄ ·Îµå´Â ÇÏÁö ¾ÊÀ½.
+  // listï¿½ï¿½ ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Ï½Ã¿ï¿½ï¿½ï¿½ nIndex=-1ï¿½ï¿½... ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
   t_HASHKEY         Add_FILE(char*        szFileName, short nIndex, dType DATA, bool bCheckFileExist = false, bool bImmediateLoad = false);
   virtual t_HASHKEY Add_FILE(char*        szFileName, short nIndex                                   = -1, bool    bImmediateLoad = false) { return this->Add_FILE( szFileName, nIndex, NULL, false, bImmediateLoad ); }
   virtual bool      Del_FILE(char*        szFileName);
@@ -151,9 +151,9 @@ CFileLIST<dType>::CFileLIST(char* szNameTAG, short nMaxLoadCnt, short nHashEnetr
 
 template <class dType>
 CFileLIST<dType>::~CFileLIST() {
-  // this->Free (); È£Ãâ½Ã ¿À·ù ¹ß»ý.. 
-  // FreeÇÔ¼ö ³»ÀÇ °¡»ó ÇÔ¼ö Sub_DATA°¡ ÀÌ¹Ì ÆÄ±«µÇ¾î 
-  // È£ÃâµÇ¾î Áø´Ù.
+  // this->Free (); È£ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½.. 
+  // Freeï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ Sub_DATAï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½Ä±ï¿½ï¿½Ç¾ï¿½ 
+  // È£ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
   //	_ASSERT( m_nLoadCNT == 0 );
 }
@@ -199,7 +199,7 @@ t_HASHKEY CFileLIST<dType>::Add_FILE(char* szFileName, short nIndex, dType DATA,
   pHashNode = m_HASH.Search( uiHashKey );
   pData     = (pHashNode) ? pHashNode->m_DATA : NULL;
 
-  /// ÀÌ¹Ìµé¾î°£°Å¶ó¸é..
+  /// ï¿½Ì¹Ìµï¿½î°£ï¿½Å¶ï¿½ï¿½..
   if ( pData ) {
     if ( !_strcmpi( szFileName, pData->m_FileName.Get() ) )
       return uiHashKey;
@@ -213,7 +213,7 @@ t_HASHKEY CFileLIST<dType>::Add_FILE(char* szFileName, short nIndex, dType DATA,
     return 0;
   }
 
-  /// ÆÄÀÏ ¸®½ºÆ® ³»ºÎ¿¡¼­ °ü¸®µÇ´Â µ¥ÀÌÅÍ ¹è¿­ÀÇ ÀÎµ¦½º..( ¸®½ºÆ®¸¦ ÀÎµ¦½º·Î À¯Áö °ü¸®ÇÏ´Â µ¥ÀÌÅÍ µéÀÇ °æ¿ì??)
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½..( ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½??)
   if ( nIndex >= 0 && nIndex < m_nDataCNT ) {
     m_pDATAs[nIndex].m_FileName.Set( szFileName );
     m_pDATAs[nIndex].m_nIndex = nIndex;
@@ -222,7 +222,7 @@ t_HASHKEY CFileLIST<dType>::Add_FILE(char* szFileName, short nIndex, dType DATA,
     m_pDATAs[nIndex].m_nTag = m_nTotalFileCNT;
     m_HASH.Insert( uiHashKey, &m_pDATAs[nIndex] );
 
-    /// test ÆÄÀÏÀ» ´õÇÏ¸é¼­ ´Ù ÀÐ¾î ³öº¸ÀÚ
+    /// test ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸é¼­ ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if ( bImmediateLoad ) {
       if ( this->Load_FILE( &m_pDATAs[nIndex] ) ) {
         m_pDATAs[nIndex].m_bLoad = true;
@@ -288,7 +288,7 @@ void CFileLIST<dType>::Delete_LIST(void) {
     pNODE = m_DelLIST.GetHeadNode();
     while ( pNODE ) {
       if ( pNODE->DATA->m_iRefCnt > 0 ) {
-        // ´Ù½Ã »ç¿ëµÇ°í ÀÖ´Ù.
+        // ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½Ö´ï¿½.
         pDelNODE = pNODE;
         pNODE    = m_DelLIST.GetNextNode( pNODE );
         m_DelLIST.DeleteNFree( pDelNODE );
@@ -362,7 +362,7 @@ bool CFileLIST<dType>::Sub_DATA(tagFileDATA<dType>* pDATA, bool bImmediateFree) 
         this->Delete_DATA( pDATA );
       } else {
         this->Delete_LIST();
-        // »èÁ¦ ´ë±â ¹öÆÛ¿¡ µî·Ï.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½.
         m_DelLIST.AllocNAppend( pDATA );
       }
     }

@@ -4,7 +4,7 @@
 #include "cli_alive.h"
 
 /// for singleton
-CLiveCheck _liveCheck;
+//CLiveCheck _liveCheck;
 
 CLiveCheck::CLiveCheck(void) {
   m_dwElapsedTime            = 0;
@@ -14,7 +14,7 @@ CLiveCheck::CLiveCheck(void) {
 CLiveCheck::~CLiveCheck(void) {}
 
 //----------------------------------------------------------------------------------------------
-/// 2ºÐ¿¡ ÇÑ¹ø¾¿ ¼­¹ö¿¡ ÆÐÅ¶ ¼Û½Å
+/// 2ï¿½Ð¿ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ ï¿½Û½ï¿½
 //----------------------------------------------------------------------------------------------
 void        CLiveCheck::Check() {
   const int iCheckTime = 270000;
@@ -22,7 +22,7 @@ void        CLiveCheck::Check() {
   /// Update check frame
   //--------------------------------------------------------------------------------
   DWORD dwCurrentTime        = g_GameDATA.GetGameTime();
-  DWORD dwFrameElapsedTime   = dwCurrentTime - m_dwLastRecoveryUpdateTime; /// ÀÌÀüÇÁ·¹ÀÓ¿¡¼­ ÇöÀç ÇÁ·¹ÀÓ »çÀÌ¿¡ Èå¸¥½Ã°£À» ´õÇØÁØ´Ù.
+  DWORD dwFrameElapsedTime   = dwCurrentTime - m_dwLastRecoveryUpdateTime; /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½å¸¥ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
   m_dwLastRecoveryUpdateTime = dwCurrentTime;
 
   m_dwElapsedTime += dwFrameElapsedTime;

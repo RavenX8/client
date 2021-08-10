@@ -25,7 +25,7 @@
 #include <crtdbg.h>
 
 #include <d3d9.h>
-#include <D3DX9.h>
+#include <d3dx9.h>
 
 // TODO: reference additional headers your program requires here
 //-------------------------------------------------------------------------------------------------
@@ -42,6 +42,7 @@ typedef LPDIRECT3DVERTEXBUFFER9 LPD3DVERTEXBUFFER;
 //#define _USE_BG		// Bug Guard
 //#define FRAROSE
 //#ifdef FRAROSE
+#define ZZ_LUA50
 #define _GBC
 #define __APPLY_2ND_JOB
 #define ENABLE_CHATROOM		// Enables the chatroom functions

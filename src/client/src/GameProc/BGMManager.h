@@ -5,10 +5,10 @@
 //---------------------------------------------------------------------------------------
 ///
 /// class CBGManager
-/// ¹è°æÀ½¾Ç ÇÃ·¹ÀÌ¾î °ü¸®, À½¾Ç ÀüÀÌ..
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 ///
 //---------------------------------------------------------------------------------------
-class CBGMManager : public CJSingleton<CBGMManager> {
+class CBGMManager {
 private:
   int  m_iCurrentVolumeIdx;
   int  m_iStartVolumeIdx;
@@ -22,11 +22,21 @@ private:
 
   int m_iZoneNO;
 
-public:
   CBGMManager(void );
+public:
   ~CBGMManager(void);
 
-  /// ¹ã³· º¯°æ¿¡ µû¸¥ ¹è°æÀ½¾Ç ÀüÀÌ..
+  CBGMManager(const CBGMManager&) = delete;
+  CBGMManager& operator=(const CBGMManager &) = delete;
+  CBGMManager(CBGMManager &&) = delete;
+  CBGMManager & operator=(CBGMManager &&) = delete;
+
+  static auto& GetSingleton(){
+    static CBGMManager inst;
+    return inst;
+  }
+
+  /// ï¿½ã³· ï¿½ï¿½ï¿½æ¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
   void ChangeBGMMusicWithDayAndNight(int iZoneNO, bool bToNight);
 
   void EndTransition();

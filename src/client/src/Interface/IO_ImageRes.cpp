@@ -22,7 +22,7 @@ bool CImageRes::LoadRES(CFileSystem* pFileSystem, const char* strResPath) {
   setDelayedLoad( 0 );
   char szTXFileName[MAX_PATH];
 
-  //RESÆú´õ¿¡ ½ºÇÁ¶óÀÌÆ® ÆÄÀÏ°ú ÅØ½ºÃÄÆÄÀÏÀÌ °°ÀÌ ÀÖ´Ù..		
+  //RESï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½..		
   stTexture tempTexture;
 
   short nTextureCNT = 0;
@@ -37,7 +37,7 @@ bool CImageRes::LoadRES(CFileSystem* pFileSystem, const char* strResPath) {
 
   short       nTX_ID = 0;
   for ( short nC     = 0; nC < nTextureCNT; nC++ ) {
-    //°°Àº ÀÌ¸§ÀÌ ÀÖÀ¸¸é ·ÎµåÇÏÁö ¾ÊÀ½	
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
     bool bContinue = false;
 
     ZeroMemory( tempTexture.m_szName, sizeof( tempTexture.m_szName ) );
@@ -46,7 +46,7 @@ bool CImageRes::LoadRES(CFileSystem* pFileSystem, const char* strResPath) {
     pFileSystem->Read( tempTexture.m_szName, sizeof( char ) * nLen );
     pFileSystem->Read( &tempTexture.m_dwColorKey, sizeof( DWORD ) );
 
-    //Áö±Ý±îÁö µî·ÏµÈ ÀÌ¸§À» ºñ±³ÇÑ´Ù 
+    //ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½ 
     for ( short nB = 0; nB < nC; nB++ ) {
       if ( _stricmp( m_TextureVec[nB].m_szName, tempTexture.m_szName ) == 0 ) {
         tempTexture.m_nTXID   = nB;
@@ -66,7 +66,7 @@ bool CImageRes::LoadRES(CFileSystem* pFileSystem, const char* strResPath) {
     if ( tempTexture.m_Texture == 0 ) {
       return false;
     }
-    // ¸®½ºÆ®¿¡ µî·Ï 
+    // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ 
     tempTexture.m_nTXID = nC;
     m_TextureVec.push_back( tempTexture );
   }
@@ -79,7 +79,7 @@ bool CImageRes::LoadRES(CFileSystem* pFileSystem, const char* strResPath) {
   short nG;
   short nL;
   short nI;
-  /// °¢°¢ÀÇ ÅØ½ºÃÄ¿¡ ÇÒ´çµÈ °³¼ö¸¸Å­..
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½Ä¿ï¿½ ï¿½Ò´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­..
   for ( nI = 0, nL = 0; nI < nTextureCNT; nI++ ) {
     pFileSystem->ReadInt16( &nLen );
 
@@ -90,7 +90,7 @@ bool CImageRes::LoadRES(CFileSystem* pFileSystem, const char* strResPath) {
 
       pFileSystem->Read( &tempSprite.m_szID, sizeof(tempSprite.m_szID) );
 
-      //ÀÌÀü¿¡ °°Àº°Ô ÀÖÀ¸¸é ±×¹øÈ£·Î 
+      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¹ï¿½È£ï¿½ï¿½ 
       short nID               = tempSprite.m_nTextureID;
       tempSprite.m_nTextureID = m_TextureVec[nID].m_nTXID;
 
@@ -139,7 +139,7 @@ stSprite* CImageRes::GetSprite(int iSprIndex) {
 /// Image res manager for UI
 ////////////////////////////////////////////////////////////////////////////////////////
 /// for singleton
-CImageResManager __ImgResMgr;
+//CImageResManager __ImgResMgr;
 
 CImageResManager::CImageResManager() {}
 
@@ -254,7 +254,7 @@ CImageRes* CImageResManager::GetImageRes(int iType) {
 
 }
 
-/// NPC Face Image °ü·Ã
+/// NPC Face Image ï¿½ï¿½ï¿½ï¿½
 bool CImageResManager::Add_NpcFaceFileInfo(int index, const char* filename) {
   assert( filename );
   if ( nullptr == filename )
@@ -299,7 +299,7 @@ HNODE          CImageResManager::Load_NpcFace(int index) {
 HNODE   CImageResManager::Load_NpcFace(const char* szName_) {
   HNODE hNode = false;
 
-  // È«±Ù : È÷¾î·Î Äù½ºÆ® Ãß°¡ ±¸Çö.
+  // È«ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 #ifdef _WORK
 
 	CFileSystem* pFileSystem = (CVFSManager::GetSingleton()).GetFileSystem();

@@ -748,7 +748,7 @@ bool zz_renderer_d3d::initialize() {
 
   // save initial available texture memory
   max_texture_memory = d3d_device->GetAvailableTextureMem();
-  ZZ_LOG( "r_d3d: maxtexmem = %d\n", max_texture_memory );
+  ZZ_LOG( "r_d3d: maxtexmem = %lld\n", max_texture_memory );
 
   const unsigned int MIN_TEXTURE_MEMORY = 40;
 
@@ -1702,7 +1702,7 @@ void zz_renderer_d3d::begin_shadowmap(void) {
   set_render_where( ZZ_RW_SHADOWMAP );
 }
 
-void zz_renderer_d3d::shadowmap_texturetm_setup(void) //test  11-18 ¿©·¯¹ø °è»ê
+void zz_renderer_d3d::shadowmap_texturetm_setup(void) //test  11-18 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 {
   assert(state.use_shadowmap);
 
@@ -4360,7 +4360,7 @@ void zz_renderer_d3d::draw_line(vec3 from, vec3 to, vec3 rgb) {
   const float         min_distance_ignore = 10.0f * ZZ_SCALE_IN;
 
   // if less than minimum distance ignore this
-  //	if (from.distance_square(to) < min_distance_ignore) return;   //Á¶¼ºÇö ¹«½ÃÇÔ...
+  //	if (from.distance_square(to) < min_distance_ignore) return;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 
   // this seems to be a ATI driver bug
   // if not, in some case line direction can be weird.

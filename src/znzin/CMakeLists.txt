@@ -10,8 +10,13 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+if (64BIT)
+  link_directories(${DIRECTX_ROOT}/lib/x64)
+else()
+  link_directories(${DIRECTX_ROOT}/lib)
+endif()
+
 link_directories(
-  ${DIRECTX_ROOT}/lib
   ${CMAKE_EXTERNAL_LIBRARY_DIR}
   ${CMAKE_THIRD_PARTY_LIBRARY_DIR}
 )

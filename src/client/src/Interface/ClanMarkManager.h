@@ -13,15 +13,25 @@
 ///
 //----------------------------------------------------------------------------------
 
-class CClanMarkManager : public CJSingleton<CClanMarkManager> {
-public:
+class CClanMarkManager {
   CClanMarkManager(void );
+public:
   ~CClanMarkManager(void);
+
+  CClanMarkManager(const CClanMarkManager&) = delete;
+  CClanMarkManager& operator=(const CClanMarkManager &) = delete;
+  CClanMarkManager(CClanMarkManager &&) = delete;
+  CClanMarkManager & operator=(CClanMarkManager &&) = delete;
+
+  static auto& GetSingleton(){
+    static CClanMarkManager inst;
+    return inst;
+  }
 
   CClanMarkUserDefined* GetClanMark(const char* pstrName, WORD crc16, int iClanID);
 
   //------------------------------------------------------------------
-  /// ³ëµåµéÀÇ »óÅÂ ¾÷µ¥ÀÌÆ®( °¡º£Áö ÄÃ·ºÆÃ, ÅØ½ºÃÄ ·Îµå )
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½, ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ )
   //------------------------------------------------------------------
   void UpdatePool();
   //------------------------------------------------------------------
@@ -37,7 +47,7 @@ private:
   CClanMarkUserDefined* SearchTexture(const char* pstrName);
 
   //------------------------------------------------------------------
-  /// »õ·Î¿î UserDefinedClanMark °´Ã¼¸¦ »ý¼ºÇÏ°í ¸®ÅÏ..
+  /// ï¿½ï¿½ï¿½Î¿ï¿½ UserDefinedClanMark ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½..
   //------------------------------------------------------------------
   CClanMarkUserDefined* GetUserdefinedClanMark(const char* pstrName, WORD crc16, int iClanID);
 
@@ -47,7 +57,7 @@ private:
   HNODE LoadNewTexture(const char* pstrName, WORD crc16);
 
   //------------------------------------------------------------------
-  /// ÅØ½ºÃÄ ·Îµå ÇÃ·¡±×°¡ ÄÑÁø ³ëµåµé¿¡ ´ëÇÑ ÅØ½ºÃÄ ·Îµù..
+  /// ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ã·ï¿½ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½Îµï¿½..
   //------------------------------------------------------------------
   void LoadRealTexture(CClanMarkUserDefined*);
 

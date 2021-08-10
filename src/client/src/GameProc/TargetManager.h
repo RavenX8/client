@@ -3,13 +3,23 @@
 
 #include "../Util/JSingleton.h"
 
-class CTargetManager : public CJSingleton<CTargetManager> {
+class CTargetManager {
 private:
-  int m_iCurrentMouseTargetObject; /// ¸¶¿ì½º ÀÌµ¿Áß ÇöÀç ¸¶¿ì½º°¡ °¡¸£Å°´Â ¿ÀºêÁ§Æ®	
+  int m_iCurrentMouseTargetObject; /// ï¿½ï¿½ï¿½ì½º ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®	
 
-public:
   CTargetManager(void );
+public:
   ~CTargetManager(void);
+
+  CTargetManager(const CTargetManager&) = delete;
+  CTargetManager& operator=(const CTargetManager &) = delete;
+  CTargetManager(CTargetManager &&) = delete;
+  CTargetManager & operator=(CTargetManager &&) = delete;
+
+  static auto& GetSingleton(){
+    static CTargetManager inst;
+    return inst;
+  }
 
   void SetMouseTargetObject(int iObjectIDX);
 

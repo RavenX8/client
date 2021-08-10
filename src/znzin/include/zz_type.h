@@ -167,6 +167,7 @@ typedef unsigned char byte; /* 1 */
 #ifdef WIN32
 #include <windows.h>
 #include <d3d9.h>
+#include <cstdint>
 typedef signed __int16   int16; /* 2 */
 typedef signed __int32   int32; /* 4 */
 typedef signed __int64   int64; /* 8 */

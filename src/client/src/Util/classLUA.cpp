@@ -12,15 +12,10 @@
 
 classLUA::classLUA(int iStackSize) {
 #ifdef ZZ_LUA500
-  m_pState = lua_open();
+  m_pState = luaL_newstate();
 
   if (m_pState) {
-    luaopen_base(m_pState);
-    luaopen_string(m_pState);
-    luaopen_table(m_pState);
-    luaopen_math(m_pState);
-    luaopen_io(m_pState);
-    luaopen_debug(m_pState);
+    luaL_openlibs(m_pState);
   }
 #else
   m_pState = lua_open( 0 );

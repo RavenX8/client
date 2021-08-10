@@ -1,12 +1,16 @@
 #include "StdAfx.h"
 #include <windows.h>
-#include "ijl/IJL.h"
+#ifdef _WIN64
+#else
+  #include "ijl/IJL.h"
+#endif
 #include "LIB_IJL.h"
 
-
+#ifdef _WIN64
+#else
 //---------------------------------------------------------------------------------------
 bool             IJL_EncodeToJPEGFile(char* lpszPathName, unsigned long dwWidth, unsigned long dwHeight, unsigned char* pRGB) {
-  bool           bres;
+  bool           bres = true;
   IJLERR         jerr;
   unsigned long  dwRgbBufferSize;
   unsigned char* lpTemp;
@@ -67,3 +71,4 @@ bool             IJL_EncodeToJPEGFile(char* lpszPathName, unsigned long dwWidth,
 
   return bres;
 } // EncodeToJPEGFile ()
+#endif

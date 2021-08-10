@@ -130,11 +130,11 @@ protected:
   char* vshader_names[ZZ_MAX_SHADER_FORMAT];
   char* pshader_names[ZZ_MAX_SHADER_FORMAT];
 
-  int num_format; // the number of shader pairs
+  int num_format = 0; // the number of shader pairs
 
-  zz_vertex_format vformat; // vertex format which this shader uses
+  zz_vertex_format vformat = ZZ_VF_NONE; // vertex format which this shader uses
 
-  bool is_binary;
+  bool is_binary = false;
 
 public:
   static zz_shader* shadow_shader;

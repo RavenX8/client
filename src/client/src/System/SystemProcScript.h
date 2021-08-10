@@ -9,7 +9,7 @@ class classLUA;
 /// Managing script for system state classes
 ///
 
-class CSystemProcScript : public CJSingleton<CSystemProcScript> {
+class CSystemProcScript {
 private:
   classLUA* m_pLUA;
 
@@ -18,9 +18,21 @@ private:
   void set_global(const char* variable_name, float       value);
   void set_global(const char* variable_name, const char* value);
 
-public:
   CSystemProcScript(void );
+public:
   ~CSystemProcScript(void);
+
+  CSystemProcScript(const CSystemProcScript&) = delete;
+  CSystemProcScript& operator=(const CSystemProcScript &) = delete;
+  CSystemProcScript(CSystemProcScript &&) = delete;
+  CSystemProcScript & operator=(CSystemProcScript &&) = delete;
+
+  static auto& GetSingleton(){
+    static CSystemProcScript* inst = nullptr;
+    if(inst == nullptr)
+      inst = new CSystemProcScript();
+    return *inst;
+  }
 
   ///
   /// Init system script system

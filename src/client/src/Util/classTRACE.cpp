@@ -17,7 +17,7 @@
 // header through StdAfx.h
 #include "StdAfx.h"
 
-#if defined(_DEBUG) && defined(WIN32)
+#if defined(_DEBUG) && !defined(_WIN64) && defined(WIN32)
 
 #include <stdio.h>
 #include <windows.h>

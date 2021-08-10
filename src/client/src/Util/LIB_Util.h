@@ -119,6 +119,9 @@ void class_name::Destroy()					\
 
 #ifndef  __BORLANDC__
 inline int           round_int(double x) {
+#ifdef _WIN64
+    return round(x);
+#else
   int                i;
   static const float round_to_nearest = 0.5f;
   __asm
@@ -131,9 +134,13 @@ inline int           round_int(double x) {
   }
 
   return (i);
+#endif
 }
 
 inline int           floor_int(double x) {
+#ifdef _WIN64
+    return floor(x);
+#else
   int                i;
   static const float round_toward_m_i = -0.5f;
   __asm
@@ -146,9 +153,13 @@ inline int           floor_int(double x) {
   }
 
   return (i);
+#endif
 }
 
 inline int           ceil_int(double x) {
+#ifdef _WIN64
+    return ceil(x);
+#else
   int                i;
   static const float round_toward_p_i = -0.5f;
   __asm
@@ -161,6 +172,7 @@ inline int           ceil_int(double x) {
   }
 
   return (-i);
+#endif
 }
 #endif
 

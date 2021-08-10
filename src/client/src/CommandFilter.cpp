@@ -4,7 +4,7 @@
 #include "OBJECT.h"
 #include "GameCommon/Skill.h"
 
-CCommandFilter _CommandFilter;
+//CCommandFilter _CommandFilter;
 
 CCommandFilter::CCommandFilter(void) {
   m_pPrevCommand = nullptr;
@@ -34,14 +34,14 @@ CObjCommand* CCommandFilter::GetCommandObject(int iObjectType) {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// @brief ÇöÀç °ø°ÝÁßÀÎ ³ðÀÌ¶ó¸é °ø°ÝÇÏÁö ¾Ê´Â´Ù.
+/// @brief ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //----------------------------------------------------------------------------------------------------
 bool CCommandFilter::CanSendAttackCommand() {
   return false;
 }
 
 //----------------------------------------------------------------------------------------------------
-/// @brief ÇöÀç ½ÃÀüÁØºñÁßÀÎ ½ºÅ³ÀÌ¶ó¸é
+/// @brief ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½Ì¶ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 bool CCommandFilter::CanSendSelfSkillCommand(int iSkillSlot) {
   if ( m_pPrevCommand == nullptr )
@@ -61,7 +61,7 @@ bool CCommandFilter::CanSendSelfSkillCommand(int iSkillSlot) {
 }
 
 //----------------------------------------------------------------------------------------------------
-/// @brief ÇöÀç ½ÃÀüÁØºñÁßÀÎ ½ºÅ³ÀÌ¶ó¸é( Å¸°Ùµµ °°°í ) ¸í·É ¹«½Ã
+/// @brief ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½Ì¶ï¿½ï¿½( Å¸ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 bool CCommandFilter::CanSendTargetSkillCommand(int iClientTarget, int iSkillSlot) {
   if ( m_pPrevCommand == nullptr )
@@ -84,7 +84,7 @@ bool CCommandFilter::CanSendTargetSkillCommand(int iClientTarget, int iSkillSlot
 }
 
 //----------------------------------------------------------------------------------------------------
-/// @brief ÇöÀç ½ÃÀüÁØºñÁßÀÎ ½ºÅ³ÀÌ¶ó¸é( À§Ä¡µµ °°°í ) ¸í·É ¹«½Ã
+/// @brief ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½Ì¶ï¿½ï¿½( ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ) ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------
 bool CCommandFilter::CanSendPositionSkillCommand(D3DVECTOR& PosTO, int iSkillSlot) {
   if ( m_pPrevCommand == nullptr )

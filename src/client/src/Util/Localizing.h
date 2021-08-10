@@ -5,7 +5,7 @@
 /// Localizing manager
 /// class CLocalizing
 //-------------------------------------------------------------------------------------
-class CLocalizing : public CJSingleton<CLocalizing> {
+class CLocalizing {
 private:
   int m_iCurrentCodePage;
   int m_iCurrentCharSet;
@@ -13,9 +13,19 @@ private:
   WCHAR* m_pTempWCBuf;
   int    m_TempWCBufSize;
 
-public:
   CLocalizing(void );
+public:
   ~CLocalizing(void);
+
+  CLocalizing(const CLocalizing&) = delete;
+  CLocalizing& operator=(const CLocalizing &) = delete;
+  CLocalizing(CLocalizing &&) = delete;
+  CLocalizing & operator=(CLocalizing &&) = delete;
+
+  static auto& GetSingleton(){
+    static CLocalizing inst;
+    return inst;
+  }
 
   int GetCurrentCodePageNO() { return m_iCurrentCodePage; }
   int GetCurrentCharSet() { return m_iCurrentCharSet; }

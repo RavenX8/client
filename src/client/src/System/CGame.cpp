@@ -78,7 +78,10 @@
 #include "tgamectrl/ResourceMgr.h"
 #include "tgamectrl/TTIme.h"
 
+#ifdef _WIN64
+#else
 #include "ijl/IJL.h"
+#endif
 
 #include "../JCommandState.h"
 #include "GameCommon/LngTbl.h"
@@ -280,7 +283,7 @@ int CGame::Init() {
   it_Init( g_pCApp->GetHWND(), &g_DrawImpl, &g_SoundImpl, &g_FontImpl );
 
   //--------------------------------------------------------------------------------
-  /// ÇöÀç ÄÚµåÆäÀÌÁö¸¦ »õ·Î ±¸ÇÒ°æ¿ì Ç×»ó TGameCtrl¿¡ ¾Ë·ÁÁÙ°Í
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ ï¿½×»ï¿½ TGameCtrlï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ù°ï¿½
   //--------------------------------------------------------------------------------
   CLocalizing::GetSingleton().GetCurrentCodePage();
   it_SetCodePage( CLocalizing::GetSingleton().GetCurrentCodePageNO() );
@@ -303,7 +306,7 @@ int CGame::Init() {
     musicMgr.Play( "Sound\\BGM\\Prologue.ogg" );
     musicMgr.SetVolume( g_ClientStorage.GetBgmVolumeByIndex( g_ClientStorage.GetBgmVolumeIndex() ) );
   } else {
-    MessageBox( g_pCApp->GetHWND(), "»ç¿îµå Ä«µå¿¡ ¹®Á¦°¡ ÀÖ½À´Ï´Ù.", "ERROR", MB_OK );
+    MessageBox( g_pCApp->GetHWND(), "ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.", "ERROR", MB_OK );
   }
 
   //--------------------------------------------------------------------------------
@@ -326,7 +329,10 @@ int CGame::Init() {
   //	if( CreateAllStringTables( &g_TblString ) == false )
   //		return false;
 
-  CSystemProcScript::GetSingleton().InitSystem();
+  if (!CSystemProcScript::GetSingleton().InitSystem()) {
+    MessageBox( nullptr, "Load SystemFunc.lua failed", "ERROR", MB_OK );
+    return 1;
+  }
 
   CCursor::GetInstance().Initialize();
   CCursor::GetInstance().SetCursorType( CCursor::CURSOR_DEFAULT );
@@ -335,7 +341,7 @@ int CGame::Init() {
   CSkillCommandDelay::GetSingleton().Init();
 
   /// Tutorial Event
-  if ( CTutorialEventManager::GetSingleton().Init() == false ) {
+  if ( !CTutorialEventManager::GetSingleton().Init() ) {
     MessageBox( nullptr, "Load tutorial failed", "ERROR", MB_OK );
     return 0;
   }
@@ -351,7 +357,7 @@ int CGame::Init() {
   CSFXFont* sfx_font = new CSFXFont;
   CSFXManager::GetSingleton().AddSFX( sfx_font );
 
-  ///Å¬¶óÀÌ¾ðÆ® ½ÇÇà½Ã¿¡ ÇÊ¿äÇÑ µð·ºÅä¸®¸¦ ¸¸µç´Ù.
+  ///Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
   CreateDirectory( CClanMarkUserDefined::ClanMarkFileDirectory.c_str(), nullptr );
   CreateDirectory( "Chat", nullptr );
 
@@ -386,7 +392,7 @@ void CGame::Exit() {
 
   g_itMGR.Free();
 
-  CImageResManager::GetSingletonPtr()->ReleaseResources();
+  CImageResManager::GetSingleton().ReleaseResources();
   CResourceMgr::GetInstance()->UnLoadResource( IMAGE_RES_EXUI );
   CResourceMgr::GetInstance()->UnLoadResource( IMAGE_RES_UI );
   CResourceMgr::GetInstance()->UnLoadResource( IMAGE_RES_ITEM );
@@ -426,7 +432,7 @@ void CGame::Exit() {
 }
 
 void CGame::Load_NewVersionData() {
-  /// NPC FACE TABLE( Áö¿ªº¯¼ö·Î ÀÚµ¿ ÇØÁ¦ )
+  /// NPC FACE TABLE( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ )
   STBDATA stbNPCFACE;
   stbNPCFACE.Load2( "3DData\\STB\\LIST_NPCFACE.STB", false, false );
 
@@ -471,17 +477,17 @@ bool CGame::Load_BasicDATA2() {
   DWORD dwStartTime = timeGetTime();
   g_SkillList.LoadSkillTable( "3DData\\STB\\LIST_SKILL.STB" );
 
-  ///NEW VERSION ¿ë µ¥ÀÌÅ¸ ·Îµù
+  ///NEW VERSION ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ ï¿½Îµï¿½
   // 	if( CCountry::GetSingleton().IsApplyNewVersion() )
   // 		Load_NewVersionData();
 
-  /// NPC Å×ÀÌºí
+  /// NPC ï¿½ï¿½ï¿½Ìºï¿½
   g_TblNPC.Load2( "3DDATA\\STB\\LIST_NPC.STB", true, false );
   g_MOBandNPC.Load_MOBorNPC( "3DDATA\\NPC\\LIST_NPC.CHR" );
   g_QuestList.LoadQuestTable( "3DDATA\\STB\\LIST_QUEST.STB", "3DDATA\\STB\\LIST_QuestDATA.STB" );
 
   g_TblFACEITEM.Load( "3DDATA\\STB\\LIST_FACEITEM.STB", true, true );
-  ////g_TblHELMET.Load	( "3DDATA\\STB\\LIST_Cap.STB",		true, true  );=>Load_BasicDATA()·Î ÀÌ,¼±ÅÃÇÒ ¾Æ¹ÙÅ¸¸¦ ¸¸µé±â À§ÇØ¼­ ÇÊ¿äÇÑ Å×ÀÌºí
+  ////g_TblHELMET.Load	( "3DDATA\\STB\\LIST_Cap.STB",		true, true  );=>Load_BasicDATA()ï¿½ï¿½ ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
   g_TblARMOR.Load( "3DDATA\\STB\\LIST_Body.STB", true, true );
   g_TblGAUNTLET.Load( "3DDATA\\STB\\LIST_Arms.STB", true, true );
   g_TblBOOTS.Load( "3DDATA\\STB\\LIST_Foot.STB", true, true );
@@ -516,11 +522,11 @@ bool CGame::Load_BasicDATA2() {
   return true;
 }
 
-/// 2004 /3/ 29:nAvy - ClientÀÇ ½ÇÇà½Ã Ã³À½ Loading½Ã°£À» ÁÙÀÌ±â À§ÇØ¼­ Load_BasicDATA2·Î ºÐ¸®
-/// CGameLoadSelectAvatarState¿¡¼­ ³ª¸ÓÁö¸¦ LoadingÇÑ´Ù.
-/// * ÇöÀç Skill, WeaponÀÇ Loading ½Ã°£ÀÌ °¢°¢5ÃÊ¸¦ ³Ñ¾î°£´Ù.
-/// * 2¹ø ·ÎµùÇÏÁö ¾Ê°Ô ÁÖÀÇÇÏ°Å³ª STB¾È¿¡¼­ ÀÌ¹Ì LoadµÈ STB´Â ´Ù½Ã Load¾ÈÇÏ°Ô ÇÑ´Ù.
-/// * Prototype PatternÀ» »ç¿ëÇØº¼±î??
+/// 2004 /3/ 29:nAvy - Clientï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ Loadingï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Load_BasicDATA2ï¿½ï¿½ ï¿½Ð¸ï¿½
+/// CGameLoadSelectAvatarStateï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Loadingï¿½Ñ´ï¿½.
+/// * ï¿½ï¿½ï¿½ï¿½ Skill, Weaponï¿½ï¿½ Loading ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½5ï¿½Ê¸ï¿½ ï¿½Ñ¾î°£ï¿½ï¿½.
+/// * 2ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ STBï¿½È¿ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ Loadï¿½ï¿½ STBï¿½ï¿½ ï¿½Ù½ï¿½ Loadï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ñ´ï¿½.
+/// * Prototype Patternï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½??
 bool CGame::Load_BasicDATA() {
   //---------------------------------------------------------------------
   /// string table load
@@ -533,9 +539,9 @@ bool CGame::Load_BasicDATA() {
   int iCurrentLang = CStringManager::GetSingleton().GetLanguageIDInGame( CLocalizing::GetSingleton().GetCurrentCharSet() );
 
   g_AI_LIST.Load( nullptr, "3DDATA\\STB\\FILE_AI.STB", "3DDATA\\AI\\AI_S.stb", iCurrentLang );
-  g_pEffectLIST = new CEffectLIST( "3ddata\\stb\\FILE_EFFECT.stb" ); // shader ¼³Á¤µÈÈÄ ·ÎµåÇØ¾ß ÇÔ..
+  g_pEffectLIST = new CEffectLIST( "3ddata\\stb\\FILE_EFFECT.stb" ); // shader ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½..
 
-  if ( !g_DATA.Load3DDATA() ) // shader ¼³Á¤µÈÈÄ ·ÎµåÇØ¾ß ÇÔ..
+  if ( !g_DATA.Load3DDATA() ) // shader ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½..
     return false;
 
   g_TblHAIR.Load( "3DDATA\\STB\\LIST_Hair.STB", true, false );
@@ -544,7 +550,7 @@ bool CGame::Load_BasicDATA() {
   g_TblDropITEM.Load( "3DDATA\\STB\\ITEM_DROP.STB", false, false );
 
   // *-------------------------------------------------------------------* //
-  g_TblPRODUCT.Load( "3DDATA\\STB\\LIST_PRODUCT.STB", true, false ); ///2004 / 2 /4 :nAvy ¼öÁ¤ PRODUCT.STB => LIST_PRODUCT.STB
+  g_TblPRODUCT.Load( "3DDATA\\STB\\LIST_PRODUCT.STB", true, false ); ///2004 / 2 /4 :nAvy ï¿½ï¿½ï¿½ï¿½ PRODUCT.STB => LIST_PRODUCT.STB
 
   g_TblStore.Load2( "3DDATA\\STB\\LIST_SELL.STB", false, false );
   g_TblAniTYPE.Load( "3DDATA\\STB\\TYPE_MOTION.STB", false, false );
@@ -582,7 +588,7 @@ bool CGame::Load_BasicDATA() {
   return true;
 }
 
-bool CGame::Load_DataNotUseThread() ///¾²·¹µå¸¦ »ç¿ëÇØ¼­ ÀÐÀ¸¸é ¾ÈµÇ´Â Data¸¦ LoadÇÏ´Â Method: ¼ø¼­»ó Á¦ÀÏ¸ÕÀúÇØ¾ßÇÑ´Ù.
+bool CGame::Load_DataNotUseThread() ///ï¿½ï¿½ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ Dataï¿½ï¿½ Loadï¿½Ï´ï¿½ Method: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 {
   g_pCamera = CCamera::Instance();
 
@@ -782,7 +788,7 @@ void CGame::Free_BasicDATA() {
   CObjITEM::ClearMotion();
 
   g_UIMed.FreeResource();
-  CImageResManager::GetSingletonPtr()->ReleaseResources();
+  CImageResManager::GetSingleton().ReleaseResources();
 
   FreeScript();
 
@@ -1013,14 +1019,14 @@ void CGame::CreateSelectedAvata() {
   for ( int i = 0; i < MAX_WISH_ITEMS; ++i )
     CPrivateStore::GetInstance().AddItemWishList( g_pAVATAR->m_WishLIST.m_WishITEM[i], false, i );
 
-  // ÆÐ½Ãºê ½ºÅ³¿¡ÀÇÇÑ ´É·ÂÄ¡ ÃÊ±âÈ­...
+  // ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½Ê±ï¿½È­...
   g_pAVATAR->InitPassiveSkill();
 
   //g_pAVATAR->m_Inventory = m_SelectedAvataINV.m_INV;
   g_pAVATAR->Set_SEX( m_SelectedAvataInfo.m_btCharRACE );
   g_pAVATAR->UpdateAbility();
 
-  /// skill slot setting : UpdateAbilityµÚ·Î ÀÌµ¿
+  /// skill slot setting : UpdateAbilityï¿½Ú·ï¿½ ï¿½Ìµï¿½
 
   for ( int i = 0; i < MAX_LEARNED_SKILL_CNT; i++ )
     g_pAVATAR->AddNewSkill( g_pAVATAR->m_Skills.m_nSkillINDEX[i], i );
@@ -1040,15 +1046,15 @@ void CGame::CreateSelectedAvata() {
 
   g_pAVATAR->m_Inventory.MakeItemIndexList();
 
-  /// Å¬¶óÀÌ¾ðÆ®¿¡¼­ÀÇ È¿°ú¹× ¸ð¼Ç°ú µ¿±âÈ­ ½ÃÅ°±â À§ÇÏ¿© »ç¿ëµÇ´Â º¯¼öµé Setting : 2004 / 2 / 23 
-  /// CObjAVT::m_ShotData´Â ´Ù¸¥ ¾Æ¹ÙÅ¸µéÀº ½ÇÁ¦·Î ¸ð¼Ç°ú µ¿±âÈ­ ½ÃÅ°Áö ¾Ê°í
-  /// CObjUSER¸¸ CInventory::m_ItemSHOT¿Í °°ÀÌ 2°³¸¦ »ç¿ëÇØ¼­ ¼­¹ö¿Í Å¬¶óÀÌ¾ðÆ®ÀÇ ¸ð¼Ç°ú µ¿±âÈ­ ½ÃÅ²´Ù.
+  /// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Setting : 2004 / 2 / 23 
+  /// CObjAVT::m_ShotDataï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½Æ¹ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ê°ï¿½
+  /// CObjUSERï¿½ï¿½ CInventory::m_ItemSHOTï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½Å²ï¿½ï¿½.
   g_pAVATAR->SetShotData( SHOT_TYPE_ARROW, g_pAVATAR->m_Inventory.m_ItemSHOT[SHOT_TYPE_ARROW].GetItemNO() );
   g_pAVATAR->SetShotData( SHOT_TYPE_BULLET, g_pAVATAR->m_Inventory.m_ItemSHOT[SHOT_TYPE_BULLET].GetItemNO() );
   g_pAVATAR->SetShotData( SHOT_TYPE_THROW, g_pAVATAR->m_Inventory.m_ItemSHOT[SHOT_TYPE_THROW].GetItemNO() );
 
   //----------------------------------------------------------------------------------------------------	
-  /// ½½·Ô Á¤º¸ ¼¼ÆÃ + CQuickDlg ÀÇ ½½·Ô ¾÷µ¥ÀÌÆ®( Inventory¿Í SkillÁ¤º¸¸¦ ¸ÕÀú ¹Þ¾Æ¾ß ÇÑ´Ù.)
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + CQuickDlg ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®( Inventoryï¿½ï¿½ Skillï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¾ï¿½ ï¿½Ñ´ï¿½.)
   ///::CopyMemory ( &g_pAVATAR->m_HotICONS,		&m_SelectedAvataInfo.m_HotICONS,			sizeof(CHotICONS)	);	
   //----------------------------------------------------------------------------------------------------	
   (g_pAVATAR->GetHotIconSlot())->SetHotIcons( &m_SelectedAvataInfo.m_HotICONS );
@@ -1066,7 +1072,7 @@ void CGame::CreateSelectedAvata() {
       if ( classTIME::GetCurrentAbsSecond() < dwABS ) {
         pszName = CStringManager::GetSingleton().GetAbility( i + AT_MAINTAIN_ABILITY );
         classTIME::AbsSecondToSystem( dwABS, stCurrTime );
-        //g_itMGR.AppendChatMsg( CStr::Printf("%sÀ» %d³â %d¿ù %dÀÏ %d½Ã±îÁö »ç¿ë°¡´ÉÇÕ´Ï´Ù", pszName, stCurrTime.wYear, stCurrTime.wMonth, stCurrTime.wDay, stCurrTime.wHour ), IT_MGR::CHAT_TYPE_NOTICE);
+        //g_itMGR.AppendChatMsg( CStr::Printf("%sï¿½ï¿½ %dï¿½ï¿½ %dï¿½ï¿½ %dï¿½ï¿½ %dï¿½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½Õ´Ï´ï¿½", pszName, stCurrTime.wYear, stCurrTime.wMonth, stCurrTime.wDay, stCurrTime.wHour ), IT_MGR::CHAT_TYPE_NOTICE);
         g_itMGR.AppendChatMsg( CStr::Printf( "%s is available until %d/%d/%d at %d:%d:%02d %s", pszName, stCurrTime.wMonth, stCurrTime.wDay, stCurrTime.wYear, (stCurrTime.wHour > 12) ? stCurrTime.wHour - 12 : stCurrTime.wHour, stCurrTime.wMinute, stCurrTime.wSecond, (stCurrTime.wHour > 12) ? "PM" : "AM" ), IT_MGR::CHAT_TYPE_NOTICE );
       }
     }
@@ -1075,8 +1081,8 @@ void CGame::CreateSelectedAvata() {
   g_pAVATAR->Set_RareITEM_Glow();
   g_pAVATAR->CreateGradeEffect();
 
-  /// µå¶óÀÌºê ½ºÅ³ ÄðÅ¸ÀÓ Àû¿ë : 2005/7/27 - nAvy
-  /// ÄðÅ¸ÀÓÀÌ ¾øÀ»°æ¿ì g_pAVATAR->m_GrowAbility.m_dwPatCoolTIME == 0
+  /// ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : 2005/7/27 - nAvy
+  /// ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ g_pAVATAR->m_GrowAbility.m_dwPatCoolTIME == 0
   g_SoloSkillDelayTick.SetUseItemDelay( 17, (float)g_pAVATAR->GetCur_PatCoolTIME() );
 
 }
@@ -1106,10 +1112,14 @@ int CGame::GetCurrStateID() {
   return m_pCurrState->GetStateID();
 }
 
-/// ½ºÅ©¸° Ä¸ÃÄ½Ã¿¡ BMP ÆÄÀÏÀ» Áö¿ï°ÍÀÌ³Ä ¸»°ÍÀÌ³Ä..
+/// ï¿½ï¿½Å©ï¿½ï¿½ Ä¸ï¿½Ä½Ã¿ï¿½ BMP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½..
 //bool g_bDontDeleteCapFile = false;
 
 bool    CGame::IJL_BMP2JPEG(const char* szBMPFile, char* szJPGFile) {
+
+#ifdef _WIN64
+    //TODO: Implement x64
+#else
   FILE* fpBMP;
 
   fpBMP = fopen( szBMPFile, "rb" );
@@ -1158,7 +1168,7 @@ bool    CGame::IJL_BMP2JPEG(const char* szBMPFile, char* szJPGFile) {
 
   if ( !g_bDontDeleteCapFile )
     ::DeleteFile( szBMPFile );
-
+#endif
   return true;
 }
 
@@ -1169,10 +1179,10 @@ Direct3D9: (ERROR) :RenderTargets are not lockable unless application specifies 
 */
 
 void CGame::ScreenCAPTURE() {
-  //È«±Ù : ½º¼¦¿¡ ¼­¹öÀÌ¸§ ³¯Â¥ ±×¸®±â.
+  //È«ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Â¥ ï¿½×¸ï¿½ï¿½ï¿½.
   if ( beginScene() ) {
     beginSprite( D3DXSPRITE_ALPHABLEND );
-    // Text ³Ö´Â°÷
+    // Text ï¿½Ö´Â°ï¿½
 
     SYSTEMTIME SystemTime;
     GetLocalTime( &SystemTime );
@@ -1183,15 +1193,15 @@ void CGame::ScreenCAPTURE() {
             %s \n\
             %s %d, %d \n\
             %d.%d.%d %d:%d:%d",
-               this->GetServerInfo().strServerName.c_str(), // ¼­¹ö ÀÌ¸§
+               this->GetServerInfo().strServerName.c_str(), // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 
-               g_pAVATAR->Get_NAME(), // ÄÉ¸¯ ÀÌ¸§
+               g_pAVATAR->Get_NAME(), // ï¿½É¸ï¿½ ï¿½Ì¸ï¿½
 
-               ZONE_NAME( g_pTerrain->GetZoneNO() ), // À§Ä¡.
+               ZONE_NAME( g_pTerrain->GetZoneNO() ), // ï¿½ï¿½Ä¡.
                (int)g_pAVATAR->Get_CurPOS().x / 1000,
                (int)g_pAVATAR->Get_CurPOS().y / 1000,
 
-               SystemTime.wYear, // ½Ã°£.
+               SystemTime.wYear, // ï¿½Ã°ï¿½.
                SystemTime.wMonth,
                SystemTime.wDay,
                SystemTime.wHour,
@@ -1243,10 +1253,10 @@ void CGame::ScreenCAPTURE() {
 }
 
 void CGame::ScreenCAPTURE(SYSTEMTIME SystemTime) {
-  //È«±Ù : ½º¼¦¿¡ ¼­¹öÀÌ¸§ ³¯Â¥ ±×¸®±â.
+  //È«ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Â¥ ï¿½×¸ï¿½ï¿½ï¿½.
   if ( beginScene() && g_pAVATAR != nullptr ) {
     beginSprite( D3DXSPRITE_ALPHABLEND );
-    // Text ³Ö´Â°÷
+    // Text ï¿½Ö´Â°ï¿½
 
     //::drawFontf( g_GameDATA.m_hFONT[ FONT_NORMAL_OUTLINE ], true, g_pCApp->GetWIDTH() - (12 * 17),g_pCApp->GetHEIGHT() - (12 * 5), D3DCOLOR_XRGB( 255, 255, 255),		
     drawFontf( g_GameDATA.m_hFONT[FONT_NORMAL_OUTLINE], true, g_pCApp->GetWIDTH() - (12 * 20), g_pCApp->GetHEIGHT() - (12 * 5), D3DCOLOR_XRGB( 255, 255, 255),
@@ -1254,15 +1264,15 @@ void CGame::ScreenCAPTURE(SYSTEMTIME SystemTime) {
       %s \n\
       %s %d, %d \n\
       %d.%d.%d %d:%d",
-               this->GetServerInfo().strServerName.c_str(), // ¼­¹ö ÀÌ¸§
+               this->GetServerInfo().strServerName.c_str(), // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 
-               g_pAVATAR->Get_NAME(), // ÄÉ¸¯ ÀÌ¸§
+               g_pAVATAR->Get_NAME(), // ï¿½É¸ï¿½ ï¿½Ì¸ï¿½
 
-               ZONE_NAME( g_pTerrain->GetZoneNO() ), // À§Ä¡.
+               ZONE_NAME( g_pTerrain->GetZoneNO() ), // ï¿½ï¿½Ä¡.
                (int)g_pAVATAR->Get_CurPOS().x / 1000,
                (int)g_pAVATAR->Get_CurPOS().y / 1000,
 
-               SystemTime.wYear, // ½Ã°£.
+               SystemTime.wYear, // ï¿½Ã°ï¿½.
                SystemTime.wMonth,
                SystemTime.wDay,
                SystemTime.wHour,
@@ -1530,15 +1540,15 @@ WORD CGame::GetPayType() {
   }
   //NO EXT
   switch ( m_paytype ) {
-    case BILLING_MSG_PAY_FU: // FU	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â ¹«·á ¾ÆÀÌµð »ç¿ëÀÚÀÓÀ» ³ªÅ¸³½´Ù.
+    case BILLING_MSG_PAY_FU: // FU	ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
       return PAY_FREE;
-    case BILLING_MSG_PAY_FQ: // FQ	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤·® »ç¿ëÀÚ(ÇÁ¸®¹Ì¾ö)ÀÓÀ» ³ªÅ¸³½´Ù.
-    case BILLING_MSG_PAY_FA: // FA	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤¾× »ç¿ëÀÚ(ÇÁ¸®¹Ì¾ö)ÀÓÀ» ³ªÅ¸³½´Ù.
+    case BILLING_MSG_PAY_FQ: // FQ	ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
+    case BILLING_MSG_PAY_FA: // FA	ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
       return PAY_PREMIUM;
-    case BILLING_MSG_PAY_GU:  // GU	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °ÔÀÓ¹æ »ç¿ëÀÚ(ÇÃ·¹Æ¼³Ñ)ÀÓÀ» ³ªÅ¸³½´Ù.
-    case BILLING_MSG_PAY_GQ:  // GQ	(ÇÃ·¹Æ¼³Ñ)°ÔÀÓ¹æ¿¡¼­ ·Î±×ÀÎÀ» ½ÃµµÇÏ¿´À¸³ª °ÔÀÓ¹æÀÇ °ú±Ý±â°£(½Ã°£)ÀÌ ¸¸·áµÇ¾î °³ÀÎÁ¤·®À¸·Î ·Î±×ÀÎ µÇ¾úÀ½À» ³ªÅ¸³½´Ù.
-    case BILLING_MSG_PAY_IQ:  // IQ	(ÇÃ·¹Æ¼³Ñ)°ÔÀÓ¹æ¿¡¼­ ·Î±×ÀÎÀ» ½ÃµµÇÏ¿´À¸³ª ÀÌ¹Ì °è¾àµÈ IP ¼ýÀÚ¸¦ ¸ðµÎ »ç¿ëÇÏ°í ÀÖ¾î °³ÀÎÁ¤·®À¸·Î ·Î±×ÀÎ µÇ¾úÀ½À» ³ªÅ¸³½´Ù.
-    case BILLING_MSG_PAY_FAP: // FAP	·Î±×ÀÎ µÈ »ç¿ëÀÚ´Â °³ÀÎÁ¤¾× »ç¿ëÀÚ(ÇÃ·¹Æ¼³Ñ)ÀÓÀ» ³ªÅ¸³½´Ù.
+    case BILLING_MSG_PAY_GU:  // GU	ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½Ó¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ã·ï¿½Æ¼ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
+    case BILLING_MSG_PAY_GQ:  // GQ	(ï¿½Ã·ï¿½Æ¼ï¿½ï¿½)ï¿½ï¿½ï¿½Ó¹æ¿¡ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý±â°£(ï¿½Ã°ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
+    case BILLING_MSG_PAY_IQ:  // IQ	(ï¿½Ã·ï¿½Æ¼ï¿½ï¿½)ï¿½ï¿½ï¿½Ó¹æ¿¡ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ IP ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
+    case BILLING_MSG_PAY_FAP: // FAP	ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ã·ï¿½Æ¼ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
       return PAY_PLATINUM;
 
     default: break;
@@ -1590,7 +1600,7 @@ DWORD CGame::GetSetExpireTimeExt(int type) {
   return 0;
 }
 
-/// 1: ³¯Â¥, 2:ºÐ, 0:¾øÀ½
+/// 1: ï¿½ï¿½Â¥, 2:ï¿½ï¿½, 0:ï¿½ï¿½ï¿½ï¿½
 void CGame::SetExpireTimeType(int type) {
   m_expiretime_type = type;
 }
@@ -1636,8 +1646,8 @@ void CGame::ResetAutoRun() {
 }
 
 //-------------------------------------------------------------------------------------------
-/// @brief ÀÏº» ÆÄÆ®³Ê»ç ±¸ºÐÀ» À§ÇÑ ÄÞº¸¹Ú½º¸¦ È°¼ºÈ­½ÃÅ³°ÍÀÎ°¡?
-///    - ÀÏº»ÀÌ¸é¼­ NHNÀÌ ¾Æ´Ò°æ¿ì¿¡¸¸ È°¼ºÈ­ ½ÃÅ²´Ù.
+/// @brief ï¿½Ïºï¿½ ï¿½ï¿½Æ®ï¿½Ê»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þºï¿½ï¿½Ú½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½Å³ï¿½ï¿½ï¿½Î°ï¿½?
+///    - ï¿½Ïºï¿½ï¿½Ì¸é¼­ NHNï¿½ï¿½ ï¿½Æ´Ò°ï¿½ì¿¡ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½Å²ï¿½ï¿½.
 //-------------------------------------------------------------------------------------------
 bool CGame::IsActiveRouteComboBox() {
   if ( CCountry::GetSingleton().IsCountry( CCountry::COUNTRY_JPN ) && !g_GameDATA.m_is_NHN_JAPAN )

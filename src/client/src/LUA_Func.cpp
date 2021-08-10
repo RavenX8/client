@@ -11,6 +11,7 @@
 //
 int          f_return_int    = 0;
 unsigned int f_return_uint   = 0;
+unsigned long long f_return_uint64   = 0;
 float        f_return_float  = 0.0f;
 const float* f_return_float3 = nullptr;
 const char*  f_return_string = nullptr;
@@ -24,6 +25,17 @@ unsigned int get_param_uint(lua_State* L, int& index_from_end, const char* where
     return 0;
   }
   return (unsigned int)lua_tonumber( L, index );
+}
+
+unsigned long long get_param_uint64(lua_State* L, int& index_from_end, const char* where) {
+  int        index = lua_gettop( L ) - index_from_end;
+  _ASSERT(index >= 1);
+  index_from_end++;
+  if ( !lua_isinteger( L, index ) ) {
+    LogString(LOG_DEBUG, "script_lua: %s().parameter(uint) match failed\n", where);
+    return 0;
+  }
+  return (unsigned long long)lua_tointeger( L, index );
 }
 
 int   get_param_int(lua_State* L, int& index_from_end, const char* where) {
@@ -83,6 +95,12 @@ void set_param_uint(lua_State* L, int& return_num, unsigned int val) {
   return_num++;
 }
 
+void set_param_uint64(lua_State* L, long long& return_num, unsigned long long val) {
+  f_return_uint64 = val;
+  lua_pushinteger( L, val );
+  return_num++;
+}
+
 void set_param_int(lua_State* L, int& return_num, int val) {
   f_return_int = val;
   lua_pushnumber( L, val );
@@ -126,7 +144,7 @@ void set_global(lua_State* L, const char* variable_name, const char* value) {
 
 //-------------------------------------------------------------------------------------------------
 //
-// ·ç¾Æ ÇÔ¼ö È£ÃâÈÄ ¸®ÅÏµÈ °á°ú°ª °¹¼ö¸¦ ¸®ÅÏÇÑ´Ù.
+// ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 int   lua_CallFUNC(lua_State* L, const char* function_name, va_list va) {
   int param_count     = 0;
   int iBeforeStackIDX = lua_gettop( L );
@@ -194,6 +212,9 @@ int   lua_CallFUNC(lua_State* L, const char* function_name, va_list va) {
     */
   }
 
+  fprintf(stderr, "%s\n", lua_tostring(L, -1));
+  lua_pop(L, 1);/* pop error message from the stack */
+
   // error code print
   char* szErrMSG;
 
@@ -231,7 +252,7 @@ int lua_CallIntFUNC(lua_State* pLUA, const char* szFuncName, ...) {
   va_end(va);
 
   if ( iResultCnt > 0 ) {
-    // ¸®ÅÏµÈ °á°ú°¡ ÀÖÀ¸¹Ç·Î °á°ú °ªÀ» ¾ò¾î¿Â´Ù.
+    // ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
     lua_GetRETURN( pLUA, iResultCnt );
 
     LogString (LOG_DEBUG, "lua function( %s ) return %d ... \n", szFuncName, iResultCnt);

@@ -121,7 +121,7 @@ BOOL CALLBACK CSystem_EnumWindowsProc(HWND hwnd, LPARAM lParam) {
 
   dwTID = GetWindowThreadProcessId( hwnd, &dwPID );
   if ( dwPID == pFindWND->m_dwPID ) {
-    if ( NULL == ::GetWindowLong( hwnd, GWL_HWNDPARENT ) &&
+    if ( NULL == ::GetWindowLongPtr( hwnd, GWLP_HWNDPARENT ) &&
          (IsWindowVisible( hwnd ) || IsIconic( hwnd )) &&
          (::GetWindowLong( hwnd, GWL_EXSTYLE ) & (WS_EX_WINDOWEDGE | WS_EX_APPWINDOW)) ) {
       /*

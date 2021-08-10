@@ -83,7 +83,7 @@ public:
   int  GetCurrentActiveSkillSlot() { return m_iCurrentActiveSkillSlot; }
 
   //----------------------------------------------------------------------------------------------------
-  /// @brief ÇöÀç Å°º¸µå ÀÔ·Â »óÅÂ¿¡ µû¸¥ Å¸°Ù ¼¼ÆÃ
+  /// @brief ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //----------------------------------------------------------------------------------------------------
   virtual void ClearMouseState() = 0 { *(int*)nullptr                                                                                                        = 10; };
   virtual void SetTargetObject(int            iTargetType, int iTargetObj, D3DVECTOR& pickPos, DWORD wVKeyState, bool bDBClick = false) = 0 { *(int*)nullptr = 10; };
@@ -92,7 +92,7 @@ public:
   virtual void SetTargetObject_ShiftClick(int iTargetType, int iTargetObj, D3DVECTOR& pickPos, bool  bDBClick                  = false) = 0 { *(int*)nullptr = 10; };
 
   //----------------------------------------------------------------------------------------------------
-  /// PVP °ü·Ã ¼³Á¤ ÇÔ¼ö( non virtual )
+  /// PVP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½( non virtual )
   //----------------------------------------------------------------------------------------------------
   void        PVPTarget_Click(int iTargetType, int iTargetObj, D3DVECTOR& pickPos, bool bDBClick = false);
   static bool IsEnemy(CObjCHAR*   pTargetAVT);
@@ -120,7 +120,7 @@ public:
   bool OnKeyDown(WPARAM wParam, LPARAM lParam) override;
 
   //----------------------------------------------------------------------------------------------------
-  /// @brief ÇöÀç Å°º¸µå ÀÔ·Â »óÅÂ¿¡ µû¸¥ Å¸°Ù ¼¼ÆÃ
+  /// @brief ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //----------------------------------------------------------------------------------------------------
   /*override*/
   void ClearMouseState() override;
@@ -156,7 +156,7 @@ public:
   bool OnKeyDown(WPARAM wParam, LPARAM lParam) override;
 
   //----------------------------------------------------------------------------------------------------
-  /// @brief ÇöÀç Å°º¸µå ÀÔ·Â »óÅÂ¿¡ µû¸¥ Å¸°Ù ¼¼ÆÃ
+  /// @brief ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //----------------------------------------------------------------------------------------------------
   /*override*/
   void ClearMouseState() override;
@@ -177,16 +177,26 @@ class CObjectTargetEffect;
 ///	user input system
 ///
 //----------------------------------------------------------------------------------------------------
-class CUserInputSystem : public CJSingleton<CUserInputSystem> {
+class CUserInputSystem {
 private:
   CUserInputState* m_pUserInput;
   int              m_iCurrentUserInputStyle;
 
   CObjectTargetEffect* m_pObjectTargetEffect;
 
-public:
   CUserInputSystem();
+public:
   ~CUserInputSystem();
+
+  CUserInputSystem(const CUserInputSystem&) = delete;
+  CUserInputSystem& operator=(const CUserInputSystem &) = delete;
+  CUserInputSystem(CUserInputSystem &&) = delete;
+  CUserInputSystem & operator=(CUserInputSystem &&) = delete;
+
+  static auto& GetSingleton(){
+    static CUserInputSystem inst;
+    return inst;
+  }
 
   void Init();
   void Clear();
@@ -228,7 +238,7 @@ public:
   int  GetCurrentActiveSkillSlot() { return m_pUserInput->GetCurrentActiveSkillSlot(); };
 
   //----------------------------------------------------------------------------------------------------
-  /// @brief ÇöÀç Å°º¸µå ÀÔ·Â »óÅÂ¿¡ µû¸¥ Å¸°Ù ¼¼ÆÃ
+  /// @brief ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   //----------------------------------------------------------------------------------------------------
   void ClearMouseState() { m_pUserInput->ClearMouseState(); }
   void SetTargetObject(int            iTargetType, int iTargetObj, D3DVECTOR& pickPos, DWORD wVKeyState) { m_pUserInput->SetTargetObject( iTargetType, iTargetObj, pickPos, wVKeyState ); }
@@ -236,7 +246,7 @@ public:
   void SetTargetObject_CtrlClick(int  iTargetType, int iTargetObj, D3DVECTOR& pickPos) { m_pUserInput->SetTargetObject_CtrlClick( iTargetType, iTargetObj, pickPos ); }
   void SetTargetObject_ShiftClick(int iTargetType, int iTargetObj, D3DVECTOR& pickPos) { m_pUserInput->SetTargetObject_ShiftClick( iTargetType, iTargetObj, pickPos ); }
 
-  /// ÀÚ½ÅÀ» Å¸°ÙÀ¸·Î ÇÑ´Ù.
+  /// ï¿½Ú½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
   void SetTargetSelf();
 };
 

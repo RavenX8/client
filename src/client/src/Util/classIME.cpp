@@ -72,7 +72,7 @@ void classIME::Clear() {
 
 //-------------------------------------------------------------------------------------------------
 bool      classIME::Create(HWND hWnd, short nMaxTextLen) {
-  char    ga[] = "°¡";
+  char    ga[] = "ï¿½ï¿½";
   SIZE    size;
   HFONT   hFont;
   LOGFONT lf;
@@ -423,12 +423,13 @@ bool              classIME::OpenCandidate(long lParam) {
       m_hwndCand[index] = CreateWindow(
         "HanjaCandidate", "CandWindow",
         WS_BORDER | WS_POPUP | WS_DISABLED,
-        CurNumCandList * m_charWidth + pt.x, pt.y + m_charHeight + 2,
+        CurNumCandList * m_charWidth + pt.x,
+        pt.y + m_charHeight + 2,
         (max_width + 3) * m_charWidth + 4,
         (int)dwPreferNumPerPage * m_charHeight + 5,
         m_hWnd,
         (HMENU)NULL,
-        (HINSTANCE)GetWindowLong(m_hWnd, GWL_HINSTANCE ),
+        (HINSTANCE)GetWindowLongPtrA(m_hWnd, GWLP_HINSTANCE ),
         (LPVOID)NULL
       );
 
@@ -632,26 +633,26 @@ int classIME::ProcIMEMessage(UINT msg, WPARAM wparam, LPARAM lparam) {
     return CIME_SKIP;
 
   switch ( msg ) {
-    case WM_IME_STARTCOMPOSITION: // ±ÛÀÚ Á¶ÇÕÀÇ ½ÃÀÛ. WM_IME_COMPOSITION ¸Þ½ÃÁö¸¦ ¹ÞÀ» ÁØºñ¸¦ ÇÑ´Ù. 
+    case WM_IME_STARTCOMPOSITION: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. WM_IME_COMPOSITION ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ ï¿½Ñ´ï¿½. 
       OnIMEStartComposition( wparam, lparam );
       return CIME_HANDLED;
 
-    case WM_IME_ENDCOMPOSITION: // ±ÛÀÚ Á¶ÇÕÀÇ ³¡. Á¶ÇÕµÈ ¹®ÀÚ¿­ Ã³¸®¸¦ ³¡³½´Ù          break; 
+    case WM_IME_ENDCOMPOSITION: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½. ï¿½ï¿½ï¿½Õµï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½          break; 
       OnIMEEndComposition( wparam, lparam );
       return CIME_HANDLED;
 
-    case WM_IME_COMPOSITION: // ÇöÀç Á¶ÇÕÁßÀÎ ¹®ÀÚ¿­ÀÌ³ª ¿Ï¼ºµÈ ¹®ÀÚ¿­À» ¾ò¾î¼­ È­¸é Ãâ·Â 
+    case WM_IME_COMPOSITION: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Ì³ï¿½ ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½î¼­ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ 
       OnIMEComposition( wparam, lparam );
       return CIME_HANDLED;
 
-    case WM_IME_SETCONTEXT: // ±ÛÀÚ Á¶ÇÕ À©µµ¿ì¿Í ÇÑÀÚ º¯È¯ À©µµ¿ì¸¦ Ç¥½ÃÇÏÁö ¾Ê°Ô ¹Ù²Þ 
+    case WM_IME_SETCONTEXT: // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ì¸¦ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ù²ï¿½ 
       OnIMESetContext( wparam, lparam );
       return CIME_HANDLED;
 
     case WM_IME_NOTIFY: OnIMENotify( wparam, lparam );
       return CIME_HANDLED;
 
-    case WM_INPUTLANGCHANGE: // Å°º¸µå ·¹ÀÌ¾Æ¿ôÀÌ ¹Ù²î´Â °æ¿ì IME¸¦ ÃÊ±âÈ­      
+    case WM_INPUTLANGCHANGE: // Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ¿ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ ï¿½ï¿½ï¿½ IMEï¿½ï¿½ ï¿½Ê±ï¿½È­      
       OnInputLangChange( wparam, lparam );
       return CIME_HANDLED;
 
@@ -759,7 +760,7 @@ void    classIME::ToggleInputMode(bool bHangul) {
     ImmGetConversionStatus( hIMC, &dwConversion, &dwSentence );
 
     if ( dwConversion & IME_CMODE_HANGEUL ) {
-      //ÇÑ±Û ¸ðµå¸é
+      //ï¿½Ñ±ï¿½ ï¿½ï¿½ï¿½ï¿½
       if ( !bHangul ) {
         // dwConversion -= IME_CMODE_HANGEUL;
         dwConversion &= ~IME_CMODE_HANGEUL;

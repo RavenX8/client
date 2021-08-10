@@ -8,24 +8,34 @@
 ///
 /// class CTutorialEventUtility
 ///
-///	ÀÌº¥Æ® ÁøÇà¿¡ ÇÊ¿äÇÑ À¯Æ¿¸®Æ¼ Å¬·¡½ºÀÔ´Ï´Ù.
+///	ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½à¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¿ï¿½ï¿½Æ¼ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 ///
 //---------------------------------------------------------------------------------------
 
-class CTutorialEventUtility : public CJSingleton<CTutorialEventUtility> {
+class CTutorialEventUtility {
 private:
-  STBDATA m_TblNotifyButtonEvent; /// ¾Ë¸²¹öÆ° ÀÌº¥Æ®
+  STBDATA m_TblNotifyButtonEvent; /// ï¿½Ë¸ï¿½ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ®
 
-public:
   CTutorialEventUtility(void );
+public:
   ~CTutorialEventUtility(void);
+
+  CTutorialEventUtility(const CTutorialEventUtility&) = delete;
+  CTutorialEventUtility& operator=(const CTutorialEventUtility &) = delete;
+  CTutorialEventUtility(CTutorialEventUtility &&) = delete;
+  CTutorialEventUtility & operator=(CTutorialEventUtility &&) = delete;
+
+  static auto& GetSingleton(){
+    static CTutorialEventUtility inst;
+    return inst;
+  }
 
   bool Init();
   void Release();
 
-  /// ¾Ë¸² ¹öÆ° ÀÌº¥Æ®¸¦ »ý¼ºÇÑ´Ù.
+  /// ï¿½Ë¸ï¿½ ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
   bool CreateNotifyEventButton(int iEventIdx);
-  /// EventButton.STB¿¡ ¼³Á¤µÈ ¾Ë¸² ¹öÆ° ÀÌº¥Æ®¸¦ ½ÇÇàÇÑ´Ù.
+  /// EventButton.STBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
   bool ExecNotifyEvent(int iEventIdx);
 };
 

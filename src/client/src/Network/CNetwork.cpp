@@ -128,7 +128,7 @@ void              CNetwork::Proc_WorldPacket() {
   std::unique_ptr<t_PACKET> packet(new t_PACKET);
   while ( m_WorldSOCKET.Peek_Packet( packet.get(), true ) ) {
     switch ( packet->m_HEADER.m_wType ) {
-      case SOCKET_NETWORK_STATUS: {
+      case to_underlying(ePacketType::PAKSS_ACCEPT_REPLY): {
         switch ( packet->m_NetSTATUS.m_btStatus ) {
           case NETWORK_STATUS_ACCEPTED: {
             pSocket->OnAccepted( (int *)packet->m_NetSTATUS.m_dwSocketIDs );
@@ -616,7 +616,7 @@ void CNetwork::Proc() {
     LogString(LOG_DEBUG, "Packet_Proc:: Type: 0x%x, Size: %d \n",
               packet->m_HEADER.m_wType, packet->m_HEADER.m_nSize);
     switch ( packet->m_HEADER.m_wType ) {
-      case SOCKET_NETWORK_STATUS: {
+      case to_underlying(ePacketType::PAKSS_ACCEPT_REPLY): {
         m_btZoneSocketSTATUS = packet->m_NetSTATUS.m_btStatus;
         switch ( packet->m_NetSTATUS.m_btStatus ) {
           case NETWORK_STATUS_ACCEPTED: {

@@ -11,6 +11,7 @@
 #include <windows.h>
 #include "Net_Prototype.h"
 #include "packetfactory.h"
+#include "epackettype.h"
 
 #define CLIENTSOCKET_SERVERDEAD (-1)
 #define CLIENTSOCKET_DISCONNECTED 0x000
@@ -212,7 +213,7 @@ void        CClientSOCKET::Packet_Register2RecvQ(const t_PACKET* const pRegPacke
 
 void CClientSOCKET::Set_NetSTATUS(BYTE btStatus) {
   t_PACKET tmp;
-  tmp.m_HEADER.m_wType = SOCKET_NETWORK_STATUS;
+  tmp.m_HEADER.m_wType = RoseCommon::to_underlying(RoseCommon::ePacketType::PAKSS_ACCEPT_REPLY);
   tmp.m_HEADER.m_nSize = sizeof(t_NETWORK_STATUS);
   ((t_NETWORK_STATUS *)&tmp)->m_btStatus = btStatus;
 

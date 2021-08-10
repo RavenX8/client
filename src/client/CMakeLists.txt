@@ -14,17 +14,21 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/GameCommon
 )
 
+if (64BIT)
+    link_directories(${DIRECTX_ROOT}/lib/x64)
+else()
+    link_directories(${DIRECTX_ROOT}/lib)
+endif()
+
 link_directories(
-  ${DIRECTX_ROOT}/lib
   ${CMAKE_THIRD_PARTY_LIBRARY_DIR}
 )
 
 add_linker_flags("/SAFESEH:NO")
 add_linker_flags("/SUBSYSTEM:WINDOWS")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
 
 set(args
-  LUA4
   TARGET TRose_GM
   LUAFILES src/export_GM.lua
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/Game_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/Game_FUNC_REG.inc
@@ -34,7 +38,6 @@ generate_lua_includes(GAME_LUA_HEADERS ${args})
 set(GEN_HEADERS ${GAME_LUA_HEADERS})
 
 set(args
-  LUA4
   TARGET TRose_QF
   LUAFILES src/export_QF.lua
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_REG.inc
@@ -44,7 +47,6 @@ generate_lua_includes(GAME_LUA_HEADERS ${args})
 set(GEN_HEADERS ${GEN_HEADERS} ${GAME_LUA_HEADERS})
 
 set(args
-  LUA4
   TARGET TRose_System
   LUAFILES src/export_System.lua
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/System/System_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/System/System_FUNC_REG.inc
@@ -830,13 +832,18 @@ set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TRose_d")
 set_target_properties(${PROJECT} PROPERTIES WIN32_EXECUTABLE true)
 
 target_link_libraries(${PROJECT} PRIVATE dsound.lib dxguid.lib dxerr9.lib d3dx9.lib)
-target_link_libraries(${PROJECT} PRIVATE legacy_stdio_definitions.lib imagehlp.lib odbc32.lib odbccp32.lib shlwapi.lib strmiids.lib unicows.lib urlmon.lib Version.lib)
+target_link_libraries(${PROJECT} PRIVATE legacy_stdio_definitions.lib imagehlp.lib odbc32.lib odbccp32.lib shlwapi.lib strmiids.lib urlmon.lib Version.lib)
+if (NOT 64BIT)
+    target_link_libraries(${PROJECT} PRIVATE unicows.lib)
+endif()
 target_link_libraries(${PROJECT} PRIVATE WSock32.lib ws2_32.lib)
-target_link_libraries(${PROJECT} PRIVATE lua::lua4)
+target_link_libraries(${PROJECT} PRIVATE lua::lua5)
 #target_link_libraries(${PROJECT} PRIVATE ultralight::ultralight)
 target_link_libraries(${PROJECT} PRIVATE utils::zlib)
 target_link_libraries(${PROJECT} PRIVATE utils::expat)
-target_link_libraries(${PROJECT} PRIVATE utils::ijl15)
+if (NOT 64BIT)
+    target_link_libraries(${PROJECT} PRIVATE utils::ijl15)
+endif()
 target_link_libraries(${PROJECT} PRIVATE utils::ogg)
 target_link_libraries(${PROJECT} PRIVATE utils::vorbis)
 target_link_libraries(${PROJECT} PRIVATE sqlite3::sqlite3)

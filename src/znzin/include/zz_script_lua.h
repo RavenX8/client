@@ -60,7 +60,6 @@ extern "C" {
 #include "lua.h"
 #include "lualib.h"
 #include "lauxlib.h"
-  //#include "c:/code/tolua/include/tolua.h"
 }
 
 class zz_script_lua : public zz_script {

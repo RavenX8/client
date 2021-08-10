@@ -2,7 +2,7 @@
 #include "./Localizing.h"
 
 /// for singleton
-CLocalizing _localizing;
+//CLocalizing _localizing;
 
 CLocalizing::CLocalizing(void) {
   m_pTempWCBuf    = nullptr;
@@ -91,7 +91,7 @@ int CLocalizing::GetCurrentCodePage() {
 }
 
 //--------------------------------------------------------------------------------
-/// !! ÁÖÀÇ inBuf ´Â º¯È¯ÈÄÀÇ ½ºÆ®¸µÀ» ´ãÀ» ¸¸Å­ ÃæºÐÈ÷ Ä¿¾ßÇÕ´Ï´Ù.
+/// !! ï¿½ï¿½ï¿½ï¿½ inBuf ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 //--------------------------------------------------------------------------------
 int     CLocalizing::UTF8ToMBCS(LPSTR inBuf, int iInBufSize) {
   WCHAR outBuf[ 1024 ];
@@ -205,7 +205,7 @@ int CLocalizing::MBCSToUnicode(LPSTR inBuf, int iInBufSize, WCHAR* pOutBuf, int 
                               iOutBufSize );
 }
 
-/// iInBufSize »çÀÌÁî ±ÍÂúÀ¸¸é -1 ·Î ³ÖÀ¸¸é µË´Ï´Ù.
+/// iInBufSize ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë´Ï´ï¿½.
 int CLocalizing::UnicodeToMBCS(WCHAR* pInBuf, int iInBufSize, LPSTR OutBuf, int iOutBufSize) {
   /// Unicode -> MBCS
   return WideCharToMultiByte( CP_ACP,
