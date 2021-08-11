@@ -51,7 +51,7 @@ void CClientStorage::Load() {
   m_iJapanRoute = GetPrivateProfileInt( "JAPAN", "ROUTE", 1, g_szIniFileName );
 
   ///KeyBoard
-  ///ÀÏº»ÀÏ°æ¿ì µðÆúÆ®¸¦ ±âÁ¸ ¹æ½Ä( ÀÚµ¿¿£ÅÍ )À¸·Î ÇÑ´Ù.
+  ///ï¿½Ïºï¿½ï¿½Ï°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½( ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ )ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
   if ( CCountry::GetSingleton().IsJapan() )
     m_KeyboardOption.iChattingMode = GetPrivateProfileInt( "KEYBOARD", "CHATMODE", 1, g_szIniFileName );
   else
@@ -98,7 +98,7 @@ void CClientStorage::Load() {
   m_CommunityOption.iParty     = GetPrivateProfileInt( "COMMUNITY", "PARTY", 1, g_szIniFileName );
   m_CommunityOption.iMessanger = GetPrivateProfileInt( "COMMUNITY", "MESSANGER", 1, g_szIniFileName );
 
-  /// °¢ DialogµéÀÇ À§Ä¡
+  /// ï¿½ï¿½ Dialogï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
   ZeroMemory( m_DialogPos, sizeof( m_DialogPos ));
   if ( GetPrivateProfileStruct( "DIALOG", "POSITION", m_DialogPos, sizeof(m_DialogPos), g_szIniFileName ) )
     m_bHasSavedDialogPos = true;
@@ -202,7 +202,7 @@ void   CClientStorage::Save() {
 
   //	WritePrivateProfileStruct(m_strAvatarName.c_str(),"INVENTORY", m_VirtualInventory, sizeof( m_VirtualInventory ),g_szIniFileName );
 
-  m_DialogPos[DLG_TYPE_MAX].nPosX = -999; ///³¡±îÁö ¸ðµç DialogµéÀÇ À§Ä¡°¡ ÀúÀåµÇ¾î ÀÖ´Â°¡¸¦ ÆÇ´ÜÇÏ±â À§ÇÑ °ª
+  m_DialogPos[DLG_TYPE_MAX].nPosX = -999; ///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Dialogï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Â°ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
   m_DialogPos[DLG_TYPE_MAX].nPosY = -999;
   WritePrivateProfileStruct( "DIALOG", "POSITION", m_DialogPos, sizeof(m_DialogPos), g_szIniFileName );
   m_bHasSavedDialogPos = true;
@@ -255,7 +255,7 @@ void CClientStorage::SetSavedDialogPos(int iDialogID, POINT pt) {
 }
 
 void CClientStorage::ApplyCameraOption(short i) {
-  /// ÇöÀç Á¸ÀÇ Ä«¸Þ¶ó¼ÂÀ¸·Î º¯È¯
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
   if ( g_pTerrain ) {
     int iZoneType = g_pTerrain->GetZoneNO();
     i += ZONE_CAMERA_TYPE( iZoneType );
@@ -271,8 +271,9 @@ void CClientStorage::ApplyCameraOption(short i) {
     setFogRange( fFogNear, fFogFar );
 
     HNODE camera = findNode( "avatar_camera" );
-    setCameraAspectRatio( camera, (float)(atof( CAMERA_ASPECT_RATIO(i) )) );
-    setCameraPerspective( camera, (float)CAMERA_FOV(i), (float)(atof( CAMERA_ASPECT_RATIO(i) )), (float)(CAMERA_NEAR_PLANE(i) * 100), (float)(CAMERA_FAR_PLANE(i) * 100) );
+    float aspectRatio = (float)::getScreenWidth() / (float)::getScreenHeight();
+    setCameraAspectRatio( camera, aspectRatio );
+    setCameraPerspective( camera, (float)CAMERA_FOV(i), aspectRatio, (float)(CAMERA_NEAR_PLANE(i) * 100), (float)(CAMERA_FAR_PLANE(i) * 100) );
     g_GameDATA.m_nSightRange = CAMERA_MAX_RANGE(i) / 10;
   }
 }
