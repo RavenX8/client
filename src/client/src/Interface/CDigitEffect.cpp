@@ -463,7 +463,7 @@ void  CDigitEffect::CreateDigitEffect(const int iPoint, const float x, const flo
 
     for (int i = 0; i < iDigitCount; i++) {
       SetRect(&SourceRect, (DIGIT_WIDTH * iDigit[DIGIT_COUNT - iDigitCount + i]), 0, (DIGIT_WIDTH * iDigit[DIGIT_COUNT - iDigitCount + i]) + DIGIT_WIDTH, DIGIT_HEIGHT);
-      DestinationPoint.x = iStartPos + (i - 1) * DIGIT_WIDTH; //fixed rect
+      DestinationPoint.x = iStartPos + (i - 1) * DIGIT_WIDTH;
       DestinationPoint.y = 0;
 
       hr = pDevice->UpdateSurface(psurfDigit,
