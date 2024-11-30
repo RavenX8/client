@@ -28,7 +28,7 @@ jobs:
         id: get-submodule-info
         run: git ls-remote https://github.com/dev-osrose/packets HEAD > ${{github.workspace}}/submodule_info
       - name: Cache 3rdparty builds
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ${{github.workspace}}/build/3rdparty/bin
@@ -93,7 +93,7 @@ jobs:
         run: git ls-remote https://github.com/dev-osrose/packets HEAD > ${{github.workspace}}/submodule_info
 
       - name: Cache 3rdparty builds
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ${{github.workspace}}/build/3rdparty/bin
