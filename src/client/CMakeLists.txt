@@ -28,6 +28,10 @@ add_linker_flags("/SAFESEH:NO")
 add_linker_flags("/SUBSYSTEM:WINDOWS")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DZZ_LUA500")
 
+if (DISABLE_CRYPT)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDISABLE_CRYPT")
+endif ()
+
 set(args
   TARGET TRose_GM
   LUAFILES src/export_GM.lua

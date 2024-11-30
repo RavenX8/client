@@ -238,7 +238,9 @@ void CClientSOCKET::Packet_Register2SendQ(const t_PACKET* const pRegPacket) {
     
     // Encoding pSendPacket->m_Packet ... 위에 있던것을 안으로... 인코딩된
     // 수서와 보내는 순서가 멀티쓰레드에 의해 틀려질수 있기때문에...
+#if !defined(DISABLE_CRYPT)
     m_crypt.encodeClientPacket(data.get());
+#endif
     m_WaitPacketQ.emplace_back(packetSize, std::move(data));
   }
   SetEvent( m_hThreadEvent ); // 쓰레드에 통보 !!!
@@ -252,7 +254,9 @@ void CClientSOCKET::Packet_Register2SendQ(RoseCommon::CRosePacket&& pRegPacket)
     uint16_t size = pRegPacket.get_size();
     {
       std::lock_guard guard(m_waitMutex);
+#if !defined(DISABLE_CRYPT)
       m_crypt.encodeClientPacket(packet.get());
+#endif
       m_WaitPacketQ.emplace_back(size, std::move(packet));
     }
 
@@ -294,7 +298,11 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
     if ( this->m_nRecvBytes >= sizeof( t_PACKETHEADER ) ) {
       if ( this->m_nRecvBytes == sizeof( t_PACKETHEADER ) ) {
         // Decoding Packet Header ...
+#if !defined(DISABLE_CRYPT)
         this->m_nPacketSize = this->mF_DRH( &(reinterpret_cast<t_PACKET*>(m_pRecvPacket)->m_HEADER) );
+#else
+        this->m_nPacketSize = (reinterpret_cast<t_PACKET*>(m_pRecvPacket)->m_HEADER).m_nSize;
+#endif
         if ( !this->m_nPacketSize ) {
           // 패킷 오류 !!!
           this->Close();
@@ -318,9 +326,11 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
           ::CopyMemory(data.get(), m_pRecvPacket, this->m_nPacketSize);
 
           // Decoing Packet Body ...
+#if !defined(DISABLE_CRYPT)
           if ( !this->mF_DRB( &(reinterpret_cast<t_PACKET*>(data.get())->m_HEADER) ) ) {
             _ASSERT(0);
           }
+#endif
 
           std::lock_guard guard(m_recvMutex);
           m_RecvPacketQ.emplace_back(m_nPacketSize, std::move(data));
