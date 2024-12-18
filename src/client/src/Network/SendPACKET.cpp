@@ -87,11 +87,8 @@ CSendPACKET::~CSendPACKET() {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEncode) {
-  if ( g_GameDATA.m_bDirectLogin )
+  if ( g_GameDATA.m_bDirectLogin && !g_GameDATA.m_OTPToken.empty() )
   {
-    if (g_GameDATA.m_OTPToken.empty())
-      return;
-
     this->Send_PACKET(RoseCommon::Packet::CliLoginTokenReq::create(g_GameDATA.m_OTPToken), true);
     return;
   }
@@ -152,17 +149,11 @@ void CSendPACKET::Send_cli_JOIN_SERVER_REQ(DWORD dwLSVID, bool bWorldServer) {
   // ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
 #endif
 
-  if ( g_GameDATA.m_bDirectLogin )
-  {
-    if (g_GameDATA.m_OTPToken.empty())
-      return;
-
+  if (g_GameDATA.m_bDirectLogin && !g_GameDATA.m_OTPToken.empty()) {
     this->Send_PACKET(RoseCommon::Packet::CliJoinServerTokenReq::create(dwLSVID, g_GameDATA.m_OTPToken), bWorldServer);
+    return;
   }
-  else
-  {
-    this->Send_PACKET(RoseCommon::Packet::CliJoinServerReq::create(dwLSVID, m_pMD5Buff), bWorldServer);
-  }
+  this->Send_PACKET(RoseCommon::Packet::CliJoinServerReq::create(dwLSVID, m_pMD5Buff), bWorldServer);
 }
 
 //-------------------------------------------------------------------------------------------------
