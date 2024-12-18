@@ -5,6 +5,8 @@
 #include "CHotICON.h"
 #include "Calculation.h"
 #include "io_stb.h"
+#include "dataconsts.h"
+
 
 #pragma warning (disable:4201)
 //-------------------------------------------------------------------------------------------------
@@ -15,17 +17,17 @@
 
 #pragma pack (push, 1)
 //-------------------------------------------------------------------------------------------------
-/// ±âº» Á¤º¸ µ¥ÀÌÅÍ...
+/// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 struct tagBasicINFO {
   // NAME
   // SEX
-  char  m_cBirthStone; // Åº»ý¼®
-  char  m_cFaceIDX;    // ¾ó±¼ ¸ð¾ç
-  char  m_cHairIDX;    // ¸Ó¸® ¸ð¾ç
-  short m_nClass;      // Á÷¾÷ ( 1~30 )
-  char  m_cUnion;      // ¼Ò¼Ó Á¶ÇÕ ( 1~20 )
-  char  m_cRank;       // °è±Þ ( 1~15 )
-  char  m_cFame;       // ¸í¼º ( 0 ~ 99 )
+  char  m_cBirthStone; // Åºï¿½ï¿½ï¿½ï¿½
+  char  m_cFaceIDX;    // ï¿½ï¿½ ï¿½ï¿½ï¿½
+  char  m_cHairIDX;    // ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½
+  short m_nClass;      // ï¿½ï¿½ï¿½ï¿½ ( 1~30 )
+  char  m_cUnion;      // ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ( 1~20 )
+  char  m_cRank;       // ï¿½ï¿½ï¿½ ( 1~15 )
+  char  m_cFame;       // ï¿½ï¿½ ( 0 ~ 99 )
   void  Init(char cBirthStone, char cFaceIDX, char cHairIDX) {
     m_cBirthStone = cBirthStone;
     m_cFaceIDX    = cFaceIDX;
@@ -38,16 +40,16 @@ struct tagBasicINFO {
   }
 };
 
-/// ±âº» ´É·ÂÄ¡ µ¥ÀÌÅÍ...
+/// ï¿½âº» ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 struct tagBasicAbility {
   union {
     struct {
-      short m_nSTR;   // ±Ù·Â 1~200
-      short m_nDEX;   // ¹ÎÃ¸ 1~200
-      short m_nINT;   // Áö·Â 1~200
-      short m_nCON;   // concentration ÁýÁß·Â 1~200
-      short m_nCHARM; // ¸Å·Â 1~200
-      short m_nSENSE; // °¨°¢ 1~200
+      short m_nSTR;   // ï¿½Ù·ï¿½ 1~200
+      short m_nDEX;   // ï¿½ï¿½Ã¸ 1~200
+      short m_nINT;   // ï¿½ï¿½ï¿½ï¿½ 1~200
+      short m_nCON;   // concentration ï¿½ï¿½ï¿½ß·ï¿½ 1~200
+      short m_nCHARM; // ï¿½Å·ï¿½ 1~200
+      short m_nSENSE; // ï¿½ï¿½ï¿½ï¿½ 1~200
     };
 
     short m_nBasicA[ BA_MAX ];
@@ -63,8 +65,8 @@ struct tagBasicAbility {
   }
 };
 
-#define	MAX_BASIC_ABLITY		300		// 250 ±âº» ´É·ÂÄ¡ ÃÖ´ëÄ¡¸¦ 300À¸·Î ¼öÁ¤
-#define	MAX_LEVEL				210		// 200 ÃÖ´ë ·¹º§À» 250À¸·Î ¼öÁ¤
+#define	MAX_BASIC_ABLITY		300		// 250 ï¿½âº» ï¿½É·ï¿½Ä¡ ï¿½Ö´ï¿½Ä¡ï¿½ï¿½ 300ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+#define	MAX_LEVEL				210		// 200 ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 250ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #define	MAX_EXPERIENCE			0x7FFFFFFFFFFFFFFF
 
 #define	MAX_MAINTAIN_STATUS		40		// 8 * 50 = 400
@@ -75,29 +77,29 @@ struct tagMaintainSTATUS {
   short m_nDummy;
 };
 
-/// ¼ºÀå ´É·ÂÄ¡ µ¥ÀÌÅÍ ...
+/// ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ...
 struct tagGrowAbility {
   int32_t m_nHP; // 0~2000
   int32_t m_nMP; // 0~1000
 
-  uint32_t m_lEXP;        // °æÇèÄ¡ 1~100000
+  uint32_t m_lEXP;        // ï¿½ï¿½ï¿½ï¿½Ä¡ 1~100000
   uint16_t   m_nLevel;      // 0~250
   uint32_t   m_nBonusPoint; // 1~999
   uint32_t   m_nSkillPoint; // 1~
-  BYTE    m_btBodySIZE;  // ¸öÅëÅ©±â
-  BYTE    m_btHeadSIZE;  // ¸Ó¸®Å©±â
-  uint32_t m_lPenalEXP;   // Ãß°¡ °æÇèÄ¡...
+  BYTE    m_btBodySIZE;  // ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
+  BYTE    m_btHeadSIZE;  // ï¿½Ó¸ï¿½Å©ï¿½ï¿½
+  uint32_t m_lPenalEXP;   // ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡...
 
-  short m_nFameG;                         // ¼±ÇàÁö¼ö	: Äù½ºÆ®¿¡ ÀÇÇØ Áõ°¨µÊ	: 2004.5.27 Ãß°¡
-  short m_nFameB;                         // ¼±ÇàÁö¼ö : Äù½ºÆ®¿¡ ÀÇÇØ Áõ°¨µÊ	: 2004.5.27 Ãß°¡
-  short m_nUnionPOINT[ MAX_UNION_COUNT ]; // Á¶ÇÕ Æ÷ÀÎÆ®		: 2004.5.27 Ãß°¡
+  short m_nFameG;                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	: ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	: 2004.5.27 ï¿½ß°ï¿½
+  short m_nFameB;                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	: 2004.5.27 ï¿½ß°ï¿½
+  short m_nUnionPOINT[ RoseCommon::MAX_UNION_COUNT ]; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®		: 2004.5.27 ï¿½ß°ï¿½
 
-  uint32_t   m_iGuildNO;    // ±æµå ¹øÈ£	: 2004.5.27 Ãß°¡
-  uint16_t m_nGuildCNTRB; // ±æµå ±â¿©µµ	: 2004.5.27 Ãß°¡
-  BYTE  m_btGuildPOS;  // ±æµå Á÷À§	: 2004.5.27 Ãß°¡
+  uint32_t   m_iGuildNO;    // ï¿½ï¿½ï¿½ ï¿½ï¿½È£	: 2004.5.27 ï¿½ß°ï¿½
+  uint16_t m_nGuildCNTRB; // ï¿½ï¿½ï¿½ ï¿½â¿©ï¿½ï¿½	: 2004.5.27 ï¿½ß°ï¿½
+  BYTE  m_btGuildPOS;  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	: 2004.5.27 ï¿½ß°ï¿½
 
-  short m_nPKFlag;  // 2004. 6. 17 Ãß°¡..
-  short m_nSTAMINA; // 2004. 8. 23 Ãß°¡..
+  short m_nPKFlag;  // 2004. 6. 17 ï¿½ß°ï¿½..
+  short m_nSTAMINA; // 2004. 8. 23 ï¿½ß°ï¿½..
 
   tagMaintainSTATUS m_STATUS[ MAX_MAINTAIN_STATUS ];
 
@@ -106,8 +108,8 @@ struct tagGrowAbility {
   DWORD m_dwPatCoolTIME;
 #endif
   /*
-    char	m_cChaos;			// ¼ºÇâ
-    short	m_nBattle_LV;		// º£Æ²·¹º§
+    char	m_cChaos;			// ï¿½ï¿½ï¿½ï¿½
+    short	m_nBattle_LV;		// ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½
     short	m_nPK_LV;			//
   */
   void Init() {
@@ -118,8 +120,8 @@ struct tagGrowAbility {
     m_nLevel      = 1;
     m_nBonusPoint = 0;
     m_nSkillPoint = 0;
-    m_btBodySIZE  = 100; // ¸öÅëÅ©±â
-    m_btHeadSIZE  = 100; // ¸Ó¸®Å©±â
+    m_btBodySIZE  = 100; // ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
+    m_btHeadSIZE  = 100; // ï¿½Ó¸ï¿½Å©ï¿½ï¿½
     m_lPenalEXP   = 0;
 
     m_nFameG = m_nFameB = 0;
@@ -131,7 +133,7 @@ struct tagGrowAbility {
   }
 };
 
-/// ¾Æ¹ÙÅ¸ º¸À¯½ºÅ³ - ¿©ºÐÀ¸·Î 120À¸·Î ¼³Á¤ ±âÈ¹¼­»ó »ç¿ëÀº 90°³
+/// ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 120ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 90ï¿½ï¿½
 #define	MAX_LEARNED_SKILL_CNT			120
 #define	MAX_LEARNED_SKILL_PAGE			4
 #define	MAX_LEARNED_SKILL_PER_PAGE		( MAX_LEARNED_SKILL_CNT/MAX_LEARNED_SKILL_PAGE )
@@ -139,36 +141,36 @@ struct tagGrowAbility {
 struct tagSkillAbility {
   union {
     short m_nSkillINDEX[ MAX_LEARNED_SKILL_CNT ];
-    short m_nIndex[ MAX_LEARNED_SKILL_PAGE ][ MAX_LEARNED_SKILL_PER_PAGE ]; // ÀüÅõ, »ó¾÷/Á¦Á¶, ÆÐ½Ãºê ½ºÅ³ °¢°¢ 10°³±îÁö º¸À¯.
+    short m_nIndex[ MAX_LEARNED_SKILL_PAGE ][ MAX_LEARNED_SKILL_PER_PAGE ]; // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½, ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
   };
 
   void Init() {
     ::ZeroMemory( m_nSkillINDEX, sizeof(short) * MAX_LEARNED_SKILL_CNT );
-    m_nSkillINDEX[0] = 11; // ¾É±â
-    m_nSkillINDEX[1] = 12; // ÁÝ±â
-    m_nSkillINDEX[2] = 16; // ÀÏ¹Ý°ø°Ý
-    m_nSkillINDEX[3] = 19; // ÆÄÆ¼½ÅÃ»
-    m_nSkillINDEX[4] = 20; // °Å·¡½ÅÃ»
-    m_nSkillINDEX[5] = 21; // »óÁ¡°³¼³
+    m_nSkillINDEX[0] = 11; // ï¿½É±ï¿½
+    m_nSkillINDEX[1] = 12; // ï¿½Ý±ï¿½
+    m_nSkillINDEX[2] = 16; // ï¿½Ï¹Ý°ï¿½ï¿½ï¿½
+    m_nSkillINDEX[3] = 19; // ï¿½ï¿½Æ¼ï¿½ï¿½Ã»
+    m_nSkillINDEX[4] = 20; // ï¿½Å·ï¿½ï¿½ï¿½Ã»
+    m_nSkillINDEX[5] = 21; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   }
 };
 
-/// Äù½ºÆ® µ¥ÀÌÅÍ ...
+/// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ...
 
-// #define	__APPLY_EXTAND_QUEST_VAR		// 05.05.21 Ãß°¡ È®Àå ½ºÀ§Ä¡¹× º¯¼ö Àû¿ë¿©ºÎ..
+// #define	__APPLY_EXTAND_QUEST_VAR		// 05.05.21 ï¿½ß°ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ë¿©ï¿½ï¿½..
 
-#define	QUEST_PER_PLAYER			10		// °³ÀÎ´ç ÃÖ´ë µî·Ï °¡´É Äù½ºÆ®¼ö...
+#define	QUEST_PER_PLAYER			10		// ï¿½ï¿½ï¿½Î´ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½...
 
-#define	QUEST_EPISODE_VAR_CNT		5		// ¿¡ÇÇ¼Òµå ÁøÇà º¯¼ö °¹¼ö
-#define	QUEST_JOB_VAR_CNT			3		// Á÷¾÷º° ÁøÇà º¯¼ö °¹¼ö
-#define	QUEST_PLANET_VAR_CNT		7		// Çà¼ºº°...
-#define	QUEST_UNION_VAR_CNT			10		// Á¶ÇÕº°...
+#define	QUEST_EPISODE_VAR_CNT		5		// ï¿½ï¿½ï¿½Ç¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+#define	QUEST_JOB_VAR_CNT			3		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+#define	QUEST_PLANET_VAR_CNT		7		// ï¿½à¼ºï¿½ï¿½...
+#define	QUEST_UNION_VAR_CNT			10		// ï¿½ï¿½ï¿½Õºï¿½...
 
 #ifdef	__APPLY_EXTAND_QUEST_VAR
 	#define	QUEST_ETC_VAR_CNT			53
-	#define	QUEST_SWITCH_CNT			(512+512)	// ÀüÃ¼ Äù½ºÆ® ÁøÇà ½ºÀ§Ä¡¼ö..
+	#define	QUEST_SWITCH_CNT			(512+512)	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½..
 #else
-#define	QUEST_SWITCH_CNT			(512    )	// ÀüÃ¼ Äù½ºÆ® ÁøÇà ½ºÀ§Ä¡¼ö..
+#define	QUEST_SWITCH_CNT			(512    )	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½..
 #endif
 #define	QUEST_SWITCH_GROUP_CNT	  ( QUEST_SWITCH_CNT/sizeof(DWORD) )
 
@@ -279,7 +281,7 @@ struct tagBankData {
   }
 };
 
-#define	MAX_WISH_ITEMS		30				// ±¸ÀÔ Èñ¸ÁÇÏ´Â Âò ¾ÆÀÌÅÛ ÃÖ´ë °¹¼ö
+#define	MAX_WISH_ITEMS		30				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 struct tagWishLIST {
   tagITEM m_WishITEM[ MAX_WISH_ITEMS ];
@@ -300,29 +302,29 @@ struct tagWishLIST {
 //-------------------------------------------------------------------------------------------------
 #pragma pack (pop)
 
-/// ÀüÅõ ´É·ÂÄ¡ µ¥ÀÌÅÍ - °è»êµÇ¾îÁ® ¾òÀ½
+/// ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 struct tagBattleAbility {
   short m_nMaxHP;
   short m_nMaxMP;
-  short m_nATT;       // °ø°Ý·Â 1~200
-  short m_nDEF;       // ¹æ¾î·Â 1~200
-  short m_nMAG;       // ¸¶¹ý·Â 1~200
-  short m_nHIT;       // ¸íÁß·Â 1~500
-  short m_nRES;       // Ç×¸¶·Â 1~200
-  short m_nAVOID;     // È¸ÇÇ·Â 1~999
-  short m_nSPD;       // ÀÌµ¿·Â 1~50
-  short m_nMaxWEIGHT; // weight ¾ÆÀÌÅÛ¼ÒÁö·®.
-  short m_nWEIGHT;    // ÇöÀç ¼ÒÁöÇÑ·®
+  short m_nATT;       // ï¿½ï¿½ï¿½Ý·ï¿½ 1~200
+  short m_nDEF;       // ï¿½ï¿½ï¿½ï¿½ 1~200
+  short m_nMAG;       // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1~200
+  short m_nHIT;       // ï¿½ï¿½ï¿½ß·ï¿½ 1~500
+  short m_nRES;       // ï¿½×¸ï¿½ï¿½ï¿½ 1~200
+  short m_nAVOID;     // È¸ï¿½Ç·ï¿½ 1~999
+  short m_nSPD;       // ï¿½Ìµï¿½ï¿½ï¿½ 1~50
+  short m_nMaxWEIGHT; // weight ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½.
+  short m_nWEIGHT;    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ·ï¿½
 
-  //	int		m_iDefQuality;	// ÀüÃ¼ ¹æ¾î±¸ Ç°Áú
-  int m_iDefDurabity; // ÀüÃ¼ ¹æ¾î±¸ ³»±¸µµÇÕ
-  int m_iDefGrade;    // ÀüÃ¼ ¹æ¾î±¸ µî±ÞÇÕ
+  //	int		m_iDefQuality;	// ï¿½ï¿½Ã¼ ï¿½ï¿½î±¸ Ç°ï¿½ï¿½
+  int m_iDefDurabity; // ï¿½ï¿½Ã¼ ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  int m_iDefGrade;    // ï¿½ï¿½Ã¼ ï¿½ï¿½î±¸ ï¿½ï¿½ï¿½ï¿½ï¿½
 
-  int   m_iCritical;  // Å©¸®Æ¼ÄÃ ¼öÄ¡
-  float m_fRateUseMP; // MP Àý°¨ ºñÀ²·Î °è»êµÇ¾îÁø MP ¼Ò¸ðµÉ ºñÀ².
+  int   m_iCritical;  // Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Ä¡
+  float m_fRateUseMP; // MP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ MP ï¿½Ò¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 #ifdef _GBC
-  short m_nImmunity; // ¸é¿ª·Â
+  short m_nImmunity; // ï¿½é¿ªï¿½ï¿½
 #endif
 
 };
@@ -375,27 +377,27 @@ protected :
   int   Cal_ATTACK();
 
 public :
-  short         GetCur_HP() { return this->m_GrowAbility.m_nHP; } // »ý¸í·Â
+  short         GetCur_HP() { return this->m_GrowAbility.m_nHP; } // ï¿½ï¿½ï¿½ï¿½ï¿½
   short         GetCur_MP() { return this->m_GrowAbility.m_nMP; }
   virtual short GetCur_WEIGHT() { return this->m_Battle.m_nWEIGHT; }
 
   int GetCur_LEVEL() { return this->m_GrowAbility.m_nLevel; }
 
-  int GetDef_ATK() { return this->m_Battle.m_nATT; } // °ø°Ý·Â
-  int GetDef_DEF() { return this->m_Battle.m_nDEF; } // ¹æ¾î·Â
-  int GetDef_RES() { return this->m_Battle.m_nRES; } // Ç×¸¶·Â
+  int GetDef_ATK() { return this->m_Battle.m_nATT; } // ï¿½ï¿½ï¿½Ý·ï¿½
+  int GetDef_DEF() { return this->m_Battle.m_nDEF; } // ï¿½ï¿½ï¿½ï¿½
+  int GetDef_RES() { return this->m_Battle.m_nRES; } // ï¿½×¸ï¿½ï¿½ï¿½
   int GetDef_HIT() { return this->m_Battle.m_nHIT; }
-  int GetDef_AVOID() { return this->m_Battle.m_nAVOID; } // È¸ÇÇ·Â
+  int GetDef_AVOID() { return this->m_Battle.m_nAVOID; } // È¸ï¿½Ç·ï¿½
   int GetDef_CRITICAL() { return this->m_Battle.m_iCritical; }
 
   int  GetDef_IMMUNITY();
   void SetDef_IMMUNITY(int iImmunity);
 
-  int GetCur_BIRTH() { return this->m_BasicINFO.m_cBirthStone; } // Åº»ý¼®
-  int GetCur_RANK() { return this->m_BasicINFO.m_cRank; }        // °è±Þ
-  int GetCur_UNION() { return this->m_BasicINFO.m_cUnion; }      // ¼Ò¼Ó
-  int GetCur_FAME() { return this->m_BasicINFO.m_cFame; }        // ¸í¼º
-  int GetCur_JOB() { return this->m_BasicINFO.m_nClass; }        // Á÷¾÷
+  int GetCur_BIRTH() { return this->m_BasicINFO.m_cBirthStone; } // Åºï¿½ï¿½ï¿½ï¿½
+  int GetCur_RANK() { return this->m_BasicINFO.m_cRank; }        // ï¿½ï¿½ï¿½
+  int GetCur_UNION() { return this->m_BasicINFO.m_cUnion; }      // ï¿½Ò¼ï¿½
+  int GetCur_FAME() { return this->m_BasicINFO.m_cFame; }        // ï¿½ï¿½
+  int GetCur_JOB() { return this->m_BasicINFO.m_nClass; }        // ï¿½ï¿½ï¿½ï¿½
 
   int64_t  GetCur_EXP() { return this->m_GrowAbility.m_lEXP; }
   int  GetCur_BonusPOINT() { return this->m_GrowAbility.m_nBonusPoint; }
@@ -408,13 +410,13 @@ public :
   DWORD GetCur_PatCoolTIME();
   void  SetCur_PatCoolTIME(DWORD dwCoolTIME);
 
-  /// ±âº» ´É·ÂÄ¡...
-  int GetDef_STR() { return this->m_BasicAbility.m_nSTR; }     // ±Ù·Â
-  int GetDef_DEX() { return this->m_BasicAbility.m_nDEX; }     // ¹ÎÃ¸
-  int GetDef_INT() { return this->m_BasicAbility.m_nINT; }     // Áö·Â
-  int GetDef_CON() { return this->m_BasicAbility.m_nCON; }     // ÁýÁß
-  int GetDef_CHARM() { return this->m_BasicAbility.m_nCHARM; } // ¸Å·Â
-  int GetDef_SENSE() { return this->m_BasicAbility.m_nSENSE; } // °¨°¢
+  /// ï¿½âº» ï¿½É·ï¿½Ä¡...
+  int GetDef_STR() { return this->m_BasicAbility.m_nSTR; }     // ï¿½Ù·ï¿½
+  int GetDef_DEX() { return this->m_BasicAbility.m_nDEX; }     // ï¿½ï¿½Ã¸
+  int GetDef_INT() { return this->m_BasicAbility.m_nINT; }     // ï¿½ï¿½ï¿½ï¿½
+  int GetDef_CON() { return this->m_BasicAbility.m_nCON; }     // ï¿½ï¿½ï¿½ï¿½
+  int GetDef_CHARM() { return this->m_BasicAbility.m_nCHARM; } // ï¿½Å·ï¿½
+  int GetDef_SENSE() { return this->m_BasicAbility.m_nSENSE; } // ï¿½ï¿½ï¿½ï¿½
 
   void SetDef_STR(short   nValue) { this->m_BasicAbility.m_nSTR   = nValue; }
   void SetDef_DEX(short   nValue) { this->m_BasicAbility.m_nDEX   = nValue; }
@@ -423,21 +425,21 @@ public :
   void SetDef_CHARM(short nValue) { this->m_BasicAbility.m_nCHARM = nValue; }
   void SetDef_SENSE(short nValue) { this->m_BasicAbility.m_nSENSE = nValue; }
 
-  int GetCur_STR() { return (GetDef_STR() + m_iAddValue[AT_STR] + m_PassiveAbilityFromRate[AT_STR - AT_STR]); }         // ±Ù·Â
-  int GetCur_DEX() { return (GetDef_DEX() + m_iAddValue[AT_DEX] + m_PassiveAbilityFromRate[AT_DEX - AT_STR]); }         // ¹ÎÃ¸
-  int GetCur_INT() { return (GetDef_INT() + m_iAddValue[AT_INT] + m_PassiveAbilityFromRate[AT_INT - AT_STR]); }         // Áö·Â
-  int GetCur_CON() { return (GetDef_CON() + m_iAddValue[AT_CON] + m_PassiveAbilityFromRate[AT_CON - AT_STR]); }         // ÁýÁß
-  int GetCur_CHARM() { return (GetDef_CHARM() + m_iAddValue[AT_CHARM] + m_PassiveAbilityFromRate[AT_CHARM - AT_STR]); } // ¸Å·Â
-  int GetCur_SENSE() { return (GetDef_SENSE() + m_iAddValue[AT_SENSE] + m_PassiveAbilityFromRate[AT_SENSE - AT_STR]); } // °¨°¢
+  int GetCur_STR() { return (GetDef_STR() + m_iAddValue[AT_STR] + m_PassiveAbilityFromRate[AT_STR - AT_STR]); }         // ï¿½Ù·ï¿½
+  int GetCur_DEX() { return (GetDef_DEX() + m_iAddValue[AT_DEX] + m_PassiveAbilityFromRate[AT_DEX - AT_STR]); }         // ï¿½ï¿½Ã¸
+  int GetCur_INT() { return (GetDef_INT() + m_iAddValue[AT_INT] + m_PassiveAbilityFromRate[AT_INT - AT_STR]); }         // ï¿½ï¿½ï¿½ï¿½
+  int GetCur_CON() { return (GetDef_CON() + m_iAddValue[AT_CON] + m_PassiveAbilityFromRate[AT_CON - AT_STR]); }         // ï¿½ï¿½ï¿½ï¿½
+  int GetCur_CHARM() { return (GetDef_CHARM() + m_iAddValue[AT_CHARM] + m_PassiveAbilityFromRate[AT_CHARM - AT_STR]); } // ï¿½Å·ï¿½
+  int GetCur_SENSE() { return (GetDef_SENSE() + m_iAddValue[AT_SENSE] + m_PassiveAbilityFromRate[AT_SENSE - AT_STR]); } // ï¿½ï¿½ï¿½ï¿½
 
-  int GetCur_SaveMP() // MP Àý°¨ ºñÀ²
+  int GetCur_SaveMP() // MP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   {
     return (GetPassiveSkillValue( AT_PSV_SAVE_MP ) + m_iAddValue[AT_SAVE_MP] + (short)(m_iAddValue[AT_SAVE_MP] * GetPassiveSkillRate( AT_PSV_SAVE_MP ) / 100.f));
   }
 
-  //int	  GetCur_DropRATE()			{	return  ( GetPassiveSkillValue( AT_PSV_DROP_RATE ) + m_iAddValue[ AT_DROP_RATE ] );	}	// µå·Ó È®·ü
-  int  GetCur_DropRATE() { return m_iDropRATE; } // µå·Ó È®·ü
-  void Cal_DropRATE()                            // µå·Ó È®·ü		
+  //int	  GetCur_DropRATE()			{	return  ( GetPassiveSkillValue( AT_PSV_DROP_RATE ) + m_iAddValue[ AT_DROP_RATE ] );	}	// ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+  int  GetCur_DropRATE() { return m_iDropRATE; } // ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+  void Cal_DropRATE()                            // ï¿½ï¿½ï¿½ È®ï¿½ï¿½		
   {
     m_iDropRATE = GetPassiveSkillValue( AT_PSV_DROP_RATE ) + m_iAddValue[AT_DROP_RATE] + (short)(m_iAddValue[AT_DROP_RATE] * GetPassiveSkillRate( AT_PSV_DROP_RATE ) / 100.f);
   }
@@ -457,7 +459,7 @@ public :
   short GetDef_MaxMP() { return this->m_Battle.m_nMaxMP; }
 
   short GetCur_MaxWEIGHT() { return this->m_Battle.m_nMaxWEIGHT; }
-  int   GetCur_MAG() { return this->m_Battle.m_nMAG; } // ¸¶¹ý·Â
+  int   GetCur_MAG() { return this->m_Battle.m_nMAG; } // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
   //	int	  GetTot_DEF_QUALITY()		{	return	this->m_Battle.m_iDefQuality;		}
   int GetTot_DEF_DURABITY() { return this->m_Battle.m_iDefDurabity; }
@@ -466,10 +468,10 @@ public :
   float GetCur_RateUseMP() { return this->m_Battle.m_fRateUseMP; }
 
   void    SetCur_MONEY(int64_t iMoney) { this->m_Inventory.m_i64Money = iMoney; }
-  int64_t GetCur_MONEY() { return this->m_Inventory.m_i64Money; } // µ·
+  int64_t GetCur_MONEY() { return this->m_Inventory.m_i64Money; } // ï¿½ï¿½
   void    Add_CurMONEY(int iMoney) { this->m_Inventory.m_i64Money += iMoney; }
   void    Sub_CurMONEY(int iMoney) { this->m_Inventory.m_i64Money -= iMoney; }
-  void    SetCur_HP(short  nValue); // »ý¸í·Â
+  void    SetCur_HP(short  nValue); // ï¿½ï¿½ï¿½ï¿½ï¿½
   void    SetCur_MP(short  nValue) { this->m_GrowAbility.m_nMP = nValue; }
 
   int AddCur_HP(short nValue) {
@@ -527,32 +529,32 @@ public :
   void SetCur_BonusPOINT(short nValue) { this->m_GrowAbility.m_nBonusPoint = nValue; }
   void SetCur_SkillPOINT(short nValue) { this->m_GrowAbility.m_nSkillPoint = nValue; }
 
-  tagBasicINFO    m_BasicINFO;    // ±âº» Á¤º¸ µ¥ÀÌÅÍ...	
-  tagBasicAbility m_BasicAbility; // ±âº» ´É·ÂÄ¡ µ¥ÀÌÅÍ...
-  tagGrowAbility  m_GrowAbility;  // ¼ºÀå ´É·ÂÄ¡ µ¥ÀÌÅÍ ...
-  tagSkillAbility m_Skills;       // ¾Æ¹ÙÅ¸ º¸À¯½ºÅ³
+  tagBasicINFO    m_BasicINFO;    // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...	
+  tagBasicAbility m_BasicAbility; // ï¿½âº» ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
+  tagGrowAbility  m_GrowAbility;  // ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ...
+  tagSkillAbility m_Skills;       // ï¿½Æ¹ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³
 
   tagQuestData m_Quests;    // quest
   CInventory   m_Inventory; // inventory
-  CHotICONS    m_HotICONS;  // ´ÜÃà¾ÆÀÌÄÜ µî·Ï Á¤º¸...
-  tagBankData  m_Bank;      // ÀºÇà µ¥ÀÌÅ¸.
-  tagWishLIST  m_WishLIST;  // °³ÀÎ »óÁ¡¿¡¼­ ¹°°Ç ±¸ÀÔ½Ã »ç¿ëÇÒ ±¸ÀÔÈñ¸Á ¾ÆÀÌÅÛ¸ñ·Ï.
+  CHotICONS    m_HotICONS;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
+  tagBankData  m_Bank;      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸.
+  tagWishLIST  m_WishLIST;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½.
 
-  tagBattleAbility m_Battle; // ÀüÅõ ´É·ÂÄ¡ µ¥ÀÌÅÍ - °è»êµÇ¾îÁ® ¾òÀ½
+  tagBattleAbility m_Battle; // ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-  int   m_iAddValue [ AT_MAX ];   // ÀåÂø ¾ÆÀÌÅÛ¿¡ ÀÇÇØ Áõ°¡µÈ ¼öÄ¡ : °è»êµÇ¾îÁü.
-  short m_nPassiveRate[ AT_MAX ]; // ÆÐ½Ãºê ½ºÅ³¿¡ ÀÇÇØ º¸Á¤µÈ ºñÀ²
+  int   m_iAddValue [ AT_MAX ];   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ : ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½.
+  short m_nPassiveRate[ AT_MAX ]; // ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
   BYTE m_btRecoverHP; // == m_PassiveSkill[ PST_RECOVER_HP ] + this->m_iAddValue[ AT_RECOVER_HP ]
   BYTE m_btRecoverMP; // == m_PassiveSkill[ PST_RECOVER_MP ] + this->m_iAddValue[ AT_RECOVER_MP ]
 
-  int m_iDropRATE; // µå·Ó È®·ü
+  int m_iDropRATE; // ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
-  short m_PassiveAbilityFromValue[ BA_MAX ]; // ±âº» ´É·ÂÄ¡ :: ¼öÄ¡ ÆÐ½Ãºê ½ºÅ³¿¡ ÀÇÇØ º¸Á¤µÈ °ª
-  short m_PassiveAbilityFromRate [ BA_MAX ]; // ±âº» ´É·ÂÄ¡ :: ºñÀ² ÆÐ½Ãºê ½ºÅ³¿¡ ÀÇÇØ º¸Á¤µÈ °ª
-  short m_nPassiveAttackSpeed;               // ÇÑ±¹/ÀÏº»/IRose¸¦ À§ÇÑ ÆÐ½Ãºê ½ºÅ³¿¡ ÀÇÇÑ °ø¼Ó Ãß°¡
+  short m_PassiveAbilityFromValue[ BA_MAX ]; // ï¿½âº» ï¿½É·ï¿½Ä¡ :: ï¿½ï¿½Ä¡ ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+  short m_PassiveAbilityFromRate [ BA_MAX ]; // ï¿½âº» ï¿½É·ï¿½Ä¡ :: ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+  short m_nPassiveAttackSpeed;               // ï¿½Ñ±ï¿½/ï¿½Ïºï¿½/IRoseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 
-  int64_t m_iAppliedPenaltyEXP; /// ºÎÈ°½Ã °æÇèÄ¡ º¹±¸¸¦ À§ÇÑ º¯¼ö..
+  int64_t m_iAppliedPenaltyEXP; /// ï¿½ï¿½È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 
   tagITEM  Get_EquipITEM(WORD    wEquipIDX) { return m_Inventory.m_ItemEQUIP[wEquipIDX]; }
   tagITEM* Get_EquipItemPTR(WORD wEquipIDX) { return &m_Inventory.m_ItemEQUIP[wEquipIDX]; }
@@ -584,8 +586,8 @@ public :
   }
 
 #endif
-  /// Áö¼Ó ½ºÅ³¿¡ ÀÇÇØ º¸Á¤µÈ °ªÀ» ¸®ÅÏÇÒ ÇÔ¼ö...
-  virtual short GetCur_RACE() = 0; /// Á¾Á·,,,, gsv_SELECT_CHAR.m_btCharRACE °ª ¸®ÅÏÇÏ¸éµÊ
+  /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½...
+  virtual short GetCur_RACE() = 0; /// ï¿½ï¿½ï¿½ï¿½,,,, gsv_SELECT_CHAR.m_btCharRACE ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½
   virtual short GetCur_ATK_SPD() = 0;
   virtual float GetCur_MOVE_SPEED() = 0;
   virtual int   GetCur_ATK() = 0;
@@ -595,8 +597,8 @@ public :
   virtual int   GetCur_AVOID() = 0;
   virtual int   GetCur_CRITICAL() = 0;
 
-  virtual int GetCur_MaxHP() = 0; /// ½ºÅ³¿¡ ÀÇÇØ º¸Á¤µÈ °ªÀÌ ÀÖÀ»°æ¿ì ´õÇØÁ®¼­ ¸®ÅÏÇÒ ÇÔ¼ö
-  virtual int GetCur_MaxMP() = 0; /// ½ºÅ³¿¡ ÀÇÇØ º¸Á¤µÈ °ªÀÌ ÀÖÀ»°æ¿ì ´õÇØÁ®¼­ ¸®ÅÏÇÒ ÇÔ¼ö
+  virtual int GetCur_MaxHP() = 0; /// ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+  virtual int GetCur_MaxMP() = 0; /// ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 #ifndef _SERVER
   virtual int GetCur_MaxSTAMINA() = 0;
 #endif
@@ -609,7 +611,7 @@ public :
 
   virtual void AddCur_EXP(int /*iValue*/) {
     /* nop */
-  } // È£ÃâµÉ°æ¿ì ¼­¹ö¿¡¼­ Àü¼ÛµÊ.
+  } // È£ï¿½ï¿½É°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ûµï¿½.
   void AddCur_BonusPOINT(short nValue) { this->m_GrowAbility.m_nBonusPoint += nValue; }
   void AddCur_SkillPOINT(short nValue) { this->m_GrowAbility.m_nSkillPoint += nValue; }
 
@@ -627,7 +629,7 @@ public :
   int          GetCur_AbilityValue(WORD nType) { return Get_AbilityValue( nType ); }
   int          Get_AbilityValue(WORD    nType);
   void         RefreshLookUpTable() { m_Inventory.MakeItemIndexList(); }
-  virtual void UpdateModelData() = 0 { *(int*)nullptr = 10; } /// ¸ðµ¨ µ¥ÀÌÅÍ °»½Å..
+  virtual void UpdateModelData() = 0 { *(int*)nullptr = 10; } /// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 #endif
 
   bool Use_ITEM(WORD                    wUseItemNO);
@@ -644,10 +646,10 @@ public :
     return (m_GrowAbility.m_lPenalEXP + CCal::Get_NeedRawEXP( iLevel ));
   }
 
-  /// »ç¸Á½Ã ÆÐ³ÎÆ¼ °æÇèÄ¡
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½Ä¡
   void Set_PenalEXP(BYTE btAddPercent) {
     if ( this->GetCur_LEVEL() >= 10 ) {
-      // 10·¾ ÀÌ»óÀÌ¸é Æä³ÎÆ¼ Àû¿ë..
+      // 10ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½..
       int64_t iNeedEXP         = CCal::Get_NeedRawEXP( m_GrowAbility.m_nLevel );
       int64_t iPenalEXP        = (int)(iNeedEXP * btAddPercent / 100.f);
       m_iAppliedPenaltyEXP = iPenalEXP;
@@ -668,10 +670,10 @@ public :
 
   }
 
-  /// ºÎÈ°½Ã º¹±¸½ÃÅ³ °æÇèÄ¡
+  /// ï¿½ï¿½È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Ä¡
   void Cancel_PenalEXP(BYTE btPercent) {
     if ( this->GetCur_LEVEL() >= 10 && m_iAppliedPenaltyEXP > 0 ) {
-      // 10·¾ ÀÌ»óÀÌ¸é Àû¿ëÇß´ø Æä³ÎÆ¼ ÇØÁ¦...
+      // 10ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½...
       m_iAppliedPenaltyEXP = (int)(m_iAppliedPenaltyEXP * btPercent / 100.f);
       if ( m_iAppliedPenaltyEXP ) {
         m_GrowAbility.m_lEXP += m_iAppliedPenaltyEXP;
@@ -686,53 +688,53 @@ public :
     return (short)(m_BasicAbility.m_nBasicA[BasicAbilityType] * 0.2);
   }
 
-  // skill stbÀÇ ÄÃ·³°ªÀ» »ç¿ëÇÏ´Â°ÍÀ¸·Î...
+  // skill stbï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½ï¿½ï¿½ï¿½ï¿½...
   short Get_NeedPoint2SkillUP(short nSkillSLOT);
 
   //  -------------------------------------------------------------------------------------------
-  /// ½ºÅ³ Á¶°Ç °ü·Ã ÇÔ¼ö...
+  /// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½...
   virtual int   GetCur_R_WEAPON() = 0;
   virtual int   GetCur_L_WEAPON() = 0;
   virtual DWORD GetCur_IngStatusFLAG() = 0;
 
-  /// ½ºÅ³ÀÇ ºó ½º·Ô Ã£±â
+  /// ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
   short Skill_FindEmptySlot(short nSkillIDX);
 
-  /// ½ÀµæÇÑ ½ºÅ³ÀÇ ·¹º§À» ¾ò´Â´Ù.
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
   short Skill_FindLearnedLevel(short nSkillIDX);
 
-  /// ½ÀµæÇÑ ½ºÅ³ÀÇ ½½·ÔÀ» Ã£´Â´Ù.
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
   short Skill_FindLearnedSlot(short nSkillIDX);
 
-  /// ´É·ÂÄ¡ ¾ò´Â ÇÔ¼ö°¡ ÀÖÁö¸¸ ½ºÅ³¿¡¼­ »ç¿ëÇÏ´Â ´É·ÂÄ¡´Â ¼Ò¼ö¿¡ ºÒ°ú ÇÔÀ¸·Î
-  /// ¼Óµµ¸¦ ³ôÀÌ±â À§ÇØ¼­ ½ºÅ³¿¡ »ç¿ëÇÏ´Â ´É·ÂÄ¡¸¸ Àû¿ëÇÑ ÇÔ¼ö...
+  /// ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½É·ï¿½Ä¡ï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  /// ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½É·ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½...
   int Skill_GetAbilityValue(short nAbilityType);
 
-  /// ½ºÅ³¿¡¼­ ¼Ò¸ðµÇ´Â ¼öÄ¡ Àû¿ë...
+  /// ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½Ç´ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½...
   int  Skill_ToUseAbilityVALUE(short nSKillIDX, short nPropertyIDX);
   bool Skill_UseAbilityValue(short   nSkillIDX);
 
-  bool Skill_CheckJOB(short          nSkillIDX); /// ½Àµæ, ·¾¾÷µî¿¡¼­ Á÷¾÷ Ã¼Å© 
-  bool Skill_CheckLearnedSKILL(short nSkillIDX); /// ½Àµæ, ·¾¾÷µî¿¡¼­ ÀÌ¹Ì ½ÀµæÇÑ ½ºÅ³ Ã¼Å© 
-  bool Skill_CheckNeedABILITY(short  nSkillIDX); /// ½Àµæ, ·¾¾÷µî¿¡¼­ »ç¿ëÀÚ ´É·ÂÄ¡ Ã¼Å©..
+  bool Skill_CheckJOB(short          nSkillIDX); /// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© 
+  bool Skill_CheckLearnedSKILL(short nSkillIDX); /// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½î¿¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ Ã¼Å© 
+  bool Skill_CheckNeedABILITY(short  nSkillIDX); /// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ Ã¼Å©..
 
-  /// ½ºÅ³ Ã³À½ ½Àµæ Á¶°Ç Ã¼Å© ÇÔ¼ö
+  /// ï¿½ï¿½Å³ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ô¼ï¿½
   BYTE Skill_LearnCondition(short nSkillIDX);
 
-  /// ½ºÅ³ ·¹º§¾÷ Á¶°Ç Ã¼Å© ÇÔ¼ö
+  /// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ô¼ï¿½
   BYTE Skill_LevelUpCondition(short nCurLevelSkillIDX, short nNextLevelSkillIDX);
 
-  /// ½ºÅ³ »ç¿ë Á¶°Ç Ã¼Å© ÇÔ¼ö
+  /// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ô¼ï¿½
   bool Skill_ActionCondition(short nSkillIDX);
 
-  /// ½ºÅ³ ½Àµæ :: ½ÀµæÀÌ³ª ·¹º§¾÷½Ã È£ÃâÇØ¾ß ÆÐ½Ãºê ½ºÅ³ Àû¿ëµÊ..
+  /// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ :: ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½..
   BYTE Skill_LEARN(short nSkillSLOT, short nSkillIDX, bool bSubPOINT = true);
 
-  /// ½ÀµæÇÑ ½ºÅ³À» »èÁ¦ÇÑ´Ù.
+  /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
   bool Skill_DELETE(short nSkillSLOT, short nSkillIDX);
 
-  /// ÆÐ½Ãºê ½ºÅ³ °ü·Ã ÇÔ¼ö.
-  void  InitPassiveSkill(); /// ¼­¹ö·Î ºÎÅÍ ½ºÅ³ µ¥ÀÌÅ¸ ¹ÞÀ¸¸é ÇÑ¹ø È£ÃâÇØ¾ßÇÔ...
+  /// ï¿½Ð½Ãºï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½.
+  void  InitPassiveSkill(); /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ È£ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½...
   short GetPassiveSkillAttackSpeed() { return m_nPassiveAttackSpeed + m_iAddValue[AT_ATK_SPD]; }
   //short GetPassiveSkillAttackSpeed();
 
@@ -740,34 +742,34 @@ public :
   short GetSellSkillVALUE() { return GetPassiveSkillValue( AT_PSV_SELLING ); }
 
   //  -------------------------------------------------------------------------------------------
-  /// Äù½ºÆ® Á¶°Ç °ü·Ã ÇÔ¼ö...
+  /// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½...
 #ifdef	__SERVER
-	virtual bool Quest_IsPartyLEADER() = 0;						    /// ÆÄÆ¼ Â¯ÀÌ³Ä ?
-	virtual int	 Quest_GetPartyLEVEL() = 0;						    /// ÇöÀç ÆÄÆ¼ ·¹º§
-	virtual int	 Quest_GetZoneNO() = 0;							    /// ÇöÀç Á¸ ¹øÈ£
-	virtual int	 Quest_DistanceFrom(int iX, int iY, int iZ) = 0;	/// ÇöÀçÀ§Ä¡±îÁö °Å¸®
-	virtual int	 Quest_PartyMemberCNT() = 0;                        /// ÆÄÆ¼ ÀÎ¿ø¼ö
+	virtual bool Quest_IsPartyLEADER() = 0;						    /// ï¿½ï¿½Æ¼ Â¯ï¿½Ì³ï¿½ ?
+	virtual int	 Quest_GetPartyLEVEL() = 0;						    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½
+	virtual int	 Quest_GetZoneNO() = 0;							    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£
+	virtual int	 Quest_DistanceFrom(int iX, int iY, int iZ) = 0;	/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+	virtual int	 Quest_PartyMemberCNT() = 0;                        /// ï¿½ï¿½Æ¼ ï¿½Î¿ï¿½ï¿½ï¿½
 #else
   virtual bool Quest_IsPartyLEADER() = 0 {
     *(int*)nullptr = 10;
     return false;
-  } /// ÆÄÆ¼ Â¯ÀÌ³Ä ?
+  } /// ï¿½ï¿½Æ¼ Â¯ï¿½Ì³ï¿½ ?
   virtual int Quest_GetPartyLEVEL() = 0 {
     *(int*)nullptr = 10;
     return -1;
-  } /// ÇöÀç ÆÄÆ¼ ·¹º§
+  } /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½
   virtual int Quest_GetZoneNO() = 0 {
     *(int*)nullptr = 10;
     return 0;
-  } /// ÇöÀç Á¸ ¹øÈ£
+  } /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£
   virtual int Quest_DistanceFrom(int iX, int iY, int iZ) = 0 {
     *(int*)nullptr = 10;
     return 999999999;
-  } /// ÇöÀçÀ§Ä¡±îÁö °Å¸®
+  } /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
   virtual int Quest_PartyMemberCNT() = 0 {
     *(int*)nullptr = 10;
     return 0;
-  } /// ÆÄÆ¼ ÀÎ¿ø¼ö
+  } /// ï¿½ï¿½Æ¼ ï¿½Î¿ï¿½ï¿½ï¿½
 #endif
 
   BYTE     Quest_GetRegistered(int  iQuestIDX);
@@ -814,7 +816,7 @@ public :
 #endif
   }
 
-  // Äù½ºÆ® º¸»ó °ü·Ã ÇÔ¼ö
+  // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 #ifdef	__SERVER
 	virtual bool Reward_WARP( int iZoneNO, tPOINTF &PosGOTO) = 0;
 #endif

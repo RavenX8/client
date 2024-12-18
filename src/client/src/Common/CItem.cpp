@@ -16,7 +16,7 @@ enum {
 };
 
 //-------------------------------------------------------------------------------------------------
-// ¼­¹ö¿¡¼­´Â ±¸Á¶Ã¼ÀÌ¸§ÀÌ ¹Ýµå½Ã tagITEM...
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ýµï¿½ï¿½ tagITEM...
 short tagITEM::Subtract(tagITEM& sITEM) {
   if ( this->GetHEADER() != sITEM.GetHEADER() ) {
     sITEM.Clear();
@@ -31,20 +31,20 @@ short tagITEM::Subtract(tagITEM& sITEM) {
       return (ITEM_WEIGHT( sITEM.m_cType, sITEM.m_nItemNo ) * sITEM.GetQuantity());
     }
 
-    // ÇöÀç º¸À¯ ¼ö·®.
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     nWeight            = ITEM_WEIGHT( sITEM.m_cType, sITEM.m_nItemNo ) * this->GetQuantity();
     sITEM.m_uiQuantity = this->GetQuantity();
   } else
     nWeight = ITEM_WEIGHT( sITEM.m_cType, sITEM.m_nItemNo );
 
-  // Àåºñ ¾ÆÀÌÅÛÀº ¹«Á¶°Ç »èÁ¦..
+  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
   this->Clear();
 
   return nWeight;
 }
 
 //-------------------------------------------------------------------------------------------------
-// ¼­¹ö¿¡¼­´Â ±¸Á¶Ã¼ÀÌ¸§ÀÌ ¹Ýµå½Ã tagITEM...
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ýµï¿½ï¿½ tagITEM...
 void tagITEM::SubtractOnly(tagITEM& sITEM) {
   if ( this->GetHEADER() != sITEM.GetHEADER() )
     return;
@@ -56,8 +56,34 @@ void tagITEM::SubtractOnly(tagITEM& sITEM) {
     }
   }
 
-  // Àåºñ ¾ÆÀÌÅÛÀº ¹«Á¶°Ç, °¹¼ö 0°³ÀÎ ¾ÆÀÌÅÛ »èÁ¦..
+  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
   this->Clear();
+}
+
+tagBaseITEM& tagBaseITEM::operator=(const RoseCommon::Packet::SrvSetMoneyAndItem::Item& item)
+{
+  this->m_wHeader = item.get_header().get_header();
+  this->m_nGEM_OP = item.get_data().get_gem_opt();
+  this->m_cDurability = item.get_data().get_durability();
+  this->m_nLife = item.get_data().get_life();
+  this->m_bHasSocket = item.get_data().get_hasSocket();
+  this->m_bIsAppraisal = item.get_data().get_isAppraised();
+  this->m_cGrade = item.get_data().get_refine();
+
+  return *this;
+}
+
+tagBaseITEM& tagBaseITEM::operator=(const RoseCommon::Packet::SrvSetItem::Item& item)
+{
+  this->m_wHeader = item.get_header().get_header();
+  this->m_nGEM_OP = item.get_data().get_gem_opt();
+  this->m_cDurability = item.get_data().get_durability();
+  this->m_nLife = item.get_data().get_life();
+  this->m_bHasSocket = item.get_data().get_hasSocket();
+  this->m_bIsAppraisal = item.get_data().get_isAppraised();
+  this->m_cGrade = item.get_data().get_refine();
+
+  return *this;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -85,7 +111,7 @@ void tagBaseITEM::Init(int iItem, unsigned int uiQuantity) {
       uiQuantity       = 1;
     this->m_uiQuantity = uiQuantity;
   } else {
-    this->m_nLife       = MAX_ITEM_LIFE; // ±âº» ¼ö¸íÀº 1000À¸·Î ..
+    this->m_nLife       = MAX_ITEM_LIFE; // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1000ï¿½ï¿½ï¿½ï¿½ ..
     this->m_cDurability = ITEM_DURABITY( this->m_cType, this->m_nItemNo );
   }
 }
@@ -111,8 +137,8 @@ bool tagBaseITEM::IsEnableKEEPING() {
   if ( this->IsEmpty() )
     return false;
 
-  // 0ÀÎ°Í¸¸ ÀºÇà¿¡ º¸°ü °¡´ÉÇÔ... 
-  // °èÁ¤À¸·Î °øÀ¯µÇ´Â Ã¢°í±â ¶§¹®¿¡ ´Ù¸¥ ÄÉ¸¯À¸·Î ¾ÆÀÌÅÛÀÌ ÀüÀÌ ¾ÈµÇµµ·Ï...
+  // 0ï¿½Î°Í¸ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½... 
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇµï¿½ï¿½ï¿½...
   return (0 == ITEM_USE_RESTRICTION( this->m_cType, this->m_nItemNo ) ||
           ITEM_ENABLE_KEEPING & ITEM_USE_RESTRICTION( this->m_cType, this->m_nItemNo ));
 }
@@ -125,7 +151,7 @@ bool tagBaseITEM::IsEnableDROP() {
     return false;
 
   if ( ITEM_DONT_DROP_EXCHANGE & ITEM_USE_RESTRICTION( this->m_cType, this->m_nItemNo ) ) {
-    // µå·Ó ºÒ°¡ ¾ÆÀÌÅÛ.
+    // ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     return false;
   }
 
@@ -140,7 +166,7 @@ bool tagBaseITEM::IsEnableSELL() {
     return false;
 
   if ( ITEM_DONT_SELL & ITEM_USE_RESTRICTION( this->m_cType, this->m_nItemNo ) ) {
-    // ÆÇ¸Å ºÒ°¡ ¾ÆÀÌÅÛ.
+    // ï¿½Ç¸ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     return false;
   }
 
@@ -152,13 +178,13 @@ bool tagBaseITEM::IsTwoHands() {
   if ( m_cType == ITEM_TYPE_WEAPON ) {
     short nWeaponTYPE = WEAPON_TYPE(m_nItemNo);
     if ( nWeaponTYPE >= 221 && nWeaponTYPE <= 255 ) {
-      // ¾ç¼Õ°Ë : 221 ~
-      // ¿ø°Å¸® : 231 ~
-      // ¸¶¹ý¹«±â : 241 ~
-      // Ä«Æ®¸£°è¿­ : 251 ~
+      // ï¿½ï¿½Õ°ï¿½ : 221 ~
+      // ï¿½ï¿½ï¿½Å¸ï¿½ : 231 ~
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : 241 ~
+      // Ä«Æ®ï¿½ï¿½ï¿½è¿­ : 251 ~
       if ( nWeaponTYPE != 242 ) {
         return true;
-      } // else ( 242 ÇÑ¼Õ ¸¶¹ý µµ±¸ )
+      } // else ( 242 ï¿½Ñ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ )
     }
   }
 
@@ -167,7 +193,7 @@ bool tagBaseITEM::IsTwoHands() {
 
 //-------------------------------------------------------------------------------------------------
 t_eSHOT tagBaseITEM::GetShotTYPE() {
-  /// ¸Ç¼Õ ÀÏ¶§µµ È£ÃâµÈ´Ù.
+  /// ï¿½Ç¼ï¿½ ï¿½Ï¶ï¿½ï¿½ï¿½ È£ï¿½ï¿½È´ï¿½.
   if ( ITEM_TYPE_WEAPON == m_cType ) {
     switch ( WEAPON_TYPE( m_nItemNo ) ) {
 
@@ -187,15 +213,15 @@ const t_EquipINDEX s_ItemType2EquipPos[] =
 {
   MAX_EQUIP_IDX,
 
-  EQUIP_IDX_FACE_ITEM, // ITEM_TYPE_FACE_ITEM = 1,		// 1	LIST_FACEITEM.stb	¾ó±¼ Àå½Ä	
+  EQUIP_IDX_FACE_ITEM, // ITEM_TYPE_FACE_ITEM = 1,		// 1	LIST_FACEITEM.stb	ï¿½ï¿½ ï¿½ï¿½ï¿½	
   EQUIP_IDX_HELMET,    // ITEM_TYPE_HELMET,			// 2	LIST_CAP.stb
   EQUIP_IDX_ARMOR,     // ITEM_TYPE_ARMOR,				// 3	LIST_BODY.stb
   EQUIP_IDX_GAUNTLET,  // ITEM_TYPE_GAUNTLET,			// 4	LIST_ARMS.stb
   EQUIP_IDX_BOOTS,     // ITEM_TYPE_BOOTS,				// 5	LIST_FOOT.stb
   EQUIP_IDX_KNAPSACK,  // ITEM_TYPE_KNAPSACK,			// 6	LIST_BACK.stb
-  EQUIP_IDX_NECKLACE,  // ITEM_TYPE_JEWEL,				// 7	LIST_JEWEL.stb		Àå½Å±¸ : ¸ñ°ÉÀÌ ¹ÝÁö
+  EQUIP_IDX_NECKLACE,  // ITEM_TYPE_JEWEL,				// 7	LIST_JEWEL.stb		ï¿½ï¿½Å±ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-  EQUIP_IDX_WEAPON_R, // ITEM_TYPE_WEAPON,			// 8	LIST_WEAPON.stb		¹«±â
+  EQUIP_IDX_WEAPON_R, // ITEM_TYPE_WEAPON,			// 8	LIST_WEAPON.stb		ï¿½ï¿½ï¿½ï¿½
   EQUIP_IDX_WEAPON_L, // ITEM_TYPE_SUBWPN,			// 9	LIST_SUBWPN.stb
 };
 
@@ -219,7 +245,7 @@ t_EquipINDEX tagBaseITEM::GetEquipPOS() {
 
 //-------------------------------------------------------------------------------------------------
 #ifndef	__SERVER
-/// 2004 / 6 /17 : Client¿¡¼­´Â ¼ö·® ¾ø´Â ¾ÆÀÌÅÛÀÏ°æ¿ì¿¡´Â Ç×»ó 0 or 1À» ¸®ÅÏÇÏµµ·Ï ¼öÁ¤
+/// 2004 / 6 /17 : Clientï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ì¿¡ï¿½ï¿½ ï¿½×»ï¿½ 0 or 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 unsigned int tagBaseITEM::GetQuantity() {
   if ( IsEnableDupCNT() )
     return m_uiQuantity;
@@ -259,7 +285,7 @@ unsigned short tagBaseITEM::GetModelINDEX() {
   if ( m_cType == 0 )
     return 0;
 
-  return ITEM_FIELD_MODEL( m_cType, m_nItemNo ); // ¾ø´Â°æ¿ì´Â ´ëÇ¥ ¹Ú½º³ª º¸µû¸®·Î...
+  return ITEM_FIELD_MODEL( m_cType, m_nItemNo ); // ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 }
 #endif
 
@@ -272,7 +298,7 @@ char* tagBaseITEM::GettingMESSAGE() {
   if ( IsEnableDupCNT() ) {
     return CStr::Printf( F_STR_GETTING_ITEMS, ITEM_NAME( m_cType, m_nItemNo ), GetQuantity() );
   }
-  // Àåºñ..
+  // ï¿½ï¿½ï¿½..
   return CStr::Printf( F_STR_GETTING_ITEM, ITEM_NAME( m_cType, m_nItemNo ) );
 
   return nullptr;
@@ -285,7 +311,7 @@ char* tagBaseITEM::GettingMESSAGE_Party(const char* paryName_) {
   if ( IsEnableDupCNT() ) {
     return CStr::Printf( STR_GETTING_ITEMS_PARTY, paryName_, ITEM_NAME( m_cType, m_nItemNo ), GetQuantity() );
   }
-  // Àåºñ..
+  // ï¿½ï¿½ï¿½..
   return CStr::Printf( STR_GETTING_ITEM_PARTY, paryName_, ITEM_NAME( m_cType, m_nItemNo ) );
   return nullptr;
 }
@@ -306,7 +332,7 @@ char*         tagBaseITEM::GettingMESSAGE(int iInventoryListNo) {
 
     return CStr::Printf( F_STR_GETTING_ITEMS, ITEM_NAME( m_cType, m_nItemNo ), m_uiQuantity - sItem.GetQuantity() );
   }
-  // Àåºñ..
+  // ï¿½ï¿½ï¿½..
   return CStr::Printf( F_STR_GETTING_ITEM, ITEM_NAME( m_cType, m_nItemNo ) );
 
   return nullptr;
@@ -337,7 +363,7 @@ char* tagBaseITEM::SubtractQuestMESSAGE() {
 #endif
 
 //-------------------------------------------------------------------------------------------------
-///¼Ò¸ðÅº¾ÆÀÌÅÛÀÇ ShotTypeÀ» ¾ò±â
+///ï¿½Ò¸ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ShotTypeï¿½ï¿½ ï¿½ï¿½ï¿½
 #ifndef	__SERVER
 t_eSHOT tagBaseITEM::GetBulletType() {
   if ( IsEmpty() || m_cType != ITEM_TYPE_NATURAL )
@@ -356,13 +382,13 @@ t_eSHOT tagBaseITEM::GetNaturalBulletType(int iItemNo) {
     return retType;
 
   switch ( ITEM_TYPE( ITEM_TYPE_NATURAL, iItemNo ) ) {
-    case 431: ///È­»ì
+    case 431: ///È­ï¿½ï¿½
       retType = SHOT_TYPE_ARROW;
       break;
-    case 432: ///ÃÑ¾Ë
+    case 432: ///ï¿½Ñ¾ï¿½
       retType = SHOT_TYPE_BULLET;
       break;
-    case 433: ///ÅõÃ´
+    case 433: ///ï¿½ï¿½Ã´
     case 421:
     case 422:
     case 423: retType = SHOT_TYPE_THROW;
@@ -410,7 +436,7 @@ bool tagBaseITEM::IsEnableExchange() {
     return false;
 
   if ( ITEM_DONT_DROP_EXCHANGE & ITEM_USE_RESTRICTION( this->m_cType, this->m_nItemNo ) ) {
-    // µå·Ó ,±³È¯ ºÒ°¡ ¾ÆÀÌÅÛ.
+    // ï¿½ï¿½ï¿½ ,ï¿½ï¿½È¯ ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     return false;
   }
 
@@ -423,10 +449,10 @@ bool tagBaseITEM::IsEnableSeparate() {
   if ( IsEmpty() )
     return false;
 
-  if ( GetTYPE() == ITEM_TYPE_GEM ) ///º¸¼®Àº ºÐ¸®°¡ ºÒ°¡´ÉÇÏ´Ù
+  if ( GetTYPE() == ITEM_TYPE_GEM ) ///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
     return false;
 
-  if ( HasSocket() && GetGemNO() > 300 ) ///Àç¹ÖµÈ °æ¿ì
+  if ( HasSocket() && GetGemNO() > 300 ) ///ï¿½ï¿½Öµï¿½ ï¿½ï¿½ï¿½
     return true;
 
   if ( ITEM_PRODUCT_IDX( GetTYPE(), GetItemNO() ) )
@@ -444,16 +470,16 @@ bool tagBaseITEM::IsEnableUpgrade() {
   int iClass = ITEM_TYPE( GetTYPE(), GetItemNO() );
 
   if ( GetGrade() < 9 ) {
-    if ( iClass >= 211 && iClass <= 280 ) ///¹«±â - °ø°Ý·Â, ¸íÁß·Â»ó½Â
+    if ( iClass >= 211 && iClass <= 280 ) ///ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½Ý·ï¿½, ï¿½ï¿½ï¿½ß·Â»ï¿½ï¿½
       return true;
 
-    if ( iClass >= 121 && iClass <= 153 ) ///¹æ¾î±¸ - ¹æ¾î·Â, Ç×¸¶·Â, È¸ÇÇ·Â»ó½Â
+    if ( iClass >= 121 && iClass <= 153 ) ///ï¿½ï¿½î±¸ - ï¿½ï¿½ï¿½ï¿½, ï¿½×¸ï¿½ï¿½ï¿½, È¸ï¿½Ç·Â»ï¿½ï¿½
       return true;
 
-    if ( iClass == 161 || iClass == 163 ) ///µîÀåºñ( °¡¹æ Á¦¿Ü)
+    if ( iClass == 161 || iClass == 163 ) ///ï¿½ï¿½ï¿½ï¿½ï¿½( ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
       return true;
 
-    if ( iClass == 261 ) ///¹æÆÐ - ¹æ¾î·Â,Ç×¸¶·Â,È¸ÇÇ·Â»ó½Â
+    if ( iClass == 261 ) ///ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½,ï¿½×¸ï¿½ï¿½ï¿½,È¸ï¿½Ç·Â»ï¿½ï¿½
       return true;
   }
   return false;

@@ -486,11 +486,11 @@ void CRecvPACKET::Recv_gsv_INIT_DATA(t_PACKET* packet) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void            CRecvPACKET::Recv_wsv_CHAR_LIST(t_PACKET* packet) {
+void            CRecvPACKET::Recv_wsv_CHAR_LIST(RoseCommon::Packet::SrvCharListReply&& packet) {
   CSelectAvata* pSelectAvata =
     (CSelectAvata *)g_EUILobby.GetEUI( EUI_SELECT_AVATA );
 
-  pSelectAvata->RecvAvataList( packet );
+  pSelectAvata->RecvAvataList( reinterpret_cast<t_PACKET*>(packet.getPacked().get()) );
 
   g_EUILobby.CloseWaitAvataListDlg();
 
@@ -2073,24 +2073,26 @@ void CRecvPACKET::Recv_gsv_STORE_TRADE_REPLY(t_PACKET* packet) {
   }
 }
 
-void CRecvPACKET::Recv_gsv_P_STORE_MONEYnINV(t_PACKET* packet) { Recv_gsv_SET_MONEYnINV(packet); }
+void CRecvPACKET::Recv_gsv_P_STORE_MONEYnINV(t_PACKET* packet) { Recv_gsv_SET_MONEYnINV(RoseCommon::Packet::SrvSetMoneyAndItem::create(reinterpret_cast<const uint8_t*>(packet))); }
 //-------------------------------------------------------------------------------------------------
 /// 2004 / 2 / 19 : 수정 nAvy ( Add_ITEM => Set_ITEM );
-void CRecvPACKET::Recv_gsv_SET_MONEYnINV(t_PACKET* packet) {
-  _ASSERT(packet->m_HEADER.m_nSize ==
+void CRecvPACKET::Recv_gsv_SET_MONEYnINV(RoseCommon::Packet::SrvSetMoneyAndItem&& packet) {
+  _ASSERT(packet.get_size() ==
     sizeof(gsv_SET_MONEYnINV) +
     sizeof(tag_SET_INVITEM) *
-    packet->m_gsv_SET_MONEYnINV.m_btItemCNT);
+    packet.get_items().size());
 
   if ( g_pAVATAR ) {
-    g_pAVATAR->SetCur_MONEY( packet->m_gsv_SET_MONEYnINV.m_i64Money );
+    g_pAVATAR->SetCur_MONEY( packet.get_zuly() );
 
     g_pAVATAR->SetWaitUpdateInventory( true );
-    for ( short nI = 0; nI < packet->m_gsv_SET_MONEYnINV.m_btItemCNT;
+    for ( auto nI = 0; nI < packet.get_items().size();
           nI++ ) {
+      tagBaseITEM item{};
+      item = packet.get_items()[nI].get_item();
       g_pAVATAR->Set_ITEM(
-        packet->m_gsv_SET_MONEYnINV.m_sInvITEM[nI].m_btInvIDX,
-        packet->m_gsv_SET_MONEYnINV.m_sInvITEM[nI].m_ITEM );
+        packet.get_items()[nI].get_index(),
+        item );
     }
     g_pAVATAR->SetWaitUpdateInventory( false );
     g_pAVATAR->UpdateInventory();
@@ -2101,19 +2103,20 @@ void CRecvPACKET::Recv_gsv_SET_MONEYnINV(t_PACKET* packet) {
 
 //-------------------------------------------------------------------------------------------------
 /// 2004 / 2 / 19 : 수정 nAvy ( Add_ITEM => Set_ITEM );
-void CRecvPACKET::Recv_gsv_SET_INV_ONLY(t_PACKET* packet) {
-  _ASSERT(packet->m_HEADER.m_nSize ==
+void CRecvPACKET::Recv_gsv_SET_INV_ONLY(RoseCommon::Packet::SrvSetItem&& packet) {
+  _ASSERT(packet.get_size() ==
     sizeof(gsv_SET_INV_ONLY) +
     sizeof(tag_SET_INVITEM) *
-    packet->m_gsv_SET_INV_ONLY.m_btItemCNT);
+    packet.get_items().size());
 
   if ( g_pAVATAR ) {
     g_pAVATAR->SetWaitUpdateInventory( true );
-    for ( short nI = 0; nI < packet->m_gsv_SET_INV_ONLY.m_btItemCNT;
+    for ( auto nI = 0; nI < packet.get_items().size();
           nI++ ) {
+      tagBaseITEM item{};
+      item = packet.get_items()[nI].get_item();
       g_pAVATAR->Set_ITEM(
-        packet->m_gsv_SET_INV_ONLY.m_sInvITEM[nI].m_btInvIDX,
-        packet->m_gsv_SET_INV_ONLY.m_sInvITEM[nI].m_ITEM );
+        packet.get_items()[nI].get_index(), item);
     }
     g_pAVATAR->SetWaitUpdateInventory( false );
 
@@ -4036,38 +4039,35 @@ void CRecvPACKET::Recv_GSV_SET_ITEM_LIFE(t_PACKET* packet) {
   }
 }
 
-void CRecvPACKET::Recv_lsv_CHANNEL_LIST_REPLY(t_PACKET* packet) {
+void CRecvPACKET::Recv_lsv_CHANNEL_LIST_REPLY(RoseCommon::Packet::SrvChannelListReply&& packet) {
 
-  DWORD worldserver_id = packet->m_lsv_CHANNEL_LIST_REPLY.m_dwServerID;
+  uint32_t worldserver_id = packet.get_id();
   CServerList::GetInstance().ClearChannelServerList( worldserver_id );
 
-  short nOffset = sizeof( lsv_CHANNEL_LIST_REPLY );
+  auto channel_count =   packet.get_channels().size();
+  if ( channel_count == 0 )
+    return;
 
-  if ( packet->m_lsv_CHANNEL_LIST_REPLY.m_btChannelCNT > 0 ) {
-    tagCHANNEL_SRV* pChannel        = nullptr;
-    char*           pszChannelName  = nullptr;
-    int             iFirstChannelNo = 0;
-    for ( int       i               = 0; i < packet->m_lsv_CHANNEL_LIST_REPLY.m_btChannelCNT;
-          ++i ) {
-      pChannel = (tagCHANNEL_SRV *)Packet_GetDataPtr( packet, nOffset,
-                                                      sizeof( tagCHANNEL_SRV ) );
-      //			if(CGame::GetInstance().GetRight() >=
-      //pChannel->m_dwRight)
-      {
-        pszChannelName = Packet_GetStringPtr( packet, nOffset );
-        if ( !pszChannelName )
-          pszChannelName = CStr::Printf( "Channel-%d", pChannel->m_btChannelNO );
+  std::string           pszChannelName  = "";
+  int             iFirstChannelNo = -1;
+  for (const auto& channel :   packet.get_channels())
+  {
+    //			if(CGame::GetInstance().GetRight() >=
+    //pChannel->m_dwRight)
+    {
+      pszChannelName = channel.get_name();
+      if ( pszChannelName.empty() )
+        pszChannelName = std::string(CStr::Printf( "Channel-%d", channel.get_id() ));
 
-        CServerList::GetInstance().AddChannelServerList(
-          worldserver_id, pChannel->m_btChannelNO, pszChannelName,
-          pChannel->m_nUserPERCENT );
+      CServerList::GetInstance().AddChannelServerList(
+        worldserver_id, channel.get_id(), pszChannelName.c_str(),
+        channel.get_capacity() );
 
-        if ( i == 0 )
-          iFirstChannelNo = pChannel->m_btChannelNO;
-      }
+      if ( iFirstChannelNo == -1 )
+        iFirstChannelNo = channel.get_id();
     }
-    g_EUILobby.HideMsgBox();
   }
+  g_EUILobby.HideMsgBox();
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -4685,14 +4685,14 @@ void CRecvPACKET::Recv_gsv_CRAFT_ITEM_REPLY(t_PACKET* packet) {
 }
 
 void CRecvPACKET::Recv_gsv_USED_ITEM_TO_REPAIR(t_PACKET* packet) {
-  Recv_gsv_SET_INV_ONLY(packet);
+  Recv_gsv_SET_INV_ONLY(RoseCommon::Packet::SrvSetItem::create(reinterpret_cast<const uint8_t*>(packet)));
 
   if ( g_pAVATAR )
     g_pAVATAR->UpdateAbility();
 }
 
 void CRecvPACKET::Recv_gsv_REPAIRED_FROM_NPC(t_PACKET* packet) {
-  Recv_gsv_SET_MONEYnINV(packet);
+  Recv_gsv_SET_MONEYnINV(RoseCommon::Packet::SrvSetMoneyAndItem::create(reinterpret_cast<const uint8_t*>(packet)));
 
   if ( g_pAVATAR )
     g_pAVATAR->UpdateAbility();

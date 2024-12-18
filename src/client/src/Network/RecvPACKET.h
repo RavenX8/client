@@ -5,6 +5,10 @@
 #define	__CRECVPACKET_H
 
 #include "srv_login_reply.h"
+#include "srv_channel_list_reply.h"
+#include "srv_char_list_reply.h"
+#include "srv_set_item.h"
+#include "srv_set_money_and_item.h"
 #include "srv_chan_char_reply.h"
 #include "srv_set_animation.h"
 
@@ -41,13 +45,13 @@ public :
 
   bool Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& packet);
 
-  void Recv_lsv_CHANNEL_LIST_REPLY(t_PACKET* packet);
+  void Recv_lsv_CHANNEL_LIST_REPLY(RoseCommon::Packet::SrvChannelListReply&& packet);
   int  Recv_lsv_SELECT_SERVER(t_PACKET* packet);
 
   int  Recv_srv_JOIN_SERVER_REPLY(t_PACKET* packet);
   void Recv_gsv_INIT_DATA(t_PACKET* packet);
 
-  void Recv_wsv_CHAR_LIST(t_PACKET* packet);
+  void Recv_wsv_CHAR_LIST(RoseCommon::Packet::SrvCharListReply&& packet);
   void Recv_wsv_DELETE_CHAR(t_PACKET* packet);
   bool Recv_wsv_CREATE_CHAR(t_PACKET* packet);
 
@@ -100,8 +104,8 @@ public :
   void Recv_gsv_STORE_TRADE_REPLY(t_PACKET* packet);
 
   void Recv_gsv_P_STORE_MONEYnINV(t_PACKET* packet);
-  void Recv_gsv_SET_MONEYnINV(t_PACKET* packet);
-  void Recv_gsv_SET_INV_ONLY(t_PACKET* packet);
+  void Recv_gsv_SET_MONEYnINV(RoseCommon::Packet::SrvSetMoneyAndItem&& packet);
+  void Recv_gsv_SET_INV_ONLY(RoseCommon::Packet::SrvSetItem&& packet);
   void Recv_gsv_USE_ITEM(t_PACKET* packet);
 
   void Recv_gsv_CHANGE_SKIN(t_PACKET* packet);

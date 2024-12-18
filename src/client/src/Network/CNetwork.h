@@ -32,7 +32,7 @@ private :
                    ~CNetwork();
 
   void Proc_WorldPacket();
-  void Proc_ZonePacket(t_PACKET* packet);
+  void Proc_ZonePacket(std::unique_ptr<t_PACKET> packet);
 
   void MoveZoneServer(bool reconnect = false);
 

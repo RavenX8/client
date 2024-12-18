@@ -214,10 +214,10 @@ void              CNetwork::Proc_WorldPacket() {
           pSocket->mF_Init( dwRet );
         break;
       }
-      case to_underlying(ePacketType::PAKLC_CHANNEL_LIST_REPLY): Recv_lsv_CHANNEL_LIST_REPLY(packet.get());
+      case to_underlying(ePacketType::PAKLC_CHANNEL_LIST_REPLY): Recv_lsv_CHANNEL_LIST_REPLY(RoseCommon::Packet::SrvChannelListReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
         // 캐릭터 리스트 받았음
-      case to_underlying(ePacketType::PAKCC_CHAR_LIST_REPLY): Recv_wsv_CHAR_LIST(packet.get());
+      case to_underlying(ePacketType::PAKCC_CHAR_LIST_REPLY): Recv_wsv_CHAR_LIST(RoseCommon::Packet::SrvCharListReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
 
       case to_underlying(ePacketType::PAKCC_DELETE_CHAR_REPLY): Recv_wsv_DELETE_CHAR(packet.get());
@@ -251,347 +251,347 @@ void              CNetwork::Proc_WorldPacket() {
         break;
       }
 
-      default: Proc_ZonePacket(packet.get());
+      default: Proc_ZonePacket(std::move(packet));
     }
   }
 }
 
-void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
+void CNetwork::Proc_ZonePacket(std::unique_ptr<t_PACKET> packet) {
   switch ( packet->m_HEADER.m_wType ) {
   case to_underlying(ePacketType::PAKCC_SWITCH_SERVER): {
       this->m_bWarping = true;
       bAllInONE        = false;
-      Recv_wsv_MOVE_SERVER(packet);
+      Recv_wsv_MOVE_SERVER(packet.get());
       MoveZoneServer( true );
       this->m_bWarping = false;
       break;
     }
 
-  case to_underlying(ePacketType::PAKWC_RIDE_REQUEST): Recv_gsv_CART_RIDE(packet);
+  case to_underlying(ePacketType::PAKWC_RIDE_REQUEST): Recv_gsv_CART_RIDE(packet.get());
       break;
 
-  case to_underlying(ePacketType::PAKWC_RIDE_STATE_CHANGE): Recv_gsv_PATSTATE_CHANGE(packet);
+  case to_underlying(ePacketType::PAKWC_RIDE_STATE_CHANGE): Recv_gsv_PATSTATE_CHANGE(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_NPC_SHOW): Recv_gsv_SET_NPC_SHOW(packet);
+    case to_underlying(ePacketType::PAKWC_NPC_SHOW): Recv_gsv_SET_NPC_SHOW(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_BANK_MOVE_MONEY): Recv_gsv_MOVE_ZULY(packet);
+    case to_underlying(ePacketType::PAKWC_BANK_MOVE_MONEY): Recv_gsv_MOVE_ZULY(packet.get());
       break;
-    case to_underlying(ePacketType::PAKCC_CLAN_ICON_TIMESTAMP): Recv_wsv_CLANMARK_REG_TIME(packet);
+    case to_underlying(ePacketType::PAKCC_CLAN_ICON_TIMESTAMP): Recv_wsv_CLANMARK_REG_TIME(packet.get());
       break;
-      case to_underlying(ePacketType::PAKWC_BILLING_MESSAGE): Recv_gsv_BILLING_MESSAGE(packet);
+      case to_underlying(ePacketType::PAKWC_BILLING_MESSAGE): Recv_gsv_BILLING_MESSAGE(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_CRAFT_STATUS): Recv_gsv_ITEM_RESULT_REPORT(packet);
+    case to_underlying(ePacketType::PAKWC_CRAFT_STATUS): Recv_gsv_ITEM_RESULT_REPORT(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_LOGOUT_REPLY): Recv_gsv_LOGOUT_REPLY(packet);
-      break;
-
-    case to_underlying(ePacketType::PAKCC_CLAN_COMMAND): Recv_wsv_CLAN_COMMAND(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_CLAN_CHAT): Recv_wsv_CLAN_CHAT(packet);
-      break;
-    case to_underlying(ePacketType::PAKCC_CLAN_ICON_REPLY): Recv_wsv_CLANMARK_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_LOGOUT_REPLY): Recv_gsv_LOGOUT_REPLY(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKSS_ERROR): Recv_srv_ERROR(packet);
+    case to_underlying(ePacketType::PAKCC_CLAN_COMMAND): Recv_wsv_CLAN_COMMAND(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_CLAN_CHAT): Recv_wsv_CLAN_CHAT(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKCC_CLAN_ICON_REPLY): Recv_wsv_CLANMARK_REPLY(packet.get());
+      break;
+
+    case to_underlying(ePacketType::PAKSS_ERROR): Recv_srv_ERROR(packet.get());
       break;
 
     //case GSV_RELAY_REQ: this->Send_PACKET( packet );
     //  break;
 
-    case to_underlying(ePacketType::PAKWC_GLOBAL_VARS): Recv_gsv_SET_GLOBAL_VAR(packet);
+    case to_underlying(ePacketType::PAKWC_GLOBAL_VARS): Recv_gsv_SET_GLOBAL_VAR(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_GLOBAL_FLAGS): Recv_gsv_SET_GLOVAL_FLAG(packet);
+    case to_underlying(ePacketType::PAKWC_GLOBAL_FLAGS): Recv_gsv_SET_GLOVAL_FLAG(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKSS_ANNOUNCE_TEXT): Recv_srv_ANNOUNCE_TEXT(packet);
+    case to_underlying(ePacketType::PAKSS_ANNOUNCE_TEXT): Recv_srv_ANNOUNCE_TEXT(packet.get());
       break;
-    case to_underlying(ePacketType::PAKSW_ANNOUNCE_CHAT): Recv_gsv_ANNOUNCE_CHAT(packet);
+    case to_underlying(ePacketType::PAKSW_ANNOUNCE_CHAT): Recv_gsv_ANNOUNCE_CHAT(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_GM_COMMAND): Recv_gsv_GM_COMMAND(packet);
+    case to_underlying(ePacketType::PAKWC_GM_COMMAND): Recv_gsv_GM_COMMAND(packet.get());
       break;
 
       // 캐릭터 선택 결과 통보받음
-    case to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY): Recv_gsv_SELECT_CHAR(packet);
+    case to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY): Recv_gsv_SELECT_CHAR(packet.get());
 
       // Send_cli_JOIN_ZONE ();		// to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY)
       break;
 
-    case to_underlying(ePacketType::PAKWC_CHANGE_MAP_REPLY): Recv_gsv_JOIN_ZONE(packet);
+    case to_underlying(ePacketType::PAKWC_CHANGE_MAP_REPLY): Recv_gsv_JOIN_ZONE(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_REVIVE_REPLY): Recv_gsv_REVIVE_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_REVIVE_REPLY): Recv_gsv_REVIVE_REPLY(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SET_SERVER_VAR_REPLY): Recv_gsv_SET_VAR_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_SET_SERVER_VAR_REPLY): Recv_gsv_SET_VAR_REPLY(packet.get());
       break;
 
     case to_underlying(ePacketType::PAKWC_TELEPORT_REPLY): this->m_bWarping = false;
-      Recv_gsv_TELEPORT_REPLY(packet);
+      Recv_gsv_TELEPORT_REPLY(packet.get());
       //				Send_cli_JOIN_ZONE ();		//
       // to_underlying(ePacketType::PAKWC_TELEPORT_REPLY)
       break;
 
-    case to_underlying(ePacketType::PAKWC_INVENTORY_DATA): Recv_gsv_INVENTORY_DATA(packet);
+    case to_underlying(ePacketType::PAKWC_INVENTORY_DATA): Recv_gsv_INVENTORY_DATA(packet.get());
       //				g_pCApp->SetStatus( AS_MAIN_GAME );
       break;
-    case to_underlying(ePacketType::PAKWC_QUEST_DATA): Recv_gsv_QUEST_DATA(packet);
+    case to_underlying(ePacketType::PAKWC_QUEST_DATA): Recv_gsv_QUEST_DATA(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_INIT_DATA): Recv_gsv_INIT_DATA(packet);
+    case to_underlying(ePacketType::PAKWC_INIT_DATA): Recv_gsv_INIT_DATA(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_GM_COMMAND_CODE): Recv_gsv_CHEAT_CODE(packet);
+    case to_underlying(ePacketType::PAKWC_GM_COMMAND_CODE): Recv_gsv_CHEAT_CODE(packet.get());
       break;
 
     case to_underlying(ePacketType::PACWC_SET_ANIMATION):
     {
       using RoseCommon::Packet::SrvSetAnimation;
-      Recv_gsv_SET_MOTION(SrvSetAnimation::create(reinterpret_cast<const uint8_t*>(packet)));
+      Recv_gsv_SET_MOTION(SrvSetAnimation::create(reinterpret_cast<const uint8_t*>(packet.get())));
       break;
     }
 
-    case to_underlying(ePacketType::PAKWC_TOGGLE_MOVE): Recv_gsv_TOGGLE(packet);
+    case to_underlying(ePacketType::PAKWC_TOGGLE_MOVE): Recv_gsv_TOGGLE(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_PARTY_CHAT): Recv_gsv_PARTY_CHAT(packet);
+    case to_underlying(ePacketType::PAKWC_PARTY_CHAT): Recv_gsv_PARTY_CHAT(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_NORMAL_CHAT): Recv_gsv_CHAT(packet);
+    case to_underlying(ePacketType::PAKWC_NORMAL_CHAT): Recv_gsv_CHAT(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_WHISPER_CHAT): Recv_gsv_WHISPER(packet);
+    case to_underlying(ePacketType::PAKWC_WHISPER_CHAT): Recv_gsv_WHISPER(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_SHOUT_CHAT): Recv_gsv_SHOUT(packet);
-      break;
-
-    case to_underlying(ePacketType::PAKWC_NPC_CHAR): Recv_gsv_NPC_CHAR(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_MOB_CHAR): Recv_gsv_MOB_CHAR(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_PLAYER_CHAR): Recv_gsv_AVT_CHAR(packet);
+    case to_underlying(ePacketType::PAKWC_SHOUT_CHAT): Recv_gsv_SHOUT(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_REMOVE_OBJECT): Recv_gsv_SUB_OBJECT(packet);
+    case to_underlying(ePacketType::PAKWC_NPC_CHAR): Recv_gsv_NPC_CHAR(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_STOP): Recv_gsv_STOP(packet);
+    case to_underlying(ePacketType::PAKWC_MOB_CHAR): Recv_gsv_MOB_CHAR(packet.get());
       break;
-
-    case to_underlying(ePacketType::PAKWC_MOVE): Recv_gsv_MOVE(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_ATTACK): Recv_gsv_ATTACK(packet);
+    case to_underlying(ePacketType::PAKWC_PLAYER_CHAR): Recv_gsv_AVT_CHAR(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_UPDATE_NPC): Recv_gsv_CHANGE_NPC(packet);
+    case to_underlying(ePacketType::PAKWC_REMOVE_OBJECT): Recv_gsv_SUB_OBJECT(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_STOP): Recv_gsv_STOP(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_DAMAGE): Recv_gsv_DAMAGE(packet);
+    case to_underlying(ePacketType::PAKWC_MOVE): Recv_gsv_MOVE(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_ATTACK): Recv_gsv_ATTACK(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SET_EXP): Recv_gsv_SETEXP(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_LEVELUP): Recv_gsv_LEVELUP(packet);
+    case to_underlying(ePacketType::PAKWC_UPDATE_NPC): Recv_gsv_CHANGE_NPC(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_HP_REPLY): Recv_gsv_HP_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_DAMAGE): Recv_gsv_DAMAGE(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_CHANGE_SKIN): Recv_gsv_CHANGE_SKIN(packet);
+    case to_underlying(ePacketType::PAKWC_SET_EXP): Recv_gsv_SETEXP(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_LEVELUP): Recv_gsv_LEVELUP(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_EQUIP_ITEM): Recv_gsv_EQUIP_ITEM(packet);
+    case to_underlying(ePacketType::PAKWC_HP_REPLY): Recv_gsv_HP_REPLY(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_DROP_ITEM): Recv_gsv_ADD_FIELDITEM(packet);
+    case to_underlying(ePacketType::PAKWC_CHANGE_SKIN): Recv_gsv_CHANGE_SKIN(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_PICKUP_ITEM_REPLY): Recv_gsv_GET_FIELDITEM_REPLY(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_MOUSE_CMD): Recv_gsv_MOUSECMD(packet);
+    case to_underlying(ePacketType::PAKWC_EQUIP_ITEM): Recv_gsv_EQUIP_ITEM(packet.get());
       break;
 
-    //case GSV_SET_WEIGHT_RATE: Recv_gsv_SET_WEIGHT_RATE(packet);
+    case to_underlying(ePacketType::PAKWC_DROP_ITEM): Recv_gsv_ADD_FIELDITEM(packet.get());
+      break;
+
+    case to_underlying(ePacketType::PAKWC_PICKUP_ITEM_REPLY): Recv_gsv_GET_FIELDITEM_REPLY(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_MOUSE_CMD): Recv_gsv_MOUSECMD(packet.get());
+      break;
+
+    //case GSV_SET_WEIGHT_RATE: Recv_gsv_SET_WEIGHT_RATE(packet.get());
     //  break;
 
-    case to_underlying(ePacketType::PAKWC_SET_POSITION): Recv_gsv_ADJUST_POS(packet);
+    case to_underlying(ePacketType::PAKWC_SET_POSITION): Recv_gsv_ADJUST_POS(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_STOP_MOVING): Recv_gsv_STOP(packet);
+    case to_underlying(ePacketType::PAKWC_STOP_MOVING): Recv_gsv_STOP(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SKILL_LEARN): Recv_gsv_SKILL_LEARN_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_LEARN): Recv_gsv_SKILL_LEARN_REPLY(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SKILL_LEVEL_REPLY): Recv_gsv_SKILL_LEVELUP_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_LEVEL_REPLY): Recv_gsv_SKILL_LEVELUP_REPLY(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SKILL_CAST_SELF): Recv_gsv_SELF_SKILL(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_CAST_SELF): Recv_gsv_SELF_SKILL(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_SKILL_CAST_TARGET): Recv_gsv_TARGET_SKILL(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_CAST_TARGET): Recv_gsv_TARGET_SKILL(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_SKILL_CAST_POSITION): Recv_gsv_POSITION_SKILL(packet);
-      break;
-
-    case to_underlying(ePacketType::PAKWC_SKILL_EFFECT): Recv_gsv_EFFECT_OF_SKILL(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_SKILL_DAMAGE): Recv_gsv_DAMAGE_OF_SKILL(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_SKILL_FINISH): Recv_gsv_RESULT_OF_SKILL(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_CAST_POSITION): Recv_gsv_POSITION_SKILL(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SKILL_START): Recv_gsv_SKILL_START(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_EFFECT): Recv_gsv_EFFECT_OF_SKILL(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_SKILL_DAMAGE): Recv_gsv_DAMAGE_OF_SKILL(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_SKILL_FINISH): Recv_gsv_RESULT_OF_SKILL(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SKILL_CANCEL): Recv_gsv_SKILL_CANCEL(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_START): Recv_gsv_SKILL_START(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_CLEAR_STATUS): Recv_gsv_CLEAR_STATUS(packet);
+    case to_underlying(ePacketType::PAKWC_SKILL_CANCEL): Recv_gsv_SKILL_CANCEL(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SPEED_CHANGED): Recv_gsv_SPEED_CHANGED(packet);
+    case to_underlying(ePacketType::PAKWC_CLEAR_STATUS): Recv_gsv_CLEAR_STATUS(packet.get());
+      break;
+
+    case to_underlying(ePacketType::PAKWC_SPEED_CHANGED): Recv_gsv_SPEED_CHANGED(packet.get());
       break;
 
       /// 아이템을 사용했다.
-    case to_underlying(ePacketType::PAKWC_USE_ITEM): Recv_gsv_USE_ITEM(packet);
+    case to_underlying(ePacketType::PAKWC_USE_ITEM): Recv_gsv_USE_ITEM(packet.get());
       break;
 
-    //case GSV_P_STORE_MONEYnINV: Recv_gsv_P_STORE_MONEYnINV(packet);
+    //case GSV_P_STORE_MONEYnINV: Recv_gsv_P_STORE_MONEYnINV(packet.get());
     //  break;
-    case to_underlying(ePacketType::PAKWC_SET_MONEY_AND_ITEM): Recv_gsv_SET_MONEYnINV(packet);
+    case to_underlying(ePacketType::PAKWC_SET_MONEY_AND_ITEM): Recv_gsv_SET_MONEYnINV(RoseCommon::Packet::SrvSetMoneyAndItem::create(reinterpret_cast<const uint8_t*>(packet.get())));
       break;
 
     case to_underlying(ePacketType::PAKWC_QUEST_REWARD_ITEM): {
-      Recv_gsv_REWARD_ITEM(packet);
+      Recv_gsv_REWARD_ITEM(packet.get());
       // Missing break is intentional.
     }
 
     [[fallthrough]];
-    case to_underlying(ePacketType::PAKWC_SET_ITEM): Recv_gsv_SET_INV_ONLY(packet);
+    case to_underlying(ePacketType::PAKWC_SET_ITEM): Recv_gsv_SET_INV_ONLY(RoseCommon::Packet::SrvSetItem::create(reinterpret_cast<const uint8_t*>(packet.get())));
       break;
 
-    case to_underlying(ePacketType::PAKWC_HOTBAR_SET_ICON_REPLY): Recv_gsv_SET_HOTICON(packet);
+    case to_underlying(ePacketType::PAKWC_HOTBAR_SET_ICON_REPLY): Recv_gsv_SET_HOTICON(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_STAT_ADD_REPLY): Recv_gsv_USE_BPOINT_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_STAT_ADD_REPLY): Recv_gsv_USE_BPOINT_REPLY(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_QUEST_DATA_REPLY): Recv_gsv_QUEST_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_QUEST_DATA_REPLY): Recv_gsv_QUEST_REPLY(packet.get());
       break;
       /*
       case to_underlying(ePacketType::PAKWC_QUEST_DATA)_REPLY :
         Recv_gsv_QUEST_DATA_REPLY ();
         break;
       */
-    case to_underlying(ePacketType::PAKWC_TRADE): Recv_gsv_TRADE_P2P(packet);
+    case to_underlying(ePacketType::PAKWC_TRADE): Recv_gsv_TRADE_P2P(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_TRADE_ITEM): Recv_gsv_TRADE_P2P_ITEM(packet);
-      break;
-
-    case to_underlying(ePacketType::PAKWC_PARTY_REQ): Recv_gsv_PARTY_REQ(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_PARTY_REPLY): Recv_gsv_PARTY_REPLY(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_PARTY_MEMBER): Recv_gsv_PARTY_MEMBER(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_PARTY_LEVELEXP): Recv_gsv_PARTY_LEVnEXP(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_PARTY_ITEM): Recv_gsv_PARTY_ITEM(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_PARTY_RULE): Recv_gsv_PARTY_RULE(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_PARTY_MEMBER_UPDATE): Recv_gsv_CHANGE_OBJIDX(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_STORE_TRADE_REPLY): Recv_gsv_STORE_TRADE_REPLY(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_CRAFT_REPLY): Recv_gsv_CREATE_ITEM_REPLY(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_BANK_LIST_REPLY): Recv_gsv_BANK_LIST_REPLY(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_BANK_MOVE_ITEM): Recv_gsv_MOVE_ITEM(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_EQUIP_PROJECTILE): Recv_gsv_SET_BULLET(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_SERVER_DATA): Recv_gsv_SERVER_DATA(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_EQUIP_ITEM_RIDE): Recv_gsv_ASSEMBLE_RIDE_ITEM(packet);
+    case to_underlying(ePacketType::PAKWC_TRADE_ITEM): Recv_gsv_TRADE_P2P_ITEM(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_EVENT_STATUS): Recv_GSV_SET_EVENT_STATUS(packet);
+    case to_underlying(ePacketType::PAKWC_PARTY_REQ): Recv_gsv_PARTY_REQ(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_REPLY): Recv_gsv_PARTY_REPLY(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_MEMBER): Recv_gsv_PARTY_MEMBER(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_LEVELEXP): Recv_gsv_PARTY_LEVnEXP(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_ITEM): Recv_gsv_PARTY_ITEM(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_RULE): Recv_gsv_PARTY_RULE(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_PARTY_MEMBER_UPDATE): Recv_gsv_CHANGE_OBJIDX(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_STORE_TRADE_REPLY): Recv_gsv_STORE_TRADE_REPLY(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_CRAFT_REPLY): Recv_gsv_CREATE_ITEM_REPLY(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_BANK_LIST_REPLY): Recv_gsv_BANK_LIST_REPLY(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_BANK_MOVE_ITEM): Recv_gsv_MOVE_ITEM(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_EQUIP_PROJECTILE): Recv_gsv_SET_BULLET(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_SERVER_DATA): Recv_gsv_SERVER_DATA(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_EQUIP_ITEM_RIDE): Recv_gsv_ASSEMBLE_RIDE_ITEM(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SET_ITEM_LIFE): Recv_GSV_SET_ITEM_LIFE(packet);
+    case to_underlying(ePacketType::PAKWC_EVENT_STATUS): Recv_GSV_SET_EVENT_STATUS(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SHOP_OPEN): Recv_gsv_P_STORE_OPENED(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_SHOP_CLOSE): Recv_gsv_P_STORE_CLOSED(packet);
-      break;
-    case to_underlying(ePacketType::PAKWC_SHOP_LIST_REPLY): Recv_gsv_P_STORE_LIST_REPLY(packet);
-      break;
-    case to_underlying(ePacketType::PAKCS_SHOP_BUYSELL_REPLY): Recv_gsv_P_STORE_RESULT(packet);
+    case to_underlying(ePacketType::PAKWC_SET_ITEM_LIFE): Recv_GSV_SET_ITEM_LIFE(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKCS_REPAIR_USE_ITEM): Recv_gsv_USED_ITEM_TO_REPAIR(packet);
+    case to_underlying(ePacketType::PAKWC_SHOP_OPEN): Recv_gsv_P_STORE_OPENED(packet.get());
       break;
-    case to_underlying(ePacketType::PAKCS_REPAIR_NPC): Recv_gsv_REPAIRED_FROM_NPC(packet);
+    case to_underlying(ePacketType::PAKWC_SHOP_CLOSE): Recv_gsv_P_STORE_CLOSED(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_SHOP_LIST_REPLY): Recv_gsv_P_STORE_LIST_REPLY(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKCS_SHOP_BUYSELL_REPLY): Recv_gsv_P_STORE_RESULT(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SET_MONEY): Recv_gsv_SET_MONEY_ONLY(packet);
+    case to_underlying(ePacketType::PAKCS_REPAIR_USE_ITEM): Recv_gsv_USED_ITEM_TO_REPAIR(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_QUEST_REWARD_MONEY): Recv_gsv_REWARD_MONEY(packet);
+    case to_underlying(ePacketType::PAKCS_REPAIR_NPC): Recv_gsv_REPAIRED_FROM_NPC(packet.get());
+      break;
+
+    case to_underlying(ePacketType::PAKWC_SET_MONEY): Recv_gsv_SET_MONEY_ONLY(packet.get());
+      break;
+    case to_underlying(ePacketType::PAKWC_QUEST_REWARD_MONEY): Recv_gsv_REWARD_MONEY(packet.get());
       break;
 
     case to_underlying(ePacketType::PAKWC_QUEST_REWARD_ADD_VALUE): {
-      Recv_gsv_REWARD_ADD_ABILITY(packet);
+      Recv_gsv_REWARD_ADD_ABILITY(packet.get());
       break;
     }
     case to_underlying(ePacketType::PAKWC_QUEST_REWARD_SET_VALUE): {
-      Recv_gsv_REWARD_SET_ABILITY(packet);
+      Recv_gsv_REWARD_SET_ABILITY(packet.get());
       break;
     }
 
     case to_underlying(ePacketType::PAKWC_FAIRY): {
-      Recv_gsv_GODDNESS_MODE(packet);
+      Recv_gsv_GODDNESS_MODE(packet.get());
       break;
     }
 
       //----------------------------------------------------------------------------------------------------
       /// @brief 아이템 재밍관련
       //----------------------------------------------------------------------------------------------------
-    case to_underlying(ePacketType::PAKWC_CRAFT_ENHANCE_REPLY): Recv_gsv_CRAFT_ITEM_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_CRAFT_ENHANCE_REPLY): Recv_gsv_CRAFT_ITEM_REPLY(packet.get());
       break;
 
       //----------------------------------------------------------------------------------------------------
       /// @brief 이벤트 오브젝트 관련
       //----------------------------------------------------------------------------------------------------
-    case to_underlying(ePacketType::PAKWC_EVENT_ADD): Recv_gsv_ADD_EVENTOBJ(packet);
+    case to_underlying(ePacketType::PAKWC_EVENT_ADD): Recv_gsv_ADD_EVENTOBJ(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_APPRAISAL_REPLY): Recv_gsv_APPRAISAL_REPLY(packet);
+    case to_underlying(ePacketType::PAKWC_APPRAISAL_REPLY): Recv_gsv_APPRAISAL_REPLY(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_SET_HP_AND_MP): Recv_gsv_SET_HPnMP(packet);
+    case to_underlying(ePacketType::PAKWC_SET_HP_AND_MP): Recv_gsv_SET_HPnMP(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_NPC_EVENT): Recv_gsv_CHECK_NPC_EVENT(packet);
+    case to_underlying(ePacketType::PAKWC_NPC_EVENT): Recv_gsv_CHECK_NPC_EVENT(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_ALLIED_CHAT): Recv_gsv_ALLIED_CHAT(packet);
+    case to_underlying(ePacketType::PAKWC_ALLIED_CHAT): Recv_gsv_ALLIED_CHAT(packet.get());
       break;
-    case to_underlying(ePacketType::PAKWC_ALLIED_SHOUT_CHAT): Recv_gsv_ALLIED_SHOUT(packet);
-      break;
-
-    case to_underlying(ePacketType::PAWKC_CHAR_STATE_CHANGE): Recv_gsv_CHARSTATE_CHANGE(packet);
+    case to_underlying(ePacketType::PAKWC_ALLIED_SHOUT_CHAT): Recv_gsv_ALLIED_SHOUT(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKSC_SCREEN_SHOT_TIME_REPLY): Recv_gsv_SCREEN_SHOT_TIME(packet);
+    case to_underlying(ePacketType::PAWKC_CHAR_STATE_CHANGE): Recv_gsv_CHARSTATE_CHANGE(packet.get());
       break;
 
-    case to_underlying(ePacketType::PAKWC_UPDATE_NAME): Recv_gsv_UPDATE_NAME(packet);
+    case to_underlying(ePacketType::PAKSC_SCREEN_SHOT_TIME_REPLY): Recv_gsv_SCREEN_SHOT_TIME(packet.get());
+      break;
+
+    case to_underlying(ePacketType::PAKWC_UPDATE_NAME): Recv_gsv_UPDATE_NAME(packet.get());
       break;
 
     case to_underlying(ePacketType::PAKCC_CHAN_CHAR_REPLY): { //Fixed by Davidixx
         using RoseCommon::Packet::SrvChanCharReply;
-        Recv_wsv_CHAR_CHANGE(SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet)));
+        Recv_wsv_CHAR_CHANGE(SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         m_btZoneSocketSTATUS = 0;
         CshoClientSOCK* pSocket = &this->m_ZoneSOCKET;
         pSocket->Close();
@@ -668,7 +668,7 @@ void CNetwork::Proc() {
         break;
       }
 
-      default: this->Proc_ZonePacket(packet.get());
+      default: this->Proc_ZonePacket(std::move(packet));
     }
   }
 }

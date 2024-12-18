@@ -202,7 +202,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
 #ifndef _DEBUG
   // �ý��� ������ ����
-  TI_ReadSysInfoFile();
+  // TI_ReadSysInfoFile();
 #endif
 
   // *-------------------------------------------------------------------* //
