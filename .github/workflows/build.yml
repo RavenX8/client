@@ -16,8 +16,8 @@ jobs:
       - name: Enable Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1.11.0
         with:
-          arch: x86
-#          arch: x64
+#          arch: x86
+          arch: x64
       - uses: seanmiddleditch/gha-setup-ninja@v3
       - name: Get processor arch
         run: echo "PROCESSOR_ARCH=$Env:PROCESSOR_ARCHITECTURE" | out-file -FilePath $Env:GITHUB_ENV -Encoding utf-8 -append
@@ -79,8 +79,8 @@ jobs:
       - name: Enable Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1.11.0
         with:
-          arch: x86
-#          arch: x64
+#          arch: x86
+          arch: x64
       - uses: seanmiddleditch/gha-setup-ninja@v3
       - name: Get processor arch
         run: echo "PROCESSOR_ARCH=$Env:PROCESSOR_ARCHITECTURE" | out-file -FilePath $Env:GITHUB_ENV -Encoding utf-8 -append
