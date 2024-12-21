@@ -99,12 +99,21 @@ bool CNetwork::ConnectToServer(char* szServerIP, WORD wTcpPORT,
 
 void CNetwork::DisconnectFromServer(short nProcLEVEL) {
   m_nProcLEVEL = nProcLEVEL;
+
+  // Check to see if we shouldn't actually disconnect
+  if ( NS_TRN_TO_WSV == nProcLEVEL )
+    return;
+
   m_WorldSOCKET.Close();
   m_WorldSOCKET.Set_NetSTATUS( NETWORK_STATUS_DISCONNECT );
 }
 
 //-------------------------------------------------------------------------------------------------
 void CNetwork::MoveZoneServer(const bool reconnect) {
+  // Check to see if we shouldn't actually disconnect
+  if ( NS_TRN_TO_WSV == m_nProcLEVEL )
+    return;
+
   if ( NETWORK_STATUS_CONNECT == m_btZoneSocketSTATUS ) {
     // 존 서버 소켓을 끊고 새로 접속한다...
     m_bMoveingZONE = true;
@@ -212,6 +221,12 @@ void              CNetwork::Proc_WorldPacket() {
         DWORD dwRet = Recv_lsv_SELECT_SERVER(packet.get());
         if ( dwRet )
           pSocket->mF_Init( dwRet );
+
+        if (NS_TRN_TO_WSV == m_nProcLEVEL) {
+          Send_cli_JOIN_SERVER_REQ( m_dwWSV_ID, true );
+          m_bWarping = false;
+          bAllInONE  = true;
+        }
         break;
       }
       case to_underlying(ePacketType::PAKLC_CHANNEL_LIST_REPLY): Recv_lsv_CHANNEL_LIST_REPLY(RoseCommon::Packet::SrvChannelListReply::create(reinterpret_cast<const uint8_t*>(packet.get())));

@@ -15,7 +15,8 @@ enum {
   NS_NULL=0,
   NS_CON_TO_LSV,
   NS_DIS_FORM_LSV,
-  NS_CON_TO_WSV
+  NS_CON_TO_WSV,
+  NS_TRN_TO_WSV // Don't disconnect, just treat current connection as WSV
 };
 
 class CNetwork : public CRecvPACKET, public CSendPACKET {

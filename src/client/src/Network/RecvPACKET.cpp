@@ -441,6 +441,21 @@ int CRecvPACKET::Recv_lsv_SELECT_SERVER(t_PACKET* packet) {
   szServerIP  = Packet_GetStringPtr( packet, nOffset );
   pServerPort = (WORD *)Packet_GetDataPtr( packet, nOffset, sizeof( WORD ) );
 
+  std::string server_ip = szServerIP;
+
+  if ( server_ip.empty() )
+  {
+    // Do not disconnect here
+    LogString(LOG_DEBUG, "Recv_lsv_SELECT_SERVER:: Result: %d, IP: %s, Port: %d ",
+            packet->m_lsv_SELECT_SERVER.m_btResult, szServerIP,
+            *pServerPort);
+    LogString(LOG_DEBUG, "Recv_lsv_SELECT_SERVER:: Staying connected");
+    this->m_dwWSV_ID  = packet->m_lsv_SELECT_SERVER.m_dwIDs[0];
+    // Set the networks status
+    this->DisconnectFromServer( NS_TRN_TO_WSV );
+    return packet->m_lsv_SELECT_SERVER.m_dwIDs[1];
+  }
+
   // 소켓 동작 중에는 주소나 포트를 바꿀수 없다.
   this->m_WSV_IP.Set( szServerIP );
   this->m_wWSV_PORT = *pServerPort;
