@@ -56,7 +56,7 @@ int CGameStateLoginVirtual::Enter(int iPrevStateID) {
   if (NS_TRN_TO_WSV != g_pNet->GetProcLevel())
     g_pNet->DisconnectFromServer();
   else
-    g_pNet->Send_cli_LOGIN_REQ( g_GameDATA.m_Account.Get(), g_GameDATA.m_Password.Get(), !g_GameDATA.m_is_NHN_JAPAN );
+    this->AcceptedConnectLoginSvr();
 
   return 1;
 }
