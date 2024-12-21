@@ -55,6 +55,7 @@ public :
   void DisconnectFromServer(short nProcLEVEL                                  = 0) override;
   // 박 지호 
   void Send_AuthMsg(void);
+  short GetProcLevel(void) { return m_nProcLEVEL; }
 
   // Playing packet ..
   //	void Send_Damage (int iServerObjectIndex, short nDamage);

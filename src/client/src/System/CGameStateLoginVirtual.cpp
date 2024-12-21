@@ -30,7 +30,7 @@ int CGameStateLoginVirtual::Update(bool bLostFocus) {
 
   // processing  ...
   if ( !bLostFocus ) {
-    if ( beginScene() ) //  µð¹ÙÀÌ½º°¡ ¼Õ½ÇµÈ »óÅÂ¶ó¸é 0À» ¸®ÅÏÇÏ¹Ç·Î, ¸ðµç ·»´õ¸µ ½ºÅµ
+    if ( beginScene() ) //  ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Õ½Çµï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
     {
       clearScreen();
       renderScene();
@@ -53,7 +53,8 @@ int CGameStateLoginVirtual::Update(bool bLostFocus) {
 }
 
 int CGameStateLoginVirtual::Enter(int iPrevStateID) {
-  g_pNet->DisconnectFromServer();
+  if (NS_TRN_TO_WSV != g_pNet->GetProcLevel())
+    g_pNet->DisconnectFromServer();
   return 1;
 }
 
