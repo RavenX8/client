@@ -87,7 +87,7 @@ void CNetwork::Send_PACKET(RoseCommon::CRosePacket&& packet, bool sendToWorld)
 bool CNetwork::ConnectToServer(char* szServerIP, WORD wTcpPORT,
                                short nProcLEVEL) {
   // World 소켓...
-  if ( m_nProcLEVEL == nProcLEVEL )
+  if ( m_nProcLEVEL == nProcLEVEL || NS_TRN_TO_WSV == m_nProcLEVEL )
     return true;
 
   m_nProcLEVEL = nProcLEVEL;
