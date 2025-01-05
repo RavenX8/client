@@ -1,6 +1,8 @@
 #ifndef _SELECTAVATA_
 #define _SELECTAVATA_
 
+#include <srv_char_list_reply.h>
+
 #include "CExternalUI.h"
 #include <vector>
 #include <string>
@@ -9,12 +11,12 @@
 struct t_PACKET;
 
 /**
-* Ä³¸¯ÅÍ ¼±ÅÃÃ¢¿¡¼­ »ç¿ëµÇ´Â ÀÎÅÍÆäÀÌ½º
-* - CGameDataCreateAvatar¿Í °°Àº ºÎºÐÀ» Ã³¸®ÇÏ°í ÀÖ´Ù.
+* Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½
+* - CGameDataCreateAvatarï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½.
 *
-* @Warning		°ú±ÝÃ³¸®¿¡ µû¶ó 4,5¹øÂ° ½½·ÔÀÇ Ä³¸¯ÅÍÀÇ ¼±ÅÃÀÌ °¡´É/ºÒ°¡´ÉÇØÁø´Ù.
-* @Todo			CGameDataCreateAvatar¿Í °°ÀÌ Á¤¸®ÇØ¼­ ÀÎÅÍÆäÀÌ½º¿Í µ¥ÀÌÅ¸¸¦ È®¿¬È÷ ±¸ºÐÇÏ´ø°¡ ÇÑ±ºµ¥( CSelectAvata )·Î ÇÕÄ¡´Â°Ç?
-* @Author		ÃÖÁ¾Áø
+* @Warning		ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 4,5ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+* @Todo			CGameDataCreateAvatarï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½ï¿½( CSelectAvata )ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Â°ï¿½?
+* @Author		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * @Date			2005/9/6
 */
 class CSelectAvata : public CTDialog {
@@ -32,6 +34,7 @@ public:
 
   void SendSelectAvataReq();
   void RecvAvataList(t_PACKET* recvPacket);
+  void RecvAvataList(RoseCommon::Packet::SrvCharListReply& packet);
 
   enum {
     IID_BTN_CREATE = 10,

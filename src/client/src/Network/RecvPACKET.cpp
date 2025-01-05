@@ -505,7 +505,7 @@ void            CRecvPACKET::Recv_wsv_CHAR_LIST(RoseCommon::Packet::SrvCharListR
   CSelectAvata* pSelectAvata =
     (CSelectAvata *)g_EUILobby.GetEUI( EUI_SELECT_AVATA );
 
-  pSelectAvata->RecvAvataList( reinterpret_cast<t_PACKET*>(packet.getPacked().get()) );
+  pSelectAvata->RecvAvataList( packet );
 
   g_EUILobby.CloseWaitAvataListDlg();
 

@@ -147,6 +147,56 @@ void             CSelectAvata::RecvAvataList(t_PACKET* recvPacket) {
   }
 }
 
+void             CSelectAvata::RecvAvataList(RoseCommon::Packet::SrvCharListReply& packet) {
+  uint64_t          nI            = 0;
+  std::string pszCharName = nullptr;
+  CJustModelAVT* pAvt          = nullptr;
+
+  CGameDataCreateAvatar::GetInstance().Clear();
+
+  auto characters = packet.get_characters();
+
+  for ( nI        = 0; nI < characters.size(); nI++ ) {
+    pszCharName   = characters[nI].get_name();
+    auto items = characters[nI].get_items();
+
+    pAvt = new CJustModelAVT();
+
+    pAvt->Init( pszCharName.c_str(),
+                items[BODY_PART_FACE].get_id(),
+                items[BODY_PART_HAIR].get_id(),
+                items[BODY_PART_HELMET].get_id(),
+                items[BODY_PART_ARMOR].get_id(),
+                items[BODY_PART_GAUNTLET].get_id(),
+                items[BODY_PART_BOOTS].get_id(),
+                items[BODY_PART_FACE_ITEM].get_id(),
+                items[BODY_PART_KNAPSACK].get_id(),
+                0/*items[BODY_PART_WEAPON_R].get_id()*/,
+                0 /*items[BODY_PART_WEAPON_L].get_id()*/
+    );
+
+    pAvt->SetLevel( characters[nI].get_level() );
+    pAvt->SetJob( characters[nI].get_job() );
+    pAvt->SetDeleteRemainSEC( characters[nI].get_remainSecsUntilDelete() );
+    pAvt->SetPlatinum( (characters[nI].get_platinium() != 0));
+    pAvt->SetRace( characters[nI].get_race() );
+
+    pAvt->UpdateModel();
+    pAvt->LoadModelVisible();
+    pAvt->InsertToScene();
+
+    CGameDataCreateAvatar::GetInstance().AddCreateAvatar( pAvt );
+
+    HNODE hModel = pAvt->GetModelNode();
+    setScale( hModel, 1.5, 1.5, 1.5 );
+    setModelDirection( hModel, 180.f, false );
+
+    if ( characters[nI].get_remainSecsUntilDelete() )
+      pAvt->SetMotion( 6 );
+
+  }
+}
+
 void CSelectAvata::OnLButtonUp(unsigned iProcID) {
   switch ( iProcID ) {
     case IID_BTN_CREATE: CGame::GetInstance().ChangeState( CGame::GS_CREATEAVATAR );
