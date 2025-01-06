@@ -163,8 +163,8 @@ void             CSelectAvata::RecvAvataList(RoseCommon::Packet::SrvCharListRepl
     pAvt = new CJustModelAVT();
 
     pAvt->Init( pszCharName.c_str(),
-                items[BODY_PART_FACE].get_id(),
-                items[BODY_PART_HAIR].get_id(),
+                characters[nI].get_face(),
+                characters[nI].get_hair(),
                 items[BODY_PART_HELMET].get_id(),
                 items[BODY_PART_ARMOR].get_id(),
                 items[BODY_PART_GAUNTLET].get_id(),
