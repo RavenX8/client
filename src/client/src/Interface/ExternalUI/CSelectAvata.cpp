@@ -149,8 +149,8 @@ void             CSelectAvata::RecvAvataList(t_PACKET* recvPacket) {
 
 void             CSelectAvata::RecvAvataList(RoseCommon::Packet::SrvCharListReply& packet) {
   uint64_t          nI            = 0;
-  std::string pszCharName = nullptr;
-  CJustModelAVT* pAvt          = nullptr;
+  std::string pszCharName = "";
+  CJustModelAVT* pAvt     = nullptr;
 
   CGameDataCreateAvatar::GetInstance().Clear();
 
