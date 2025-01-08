@@ -62,26 +62,43 @@ void tagITEM::SubtractOnly(tagITEM& sITEM) {
 
 tagBaseITEM& tagBaseITEM::operator=(const RoseCommon::Packet::SrvSetMoneyAndItem::Item& item)
 {
-  this->m_wHeader = item.get_header().get_header();
+  this->m_nItemNo = item.get_header().get_id();
+  this->m_cType = item.get_header().get_type();
+  this->m_bCreated = item.get_header().get_isCreated();
+
   this->m_nGEM_OP = item.get_data().get_gem_opt();
   this->m_cDurability = item.get_data().get_durability();
   this->m_nLife = item.get_data().get_life();
   this->m_bHasSocket = item.get_data().get_hasSocket();
   this->m_bIsAppraisal = item.get_data().get_isAppraised();
   this->m_cGrade = item.get_data().get_refine();
+
+  if (item.get_data().get_count())
+  {
+    this->m_uiQuantity = item.get_data().get_count();
+  }
 
   return *this;
 }
 
 tagBaseITEM& tagBaseITEM::operator=(const RoseCommon::Packet::SrvSetItem::Item& item)
 {
-  this->m_wHeader = item.get_header().get_header();
+  this->m_nItemNo = item.get_header().get_id();
+  this->m_cType = item.get_header().get_type();
+  this->m_bCreated = item.get_header().get_isCreated();
+
   this->m_nGEM_OP = item.get_data().get_gem_opt();
   this->m_cDurability = item.get_data().get_durability();
+
   this->m_nLife = item.get_data().get_life();
   this->m_bHasSocket = item.get_data().get_hasSocket();
   this->m_bIsAppraisal = item.get_data().get_isAppraised();
   this->m_cGrade = item.get_data().get_refine();
+
+  if (item.get_data().get_count())
+  {
+    this->m_uiQuantity = item.get_data().get_count();
+  }
 
   return *this;
 }

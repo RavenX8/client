@@ -165,14 +165,14 @@ void             CSelectAvata::RecvAvataList(RoseCommon::Packet::SrvCharListRepl
     pAvt->Init( pszCharName.c_str(),
                 characters[nI].get_face(),
                 characters[nI].get_hair(),
-                items[BODY_PART_HELMET].get_id(),
-                items[BODY_PART_ARMOR].get_id(),
-                items[BODY_PART_GAUNTLET].get_id(),
-                items[BODY_PART_BOOTS].get_id(),
-                items[BODY_PART_FACE_ITEM].get_id(),
-                items[BODY_PART_KNAPSACK].get_id(),
-                0/*items[BODY_PART_WEAPON_R].get_id()*/,
-                0 /*items[BODY_PART_WEAPON_L].get_id()*/
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::HELMET].get_id(),
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::ARMOR].get_id(),
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::GAUNTLET].get_id(),
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::BOOTS].get_id(),
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::GOOGLES].get_id(),
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::BACKPACK].get_id(),
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::WEAPON_R].get_id(),
+                items[RoseCommon::Packet::SrvCharListReply::EquippedPosition::WEAPON_L].get_id()
     );
 
     pAvt->SetLevel( characters[nI].get_level() );
