@@ -218,8 +218,6 @@
 #pragma warning( disable:4201 )
 #pragma pack (push, 1)
 
-#include <srv_set_money_and_item.h>
-
 //-------------------------------------------------------------------------------------------------
 
 struct cli_CHECK_AUTH : public t_PACKETHEADER {

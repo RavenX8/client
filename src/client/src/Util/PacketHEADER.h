@@ -4,7 +4,9 @@
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
-#define	MAX_PACKET_SIZE			( (size_t)1024 )
+#ifndef MAX_PACKET_SIZE
+#define	MAX_PACKET_SIZE			( (size_t)(0xFFF) )
+#endif
 
 #pragma pack (push, 1)
 #ifndef	__T_PACKETHEADER

@@ -301,7 +301,7 @@ void  CClientSOCKET::Packet_Recv(int iToRecvBytes) {
 #if !defined(DISABLE_CRYPT)
         this->m_nPacketSize = this->mF_DRH( &(reinterpret_cast<t_PACKET*>(m_pRecvPacket)->m_HEADER) );
 #else
-        this->m_nPacketSize = (reinterpret_cast<t_PACKET*>(m_pRecvPacket)->m_HEADER).m_nSize;
+        this->m_nPacketSize = reinterpret_cast<t_PACKET*>(m_pRecvPacket)->m_HEADER.m_nSize;
 #endif
         if ( !this->m_nPacketSize ) {
           // 패킷 오류 !!!

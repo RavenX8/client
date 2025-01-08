@@ -714,9 +714,6 @@ void CRecvPACKET::Recv_gsv_SELECT_CHAR(t_PACKET* packet) {
   ::CopyMemory(&refGame.m_SelectedAvataInfo.m_BasicAbility,
     &packet->m_gsv_SELECT_CHAR.m_BasicAbility,
     sizeof(tagBasicAbility));
-  ::CopyMemory(&refGame.m_SelectedAvataInfo.m_BasicAbility,
-    &packet->m_gsv_SELECT_CHAR.m_BasicAbility,
-    sizeof(tagBasicAbility));
   ::CopyMemory(&refGame.m_SelectedAvataInfo.m_GrowAbility,
     &packet->m_gsv_SELECT_CHAR.m_GrowAbility,
     sizeof(tagGrowAbility));
@@ -741,6 +738,102 @@ void CRecvPACKET::Recv_gsv_SELECT_CHAR(t_PACKET* packet) {
 
 }
 
+void CRecvPACKET::Recv_gsv_SELECT_CHAR(RoseCommon::Packet::SrvSelectCharReply&& packet) {
+  /*
+  struct gsv_SELECT_CHAR : public t_PACKETHEADER {
+  WORD				m_wObjectIDX;
+  short				m_nZoneNO;
+  tPOINTF				m_PosSTART;
+
+  tagBasicINFO		m_BasicINFO;
+  tagBasicAbility		m_BasicAbility;
+  tagGrowAbility		m_GrowAbility;
+  tagSkillAbility		m_Skill;
+  //	tagQuestData		m_Quests;
+  //	char				szName[];
+  }
+  ;*/
+  // short nOffset = sizeof( gsv_SELECT_CHAR );
+  // char* szName;
+  // szName = Packet_GetStringPtr( packet, nOffset );
+
+  LogString(LOG_NORMAL,
+            "\n\n\n>>> AVATAR( %s ) : Zone: %d, Pos: %f, %f <<<\n\n\n\n",
+            packet.get_name(), packet.get_map(),
+            packet.get_x(),
+            packet.get_y());
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 선택된 아바타 데이터 세팅..
+  CGame& refGame         = CGame::GetInstance();
+  refGame.m_strAvataName = packet.get_name();
+
+  refGame.m_SelectedAvataInfo.m_PartITEM[BODY_PART_FACE].m_nItemNo = packet.get_face();
+  refGame.m_SelectedAvataInfo.m_PartITEM[BODY_PART_HAIR].m_nItemNo = packet.get_hair();
+  const auto& inventory = packet.get_equippedItems();
+  for (int i = 0; i < inventory.size(); i++)
+  {
+    if (i >= MAX_BODY_PART-2) continue;
+    refGame.m_SelectedAvataInfo.m_PartITEM[BODY_PART_HELMET+i] = inventory[i];
+  }
+
+  refGame.m_SelectedAvataInfo.m_BasicINFO.Init(packet.get_stone(), packet.get_face(), packet.get_hair());
+  refGame.m_SelectedAvataInfo.m_BasicINFO.m_nClass = packet.get_job();
+  refGame.m_SelectedAvataInfo.m_BasicINFO.m_cRank = packet.get_factionRank();
+  refGame.m_SelectedAvataInfo.m_BasicINFO.m_cFame = packet.get_fame();
+  refGame.m_SelectedAvataInfo.m_BasicINFO.m_cUnion = packet.get_factionId();
+
+  refGame.m_SelectedAvataInfo.m_BasicAbility.Init();
+  refGame.m_SelectedAvataInfo.m_BasicAbility.m_nSTR = packet.get_str();
+  refGame.m_SelectedAvataInfo.m_BasicAbility.m_nDEX = packet.get_dex();
+  refGame.m_SelectedAvataInfo.m_BasicAbility.m_nCON = packet.get_con();
+  refGame.m_SelectedAvataInfo.m_BasicAbility.m_nINT = packet.get_int_();
+  refGame.m_SelectedAvataInfo.m_BasicAbility.m_nCHARM = packet.get_charm();
+  refGame.m_SelectedAvataInfo.m_BasicAbility.m_nSENSE = packet.get_sense();
+
+  refGame.m_SelectedAvataInfo.m_GrowAbility.Init();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nHP = packet.get_hp();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nMP = packet.get_mp();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_lEXP = packet.get_xp();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nBonusPoint = packet.get_statPoints();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nSkillPoint = packet.get_skillPoints();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_btBodySIZE = packet.get_bodySize();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_btHeadSIZE = packet.get_headSize();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_lPenalEXP = packet.get_penaltyXp();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nFameG = packet.get_factionFame()[0];
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nFameB = packet.get_factionFame()[1];
+  for (int i = 0; i < RoseCommon::MAX_UNION_COUNT; i++)
+  {
+    refGame.m_SelectedAvataInfo.m_GrowAbility.m_nUnionPOINT[i] = packet.get_factionPoints()[i];
+  }
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_iGuildNO = packet.get_guildId();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nGuildCNTRB = packet.get_guildContribution();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_btGuildPOS = packet.get_guildRank();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nPKFlag = packet.get_pkFlag();
+  refGame.m_SelectedAvataInfo.m_GrowAbility.m_nSTAMINA = packet.get_stamina();
+
+
+  refGame.m_SelectedAvataInfo.m_Skill.Init();
+  for (int i = 0; i < MAX_LEARNED_SKILL_CNT; i++)
+  {
+    refGame.m_SelectedAvataInfo.m_Skill.m_nSkillINDEX[i] = packet.get_skills(i);
+  }
+  refGame.m_SelectedAvataInfo.m_HotICONS.Init();
+
+  refGame.m_SelectedAvataInfo.m_btCharRACE =
+    packet.get_race();
+  refGame.m_SelectedAvataInfo.m_nZoneNO =
+    packet.get_map();
+  refGame.m_SelectedAvataInfo.m_PosSTART.x =
+    packet.get_x();
+  refGame.m_SelectedAvataInfo.m_PosSTART.y =
+    packet.get_y();
+  refGame.m_SelectedAvataInfo.m_nReviveZoneNO =
+    packet.get_spawn();
+  refGame.m_SelectedAvataInfo.m_dwUniqueTAG =
+    packet.get_tag();
+}
+
 //-------------------------------------------------------------------------------------------------
 void     CRecvPACKET::Recv_gsv_INVENTORY_DATA(t_PACKET* packet) {
   CGame& refGame                              = CGame::GetInstance();
@@ -750,6 +843,19 @@ void     CRecvPACKET::Recv_gsv_INVENTORY_DATA(t_PACKET* packet) {
   memcpy( &refGame.m_SelectedAvataINV.m_INV.m_ItemLIST,
           &packet->m_gsv_INVENTORY_DATA.m_INV.m_ItemLIST,
           sizeof(packet->m_gsv_INVENTORY_DATA.m_INV.m_ItemLIST) );
+}
+
+void     CRecvPACKET::Recv_gsv_INVENTORY_DATA(RoseCommon::Packet::SrvInventoryData&& packet) {
+  CGame& refGame                              = CGame::GetInstance();
+  refGame.m_SelectedAvataINV.m_INV.m_i64Money =
+    packet.get_zuly();
+
+  const auto& inventory = packet.get_items();
+  for (int i = 0; i < inventory.size(); i++)
+  {
+    if (i >= INVENTORY_TOTAL_SIZE) break;
+    refGame.m_SelectedAvataINV.m_INV.m_ItemLIST[i] = inventory[i];
+  }
 }
 
 //-------------------------------------------------------------------------------------------------

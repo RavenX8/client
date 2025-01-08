@@ -47,6 +47,10 @@ set(WIN_SDK_MIN 0x0601) # Windows Vista
 add_definitions(-DWINVER=${WIN_TARGET}
                 -D_WIN32_WINNT=${WIN_SDK_MIN})
 
+IF( ENABLE_ASAN )
+  add_compiler_flags(/fsanitize=address)
+ENDIF()
+
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   set(64BIT TRUE)
   message("-- detected 64bit")

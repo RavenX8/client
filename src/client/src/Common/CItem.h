@@ -19,6 +19,8 @@
   ��Ÿ : 5 + 10 + 10      ==> 15+10
   ��   : 5 + 10 + xx
 */
+#include <srv_inventory_data.h>
+#include <srv_select_char_reply.h>
 #include <srv_set_money_and_item.h>
 #include <srv_set_item.h>
 
@@ -32,6 +34,8 @@ struct tagPartITEM {
   unsigned int m_nGEM_OP : 9;    // 0~512	������ȣ(m_bHasSocket==1) �Ǵ� �ɼ� ��ȣ(m_bHasSocket==0)
   unsigned int m_bHasSocket : 1; // 0~1		���� ���� ����
   unsigned int m_cGrade : 4;     // 0~15		���						(0~9)
+
+  tagPartITEM& operator=(const RoseCommon::Packet::SrvSelectCharReply::EquippedItem& item);
 };
 
 #ifndef	__SERVER
@@ -64,6 +68,7 @@ struct tagBaseITEM {
     struct {
       unsigned short m_cType_1 : 5;    // 0~31		������ ����(ITEM_CLASS)		(1 ~ 20)
       unsigned short m_nItemNo_1 : 10; // 0~1023	�ƾ��� ��ȣ(ITEM_ID)		(0 ~ 999)
+      unsigned short m_nReserved1 : 1;
 
       unsigned int m_uiQuantity : 32; // ����(��)
     };
@@ -95,6 +100,7 @@ struct tagBaseITEM {
   };
 	tagBaseITEM& operator=(const RoseCommon::Packet::SrvSetItem::Item& item);
 	tagBaseITEM& operator=(const RoseCommon::Packet::SrvSetMoneyAndItem::Item& item);
+	tagBaseITEM& operator=(const RoseCommon::Packet::SrvInventoryData::Item& item);
 
   void Init(int iItem, unsigned int uiQuantity = 1);
   void Clear() { m_dwLSB = m_wMSB = 0; }

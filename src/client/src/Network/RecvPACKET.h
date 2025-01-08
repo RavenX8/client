@@ -11,6 +11,8 @@
 #include "srv_set_money_and_item.h"
 #include "srv_chan_char_reply.h"
 #include "srv_set_animation.h"
+#include "srv_inventory_data.h"
+#include "srv_select_char_reply.h"
 
 //-------------------------------------------------------------------------------------------------
 
@@ -59,8 +61,10 @@ public :
 
   void Recv_gsv_JOIN_ZONE(t_PACKET* packet);
   void Recv_gsv_SELECT_CHAR(t_PACKET* packet);
+  void Recv_gsv_SELECT_CHAR(RoseCommon::Packet::SrvSelectCharReply&& packet);
 
   void Recv_gsv_INVENTORY_DATA(t_PACKET* packet);
+  void Recv_gsv_INVENTORY_DATA(RoseCommon::Packet::SrvInventoryData&& packet);
   void Recv_gsv_QUEST_DATA(t_PACKET* packet);
 
   void Recv_gsv_REVIVE_REPLY(t_PACKET* packet);

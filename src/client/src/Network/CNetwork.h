@@ -16,7 +16,8 @@ enum {
   NS_CON_TO_LSV,
   NS_DIS_FORM_LSV,
   NS_CON_TO_WSV,
-  NS_TRN_TO_WSV // Don't disconnect, just treat current connection as WSV
+  NS_TRN_TO_WSV,  // Don't disconnect, just treat current connection as WSV
+  NS_TRN_TO_GSV
 };
 
 class CNetwork : public CRecvPACKET, public CSendPACKET {
@@ -33,7 +34,7 @@ private :
                    ~CNetwork();
 
   void Proc_WorldPacket();
-  void Proc_ZonePacket(std::unique_ptr<t_PACKET> packet);
+  void Proc_ZonePacket(t_PACKET* packet);
 
   void MoveZoneServer(bool reconnect = false);
 
