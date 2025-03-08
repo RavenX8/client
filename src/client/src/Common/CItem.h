@@ -30,10 +30,14 @@
 #pragma pack (push, 1)
 
 struct tagPartITEM {
-  unsigned int m_nItemNo : 10;   // 0~1023	�ƾ��� ��ȣ(ITEM_ID)		(0 ~ 999)
-  unsigned int m_nGEM_OP : 9;    // 0~512	������ȣ(m_bHasSocket==1) �Ǵ� �ɼ� ��ȣ(m_bHasSocket==0)
-  unsigned int m_bHasSocket : 1; // 0~1		���� ���� ����
-  unsigned int m_cGrade : 4;     // 0~15		���						(0~9)
+  // unsigned int m_nItemNo : 10;   // 0~1023	�ƾ��� ��ȣ(ITEM_ID)		(0 ~ 999)
+  // unsigned int m_nGEM_OP : 9;    // 0~512	������ȣ(m_bHasSocket==1) �Ǵ� �ɼ� ��ȣ(m_bHasSocket==0)
+  // unsigned int m_bHasSocket : 1; // 0~1		���� ���� ����
+  // unsigned int m_cGrade : 4;     // 0~15		���						(0~9)
+	uint16_t m_nItemNo;
+	uint16_t m_nGEM_OP;
+	int8_t m_bHasSocket;
+	uint8_t m_cGrade;
 
   tagPartITEM& operator=(const RoseCommon::Packet::SrvSelectCharReply::EquippedItem& item);
 };

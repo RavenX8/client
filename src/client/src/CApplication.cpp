@@ -340,7 +340,7 @@ bool    CApplication::ParseArgument(char* pStr) {
       }
     }
 
-    if (!_strcmpi(pToken, "_otp")) {
+    if (!_strcmpi(pToken, "_otp") || !_strcmpi(pToken, "_session")) {
       pToken = CStr::GetTokenNext(pDelimiters);
       if (pToken) {
         g_GameDATA.m_OTPToken = pToken;

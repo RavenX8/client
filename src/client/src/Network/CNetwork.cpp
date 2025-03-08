@@ -342,7 +342,8 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
       // 캐릭터 선택 결과 통보받음
     case to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY):
       {
-        Recv_gsv_SELECT_CHAR(Packet::SrvSelectCharReply::create(reinterpret_cast<const uint8_t*>(packet)));
+        using Packet::SrvSelectCharReply;
+        Recv_gsv_SELECT_CHAR(SrvSelectCharReply::create(reinterpret_cast<const uint8_t*>(packet)));
 
         // Send_cli_JOIN_ZONE ();		// to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY)
       }

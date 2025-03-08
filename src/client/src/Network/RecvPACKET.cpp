@@ -770,11 +770,10 @@ void CRecvPACKET::Recv_gsv_SELECT_CHAR(RoseCommon::Packet::SrvSelectCharReply&& 
 
   refGame.m_SelectedAvataInfo.m_PartITEM[BODY_PART_FACE].m_nItemNo = packet.get_face();
   refGame.m_SelectedAvataInfo.m_PartITEM[BODY_PART_HAIR].m_nItemNo = packet.get_hair();
-  const auto& inventory = packet.get_equippedItems();
-  for (int i = 0; i < inventory.size(); i++)
+  const auto& equippedItems = packet.get_equippedItems();
+  for (int i = 0; i < equippedItems.size(); i++)
   {
-    if (i >= MAX_BODY_PART-2) break;
-    refGame.m_SelectedAvataInfo.m_PartITEM[i] = inventory[i];
+    refGame.m_SelectedAvataInfo.m_PartITEM[BODY_PART_HELMET+i] = equippedItems[i];
   }
 
   refGame.m_SelectedAvataInfo.m_BasicINFO.Init(packet.get_stone(), packet.get_face(), packet.get_hair());
