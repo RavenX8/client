@@ -1403,10 +1403,9 @@ public:
     ::ZeroMemory(m_sPartItemIDX, sizeof(tagPartITEM)*MAX_BODY_PART);
     m_sPartItemIDX[BODY_PART_FACE]                         = pPartItemIDX[0];
     m_sPartItemIDX[BODY_PART_HAIR]                         = pPartItemIDX[1];
-    short     nEquipSlot                                   = 0;
-    for ( int i                                            = 2; i < MAX_BODY_PART; ++i ) {
-      nEquipSlot                                           = CInventory::GetBodyPartToEquipSlot( i ) + 1;
-      if ( nEquipSlot != MAX_EQUIP_IDX ) m_sPartItemIDX[i] = pPartItemIDX[nEquipSlot];
+    for(int i = 0; i < MAX_BODY_PART; ++i) {
+      short nItemType = CInventory::GetBodyPartToItemType(i);
+      if(nItemType != MAX_BODY_PART) m_sPartItemIDX[i] = pPartItemIDX[nItemType];
     }
   }
 
