@@ -9,7 +9,7 @@ set(_byproducts
   ExternalProject_Add(
     ogg
     GIT_REPOSITORY https://gitlab.xiph.org/xiph/ogg.git
-    GIT_TAG e1774cd77f471443541596e09078e78fdc342e4f
+    GIT_TAG v1.3.6
     GIT_SHALLOW true
     CMAKE_ARGS -G ${CMAKE_GENERATOR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${OGG_INSTALL_DIR}
     BUILD_BYPRODUCTS ${_byproducts}

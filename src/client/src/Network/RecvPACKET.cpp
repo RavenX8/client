@@ -246,7 +246,7 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& 
     ServerList.ShowChannel();
 
   ///With channel show and hide information removed
-  using Result = RoseCommon::Packet::SrvLoginReply::Result;
+  using Result = RoseCommon::Packet::SrvLoginReply::LoginResult;
   Result btResult = packet.get_result();
 
   if (Result::OK != btResult) {

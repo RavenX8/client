@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 project("Client")
 
 #set(CMAKE_CXX_EXTENSIONS OFF)
@@ -67,7 +67,6 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 include(macros)
 include(CheckPlatform)
 include(SetInstallPaths)
-include(cotire)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

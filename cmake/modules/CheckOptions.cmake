@@ -51,7 +51,7 @@ endif()
 #------------------------------------------------------------------------------
 
 if(WIN32)
-  
+  # Nothing here because we are only windows!
 endif()
 
 

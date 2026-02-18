@@ -11,7 +11,7 @@ set(_byproducts
     ExternalProject_Add(
       vorbis DEPENDS utils::ogg
       GIT_REPOSITORY https://gitlab.xiph.org/xiph/vorbis.git
-      GIT_TAG 0657aee69dec8508a0011f47f3b69d7538e9d262
+      GIT_TAG 2d79800b6751dddd4b8b4ad50832faa5ae2a00d9
       GIT_SHALLOW true
       CMAKE_ARGS -G ${CMAKE_GENERATOR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${VORBIS_INSTALL_DIR} -DOGG_LIBRARY=${OGG_LIBRARY} -DOGG_INCLUDE_DIR=${OGG_INCLUDE_DIR}
       BUILD_BYPRODUCTS ${_byproducts}
