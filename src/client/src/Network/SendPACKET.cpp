@@ -21,8 +21,11 @@
 #include "../System/GameStateMovePlanet.h"
 
 #include "cli_login_req.h"
+#include "cli_login_token_req.h"
 #include "cli_logout_req.h"
 #include "cli_srv_select_req.h"
+#include "cli_join_server_req.h"
+#include "cli_join_server_token_req.h"
 
 #include "epackettype.h"
 
@@ -84,6 +87,12 @@ CSendPACKET::~CSendPACKET() {
 
 //-------------------------------------------------------------------------------------------------
 void CSendPACKET::Send_cli_LOGIN_REQ(char* szAccount, char* szPassword, bool bEncode) {
+  if ( g_GameDATA.m_bDirectLogin && !g_GameDATA.m_OTPToken.empty() )
+  {
+    this->Send_PACKET(RoseCommon::Packet::CliLoginTokenReq::create(g_GameDATA.m_OTPToken), true);
+    return;
+  }
+
   if ( !szAccount || !szAccount[0] )
     return;
 
@@ -134,13 +143,17 @@ void CSendPACKET::Send_cli_JOIN_SERVER_REQ(DWORD dwLSVID, bool bWorldServer) {
   _ASSERT( 0 );
   ;
 #else
-  m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_JOIN_SERVER_REQ);
-  m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_JOIN_SERVER_REQ );
-  m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_dwID = dwLSVID;
-  ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
+  // m_pSendPacket->m_HEADER.m_wType             = to_underlying(ePacketType::PAKCS_JOIN_SERVER_REQ);
+  // m_pSendPacket->m_HEADER.m_nSize             = sizeof( cli_JOIN_SERVER_REQ );
+  // m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_dwID = dwLSVID;
+  // ::CopyMemory( m_pSendPacket->m_cli_JOIN_SERVER_REQ.m_MD5Password, m_pMD5Buff.c_str(), 64);
 #endif
 
-  this->Send_PACKET( m_pSendPacket, bWorldServer );
+  if (g_GameDATA.m_bDirectLogin && !g_GameDATA.m_OTPToken.empty()) {
+    this->Send_PACKET(RoseCommon::Packet::CliJoinServerTokenReq::create(dwLSVID, g_GameDATA.m_OTPToken), bWorldServer);
+    return;
+  }
+  this->Send_PACKET(RoseCommon::Packet::CliJoinServerReq::create(dwLSVID, m_pMD5Buff), bWorldServer);
 }
 
 //-------------------------------------------------------------------------------------------------

@@ -132,6 +132,15 @@ int CGameStateLogin::Enter(int iPrevStateID) {
     pLoginDlg->ConnectLoginServer();
     pLoginDlg->Hide();
   }
+
+  if (g_GameDATA.m_bDirectLogin)
+  {
+    CTDialog* pDlg      = g_EUILobby.GetEUI( EUI_LOGIN );
+    CLogin*   pLoginDlg = (CLogin*)pDlg;
+    pLoginDlg->SetID( g_GameDATA.m_Account.Get() );
+    pLoginDlg->ConnectLoginServer();
+    pLoginDlg->Hide();
+  }
   /// exec Enter script
 
   return 0;

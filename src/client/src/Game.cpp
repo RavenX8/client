@@ -134,6 +134,7 @@ CGAMEDATA::CGAMEDATA() {
   //m_PasswordMD5			= NULL;
   //ZeroMemory(&m_PasswordMD5, sizeof(m_PasswordMD5));
   m_PasswordMD5.clear();
+  m_OTPToken.clear();
 
   m_dwGameStartTime    = GetTime(); /// ���� ���� �ð�.
   m_dwFrevFrameTime    = 0;         /// ���� ������ Ÿ��

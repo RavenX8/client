@@ -34,8 +34,8 @@ CLogin::CLogin() {
 
   m_pEUIManager = nullptr;
 
-  m_hCopyRight = 0; ///ÀúÀÛ±Ç
-  m_hUserGrade = 0; ///»ç¿ëÀÚ µî±Þ
+  m_hCopyRight = 0; ///ï¿½ï¿½ï¿½Û±ï¿½
+  m_hUserGrade = 0; ///ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 }
 
@@ -216,7 +216,7 @@ void         CLogin::SendLoginReq() {
   g_EUILobby.ShowMsgBox( STR_WAIT_LOGIN, CTMsgBox::BT_CANCEL, true, GetDialogType(), nullptr, pCmd );
 
   if ( CGame::GetInstance().IsActiveRouteComboBox() ) {
-    ///ÄÞº¸ ¹Ú½º¿¡¼­ ÇöÀç ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÇ value¸¦ ±¸ÇØ¿Â´Ù.
+    ///ï¿½Þºï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ valueï¿½ï¿½ ï¿½ï¿½ï¿½Ø¿Â´ï¿½.
     CWinCtrl* pComponent = Find( IID_COMBOBOX_ROUTE );
     if ( pComponent && pComponent->GetControlType() == CTRL_JCOMBOBOX ) {
       CJComboBox*          pCombo = (CJComboBox*)pComponent;
@@ -263,8 +263,8 @@ void    CLogin::Show() {
   if ( pCtrl && pCtrl->GetControlType() == CTRL_EDITBOX ) {
     pEditBox = (CTEditBox*)pCtrl;
     /*
-     05. 10. 24 - ±èÁÖÇö
-     ¼­¹ö µð½ºÄÁ³ØÆ® ÈÄ¿¡ Àç·Î±×ÀÎÇÏ¸é ·Î±×ÀÎ Ã¢¿¡ ¾ÆµÚ¶û ºñ¹øÀÌ ÀûÇôÀÖ´Â °ü°è·Î;; ¸·À½.
+     05. 10. 24 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ä¿ï¿½ ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ÆµÚ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½;; ï¿½ï¿½ï¿½ï¿½.
   
       pEditBox->SetText( g_GameDATA.m_Account.Get() );
     */
@@ -274,14 +274,14 @@ void    CLogin::Show() {
   if ( pCtrl && pCtrl->GetControlType() == CTRL_EDITBOX ) {
     pEditBox = (CTEditBox*)pCtrl;
     /*
-     05. 10. 24 - ±èÁÖÇö
-     ¼­¹ö µð½ºÄÁ³ØÆ® ÈÄ¿¡ Àç·Î±×ÀÎÇÏ¸é ·Î±×ÀÎ Ã¢¿¡ ¾ÆµÚ¶û ºñ¹øÀÌ ÀûÇôÀÖ´Â °ü°è·Î;; ¸·À½.
+     05. 10. 24 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ä¿ï¿½ ï¿½ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ÆµÚ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½;; ï¿½ï¿½ï¿½ï¿½.
   
       pEditBox->SetText( g_GameDATA.m_Password.Get() );
     */
   }
 
-  ///ÀúÀÛ±Ç
+  ///ï¿½ï¿½ï¿½Û±ï¿½
   m_hCopyRight = loadTexture( "3DData\\Control\\Res\\copyright.dds",
                               "3DData\\Control\\Res\\copyright.dds",
                               1,
@@ -294,7 +294,7 @@ void    CLogin::Show() {
   if ( m_hCopyRight )
     getTextureSize( m_hCopyRight, iTempWidth, m_iHeightCopyRight );
 
-  ///»ç¿ëÀÚ µî±Þ
+  ///ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
   if ( CCountry::GetSingleton().IsKorea() ) {
     m_hUserGrade = loadTexture( "3DData\\Control\\Res\\user12.dds",
                                 "3DData\\Control\\Res\\user12.dds",
@@ -415,7 +415,7 @@ void CLogin::Draw() {
 }
 
 bool CLogin::ConnectLoginServer() {
-  if ( !g_GameDATA.m_is_NHN_JAPAN ) {
+  if ( !g_GameDATA.m_is_NHN_JAPAN && !g_GameDATA.m_bDirectLogin ) {
     CWinCtrl*  pCtrl    = Find( IID_EDIT_ID );
     CTEditBox* pEditBox = nullptr;
     char*      szTxt    = nullptr;
@@ -454,7 +454,7 @@ bool CLogin::ConnectLoginServer() {
 
   CTCommand* pCmd = new CTCmdExit;
   g_EUILobby.ShowMsgBox( STR_WAIT_CONNECT_LOGIN_SERVER, CTMsgBox::BT_CANCEL, true, EUI_LOGIN, nullptr, pCmd );
-  // ¼­¹ö Æ÷Æ® ÀÓÀÇ ¼³Á¤ °¡´ÉÇÏµµ·Ï ¼öÁ¤...
+  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
   // if ( !g_pNet->ConnectToServer( g_GameDATA.m_ServerIP.Get(), TCP_LSV_PORT, NS_CON_TO_LSV ) )
   if ( !g_pNet->ConnectToServer( g_GameDATA.m_ServerIP.Get(), g_GameDATA.m_wServerPORT, NS_CON_TO_LSV ) ) {
     g_EUILobby.ShowMsgBox( STR_LOGIN_FAIL, CTMsgBox::BT_OK, true, EUI_LOGIN, pCmd, nullptr );
