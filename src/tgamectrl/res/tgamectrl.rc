@@ -7,13 +7,13 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
+#include "windows.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ÇÑ±¹¾î resources
+// í•œêµ­ì–´ resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
@@ -34,7 +34,7 @@ END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#include ""afxres.h""\r\n"
+    "#include ""windows.h""\r\n"
     "\0"
 END
 
@@ -70,13 +70,13 @@ BEGIN
         BLOCK "041204b0"
         BEGIN
             VALUE "CompanyName", "TriggerSoft"
-            VALUE "FileDescription", "TGameCtr µ¿Àû ¿¬°á ¶óÀÌºê·¯¸®"
-            VALUE "FileVersion", "0, 3, 12, 0"
+            VALUE "FileDescription", "TGameCtr Dynamic Link Library"
+            VALUE "FileVersion", "0.3.12.0"
             VALUE "InternalName", "TGameCtr"
             VALUE "LegalCopyright", "Copyright (c) - 2003 Trigger Soft"
             VALUE "OriginalFilename", "TGameCtr.dll"
-            VALUE "ProductName", " TGameCtr µ¿Àû ¿¬°á ¶óÀÌºê·¯¸®"
-            VALUE "ProductVersion", "0, 3, 12, 0"
+            VALUE "ProductName", "TGameCtr Dynamic Link Library"
+            VALUE "ProductVersion", "0.3.12.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -85,7 +85,7 @@ BEGIN
     END
 END
 
-#endif    // ÇÑ±¹¾î resources
+#endif    // í•œêµ­ì–´ resources
 /////////////////////////////////////////////////////////////////////////////
 
 
