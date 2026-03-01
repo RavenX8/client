@@ -82,6 +82,10 @@ endif()
 
 find_package(Threads REQUIRED)
 
+# Networking options forwarded to the packets/osIROSE-common-core sub-project
+option(ENABLE_SSL   "Enable TLS/SSL support via OpenSSL and asio::ssl (requires OpenSSL)" OFF)
+option(DISABLE_CRYPT "Disable XOR packet encryption (plain-text packets)" OFF)
+
 include(Build-ogg)
 include(Build-lua)
 include(Build-zlib)

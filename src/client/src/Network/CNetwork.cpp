@@ -7,7 +7,6 @@
 #include "../Interface/it_mgr.h"
 #include "../System/CGame.h"
 #include "../GameProc/LiveCheck.h"
-#include "../Util/CSocketWND.h"
 #include "Debug.h"
 #include "Game.h"
 #include "IO_Terrain.h"
@@ -21,9 +20,6 @@ CNetwork* g_pNet;
 
 CNetwork* CNetwork::m_pInstance = nullptr;
 
-#define WM_WORLD_SOCKET_NOTIFY (WM_SOCKETWND_MSG + 0)
-#define WM_ZONE_SOCKET_NOTIFY (WM_SOCKETWND_MSG + 1)
-
 using namespace RoseCommon;
 
 /*
@@ -33,29 +29,19 @@ typedef	unsigned int UINT;
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-CNetwork::CNetwork(HINSTANCE hInstance) {
+CNetwork::CNetwork(HINSTANCE /*hInstance*/) {
   m_btZoneSocketSTATUS = 0;
   m_nProcLEVEL         = NS_NULL;
-
-  CSocketWND* pSockWND = CSocketWND::InitInstance( hInstance, 2 );
-  if ( pSockWND ) {
-    pSockWND->AddSocket( &this->m_WorldSOCKET, WM_WORLD_SOCKET_NOTIFY );
-    pSockWND->AddSocket( &this->m_ZoneSOCKET, WM_ZONE_SOCKET_NOTIFY );
-  }
+  // CAsioClientSocket initialises its own ASIO backend; no WinSock setup needed.
 }
 
 CNetwork::~CNetwork() {
-  CSOCKET::Free();
-
-  if ( CSocketWND::GetInstance() )
-    CSocketWND::GetInstance()->Destroy();
+  // CAsioClientSocket members are destroyed automatically.
 }
 
 CNetwork* CNetwork::Instance(HINSTANCE hInstance) {
   if ( m_pInstance == nullptr ) {
-    if ( CSOCKET::Init() ) {
-      m_pInstance = new CNetwork( hInstance );
-    }
+    m_pInstance = new CNetwork( hInstance );
   }
 
   return m_pInstance;
@@ -91,8 +77,7 @@ bool CNetwork::ConnectToServer(char* szServerIP, WORD wTcpPORT,
     return true;
 
   m_nProcLEVEL = nProcLEVEL;
-  return m_WorldSOCKET.Connect( CSocketWND::GetInstance()->GetWindowHandle(),
-                                szServerIP, wTcpPORT, WM_WORLD_SOCKET_NOTIFY );
+  return m_WorldSOCKET.Connect( szServerIP, static_cast<uint16_t>(wTcpPORT) );
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -117,13 +102,12 @@ void CNetwork::MoveZoneServer(const bool reconnect) {
   }
   // 바로 접속...
   m_bMoveingZONE = false;
-  m_ZoneSOCKET.Connect( CSocketWND::GetInstance()->GetWindowHandle(),
-                        m_GSV_IP.Get(), m_wGSV_PORT, WM_ZONE_SOCKET_NOTIFY );
+  m_ZoneSOCKET.Connect( m_GSV_IP.Get(), static_cast<uint16_t>(m_wGSV_PORT) );
 }
 
 //-------------------------------------------------------------------------------------------------
 void              CNetwork::Proc_WorldPacket() {
-  CshoClientSOCK* pSocket = &this->m_WorldSOCKET;
+  CAsioClientSocket* pSocket = &this->m_WorldSOCKET;
 
   std::unique_ptr<t_PACKET> packet(new t_PACKET);
   while ( m_WorldSOCKET.Peek_Packet( packet.get(), true ) ) {
@@ -593,7 +577,7 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
         using RoseCommon::Packet::SrvChanCharReply;
         Recv_wsv_CHAR_CHANGE(SrvChanCharReply::create(reinterpret_cast<const uint8_t*>(packet)));
         m_btZoneSocketSTATUS = 0;
-        CshoClientSOCK* pSocket = &this->m_ZoneSOCKET;
+        CAsioClientSocket* pSocket = &this->m_ZoneSOCKET;
         pSocket->Close();
         break;
     }
@@ -610,7 +594,7 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
 void CNetwork::Proc() {
   this->Proc_WorldPacket();
 
-  CshoClientSOCK* pSocket = &this->m_ZoneSOCKET;
+  CAsioClientSocket* pSocket = &this->m_ZoneSOCKET;
   std::unique_ptr<t_PACKET> packet(new t_PACKET);
   while ( m_ZoneSOCKET.Peek_Packet( packet.get(), true ) ) {
     LogString(LOG_DEBUG, "Packet_Proc:: Type: 0x%x, Size: %d \n",

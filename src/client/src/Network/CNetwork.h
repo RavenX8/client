@@ -4,7 +4,7 @@
 #ifndef	__CNETWORK_H
 #define	__CNETWORK_H
 #include "Net_Prototype.h"
-#include "../Util/CshoSOCKET.h"
+#include "CAsioClientSocket.h"
 #include "OBJECT.h"
 #include "RecvPACKET.h"
 #include "SendPACKET.h"
@@ -38,10 +38,10 @@ private :
 
 public :
 #ifdef	__VIRTUAL_SERVER
-	CClientSOCKET	m_SOCKET;
+  CAsioClientSocket m_SOCKET;
 #else
-  CshoClientSOCK m_WorldSOCKET;
-  CshoClientSOCK m_ZoneSOCKET;
+  CAsioClientSocket m_WorldSOCKET;
+  CAsioClientSocket m_ZoneSOCKET;
 #endif
   bool m_bWarping; // 존 워프 중인가...
 
@@ -52,7 +52,7 @@ public :
 
   bool ConnectToServer(char*      szServerIP, WORD wTcpPORT, short nProcLEVEL = 0);
   void DisconnectFromServer(short nProcLEVEL                                  = 0) override;
-  // 박 지호 
+  // 박 지호
   void Send_AuthMsg(void);
 
   // Playing packet ..

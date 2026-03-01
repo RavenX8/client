@@ -117,16 +117,6 @@ void Free_DEVICE() {
   destZnzin();
 }
 
-//------------------------------------------------------------------------------------------------
-// 2005. 5. 6. ��ȣ��
-// �ߺ� ���� üũ�� ���� ����
-SOCKET listener;
-
-void CloseDuplicateAppSocket() {
-  closesocket( listener );
-  WSACleanup();
-}
-
 //-------------------------------------------------------------------------------------------------
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
 #ifdef _DEBUG

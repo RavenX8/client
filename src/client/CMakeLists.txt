@@ -387,7 +387,7 @@ set( SOURCES_HEADER
   #src/Util/BugGUARD.h
   src/Util/CBITArray.h
   src/Util/CCheat.h
-  src/Util/CClientSOCKET.h
+  src/Network/CAsioClientSocket.h
   src/Util/CD3DUtil.h
   src/Util/CDSound.h
   src/Util/CFileLIST.h
@@ -413,10 +413,7 @@ set( SOURCES_HEADER
   src/Util/CMessageQ.h
   src/Util/CMMPlayer.h
   src/Util/CRangeTBL.h
-  src/Util/CRawSOCKET.h
-  src/Util/CshoSOCKET.h
   src/Util/CSocket.h
-  src/Util/CSocketWND.h
   src/Util/CVector.h
   src/Util/CWaveFILE.h
   src/Util/DLLIST.h
@@ -776,7 +773,7 @@ set( SOURCES_MAIN
   src/Util/Arcfour/Arcfour.cpp
   src/Util/CBITArray.cpp
   src/Util/CCheat.cpp
-  src/Util/CClientSOCKET.cpp
+  src/Network/CAsioClientSocket.cpp
   src/Util/CD3DUtil.cpp
   src/Util/CDSound.cpp
   src/Util/CFileSystemNormal.cpp
@@ -802,13 +799,9 @@ set( SOURCES_MAIN
   src/Util/ClipboardUtil.cpp
   src/Util/CMessageQ.cpp
   src/Util/CMMPlayer.cpp
-  src/Util/CPacketCODEC.cpp
   src/Util/CProcess.cpp
   src/Util/CRandom.cpp
-  src/Util/CRawSOCKET.cpp
-  src/Util/CshoSOCKET.cpp
   src/Util/CSocket.cpp
-  src/Util/CSocketWND.cpp
   src/Util/CRangeTBL.cpp
   src/Util/CWaveFILE.cpp
   src/Util/FileVersionInfo.cpp
