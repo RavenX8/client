@@ -9,6 +9,7 @@ option(OFFICIAL_BUILD "do you want to compile an official build?" OFF)
 option(BUILD_LUA "Build Lua" ON)
 option(BUILD_API_DOC "Build doxygen documentation" OFF)
 option(ENABLE_ASAN "Enable address sanitizer" OFF)
+option(ENABLE_SSL "Enable SSL Sockets" OFF)
 
 set(DEV_SETTING ON)
 if(OFFICIAL_BUILD)
