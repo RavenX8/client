@@ -122,6 +122,16 @@ public:
   std::string   m_PasswordMD5;
   std::string   m_OTPToken;
 
+  /// TLS settings, only consulted in a build with ENABLE_SSL=ON.
+  /// PEM bundle holding the CA that signed the server's certificate. Required
+  /// when the server uses a private or self-signed CA, since certificate
+  /// verification is on by default. Set with the "_cafile <path>" argument.
+  std::string   m_SslCaFile;
+  /// Disables certificate verification entirely ("_insecure"). The connection
+  /// stays encrypted but is no longer authenticated, so it can be
+  /// machine-in-the-middled. Intended for local development only.
+  bool          m_bSslInsecure = false;
+
   void Init() { InitializeCriticalSection( &m_csNZIN ); }
   void Free() { DeleteCriticalSection( &m_csNZIN ); }
   void Lock() { EnterCriticalSection( &m_csNZIN ); }

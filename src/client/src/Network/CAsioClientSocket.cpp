@@ -31,6 +31,7 @@
 #include "Net_Prototype.h"      // t_PACKET, t_PACKETHEADER definitions
 #include "epackettype.h"        // RoseCommon::ePacketType (PAKSS_ACCEPT_REPLY, …)
 #include "packetfactory.h"      // RoseCommon::fetchPacket<>
+#include "Game.h"               // g_GameDATA - TLS settings from the command line
 
 #include <cstring>              // std::memcpy
 
@@ -76,6 +77,32 @@ bool CAsioClientSocket::Connect(const char* szServerIP, uint16_t port) {
 
     if (!m_network->init(szServerIP, port))
         return false;
+
+#ifdef USE_SSL
+    // Must be applied before connect(): that is the last point at which the
+    // TLS context can still be rebound.
+    //
+    // Certificate verification is on by default, so a server using a private or
+    // self-signed CA needs that CA supplied via "_cafile <path>". Without it the
+    // OS trust store is consulted, which will not know the server, and the
+    // handshake fails rather than silently accepting an unauthenticated peer.
+    {
+        Core::SslClientConfig ssl;
+        ssl.ca_file = g_GameDATA.m_SslCaFile;
+        if (g_GameDATA.m_bSslInsecure) {
+            ssl.verify_peer = false;   // "_insecure"; logs a warning downstream
+        }
+        // The certificate is issued to a hostname, but szServerIP is often a
+        // literal address, so name the peer explicitly when we have nothing
+        // better. An empty sni_hostname makes CNetwork_Asio fall back to the
+        // string handed to init().
+        if (!m_network->enable_ssl_client(ssl)) {
+            LogString(LOG_ERROR, "Failed to configure TLS for the connection to %s:%u\n",
+                      szServerIP, static_cast<unsigned>(port));
+            return false;
+        }
+    }
+#endif
 
     return m_network->connect();
     // onConnected() will be called asynchronously once TCP (and optional SSL)

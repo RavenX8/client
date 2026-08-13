@@ -312,6 +312,20 @@ bool    CApplication::ParseArgument(char* pStr) {
       }
     }
 
+    if ( !_strcmpi( pToken, "_cafile" ) ) {
+      // PEM bundle holding the CA that signed the server's certificate.
+      // Needed whenever the server uses a private or self-signed CA.
+      pToken = CStr::GetTokenNext( pDelimiters );
+      if ( pToken ) {
+        g_GameDATA.m_SslCaFile = pToken;
+      }
+    }
+
+    if ( !_strcmpi( pToken, "_insecure" ) ) {
+      // Turns off certificate verification. Development only.
+      g_GameDATA.m_bSslInsecure = true;
+    }
+
     if ( !_strcmpi( pToken, "_direct" ) ) {
       g_GameDATA.m_bDirectLogin = true;
     }
