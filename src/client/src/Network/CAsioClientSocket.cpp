@@ -97,7 +97,7 @@ bool CAsioClientSocket::Connect(const char* szServerIP, uint16_t port) {
         // better. An empty sni_hostname makes CNetwork_Asio fall back to the
         // string handed to init().
         if (!m_network->enable_ssl_client(ssl)) {
-            LogString(LOG_ERROR, "Failed to configure TLS for the connection to %s:%u\n",
+            LogString(LOG_NORMAL, "Failed to configure TLS for the connection to %s:%u\n",
                       szServerIP, static_cast<unsigned>(port));
             return false;
         }
