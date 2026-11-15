@@ -168,6 +168,10 @@
 
 #ifndef	__DATATYPE_H
 #define	__DATATYPE_H
+
+// The job ids and limits the packets library also has, from its generated
+// data_consts.h (namespace RoseCommon), brought in by name below.
+#include "data_consts.h"
 //-------------------------------------------------------------------------------------------------
 
 #define	BONE_IDX_PELVIS		0
@@ -728,31 +732,31 @@ enum t_BasicAbilityINDEX {
 
 //*************************************************************************************************
 // 아바타 직업 구분표.		//
-#define	CLASS_VISITOR		0	// 0~9 방문객
+using RoseCommon::CLASS_VISITOR;	// 0~9 방문객
 
-#define	CLASS_SOLDIER_111	111	// 1차 솔져
-#define	CLASS_SOLDIER_121	121	// 2차 나이트
-#define	CLASS_SOLDIER_122	122	// 2차 챔프
-#define	CLASS_SOLDIER_131	131	// 3차 미정...
-#define	CLASS_SOLDIER_132	132	// 3차 미정...
+using RoseCommon::CLASS_SOLDIER_111;	// 1차 솔져
+using RoseCommon::CLASS_SOLDIER_121;	// 2차 나이트
+using RoseCommon::CLASS_SOLDIER_122;	// 2차 챔프
+using RoseCommon::CLASS_SOLDIER_131;	// 3차 미정...
+using RoseCommon::CLASS_SOLDIER_132;	// 3차 미정...
 
-#define	CLASS_MAGICIAN_211	211	// 1차 뮤즈
-#define	CLASS_MAGICIAN_221	221	// 2차 메지션
-#define	CLASS_MAGICIAN_222	222	// 2차 클러릭
-#define	CLASS_MAGICIAN_231	231	// 3차 미정..
-#define	CLASS_MAGICIAN_232	232	// 3차 미정..
+using RoseCommon::CLASS_MAGICIAN_211;	// 1차 뮤즈
+using RoseCommon::CLASS_MAGICIAN_221;	// 2차 메지션
+using RoseCommon::CLASS_MAGICIAN_222;	// 2차 클러릭
+using RoseCommon::CLASS_MAGICIAN_231;	// 3차 미정..
+using RoseCommon::CLASS_MAGICIAN_232;	// 3차 미정..
 
-#define	CLASS_MIXER_311		311	// 1차 호커
-#define	CLASS_MIXER_321		321	// 2차 레이더
-#define	CLASS_MIXER_322		322	// 2차 스카우트
-#define	CLASS_MIXER_331		331	// 3차 미정
-#define	CLASS_MIXER_332		333	// 3차 미정
+using RoseCommon::CLASS_MIXER_311;	// 1차 호커
+using RoseCommon::CLASS_MIXER_321;	// 2차 레이더
+using RoseCommon::CLASS_MIXER_322;	// 2차 스카우트
+using RoseCommon::CLASS_MIXER_331;	// 3차 미정
+using RoseCommon::CLASS_MIXER_332; // 332 as in data_consts.xml (was 333)	// 3차 미정
 
-#define CLASS_MERCHANT_411	411	// 1차 딜러
-#define CLASS_MERCHANT_421	421	// 2차 부즈주아
-#define CLASS_MERCHANT_422	422	// 2차 아티쟌
-#define CLASS_MERCHANT_431	431	// 3차 미정
-#define CLASS_MERCHANT_432	432	// 3차 미정
+using RoseCommon::CLASS_MERCHANT_411;	// 1차 딜러
+using RoseCommon::CLASS_MERCHANT_421;	// 2차 부즈주아
+using RoseCommon::CLASS_MERCHANT_422;	// 2차 아티쟌
+using RoseCommon::CLASS_MERCHANT_431;	// 3차 미정
+using RoseCommon::CLASS_MERCHANT_432;	// 3차 미정
 
 //*************************************************************************************************
 /// 지속 상태 유형.
@@ -952,7 +956,7 @@ const DWORD c_dwIngFLAG[] = {
 //*************************************************************************************************
 //*************************************************************************************************
 #define	DEAD_HP				  ( -30000 )						/// 죽은 상태의 HP값.
-#define	MAX_UNION_COUNT			10								/// 최대 조합 갯수
+using RoseCommon::MAX_UNION_COUNT;	/// 최대 조합 갯수
 
 #define	ITEM_OBJ_FREE_TIME		  (    30 * 1000 )						/// 아이템 소유권이 없는 시간...
 #define	ITEM_OBJ_LIVE_TIME		( (    60 * 1000 )+ITEM_OBJ_FREE_TIME )	/// 아이템 처름 생성시 사라지기 까지 시간.

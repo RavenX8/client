@@ -915,7 +915,7 @@ struct gsv_DAMAGE : public t_PACKETHEADER {
   tag_DROPITEM m_DropITEM[ 0 ]; // 죽는 데미지일경우에만 값이 들어 있다. 드롭된 아이템 인덱스
 };
 
-#define	MAX_DAMAGE			0x05F5E0FF //	99,999,999
+using RoseCommon::MAX_DAMAGE; // 99,999,999, from data_consts.h (through DataTYPE.h)
 
 // gsv_DAMAGE::m_wDamage와 연산되는 값.
 //#define	DMG_BIT_DUMMY		0x0800		// 추가 데미지 붙은 거다 :: 자신이 때린경우 추가 데미지 계산을 해.

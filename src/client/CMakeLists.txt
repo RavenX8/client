@@ -474,6 +474,7 @@ set( SOURCES_MAIN
   src/Common/CQuest.cpp
   src/Common/cregenarea.cpp
   src/Common/CUserDATA.cpp
+  src/Common/GeneratedTypeChecks.cpp
   src/Common/IO_AI.CPP
   src/Common/IO_Motion.cpp
   src/Common/IO_PAT.cpp

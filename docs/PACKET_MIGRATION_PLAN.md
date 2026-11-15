@@ -134,6 +134,21 @@ Done on client branch `feat/packet-tests` (from `network-rework`).
 - Verified in a scratch build; `cmake-build-release-ssl` is rebuilt from CLion.
 
 ### Step 2: CHANGE_MAP_REPLY and GLOBAL_VARS (after step 0)
+Done on branch `feat/migrate-change-map` (from `feat/packet-tests`), not committed.
+- `Recv_gsv_JOIN_ZONE`, `Recv_gsv_SET_GLOBAL_VAR`, `Recv_gsv_SETEXP`, `Recv_gsv_LEVELUP` take
+  `SrvChangeMapReply`, `SrvGlobalVars`, `SrvSetExp`, `SrvLevelup`. The economy goes through
+  `ServerVAR()` into the same `SetServerVAR`.
+- `LEVELUP`'s size check (`m_nSize != sizeof(gsv_LEVELUP)`) is gone: the generated class
+  reads the one form the servers send.
+- `Network/GeneratedPackets.h` includes the generated packets for the handlers. Their
+  `data_consts.h` declares names the client `#define`s (the `CLASS_*` job ids,
+  `MAX_UNION_COUNT`, `MAX_DAMAGE`); the header sets those macros aside around the includes.
+  (Step 2a since removed the colliding macros; the header stays as the one place the
+  generated packets are included from.)
+- Tests: field checks for `SrvSetExp` and `SrvLevelup` (values from `semantic_vectors/combat.rs`)
+  and a hand-built `PAKWC_GLOBAL_VARS` frame against `tagVAR_GLOBAL`'s layout. 60 pass.
+
+Original description:
 - `Recv_gsv_JOIN_ZONE(SrvChangeMapReply&&)`, plus `SET_EXP`/`LEVELUP` while
   there (same exp area).
 - `Recv_gsv_SET_GLOBAL_VAR(SrvGlobalVars&&)`. This is housekeeping: it
@@ -143,6 +158,43 @@ Done on client branch `feat/packet-tests` (from `network-rework`).
   with today's client; this step only moves the handler to the generated class.
 - Store trades should still work. If they're refused with `PRICE_DIFF`, the
   cause is not this step.
+
+### Step 2a: the client's data types on the generated ones (before step 2 is committed)
+Done on `feat/migrate-change-map`, not committed (items 1 and 2; item 3 moves to steps 3 and 6).
+- `Common/DataTYPE.h` includes `data_consts.h`; its 21 `CLASS_*` and `MAX_UNION_COUNT`
+  `#define`s are now `using RoseCommon::...;` on the same lines (comments kept, bytes untouched
+  otherwise). `Net_Prototype.h`'s `MAX_DAMAGE` likewise. `GeneratedPackets.h` lost its
+  `push_macro` block.
+- `Common/GeneratedTypeChecks.cpp`: the `static_assert`s of item 2 (the `MAX_PRICE_TYPE` one
+  moved there from `RecvPACKET.cpp`).
+- Left alone: `src/common/DataTYPE.h` (not built for the client; still has the macros and 333),
+  and `Net_Prototype.h`'s `__SERVER` branch, which includes it. The hotbar check pins the
+  `_NEWUI`-off 32 slots: turning `_NEWUI` on fails it until the XML follows.
+What `v3` did for this, without its packet changes: `docs/V3_TYPE_ANALYSIS.md`. On packets
+master the client's structs already match the generated types bit for bit; only names and
+one value differ, so nothing changes on the wire or in memory.
+1. **Constants.** Drop the client's `#define`s that `data_consts.h` also declares: the 21
+   `CLASS_*` job ids and `MAX_UNION_COUNT` (`Common/DataTYPE.h`), `MAX_DAMAGE`
+   (`Net_Prototype.h`). `DataTYPE.h` includes the generated `data_consts.h` and brings those
+   names in with `using RoseCommon::...;`, so the 48 uses in `CUserDATA.cpp`, `CUserDATA.h` and
+   `Calculation.cpp` stay as they are. Only the client includes `DataTYPE.h`. Those files are
+   CP949: edit them byte for byte, so only the changed lines move (v3 re-encoded whole files).
+   `CLASS_MIXER_332` becomes 332, the XML's (was 333; unused; the 131/132, 231/232, 431/432
+   pattern says 332, not checked against the class table). Then the `push_macro` block in
+   `GeneratedPackets.h` goes.
+2. **The client's sizes pinned to the generated ones,** in client source (the tests cannot see
+   client types): `static_assert`s that `INVENTORY_TOTAL_SIZE == MAX_ITEMS`,
+   `MAX_HOT_ICONS == MAX_HOTBAR_ITEMS`, `MAX_LEARNED_SKILL_CNT == MAX_SKILL_COUNT`,
+   `MAX_MAINTAIN_STATUS == MAX_STATUS_EFFECTS`, `MAX_PRICE_TYPE == MAX_SELL_TYPE`, and
+   `sizeof(tagBaseITEM) == 6`, `sizeof(tagPartITEM) == 4`, `sizeof(tagHotICON) == 2`.
+3. **Item converters** (`tagBaseITEM` from the generated `Item`, guarded so an equipment item's
+   gem/durability/life is not taken as a count; `tagPartITEM` from `EquippedItem`; v3's 2666dd8):
+   recommended with their first callers (steps 3 and 6), as a header-only function the tests
+   can include. Nothing calls them before that.
+Later, not in 2a: the client's `MAX_PACKET_SIZE` is 1024, the library's 0x7FF.
+Commits: 2a on `feat/migrate-change-map` first, step 2 on top, both after approval.
+Not taken from v3: the widened `tagPartITEM` and the `SetAllPARTS` remap (both follow
+packets-v3's wire format), and all of its packet and login changes.
 
 ### Steps 3–9: bucket A, one area per step
 The pattern follows the existing three: `SrvX::create(reinterpret_cast<const
