@@ -48,6 +48,7 @@
 #include "srv_craft_enhance_reply.h"
 #include "srv_create_char_reply.h"
 #include "srv_damage.h"
+#include "srv_global_vars.h"
 #include "srv_delete_char_reply.h"
 #include "srv_hp_reply.h"
 #include "srv_inventory_data.h"
@@ -240,6 +241,47 @@ TEST(SemanticVectors, BillingMessage) {
   EXPECT_EQ(p.get_messageType(), 3);
   EXPECT_EQ(p.get_functionType(), 'H');
   EXPECT_EQ(p.get_payFlag(), 2u);
+}
+
+// The values rose-proto's semantic_vectors/combat.rs wrote.
+TEST(SemanticVectors, SetExp) {
+  const auto p = SrvSetExp::create(first("SrvSetExp").frame.data());
+  EXPECT_EQ(p.get_exp(), 0x0102'0304'0506LL);
+  EXPECT_EQ(p.get_stamina(), 4321);
+  EXPECT_EQ(p.get_source_id(), 40);
+}
+
+TEST(SemanticVectors, Levelup) {
+  const auto p = SrvLevelup::create(first("SrvLevelup").frame.data());
+  EXPECT_EQ(p.get_id(), 7);
+  EXPECT_EQ(p.get_level(), 45);
+  EXPECT_EQ(p.get_exp(), 1234);
+  EXPECT_EQ(p.get_stat_points(), 321);
+  EXPECT_EQ(p.get_skill_points(), 12);
+}
+
+// Not among the server's vectors: the economy as the client's tagVAR_GLOBAL
+// lays it out (i16, u32, i16, u8, u8[11], u32), 24 bytes after the header.
+TEST(Packets, GlobalVarsIsLaidOutAsTagVarGlobal) {
+  const Bytes frame = {
+    30, 0, 0x13, 0x05, 0, 0,                // header: size 30, PAKWC_GLOBAL_VARS
+    0x64, 0x00,                             // world product 100
+    0x04, 0x03, 0x02, 0x01,                 // update time
+    0x78, 0x00,                             // world rate 120
+    0x5a,                                   // town rate 90
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,      // item rates
+    0x01, 0x00, 0x00, 0x00,                 // flags: PK allowed
+  };
+  ASSERT_EQ(frame[2] | frame[3] << 8, static_cast<int>(ePacketType::PAKWC_GLOBAL_VARS));
+  round_trip<SrvGlobalVars>(frame);
+  const auto p = SrvGlobalVars::create(frame.data());
+  EXPECT_EQ(p.get_world_product(), 100);
+  EXPECT_EQ(p.get_update_time(), 0x01020304);
+  EXPECT_EQ(p.get_world_rate(), 120);
+  EXPECT_EQ(p.get_town_rate(), 90);
+  EXPECT_EQ(p.get_item_rate(0), 1);
+  EXPECT_EQ(p.get_item_rate(10), 11);
+  EXPECT_EQ(p.get_flags(), 1u);
 }
 
 } // namespace

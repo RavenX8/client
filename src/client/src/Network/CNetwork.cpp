@@ -10,7 +10,7 @@
 #include "Debug.h"
 #include "Game.h"
 #include "IO_Terrain.h"
-#include "cli_accept_req.h"
+#include "GeneratedPackets.h"
 #include "epackettype.h"
 
 ////005. 5. 23 박 지호
@@ -284,7 +284,8 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
     //case GSV_RELAY_REQ: this->Send_PACKET( packet );
     //  break;
 
-    case to_underlying(ePacketType::PAKWC_GLOBAL_VARS): Recv_gsv_SET_GLOBAL_VAR(packet);
+    case to_underlying(ePacketType::PAKWC_GLOBAL_VARS):
+      Recv_gsv_SET_GLOBAL_VAR(RoseCommon::Packet::SrvGlobalVars::create(reinterpret_cast<const uint8_t*>(packet)));
       break;
 
     case to_underlying(ePacketType::PAKWC_GLOBAL_FLAGS): Recv_gsv_SET_GLOVAL_FLAG(packet);
@@ -304,7 +305,8 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
       // Send_cli_JOIN_ZONE ();		// to_underlying(ePacketType::PAKWC_SELECT_CHAR_REPLY)
       break;
 
-    case to_underlying(ePacketType::PAKWC_CHANGE_MAP_REPLY): Recv_gsv_JOIN_ZONE(packet);
+    case to_underlying(ePacketType::PAKWC_CHANGE_MAP_REPLY):
+      Recv_gsv_JOIN_ZONE(RoseCommon::Packet::SrvChangeMapReply::create(reinterpret_cast<const uint8_t*>(packet)));
       break;
 
     case to_underlying(ePacketType::PAKWC_REVIVE_REPLY): Recv_gsv_REVIVE_REPLY(packet);
@@ -371,9 +373,11 @@ void CNetwork::Proc_ZonePacket(t_PACKET* packet) {
     case to_underlying(ePacketType::PAKWC_DAMAGE): Recv_gsv_DAMAGE(packet);
       break;
 
-    case to_underlying(ePacketType::PAKWC_SET_EXP): Recv_gsv_SETEXP(packet);
+    case to_underlying(ePacketType::PAKWC_SET_EXP):
+      Recv_gsv_SETEXP(RoseCommon::Packet::SrvSetExp::create(reinterpret_cast<const uint8_t*>(packet)));
       break;
-    case to_underlying(ePacketType::PAKWC_LEVELUP): Recv_gsv_LEVELUP(packet);
+    case to_underlying(ePacketType::PAKWC_LEVELUP):
+      Recv_gsv_LEVELUP(RoseCommon::Packet::SrvLevelup::create(reinterpret_cast<const uint8_t*>(packet)));
       break;
 
     case to_underlying(ePacketType::PAKWC_HP_REPLY): Recv_gsv_HP_REPLY(packet);

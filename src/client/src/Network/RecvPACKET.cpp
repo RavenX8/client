@@ -72,6 +72,9 @@ $Header: /Client/Network/RecvPACKET.cpp 690   05-10-27 10:18a Choo0219 $
 
 #include "enumerate.h"
 
+#include <algorithm>
+#include <array>
+
 // 서버에서 받은 전역 번수들 설정...
 void SetServerVAR(tagVAR_GLOBAL* pVAR) {
   // short	m_nWorld_PRODUCT;					// 제조
@@ -93,6 +96,20 @@ void SetServerVAR(tagVAR_GLOBAL* pVAR) {
   }
 
   g_GameDATA.m_iPvPState = pVAR->m_dwGlobalFLAGS & ZONE_FLAG_PK_ALLOWED;
+}
+
+// The economy PAKWC_GLOBAL_VARS and PAKWC_CHANGE_MAP_REPLY both carry, as
+// SetServerVAR takes it.
+static tagVAR_GLOBAL ServerVAR(int16_t worldProduct, int32_t updateTime, int16_t worldRate, uint8_t townRate,
+                               const std::array<uint8_t, RoseCommon::MAX_SELL_TYPE>& itemRate, uint32_t flags) {
+  tagVAR_GLOBAL var;
+  var.m_nWorld_PRODUCT = worldProduct;
+  var.m_dwUpdateTIME   = static_cast<uint32_t>( updateTime );
+  var.m_nWorld_RATE    = worldRate;
+  var.m_btTOWN_RATE    = townRate;
+  std::copy( itemRate.begin(), itemRate.end(), var.m_btItemRATE );
+  var.m_dwGlobalFLAGS = flags;
+  return var;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -164,9 +181,10 @@ void CRecvPACKET::Recv_gsv_GM_COMMAND(t_PACKET* packet) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void CRecvPACKET::Recv_gsv_SET_GLOBAL_VAR(t_PACKET* packet) {
-  SetServerVAR(
-    (tagVAR_GLOBAL *)&packet->m_pDATA[sizeof( t_PACKETHEADER )] );
+void CRecvPACKET::Recv_gsv_SET_GLOBAL_VAR(RoseCommon::Packet::SrvGlobalVars&& packet) {
+  tagVAR_GLOBAL var = ServerVAR( packet.get_world_product(), packet.get_update_time(), packet.get_world_rate(),
+                                 packet.get_town_rate(), packet.get_item_rate(), packet.get_flags() );
+  SetServerVAR( &var );
 
   g_itMGR.AppendChatMsg( STR_CHANGE_PRICES, IT_MGR::CHAT_TYPE_SYSTEM );
 
@@ -529,35 +547,37 @@ void    CRecvPACKET::Recv_wsv_MOVE_SERVER(t_PACKET* packet) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void CRecvPACKET::Recv_gsv_JOIN_ZONE(t_PACKET* packet) {
+void CRecvPACKET::Recv_gsv_JOIN_ZONE(RoseCommon::Packet::SrvChangeMapReply&& packet) {
   if ( !g_pAVATAR )
     return;
 
   // 내 아바타의 인덱스...
   g_pObjMGR->Set_ServerObjectIndex(
     g_pAVATAR->Get_INDEX(),
-    packet->m_gsv_JOIN_ZONE.m_wServerObjectIndex );
+    packet.get_objectIndex() );
 
   /// 죽었을경우.. 현재 HP와 패널티 경험치 세팅..
   /// 현재 경험치 sETTING
-  g_pAVATAR->SetCur_EXP( packet->m_gsv_JOIN_ZONE.m_lCurEXP );
-  g_pAVATAR->Set_HP( packet->m_gsv_JOIN_ZONE.m_nCurHP );
-  g_pAVATAR->Set_MP( packet->m_gsv_JOIN_ZONE.m_nCurMP );
+  g_pAVATAR->SetCur_EXP( packet.get_xp() );
+  g_pAVATAR->Set_HP( packet.get_hp() );
+  g_pAVATAR->Set_MP( packet.get_mp() );
   g_pAVATAR->m_GrowAbility.m_lPenalEXP =
-    packet->m_gsv_JOIN_ZONE.m_lPenalEXP;
+    packet.get_penalizeXp();
 
   /// 회복을 위한 시간 리셋..
   g_pAVATAR->ClearTimer();
 
   // set server var 함수 만들어어함...
-  SetServerVAR( &packet->m_gsv_JOIN_ZONE.m_VAR );
+  tagVAR_GLOBAL var = ServerVAR( packet.get_craftRate(), packet.get_updateTime(), packet.get_worldRate(),
+                                 packet.get_townRate(), packet.get_itemRate(), packet.get_flags() );
+  SetServerVAR( &var );
 
   g_pObjMGR->ResetTime();
   //	g_pCMouse->SetEnable();
   //	g_pCKeybd->SetEnable();
 
   g_DayNNightProc.SetWorldTime( g_pTerrain->GetZoneNO(),
-                                packet->m_gsv_JOIN_ZONE.m_dwAccWorldTIME );
+                                packet.get_worldTime() );
 
   /// 소환몹 리스트 클리어..
   g_pAVATAR->ClearSummonedMob();
@@ -565,7 +585,7 @@ void CRecvPACKET::Recv_gsv_JOIN_ZONE(t_PACKET* packet) {
   //----------------------------------------------------------------------------------------------------
   /// @brief 존데이터에 설정된 트리거실행
   //----------------------------------------------------------------------------------------------------
-  g_pAVATAR->SetTeamInfo( packet->m_gsv_JOIN_ZONE.m_iTeamNO );
+  g_pAVATAR->SetTeamInfo( packet.get_teamNumber() );
   /// 퀘스트 보상 실행.
   /// 클라이언트에서 실행하는것이 아니라.. Quest_Reply가 오게 수정 7/28
   /*char* pTriggerName = ZONE_JOIN_TRIGGER( g_pTerrain->GetZoneNO() );
@@ -590,7 +610,7 @@ void CRecvPACKET::Recv_gsv_JOIN_ZONE(t_PACKET* packet) {
     tag_PARTY_MEMBER MemberInfo;
     MemberInfo.m_dwUserTAG  = g_pAVATAR->GetUniqueTag();
     MemberInfo.m_wObjectIDX =
-      packet->m_gsv_JOIN_ZONE.m_wServerObjectIndex;
+      packet.get_objectIndex();
     /* 나일경우는 무시한다.
     MemberInfo.m_nHP		= g_pAVATAR->Get_HP();
     MemberInfo.m_nMaxHP		= g_pAVATAR->Get_MaxHP();
@@ -613,7 +633,7 @@ void CRecvPACKET::Recv_gsv_JOIN_ZONE(t_PACKET* packet) {
   ///박 지호: 여신소환 상태인 유저는 소환중인 이펙트를 설정한다.
   //------------------------------------------------------------------------------------
   goddessMgr.SetProcess( goddessMgr.IsAvataState(),
-                         packet->m_gsv_JOIN_ZONE.m_wServerObjectIndex,
+                         packet.get_objectIndex(),
                          TRUE );
 }
 
@@ -1807,21 +1827,21 @@ void        CRecvPACKET::Recv_gsv_CHANGE_NPC(t_PACKET* packet) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void CRecvPACKET::Recv_gsv_SETEXP(t_PACKET* packet) {
+void CRecvPACKET::Recv_gsv_SETEXP(RoseCommon::Packet::SrvSetExp&& packet) {
   if ( !g_pAVATAR )
     return;
 
   /// 해당 몹이 죽는 타이밍에 경험치 획득 메세지를 출력하기 위해서
-  if ( packet->m_gsv_SETEXP.m_wFromObjIDX == 0 ) {
+  if ( packet.get_source_id() == 0 ) {
     /// 갱신된 내 경험치다...
     int64_t lDiff =
-      packet->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
+      packet.get_exp() - g_GameDATA.m_iReceivedAvatarEXP;
 
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
     if ( lDiff < 0 ) {
       char buf[255];
       sprintf( buf, "Received exp is invalid[ %lld/%lld ]",
-               packet->m_gsv_SETEXP.m_lCurEXP,
+               packet.get_exp(),
                g_GameDATA.m_iReceivedAvatarEXP );
       assert(0 && buf);
 
@@ -1837,20 +1857,20 @@ void CRecvPACKET::Recv_gsv_SETEXP(t_PACKET* packet) {
       sprintf( szMsg, STR_GET_EXP, lDiff );
       g_itMGR.AppendChatMsg( szMsg, IT_MGR::CHAT_TYPE_SYSTEM );
 
-      g_pAVATAR->SetCur_EXP( packet->m_gsv_SETEXP.m_lCurEXP );
+      g_pAVATAR->SetCur_EXP( packet.get_exp() );
       /// 스태미너도 타이밍때문에.. 따로 처리하기로 했다.. 2005/1/19
-      g_pAVATAR->SetCur_STAMINA( packet->m_gsv_SETEXP.m_nCurSTAMINA );
+      g_pAVATAR->SetCur_STAMINA( packet.get_stamina() );
     }
   } else {
     /// 현재 경험치를 넣었더니.. 처리 순서가 틀려지만 - 경험치를 얻을 경우가
     /// 있다..
     int64_t lDiff =
-      packet->m_gsv_SETEXP.m_lCurEXP - g_GameDATA.m_iReceivedAvatarEXP;
+      packet.get_exp() - g_GameDATA.m_iReceivedAvatarEXP;
     /// 이건 뭔가 서버에서 순서가 잘못되서 날라온것이다.
     if ( lDiff < 0 ) {
       char buf[255];
       sprintf( buf, "Received exp is invalid[ %lld/%lld ]",
-               packet->m_gsv_SETEXP.m_lCurEXP,
+               packet.get_exp(),
                g_GameDATA.m_iReceivedAvatarEXP );
       assert(0 && buf);
 
@@ -1862,31 +1882,28 @@ void CRecvPACKET::Recv_gsv_SETEXP(t_PACKET* packet) {
       /// 가정.. )
     } else {
       int iClientIndex = g_pObjMGR->Get_ClientObjectIndex(
-        packet->m_gsv_SETEXP.m_wFromObjIDX );
+        packet.get_source_id() );
       CDelayedExp::GetSingleton().PushEXPData(
-        iClientIndex, lDiff, packet->m_gsv_SETEXP.m_lCurEXP,
-        packet->m_gsv_SETEXP.m_nCurSTAMINA );
+        iClientIndex, lDiff, packet.get_exp(),
+        packet.get_stamina() );
     }
   }
 
-  g_GameDATA.m_iReceivedAvatarEXP = packet->m_gsv_SETEXP.m_lCurEXP;
+  g_GameDATA.m_iReceivedAvatarEXP = packet.get_exp();
 
   /// 스태미너는 그냥...
   /// 스태미너도 타이밍때문에.. 따로 처리하기로 했다.. 2005/1/19
-  /// g_pAVATAR->SetCur_STAMINA( packet->m_gsv_SETEXP.m_nCurSTAMINA );
+  /// g_pAVATAR->SetCur_STAMINA( packet.get_stamina() );
 }
 
 //-------------------------------------------------------------------------------------------------
-void       CRecvPACKET::Recv_gsv_LEVELUP(t_PACKET* packet) {
+void       CRecvPACKET::Recv_gsv_LEVELUP(RoseCommon::Packet::SrvLevelup&& packet) {
   CObjAVT* pCHAR = g_pObjMGR->Get_ClientCharAVT(
-    packet->m_gsv_LEVELUP.m_wObjectIDX, false );
+    packet.get_id(), false );
   if ( pCHAR ) {
     if ( pCHAR->IsA( OBJ_USER ) ) {
-      if ( packet->m_gsv_LEVELUP.m_nSize != sizeof( gsv_LEVELUP ) )
-        return;
-
       int64_t lDiffExp = g_pAVATAR->Get_NeedEXP( g_pAVATAR->Get_LEVEL() ) +
-                         packet->m_gsv_LEVELUP.m_lCurEXP -
+                         packet.get_exp() -
                          g_GameDATA.m_iReceivedAvatarEXP;
 
       char szMsg[256];
@@ -1895,18 +1912,18 @@ void       CRecvPACKET::Recv_gsv_LEVELUP(t_PACKET* packet) {
 
       // 내가 레벨업 했다.
       g_pAVATAR->m_GrowAbility.m_lPenalEXP = 0;
-      g_pAVATAR->Set_LEVEL( packet->m_gsv_LEVELUP.m_nCurLevel );
-      g_pAVATAR->Set_EXP( packet->m_gsv_LEVELUP.m_lCurEXP );
-      g_pAVATAR->Set_BonusPOINT( packet->m_gsv_LEVELUP.m_nBonusPoint );
+      g_pAVATAR->Set_LEVEL( packet.get_level() );
+      g_pAVATAR->Set_EXP( packet.get_exp() );
+      g_pAVATAR->Set_BonusPOINT( packet.get_stat_points() );
 
       int old_skillpoint = g_pAVATAR->Get_SkillPOINT();
-      int new_skillpoint = packet->m_gsv_LEVELUP.m_nSkillPoint;
+      int new_skillpoint = packet.get_skill_points();
       if ( old_skillpoint != new_skillpoint )
         g_itMGR.AppendChatMsg(
           CStr::Printf( STR_EARN_SP, new_skillpoint - old_skillpoint ),
           IT_MGR::CHAT_TYPE_SYSTEM, D3DCOLOR_ARGB(255, 255, 0, 0) );
 
-      g_pAVATAR->Set_SkillPOINT( packet->m_gsv_LEVELUP.m_nSkillPoint );
+      g_pAVATAR->Set_SkillPOINT( packet.get_skill_points() );
 
       g_pAVATAR->LevelUP();
 
@@ -1914,13 +1931,13 @@ void       CRecvPACKET::Recv_gsv_LEVELUP(t_PACKET* packet) {
       g_HelpMgr.Update();
       if ( g_pAVATAR->GetClanID() )
         g_pNet->Send_cli_CLAN_MEMBER_JOBnLEV(
-          packet->m_gsv_LEVELUP.m_nCurLevel, g_pAVATAR->Get_JOB() );
+          packet.get_level(), g_pAVATAR->Get_JOB() );
 
       /// Notify levelup event
       CTutorialEventManager::GetSingleton().CheckLevelUpEvent(
         g_pAVATAR->Get_LEVEL() );
 
-      g_GameDATA.m_iReceivedAvatarEXP = packet->m_gsv_LEVELUP.m_lCurEXP;
+      g_GameDATA.m_iReceivedAvatarEXP = packet.get_exp();
     } else {
       pCHAR->SetAvtLevel( pCHAR->Get_LEVEL() + 1 );
     }

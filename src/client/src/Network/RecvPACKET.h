@@ -4,9 +4,7 @@
 #ifndef	__CRECVPACKET_H
 #define	__CRECVPACKET_H
 
-#include "srv_login_reply.h"
-#include "srv_chan_char_reply.h"
-#include "srv_set_animation.h"
+#include "GeneratedPackets.h"
 
 //-------------------------------------------------------------------------------------------------
 
@@ -33,7 +31,7 @@ public :
   void Recv_srv_ERROR(t_PACKET* packet);
   void Recv_gsv_GM_COMMAND(t_PACKET* packet);
 
-  void Recv_gsv_SET_GLOBAL_VAR(t_PACKET* packet);
+  void Recv_gsv_SET_GLOBAL_VAR(RoseCommon::Packet::SrvGlobalVars&& packet);
   void Recv_gsv_SET_GLOVAL_FLAG(t_PACKET* packet);
 
   void Recv_srv_ANNOUNCE_TEXT(t_PACKET* packet);
@@ -53,7 +51,7 @@ public :
 
   void Recv_wsv_MOVE_SERVER(t_PACKET* packet);
 
-  void Recv_gsv_JOIN_ZONE(t_PACKET* packet);
+  void Recv_gsv_JOIN_ZONE(RoseCommon::Packet::SrvChangeMapReply&& packet);
   void Recv_gsv_SELECT_CHAR(t_PACKET* packet);
 
   void Recv_gsv_INVENTORY_DATA(t_PACKET* packet);
@@ -92,8 +90,8 @@ public :
 
   void Recv_gsv_CHANGE_NPC(t_PACKET* packet);
 
-  void Recv_gsv_SETEXP(t_PACKET* packet);
-  void Recv_gsv_LEVELUP(t_PACKET* packet);
+  void Recv_gsv_SETEXP(RoseCommon::Packet::SrvSetExp&& packet);
+  void Recv_gsv_LEVELUP(RoseCommon::Packet::SrvLevelup&& packet);
 
   void Recv_gsv_HP_REPLY(t_PACKET* packet);
 
