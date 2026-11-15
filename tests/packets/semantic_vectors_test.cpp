@@ -22,6 +22,7 @@
 #include "cli_attack.h"
 #include "cli_change_char_req.h"
 #include "cli_change_map_req.h"
+#include "cli_clan_command.h"
 #include "cli_channel_list_req.h"
 #include "cli_craft_enhance_req.h"
 #include "cli_craft_req.h"
@@ -31,6 +32,7 @@
 #include "cli_join_server_req.h"
 #include "cli_join_server_token_req.h"
 #include "cli_login_token_req.h"
+#include "cli_messenger_chat.h"
 #include "cli_logout_req.h"
 #include "cli_mouse_cmd.h"
 #include "cli_normal_chat.h"
@@ -47,6 +49,7 @@
 #include "srv_change_map_reply.h"
 #include "srv_channel_list_reply.h"
 #include "srv_char_list_reply.h"
+#include "srv_clan_command.h"
 #include "srv_craft_enhance_reply.h"
 #include "srv_create_char_reply.h"
 #include "srv_damage.h"
@@ -149,6 +152,7 @@ const std::map<std::string, void (*)(const Bytes&)> kRoundTrips = {
     ROUND_TRIP(CliChangeCharReq),
     ROUND_TRIP(CliChangeMapReq),
     ROUND_TRIP(CliChannelListReq),
+    ROUND_TRIP(CliClanCommand),
     ROUND_TRIP(CliCraftEnhanceReq),
     ROUND_TRIP(CliCraftReq),
     ROUND_TRIP(CliCreateCharReq),
@@ -158,6 +162,7 @@ const std::map<std::string, void (*)(const Bytes&)> kRoundTrips = {
     ROUND_TRIP(CliJoinServerTokenReq),
     ROUND_TRIP(CliLoginTokenReq),
     ROUND_TRIP(CliLogoutReq),
+    ROUND_TRIP(CliMessengerChat),
     ROUND_TRIP(CliMouseCmd),
     ROUND_TRIP(CliNormalChat),
     ROUND_TRIP(CliSelectCharReq),
@@ -173,6 +178,7 @@ const std::map<std::string, void (*)(const Bytes&)> kRoundTrips = {
     ROUND_TRIP(SrvChangeMapReply),
     ROUND_TRIP(SrvChannelListReply),
     ROUND_TRIP(SrvCharListReply),
+    ROUND_TRIP(SrvClanCommand),
     ROUND_TRIP(SrvCraftEnhanceReply),
     ROUND_TRIP(SrvCreateCharReply),
     ROUND_TRIP(SrvDamage),
