@@ -114,9 +114,9 @@ void CSelectServer::SendReqFirestServerChannelList() {
   }
 }
 
-void CSelectServer::RecvSelectServer(t_PACKET* recvPacket) {
-  if ( recvPacket->m_lsv_SELECT_SERVER.m_btResult != RESULT_SELECT_SERVER_OK ) {
-    switch ( recvPacket->m_lsv_SELECT_SERVER.m_btResult ) {
+void CSelectServer::RecvSelectServer(uint8_t result) {
+  if ( result != RESULT_SELECT_SERVER_OK ) {
+    switch ( result ) {
       case RESULT_SELECT_SERVER_FAILED: g_EUILobby.ShowMsgBox( STR_RESULT_SELECT_SERVER_FAILED, CTMsgBox::BT_OK, true, GetDialogType() );
         break;
       case RESULT_SELECT_SERVER_FULL: g_EUILobby.ShowMsgBox( STR_RESULT_SELECT_SERVER_FULL, CTMsgBox::BT_OK, true, GetDialogType() );

@@ -76,8 +76,8 @@ void CCreateAvata::SendCreateAvata() {
   g_EUILobby.ShowWaitMsgBox();
 }
 
-bool CCreateAvata::RecvCreateAvata(t_PACKET* recvPacket) {
-  switch ( recvPacket->m_wsv_CREATE_CHAR.m_btResult ) {
+bool CCreateAvata::RecvCreateAvata(uint8_t result) {
+  switch ( result ) {
     case RESULT_CREATE_CHAR_OK: CGame::GetInstance().ChangeState( CGame::GS_SELECTAVATAR );
       return true;
     case RESULT_CREATE_CHAR_FAILED: g_EUILobby.ShowMsgBox( CStr::Printf( "%s(%d)",STR_FAIL_MAKE_NEW_CHARACTER, 1 ), CMsgBox::BT_OK, true, 0 );

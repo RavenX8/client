@@ -17,6 +17,8 @@
 #include <utility>
 #include <vector>
 
+#include "GeneratedItems.h"
+
 #include "cli_attack.h"
 #include "cli_change_char_req.h"
 #include "cli_change_map_req.h"
@@ -282,6 +284,83 @@ TEST(Packets, GlobalVarsIsLaidOutAsTagVarGlobal) {
   EXPECT_EQ(p.get_item_rate(0), 1);
   EXPECT_EQ(p.get_item_rate(10), 11);
   EXPECT_EQ(p.get_flags(), 1u);
+}
+
+// The values rose-proto's semantic_vectors/gateway.rs wrote.
+TEST(SemanticVectors, ChannelListReply) {
+  const auto p = SrvChannelListReply::create(first("SrvChannelListReply").frame.data());
+  EXPECT_EQ(p.get_id(), 7u);
+  const auto channels = p.get_channels(); // a copy, as is each channel's name
+  ASSERT_EQ(channels.size(), 1u);
+  const auto& c = channels[0];
+  EXPECT_EQ(c.get_id(), 3);
+  EXPECT_EQ(c.get_lowAge(), 4);
+  EXPECT_EQ(c.get_highAge(), 5);
+  EXPECT_EQ(c.get_capacity(), 600);
+  EXPECT_EQ(c.get_name(), "Channel 1");
+}
+
+TEST(SemanticVectors, SrvSelectReply) {
+  const auto p = SrvSrvSelectReply::create(first("SrvSrvSelectReply").frame.data());
+  EXPECT_EQ(static_cast<int>(p.get_result()), 3); // RESULT_SELECT_SERVER_INVALID_CHANNEL
+  EXPECT_EQ(p.get_sessionId(), 0xA1B2C3D4u);
+  EXPECT_EQ(p.get_cryptVal(), 0x05060708u);
+  EXPECT_EQ(p.get_ip(), "play.example.test");
+  EXPECT_EQ(p.get_port(), 29000);
+}
+
+TEST(SemanticVectors, JoinServerReply) {
+  const auto p = SrvJoinServerReply::create(first("SrvJoinServerReply").frame.data());
+  EXPECT_EQ(static_cast<int>(p.get_result()), 3); // RESULT_JOIN_SERVER_INVALID_PASSWORD
+  EXPECT_EQ(p.get_id(), 0x0A0B0C0Du);
+  EXPECT_EQ(p.get_payFlag(), 5u);
+}
+
+TEST(SemanticVectors, CharListReply) {
+  const auto  p     = SrvCharListReply::create(first("SrvCharListReply").frame.data());
+  const auto& chars = p.get_characters();
+  ASSERT_EQ(chars.size(), 2u);
+  EXPECT_EQ(chars[0].get_name(), "Raven");
+  EXPECT_EQ(chars[0].get_race(), 1);
+  EXPECT_EQ(chars[0].get_level(), 77);
+  EXPECT_EQ(chars[0].get_job(), 411);
+  EXPECT_EQ(chars[0].get_remainSecsUntilDelete(), 86'400u);
+  EXPECT_EQ(chars[0].get_platinium(), 1);
+  EXPECT_EQ(chars[0].get_face(), 3u);
+  EXPECT_EQ(chars[0].get_hair(), 4u);
+  EXPECT_EQ(chars[0].get_items()[1].get_id(), 30u);
+  EXPECT_EQ(chars[0].get_items()[6].get_id(), 1001u);
+  EXPECT_EQ(chars[1].get_name(), "Alt");
+  EXPECT_EQ(chars[1].get_level(), 2);
+}
+
+TEST(SemanticVectors, CreateCharReply) {
+  const auto p = SrvCreateCharReply::create(first("SrvCreateCharReply").frame.data());
+  EXPECT_EQ(static_cast<int>(p.get_result()), 4); // RESULT_CREATE_CHAR_NO_MORE_SLOT
+  EXPECT_EQ(p.get_platininum(), 1);
+}
+
+TEST(SemanticVectors, DeleteCharReply) {
+  const auto p = SrvDeleteCharReply::create(first("SrvDeleteCharReply").frame.data());
+  EXPECT_EQ(p.get_remainingTime(), 86'400u);
+  EXPECT_EQ(p.get_name(), "Raven");
+}
+
+// GeneratedItems::equipped reads an EquippedItem word as the generated class does.
+TEST(GeneratedItems, EquippedWordAsTheGeneratedClassReadsIt) {
+  const auto  p    = SrvCharListReply::create(first("SrvCharListReply").frame.data());
+  const auto& item = p.get_characters()[0].get_items()[6];
+  const auto  e    = GeneratedItems::equipped(item.get_data());
+  EXPECT_EQ(e.id, item.get_id());
+  EXPECT_EQ(e.gemOption, item.get_gem_opt());
+  EXPECT_EQ(e.socket, item.get_socket());
+  EXPECT_EQ(e.grade, item.get_grade());
+  EXPECT_EQ(e.id, 1001);
+  EXPECT_EQ(e.gemOption, 301);
+  EXPECT_EQ(e.socket, 1);
+  EXPECT_EQ(e.grade, 9);
+  // The face and hair come as the same word.
+  EXPECT_EQ(GeneratedItems::equipped(p.get_characters()[0].get_face()).id, 3);
 }
 
 } // namespace

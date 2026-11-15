@@ -77,7 +77,7 @@ public:
   ///
   ///	Recv proc..
   ///
-  void RecvSelectServer(t_PACKET* recvPacket);
+  void RecvSelectServer(uint8_t result);
   void SendReqFirestServerChannelList();
 
   enum {

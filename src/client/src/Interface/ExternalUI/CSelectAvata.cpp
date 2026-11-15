@@ -5,6 +5,7 @@
 #include "../Command/ExUICommand.h"
 
 #include "../../Network/CNetwork.h"
+#include "../../Network/GeneratedItems.h"
 
 #include "../../Game.h"
 
@@ -94,42 +95,37 @@ void                     CSelectAvata::SendSelectAvataReq() {
     g_EUILobby.ShowMsgBox( STR_REQUEST_SELECT_CHARACTER, CTMsgBox::BT_OK | CTMsgBox::BT_CANCEL, true, GetDialogType() );
 }
 
-void             CSelectAvata::RecvAvataList(t_PACKET* recvPacket) {
-  short          nI            = 0;
-  char*          szServerName  = nullptr;
-  char*          pszCharName   = nullptr;
-  tagCHARINFO*   pCharINFO     = nullptr;
-  tagPartITEM*   pnPartItemIDX = nullptr;
-  CJustModelAVT* pAvt          = nullptr;
+void             CSelectAvata::RecvAvataList(const RoseCommon::Packet::SrvCharListReply& packet) {
+  CJustModelAVT* pAvt = nullptr;
 
   CGameDataCreateAvatar::GetInstance().Clear();
-  short nOffset = sizeof( wsv_CHAR_LIST );
 
-  for ( nI        = 0; nI < recvPacket->m_wsv_CHAR_LIST.m_btCharCNT; nI++ ) {
-    pszCharName   = Packet_GetStringPtr( recvPacket, nOffset );
-    pCharINFO     = (tagCHARINFO*)Packet_GetDataPtr( recvPacket, nOffset, sizeof( tagCHARINFO ) );
-    pnPartItemIDX = (tagPartITEM*)Packet_GetDataPtr( recvPacket, nOffset, sizeof( tagPartITEM ) * MAX_BODY_PART );
+  for ( const auto& info : packet.get_characters() ) {
+    // The equipped items in packet order: helmet, armor, gauntlet, boots,
+    // goggles, backpack, right and left weapon (BODY_PART_HELMET onwards).
+    const auto& items = info.get_items();
+    auto        item  = [&items](int bodyPart) { return items[bodyPart - BODY_PART_HELMET].get_id(); };
 
     pAvt = new CJustModelAVT();
 
-    pAvt->Init( pszCharName,
-                pnPartItemIDX[BODY_PART_FACE].m_nItemNo,
-                pnPartItemIDX[BODY_PART_HAIR].m_nItemNo,
-                pnPartItemIDX[BODY_PART_HELMET].m_nItemNo,
-                pnPartItemIDX[BODY_PART_ARMOR].m_nItemNo,
-                pnPartItemIDX[BODY_PART_GAUNTLET].m_nItemNo,
-                pnPartItemIDX[BODY_PART_BOOTS].m_nItemNo,
-                pnPartItemIDX[BODY_PART_FACE_ITEM].m_nItemNo,
-                pnPartItemIDX[BODY_PART_KNAPSACK].m_nItemNo,
-                0/*pnPartItemIDX[BODY_PART_WEAPON_R].m_nItemNo*/,
-                0 /*pnPartItemIDX[BODY_PART_WEAPON_L].m_nItemNo*/
+    pAvt->Init( info.get_name().c_str(),
+                GeneratedItems::equipped( info.get_face() ).id,
+                GeneratedItems::equipped( info.get_hair() ).id,
+                item( BODY_PART_HELMET ),
+                item( BODY_PART_ARMOR ),
+                item( BODY_PART_GAUNTLET ),
+                item( BODY_PART_BOOTS ),
+                item( BODY_PART_FACE_ITEM ),
+                item( BODY_PART_KNAPSACK ),
+                0/*item( BODY_PART_WEAPON_R )*/,
+                0 /*item( BODY_PART_WEAPON_L )*/
     );
 
-    pAvt->SetLevel( pCharINFO->m_nLEVEL );
-    pAvt->SetJob( pCharINFO->m_nJOB );
-    pAvt->SetDeleteRemainSEC( pCharINFO->m_dwRemainSEC );
-    pAvt->SetPlatinum( (pCharINFO->m_btIsPlatinumCHAR == 0) ? false : true );
-    pAvt->SetRace( pCharINFO->m_btCharRACE );
+    pAvt->SetLevel( info.get_level() );
+    pAvt->SetJob( info.get_job() );
+    pAvt->SetDeleteRemainSEC( info.get_remainSecsUntilDelete() );
+    pAvt->SetPlatinum( (info.get_platinium() == 0) ? false : true );
+    pAvt->SetRace( info.get_race() );
 
     pAvt->UpdateModel();
     pAvt->LoadModelVisible();
@@ -141,7 +137,7 @@ void             CSelectAvata::RecvAvataList(t_PACKET* recvPacket) {
     setScale( hModel, 1.5, 1.5, 1.5 );
     setModelDirection( hModel, 180.f, false );
 
-    if ( pCharINFO->m_dwRemainSEC )
+    if ( info.get_remainSecsUntilDelete() )
       pAvt->SetMotion( 6 );
 
   }

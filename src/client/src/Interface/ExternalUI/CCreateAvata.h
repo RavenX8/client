@@ -76,7 +76,7 @@ public:
   ///
   /// Packet receive proc
   ///
-  bool RecvCreateAvata(t_PACKET* recvPacket);
+  bool RecvCreateAvata(uint8_t result);
 
   void MsgBoxProc(unsigned int iMsgType, short int iButton);
 

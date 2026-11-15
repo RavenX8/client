@@ -173,7 +173,7 @@ void              CNetwork::Proc_WorldPacket() {
 
       case to_underlying(ePacketType::PAKSC_JOIN_SERVER_REPLY): // 월드 서버에 접속했다.
       {
-        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(packet.get());
+        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(RoseCommon::Packet::SrvJoinServerReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         if ( dwRet ) {
           pSocket->OnAccepted( (int *)&dwRet );
           this->Send_cli_CHAR_LIST();
@@ -193,21 +193,25 @@ void              CNetwork::Proc_WorldPacket() {
         }
         break;
       case to_underlying(ePacketType::PAKLC_SRV_SELECT_REPLY): {
-        DWORD dwRet = Recv_lsv_SELECT_SERVER(packet.get());
+        DWORD dwRet = Recv_lsv_SELECT_SERVER(RoseCommon::Packet::SrvSrvSelectReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         if ( dwRet )
           pSocket->mF_Init( dwRet );
         break;
       }
-      case to_underlying(ePacketType::PAKLC_CHANNEL_LIST_REPLY): Recv_lsv_CHANNEL_LIST_REPLY(packet.get());
+      case to_underlying(ePacketType::PAKLC_CHANNEL_LIST_REPLY):
+        Recv_lsv_CHANNEL_LIST_REPLY(RoseCommon::Packet::SrvChannelListReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
         // 캐릭터 리스트 받았음
-      case to_underlying(ePacketType::PAKCC_CHAR_LIST_REPLY): Recv_wsv_CHAR_LIST(packet.get());
+      case to_underlying(ePacketType::PAKCC_CHAR_LIST_REPLY):
+        Recv_wsv_CHAR_LIST(RoseCommon::Packet::SrvCharListReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
 
-      case to_underlying(ePacketType::PAKCC_DELETE_CHAR_REPLY): Recv_wsv_DELETE_CHAR(packet.get());
+      case to_underlying(ePacketType::PAKCC_DELETE_CHAR_REPLY):
+        Recv_wsv_DELETE_CHAR(RoseCommon::Packet::SrvDeleteCharReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         break;
         // 캐릭터 생성요청 결과 통보받음
-      case to_underlying(ePacketType::PAKCC_CREATE_CHAR_REPLY): Recv_wsv_CREATE_CHAR(packet.get());
+      case to_underlying(ePacketType::PAKCC_CREATE_CHAR_REPLY):
+        Recv_wsv_CREATE_CHAR(RoseCommon::Packet::SrvCreateCharReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
 
         break;
       case to_underlying(ePacketType::PAKCC_MESSENGER): Recv_tag_MCMD_HEADER(packet.get());
@@ -643,7 +647,7 @@ void CNetwork::Proc() {
 
       case to_underlying(ePacketType::PAKSC_JOIN_SERVER_REPLY): // 존 서버와의 접속에 실패했습니다.
       {
-        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(packet.get());
+        DWORD dwRet = Recv_srv_JOIN_SERVER_REPLY(RoseCommon::Packet::SrvJoinServerReply::create(reinterpret_cast<const uint8_t*>(packet.get())));
         if ( dwRet ) {
           pSocket->OnAccepted( (int *)&dwRet );
           // 처음 접속한 존 서버? 면...

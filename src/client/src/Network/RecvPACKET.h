@@ -39,15 +39,15 @@ public :
 
   bool Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& packet);
 
-  void Recv_lsv_CHANNEL_LIST_REPLY(t_PACKET* packet);
-  int  Recv_lsv_SELECT_SERVER(t_PACKET* packet);
+  void Recv_lsv_CHANNEL_LIST_REPLY(RoseCommon::Packet::SrvChannelListReply&& packet);
+  int  Recv_lsv_SELECT_SERVER(RoseCommon::Packet::SrvSrvSelectReply&& packet);
 
-  int  Recv_srv_JOIN_SERVER_REPLY(t_PACKET* packet);
+  int  Recv_srv_JOIN_SERVER_REPLY(RoseCommon::Packet::SrvJoinServerReply&& packet);
   void Recv_gsv_INIT_DATA(t_PACKET* packet);
 
-  void Recv_wsv_CHAR_LIST(t_PACKET* packet);
-  void Recv_wsv_DELETE_CHAR(t_PACKET* packet);
-  bool Recv_wsv_CREATE_CHAR(t_PACKET* packet);
+  void Recv_wsv_CHAR_LIST(RoseCommon::Packet::SrvCharListReply&& packet);
+  void Recv_wsv_DELETE_CHAR(RoseCommon::Packet::SrvDeleteCharReply&& packet);
+  bool Recv_wsv_CREATE_CHAR(RoseCommon::Packet::SrvCreateCharReply&& packet);
 
   void Recv_wsv_MOVE_SERVER(t_PACKET* packet);
 

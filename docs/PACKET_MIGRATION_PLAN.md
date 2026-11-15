@@ -134,7 +134,7 @@ Done on client branch `feat/packet-tests` (from `network-rework`).
 - Verified in a scratch build; `cmake-build-release-ssl` is rebuilt from CLion.
 
 ### Step 2: CHANGE_MAP_REPLY and GLOBAL_VARS (after step 0)
-Done on branch `feat/migrate-change-map` (from `feat/packet-tests`), not committed.
+Done on branch `feat/migrate-change-map` (from `feat/packet-tests`), ae15bdf.
 - `Recv_gsv_JOIN_ZONE`, `Recv_gsv_SET_GLOBAL_VAR`, `Recv_gsv_SETEXP`, `Recv_gsv_LEVELUP` take
   `SrvChangeMapReply`, `SrvGlobalVars`, `SrvSetExp`, `SrvLevelup`. The economy goes through
   `ServerVAR()` into the same `SetServerVAR`.
@@ -160,7 +160,7 @@ Original description:
   cause is not this step.
 
 ### Step 2a: the client's data types on the generated ones (before step 2 is committed)
-Done on `feat/migrate-change-map`, not committed (items 1 and 2; item 3 moves to steps 3 and 6).
+Done on `feat/migrate-change-map`, 51eeae5 (items 1 and 2; item 3 moves to steps 3 and 6). The packets header stays hand-written.
 - `Common/DataTYPE.h` includes `data_consts.h`; its 21 `CLASS_*` and `MAX_UNION_COUNT`
   `#define`s are now `using RoseCommon::...;` on the same lines (comments kept, bytes untouched
   otherwise). `Net_Prototype.h`'s `MAX_DAMAGE` likewise. `GeneratedPackets.h` lost its
@@ -195,6 +195,55 @@ Later, not in 2a: the client's `MAX_PACKET_SIZE` is 1024, the library's 0x7FF.
 Commits: 2a on `feat/migrate-change-map` first, step 2 on top, both after approval.
 Not taken from v3: the widened `tagPartITEM` and the `SetAllPARTS` remap (both follow
 packets-v3's wire format), and all of its packet and login changes.
+
+### Step 3a: the login path (done, committed on `feat/migrate-login-select`)
+- `Recv_lsv_SELECT_SERVER`, `Recv_srv_JOIN_SERVER_REPLY` (both sockets),
+  `Recv_lsv_CHANNEL_LIST_REPLY`, `Recv_wsv_CHAR_LIST`, `Recv_wsv_CREATE_CHAR`,
+  `Recv_wsv_DELETE_CHAR` take their generated packets. `CSelectServer::RecvSelectServer` and
+  `CCreateAvata::RecvCreateAvata` take the result byte (the generated enums are the client's
+  `RESULT_*` values); `CSelectAvata::RecvAvataList` takes the `SrvCharListReply`.
+- `Network/GeneratedItems.h`: `equipped(word)` reads an `EquippedItem` word (id, gem/option,
+  socket, grade). The character list's face and hair are that word, not an item id.
+- Packet slot `i` of the equipped items is `BODY_PART_HELMET + i`.
+- Some generated getters return copies (`SrvChannelListReply::get_channels()`, a channel's
+  `get_name()`): keep the copy before taking a pointer into it.
+- Tests: the six packets field by field (values from `semantic_vectors/gateway.rs`), and
+  `equipped()` against the generated `EquippedItem`. 67 pass.
+
+### Step 3b: entering the world (next)
+`SELECT_CHAR`, `INVENTORY_DATA`, `QUEST_DATA`, and the item converters. Notes for it:
+- They copy whole old structs into `CGame` today (`m_SelectedAvataInfo`, `m_SelectedAvataINV`,
+  `m_QuestData`, which `CGame.cpp:1012-1013` reads). Fill them field by field; `m_QuestData`
+  can become the `tagQuestData` and `tagWishLIST` it is used for.
+- `SELECT_CHAR` fills everything: the 40 status effects (`m_STATUS`), the 32 hotbar slots
+  (generated `type` u8 + `slotId` u16 into the 16-bit `tagHotICON`), level, pat HP and
+  cooldown, the faction arrays. v3's handler dropped those; use it only as a sketch.
+- `bodyFace`/`bodyHair` are `EquippedItem` words (`GeneratedItems::equipped`), as in the list.
+- Item converters, header-only in `GeneratedItems.h`: the generated `Item`'s 16-bit header
+  (`get_header().get_header()`) and 32-bit body (`get_data().get_count()`) as raw words, so
+  equipment's gem/durability/life bits come through whole (no `IsEnableDupCNT` guard needed).
+  The four per-packet `Item` classes are distinct types: one template. Test the words against
+  the frame bytes of the `SrvInventoryData`/`SrvQuestData`/`SrvSetItem` vectors.
+- Tests: field checks with the values in `semantic_vectors/zone.rs` (two `SrvSelectCharReply`
+  vectors).
+- In game: enter with a character that has equipment, buffs, a filled hotbar and quest items;
+  stats and exp as before.
+
+## Picking this up elsewhere
+- Branches stack: `network-rework` → `feat/packet-tests` (step 1) → `feat/migrate-change-map`
+  (2a, 2) → `feat/migrate-login-select` (3a). Push them before switching systems.
+- Server: `osIROSE-new` `fix/change-map-reply-billing` (pushed to gitlab). Packets: master has
+  the step 0 fix (#24).
+- Build: `cmake-build-release-ssl` fetches packets master. After the packets move, check that
+  `gen/packets` was regenerated (and that `_deps/idl-build`'s `packet_generator` is current).
+- Tests: `ClientPacketTests` reads `../osIROSE-new/rust/crates/rose-proto/tests/vectors/semantic.txt`
+  (`ROSE_SEMANTIC_VECTORS`). The OpenSSL DLLs are copied from `<OpenSSL>/bin` (found from the
+  OpenSSL headers).
+- Several client sources are CP949 (`DataTYPE.h`, `CUserDATA.*`, the `ExternalUI` dialogs):
+  edit them byte for byte, and keep each file's line endings.
+- Server tests: `cargo test --workspace --no-fail-fast` with Docker running;
+  `gateway/tests/login_flow.rs` `silent_connections_are_closed_but_active_ones_are_not` fails
+  on Windows on `rust-rewrite` too (connection aborted, 10053, instead of a clean close).
 
 ### Steps 3–9: bucket A, one area per step
 The pattern follows the existing three: `SrvX::create(reinterpret_cast<const

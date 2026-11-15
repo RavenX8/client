@@ -431,9 +431,9 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& 
 }
 
 //-------------------------------------------------------------------------------------------------
-int CRecvPACKET::Recv_lsv_SELECT_SERVER(t_PACKET* packet) {
-  LogString(LOG_DEBUG, "Recv_lsv_SELECT_SERVER:: Result: %d ",
-            packet->m_lsv_SELECT_SERVER.m_btResult);
+int CRecvPACKET::Recv_lsv_SELECT_SERVER(RoseCommon::Packet::SrvSrvSelectReply&& packet) {
+  const uint8_t result = packet.get_result();
+  LogString(LOG_DEBUG, "Recv_lsv_SELECT_SERVER:: Result: %d ", result);
 
   ///
   /// Recv proc
@@ -445,39 +445,33 @@ int CRecvPACKET::Recv_lsv_SELECT_SERVER(t_PACKET* packet) {
   if ( pSelectServer == nullptr )
     return 0;
 
-  pSelectServer->RecvSelectServer( packet );
+  pSelectServer->RecvSelectServer( result );
 
-  if ( packet->m_lsv_SELECT_SERVER.m_btResult !=
-       RESULT_SELECT_SERVER_OK ) {
+  if ( result != RESULT_SELECT_SERVER_OK ) {
     return 0;
   }
 
-  short nOffset = sizeof( lsv_SELECT_SERVER );
-  char* szServerIP;
-  WORD* pServerPort;
-
-  szServerIP  = Packet_GetStringPtr( packet, nOffset );
-  pServerPort = (WORD *)Packet_GetDataPtr( packet, nOffset, sizeof( WORD ) );
+  const char* szServerIP = packet.get_ip().c_str();
+  const WORD  wPort      = packet.get_port();
 
   // 소켓 동작 중에는 주소나 포트를 바꿀수 없다.
-  this->m_WSV_IP.Set( szServerIP );
-  this->m_wWSV_PORT = *pServerPort;
-  this->m_dwWSV_ID  = packet->m_lsv_SELECT_SERVER.m_dwIDs[0];
+  this->m_WSV_IP.Set( const_cast<char*>( szServerIP ) ); // copied
+  this->m_wWSV_PORT = wPort;
+  this->m_dwWSV_ID  = packet.get_sessionId();
 
   LogString(LOG_DEBUG, "Recv_lsv_SELECT_SERVER:: Result: %d, IP: %s, Port: %d ",
-            packet->m_lsv_SELECT_SERVER.m_btResult, szServerIP,
-            *pServerPort);
+            result, szServerIP, wPort);
 
   this->DisconnectFromServer( NS_DIS_FORM_LSV );
 
   // 임시
   // DestroyWaitDlg();
 
-  return packet->m_lsv_SELECT_SERVER.m_dwIDs[1];
+  return packet.get_cryptVal();
 }
 
 //-------------------------------------------------------------------------------------------------
-int     CRecvPACKET::Recv_srv_JOIN_SERVER_REPLY(t_PACKET* packet) {
+int     CRecvPACKET::Recv_srv_JOIN_SERVER_REPLY(RoseCommon::Packet::SrvJoinServerReply&& packet) {
   char* szResult[] = {
     "RESULT_JOIN_SERVER_OK", "RESULT_JOIN_SERVER_FAILED",
     "RESULT_JOIN_SERVER_TIME_OUT",
@@ -485,16 +479,15 @@ int     CRecvPACKET::Recv_srv_JOIN_SERVER_REPLY(t_PACKET* packet) {
     "RESULT_JOIN_SERVER_ALREADY_LOGGEDIN"
   };
 
+  const uint8_t result = packet.get_result();
   LogString(LOG_DEBUG, "Recv_srv_JOIN_SERVER_REPLY:: Result: %d [ %s ]",
-            packet->m_srv_JOIN_SERVER_REPLY.m_btResult,
-            szResult[packet->m_srv_JOIN_SERVER_REPLY.m_btResult]);
+            result, result < _countof( szResult ) ? szResult[result] : "?");
 
-  if ( RESULT_JOIN_SERVER_OK !=
-       packet->m_srv_JOIN_SERVER_REPLY.m_btResult ) {
+  if ( RESULT_JOIN_SERVER_OK != result ) {
     return 0;
   }
 
-  return packet->m_srv_JOIN_SERVER_REPLY.m_dwID;
+  return packet.get_id();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -504,7 +497,7 @@ void CRecvPACKET::Recv_gsv_INIT_DATA(t_PACKET* packet) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void            CRecvPACKET::Recv_wsv_CHAR_LIST(t_PACKET* packet) {
+void            CRecvPACKET::Recv_wsv_CHAR_LIST(RoseCommon::Packet::SrvCharListReply&& packet) {
   CSelectAvata* pSelectAvata =
     (CSelectAvata *)g_EUILobby.GetEUI( EUI_SELECT_AVATA );
 
@@ -518,14 +511,14 @@ void            CRecvPACKET::Recv_wsv_CHAR_LIST(t_PACKET* packet) {
     CGame::GetInstance().ChangeState( CGame::GS_SELECTAVATAR );
 }
 
-bool CRecvPACKET::Recv_wsv_CREATE_CHAR(t_PACKET* packet) {
+bool CRecvPACKET::Recv_wsv_CREATE_CHAR(RoseCommon::Packet::SrvCreateCharReply&& packet) {
 
   CCreateAvata* pCreateAvata =
     (CCreateAvata *)g_EUILobby.GetEUI( EUI_CREATE_AVATA );
   if ( pCreateAvata == nullptr )
     return false;
 
-  if ( pCreateAvata->RecvCreateAvata( packet ) ) {
+  if ( pCreateAvata->RecvCreateAvata( packet.get_result() ) ) {
     g_EUILobby.CloseWaitJoinServerDlg();
     g_pNet->Send_cli_CHAR_LIST();
     return true;
@@ -4053,34 +4046,26 @@ void CRecvPACKET::Recv_GSV_SET_ITEM_LIFE(t_PACKET* packet) {
   }
 }
 
-void CRecvPACKET::Recv_lsv_CHANNEL_LIST_REPLY(t_PACKET* packet) {
+void CRecvPACKET::Recv_lsv_CHANNEL_LIST_REPLY(RoseCommon::Packet::SrvChannelListReply&& packet) {
 
-  DWORD worldserver_id = packet->m_lsv_CHANNEL_LIST_REPLY.m_dwServerID;
+  DWORD worldserver_id = packet.get_id();
   CServerList::GetInstance().ClearChannelServerList( worldserver_id );
 
-  short nOffset = sizeof( lsv_CHANNEL_LIST_REPLY );
-
-  if ( packet->m_lsv_CHANNEL_LIST_REPLY.m_btChannelCNT > 0 ) {
-    tagCHANNEL_SRV* pChannel        = nullptr;
-    char*           pszChannelName  = nullptr;
-    int             iFirstChannelNo = 0;
-    for ( int       i               = 0; i < packet->m_lsv_CHANNEL_LIST_REPLY.m_btChannelCNT;
-          ++i ) {
-      pChannel = (tagCHANNEL_SRV *)Packet_GetDataPtr( packet, nOffset,
-                                                      sizeof( tagCHANNEL_SRV ) );
+  // get_channels() and a channel's get_name() return copies: keep them.
+  const std::vector<RoseCommon::Packet::SrvChannelListReply::ChannelInfo> channels = packet.get_channels();
+  if ( !channels.empty() ) {
+    for ( const auto& channel : channels ) {
       //			if(CGame::GetInstance().GetRight() >=
       //pChannel->m_dwRight)
       {
-        pszChannelName = Packet_GetStringPtr( packet, nOffset );
-        if ( !pszChannelName )
-          pszChannelName = CStr::Printf( "Channel-%d", pChannel->m_btChannelNO );
+        const std::string name           = channel.get_name();
+        const char*       pszChannelName = name.c_str();
+        if ( name.empty() )
+          pszChannelName = CStr::Printf( "Channel-%d", channel.get_id() );
 
         CServerList::GetInstance().AddChannelServerList(
-          worldserver_id, pChannel->m_btChannelNO, pszChannelName,
-          pChannel->m_nUserPERCENT );
-
-        if ( i == 0 )
-          iFirstChannelNo = pChannel->m_btChannelNO;
+          worldserver_id, channel.get_id(), pszChannelName,
+          static_cast<short>( channel.get_capacity() ) );
       }
     }
     g_EUILobby.HideMsgBox();
@@ -4832,20 +4817,17 @@ void CRecvPACKET::Recv_gsv_LOGOUT_REPLY(t_PACKET* packet) {
   g_itMGR.ChangeState( IT_MGR::STATE_WAITDISCONNECT );
 }
 
-void    CRecvPACKET::Recv_wsv_DELETE_CHAR(t_PACKET* packet) {
-  short nOffset = (short)sizeof( wsv_DELETE_CHAR );
-  char* szName  = Packet_GetStringPtr( packet, nOffset );
-
-  CJustModelAVT* pAVT = CGameDataCreateAvatar::GetInstance().FindAvatar( szName );
+void    CRecvPACKET::Recv_wsv_DELETE_CHAR(RoseCommon::Packet::SrvDeleteCharReply&& packet) {
+  const DWORD    dwRemain = packet.get_remainingTime();
+  CJustModelAVT* pAVT     = CGameDataCreateAvatar::GetInstance().FindAvatar( packet.get_name().c_str() );
   assert(pAVT);
   if ( pAVT ) {
-    if ( packet->m_wsv_DELETE_CHAR.m_dwDelRemainTIME == 0xFFFFFFFF ) {
+    if ( dwRemain == 0xFFFFFFFF ) {
       g_EUILobby.ShowMsgBox( STR_CLAN_CANT_DELETE_CLANMASTER, CTMsgBox::BT_OK,
                              true, EUI_SELECT_AVATA );
     } else {
-      pAVT->SetDeleteRemainSEC(
-        packet->m_wsv_DELETE_CHAR.m_dwDelRemainTIME );
-      if ( packet->m_wsv_DELETE_CHAR.m_dwDelRemainTIME ) {
+      pAVT->SetDeleteRemainSEC( dwRemain );
+      if ( dwRemain ) {
         pAVT->SwitchState( CJustModelAVT::STATE_SITDOWN );
       } else {
         pAVT->SwitchState( CJustModelAVT::STATE_STANDUP );

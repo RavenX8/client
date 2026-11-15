@@ -22,6 +22,8 @@ endif()
 
 add_executable(ClientPacketTests packets/semantic_vectors_test.cpp)
 target_link_libraries(ClientPacketTests PRIVATE osirose_common::osirose_common GTest::gtest_main)
+# The client's header-only helpers for the generated packets (no game headers).
+target_include_directories(ClientPacketTests PRIVATE ${CMAKE_SOURCE_DIR}/src/client/src/Network)
 target_compile_definitions(ClientPacketTests PRIVATE ROSE_SEMANTIC_VECTORS="${ROSE_SEMANTIC_VECTORS}")
 set_property(TARGET ClientPacketTests PROPERTY FOLDER "Tests")
 if(TARGET openssl_runtime)

@@ -7,6 +7,7 @@
 #include "tgamectrl/TDialog.h"
 
 struct t_PACKET;
+namespace RoseCommon { namespace Packet { class SrvCharListReply; } }
 
 /**
 * 캐릭터 선택창에서 사용되는 인터페이스
@@ -31,7 +32,7 @@ public:
   void Show() override;
 
   void SendSelectAvataReq();
-  void RecvAvataList(t_PACKET* recvPacket);
+  void RecvAvataList(const RoseCommon::Packet::SrvCharListReply& packet);
 
   enum {
     IID_BTN_CREATE = 10,

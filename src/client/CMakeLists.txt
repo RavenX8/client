@@ -333,6 +333,7 @@ set( SOURCES_HEADER
   src/LUA_Func.h
   src/Misc/GameUtil.h
   src/Network/CNetwork.h
+  src/Network/GeneratedItems.h
   src/Network/GeneratedPackets.h
   src/Network/RecvPACKET.h
   src/Network/SendPACKET.h
