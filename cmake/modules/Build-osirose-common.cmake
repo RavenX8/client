@@ -46,3 +46,23 @@ if(NOT TARGET osirose_common)
           ALIAS osirose_common
   )
 endif()
+
+# ---------------------------------------------------------------------------
+# The OpenSSL DLLs the client (and its tests) load at run time, copied into
+# bin/ next to them. Found from the headers find_package(OpenSSL) used:
+# <OpenSSL>/include -> <OpenSSL>/bin (e.g. libssl-4-x64.dll, libcrypto-4-x64.dll).
+# ---------------------------------------------------------------------------
+if(ENABLE_SSL AND WIN32)
+  get_filename_component(_openssl_bin "${OPENSSL_INCLUDE_DIR}/../bin" ABSOLUTE)
+  file(GLOB OPENSSL_RUNTIME_DLLS "${_openssl_bin}/libssl-*.dll" "${_openssl_bin}/libcrypto-*.dll")
+  if(OPENSSL_RUNTIME_DLLS)
+    add_custom_target(openssl_runtime ALL
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${OPENSSL_RUNTIME_DLLS} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        COMMENT "Copying the OpenSSL DLLs to ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+        VERBATIM
+    )
+  else()
+    message(WARNING "ENABLE_SSL: no libssl-*.dll / libcrypto-*.dll in ${_openssl_bin}; copy them next to TRose.exe by hand")
+  endif()
+endif()
