@@ -5159,8 +5159,9 @@ void CRecvPACKET::Recv_wsv_CLAN_COMMAND(t_PACKET* packet) {
     case RESULT_CLAN_ROSTER: //				0x032		// 길드
       //리스트
     {
+      // One of maybe several packets: the list was cleared when it was asked
+      // for (CClan::RequestMemberList), each packet adds to it.
       CClan& Clan = CClan::GetInstance();
-      Clan.ClearMemberlist();
 
       short            nOffset     = sizeof( wsv_CLAN_COMMAND );
       tag_CLAN_MEMBER* pMember     = nullptr;

@@ -264,6 +264,10 @@ int CClan::GetClass() {
 }
 
 void CClan::RequestMemberList() {
+  // The server may answer in several RESULT_CLAN_ROSTER packets (a big clan
+  // does not fit in one): the list starts empty here, and each packet adds
+  // its members.
+  ClearMemberlist();
   g_pNet->Send_cli_CLAN_COMMAND( GCMD_ROSTER, nullptr );
 }
 
