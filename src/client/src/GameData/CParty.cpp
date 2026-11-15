@@ -385,21 +385,8 @@ void CParty::Update() {
   if ( dwTimeSpace && (dwTimeSpace > c_iAutoExpDecreaseTimeSpace) )
     SetExp( m_iCurrExp - (GetAutoDecreaseExp( m_iLevel, GetMemberCount() ) * dwTimeSpace) / c_iAutoExpDecreaseTimeSpace );
 
-  /// 이하 내가 파티장일경우에만 처리하는 부분
-  if ( !IsPartyLeader() ) return;
-  std::list<PartyMember>::iterator iter;
-  for ( iter = m_Members.begin(); iter != m_Members.end(); ++iter ) {
-    if ( iter->m_Info.m_wObjectIDX == 0 ) {
-      if ( dwCurrTime - iter->m_dwDisconnectedTime > 5 * 60 * 1000 ) {
-        ///서버에게 Ban하도록 요청한다.
-        if ( iter->m_Info.m_dwUserTAG == g_pAVATAR->GetUniqueTag() )
-          continue;
-
-        CTCmdSendPacketPartyReq Command( PARTY_REQ_BAN, iter->m_Info.m_dwUserTAG );
-        Command.Exec( nullptr );
-      }
-    }
-  }
+  // Members who lost their connection are kept, and taken out after a
+  // grace, by the server; the leader's client no longer asks for it.
 }
 
 //*-----------------------------------------------------------------------------------//
