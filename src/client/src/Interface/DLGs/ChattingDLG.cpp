@@ -736,9 +736,14 @@ int CChatDLG::GetActiveScrollBar() {
 }
 
 void CChatDLG::AppendMsg2sys(const char* pszMsg, DWORD dwColor, int iFilterType) {
-#ifndef _DEBUG
-  AppendMsg2ListBox( IDD_LISTBOX_TOP, IDD_SCROLLBAR_TOP, pszMsg, dwColor );
-#endif
+  // System lines (items picked up, quest rewards, notices) have a box of
+  // their own only when the dialog's XML has one; DLGCHAT.XML has none, so
+  // they go to the tabs that show system messages.
+  if ( Find( IDD_LISTBOX_TOP ) ) {
+    AppendMsg2ListBox( IDD_LISTBOX_TOP, IDD_SCROLLBAR_TOP, pszMsg, dwColor );
+    return;
+  }
+  AppendMsg( pszMsg, dwColor, iFilterType );
 }
 
 void CChatDLG::AppendMsg2All(const char* pszMsg, DWORD dwColor, int iFilterType) {
