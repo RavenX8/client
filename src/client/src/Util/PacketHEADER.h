@@ -4,7 +4,9 @@
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
-#define	MAX_PACKET_SIZE			( (size_t)1024 )
+// The protocol's limit (an 11-bit size), as the server and the packets
+// library use it; 1024 made the client drop larger packets.
+#define	MAX_PACKET_SIZE			( (size_t)0x7FF )
 
 #pragma pack (push, 1)
 #ifndef	__T_PACKETHEADER
