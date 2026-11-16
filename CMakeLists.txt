@@ -88,6 +88,7 @@ option(DISABLE_CRYPT "Disable XOR packet encryption (plain-text packets)" OFF)
 
 include(Build-ogg)
 include(Build-lua)
+include(Build-lua40)
 include(Build-zlib)
 include(Build-expat)
 include(Build-ijl15) # This doesn't actually build anything, just sets up the target

@@ -489,6 +489,7 @@ set( SOURCES_MAIN
   src/CViewMSG.cpp
   src/Debug.cpp
   src/Event/CEvent.cpp
+  src/Event/Lua40Event.cpp
   src/Event/GF_EFFECT.CPP
   src/Event/GF_ITEM.CPP
   src/Event/GF_SYSTEM.CPP
@@ -830,6 +831,9 @@ set( RESOURCE_FILES
 set_source_files_properties(${RESOURCE_FILES} PROPERTIES LANGUAGE RC)
 add_executable(${PROJECT} src/StdAfx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${GEN_HEADERS} ${RESOURCE_FILES})
 target_precompile_headers(${PROJECT} PRIVATE "src/StdAfx.h")
+# Lua 4.0 (event scripts): the precompiled header brings in Lua 5.4, whose
+# include guards are the same.
+set_source_files_properties(src/Event/Lua40Event.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TRose_d")
 set_target_properties(${PROJECT} PROPERTIES WIN32_EXECUTABLE true)
 
@@ -839,7 +843,7 @@ if (NOT 64BIT)
     target_link_libraries(${PROJECT} PRIVATE unicows.lib)
 endif()
 target_link_libraries(${PROJECT} PRIVATE wsock32.lib ws2_32.lib)
-target_link_libraries(${PROJECT} PRIVATE lua::lua5)
+target_link_libraries(${PROJECT} PRIVATE lua::lua5 lua40)
 #target_link_libraries(${PROJECT} PRIVATE ultralight::ultralight)
 target_link_libraries(${PROJECT} PRIVATE utils::zlib)
 target_link_libraries(${PROJECT} PRIVATE utils::expat)

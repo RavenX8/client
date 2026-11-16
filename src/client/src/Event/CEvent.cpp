@@ -117,7 +117,7 @@ CEvent::CEvent(int iEventDlgType) {
   m_iLuaDataLEN = 0;
   m_pLuaDATA    = nullptr;
 
-  m_pLUA = nullptr;
+  m_pScript = nullptr;
 
   m_iEventDlgType = iEventDlgType;
 
@@ -127,7 +127,7 @@ CEvent::CEvent(int iEventDlgType) {
 CEvent::~CEvent() {
   Del_ClickITEMS();
 
-  SAFE_DELETE( m_pLUA );
+  lua40::Close( m_pScript );
 
   // 메모리는 ~xxx에서 풀림..
   SAFE_DELETE_ARRAY( m_pScrDATA );
@@ -539,7 +539,7 @@ short CEvent::Conversation(int iMenuIDX) {
     fpCheck = m_pScrDATA[iMenuIDX].m_pScrITEM[nI].m_CheckFunc.Get();
 
     if ( fpCheck ) {
-      int iResult = lua_CallIntFUNC( m_pLUA->m_pState, fpCheck, ZZ_PARAM_INT, this, ZZ_PARAM_END );
+      int iResult = lua40::CallInt( m_pScript, fpCheck, this );
 
       if ( iResult < 1 ) {
         LogString (LOG_DEBUG, "SKIP MENU %d / %d :: [%s], [%s] \n", iMenuIDX, nI, m_pScrDATA[iMenuIDX].m_pScrITEM[nI].m_Message.Get(), fpCheck);
@@ -601,31 +601,28 @@ short CEvent::Conversation(int iMenuIDX) {
 bool  CEvent::Start(short nEventIDX) {
   int iResult;
 
-  SAFE_DELETE( m_pLUA );
+  lua40::Close( m_pScript );
 
-  m_pLUA = new classLUA;
+  // The scripts are Lua 4.0 bytecode (Lua40Event.h).
+  m_pScript = lua40::Open();
 
-  iResult = m_pLUA->Do_Buffer( m_pLuaDATA, m_iLuaDataLEN );
+  iResult = lua40::Run( m_pScript, m_pLuaDATA, m_iLuaDataLEN, "event" );
   //	iResult = m_pLUA->Do_String( m_pLuaDATA );
   //iResult = m_pLUA->Do_File( "C:\\solutions\\bctools\\scrdata\\testbin.lub" );
-  switch ( iResult ) {
-      // error codes for lua_do* 
-    case LUA_ERRRUN:
-    case LUA_ERRFILE:   // 2
-    case LUA_ERRSYNTAX: // 3
-    case LUA_ERRMEM:
-    case LUA_ERRERR:
+  // Lua 4.0's error codes differ from 5.4's LUA_ERR*: any is a failure.
+  if ( iResult != 0 ) {
       LogString (LOG_DEBUG, "Script File ERROR[ %d ] %s \n", iResult, m_pLuaDATA);
       DevLog( "event script error %d (%d bytes)", iResult, m_iLuaDataLEN );
-      SAFE_DELETE( m_pLUA );
+      lua40::Close( m_pScript );
+      m_pScript = nullptr;
       return false;
   }
 
-  QF_Init( m_pLUA->m_pState );
+  // Its functions were registered by lua40::Open (as QF_Init does).
 
   // 각 상황에 맞는 이벤트 처리...
   if ( nEventIDX >= 0 && nEventIDX < NUM_EVENT ) {
-    iResult = lua_CallIntFUNC( m_pLUA->m_pState, m_EventFUNC[nEventIDX].Get(), ZZ_PARAM_INT, this, ZZ_PARAM_END );
+    iResult = lua40::CallInt( m_pScript, m_EventFUNC[nEventIDX].Get(), this );
     if ( iResult < 1 ) {
       LogString (LOG_DEBUG, "SKIP EventIdxFUNC [%d: %s return %d], [%s] \n", nEventIDX, m_EventFUNC[nEventIDX].Get(), iResult);
       return false;
@@ -636,7 +633,7 @@ bool  CEvent::Start(short nEventIDX) {
   // 대화 이벤트 처리...
   char* szCheckFunc = m_pScrMSG[0].m_CheckFunc.Get();
   if ( szCheckFunc ) {
-    iResult = lua_CallIntFUNC( m_pLUA->m_pState, szCheckFunc, ZZ_PARAM_INT, this, ZZ_PARAM_END );
+    iResult = lua40::CallInt( m_pScript, szCheckFunc, this );
     if ( iResult < 1 ) {
       LogString (LOG_DEBUG, "SKIP Event [%s return %d], [%s] \n", szCheckFunc, iResult);
       DevLog( "event check %s returned %d", szCheckFunc, iResult );
@@ -656,7 +653,7 @@ bool  CEvent::Start(short nEventIDX) {
 bool    CEvent::End() {
   char* fpCheck = m_pScrMSG[0].m_ClickFunc.Get();
   if ( fpCheck ) {
-    int iResult = lua_CallIntFUNC( m_pLUA->m_pState, fpCheck, ZZ_PARAM_INT, this, ZZ_PARAM_END );
+    int iResult = lua40::CallInt( m_pScript, fpCheck, this );
     if ( iResult >= 1 ) {
       return true;
     }
@@ -689,7 +686,7 @@ void CEvent::Click_ITEM(int iHandle) {
   LogString (LOG_DEBUG, " ClickMENU : %d  call: %s \n", pClickItemNODE->DATA.m_pScrITEM->m_lChildDataIDX, fpClick);
 
   if ( fpClick ) {
-    int iResult = lua_CallIntFUNC( pClickItemNODE->DATA.m_pEVENT->m_pLUA->m_pState, fpClick, ZZ_PARAM_INT, pClickItemNODE->DATA.m_pEVENT, ZZ_PARAM_END );
+    int iResult = lua40::CallInt( pClickItemNODE->DATA.m_pEVENT->m_pScript, fpClick, pClickItemNODE->DATA.m_pEVENT );
     if ( iResult < 1 )
     LogString (LOG_DEBUG, "click %s call failed \n", fpClick);
   }

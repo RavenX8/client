@@ -4,6 +4,7 @@
 #ifndef	__CEVENT_H
 #define	__CEVENT_H
 #include "../Util/classLUA.h"
+#include "Lua40Event.h"
 
 //-------------------------------------------------------------------------------------------------
 
@@ -77,7 +78,7 @@ private:
   char* m_pLuaDATA;
 
   t_HASHKEY                 m_HashKEY;
-  classLUA*                 m_pLUA;
+  lua40::Script*            m_pScript; // its Lua 4.0 state (Lua40Event.h)
   classDLLIST<tagEventITEM> m_EventITEM;
 
   CStrVAR m_EventFUNC[ 16 ];
