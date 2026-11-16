@@ -31,6 +31,22 @@ CGameStateLogin::CGameStateLogin(int iID) {
 CGameStateLogin::~CGameStateLogin(void) { }
 
 int CGameStateLogin::Update(bool bLostFocus) {
+  // A token login that failed closes the game after a while (ExitAfter),
+  // counting down in its message box; OK closes it at once.
+  if ( g_GameDATA.m_dwExitAt ) {
+    DWORD now = g_GameDATA.GetGameTime();
+    if ( now >= g_GameDATA.m_dwExitAt ) {
+      g_GameDATA.m_dwExitAt = 0;
+      g_pCApp->SetExitGame();
+    } else {
+      static int shown = -1;
+      int left = (int)((g_GameDATA.m_dwExitAt - now + 999) / 1000);
+      if ( left != shown ) {
+        shown = left;
+        g_EUILobby.SetMsgBoxText( CStr::Printf( "%s (closing in %d s)", g_GameDATA.m_ExitText.c_str(), left ) );
+      }
+    }
+  }
   g_EUILobby.Update();
 
   g_pCamera->Update();
@@ -155,6 +171,12 @@ int CGameStateLogin::Leave(int iNextStateID) {
 
 void CGameStateLogin::ServerDisconnected() {
   //g_EUILobby.ServerDisconnected();
+  // With a token there is no login form to go back to: say so, OK exits, and
+  // the game closes by itself after 30 seconds (unless a refusal said it first).
+  if ( g_GameDATA.m_bDirectLogin && !g_GameDATA.m_dwExitAt ) {
+    g_EUILobby.ShowMsgBox( STR_LOGIN_FAIL, CTMsgBox::BT_OK, true, EUI_LOGIN, new CTCmdExit );
+    g_GameDATA.ExitAfter( 30 * 1000, STR_LOGIN_FAIL );
+  }
 }
 
 void CGameStateLogin::AcceptedConnectLoginSvr() {

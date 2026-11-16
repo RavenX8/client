@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "ExternalUILobby.h"
 
 #include "IO_Terrain.h"
@@ -199,7 +200,7 @@ void CExternalUILobby::Draw() {
   ::drawSprite( hBG, 
           NULL,
           NULL,
-          &D3DXVECTOR3( 0, 0, 0 ),								
+          rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),								
           D3DCOLOR_RGBA( 255, 255, 255, 255 ) );*/
 
   if ( !g_GameDATA.m_bNoUI ) {
@@ -254,6 +255,11 @@ void CExternalUILobby::ShowMsgBox(char* szMsg, short int iButtonType, bool bModa
 
     m_pMsgBox->MoveWindow( pt );
   }
+}
+
+void CExternalUILobby::SetMsgBoxText(const char* szMsg) {
+  if ( m_pMsgBox )
+    m_pMsgBox->SetString( szMsg );
 }
 
 void CExternalUILobby::HideMsgBox() {

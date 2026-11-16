@@ -248,6 +248,17 @@ void    CRecvPACKET::Recv_gsv_ANNOUNCE_CHAT(t_PACKET* packet) {
 }
 
 //-------------------------------------------------------------------------------------------------
+/// A login refused. With a token (_direct) there is no login form to go back
+/// to: OK exits, and the game closes by itself after 30 seconds.
+static void LoginRefused(char* text, CLogin* pLogin) {
+  if ( g_GameDATA.m_bDirectLogin ) {
+    g_EUILobby.ShowMsgBox( text, CTMsgBox::BT_OK, true, pLogin->GetDialogType(), new CTCmdExit );
+    g_GameDATA.ExitAfter( 30 * 1000, text );
+  } else {
+    g_EUILobby.ShowMsgBox( text, CTMsgBox::BT_OK, true, pLogin->GetDialogType() );
+  }
+}
+
 bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& packet) {
   CLogin* pLogin = (CLogin *)g_EUILobby.GetEUI( EUI_LOGIN );
 
@@ -270,51 +281,39 @@ bool      CRecvPACKET::Recv_lsv_LOGIN_REPLY(RoseCommon::Packet::SrvLoginReply&& 
   if (Result::OK != btResult) {
     switch ( btResult ) {
       case Result::NO_RIGHT_TO_CONNECT:
-        g_EUILobby.ShowMsgBox(STR_LOGIN_REPLY_NO_RIGHT_TO_CONNECT,
-                              CTMsgBox::BT_OK, true, pLogin->GetDialogType());
+        LoginRefused(STR_LOGIN_REPLY_NO_RIGHT_TO_CONNECT, pLogin);
         return false;
       case Result::FAILED: // Error
-        g_EUILobby.ShowMsgBox(STR_COMMON_ERROR, CTMsgBox::BT_OK, true,
-                              pLogin->GetDialogType());
+        LoginRefused(STR_COMMON_ERROR, pLogin);
         return false;
       case Result::UNKNOWN_ACCOUNT: // No account
-        g_EUILobby.ShowMsgBox(STR_NOT_FOUND_ACCOUNT, CTMsgBox::BT_OK, true,
-                              pLogin->GetDialogType());
+        LoginRefused(STR_NOT_FOUND_ACCOUNT, pLogin);
         return false;
       case Result::INVALID_PASSWORD: // Off-time error
-        g_EUILobby.ShowMsgBox(STR_INVALID_PASSWORD, CTMsgBox::BT_OK, true,
-                              pLogin->GetDialogType());
+        LoginRefused(STR_INVALID_PASSWORD, pLogin);
         return false;
       case Result::ALREADY_LOGGEDIN: // 이미 로그인 중이다
-        g_EUILobby.ShowMsgBox(STR_ALREADY_LOGGEDIN, CTMsgBox::BT_OK, true,
-                              pLogin->GetDialogType());
+        LoginRefused(STR_ALREADY_LOGGEDIN, pLogin);
         return false;
       case Result::REFUSED_ACCOUNT: // 서버에서 거부된 계정이다.혹은
         // 블럭된 계정입니다.
-        g_EUILobby.ShowMsgBox(STR_REFUSED_ACCOUNT, CTMsgBox::BT_OK, true,
-                              pLogin->GetDialogType());
+        LoginRefused(STR_REFUSED_ACCOUNT, pLogin);
         return false;
       case Result::NEED_CHARGE: // 충전이 필요한다
-        g_EUILobby.ShowMsgBox(STR_BILL_AT_ROSEONLINE_HOMEPAGE, CTMsgBox::BT_OK,
-                              true,
-                              pLogin->GetDialogType()); //로즈온라인 홈페이지에서
+        LoginRefused(STR_BILL_AT_ROSEONLINE_HOMEPAGE, pLogin); //로즈온라인 홈페이지에서
         //결제 신청을 해주세요~
         return false;
       case Result::TOO_MANY_USERS:
-        g_EUILobby.ShowMsgBox(STR_LOGIN_REPLY_TOO_MANY_USER, CTMsgBox::BT_OK,
-                              true, pLogin->GetDialogType());
+        LoginRefused(STR_LOGIN_REPLY_TOO_MANY_USER, pLogin);
         return false;
       case Result::NO_NAME:
-        g_EUILobby.ShowMsgBox(STR_RESULT_LOGIN_REPLY_NO_REAL_NAME,
-                              CTMsgBox::BT_OK, true, pLogin->GetDialogType());
+        LoginRefused(STR_RESULT_LOGIN_REPLY_NO_REAL_NAME, pLogin);
         return false;
       case Result::OUTSIDE_REGION:
-        g_EUILobby.ShowMsgBox(STR_INSUFFICIENCY_IP, CTMsgBox::BT_OK, true,
-                              pLogin->GetDialogType()); //"접속 가능한 ip 수가 초과 되었습니다"
+        LoginRefused(STR_INSUFFICIENCY_IP, pLogin); //"접속 가능한 ip 수가 초과 되었습니다"
         return false;
       default:
-        g_EUILobby.ShowMsgBox("Login Failed", CTMsgBox::BT_OK, true,
-                              pLogin->GetDialogType());
+        LoginRefused("Login Failed", pLogin);
         return false;
     }
   }

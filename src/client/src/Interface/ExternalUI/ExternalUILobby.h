@@ -89,6 +89,8 @@ public:
   bool ShowDialog(int iType);
   bool HideDialog(int iType);
 
+  /// The open message box's text, its buttons and commands kept.
+  void SetMsgBoxText(const char* szMsg);
   void ShowMsgBox(char* szMsg, short int iButtonType, bool bModal, unsigned int iInvorkerDlgType, CTCommand* pCmdOk = nullptr, CTCommand* pCmdCancel = nullptr);
   void ShowWaitMsgBox();
   void HideMsgBox();

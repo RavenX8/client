@@ -90,6 +90,15 @@ public:
   bool  m_bDisplayDebugInfo;
   float m_fTestVal;
   bool  m_bDirectLogin;
+  /// Game time (ms) at which a token login that failed closes the game; 0: none.
+  DWORD m_dwExitAt = 0;
+  /// What the message box says meanwhile; the countdown is shown after it.
+  std::string m_ExitText;
+  /// With a token there is no login form to fall back to: close in `ms`.
+  void ExitAfter(DWORD ms, const char* text) {
+    m_dwExitAt = GetGameTime() + ms;
+    m_ExitText = text ? text : "";
+  }
   bool  m_bForOpenTestServer;
 
   int  m_iTemp;
