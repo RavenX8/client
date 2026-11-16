@@ -1626,7 +1626,9 @@ void CSendPACKET::Send_cli_CHATROOM_MSG(char* pszMsg) {
   assert( strlen( pszMsg ) >= 1 );
   if ( strlen( pszMsg ) < 1 ) return;
 
-  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM);
+  // A room message is its own packet (the room command was sent, its first
+  // byte read as a command).
+  m_pSendPacket->m_HEADER.m_wType = to_underlying(ePacketType::PAKCS_CHATROOM_MESSAGE);
   m_pSendPacket->m_HEADER.m_nSize = sizeof( cli_CHATROOM_MSG );
   Packet_AppendString( m_pSendPacket, pszMsg );
   this->Send_PACKET( m_pSendPacket, true );

@@ -244,7 +244,8 @@ void CCommDlg::Show() {
   LoadMemoFromDB();
 
   ClearChatRoomList();
-  //g_pNet->Send_cli_CHAT_ROOM_LIST( 0, 0 );
+  // The rooms to join (never asked for before, so none could be joined).
+  g_pNet->Send_cli_CHAT_ROOM_LIST( 0, 0 );
   if ( CCountry::GetSingleton().IsJapan() ) {
     if ( !(CGame::GetInstance().GetPayType() & PLAY_FLAG_COMMUNITY) ) {
       CWinCtrl* pCtrl = Find( IID_TABBEDPANE );

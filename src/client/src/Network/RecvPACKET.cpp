@@ -4139,15 +4139,10 @@ void CRecvPACKET::Recv_wsv_CHATROOM(t_PACKET* packet) {
       break;
 
     case CHAT_REPLY_KICKED: {
-      if ( g_pAVATAR ) {
-        // CHAT_REPLY_USER_LEFT와 같은 구조... 쫏겨난 사람한테만 온다.. 다른
-        // 사람한데는 CHAT_REPLY_USER_LEFT로 전송됨
-        if ( g_pObjMGR->Get_ServerObjectIndex( g_pAVATAR->Get_INDEX() ) ==
-             packet->m_wsv_CHAT_ROOM_USER.m_wUserID ) {
-          CChatRoom::GetInstance().Leave();
-          g_itMGR.AppendChatMsg( STR_CHAT_REPLY_KICKED, IT_MGR::CHAT_TYPE_SYSTEM );
-        }
-      }
+      // Only the kicked member is told (the id is its id in the room, not
+      // its object index, which this compared before).
+      CChatRoom::GetInstance().Leave();
+      g_itMGR.AppendChatMsg( STR_CHAT_REPLY_KICKED, IT_MGR::CHAT_TYPE_SYSTEM );
       break;
     }
     case CHAT_REPLY_USER_LEFT: {
