@@ -12,12 +12,15 @@ const BYTE g_btSwitchBitMask[8] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x
 
 typedef short t_qstvar;
 
+// Packed as a whole: a pack inside the class body is applied by MSVC but
+// not by clang-cl, which then padded m_wID (68 bytes, not the 66 the server
+// sends) and misread the quest data and wish list.
+#pragma pack (push, 1)
 class CQUEST {
 private:
   enum { BIT_SHIFT=3, WHICH_BIT=0x07 };
 
   // Total 2 + 2 + 2*10 + 1*4 = 28 bytes !!!
-#pragma pack (push, 1)
   WORD     m_wID;
   DWORD    m_dwExpirationTIME;            // 만기 시간...	0이면 무제한
   t_qstvar m_pVAR[ QUEST_VAR_PER_QUEST ]; // 10개 변수
@@ -27,7 +30,6 @@ private:
   };
 
   tagBaseITEM m_ITEMs[ QUEST_ITEM_PER_QUEST ];
-#pragma pack (pop)
 
   void ClearAllSwitch();
   BYTE GetBit(int   iIndex);
@@ -58,6 +60,7 @@ public :
   bool         SubITEM(tagITEM& sITEM);
   bool         AddITEM(tagITEM& sITEM);
 };
+#pragma pack (pop)
 
 //-------------------------------------------------------------------------------------------------
 #endif
