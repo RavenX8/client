@@ -2,6 +2,7 @@
   $Header: /Client/CObjCHAR.cpp 652   05-10-20 2:46p Gioend $  
 */
 #include "StdAfx.h"
+#include "Util/CrashLog.h"
 #include "Game.h"
 #include "OBJECT.h"
 #include "BULLET.H"
@@ -3872,6 +3873,7 @@ bool        CObjMOB::Check_EVENT(CGameOBJ* pSourOBJ, short nEventIDX) {
     pGameObj = (CGameOBJ*)((CObjCART*)pSourOBJ)->GetParent();
   }
 
+  DevLog( "npc %d clicked: conversation %d, by a user %d", m_nCharIdx, m_nQuestIDX, pGameObj->IsA( OBJ_USER ) ? 1 : 0 );
   if ( pGameObj->IsA( OBJ_USER ) &&
        m_nQuestIDX ) {
     return g_pEventLIST->Run_EVENT( this->Get_INDEX(), m_nQuestIDX, nEventIDX );

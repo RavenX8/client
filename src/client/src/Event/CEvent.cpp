@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "../Util/CrashLog.h"
 
 #include <fcntl.h>
 #include <io.h>
@@ -615,6 +616,7 @@ bool  CEvent::Start(short nEventIDX) {
     case LUA_ERRMEM:
     case LUA_ERRERR:
       LogString (LOG_DEBUG, "Script File ERROR[ %d ] %s \n", iResult, m_pLuaDATA);
+      DevLog( "event script error %d (%d bytes)", iResult, m_iLuaDataLEN );
       SAFE_DELETE( m_pLUA );
       return false;
   }
@@ -637,11 +639,13 @@ bool  CEvent::Start(short nEventIDX) {
     iResult = lua_CallIntFUNC( m_pLUA->m_pState, szCheckFunc, ZZ_PARAM_INT, this, ZZ_PARAM_END );
     if ( iResult < 1 ) {
       LogString (LOG_DEBUG, "SKIP Event [%s return %d], [%s] \n", szCheckFunc, iResult);
+      DevLog( "event check %s returned %d", szCheckFunc, iResult );
       return false;
     }
   }
 
   if ( !Conversation( 0 ) ) {
+    DevLog( "event conversation 0 did not open" );
     // 조건에 맞는 출력할것들이 없다...
     return false;
   }

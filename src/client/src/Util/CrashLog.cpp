@@ -5,6 +5,7 @@
 #include <dbghelp.h>
 #include <cstdio>
 #include <cstring>
+#include <cstdarg>
 
 #pragma comment(lib, "dbghelp.lib")
 
@@ -54,4 +55,19 @@ static LONG WINAPI WriteCrashLog(EXCEPTION_POINTERS* ep) {
 
 void InstallCrashLog() {
   SetUnhandledExceptionFilter( WriteCrashLog );
+}
+
+void DevLog(const char* fmt, ...) {
+  FILE* f = nullptr;
+  if ( fopen_s( &f, "client.log", "a" ) != 0 || !f )
+    return;
+  SYSTEMTIME t;
+  GetLocalTime( &t );
+  fprintf( f, "%02d:%02d:%02d.%03d ", t.wHour, t.wMinute, t.wSecond, t.wMilliseconds );
+  va_list args;
+  va_start( args, fmt );
+  vfprintf( f, fmt, args );
+  va_end( args );
+  fputc( '\n', f );
+  fclose( f );
 }

@@ -2,6 +2,7 @@
 	$Header: /Client/IO_Event.cpp 16    05-01-07 11:32a Jeddli $
 */
 #include "StdAfx.h"
+#include "Util/CrashLog.h"
 #include "Common/io_stb.h"
 #include "IO_Event.h"
 
@@ -49,6 +50,7 @@ void CEventLIST::Clear() {
 //-------------------------------------------------------------------------------------------------
 bool        CEventLIST::Run_EVENT(int iOwnerObjIDX, char* szQuestFILE, short nEventIDX, int iEventDlgType) {
   t_HASHKEY HashKEY = this->Add_EVENT( szQuestFILE );
+  DevLog( "event file %s: %s", szQuestFILE ? szQuestFILE : "(none)", HashKEY ? "loaded" : "not found" );
 
   if ( HashKEY ) {
     CEvent* pEvent;
@@ -62,6 +64,7 @@ bool        CEventLIST::Run_EVENT(int iOwnerObjIDX, char* szQuestFILE, short nEv
 
     pEvent->m_iOwnerObjIDX = iOwnerObjIDX;
     bool bReturn           = pEvent->Start( nEventIDX );
+    DevLog( "event %s started: %d", szQuestFILE, bReturn ? 1 : 0 );
 
     // if ( !bReturn )	this->Del_EVENT( HashKEY );
 
