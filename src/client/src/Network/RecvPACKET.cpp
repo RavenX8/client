@@ -830,6 +830,18 @@ void    CRecvPACKET::Recv_gsv_CHAT(t_PACKET* packet) {
 
   CObjAVT* pCHAR = g_pObjMGR->Get_ClientCharAVT(
     packet->m_gsv_CHAT.m_wObjectIDX, false );
+  if ( !pCHAR ) {
+    // An NPC or monster talking (quest reward 012, AI action 28): the
+    // original dropped it, looking among players only.
+    CObjCHAR* pNPC = g_pObjMGR->Get_ClientCharOBJ( packet->m_gsv_CHAT.m_wObjectIDX, false );
+    if ( pNPC && pNPC->Get_NAME() ) {
+      szMsg = Packet_GetStringPtr( packet, nOffset );
+      g_itMGR.AppendChatMsg( CStr::Printf( "%s>%s", pNPC->Get_NAME(), szMsg ),
+                             IT_MGR::CHAT_TYPE_ALL );
+      g_UIMed.AddChatMsg( packet->m_gsv_CHAT.m_wObjectIDX, szMsg );
+    }
+    return;
+  }
   if ( pCHAR ) {
     szMsg = Packet_GetStringPtr( packet, nOffset );
 
