@@ -385,6 +385,7 @@ set( SOURCES_HEADER
   src/Tutorial/TutorialEventManager.h
   src/Tutorial/TutorialEventUtility.h
   src/Util/ADSStream.h
+  src/Util/CrashLog.h
   src/Util/Arcfour/Arcfour.h
   #src/Util/BugGUARD.h
   src/Util/CBITArray.h
@@ -773,6 +774,7 @@ set( SOURCES_MAIN
   src/Tutorial/TutorialEventManager.cpp
   src/Tutorial/TutorialEventUtility.cpp
   src/Util/ADSStream.cpp
+  src/Util/CrashLog.cpp
   src/Util/Arcfour/Arcfour.cpp
   src/Util/CBITArray.cpp
   src/Util/CCheat.cpp

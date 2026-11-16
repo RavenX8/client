@@ -17,6 +17,7 @@
 //*-------------------------------------------------------------------------------------------------------------------*
 
 #include "StdAfx.h"
+#include "Util/CrashLog.h"
 
 #ifdef _DEBUG
 extern "C" { 
@@ -119,6 +120,10 @@ void Free_DEVICE() {
 
 //-------------------------------------------------------------------------------------------------
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+  // A crash writes crash.txt (stack as module+offset). "_crashtest" checks it.
+  InstallCrashLog();
+  if ( lpCmdLine && strstr( lpCmdLine, "_crashtest" ) )
+    *(volatile int*)nullptr = 0;
 #ifdef _DEBUG
   // This will check for memory leaks.  They will show up in your
   // output window along with the line number.  Replace the 
