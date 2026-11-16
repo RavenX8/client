@@ -87,7 +87,10 @@ bool CFileSystemTriggerVFS::Seek(long lOff, unsigned int nFrom) {
       break;
     case FILE_POS_CUR: iResult = vfseek( m_pFileHandle, lOff, SEEK_CUR );
       break;
-    case FILE_POS_END: iResult = vfseek( m_pFileHandle, lOff, SEEK_END );
+    // From the start, by the size: the deployed TriggerVFS ignores the offset
+    // of a seek from the end (it stays at the end), so motions lost their
+    // frame events (EZMO/3ZMO tag) and no hit ever showed its damage.
+    case FILE_POS_END: iResult = vfseek( m_pFileHandle, (long)vfgetsize( m_pFileHandle ) + lOff, SEEK_SET );
       break;
   }
 
