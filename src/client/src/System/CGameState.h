@@ -22,7 +22,9 @@ public:
   virtual int ProcWndMsgInstant(unsigned uiMsg, WPARAM wParam, LPARAM lParam);
 
   virtual void ServerDisconnected();
-  virtual void WorldServerDisconnected() {}
+  // The client keeps one connection (the gateway never switches it): the
+  // world socket going down is the server going down, for every state.
+  virtual void WorldServerDisconnected() { ServerDisconnected(); }
   virtual void AcceptedConnectLoginSvr() {}
 
   int GetStateID() { return m_iStateID; }
