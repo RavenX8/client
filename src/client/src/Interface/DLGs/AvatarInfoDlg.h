@@ -1,9 +1,9 @@
 #ifndef _CAVATARINFODLG_
 #define _CAVATARINFODLG_
 
-#include "tgamectrl/tdialog.h"
-#include "../gamecommon/IObserver.h"
-#include "subclass/CSlot.h"
+#include "tgamectrl/TDialog.h"
+#include "../GameCommon/IObserver.h"
+#include "SubClass/CSlot.h"
 
 class CItem;
 

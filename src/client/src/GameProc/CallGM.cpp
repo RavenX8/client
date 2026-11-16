@@ -16,6 +16,6 @@ void          CCallGM::CallGM(std::string& strServerName, std::string& strChanne
                                                      ZZ_PARAM_INT,
                                                      dwCountryCode,
                                                      ZZ_PARAM_STRING,
-                                                     strSendedString,
+                                                     strSendedString.c_str(),
                                                      ZZ_PARAM_END );
 }

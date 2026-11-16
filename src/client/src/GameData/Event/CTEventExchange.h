@@ -1,6 +1,6 @@
 #ifndef _CTEventExchange_
 #define _CTEventExchange_
-#include "ctevent.h"
+#include "CTEvent.h"
 class CItem;
 
 class CTEventExchange : public CTEvent {

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tscrollbar.h"
+#include "stdafx.h"
+#include "./TScrollBar.h"
 #include "TButton.h"
 #include "TScrollBox.h"
 #include "IScrollModel.h"

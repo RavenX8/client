@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include ".\imageidmgr.h"
+#include "stdafx.h"
+#include "./ImageIDMgr.h"
 
 CImageIDMgr* CImageIDMgr::s_pInstance = NULL;
 

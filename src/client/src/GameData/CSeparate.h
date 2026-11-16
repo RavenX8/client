@@ -4,8 +4,8 @@
 #include "../GameCommon/CObservable.h"
 #include "../GameCommon/IObserver.h"
 #include "../Common/CItem.h"
-#include "../interface/dlgs/subclass/CSlot.h"
-#include "event/CTEventSeparate.h"
+#include "../Interface/DLGs/SubClass/CSlot.h"
+#include "Event/CTEventSeparate.h"
 #include <vector>
 
 class CItemFragment;

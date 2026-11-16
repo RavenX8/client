@@ -5,11 +5,11 @@
 #include "../../Game.h"
 //#include "..\\LookUpImageIndex.h"
 #include "../../../TGameCtrl/ResourceMgr.h"
-#include "../it_Mgr.h"
+#include "../it_mgr.h"
 #include "../IO_ImageRes.h"
 #include "../CTDrawImpl.h"
 #include "../../System/CGame.h"
-#include "../../Object.h"
+#include "../../OBJECT.h"
 
 #define QUERY_START_X					16
 #define QUERY_START_Y					24

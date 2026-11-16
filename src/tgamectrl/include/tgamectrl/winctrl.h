@@ -1,8 +1,8 @@
 #ifndef _CWINCTRL_
 #define _CWINCTRL_
 
-#include "itcontrol.h"
-#include "itdraw.h"
+#include "ITControl.h"
+#include "ITDraw.h"
 #include "ActionListenerList.h"
 #include <string>
 

@@ -86,7 +86,7 @@ bool CCommandFilter::CanSendTargetSkillCommand(int iClientTarget, int iSkillSlot
 //----------------------------------------------------------------------------------------------------
 /// @brief ���� �����غ����� ��ų�̶��( ��ġ�� ���� ) ��� ����
 //----------------------------------------------------------------------------------------------------
-bool CCommandFilter::CanSendPositionSkillCommand(D3DVECTOR& PosTO, int iSkillSlot) {
+bool CCommandFilter::CanSendPositionSkillCommand(const D3DVECTOR& PosTO, int iSkillSlot) {
   if ( m_pPrevCommand == nullptr )
     return true;
 

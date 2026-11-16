@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "./SkillCommandDelay.h"
 
 #include "../Game.h"
@@ -84,6 +85,6 @@ void CSkillCommandDelay::Draw(int iX, int iY) {
   drawSprite( m_hCoverTexture,
               &rt,
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 }

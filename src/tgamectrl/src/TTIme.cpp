@@ -1,6 +1,6 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include <imm.h>
-#include "./ttime.h"
+#include "./TTIme.h"
 #include "crtdbg.h"
 #include "TCandidateWindowHanja.h"
 #include "TCandidateWindowList.h"

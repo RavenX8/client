@@ -1,7 +1,7 @@
 #ifndef _CDealData_
 #define _CDealData_
-#include "../gamecommon/cobservable.h"
-#include "../gamecommon/iobserver.h"
+#include "../GameCommon/CObservable.h"
+#include "../GameCommon/IObserver.h"
 
 enum {
   DEAL_SELL,

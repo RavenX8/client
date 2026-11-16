@@ -1,7 +1,7 @@
 #ifndef _CTDEFAULTTREENODERENDERER_
 #define _CTDEFAULTTREENODERENDERER_
 
-#include "itreenoderenderer.h"
+#include "ITreeNodeRenderer.h"
 #include "TStatic.h"
 class CTImage;
 

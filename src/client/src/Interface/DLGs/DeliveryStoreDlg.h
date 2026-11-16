@@ -2,7 +2,7 @@
 #define _CDeliveryStoreDlg_
 
 #include "tgamectrl/TDialog.h"
-#include "subclass/cslot.h"
+#include "SubClass/CSlot.h"
 
 const int c_deliverystore_slot_count = 48;
 

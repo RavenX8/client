@@ -91,7 +91,7 @@ public :
   void Send_cli_SKILL_LEVELUP_REQ(BYTE    btSkillSLOT, short nNextLevelSkillIDX = 0);
   void Send_cli_SELF_SKILL(BYTE           btSkillSLOT);
   void Send_cli_TARGET_SKILL(int          iClientTarget, BYTE btSkillSLOT);
-  void Send_cli_POSITION_SKILL(D3DVECTOR& PosTO, BYTE         btSkillSLOT);
+  void Send_cli_POSITION_SKILL(const D3DVECTOR& PosTO, BYTE         btSkillSLOT);
 
   void Send_cli_QUEST_REQ(BYTE btReqTYPE, BYTE btQuestSLOT, int iQuestID, char* szQuestTriggerName = nullptr);
 

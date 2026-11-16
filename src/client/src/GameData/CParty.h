@@ -1,7 +1,7 @@
 #ifndef _CParty_
 #define _CParty_
-#include "../gamecommon/CObservable.h"
-#include "net_prototype.h"
+#include "../GameCommon/CObservable.h"
+#include "Net_Prototype.h"
 #include "Event/CTEventParty.h"
 
 struct PartyMember {

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tcommand.h"
+#include "stdafx.h"
+#include "./TCommand.h"
 #include <crtdbg.h>
 
 CTCommand::CTCommand(void) {

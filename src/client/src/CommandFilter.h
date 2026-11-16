@@ -41,7 +41,7 @@ public:
   //----------------------------------------------------------------------------------------------------
   bool CanSendSelfSkillCommand(int            iSkillSlot);
   bool CanSendTargetSkillCommand(int          iClientTarget, int iSkillSlot);
-  bool CanSendPositionSkillCommand(D3DVECTOR& PosTO, int         iSkillSlot);
+  bool CanSendPositionSkillCommand(const D3DVECTOR& PosTO, int         iSkillSlot);
 
 };
 

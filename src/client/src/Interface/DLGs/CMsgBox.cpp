@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "./CMsgBox.h"
-#include "tgamectrl/tcommand.h"
+#include "tgamectrl/TCommand.h"
 #include "tgamectrl/TMsgBox.h"
 #include "tgamectrl/TListBox.h"
 

@@ -1,6 +1,6 @@
 #ifndef _CCursorStateDx_
 #define _CCursorStateDx_
-#include "ccursorstate.h"
+#include "CCursorState.h"
 #include "CCursor.h"
 
 /**

@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "./winctrl.h"
 //#include "CToolTip.h"
 #include "IActionListener.h"

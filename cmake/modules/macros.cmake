@@ -136,7 +136,9 @@ macro(add_linker_flags)
   foreach(flag ${ARGN})
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${flag}")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${flag}")
-    set(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} ${flag}")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${flag}")
+    # Not CMAKE_STATIC_LINKER_FLAGS: the archiver (lib.exe / llvm-lib / ar) is not a
+    # linker; lib.exe only warned about /DEBUG /OPT:*, llvm-lib and ar reject them.
   endforeach()
 endmacro()
 

@@ -1,8 +1,8 @@
 #ifndef _CDragItem_
 #define _CDragItem_
 
-#include "interfacetype.h"
-#include "../gamecommon/IObserver.h"
+#include "InterfaceType.h"
+#include "../GameCommon/IObserver.h"
 #include <map>
 class CIcon;
 class CTCommand;

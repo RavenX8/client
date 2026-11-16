@@ -1,6 +1,6 @@
 #ifndef _CItemUse_
 #define _CItemUse_
-#include "item.h"
+#include "Item.h"
 
 class CItemUse : public CItem {
 public:

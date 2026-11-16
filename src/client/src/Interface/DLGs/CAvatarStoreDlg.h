@@ -1,7 +1,7 @@
 #ifndef _CAvatarStoreDlg_
 #define _CAvatarStoreDlg_
 #include "tgamectrl/TDialog.h"
-#include "subclass/CSlot.h"
+#include "SubClass/CSlot.h"
 #include "Net_Prototype.h"
 #include "../../GameCommon/CObservable.h"
 #include "../../GameData/Event/CTEventAvatarStore.h"

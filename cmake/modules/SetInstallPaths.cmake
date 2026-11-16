@@ -12,7 +12,7 @@ else()
     CACHE STRING "Install Prefix")
 endif()
     
-if(MINGW OR WIN32)
+if(CMAKE_HOST_WIN32) # host path root, not target (cross builds from Linux)
   set(SYSTEM_ROOT_DIR "C:/")
 else()
   set(SYSTEM_ROOT_DIR "/")

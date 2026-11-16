@@ -3,7 +3,7 @@
 
 #include "tgamectrl/TDialog.h"
 #include "SubClass/CSlot.h"
-#include "../Common/CHotICON.h"
+#include "../common/CHotICON.h"
 #include "../GameCommon/IObserver.h"
 
 /**

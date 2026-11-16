@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include ".\warningdlg.h"
+#include "StdAfx.h"
+#include "./WarningDlg.h"
 
 #include "CExternalUIManager.h"
 #include "ExternalUILobby.h"

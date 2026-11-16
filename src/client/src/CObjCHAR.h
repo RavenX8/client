@@ -19,7 +19,7 @@
 #include <numeric>
 
 #ifdef	__VIRTUAL_SERVER
-#include "Common\\CRegenAREA.h"
+#include "Common//CRegenAREA.h"
 #endif
 
 #ifndef	__SERVER
@@ -181,7 +181,7 @@ private:
 
 public:
   void Adjust_HEIGHT(void        ) override;
-  void ResetCUR_POS(D3DXVECTOR3& Pos);
+  void ResetCUR_POS(const D3DXVECTOR3& Pos);
 
   /// @brief 서버에서 받은 높이값으로 다음번 Adjust_Height()에서 갱신되는 높이값 설정.
   /// @param bUseResetPosZ 갱신 높이값을 사용할지 여부. 높이값을 설정할 때에는 true, 초기화할 때에는 false를 입력한다.

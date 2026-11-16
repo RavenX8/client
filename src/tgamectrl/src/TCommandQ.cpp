@@ -1,6 +1,6 @@
-#include "StdAfx.h"
-#include "tcommandq.h"
-#include "tcommand.h"
+#include "stdafx.h"
+#include "TCommandQ.h"
+#include "TCommand.h"
 
 CTCommandQ::CTCommandQ(void) {}
 

@@ -2,9 +2,9 @@
 #include <windows.h>
 #include <wininet.h>
 #include <winsock.h>
-#include <IO.h>
+#include <io.h>
 #include <stdio.h>
-#include "classSTR.h"
+#include "classstr.h"
 #include "classUTIL.h"
 
 //-------------------------------------------------------------------------------------------------

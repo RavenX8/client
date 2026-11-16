@@ -1,15 +1,15 @@
-#include "stdAFX.h"
-#include "IO_STB.h"
+#include "StdAfx.h"
+#include "IO_STB.H"
 #include "CUserDATA.h"
-#include "Object.h"
+#include "OBJECT.h"
 #include "Calculation.h"
 #include "../Country.h"
-#include "../util/classTIME.h"
+#include "../Util/classTIME.h"
 
 #ifndef __SERVER
 	#include "IO_PAT.h"
-	#include "NET_Prototype.h"
-	#include "../Interface/Dlgs/ChattingDlg.h"
+	#include "Net_Prototype.h"
+	#include "../Interface/DLGs/ChattingDLG.h"
 	#include "../Interface/it_mgr.h"
 	#include "../Game.h"
 #endif

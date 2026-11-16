@@ -1,6 +1,6 @@
 #ifndef _CTEventStoreUnion_
 #define _CTEventStoreUnion_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CTEventStoreUnion : public CTEvent {
 public:

@@ -3,7 +3,7 @@
 */
 #ifndef	__CMUSIC_H
 #define	__CMUSIC_H
-#include "..\util\CMMPlayer.h"
+#include "../Util/CMMPlayer.h"
 //-------------------------------------------------------------------------------------------------
 
 #define MAX_MUSIC_VOLUME		0

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tree.h"
+#include "stdafx.h"
+#include "./Tree.h"
 #include "ITreeNode.h"
 #include "ITreeModel.h"
 #include "ITreeNodeRenderer.h"

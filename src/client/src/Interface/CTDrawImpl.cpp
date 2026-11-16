@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "CTDrawImpl.h"
 #include "IO_ImageRes.h"
 
@@ -52,7 +53,7 @@ void         CTDrawImpl::Draw(int iX, int iY, int iModuleID, int iGraphicID, D3D
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 }
 
@@ -93,7 +94,7 @@ void         CTDrawImpl::Draw(int iX, int iY, int iWidth, int iModuleID, int iGr
   drawSprite( hTexture,
               &(rcDraw),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 
 }
@@ -139,7 +140,7 @@ void         CTDrawImpl::Draw(float iX, float iY, float iZ, int iModuleID, int i
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 }
 
@@ -179,7 +180,7 @@ void         CTDrawImpl::Draw(float iX, float iY, float iZ, int iModuleID, int i
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 }
 
@@ -219,7 +220,7 @@ void         CTDrawImpl::DrawRotateY(float fX, float fY, float fZ, float fRotate
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               D3DCOLOR_ARGB(255,255,255,255) );
 }
 
@@ -262,7 +263,7 @@ void         CTDrawImpl::Draw(float iX, float iY, float iZ, int iWidth, int iMod
   drawSprite( hTexture,
               &(rcDraw),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 }
 
@@ -305,7 +306,7 @@ void         CTDrawImpl::Draw(int iX, int iY, int iModuleID, int iGraphicID, flo
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 
   D3DXMatrixIdentity( &mat );
@@ -354,7 +355,7 @@ void         CTDrawImpl::Draw(int iX, int iY, int iModuleID, int iGraphicID, int
   drawSprite( hTexture,
               &(rcDraw),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 }
 
@@ -399,7 +400,7 @@ void         CTDrawImpl::DrawFit(int iX, int iY, int iModuleID, int iGraphicID, 
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 }
 
@@ -443,7 +444,7 @@ void         CTDrawImpl::DrawFitW(int iX, int iY, int iModuleID, int iGraphicID,
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 }
 
@@ -487,7 +488,7 @@ void         CTDrawImpl::DrawFitH(int iX, int iY, int iModuleID, int iGraphicID,
   drawSprite( hTexture,
               &(pSpriteInfo->m_Rect),
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               color );
 }
 
@@ -531,7 +532,7 @@ void         CTDrawImpl::DrawCover(int iX, int iY, int iModuleID, int iGraphicID
   drawSpriteCover( hTexture,
                    &(pSpriteInfo->m_Rect),
                    nullptr,
-                   &D3DXVECTOR3( (FLOAT)iX, (FLOAT)iY, 0 ),
+                   rvalue_ptr( D3DXVECTOR3( (FLOAT)iX, (FLOAT)iY, 0 ) ),
                    color,
                    coverColor,
                    value );

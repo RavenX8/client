@@ -1,7 +1,7 @@
 #ifndef _CTCandidateWindowList_
 #define _CTCandidateWindowList_
 
-#include "tcandidatewindow.h"
+#include "TCandidateWindow.h"
 #include "TListBox.h"
 
 /**

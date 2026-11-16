@@ -3,15 +3,15 @@ project(${PROJECT})
 
 include_directories(
   SYSTEM ${SPDLOG_ROOT}
-  SYSTEM ${DIRECTX_ROOT}/include
+  SYSTEM ${DIRECTX_ROOT}/Include
   SYSTEM ${CMAKE_THIRD_PARTY_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/include/triggerinfo
 )
 
 if (64BIT)
-  link_directories(${DIRECTX_ROOT}/lib/x64)
+  link_directories(${DIRECTX_ROOT}/Lib/x64)
 else()
-  link_directories(${DIRECTX_ROOT}/lib)
+  link_directories(${DIRECTX_ROOT}/Lib)
 endif()
 
 link_directories(
@@ -52,7 +52,7 @@ target_include_directories(${PROJECT}
 target_precompile_headers(${PROJECT} PRIVATE "src/stdafx.h")
 set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TriggerInfo_d")
 
-target_link_libraries(${PROJECT} wininet.lib d3d9.lib dxguid.lib Version.lib)
+target_link_libraries(${PROJECT} wininet.lib d3d9.lib dxguid.lib version.lib)
 
 if (COMMAND cotire)
   cotire(${PROJECT})

@@ -5,15 +5,15 @@ project(${PROJECT})
 
 include_directories(
   SYSTEM ${SPDLOG_ROOT}
-  SYSTEM ${DIRECTX_ROOT}/include
+  SYSTEM ${DIRECTX_ROOT}/Include
   SYSTEM ${CMAKE_THIRD_PARTY_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 if (64BIT)
-  link_directories(${DIRECTX_ROOT}/lib/x64)
+  link_directories(${DIRECTX_ROOT}/Lib/x64)
 else()
-  link_directories(${DIRECTX_ROOT}/lib)
+  link_directories(${DIRECTX_ROOT}/Lib)
 endif()
 
 link_directories(
@@ -274,6 +274,6 @@ add_dependencies(${PROJECT} znzin_generated)
 if(NOT LUA_FOUND)
   add_dependencies(${PROJECT} lua::lua5)
 endif()
-target_link_libraries(${PROJECT} PUBLIC legacy_stdio_definitions.lib d3d9.lib d3dx9.lib version.lib Winmm.lib)
+target_link_libraries(${PROJECT} PUBLIC legacy_stdio_definitions.lib d3d9.lib d3dx9.lib version.lib winmm.lib)
 target_link_libraries(${PROJECT} PUBLIC lua::lua5)
 target_link_libraries(${PROJECT} PUBLIC TriggerVFS)

@@ -1,7 +1,7 @@
 #ifndef _CSkillTreeDlg_
 #define _CSkillTreeDlg_
 #include "tgamectrl/TDialog.h"
-#include "../../gamecommon/IObserver.h"
+#include "../../GameCommon/IObserver.h"
 class CIconSkill;
 
 struct node_skill {

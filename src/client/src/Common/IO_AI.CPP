@@ -2,7 +2,7 @@
 #ifndef	__SERVER
 #include "../Util/CGameSTB.h"
 #else
-	#include "..\util\classSTB.h"
+	#include "../Util/classSTB.h"
 #endif
 #include "CObjCHAR.h"
 #include "IO_AI.H"

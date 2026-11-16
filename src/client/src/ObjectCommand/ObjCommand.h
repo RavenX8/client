@@ -1,7 +1,7 @@
 #ifndef _OBJECT_COMMAND_
 #define _OBJECT_COMMAND_
 
-#include "../Common/DataType.h"
+#include "../Common/DataTYPE.h"
 #include <list>
 
 class CObjCHAR;

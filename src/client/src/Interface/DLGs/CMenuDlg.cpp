@@ -256,7 +256,7 @@ bool CMenuDlg::GetIsOpen() {
   return m_bIsOpen;
 }
 
-void CMenuDlg::SetOpenPos(POINT& pt) {
+void CMenuDlg::SetOpenPos(const POINT& pt) {
   m_ptOpenPos = pt;
 }
 

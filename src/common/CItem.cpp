@@ -1,10 +1,10 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CItem.h"
-#include "IO_STB.h"
+#include "IO_STB.H"
 
 #ifndef	__SERVER
 	#include "CInventory.h"
-	#include "Object.h"
+	#include "OBJECT.h"
 
 	#include "../Util/LogWnd.h"
 #endif

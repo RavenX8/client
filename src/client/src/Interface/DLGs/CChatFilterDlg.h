@@ -2,7 +2,7 @@
 #define _CChatFilterDlg_
 
 #include "tgamectrl/TDialog.h"
-#include "Chattingdlg.h"
+#include "ChattingDLG.h"
 
 /**
 * 채팅입력창에서 입력탭별로 보여질 채팅 타입을 선택할수 있는 다이얼로그

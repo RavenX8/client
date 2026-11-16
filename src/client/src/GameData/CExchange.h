@@ -1,8 +1,8 @@
 #ifndef _CExchange_
 #define _CExchange_
-#include "../gamecommon/CObservable.h"
-#include "../gamecommon/IObserver.h"
-#include "../common/citem.h"
+#include "../GameCommon/CObservable.h"
+#include "../GameCommon/IObserver.h"
+#include "../Common/CItem.h"
 
 #define MAX_EXCHANGE_ROW				2
 #define MAX_EXCHANGE_COL				5

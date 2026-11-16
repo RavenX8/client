@@ -1,6 +1,6 @@
 #ifndef _CTEventSeparate_
 #define _CTEventSeparate_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CItem;
 

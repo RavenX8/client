@@ -1,9 +1,9 @@
 #ifndef _UICOMMAND_
 #define _UICOMMAND_
 
-#include "../../common/CItem.h"
-#include "net_prototype.h"
-#include "tgamectrl/tcommand.h"
+#include "../../Common/CItem.h"
+#include "Net_Prototype.h"
+#include "tgamectrl/TCommand.h"
 
 class CMakeDLG;
 class CItem;

@@ -4,7 +4,7 @@
 #ifndef	__CLASSSTB_H
 #define	__CLASSSTB_H
 #include <stdio.h>
-#include "classSTR.h"
+#include "classstr.h"
 //-------------------------------------------------------------------------------------------------
 #ifndef	MAX_PATH
 #define	MAX_PATH	260

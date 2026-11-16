@@ -175,11 +175,11 @@ public:
       return *this;
     }
 
-    bool operator!=(iterator& it) {
+    bool operator!=(const iterator& it) const {
       return (it._current != _current);
     }
 
-    bool operator==(iterator& it) {
+    bool operator==(const iterator& it) const {
       return (it._current == _current);
     }
 

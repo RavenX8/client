@@ -2,7 +2,7 @@
 #define _CInfo_
 
 #include "CTString.h"
-#include "../game.h"
+#include "../Game.h"
 #include "Interface/SlotContainer/ClanSkillSlot.h"
 
 //#include "tgamectrl/JStringParser.h"

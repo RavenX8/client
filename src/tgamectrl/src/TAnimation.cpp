@@ -1,7 +1,7 @@
-#include "StdAfx.h"
-#include "./tanimation.h"
+#include "stdafx.h"
+#include "./TAnimation.h"
 #include "TFrame.h"
-#include <Mmsystem.h>
+#include <mmsystem.h>
 
 CTAnimation::CTAnimation(void) {
   m_curr_frame       = 0;

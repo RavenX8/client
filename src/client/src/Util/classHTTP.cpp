@@ -1,4 +1,4 @@
-#include "stdAFX.h"
+#include "StdAfx.h"
 // #include <VCL.h>
 #include <windows.h>
 #include "classLOG.h"

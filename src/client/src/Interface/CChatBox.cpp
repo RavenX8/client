@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "CChatBox.h"
 #include "../OBJECT.h"
 #include "..//Game.h"
@@ -191,7 +192,7 @@ bool CChatBox::Draw(HNODE* backTexture) {
   drawSprite( backTexture[nCNT],
               nullptr,
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 
   RECT      rt          = { 4, 4, CHATBOX_WIDTH, CHATBOX_HEIGHT_BIG };

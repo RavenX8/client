@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "./PersonalStoreManager.h"
 
 #include "../CObjCHAR.h"
@@ -87,7 +88,7 @@ void                       CPersonalStoreManager::Draw() {
       drawSprite( m_ShopTitleBox,
                   nullptr,
                   nullptr,
-                  &D3DXVECTOR3( 0, 0, 0 ),
+                  rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                   D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 
       if ( const char* pszTitle = pAVT->GetPersonalStoreTitle() ) {

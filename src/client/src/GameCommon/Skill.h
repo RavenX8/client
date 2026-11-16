@@ -137,7 +137,7 @@ public:
   virtual void DrawIcon(int     iX, int              iY);
   virtual int  Process();
   virtual bool Execute();
-  virtual int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) = 0 { *(int*)nullptr = 10; };
+  virtual int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) = 0 { *(int*)nullptr = 10; };
 
   //----------------------------------------------------------------------------------------------------
   /// @param
@@ -205,7 +205,7 @@ public:
   void Action(CObjCHAR* pAttacker, CObjCHAR* pTarget) override;
   void DrawIcon(int     iX, int              iY) override;
   int  Process() override;
-  int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
+  int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -224,7 +224,7 @@ public:
   void Action(CObjCHAR* pAttacker, CObjCHAR* pTarget) override;
   void DrawIcon(int     iX, int              iY) override;
   int  Process() override;
-  int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
+  int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -243,7 +243,7 @@ public:
   void Action(CObjCHAR* pAttacker, CObjCHAR* pTarget) override;
   void DrawIcon(int     iX, int              iY) override;
   int  Process() override;
-  int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
+  int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -265,7 +265,7 @@ public:
   void Action(CObjCHAR* pAttacker, CObjCHAR* pTarget) override;
   void DrawIcon(int     iX, int              iY) override;
   int  Process() override;
-  int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
+  int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -287,7 +287,7 @@ public:
   void Action(CObjCHAR* pAttacker, CObjCHAR* pTarget) override;
   void DrawIcon(int     iX, int              iY) override;
   int  Process() override;
-  int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
+  int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -309,7 +309,7 @@ public:
   void Action(CObjCHAR* pAttacker, CObjCHAR* pTarget) override;
   void DrawIcon(int     iX, int              iY) override;
   int  Process() override;
-  int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
+  int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -331,7 +331,7 @@ public:
   void Action(CObjCHAR* pAttacker, CObjCHAR* pTarget) override;
   void DrawIcon(int     iX, int              iY) override;
   int  Process() override;
-  int  SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
+  int  SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f )) override;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -363,9 +363,9 @@ public:
   /// 스킬 발동 조건 체크..
   static bool CheckConditionForFireSkill(int iSkillIDX, int iCurrentTarget);
   /// 스킬 발동..
-  static bool FireSkill(int iSkillSlotIDX, int iTargetObj, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f ));
+  static bool FireSkill(int iSkillSlotIDX, int iTargetObj, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f ));
   /// 현재 활성화된 스킬 발동..
-  static bool ActionActiveSkill(int iTargetObj, D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f ));
+  static bool ActionActiveSkill(int iTargetObj, const D3DXVECTOR3& PosTO = D3DXVECTOR3( 0.0f, 0.0f, 0.0f ));
 
   /// 소모된 속성
   static void UpdateUseProperty(CObjAI* pObjAI, int iSkillIdx);

@@ -15,7 +15,7 @@
 #include "../CommandFilter.h"
 #include "../GameData/CPrivateStore.h"
 #include "GameProc/PreventDuplicatedCommand.h"
-#include "../common/io_stb.h"
+#include "../Common/io_stb.h"
 #include "../Country.h"
 #include "../System/CGame.h"
 #include "../System/GameStateMovePlanet.h"
@@ -1176,7 +1176,7 @@ void CSendPACKET::Send_cli_TARGET_SKILL(int iClientTarget, BYTE btSkillSLOT) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void CSendPACKET::Send_cli_POSITION_SKILL(D3DVECTOR& PosTO, BYTE btSkillSLOT) {
+void CSendPACKET::Send_cli_POSITION_SKILL(const D3DVECTOR& PosTO, BYTE btSkillSLOT) {
 
   if ( CCountry::GetSingleton().IsJapan() ) {
     if ( !(CGame::GetInstance().GetPayType() & PLAY_FLAG_BATTLE) ) {

@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "./EventDialog.h"
 #include "../../OBJECT.h"
 #include "../it_mgr.h"
@@ -263,7 +264,7 @@ void CEventDialog::Draw() {
       drawSprite( m_hNpcFace,
                   nullptr,
                   nullptr,
-                  &D3DXVECTOR3( 0, 0, 0 ),
+                  rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                   D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 
       if ( !m_strNpcName.empty() ) {

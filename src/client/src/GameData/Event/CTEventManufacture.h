@@ -1,6 +1,6 @@
 #ifndef _CTEventManufacture_
 #define _CTEventManufacture_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CItem;
 

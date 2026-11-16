@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tradiobutton.h"
+#include "stdafx.h"
+#include "./TRadioButton.h"
 #include "TRadioBox.h"
 #include "TControlMgr.h"
 #include "ITSound.h"

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tscrollbartype.h"
+#include "stdafx.h"
+#include "./TScrollBarType.h"
 
 CTScrollBarType::CTScrollBarType(void) {}
 

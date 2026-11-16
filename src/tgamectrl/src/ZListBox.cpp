@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./zlistbox.h"
+#include "stdafx.h"
+#include "./ZListBox.h"
 
 CZListBox::CZListBox(void) {
   SetControlType( CTRL_ZLISTBOX );

@@ -1,7 +1,7 @@
 #ifndef _SFX_WIDE_SCREEN_
 #define _SFX_WIDE_SCREEN_
 
-#include "isfx.h"
+#include "ISFX.h"
 
 //--------------------------------------------------------------------------------------
 ///

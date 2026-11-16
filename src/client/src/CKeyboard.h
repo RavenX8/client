@@ -1,7 +1,7 @@
 #ifndef	__CKEYBOARD_H
 #define	__CKEYBOARD_H
-#include "util\WndMsgQ.h"
-#include "util\classIME.h"
+#include "Util/WndMsgQ.h"
+#include "Util/classIME.h"
 //-------------------------------------------------------------------------------------------------
 // #define	__USE_IME
 class CKeyboard : public CWndMsgQ

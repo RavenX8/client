@@ -4,7 +4,7 @@
 #include <list>
 #include "../Common/CItem.h"
 #include "tgamectrl/TObject.h"
-#include "../interface/CInfo.h"
+#include "../Interface/CInfo.h"
 
 class CIcon;
 class CTCommand;

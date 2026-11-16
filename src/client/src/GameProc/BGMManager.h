@@ -1,6 +1,6 @@
 #ifndef _BGM_MANAGER_
 #define _BGM_MANAGER_
-#include "../util/JSingleton.h"
+#include "../Util/JSingleton.h"
 
 //---------------------------------------------------------------------------------------
 ///

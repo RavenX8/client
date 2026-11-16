@@ -1,6 +1,6 @@
 #ifndef _CSkillListCellRenderer_
 #define _CSkillListCellRenderer_
-#include "tgamectrl/IListcellrenderer.h"
+#include "tgamectrl/IListCellRenderer.h"
 
 class CSkillListCellRenderer : public IListCellRenderer {
 public:

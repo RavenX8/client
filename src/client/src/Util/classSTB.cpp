@@ -62,7 +62,7 @@
 #include <windows.h>
 #include <stdlib.h>
 #include "classSTB.h"
-#include "classSTR.h"
+#include "classstr.h"
 
 //-------------------------------------------------------------------------------------------------
 classSTB::classSTB() {

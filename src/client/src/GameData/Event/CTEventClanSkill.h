@@ -1,6 +1,6 @@
 #ifndef _CTEventClanSkill_
 #define _CTEventClanSkill_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CTEventClanSkill : public CTEvent {
 public:

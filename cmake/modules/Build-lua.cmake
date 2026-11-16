@@ -1,146 +1,56 @@
-set(LUA_INSTALL_DIR ${CMAKE_THIRD_PARTY_LIBRARY_DIR})
+# Lua 5.4.3 (in-tree) as regular targets:
+#   lua5_core / lua5_std  static libraries (linked through lua::lua5)
+#   lua5_interp           lua5 interpreter, run at build time by LuaIncludeGenerator
+#   lua5_compiler         luac5
+# When cross-compiling, build-time runs of lua5_interp go through
+# CMAKE_CROSSCOMPILING_EMULATOR (e.g. wine) automatically.
+set(LUA_SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3)
+set(_lua_src ${LUA_SOURCE_DIR}/src)
 
-if(WIN32)
-  ExternalProject_Add(
-    lua5_core
-    DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /c /I <SOURCE_DIR>/include /EHsc
-    <SOURCE_DIR>/src/lapi.c
-    <SOURCE_DIR>/src/lcode.c
-    <SOURCE_DIR>/src/lctype.c
-    <SOURCE_DIR>/src/ldebug.c
-    <SOURCE_DIR>/src/ldo.c
-    <SOURCE_DIR>/src/ldump.c
-    <SOURCE_DIR>/src/lfunc.c
-    <SOURCE_DIR>/src/lgc.c
-    <SOURCE_DIR>/src/llex.c
-    <SOURCE_DIR>/src/lmem.c
-    <SOURCE_DIR>/src/lobject.c
-    <SOURCE_DIR>/src/lopcodes.c
-    <SOURCE_DIR>/src/lparser.c
-    <SOURCE_DIR>/src/lstate.c
-    <SOURCE_DIR>/src/lstring.c
-    <SOURCE_DIR>/src/ltable.c
-    <SOURCE_DIR>/src/ltm.c
-    <SOURCE_DIR>/src/lundump.c
-    <SOURCE_DIR>/src/lvm.c
-    <SOURCE_DIR>/src/lzio.c
-    && lib lapi.obj lcode.obj lctype.obj ldebug.obj ldo.obj ldump.obj lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj lparser.obj lstate.obj lstring.obj ltable.obj ltm.obj lundump.obj lvm.obj lzio.obj
-    /OUT:${LUA_INSTALL_DIR}/liblua5.lib
-    INSTALL_COMMAND ""
-    BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}
-    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/liblua5.lib ${LUA_INSTALL_DIR}/liblua5.a
-  )
-  
-  ExternalProject_Add(
-    lua5_std
-    DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /c /I <SOURCE_DIR>/src /EHsc
-    <SOURCE_DIR>/src/lauxlib.c
-    <SOURCE_DIR>/src/lbaselib.c
-    <SOURCE_DIR>/src/lcorolib.c
-    <SOURCE_DIR>/src/ldblib.c
-    <SOURCE_DIR>/src/liolib.c
-    <SOURCE_DIR>/src/lmathlib.c
-    <SOURCE_DIR>/src/loadlib.c
-    <SOURCE_DIR>/src/loslib.c
-    <SOURCE_DIR>/src/lstrlib.c
-    <SOURCE_DIR>/src/ltablib.c
-    <SOURCE_DIR>/src/lutf8lib.c
-    <SOURCE_DIR>/src/linit.c
-    && lib lauxlib.obj lbaselib.obj lcorolib.obj ldblib.obj liolib.obj lmathlib.obj ltablib.obj lstrlib.obj loadlib.obj loslib.obj lutf8lib.obj linit.obj /OUT:${LUA_INSTALL_DIR}/liblua5lib.lib
-    INSTALL_COMMAND ""
-    BUILD_IN_SOURCE true
-    INSTALL_DIR ${LUA_INSTALL_DIR}
-    BUILD_BYPRODUCTS ${LUA_INSTALL_DIR}/liblua5lib.lib
-  )
-  
-  ExternalProject_Add(
-    lua5_interp
-    DEPENDS lua5_core lua5_std
-    DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /I <SOURCE_DIR>/src/EHsc -DLUA_OPNAMES
-    <SOURCE_DIR>/src/lua.c
-    ${LUA_INSTALL_DIR}/liblua5.lib
-    ${LUA_INSTALL_DIR}/liblua5lib.lib
-    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/lua.exe <INSTALL_DIR>/lua5.exe
-    BUILD_IN_SOURCE true
-    INSTALL_DIR ${CMAKE_THIRD_PARTY_BINARY_DIR}
-    BUILD_BYPRODUCTS ${CMAKE_THIRD_PARTY_BINARY_DIR}/lua5.exe
-  )
-  
-  ExternalProject_Add(
-    lua5_compiler
-    DEPENDS lua5_core lua5_std
-    DOWNLOAD_COMMAND ""
-    SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/lua-5.4.3
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND cl /I <SOURCE_DIR>/src /EHsc -DLUA_OPNAMES
-    <SOURCE_DIR>/src/luac.c
-    ${LUA_INSTALL_DIR}/liblua5.lib
-    ${LUA_INSTALL_DIR}/liblua5lib.lib
-    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/luac.exe <INSTALL_DIR>/luac5.exe
-    BUILD_IN_SOURCE true
-    INSTALL_DIR ${CMAKE_THIRD_PARTY_BINARY_DIR}
-    BUILD_BYPRODUCTS ${CMAKE_THIRD_PARTY_BINARY_DIR}/luac5.exe
-  )
-else()
-#  find_library(LUA_DL_LIBRARY dl)
-#  find_library(LUA_MATH_LIBRARY m)
-#  ExternalProject_Add(
-#    lua5
-#    URL https://www.lua.org/ftp/lua-5.3.4.tar.gz
-#    URL_HASH SHA1=79790cfd40e09ba796b01a571d4d63b52b1cd950
-#    INSTALL_DIR ${LUA_INSTALL_DIR}
-#    BUILD_IN_SOURCE TRUE
-#
-#    CONFIGURE_COMMAND ""
-#    BUILD_COMMAND make linux
-#    INSTALL_COMMAND make install INSTALL_TOP=<INSTALL_DIR>
-#    BUILD_BYPRODUCTS ${_byproducts}
-#  )
-endif()
-
-#Lua 5 stoof
-ExternalProject_Get_Property(
-  lua5_core
-  source_dir
-  install_dir
+add_library(lua5_core STATIC
+  ${_lua_src}/lapi.c ${_lua_src}/lcode.c ${_lua_src}/lctype.c ${_lua_src}/ldebug.c
+  ${_lua_src}/ldo.c ${_lua_src}/ldump.c ${_lua_src}/lfunc.c ${_lua_src}/lgc.c
+  ${_lua_src}/llex.c ${_lua_src}/lmem.c ${_lua_src}/lobject.c ${_lua_src}/lopcodes.c
+  ${_lua_src}/lparser.c ${_lua_src}/lstate.c ${_lua_src}/lstring.c ${_lua_src}/ltable.c
+  ${_lua_src}/ltm.c ${_lua_src}/lundump.c ${_lua_src}/lvm.c ${_lua_src}/lzio.c
 )
+set_target_properties(lua5_core PROPERTIES OUTPUT_NAME liblua5)
 
-if(WIN32)
-  set(LUA_LIBRARY "${install_dir}/liblua5.lib")
-  set(LUA_LIBRARIES "${LUA_LIBRARY}" "${install_dir}/liblua5lib.lib")
-  set(LUA_INSTALL_LIBS "${install_dir}/liblua.dll")
+add_library(lua5_std STATIC
+  ${_lua_src}/lauxlib.c ${_lua_src}/lbaselib.c ${_lua_src}/lcorolib.c ${_lua_src}/ldblib.c
+  ${_lua_src}/liolib.c ${_lua_src}/lmathlib.c ${_lua_src}/loadlib.c ${_lua_src}/loslib.c
+  ${_lua_src}/lstrlib.c ${_lua_src}/ltablib.c ${_lua_src}/lutf8lib.c ${_lua_src}/linit.c
+)
+set_target_properties(lua5_std PROPERTIES OUTPUT_NAME liblua5lib)
+target_link_libraries(lua5_std PUBLIC lua5_core)
+
+foreach(_t lua5_core lua5_std)
+  target_include_directories(${_t} SYSTEM PUBLIC ${_lua_src})
+  set_target_properties(${_t} PROPERTIES FOLDER 3rdparty POSITION_INDEPENDENT_CODE ON)
+  if(MSVC)
+    target_compile_options(${_t} PRIVATE /w)
+  else()
+    target_compile_options(${_t} PRIVATE -w)
+    target_compile_definitions(${_t} PRIVATE LUA_USE_LINUX)
+  endif()
+endforeach()
+if(NOT WIN32)
+  target_link_libraries(lua5_core PUBLIC m ${CMAKE_DL_LIBS})
 endif()
 
-
-set(LUA_INCLUDE_DIR "${source_dir}/src")
+add_executable(lua5_interp ${_lua_src}/lua.c)
+add_executable(lua5_compiler ${_lua_src}/luac.c)
+foreach(_t lua5_interp lua5_compiler)
+  target_link_libraries(${_t} PRIVATE lua5_std)
+  target_compile_definitions(${_t} PRIVATE LUA_OPNAMES)
+  set_target_properties(${_t} PROPERTIES FOLDER 3rdparty RUNTIME_OUTPUT_DIRECTORY ${CMAKE_THIRD_PARTY_BINARY_DIR})
+endforeach()
+set_target_properties(lua5_interp PROPERTIES OUTPUT_NAME lua5)
+set_target_properties(lua5_compiler PROPERTIES OUTPUT_NAME luac5)
 
 if(NOT TARGET lua::lua5)
-  add_library(lua::lua5 INTERFACE IMPORTED)
-  add_dependencies(lua::lua5 lua5_core lua5_std)
-  set_target_properties(lua::lua5 PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${LUA_INCLUDE_DIR}")
-  set_target_properties(lua::lua5 PROPERTIES INTERFACE_LINK_LIBRARIES "${LUA_LIBRARIES}")
+  add_library(lua::lua5 ALIAS lua5_std)
 endif()
 
-if(NOT TARGET lua::lua5_interp)
-  add_executable(lua::lua5_interp IMPORTED)
-  add_dependencies(lua::lua5_interp lua5_interp)
-  set_target_properties(lua::lua5_interp PROPERTIES IMPORTED_LOCATION "${CMAKE_THIRD_PARTY_BINARY_DIR}/lua5.exe")
- endif()
-
-if(NOT TARGET lua::lua5_compiler)
-  add_executable(lua::lua5_compiler IMPORTED)
-  add_dependencies(lua::lua5_compiler lua5_compiler)
-  set_target_properties(lua::lua5_compiler PROPERTIES IMPORTED_LOCATION "${CMAKE_THIRD_PARTY_BINARY_DIR}/luac5.exe")
- endif()
-
-#mark_as_advanced(LUA_INCLUDE_DIR LUA_LIBRARY LUA_LIBRARIES)
+set(LUA_INCLUDE_DIR "${_lua_src}")
+set(LUA_LIBRARIES lua5_std lua5_core)

@@ -1,8 +1,8 @@
 /// ---------------------------------------------------------------------------
 ///  Includes
 /// ---------------------------------------------------------------------------
-#include "StdAfx.h"
-#include "./jlistbox.h"
+#include "stdafx.h"
+#include "./JListBox.h"
 #include "TContainer.h"
 #include "IListCellRenderer.h"
 #include "TControlMgr.h"

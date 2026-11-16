@@ -1,6 +1,6 @@
 #ifndef _CTEventUpgrade_
 #define _CTEventUpgrade_
-#include "ctevent.h"
+#include "CTEvent.h"
 class CItem;
 
 class CTEventUpgrade : public CTEvent {

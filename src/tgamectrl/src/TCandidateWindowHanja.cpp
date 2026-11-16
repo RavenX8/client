@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tcandidatewindowhanja.h"
+#include "stdafx.h"
+#include "./TCandidateWindowHanja.h"
 #include "TControlMgr.h"
 #include "ITFont.h"
 CTCandidateWindowHanja::CTCandidateWindowHanja(void) {}

@@ -151,13 +151,13 @@ inline LPCTSTR LogFormat(LPCTSTR pFormat, ...) {
   return buffer;
 }
 
-inline void LogOut(int iType, void* pFilename, unsigned int lineno, LPCTSTR pszMessage, LPCTSTR pDump = nullptr) {
+inline void LogOut(int iType, const void* pFilename, unsigned int lineno, LPCTSTR pszMessage, LPCTSTR pDump = nullptr) {
   TCHAR     where[1024];
   wsprintf( where, _T("%d line in %s"), lineno, pFilename );
   _LogOut( iType, /*::GetModuleName()*/"asfddas", where, pszMessage, pDump );
 }
 
-inline DWORD LogOutLastError(void* pFilename, unsigned int lineno, LPCTSTR pszMessage) {
+inline DWORD LogOutLastError(const void* pFilename, unsigned int lineno, LPCTSTR pszMessage) {
   if ( GetLastError() == 0 )
     return 0;
 
@@ -181,9 +181,9 @@ inline DWORD LogOutLastError(void* pFilename, unsigned int lineno, LPCTSTR pszMe
 
 class CLogSystem {
 public:
-  CLogSystem(int nType, void* pFrom, int nLineno, LPCTSTR pDump = nullptr) : m_nLastError( 0 ), m_nType( nType ), m_nLineno( nLineno ), m_pFrom( pFrom ), m_pDump( pDump ) { }
+  CLogSystem(int nType, const void* pFrom, int nLineno, LPCTSTR pDump = nullptr) : m_nLastError( 0 ), m_nType( nType ), m_nLineno( nLineno ), m_pFrom( pFrom ), m_pDump( pDump ) { }
 
-  CLogSystem(int nType, void* pFrom, int nLineno, int nLastError) : m_nLastError( nLastError ), m_nType( nType ), m_nLineno( nLineno ),
+  CLogSystem(int nType, const void* pFrom, int nLineno, int nLastError) : m_nLastError( nLastError ), m_nType( nType ), m_nLineno( nLineno ),
                                                                     m_pFrom( pFrom ), m_pDump( nullptr ) { }
 
   void      Trace(LPCTSTR pFormat, ...) {
@@ -224,7 +224,7 @@ protected:
   int     m_nLastError;
   int     m_nType;
   int     m_nLineno;
-  void*   m_pFrom;
+  const void* m_pFrom;
   LPCTSTR m_pDump;
 };
 

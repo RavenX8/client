@@ -1,6 +1,6 @@
 #ifndef _CTEventServerList_
 #define _CTEventServerList_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 struct CHANNELSERVER_INFO {
   DWORD       m_worldserver_id;

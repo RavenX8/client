@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "CIconItem.h"
 #include "../CTDrawImpl.h"
 #include "../InterfaceType.h"
@@ -18,7 +19,7 @@
 #include "../Country.h"
 
 #include "tgamectrl/ResourceMgr.h"
-#include "tgamectrl/tcommand.h"
+#include "tgamectrl/TCommand.h"
 
 HNODE CIconItem::m_hSocketTexture         = NULL;
 int   CIconItem::m_iSocketTextureRefCount = 0;
@@ -190,7 +191,7 @@ void CIconItem::Draw() {
       drawSprite( m_hSocketTexture,
                   nullptr,
                   nullptr,
-                  &D3DXVECTOR3( 0, 0, 0 ),
+                  rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                   D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
     }
   }

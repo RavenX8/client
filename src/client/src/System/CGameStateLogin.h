@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATELOGIN_
 #define _CGAMESTATELOGIN_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * ·Î±×ÀÎ State Class

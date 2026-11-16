@@ -3,7 +3,7 @@
 */
 #ifndef	__CMMPLAYER_H
 #define	__CMMPLAYER_H
-#include <dshow.h>
+#include <DShow.h>
 
 //-------------------------------------------------------------------------------------------------
 

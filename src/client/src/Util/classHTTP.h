@@ -1,6 +1,6 @@
 #ifndef	__CLASS_HTTPDOWN_H
 #define	__CLASS_HTTPDOWN_H
-#include <winINET.h>
+#include <wininet.h>
 //-------------------------------------------------------------------------------------------------
 
 #define	MAX_READ_BUFF_SIZE	( 1024*16 )	// 16k  ∫∏≈Î 8K

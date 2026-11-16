@@ -1,6 +1,6 @@
 #ifndef _CIconSkill_
 #define _CIconSkill_
-#include "cicon.h"
+#include "CIcon.h"
 
 class CSkill;
 

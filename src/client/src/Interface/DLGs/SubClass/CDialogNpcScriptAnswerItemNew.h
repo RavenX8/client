@@ -1,6 +1,6 @@
 #ifndef _CDialogNpcScriptAnswerItemNew_
 #define _CDialogNpcScriptAnswerItemNew_
-#include "tgamectrl/WinCtrl.h"
+#include "tgamectrl/winctrl.h"
 #include "tgamectrl/JStringParser.h"
 
 /**

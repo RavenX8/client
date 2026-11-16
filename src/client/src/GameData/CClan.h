@@ -1,7 +1,7 @@
 #ifndef _CClan_
 #define _CClan_
-#include "../gamecommon/cobservable.h"
-#include "event/CTEventClan.h"
+#include "../GameCommon/CObservable.h"
+#include "Event/CTEventClan.h"
 #include "Interface/SlotContainer/ClanSkillSlot.h"
 
 struct S_ClanMember {

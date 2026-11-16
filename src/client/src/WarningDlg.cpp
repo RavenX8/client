@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include ".\warningdlg.h"
+#include "StdAfx.h"
+#include "./WarningDlg.h"
 
 CWarningDlg::CWarningDlg(void)
 {

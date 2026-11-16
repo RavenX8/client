@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "./CCursorStateSprite.h"
 #include "CCursor.h"
 #include "../CTDrawImpl.h"
@@ -32,7 +33,7 @@ void CCursorStateSprite::Draw(POINT ptMouse) {
   drawSprite( m_hTexture,
               nullptr,
               nullptr,
-              &D3DXVECTOR3( 0, 0, 0 ),
+              rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
               D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 }
 

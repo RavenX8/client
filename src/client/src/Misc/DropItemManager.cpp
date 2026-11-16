@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include ".\dropitemmanager.h"
+#include "StdAfx.h"
+#include "./DropItemManager.h"
 #include <assert.h>
 
 

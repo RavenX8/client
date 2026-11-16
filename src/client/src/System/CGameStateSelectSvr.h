@@ -1,6 +1,6 @@
 #ifndef _CGameStateSelectSvr_
 #define _CGameStateSelectSvr_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * 서버 선택 State Class

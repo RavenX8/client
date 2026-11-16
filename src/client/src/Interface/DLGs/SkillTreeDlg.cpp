@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "./SkillTreeDlg.h"
 
 #include "Icon/CIconSkillDummy.h"
@@ -173,7 +174,7 @@ void CSkillTreeDlg::Draw() {
     drawSprite( iter_base->m_texture,
                 nullptr,
                 nullptr,
-                &D3DXVECTOR3( 0, 0, 0 ),
+                rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                 D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 
     for ( iter_base = m_userdata.base_skills.begin(); iter_base != m_userdata.base_skills.end(); ++iter_base ) {

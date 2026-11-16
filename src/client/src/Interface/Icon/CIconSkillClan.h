@@ -1,6 +1,6 @@
 #ifndef _CIconSkillClan_
 #define _CIconSkillClan_
-#include "ciconskill.h"
+#include "CIconSkill.h"
 
 /**
 * 클랜스킬표시에 사용되는  Icon

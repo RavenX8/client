@@ -42,9 +42,9 @@
 #include "../GameProc/SkillCommandDelay.h"
 #include "../GameCommon/Skill.h"
 
-#include "SFX/SFXManager.h"
-#include "SFX/ISFX.h"
-#include "SFX/SFXFont.h"
+#include "Sfx/SFXManager.h"
+#include "Sfx/ISFX.h"
+#include "Sfx/SFXFont.h"
 #include "tgamectrl/TControlMgr.h"
 #include "tgamectrl/TEditBox.h"
 

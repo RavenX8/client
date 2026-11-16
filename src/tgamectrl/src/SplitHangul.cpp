@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./splithangul.h"
+#include "stdafx.h"
+#include "./SplitHangul.h"
 
 CSplitHangul::CSplitHangul() {
   m_strNull = "";

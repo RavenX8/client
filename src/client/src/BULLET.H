@@ -5,7 +5,7 @@
 #define	__BULLET_H
 #include "IO_Basic.h"
 #include "IO_Effect.h"
-#include "Object.h"
+#include "OBJECT.h"
 //-------------------------------------------------------------------------------------------------
 
 #define	BULLET_MOVE_DIRECTION	1

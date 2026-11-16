@@ -1,6 +1,6 @@
 #ifndef _CITStateNormal_
 #define _CITStateNormal_
-#include "citstate.h"
+#include "CITState.h"
 
 /**
 * Normal Interface(IT_MGR) State

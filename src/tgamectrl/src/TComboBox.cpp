@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tcombobox.h"
+#include "stdafx.h"
+#include "./TComboBox.h"
 #include "TButton.h"
 #include "TImage.h"
 #include "TListBox.h"

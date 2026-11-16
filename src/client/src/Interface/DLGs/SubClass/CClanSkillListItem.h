@@ -1,7 +1,7 @@
 #ifndef _CClanSkillListItem_
 #define _CClanSkillListItem_
 
-#include "tgamectrl/WinCtrl.h"
+#include "tgamectrl/winctrl.h"
 #include "CSlot.h"
 class CIconSkillClan;
 class CDragItem;

@@ -3,7 +3,7 @@
 
 #include "Util/JSingleton.h"
 #include "ObjectCommand/ObjCommand.h"
-#include < list >
+#include <list>
 
 struct SendedCommand {
   CObjCommand* pCommand;
@@ -56,11 +56,11 @@ public:
   //----------------------------------------------------------------------------------------------------
   bool PushSelfSkillCommand(int            iSkillSlot);
   bool PushTargetSkillCommand(int          iServerTarget, int iSkillSlot);
-  bool PushPositionSkillCommand(D3DVECTOR& PosTO, int         iSkillSlot);
+  bool PushPositionSkillCommand(const D3DVECTOR& PosTO, int         iSkillSlot);
 
   bool CanSendSelfSkillCommand(int            iSkillSlot);
   bool CanSendTargetSkillCommand(int          iServerTarget, int iSkillSlot);
-  bool CanSendPositionSkillCommand(D3DVECTOR& PosTO, int         iSkillSlot);
+  bool CanSendPositionSkillCommand(const D3DVECTOR& PosTO, int         iSkillSlot);
 
 };
 

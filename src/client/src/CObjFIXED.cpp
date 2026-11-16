@@ -4,7 +4,7 @@
 #include "StdAfx.h"
 #include "CObjFIXED.h"
 #include "GameProc/CDayNNightProc.h"
-#include "../Common/IO_STB.H"
+#include "../common/IO_STB.H"
 #include "CObjGROUND.h"
 
 //UINT CObjFIXED::m_iLightMapTAG = 0;

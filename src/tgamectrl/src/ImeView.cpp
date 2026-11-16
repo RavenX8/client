@@ -1,7 +1,7 @@
-#include "StdAfx.h"
-#include ".\imeview.h"
+#include "stdafx.h"
+#include "./ImeView.h"
 
-#pragma comment (lib, "IMM32.lib")
+#pragma comment (lib, "imm32.lib")
 #include "TEditBox.h"
 CImeView	g_CIME;
 

@@ -2,6 +2,7 @@
   $Header: /Client/IO_Terrain.cpp 294   05-10-27 10:48a Choo0219 $
 */
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "Game.h"
 #include "CObjFIXED.h"
 #include "ObjFixedEvent.h"
@@ -836,14 +837,14 @@ void                       CMAP_PATCH::PlaySOUND() {
   }
 }
 
-bool CMAP_PATCH::AddObject(CGameOBJ* pObject, D3DVECTOR& Position, D3DXQUATERNION& Rotate, D3DVECTOR& Scale) {
+bool CMAP_PATCH::AddObject(CGameOBJ* pObject, const D3DVECTOR& Position, const D3DXQUATERNION& Rotate, const D3DVECTOR& Scale) {
   CTERRAIN::m_RegistedPatchCnt++;
   m_FixObjLIST.AllocNAppend( pObject );
 
   return MakeAABBFromObject( pObject, Position, Rotate, Scale );
 }
 
-bool    CMAP_PATCH::MakeAABBFromObject(CGameOBJ* pObject, D3DVECTOR& Position, D3DXQUATERNION& Rotate, D3DVECTOR& Scale) {
+bool    CMAP_PATCH::MakeAABBFromObject(CGameOBJ* pObject, const D3DVECTOR& Position, const D3DXQUATERNION& Rotate, const D3DVECTOR& Scale) {
   float fMin[3] = { 1000000.0f, 1000000.0f, 1000000.0f };
   float fMax[3] = { -1000000.0f, -1000000.0f, -1000000.0f };
 
@@ -997,7 +998,7 @@ CMAP::~CMAP() {
   g_pObjMGR->RemoveNpcInfo( this );
 }
 
-void    CMAP::AddEffect(D3DVECTOR& Position, char* szEffectFile) {
+void    CMAP::AddEffect(const D3DVECTOR& Position, char* szEffectFile) {
   short nPatchX, nPatchY;
 
   nPatchX = (short)(Position.x - (m_nZoneMapXIDX * nGRID_SIZE * GRID_COUNT_PER_MAP_AXIS)) / (nGRID_SIZE * GRID_COUNT_PER_PATCH_AXIS);
@@ -1014,7 +1015,7 @@ void    CMAP::AddEffect(D3DVECTOR& Position, char* szEffectFile) {
 }
 
 //-------------------------------------------------------------------------------------------------
-void    CMAP::AddSound(D3DVECTOR& Position, char* szSoundFile, unsigned int uiInterval, unsigned int uiRange) {
+void    CMAP::AddSound(const D3DVECTOR& Position, char* szSoundFile, unsigned int uiInterval, unsigned int uiRange) {
   short nPatchX, nPatchY;
 
   nPatchX = (short)(Position.x - (m_nZoneMapXIDX * nGRID_SIZE * GRID_COUNT_PER_MAP_AXIS)) / (nGRID_SIZE * GRID_COUNT_PER_PATCH_AXIS);
@@ -1035,9 +1036,9 @@ void    CMAP::AddSound(D3DVECTOR& Position, char* szSoundFile, unsigned int uiIn
 //-------------------------------------------------------------------------------------------------
 /// 맵에선 31_31에 의 1,1 에 등록되었던 패치라도 여기서 실제 오브젝트 위치로.. 게임 좌표계로 변환후의
 /// 패치에 새로 등록한다.( 새로운 좌표축 구성과 오브젝트 배치와의 비밀이 여기에.. 상당히 복잡하다. )
-bool CMAP::AddObject(int             iObjectIndex, D3DXVECTOR3& Position = D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
-                     D3DXQUATERNION& Rotate                              = D3DXQUATERNION( 1.0f, 1.0f, 1.0f, 1.0f ),
-                     D3DXVECTOR3&    Scale                               = D3DXVECTOR3( 1.0f, 1.0f, 1.0f )) {
+bool CMAP::AddObject(int             iObjectIndex, const D3DXVECTOR3& Position = D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+                     const D3DXQUATERNION& Rotate                            = D3DXQUATERNION( 1.0f, 1.0f, 1.0f, 1.0f ),
+                     const D3DXVECTOR3&    Scale                             = D3DXVECTOR3( 1.0f, 1.0f, 1.0f )) {
   CGameOBJ* pObject = g_pObjMGR->Get_OBJECT( iObjectIndex );
   if ( pObject ) {
     short nPatchX, nPatchY;
@@ -1184,8 +1185,8 @@ float   CMAP::GetSlope(float fWorldX, float fWorldY) {
 //	D3DXVECTOR3 vRight(fGridSize, 0.0f, ( fHeights[1] - fHeights[0] ));
 //	D3DXVECTOR3 vFront(0.0f, fGridSize, ( fHeights[2] - fHeights[0] ));
 //	
-//	D3DXVec3Normalize( &vRight, &D3DXVECTOR3(vRight) );
-//	D3DXVec3Normalize( &vFront, &D3DXVECTOR3(vFront) );
+//	D3DXVec3Normalize( &vRight, rvalue_ptr( D3DXVECTOR3(vRight) ) );
+//	D3DXVec3Normalize( &vFront, rvalue_ptr( D3DXVECTOR3(vFront) ) );
 //
 //	::D3DXVec3Cross( &vNormal, &vRight, &vFront );
 //}
@@ -1199,7 +1200,7 @@ void    CMAP::GetNormal(float fWorldX, float fWorldY, D3DXVECTOR3& vNormal) {
   vNormal.y = (fHeights[0] - fHeights[2]) / fGRID_SIZE; // Y방향으로 편미분 (Z 방향 '+'기준)
   vNormal.z = 1.0f;
 
-  D3DXVec3Normalize( &vNormal, &D3DXVECTOR3( vNormal ) ); // Unit Vector
+  D3DXVec3Normalize( &vNormal, rvalue_ptr( D3DXVECTOR3( vNormal ) ) ); // Unit Vector
 }
 
 //-------------------------------------------------------------------------------------------------

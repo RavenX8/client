@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include ".\clientdb.h"
+#include "StdAfx.h"
+#include "./ClientDB.h"
 
 #include <objbase.h>
 

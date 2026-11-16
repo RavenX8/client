@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./treepath.h"
+#include "stdafx.h"
+#include "./TreePath.h"
 
 CTreePath::CTreePath(void) {}
 

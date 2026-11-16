@@ -3,13 +3,13 @@ project(${PROJECT})
 
 include_directories(
   SYSTEM ${SPDLOG_ROOT}
-  SYSTEM ${DIRECTX_ROOT}/include
+  SYSTEM ${DIRECTX_ROOT}/Include
   SYSTEM ${CMAKE_THIRD_PARTY_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/include/tgamectrl
 )
 
 link_directories(
-  ${DIRECTX_ROOT}/lib
+  ${DIRECTX_ROOT}/Lib
   ${CMAKE_EXTERNAL_LIBRARY_DIR}
   ${CMAKE_THIRD_PARTY_LIBRARY_DIR}
 )
@@ -55,6 +55,7 @@ set( SOURCES_HEADER
   include/tgamectrl/TContainer.h
   include/tgamectrl/TContainerItem.h
   include/tgamectrl/TControlMgr.h
+  include/tgamectrl/XmlDom.h
   include/tgamectrl/TDefaultListCellRenderer.h
   include/tgamectrl/TDefaultTreeModel.h
   include/tgamectrl/TDefaultTreeNode.h
@@ -83,7 +84,7 @@ set( SOURCES_HEADER
   include/tgamectrl/TSplitString.h
   include/tgamectrl/TStatic.h
   include/tgamectrl/TStatusBar.h
-  include/tgamectrl/WinCtrl.h
+  include/tgamectrl/winctrl.h
   include/tgamectrl/ZListBox.h
   res/resource.h
   src/stdafx.h
@@ -118,6 +119,7 @@ set( SOURCES_MAIN
   src/TContainer.cpp
   src/TContainerItem.cpp
   src/TControlMgr.cpp
+  src/XmlDom.cpp
   src/TDefaultListCellRenderer.cpp
   src/TDefaultTreeModel.cpp
   src/TDefaultTreeNode.cpp
@@ -151,7 +153,7 @@ set( SOURCES_MAIN
 )
 
 set( RESOURCE_FILES
-  res/TGameCtrl.rc
+  res/tgamectrl.rc
 )
 
 set_source_files_properties(${RESOURCE_FILES} PROPERTIES LANGUAGE RC)
@@ -166,7 +168,9 @@ set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_RELEASE "TGameCtrl_r")
 
 target_link_libraries(${PROJECT} 
   PUBLIC 
-    Imm32.lib winmm.lib
+    imm32.lib winmm.lib
+  PRIVATE
+    utils::expat   # XmlDom (UI layout loader; replaced MSXML)
 )
 
 

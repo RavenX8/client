@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tscrollbox.h"
+#include "stdafx.h"
+#include "./TScrollBox.h"
 #include "TScrollBar.h"
 #include "TControlMgr.h"
 #include "TScrollBoxType.h"

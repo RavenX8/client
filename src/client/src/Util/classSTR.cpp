@@ -48,7 +48,7 @@
 #include <stdarg.h>
 #include <wchar.h>
 #include <crtdbg.h>
-#include "classSTR.h"
+#include "classstr.h"
 #include "classHASH.h"
 
 bool           CStr::m_bInit = false;

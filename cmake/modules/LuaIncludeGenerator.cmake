@@ -84,8 +84,8 @@ function(GENERATE_LUA_INCLUDES HDRS)
        add_custom_command(
           OUTPUT ${H_FILE}
           WORKING_DIRECTORY ${LUAROOT}
-          COMMAND lua::lua5_interp "${MATCH_PATH}"
-          DEPENDS ${ABS_FILE} lua::lua5_interp
+          COMMAND lua5_interp "${MATCH_PATH}"
+          DEPENDS ${ABS_FILE} lua5_interp
           COMMENT "Running lua5 compiler on ${MATCH_PATH} with root ${LUAROOT}, generating: ${H_FILE}"
           VERBATIM)
      endif()
@@ -96,7 +96,7 @@ function(GENERATE_LUA_INCLUDES HDRS)
     )
   else()
     add_custom_target(${TARGET}_generated ALL
-      DEPENDS lua::lua5_interp ${${HDRS}}
+      DEPENDS lua5_interp ${${HDRS}}
     )
   endif()
 

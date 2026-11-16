@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tstatusbar.h"
+#include "stdafx.h"
+#include "./TStatusBar.h"
 #include "TImage.h"
 #include "TButton.h"
 

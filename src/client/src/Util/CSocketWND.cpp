@@ -6,8 +6,8 @@
 #include "LIB_Util.h"
 #include "classTHREAD.h"
 #include "classLOG.h"
-#include "util/CClientSOCKET.h"
-#include "util/CSocketWND.h"
+#include "Util/CClientSocket.h"
+#include "Util/CSocketWND.h"
 
 CSocketWND* CSocketWND::m_pInstance = nullptr;
 

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tradiobox.h"
+#include "stdafx.h"
+#include "./TRadioBox.h"
 #include "TRadioButton.h"
 
 CTRadioBox::CTRadioBox(void) {

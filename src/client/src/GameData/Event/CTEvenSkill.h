@@ -1,7 +1,7 @@
 #ifndef _CTEventSkill_
 #define _CTEVentSkill_
 
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CTEvenSkill : public CTEvent {
 public:

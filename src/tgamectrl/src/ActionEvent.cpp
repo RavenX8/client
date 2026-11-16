@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./actionevent.h"
+#include "stdafx.h"
+#include "./ActionEvent.h"
 
 CActionEvent::CActionEvent() {
   m_pSource = nullptr;

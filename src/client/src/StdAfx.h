@@ -14,7 +14,7 @@
 
 // Windows Header Files:
 #include <windows.h>
-#include <winUser.h>
+#include <winuser.h>
 #include <mmsystem.h>
 // C RunTime Header Files
 #include <stdio.h>
@@ -59,21 +59,21 @@ typedef LPDIRECT3DVERTEXBUFFER9 LPD3DVERTEXBUFFER;
 // #pragma warning(default : 4786)
 #pragma warning( disable : 4651 )
 
-#include "util/CVector.h"
-#include "common/DataTYPE.h"
+#include "Util/CVector.h"
+#include "Common/DataTYPE.h"
 
-#include "util/CD3DUtil.h"
-#include "util/classSTR.h"
-#include "util/classLOG.h"
-#include "util/classLUA.h"
-#include "util/classHASH.h"
-#include "util/classUTIL.h"
-#include "util/SLLIST.h"
-#include "util/DLLIST.h"
-#include "util/CFileLIST.h"
+#include "Util/CD3DUtil.h"
+#include "Util/classstr.h"
+#include "Util/classLOG.h"
+#include "Util/classLUA.h"
+#include "Util/classHASH.h"
+#include "Util/classUTIL.h"
+#include "Util/SLLIST.h"
+#include "Util/DLLIST.h"
+#include "Util/CFileLIST.h"
 
-#include "util/CGameSTR.h"
-#include "util/CGameSTB.h"
+#include "Util/CGameStr.h"
+#include "Util/CGameSTB.h"
 
 #include "CApplication.h"
 

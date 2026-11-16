@@ -2,7 +2,7 @@
 #define _DIRECT_MUSIC_PLAYER_
 
 #include "MusicPlayer.h"
-#include "../util/CMMPlayer.h"
+#include "../Util/CMMPlayer.h"
 
 #define MAX_MUSIC_VOLUME		0
 

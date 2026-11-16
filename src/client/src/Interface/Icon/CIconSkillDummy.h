@@ -1,6 +1,6 @@
 #ifndef _CIconSkillDummy_
 #define _CIconSkillDummy_
-#include "ciconskill.h"
+#include "CIconSkill.h"
 
 /**
 * 스킬 트리창에서 사용되는 Skill Icon 

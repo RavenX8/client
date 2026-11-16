@@ -1,8 +1,8 @@
 #ifndef _CItemSlot_
 #define _CItemSlot_
 #include <vector>
-#include "../../common/citem.h"
-#include "../../gamecommon/cobservable.h"
+#include "../../Common/CItem.h"
+#include "../../GameCommon/CObservable.h"
 class CItem;
 class CTCommand;
 class CTEventItem;

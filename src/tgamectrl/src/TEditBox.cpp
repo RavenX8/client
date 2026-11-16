@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./teditbox.h"
+#include "stdafx.h"
+#include "./TEditBox.h"
 #include "mbstring.h"
 #include "ITFont.h"
 #include "TControlMgr.h"

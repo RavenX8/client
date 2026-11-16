@@ -1,8 +1,8 @@
 #ifndef	__IO_QUEST_H
 #define	__IO_QUEST_H
-#include "../util/classSTR.h"
-#include "../util/classHASH.h"
-#include "IO_STB.h"
+#include "../Util/classstr.h"
+#include "../Util/classHASH.h"
+#include "io_stb.h"
 #include "CUserDATA.h"///추가 2004 / 2 /19 : 추가 nAvy
 
 #pragma warning( disable : 4200 )

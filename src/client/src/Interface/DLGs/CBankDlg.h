@@ -3,9 +3,9 @@
 
 #include "tgamectrl/TDialog.h"
 #include "../../Common/CItem.h"
-#include "../../gamedata/cbank.h"
-#include "../../gamecommon/iobserver.h"
-#include "subclass/CSlot.h"
+#include "../../GameData/CBank.h"
+#include "../../GameCommon/IObserver.h"
+#include "SubClass/CSlot.h"
 
 class CObservable;
 class CDragItem;

@@ -1,7 +1,7 @@
 #ifndef _TUTORIAL_EVENT_
 #define _TUTORIAL_EVENT_
 
-#include "../Common/IO_STB.h"
+#include "../Common/io_stb.h"
 
 //-----------------------------------------------------------------------------------
 ///

@@ -44,7 +44,7 @@ public :
 
   /// 현재 위치
   virtual D3DXVECTOR3& Get_CurPOS() { return m_PosCUR; }
-  void                 Set_CurPOS(D3DXVECTOR3& PosCUR) { m_PosCUR = PosCUR; }
+  void                 Set_CurPOS(const D3DXVECTOR3& PosCUR) { m_PosCUR = PosCUR; }
 
   /// 주어진 길이이상으로 피킹되는 경우 픽킹 위치 조정
   static void AdjustPickPOSITION(float fMaxDistanceFromAvatar);

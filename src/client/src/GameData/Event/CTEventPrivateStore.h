@@ -1,6 +1,6 @@
 #ifndef _CTEventPrivateStore_
 #define _CTEventPrivateStore_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CItem;
 

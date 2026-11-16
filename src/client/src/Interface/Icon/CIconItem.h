@@ -1,6 +1,6 @@
 #ifndef _CIconItem_
 #define _CIconItem_
-#include "cicon.h"
+#include "CIcon.h"
 
 struct tagITEM;
 class CItem;

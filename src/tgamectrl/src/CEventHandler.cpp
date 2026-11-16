@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include ".\ceventhandler.h"
+#include "stdafx.h"
+#include "./CEventHandler.h"
 
 CEventHandler::CEventHandler(void)
 {

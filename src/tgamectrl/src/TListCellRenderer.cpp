@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tlistcellrenderer.h"
+#include "stdafx.h"
+#include "./TListCellRenderer.h"
 #include "TContainerItem.h"
 #include "TStatic.h"
 #include <assert.h>

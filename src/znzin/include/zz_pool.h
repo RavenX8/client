@@ -110,11 +110,11 @@ public:
       return *this;
     }
 
-    bool operator!=(iterator& it) {
+    bool operator!=(const iterator& it) const {
       return (it._it != _it);
     }
 
-    bool operator==(iterator& it) {
+    bool operator==(const iterator& it) const {
       return (it._it == _it);
     }
 

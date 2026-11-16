@@ -1,6 +1,6 @@
 #ifndef _CITStateWaitDisconnect_
 #define _CITStateWaitDisconnect_
-#include "citstate.h"
+#include "CITState.h"
 
 /**
 * 서버에게 로그아웃을 알리고 Disconnect 될때까지 대기하는 Interface State Class

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./jtable.h"
+#include "stdafx.h"
+#include "./JTable.h"
 
 CJTable::CJTable(void) {
   m_iValue          = 0;

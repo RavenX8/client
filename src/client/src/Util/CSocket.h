@@ -3,7 +3,7 @@
 */
 #ifndef	__CSOCKET_H
 #define	__CSOCKET_H
-#include <winSock.h>
+#include <winsock.h>
 
 //-------------------------------------------------------------------------------------------------
 

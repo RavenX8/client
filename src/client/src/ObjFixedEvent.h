@@ -1,7 +1,7 @@
 #ifndef _OBJFIXEDEVENT_
 #define _OBJFIXEDEVENT_
 
-#include "cobjGROUND.h"
+#include "CObjGROUND.h"
 
 enum EVENT_OBJ_STATE {
   EVENT_OBJ_INIT_STATE = 0,

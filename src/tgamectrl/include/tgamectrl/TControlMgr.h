@@ -1,9 +1,9 @@
 #ifndef _TCONTROLMGR_
 #define _TCONTROLMGR_
 
-#include "WinCtrl.h"
+#include "winctrl.h"
 
-#import "msxml.tlb" named_guids
+#include "XmlDom.h"
 
 class CZListBox;
 class CTButton;
@@ -114,53 +114,53 @@ public:
   void  SetKeyboardInputType(short nInputType);
 
 private:
-  int         GetNodeValueFromNamedNodeMapByName(MSXML::IXMLDOMNamedNodeMap*       pNodeMap, char* name);
-  float       GetNodeFloatValueFromNamedNodeMapByName(MSXML::IXMLDOMNamedNodeMap*  pNodeMap, char* name);
-  std::string GetNodeStringValueFromNamedNodeMapByName(MSXML::IXMLDOMNamedNodeMap* pNodeMap, char* name);
+  int         GetNodeValueFromNamedNodeMapByName(const tgxml::Node*       pNodeMap, const char* name);
+  float       GetNodeFloatValueFromNamedNodeMapByName(const tgxml::Node*  pNodeMap, const char* name);
+  std::string GetNodeStringValueFromNamedNodeMapByName(const tgxml::Node* pNodeMap, const char* name);
 
-  CJTable* MakeTableByXML(MSXML::IXMLDOMNodePtr pNode);
+  CJTable* MakeTableByXML(const tgxml::Node* pNode);
 
-  void       MakeButtonByXML(MSXML::IXMLDOMNodePtr     pNode, CTDialog* pBase);
-  void       MakePushButtonByXML(MSXML::IXMLDOMNodePtr pNode, CTDialog* pBase);
-  void       MakeImageByXML(MSXML::IXMLDOMNodePtr      pNode, CTDialog* pBase);
-  void       MakeCaptionByXML(MSXML::IXMLDOMNodePtr    pNode, CTDialog* pBase);
-  void       MakeStaticByXML(MSXML::IXMLDOMNodePtr     pNode, CTDialog* pBase);
-  void       MakeEditBoxByXML(MSXML::IXMLDOMNodePtr    pNode, CTDialog* pBase);
-  CTEditBox* MakeEditBoxByXML2(MSXML::IXMLDOMNodePtr   pNode);
+  void       MakeButtonByXML(const tgxml::Node*     pNode, CTDialog* pBase);
+  void       MakePushButtonByXML(const tgxml::Node* pNode, CTDialog* pBase);
+  void       MakeImageByXML(const tgxml::Node*      pNode, CTDialog* pBase);
+  void       MakeCaptionByXML(const tgxml::Node*    pNode, CTDialog* pBase);
+  void       MakeStaticByXML(const tgxml::Node*     pNode, CTDialog* pBase);
+  void       MakeEditBoxByXML(const tgxml::Node*    pNode, CTDialog* pBase);
+  CTEditBox* MakeEditBoxByXML2(const tgxml::Node*   pNode);
 
-  void           MakeListBoxByXML(MSXML::IXMLDOMNodePtr      pNode, CTDialog* pBase);
-  void           MakeScrollBarByXML(MSXML::IXMLDOMNodePtr    pNode, CTDialog* pBase);
-  CTScrollBar*   MakeScrollBarByXML2(MSXML::IXMLDOMNodePtr   pNode, unsigned& iOutScrollModel);
-  void           MakeRadioBoxByXML(MSXML::IXMLDOMNodePtr     pNode, CTDialog* pBase);
-  CTRadioBox*    MakeRadioBoxByXML2(MSXML::IXMLDOMNodePtr    pNode);
-  CTRadioButton* MakeRadioButtonByXML(MSXML::IXMLDOMNodePtr  pNode, CTDialog* pBase);
-  CTRadioButton* MakeRadioButtonByXML2(MSXML::IXMLDOMNodePtr pNode, unsigned& iOutRadioBox);
-  void           MakeComboBoxByXML(MSXML::IXMLDOMNodePtr     pNode, CTDialog* pBase);
-  CTComboBox*    MakeComboBoxByXML2(MSXML::IXMLDOMNodePtr    pNode);
+  void           MakeListBoxByXML(const tgxml::Node*      pNode, CTDialog* pBase);
+  void           MakeScrollBarByXML(const tgxml::Node*    pNode, CTDialog* pBase);
+  CTScrollBar*   MakeScrollBarByXML2(const tgxml::Node*   pNode, unsigned& iOutScrollModel);
+  void           MakeRadioBoxByXML(const tgxml::Node*     pNode, CTDialog* pBase);
+  CTRadioBox*    MakeRadioBoxByXML2(const tgxml::Node*    pNode);
+  CTRadioButton* MakeRadioButtonByXML(const tgxml::Node*  pNode, CTDialog* pBase);
+  CTRadioButton* MakeRadioButtonByXML2(const tgxml::Node* pNode, unsigned& iOutRadioBox);
+  void           MakeComboBoxByXML(const tgxml::Node*     pNode, CTDialog* pBase);
+  CTComboBox*    MakeComboBoxByXML2(const tgxml::Node*    pNode);
 
-  void MakeJListBoxByXML(MSXML::IXMLDOMNodePtr  pNode, CTDialog* pBase);
-  void MakeJComboBoxByXML(MSXML::IXMLDOMNodePtr pNode, CTDialog* pBase);
+  void MakeJListBoxByXML(const tgxml::Node*  pNode, CTDialog* pBase);
+  void MakeJComboBoxByXML(const tgxml::Node* pNode, CTDialog* pBase);
 
-  CTCheckBox* MakeCheckBoxByXML(MSXML::IXMLDOMNodePtr pNode);
+  CTCheckBox* MakeCheckBoxByXML(const tgxml::Node* pNode);
 
-  void AddGuageByXML(MSXML::IXMLDOMNodePtr pNode, CTDialog* pBase);
+  void AddGuageByXML(const tgxml::Node* pNode, CTDialog* pBase);
 
-  CTButton*     MakeButtonByXML2(MSXML::IXMLDOMNodePtr     pNode);
-  CTPushButton* MakePushButtonByXML2(MSXML::IXMLDOMNodePtr pNode);
-  CTImage*      MakeImageByXML2(MSXML::IXMLDOMNodePtr      pNode);
-  CTListBox*    MakeListBoxByXML2(MSXML::IXMLDOMNodePtr    pNode);
-  CTCaption*    MakeCaptionByXML2(MSXML::IXMLDOMNodePtr    pNode);
-  CTScrollBox*  MakeScrollBoxByXML(MSXML::IXMLDOMNodePtr   pNode, int iType);
-  CTGuage*      MakeGuageByXML(MSXML::IXMLDOMNodePtr       pNode);
-  CZListBox*    MakeZListBoxByXML(MSXML::IXMLDOMNodePtr    pNode);
+  CTButton*     MakeButtonByXML2(const tgxml::Node*     pNode);
+  CTPushButton* MakePushButtonByXML2(const tgxml::Node* pNode);
+  CTImage*      MakeImageByXML2(const tgxml::Node*      pNode);
+  CTListBox*    MakeListBoxByXML2(const tgxml::Node*    pNode);
+  CTCaption*    MakeCaptionByXML2(const tgxml::Node*    pNode);
+  CTScrollBox*  MakeScrollBoxByXML(const tgxml::Node*   pNode, int iType);
+  CTGuage*      MakeGuageByXML(const tgxml::Node*       pNode);
+  CZListBox*    MakeZListBoxByXML(const tgxml::Node*    pNode);
 
-  CJListBox* MakeJListBoxByXML2(MSXML::IXMLDOMNodePtr pNode);
-  //	CToolTip*		MakeToolTipByXML( MSXML::IXMLDOMNodePtr pNode );
+  CJListBox* MakeJListBoxByXML2(const tgxml::Node* pNode);
+  //	CToolTip*		MakeToolTipByXML( const tgxml::Node* pNode );
 
-  CTPane*      MakePaneByXML(MSXML::IXMLDOMNodePtr  pNode);
-  CTabbedPane* MakeTabbedPane(MSXML::IXMLDOMNodePtr pNode);
-  void         AddTabbedPane(MSXML::IXMLDOMNodePtr  pNode, CTDialog*    pBase);
-  void         AddTab(MSXML::IXMLDOMNodePtr         pNode, CTabbedPane* pPane);
+  CTPane*      MakePaneByXML(const tgxml::Node*  pNode);
+  CTabbedPane* MakeTabbedPane(const tgxml::Node* pNode);
+  void         AddTabbedPane(const tgxml::Node*  pNode, CTDialog*    pBase);
+  void         AddTab(const tgxml::Node*         pNode, CTabbedPane* pPane);
 
 private:
 

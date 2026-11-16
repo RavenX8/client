@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tlistbox.h"
+#include "stdafx.h"
+#include "./TListBox.h"
 #include "TScrollBar.h"
 #include "TSplitString.h"
 #include "TControlMgr.h"

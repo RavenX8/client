@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "./CDialogDlg.h"
 #include "../../OBJECT.h"
 #include "../it_mgr.h"
@@ -302,7 +303,7 @@ void CDialogDlg::Draw() {
       drawSprite( m_hNpcFace,
                   nullptr,
                   nullptr,
-                  &D3DXVECTOR3( 0, 0, 0 ),
+                  rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                   D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
 
       if ( !m_strNpcName.empty() ) {

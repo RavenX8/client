@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tscrollboxtype.h"
+#include "stdafx.h"
+#include "./TScrollBoxType.h"
 
 CTScrollBoxType::CTScrollBoxType(void) {
   m_bTickMove = false;

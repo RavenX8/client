@@ -1,6 +1,6 @@
 #ifndef _CITStateNpcDialog_
 #define _CITStateNpcDialog_
-#include "citstate.h"
+#include "CITState.h"
 
 /**
 * NPC대화시 인터페이스(IT_MGR)상태

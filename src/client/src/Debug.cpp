@@ -7,11 +7,11 @@
 
 #include "Util\\BugGUARD.h"
 #include "Util/classHTTP.h"
-#include "Object.h"
+#include "OBJECT.h"
 #include "IO_Terrain.h"
 #include "triggerinfo/TriggerInfo.h"
 #include "System/CGame.h"
-#include "Interface/it_MGR.h"
+#include "Interface/it_mgr.h"
 
 #include "Util/FileVersionInfo.h"
 

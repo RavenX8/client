@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tdefaulttreenoderenderer.h"
+#include "stdafx.h"
+#include "./TDefaultTreeNodeRenderer.h"
 #include "TImage.h"
 #include "TControlMgr.h"
 

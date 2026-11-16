@@ -9,9 +9,9 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <dxdiag.h>
+#include <DxDiag.h>
 #include "dispinfo.h"
-#include "systeminfo.h"
+#include "SystemInfo.h"
 
 class CD3D9
 {

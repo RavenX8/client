@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <io.h>
 #include "classTHREAD.h"
-#include "DLList.h"
+#include "DLLIST.h"
 #include "classSYNCOBJ.h"
 
 #define		FILELOG_MAX_LENGTH	255

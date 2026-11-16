@@ -4,8 +4,8 @@
 #include "../AppMsgQ.h"
 #include "Net_Prototype.h"
 #include "../GameProc/MouseTargetEffect.h"
-#include "../interface/CInfo.h"
-#include "../util/FileVersionInfo.h"
+#include "../Interface/CInfo.h"
+#include "../Util/FileVersionInfo.h"
 
 #include "tgamectrl/TCommandQ.h"
 

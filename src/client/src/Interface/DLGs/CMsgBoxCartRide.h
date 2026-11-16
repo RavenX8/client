@@ -1,8 +1,8 @@
 #ifndef _CMSGBOXCARTRIDE_
 #define _CMSGBOXCARTRIDE_
 
-#include "stdafx.h"
-#include "./cmsgbox.h"
+#include "StdAfx.h"
+#include "./CMsgBox.h"
 
 class CMsgBox_CartRide : public CMsgBox {
 public:

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include ".\adapterinfo.h"
+#include "stdafx.h"
+#include "./AdapterInfo.h"
 
 struct DesiredRes 
 {

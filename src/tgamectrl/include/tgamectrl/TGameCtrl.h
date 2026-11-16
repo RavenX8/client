@@ -14,7 +14,7 @@
 #define TGAMECTRL_API __declspec(dllimport)
 #endif
 
-#include <D3DX9.h>
+#include <d3dx9.h>
 class ITDraw;
 class ITSound;
 class ITFont;

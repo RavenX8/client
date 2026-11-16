@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./resourcemgr.h"
+#include "stdafx.h"
+#include "./ResourceMgr.h"
 CResourceMgr* CResourceMgr::s_pInstance = nullptr;
               CResourceMgr::CResourceMgr(void) {}
 

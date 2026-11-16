@@ -1,7 +1,7 @@
 #ifndef _CClanDlg_
 #define _CClanDlg_
 #include "tgamectrl/TDialog.h"
-#include "../../gamecommon/IObserver.h"
+#include "../../GameCommon/IObserver.h"
 #include "../CClanMarkUserDefined.h"
 
 class CClanMemberItem;

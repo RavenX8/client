@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tpushbutton.h"
+#include "stdafx.h"
+#include "./TPushButton.h"
 #include "TControlMgr.h"
 #include "ITSound.h"
 

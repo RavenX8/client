@@ -1,6 +1,6 @@
 #ifndef _CMAKESTATERESULT_
 #define _CMAKESTATERESULT_
-#include "cmakestate.h"
+#include "CMakeState.h"
 #include <vector>
 class CGuage;
 

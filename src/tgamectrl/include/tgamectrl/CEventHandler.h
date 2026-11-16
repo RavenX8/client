@@ -1,6 +1,6 @@
 #ifndef _EventHandler_
 #define _EventHandler_
-#include "tobject.h"
+#include "TObject.h"
 
 class CEventHandler : public CTObject
 {

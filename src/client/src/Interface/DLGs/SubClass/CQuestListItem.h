@@ -1,6 +1,6 @@
 #ifndef _CQuestListItem_
 #define _CQuestListItem_
-#include "tgamectrl/WinCtrl.h"
+#include "tgamectrl/winctrl.h"
 
 #include "tgamectrl/SinglelineString.h"
 

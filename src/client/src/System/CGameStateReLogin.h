@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATERELOGIN_
 #define _CGAMESTATERELOGIN_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * CGameStateMain에서 CGameStateLogin로 바뀌는 중간 State Class

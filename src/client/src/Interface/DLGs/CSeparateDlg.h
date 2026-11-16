@@ -2,7 +2,7 @@
 #define _CSeparateDlg_
 #include "tgamectrl/TDialog.h"
 #include "../../GameCommon/IObserver.h"
-#include "subclass/CSlot.h"
+#include "SubClass/CSlot.h"
 #include <vector>
 class CIconItem;
 class CDragItem;

@@ -1,6 +1,6 @@
 #ifndef _CTDefaultTreeNode_
 #define _CTDefaultTreeNode_
-#include "itreenode.h"
+#include "ITreeNode.h"
 #include "TObject.h"
 #include	<vector>
 class CTObject;

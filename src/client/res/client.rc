@@ -20,7 +20,7 @@
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
 LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
-#pragma code_page(949)
+#pragma code_page(65001)
 #endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
@@ -67,19 +67,19 @@ END
 // Cursor
 //
 
-IDC_CURSOR_ATTACK       CURSOR                  "cursor\\attack.cur"
-IDC_CURSOR_RIGHT        CURSOR                  "cursor\\right.cur"
-IDC_CURSOR_NPC          CURSOR                  "cursor\\npc.cur"
-IDC_CURSOR_LEFT         CURSOR                  "cursor\\left.cur"
-IDC_CURSOR_ITEM_PICK    CURSOR                  "cursor\\item_pick.cur"
-IDC_CURSOR_ITEM_INVEN   CURSOR                  "cursor\\item_invem.cur"
-IDC_CURSOR_DEFAULT      CURSOR                  "cursor\\default.cur"
-IDC_CURSOR_WHEEL        CURSOR                  "cursor\\wheel.cur"
-IDC_CURSOR_USER         CURSOR                  "cursor\\cursor1.cur"
-IDC_CURSOR_NOUI         CURSOR                  "cursor\\noui01.cur"
-IDC_CURSOR2             CURSOR                  "cursor\\cursor2.cur"
-IDC_CURSOR_REPAIR       CURSOR                  "cursor\\repair.cur"
-IDC_IDENTIFY            CURSOR                  "cursor\\identify.cur"
+IDC_CURSOR_ATTACK       CURSOR                  "cursor/Attack.cur"
+IDC_CURSOR_RIGHT        CURSOR                  "cursor/Right.cur"
+IDC_CURSOR_NPC          CURSOR                  "cursor/Npc.cur"
+IDC_CURSOR_LEFT         CURSOR                  "cursor/Left.cur"
+IDC_CURSOR_ITEM_PICK    CURSOR                  "cursor/Item_pick.cur"
+IDC_CURSOR_ITEM_INVEN   CURSOR                  "cursor/item_invem.cur"
+IDC_CURSOR_DEFAULT      CURSOR                  "cursor/Default.cur"
+IDC_CURSOR_WHEEL        CURSOR                  "cursor/Wheel.cur"
+IDC_CURSOR_USER         CURSOR                  "cursor/cursor1.cur"
+IDC_CURSOR_NOUI         CURSOR                  "cursor/noui01.cur"
+IDC_CURSOR2             CURSOR                  "cursor/cursor2.cur"
+IDC_CURSOR_REPAIR       CURSOR                  "cursor/repair.cur"
+IDC_IDENTIFY            CURSOR                  "cursor/identify.cur"
 #endif    // �ѱ��� resources
 /////////////////////////////////////////////////////////////////////////////
 

@@ -3,8 +3,8 @@
 */
 #ifndef	__SOUNDSYSTEM_H
 #define	__SOUNDSYSTEM_H
-#include "..\util\CFileLIST.h"
-#include "..\util\CDSound.h"
+#include "../Util/CFileLIST.h"
+#include "../Util/CDSound.h"
 //-------------------------------------------------------------------------------------------------
 
 #define	SOUND_VOLUME_MAX	DSBVOLUME_MAX			// 0

@@ -1,6 +1,6 @@
 #ifndef _CDelegatedObservable_
 #define _CDelegatedObservable_
-#include "cobservable.h"
+#include "CObservable.h"
 
 class CDelegatedObservable : public CObservable {
 public:

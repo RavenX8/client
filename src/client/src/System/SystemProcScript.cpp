@@ -2,7 +2,7 @@
 #include "./SystemProcScript.h"
 
 #include "System_FUNC.h"
-#include "System_FUNC_DEF.inc"
+#include "system_func_def.inc"
 
 #include "../Interface/InterfaceType.h"
 #include "../Interface/DLGs/CMenuDlg.h"
@@ -96,7 +96,7 @@ int   CSystemProcScript::DoScript(const char* strScriptName) {
 /// Prepare system function
 ///
 void CSystemProcScript::PrepareSystemFunction(lua_State* L) {
-#include "System_FUNC_REG.inc"
+#include "system_func_reg.inc"
 }
 
 ///

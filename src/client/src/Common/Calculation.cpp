@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 
 #ifdef __SERVER
-  #include "NET_Prototype.h"
+  #include "Net_Prototype.h"
 #else
 #include "Net_Prototype.h"
 #include "../CObjUSER.h"

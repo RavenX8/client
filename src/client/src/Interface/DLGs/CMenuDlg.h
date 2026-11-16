@@ -37,7 +37,7 @@ public:
   void SetClose();
   bool GetIsOpen();
 
-  void   SetOpenPos(POINT& pt);
+  void   SetOpenPos(const POINT& pt);
   POINT& GetOpenPos();
 
   void ProcOpen();

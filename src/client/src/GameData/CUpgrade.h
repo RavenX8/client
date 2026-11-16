@@ -1,10 +1,10 @@
 #ifndef _CUpgrade_
 #define _CUpgrade_
 #include <vector>
-#include "../gamecommon/CObservable.h"
-#include "../gamecommon/IObserver.h"
+#include "../GameCommon/CObservable.h"
+#include "../GameCommon/IObserver.h"
 #include "Net_Prototype.h"
-#include "event/CTEventUpgrade.h"
+#include "Event/CTEventUpgrade.h"
 class CItem;
 class CItemFragment;
 class CRequireMaterial;

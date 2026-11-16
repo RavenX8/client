@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./jstringparser.h"
+#include "stdafx.h"
+#include "./JStringParser.h"
 #include "TControlMgr.h"
 #include "crtdbg.h"
 #include "ITFont.h"

@@ -3,8 +3,8 @@
 #include "tgamectrl/TDialog.h"
 
 #include <map>
-#include "subclass/CSlot.h"
-#include "../../gamecommon/IObserver.h"
+#include "SubClass/CSlot.h"
+#include "../../GameCommon/IObserver.h"
 #include "../../CClientStorage.h"
 
 #include "tgamectrl/IActionListener.h"

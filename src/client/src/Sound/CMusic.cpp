@@ -1,7 +1,7 @@
 /*
 	$Header: /Client/Sound/CMusic.cpp 4     03-12-30 6:43p Jeddli $
 */
-#include "stdAFX.h"
+#include "StdAfx.h"
 #include "CMusic.h"
 
 CMusic* CMusic::m_pInstance = NULL;

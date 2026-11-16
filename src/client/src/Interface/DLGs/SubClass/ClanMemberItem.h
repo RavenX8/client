@@ -1,6 +1,6 @@
 #ifndef _CClanMemberItem_
 #define _CClanMemberItem_
-#include "tgamectrl/WinCtrl.h"
+#include "tgamectrl/winctrl.h"
 #include "../../CInfo.h"
 
 /**

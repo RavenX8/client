@@ -3,7 +3,7 @@
 
 //-------------------------------------------------------------------------------------------------
 
-#include <IMM.h>
+#include <imm.h>
 
 #define IME_IN_COMPOSITION			1
 #define IME_IN_CHOSECAND			2

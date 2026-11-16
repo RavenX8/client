@@ -32,7 +32,7 @@
 #include "CommandFilter.h"
 #include "../GameProc/DelayedExp.h"
 #include "../Country.h"
-#include "../Common/CInventory.h"
+#include "../common/CInventory.h"
 #include "System/System_FUNC.h"
 
 extern CCamera* g_pCamera;
@@ -1144,7 +1144,7 @@ void CObjCHAR::Set_MOTION(short nActionIdx, float fMoveSpeed, float fAniSpeed, b
 /// @brief  : 현재위치 갱신
 //--------------------------------------------------------------------------------
 
-void CObjCHAR::ResetCUR_POS(D3DXVECTOR3& Pos) {
+void CObjCHAR::ResetCUR_POS(const D3DXVECTOR3& Pos) {
   Set_CurPOS( Pos );
   setPositionVec3( m_hNodeMODEL, m_PosCUR );
 }

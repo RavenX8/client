@@ -6,17 +6,17 @@
 #include "Game_FUNC.h"
 //-------------------------------------------------------------------------------------------------
 
-#include "Game_FUNC_DEF.inc"
+#include "game_func_def.inc"
 #include "Event/Quest_FUNC_DEF.inc"
 
 // Global
 void GF_Init(lua_State* L) {
-#include "Game_FUNC_REG.inc"
+#include "game_func_reg.inc"
 }
 
 // Quest
 void QF_Init(lua_State* L) {
-#include "Game_FUNC_REG.inc"
+#include "game_func_reg.inc"
 #include "Event/Quest_FUNC_REG.inc"
 
   ZL_SETVAR( SV_SEX );

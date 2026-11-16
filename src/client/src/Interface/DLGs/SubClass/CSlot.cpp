@@ -15,7 +15,7 @@
 #include "../../../GameCommon/Item.h"
 
 #include "tgamectrl/TDialog.h"
-#include "tgamectrl/tcommand.h"
+#include "tgamectrl/TCommand.h"
 #include "tgamectrl/ActionEvent.h"
 #include "tgamectrl/IActionListener.h"
 

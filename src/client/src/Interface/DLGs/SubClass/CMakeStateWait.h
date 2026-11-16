@@ -1,6 +1,6 @@
 #ifndef _CMAKESTATEWAIT_
 #define _CMAKESTATEWAIT_
-#include "cmakestate.h"
+#include "CMakeState.h"
 
 /**
 * 제조인터페이스 창의 State Class : 제조시작을 서버에 요청하고 결과를 대기하는 상태

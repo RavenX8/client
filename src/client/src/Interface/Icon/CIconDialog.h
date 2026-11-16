@@ -1,6 +1,6 @@
 #ifndef _CIconDialog_
 #define _CIconDialog_
-#include "cicon.h"
+#include "CIcon.h"
 class CDragItem;
 
 /**

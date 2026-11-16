@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "http.h"
+#include "stdafx.h"
+#include "Http.h"
 
 CHttp::CHttp(void)
 {

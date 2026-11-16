@@ -1,6 +1,6 @@
 #ifndef _CCursorStateWindow_
 #define _CCursorStateWindow_
-#include "ccursorstate.h"
+#include "CCursorState.h"
 
 /**
 * 윈도우 기본 커서를 변경없이 사용하는  State Class

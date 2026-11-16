@@ -1,6 +1,6 @@
 #ifndef _CTEventParty_
 #define _CTEventParty_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 //*---------------------------------------------------------//
 /// 파티관련 변경을 알리는 Event( CParty, CPartyDlg에서 사용)

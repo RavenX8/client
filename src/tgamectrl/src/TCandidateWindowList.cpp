@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tcandidatewindowlist.h"
+#include "stdafx.h"
+#include "./TCandidateWindowList.h"
 #include "TControlMgr.h"
 #include "ResourceMgr.h"
 #include "ITFont.h"

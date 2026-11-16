@@ -4,7 +4,7 @@
 #include "tgamectrl/TDialog.h"
 #include "../../GameCommon/IObserver.h"
 #include "../../GameData/CExchange.h"
-#include "subclass/cslot.h"
+#include "SubClass/CSlot.h"
 
 class CObservable;
 class CTObject;

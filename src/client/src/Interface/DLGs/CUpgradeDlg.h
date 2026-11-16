@@ -1,7 +1,7 @@
 #ifndef _CUpgradeDlg_
 #define _CUpgradeDlg_
 #include "tgamectrl/TDialog.h"
-#include "subclass/CSlot.h"
+#include "SubClass/CSlot.h"
 #include "../../GameCommon/IObserver.h"
 
 class CDragItem;

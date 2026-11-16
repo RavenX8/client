@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "__d3d9.h"
-#include "dxdiag.h"
+#include "DxDiag.h"
 #include "dispinfo.h"
 IDirect3D9 *		CD3D9::s_pID3D			= NULL;
 

@@ -2,7 +2,7 @@
 #define _CTOBJECT_
 #include <string>
 
-#include "itcontrol.h"
+#include "ITControl.h"
 
 class TGAMECTRL_API CTObject {
 public:

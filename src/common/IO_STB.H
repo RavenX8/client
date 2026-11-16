@@ -4,7 +4,7 @@
 #ifndef __SERVER
 	#include "StringManager.h"
 #endif
-#include "util/classstr.h"
+#include "Util/classstr.h"
 //-------------------------------------------------------------------------------------------------
 
 class STBVALUE {

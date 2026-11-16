@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./DeliveryStoreDlg.h"
 #include "../CDragItem.h"
-#include "../Common/CItem.h"
+#include "../common/CItem.h"
 #include "../Icon/CIconItemDelivery.h"
 #include "../GameCommon/Item.h"
 #include "../it_mgr.h"

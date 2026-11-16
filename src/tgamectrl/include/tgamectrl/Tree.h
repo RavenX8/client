@@ -1,7 +1,7 @@
 #ifndef _CTREE_
 #define _CTREE_
 
-#include "WinCtrl.h"
+#include "winctrl.h"
 #include "IScrollModel.h"
 class ITreeNode;
 class ITreeModel;

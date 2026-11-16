@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "./CClanMarkUserDefined.h"
 #include "../Game.h"
 
@@ -42,7 +43,7 @@ void CClanMarkUserDefined::Draw(float x, float y, float z) {
     drawSprite( m_hNode,
                 &(rcDraw),
                 nullptr,
-                &D3DXVECTOR3( 0, 0, 0 ),
+                rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                 D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
   }
   m_dwLastUsedTime = g_GameDATA.GetGameTime();

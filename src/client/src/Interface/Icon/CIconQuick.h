@@ -1,6 +1,6 @@
 #ifndef _CIconQuick_
 #define _CIconQuick_
-#include "cicon.h"
+#include "CIcon.h"
 
 /**
 * 퀵바에 사용되는 Icon, 내부적으로 다른 아이콘을 가지고 있다.

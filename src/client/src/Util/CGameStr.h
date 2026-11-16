@@ -1,7 +1,7 @@
 #ifndef _CGAMESTR_
 #define _CGAMESTR_
 
-#include "classSTR.h"
+#include "classstr.h"
 
 /// CSTR for VFS
 

@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include <windows.h>
 #include <stdio.h>
-#include "classFILE.h"
+#include "classFile.h"
 
 //-------------------------------------------------------------------------------------------------
 classLogFILE::classLogFILE(): classTHREAD( true ), m_FP( nullptr ), m_pEvent( nullptr ) {

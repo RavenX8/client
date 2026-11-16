@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tpane.h"
+#include "stdafx.h"
+#include "./TPane.h"
 
 CTPane::CTPane(void) {
   SetControlType( CTRL_PANE );

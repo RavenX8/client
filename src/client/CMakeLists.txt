@@ -5,7 +5,7 @@ project(${PROJECT})
 
 include_directories(
   SYSTEM ${SPDLOG_ROOT}
-  SYSTEM ${DIRECTX_ROOT}/include
+  SYSTEM ${DIRECTX_ROOT}/Include
   SYSTEM ${CMAKE_THIRD_PARTY_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/res
   ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -15,9 +15,9 @@ include_directories(
 )
 
 if (64BIT)
-    link_directories(${DIRECTX_ROOT}/lib/x64)
+    link_directories(${DIRECTX_ROOT}/Lib/x64)
 else()
-    link_directories(${DIRECTX_ROOT}/lib)
+    link_directories(${DIRECTX_ROOT}/Lib)
 endif()
 
 link_directories(
@@ -44,7 +44,7 @@ set(GEN_HEADERS ${GAME_LUA_HEADERS})
 set(args
   TARGET TRose_QF
   LUAFILES src/export_QF.lua
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/event/Quest_FUNC_REG.inc
+  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/Event/Quest_FUNC_DEF.inc ${CMAKE_CURRENT_SOURCE_DIR}/src/Event/Quest_FUNC_REG.inc
   LUAROOT ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 generate_lua_includes(GAME_LUA_HEADERS ${args})
@@ -61,8 +61,8 @@ set(GEN_HEADERS ${GEN_HEADERS} ${GAME_LUA_HEADERS})
 
 set( SOURCES_HEADER
   res/resource.h
-  src/Ai_lib/Cai_file.h
-  src/Ai_lib/Cai_lib.h
+  src/AI_LIB/CAI_FILE.H
+  src/AI_LIB/CAI_LIB.H
   src/AppMsgQ.h
   src/BULLET.H
   src/CApplication.h
@@ -92,10 +92,10 @@ set( SOURCES_HEADER
   src/Common/DataTYPE.h
   src/Common/IO_AI.H
   src/Common/IO_Motion.h
-  src/Common/Io_pat.h
+  src/Common/IO_PAT.H
   src/Common/IO_Quest.h
   src/Common/IO_Skill.h
-  src/Common/IO_STB.h
+  src/Common/io_stb.h
   src/Country.h
   src/CSkyDOME.h
   src/CViewMSG.h
@@ -214,7 +214,7 @@ set( SOURCES_HEADER
   src/Interface/DLGs/CAvatarStoreDlg.h
   src/Interface/DLGs/CBankDlg.h
   src/Interface/DLGs/CBankWindowDlg.h
-  src/Interface/dlgs/CChatFilterDlg.h
+  src/Interface/DLGs/CChatFilterDlg.h
   src/Interface/DLGs/CChatRoomDlg.h
   src/Interface/DLGs/CClanDlg.h
   src/Interface/DLGs/CCommDlg.h
@@ -307,7 +307,7 @@ set( SOURCES_HEADER
   src/Interface/IO_ImageRes.h
   src/Interface/ITState/CITState.h
   src/Interface/ITState/CITStateAppraisal.h
-  src/Interface/itstate/CITStateDead.h
+  src/Interface/ITState/CITStateDead.h
   src/Interface/ITState/CITStateNormal.h
   src/Interface/ITState/CITStateNpcDialog.h
   src/Interface/ITState/CITStateRepair.h
@@ -315,7 +315,7 @@ set( SOURCES_HEADER
   src/Interface/ITState/CITStateWaitDisconnect.h
   src/Interface/it_mgr.h
   src/Interface/PersonalStoreManager.h
-  src/Interface/slotcontainer/CItemSlot.h
+  src/Interface/SlotContainer/CItemSlot.h
   src/Interface/SlotContainer/ClanSkillSlot.h
   src/Interface/SlotContainer/CSkillSlot.h
   src/Interface/SlotContainer/HotIconSlot.h
@@ -408,7 +408,7 @@ set( SOURCES_HEADER
   src/Util/classMD5.h
   src/Util/classQUEUE.h
   src/Util/classSTB.h
-  src/Util/classSTR.h
+  src/Util/classstr.h
   src/Util/classTIME.h
   src/Util/classUTIL.h
   src/Util/ClipboardUtil.h
@@ -446,9 +446,9 @@ set( SOURCES_COMMON
 
 set( SOURCES_MAIN
   src/winMAIN.cpp
-  src/Ai_lib/AI_Action.cpp
-  src/Ai_lib/AI_Condition.cpp
-  src/Ai_lib/cai_file.cpp
+  src/AI_LIB/AI_Action.cpp
+  src/AI_LIB/AI_Condition.cpp
+  src/AI_LIB/CAI_FILE.CPP
   src/AppMsgQ.cpp
   src/BULLET.CPP
   src/CApplication.cpp
@@ -474,7 +474,7 @@ set( SOURCES_MAIN
   src/Common/CItem.cpp
   src/Common/CObjAI.cpp
   src/Common/CQuest.cpp
-  src/Common/cregenarea.cpp
+  src/Common/CRegenAREA.cpp
   src/Common/CUserDATA.cpp
   src/Common/GeneratedTypeChecks.cpp
   src/Common/IO_AI.CPP
@@ -488,9 +488,9 @@ set( SOURCES_MAIN
   src/CViewMSG.cpp
   src/Debug.cpp
   src/Event/CEvent.cpp
-  src/Event/Gf_effect.cpp
-  src/Event/Gf_item.cpp
-  src/Event/Gf_system.cpp
+  src/Event/GF_EFFECT.CPP
+  src/Event/GF_ITEM.CPP
+  src/Event/GF_SYSTEM.CPP
   src/Event/QF_CONVERSATION.CPP
   src/Event/QF_QUEST.CPP
   src/Event/QF_SKILL.CPP
@@ -606,7 +606,7 @@ set( SOURCES_MAIN
   src/Interface/DLGs/CAvatarStoreDlg.cpp
   src/Interface/DLGs/CBankDlg.cpp
   src/Interface/DLGs/CBankWindowDlg.cpp
-  src/Interface/dlgs/CChatFilterDlg.cpp
+  src/Interface/DLGs/CChatFilterDlg.cpp
   src/Interface/DLGs/CChatRoomDlg.cpp
   src/Interface/DLGs/CClanDlg.cpp
   src/Interface/DLGs/CCommDlg.cpp
@@ -697,7 +697,7 @@ set( SOURCES_MAIN
   src/Interface/IO_ImageRes.cpp
   src/Interface/ITState/CITState.cpp
   src/Interface/ITState/CITStateAppraisal.cpp
-  src/Interface/itstate/CITStateDead.cpp
+  src/Interface/ITState/CITStateDead.cpp
   src/Interface/ITState/CITStateNormal.cpp
   src/Interface/ITState/CITStateNpcDialog.cpp
   src/Interface/ITState/CITStateRepair.cpp
@@ -705,7 +705,7 @@ set( SOURCES_MAIN
   src/Interface/ITState/CITStateWaitDisconnect.cpp
   src/Interface/it_mgr.cpp
   src/Interface/PersonalStoreManager.cpp
-  src/Interface/slotcontainer/CItemSlot.cpp
+  src/Interface/SlotContainer/CItemSlot.cpp
   src/Interface/SlotContainer/ClanSkillSlot.cpp
   src/Interface/SlotContainer/CSkillSlot.cpp
   src/Interface/SlotContainer/HotIconSlot.cpp
@@ -822,21 +822,21 @@ set( SOURCES_MAIN
 #Client.ico
 #small.ico 
 set( RESOURCE_FILES
-  res/Client.rc
+  res/client.rc
 )
 
 set_source_files_properties(${RESOURCE_FILES} PROPERTIES LANGUAGE RC)
-add_executable(${PROJECT} src/stdafx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${GEN_HEADERS} ${RESOURCE_FILES})
-target_precompile_headers(${PROJECT} PRIVATE "src/stdafx.h")
+add_executable(${PROJECT} src/StdAfx.cpp ${SOURCES_HEADER} ${SOURCES_MAIN} ${SOURCES_COMMON} ${GEN_HEADERS} ${RESOURCE_FILES})
+target_precompile_headers(${PROJECT} PRIVATE "src/StdAfx.h")
 set_target_properties(${PROJECT} PROPERTIES OUTPUT_NAME_DEBUG "TRose_d")
 set_target_properties(${PROJECT} PROPERTIES WIN32_EXECUTABLE true)
 
-target_link_libraries(${PROJECT} PRIVATE dsound.lib dxguid.lib dxerr9.lib d3dx9.lib)
-target_link_libraries(${PROJECT} PRIVATE legacy_stdio_definitions.lib imagehlp.lib odbc32.lib odbccp32.lib shlwapi.lib strmiids.lib urlmon.lib Version.lib)
+target_link_libraries(${PROJECT} PRIVATE dsound.lib dxguid.lib DxErr9.lib d3dx9.lib)
+target_link_libraries(${PROJECT} PRIVATE legacy_stdio_definitions.lib imagehlp.lib odbc32.lib odbccp32.lib shlwapi.lib strmiids.lib urlmon.lib version.lib)
 if (NOT 64BIT)
     target_link_libraries(${PROJECT} PRIVATE unicows.lib)
 endif()
-target_link_libraries(${PROJECT} PRIVATE WSock32.lib ws2_32.lib)
+target_link_libraries(${PROJECT} PRIVATE wsock32.lib ws2_32.lib)
 target_link_libraries(${PROJECT} PRIVATE lua::lua5)
 #target_link_libraries(${PROJECT} PRIVATE ultralight::ultralight)
 target_link_libraries(${PROJECT} PRIVATE utils::zlib)

@@ -140,7 +140,7 @@ private:
     vec3                  pmin, pmax;   // axis aligned bounding volume corner point by world coordsys
     zz_list<zz_visible *> objects;      // object list in this octree node
 
-    zz_octree::_octree_node() : parent( nullptr ), root( nullptr ), all_num_objs( 0 ),
+    _octree_node() : parent( nullptr ), root( nullptr ), all_num_objs( 0 ),
                                 pmin( ZZ_OCTREE_MINX, ZZ_OCTREE_MINY, ZZ_OCTREE_MINZ ),
                                 pmax( ZZ_OCTREE_MAXX, ZZ_OCTREE_MAXY, ZZ_OCTREE_MAXZ ) {
       // memset

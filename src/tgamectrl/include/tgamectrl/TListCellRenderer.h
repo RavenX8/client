@@ -1,6 +1,6 @@
 #ifndef _CTListCellRenderer_
 #define _CTListCellRenderer_
-#include "ilistcellrenderer.h"
+#include "IListCellRenderer.h"
 class CTStatic;
 
 /**

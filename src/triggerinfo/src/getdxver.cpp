@@ -14,7 +14,7 @@
 #include <tchar.h>
 #include <string>
 #define INITGUID
-#include <dxdiag.h>
+#include <DxDiag.h>
 
 
 

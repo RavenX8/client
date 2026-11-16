@@ -1,5 +1,5 @@
 
-#include "stdAFX.h"
+#include "StdAfx.h"
 
 #include "Game.h"
 #include "CKeyboard.h"
@@ -7,9 +7,9 @@
 #include "CCamera.h"
 #include "IO_Event.h"
 #include "TGameCtrl.h"
-#include "Interface\\it_mgr.h"
-#include "sound\CMusic.h"
-#include "Network\CNetwork.h"
+#include "Interface//it_mgr.h"
+#include "Sound/CMusic.h"
+#include "Network/CNetwork.h"
 #include "CSkyDOME.h"
 #include "Interface/ExternalUI/ExternalUILobby.h"
 #include "CMouse.h"	

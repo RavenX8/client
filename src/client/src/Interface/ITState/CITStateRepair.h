@@ -1,6 +1,6 @@
 #ifndef _CITStateRepair_
 #define _CITStateRepair_
-#include "citstate.h"
+#include "CITState.h"
 
 /**
 * 수리중(item사용 or npc이용) Interface(IT_MGR) State

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include <STDLIB.H>
+#include <stdlib.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>

@@ -189,7 +189,7 @@ public :
   bool IsIntersect(float&      fCurMinDist, D3DXVECTOR3& PosOUT);
   bool IsIntersect_test(float& fCurMinDist, D3DXVECTOR3& PosOUT, float Position[3], float Direction[3]);
   void PlaySOUND();
-  bool AddObject(CGameOBJ* pObject, D3DVECTOR& Position, D3DXQUATERNION& Rotate, D3DVECTOR& Scale);
+  bool AddObject(CGameOBJ* pObject, const D3DVECTOR& Position, const D3DXQUATERNION& Rotate, const D3DVECTOR& Scale);
   //	float	GetHEIGHT (float fWorldX, float fWorldY, HNODE hCheckNODE);
 
   int GetUpTileNO() { return m_nUpTileTEX; }
@@ -200,7 +200,7 @@ public :
   bool    ExPatchEnable;
   bool    ObjectOnOff;
 
-  bool MakeAABBFromObject(CGameOBJ* pObject, D3DVECTOR& Position, D3DXQUATERNION& Rotate, D3DVECTOR& Scale);
+  bool MakeAABBFromObject(CGameOBJ* pObject, const D3DVECTOR& Position, const D3DXQUATERNION& Rotate, const D3DVECTOR& Scale);
   void TransformOBB2AABB(float*     obb_min, float*     obb_max, D3DXMATRIX*      object_m, float*   bb_min, float* bb_max);
   void CompareSizePath2Obj();
 
@@ -296,9 +296,9 @@ public :
 
   CMAP_PATCH*        GetPATCH(int iX, int iY) { return &m_PATCH[iY][iX]; }
   CQuadPatchManager* GetQaudManager() { return &m_QuadManager; }
-  bool               AddObject(int        iObjectIndex, D3DXVECTOR3& Position, D3DXQUATERNION& Rotate, D3DXVECTOR3& Scale);
-  void               AddSound(D3DVECTOR&  Position, char*            szSoundFile, unsigned int uiInterval, unsigned uiRange);
-  void               AddEffect(D3DVECTOR& Position, char*            szEffectFile);
+  bool               AddObject(int        iObjectIndex, const D3DXVECTOR3& Position, const D3DXQUATERNION& Rotate, const D3DXVECTOR3& Scale);
+  void               AddSound(const D3DVECTOR& Position, char*            szSoundFile, unsigned int uiInterval, unsigned uiRange);
+  void               AddEffect(const D3DVECTOR& Position, char*            szEffectFile);
 
 public:
   ///

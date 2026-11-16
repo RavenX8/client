@@ -1,7 +1,7 @@
 #ifndef _CDragNDropMgr_
 #define _CDragNDropMgr_
 
-#include "../gamecommon/iobserver.h"
+#include "../GameCommon/IObserver.h"
 
 class CObservable;
 class CDragItem;

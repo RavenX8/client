@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tcaption.h"
+#include "stdafx.h"
+#include "./TCaption.h"
 #include "TImage.h"
 #include "TButton.h"
 #include "TControlMgr.h"

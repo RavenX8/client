@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATEEXITMAIN_
 #define _CGAMESTATEEXITMAIN_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * CGameStateMain에서 CGameStateSelectAvatar로 바뀌는 중간 State Class

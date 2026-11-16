@@ -635,8 +635,9 @@ static D3DXVECTOR3 s_xAxis( 1, 0, 0 );
 void          CEffect::Rotation(D3DXVECTOR3& vec) {
   D3DXVECTOR3 vPos;
   this->GetPOSITION( &vPos );
-  rotateByVectorRelative( m_hRootNODEs[0], s_xAxis, (float*)&(vPos + vec) );
-  rotateByVectorRelative( m_hRootNODEs[1], s_xAxis, (float*)&(vPos + vec) );
+  D3DXVECTOR3 vTarget = vPos + vec;
+  rotateByVectorRelative( m_hRootNODEs[0], s_xAxis, (float*)&vTarget );
+  rotateByVectorRelative( m_hRootNODEs[1], s_xAxis, (float*)&vTarget );
   /// d3d coord
   /*float fRY	= atan2f( vec.x, vec.y ); 		
   float fRZ   = atan2f( vec.x*sinf(fRY) + vec.z*cosf(fRY), vec.y ) - (M_PI/2.0f);	

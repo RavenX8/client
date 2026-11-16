@@ -225,7 +225,7 @@ bool                    CPreventDuplicatedCommand::PushTargetSkillCommand(int iS
 //----------------------------------------------------------------------------------------------------
 /// ������ų
 //----------------------------------------------------------------------------------------------------
-bool                    CPreventDuplicatedCommand::PushPositionSkillCommand(D3DVECTOR& PosTO, int iSkillSlot) {
+bool                    CPreventDuplicatedCommand::PushPositionSkillCommand(const D3DVECTOR& PosTO, int iSkillSlot) {
   CObjSkill2PosCommand* pCommand = (CObjSkill2PosCommand*)GetObjCommand( OBJECT_COMMAND_Skill2POS );
 
   if ( pCommand ) {
@@ -281,7 +281,7 @@ bool                                  CPreventDuplicatedCommand::CanSendTargetSk
   return true;
 }
 
-bool                                  CPreventDuplicatedCommand::CanSendPositionSkillCommand(D3DVECTOR& PosTO, int iSkillSlot) {
+bool                                  CPreventDuplicatedCommand::CanSendPositionSkillCommand(const D3DVECTOR& PosTO, int iSkillSlot) {
   std::list<SendedCommand*>::iterator begin = m_SendedCommandQueue.begin();
   std::list<SendedCommand*>::iterator end   = m_SendedCommandQueue.end();
 

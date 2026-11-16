@@ -1,3 +1,4 @@
+#pragma code_page(65001)
 //
 // @file version_info.rc
 // @brief VersionInfo resource script
@@ -10,7 +11,7 @@
 //
 
 #include "winver.h"			  // extract from windows header
-#include "..\include\zz_version_info.inc"
+#include "../include/zz_version_info.inc"
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION ZZ_VERSION_NO_COMMA

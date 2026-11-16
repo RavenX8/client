@@ -3,7 +3,7 @@
 #include "../GameCommon/CObservable.h"
 #include "../GameCommon/IObserver.h"
 #include "../Common/CItem.h"
-#include "../Common/CUserData.h"
+#include "../Common/CUserDATA.h"
 #include "Net_Prototype.h"
 class CItem;
 class CItemFragment;

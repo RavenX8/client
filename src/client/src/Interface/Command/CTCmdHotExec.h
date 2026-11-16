@@ -1,6 +1,6 @@
 #ifndef _CTCMDHOTEXEC_
 #define _CTCMDHOTEXEC_
-#include "tgamectrl/tcommand.h"
+#include "tgamectrl/TCommand.h"
 
 class CTObject;
 

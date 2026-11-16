@@ -1,7 +1,7 @@
 /*
 	$Header: /7HeartsOnline/LIB_Util/CSocket.cpp 1     04-03-25 11:20a Icarus $
 */
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "winsock2.h"
 #include "CSocket.h"
 #include "classLOG.h"

@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "./CJustModelAVT.h"
 #include "Common/io_stb.h"
-#include "tgamectrl/tcommand.h"
+#include "tgamectrl/TCommand.h"
 #include "CAvatarState.h"
 
 CJustModelAVT::CJustModelAVT(void) {

@@ -1,7 +1,7 @@
 #ifndef _CJContainer_
 #define _CJContainer_
 
-#include "tobject.h"
+#include "TObject.h"
 
 class CWinCtrl;
 

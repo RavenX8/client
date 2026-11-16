@@ -1,7 +1,7 @@
 #ifndef _CUpgradeDlgStateWait_
 #define _CUpgradeDlgStateWait_
 
-#include "cupgradedlgstate.h"
+#include "CUpgradeDlgState.h"
 
 /**
 * 제련인터페이스 창의 State Class : 사용자가 서버에게 제련을 요청하고 응답을 대기하는 상태

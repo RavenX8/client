@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./itcontrol.h"
+#include "stdafx.h"
+#include "./ITControl.h"
 
 ITControl::ITControl(void) {}
 

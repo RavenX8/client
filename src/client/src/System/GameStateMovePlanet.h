@@ -1,7 +1,7 @@
 #ifndef _GAME_STATE_MOVE_PLANET_
 #define _GAME_STATE_MOVE_PLANET_
 
-#include "cgamestate.h"
+#include "CGameState.h"
 
 enum enumPLANET {
   PLANET_JUNON = 1,

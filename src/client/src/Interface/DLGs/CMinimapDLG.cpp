@@ -13,6 +13,7 @@
 *
 */
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "CMinimapDLG.h"
 #include "../it_mgr.h"
 #include "../CTDrawImpl.h"
@@ -214,7 +215,7 @@ void CMinimapDLG::Draw() {
     drawSprite( m_hMiniMap,
                 &rcMinimap,
                 nullptr,
-                &D3DXVECTOR3( (m_sPosition.x + c_iMargin) / m_fCurrentScale, (m_sPosition.y + c_iCaptionHeight) / m_fCurrentScale, 0.0f ),
+                rvalue_ptr( D3DXVECTOR3( (m_sPosition.x + c_iMargin) / m_fCurrentScale, (m_sPosition.y + c_iCaptionHeight) / m_fCurrentScale, 0.0f ) ),
                 color );
 
     ////-----------------------------------------------------------------------------------------
@@ -247,7 +248,7 @@ void CMinimapDLG::Draw() {
 
       drawSprite( m_hArrow,
                   nullptr,
-                  &D3DXVECTOR3( (float)(MINIMAP_CURSOR_WIDTH / 2), (float)(MINIMAP_CURSOR_HEIGHT / 2), 0.0f ), // rotation center,
+                  rvalue_ptr( D3DXVECTOR3( (float)(MINIMAP_CURSOR_WIDTH / 2), (float)(MINIMAP_CURSOR_HEIGHT / 2), 0.0f ) ), // rotation center,
                   nullptr,
                   D3DCOLOR_RGBA( 255, 255, 255, 255 ) ); // color
     }

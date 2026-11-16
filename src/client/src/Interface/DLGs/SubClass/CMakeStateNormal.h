@@ -1,7 +1,7 @@
 #ifndef _CMAKESTATENORMAL_
 #define _CMAKESTATENORMAL_
 
-#include "cmakestate.h"
+#include "CMakeState.h"
 #include "../../../Common/CItem.h"
 #include <vector>
 class CTComboBox;

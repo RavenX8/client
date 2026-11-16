@@ -143,7 +143,7 @@
 #include "zz_particle_event_sequence.h"
 
 #include <algorithm>
-#include <D3DX9.h>
+#include <d3dx9.h>
 
 inline DWORD FtoDW(FLOAT f) { return *((DWORD*)&f); }
 

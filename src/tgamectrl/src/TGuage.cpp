@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tguage.h"
+#include "stdafx.h"
+#include "./TGuage.h"
 #include "TControlMgr.h"
 
 CTGuage::~CTGuage(void) {

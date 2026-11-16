@@ -1,6 +1,6 @@
 #ifndef _CTEventChatRoom_
 #define _CTEventChatRoom_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CTEventChatRoom : public CTEvent {
 public:

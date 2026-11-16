@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include "dispinfo.h"
-#include "systeminfo.h"
+#include "SystemInfo.h"
 
 static LPSTINFO m_system;
 static DPINFO m_display1;

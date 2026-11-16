@@ -1,7 +1,7 @@
 #ifndef _OBJ_CASTLE_GEAR_
 #define _OBJ_CASTLE_GEAR_
 
-#include "cobjcart.h"
+#include "CObjCART.h"
 
 enum enumCASTLE_GEAR_ANI {
   CASTLE_GEAR_ANI_STOP1 = 0,

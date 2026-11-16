@@ -1,84 +1,31 @@
-set(ZLIB_INSTALL_DIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+# zlib 1.2.3 (in-tree) as a regular static library target, so it builds with
+# whatever toolchain is active (MSVC, clang-cl cross, or native gcc/clang).
+set(ZLIB_SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/zlib-1.2.3)
 
-set(_byproducts
-  ${ZLIB_INSTALL_DIR}/zlib.lib
-  ${ZLIB_INSTALL_DIR}/zlib.a
+add_library(zlib STATIC
+  ${ZLIB_SOURCE_DIR}/adler32.c
+  ${ZLIB_SOURCE_DIR}/compress.c
+  ${ZLIB_SOURCE_DIR}/crc32.c
+  ${ZLIB_SOURCE_DIR}/deflate.c
+  ${ZLIB_SOURCE_DIR}/gzio.c
+  ${ZLIB_SOURCE_DIR}/inffast.c
+  ${ZLIB_SOURCE_DIR}/inflate.c
+  ${ZLIB_SOURCE_DIR}/inftrees.c
+  ${ZLIB_SOURCE_DIR}/trees.c
+  ${ZLIB_SOURCE_DIR}/uncompr.c
+  ${ZLIB_SOURCE_DIR}/zutil.c
 )
-
-if(WIN32 OR MINGW)
-  if(MINGW)
-    ExternalProject_Add(
-      zlib
-      DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/zlib-1.2.3
-      CONFIGURE_COMMAND ""
-      BUILD_COMMAND gcc -shared 
-      <SOURCE_DIR>/adler32.c
-      <SOURCE_DIR>/compress.c
-      <SOURCE_DIR>/crc32.c
-      <SOURCE_DIR>/deflate.c
-      <SOURCE_DIR>/gzio.c
-      <SOURCE_DIR>/inffast.c
-      <SOURCE_DIR>/inflate.c
-      <SOURCE_DIR>/inftrees.c
-      <SOURCE_DIR>/trees.c
-      <SOURCE_DIR>/uncompr.c
-      <SOURCE_DIR>/zutil.c -o ${ZLIB_INSTALL_DIR}/zlib.a
-      BUILD_IN_SOURCE true
-      BUILD_BYPRODUCTS ${_byproducts}
-      INSTALL_COMMAND ""
-      INSTALL_DIR ${ZLIB_INSTALL_DIR}
-    )
-  else()
-    ExternalProject_Add(
-      zlib
-      DOWNLOAD_COMMAND ""
-      SOURCE_DIR ${CMAKE_SUBMODULE_DIR}/zlib-1.2.3
-      CONFIGURE_COMMAND ""
-      BUILD_COMMAND cl /c /EHsc /MT 
-      <SOURCE_DIR>/adler32.c
-      <SOURCE_DIR>/compress.c
-      <SOURCE_DIR>/crc32.c
-      <SOURCE_DIR>/deflate.c
-      <SOURCE_DIR>/gzio.c
-      <SOURCE_DIR>/inffast.c
-      <SOURCE_DIR>/inflate.c
-      <SOURCE_DIR>/inftrees.c
-      <SOURCE_DIR>/trees.c
-      <SOURCE_DIR>/uncompr.c
-      <SOURCE_DIR>/zutil.c
-      && lib *.obj /OUT:${ZLIB_INSTALL_DIR}/zlib.lib
-      BUILD_IN_SOURCE true
-      BUILD_BYPRODUCTS ${_byproducts}
-      INSTALL_COMMAND ""
-      INSTALL_DIR ${ZLIB_INSTALL_DIR}
-    )
-  endif()
-endif()
-
-
-ExternalProject_Get_Property(
-  zlib
-  source_dir
-  install_dir
-)
-
-set(ZLIB_INCLUDE_DIR "${source_dir}")
-if(NOT MINGW AND WIN32)
-  set(ZLIB_LIBRARY_DIR "${install_dir}")
-  set(ZLIB_LIBRARY "${install_dir}/zlib.lib")
-  set(ZLIB_LIBRARIES "${install_dir}/zlib.lib" "${ZLIB_LIBRARIES}")
+target_include_directories(zlib SYSTEM PUBLIC ${ZLIB_SOURCE_DIR})
+set_target_properties(zlib PROPERTIES FOLDER 3rdparty POSITION_INDEPENDENT_CODE ON)
+if(MSVC)
+  target_compile_options(zlib PRIVATE /w)
 else()
-  set(ZLIB_LIBRARY_DIR "${install_dir}")
-  set(ZLIB_LIBRARY "${install_dir}/zlib.a")
-  set(ZLIB_LIBRARIES "${install_dir}/zlib.a" "${ZLIB_LIBRARIES}")
+  target_compile_options(zlib PRIVATE -w)
 endif()
 
 if(NOT TARGET utils::zlib)
-  add_library(utils::zlib INTERFACE IMPORTED)
-  add_dependencies(utils::zlib zlib)
-  set_target_properties(utils::zlib PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIR}")
-  set_target_properties(utils::zlib PROPERTIES INTERFACE_LINK_LIBRARIES "${ZLIB_LIBRARIES}")
+  add_library(utils::zlib ALIAS zlib)
 endif()
 
-mark_as_advanced( ZLIB_INCLUDE_DIR ZLIB_LIBRARIES ZLIB_LIBRARY ZLIB_LIBRARY_PATH )
+set(ZLIB_INCLUDE_DIR "${ZLIB_SOURCE_DIR}")
+set(ZLIB_LIBRARIES zlib)

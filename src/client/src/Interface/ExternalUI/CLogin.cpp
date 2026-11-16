@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "rvalue_ptr.h"
 #include "CLogin.h"
 
 #include "CExternalUIManager.h"
@@ -392,7 +393,7 @@ void CLogin::Draw() {
     drawSprite( m_hUserGrade,
                 nullptr,
                 nullptr,
-                &D3DXVECTOR3( 0, 0, 0 ),
+                rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                 D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
   }
 
@@ -403,7 +404,7 @@ void CLogin::Draw() {
     drawSprite( m_hCopyRight,
                 nullptr,
                 nullptr,
-                &D3DXVECTOR3( 0, 0, 0 ),
+                rvalue_ptr( D3DXVECTOR3( 0, 0, 0 ) ),
                 D3DCOLOR_RGBA( 255, 255, 255, 255 ) );
   }
 

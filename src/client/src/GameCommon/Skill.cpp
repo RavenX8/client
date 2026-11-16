@@ -268,7 +268,7 @@ int CBaseActionSkill::Process() {
   return CSkill::Process();
 }
 
-int CBaseActionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO) {
+int CBaseActionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO) {
   return 0;
 }
 
@@ -297,7 +297,7 @@ int CCreateWindowActionSkill::Process() {
   return CSkill::Process();
 }
 
-int CCreateWindowActionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO) {
+int CCreateWindowActionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO) {
   //g_itMGR.OpenMakeDlg( iSkillSlot );
 
   int iWindowType = SKILL_POWER(GetSkillIndex() );
@@ -337,7 +337,7 @@ int CImmediateActionSkill::Process() {
   return CSkill::Process();
 }
 
-int CImmediateActionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO) {
+int CImmediateActionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO) {
   g_pNet->Send_cli_TARGET_SKILL( iTarget, iSkillSlot );
   return 0;
 }
@@ -375,7 +375,7 @@ int CFireSkill::Process() {
   return CSkill::Process();
 }
 
-int CFireSkill::SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO) {
+int CFireSkill::SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO) {
   g_pNet->Send_cli_TARGET_SKILL( iTarget, iSkillSlot );
 
   return 0;
@@ -414,7 +414,7 @@ int CFireToPositionSkill::Process() {
   return CSkill::Process();
 }
 
-int CFireToPositionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO) {
+int CFireToPositionSkill::SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO) {
   g_pNet->Send_cli_POSITION_SKILL( PosTO, iSkillSlot );
 
   return 0;
@@ -445,7 +445,7 @@ int CSelfBoundSkill::Process() {
   return CSkill::Process();
 }
 
-int CSelfBoundSkill::SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO) {
+int CSelfBoundSkill::SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO) {
   g_pNet->Send_cli_SELF_SKILL( iSkillSlot );
   return 0;
 }
@@ -475,7 +475,7 @@ int CTargetBoundSkill::Process() {
   return CSkill::Process();
 }
 
-int CTargetBoundSkill::SendSkillActionReq(int iSkillSlot, int iTarget, D3DXVECTOR3& PosTO) {
+int CTargetBoundSkill::SendSkillActionReq(int iSkillSlot, int iTarget, const D3DXVECTOR3& PosTO) {
   g_pNet->Send_cli_TARGET_SKILL( iTarget, iSkillSlot );
   return 0;
 }
@@ -773,7 +773,7 @@ bool CSkillManager::CheckConditionForFireSkill(int iSkillIDX, int iCurrentTarget
 /// @param
 /// @brief 스킬 발동.. CSkill::Exec에서 호출한다. 실제 스킬 발동을 서버에 요청하고 발동전 조건 체크등을 한다.
 ///----------------------------------------------------------------------------------------------------
-bool CSkillManager::FireSkill(int iSkillSlotIDX, int iTargetObj, D3DXVECTOR3& PosTO) {
+bool CSkillManager::FireSkill(int iSkillSlotIDX, int iTargetObj, const D3DXVECTOR3& PosTO) {
 
   /// 현재 벙어리 상태이면 사용불가
   if ( g_pAVATAR->m_EndurancePack.GetStateValue( ING_DUMB ) ) {
@@ -949,7 +949,7 @@ bool CSkillManager::FireSkill(int iSkillSlotIDX, int iTargetObj, D3DXVECTOR3& Po
 }
 
 /// 현재 활성화된 스킬 발동..
-bool  CSkillManager::ActionActiveSkill(int iTargetObj, D3DXVECTOR3& PosTO) {
+bool  CSkillManager::ActionActiveSkill(int iTargetObj, const D3DXVECTOR3& PosTO) {
   int iCurrentActiveSkillSlot = g_UserInputSystem.GetCurrentActiveSkillSlot();
 
   if ( iCurrentActiveSkillSlot < 0 )

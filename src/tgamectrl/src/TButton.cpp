@@ -1,9 +1,9 @@
-#include "StdAfx.h"
-#include "./tbutton.h"
+#include "stdafx.h"
+#include "./TButton.h"
 #include "TControlMgr.h"
 #include "ITSound.h"
 #include "TDialog.h"
-#include <MMSystem.h>
+#include <mmsystem.h>
 //#include "CToolTip.h"
 #include <crtdbg.h>
 

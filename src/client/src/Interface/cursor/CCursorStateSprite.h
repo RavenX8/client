@@ -1,7 +1,7 @@
 #ifndef _CCursorStateSprite_
 #define _CCursorStateSprite_
 
-#include "ccursorstate.h"
+#include "CCursorState.h"
 
 /**
 * 매프레임 이미지를 Draw하는 State Class( 기본 커서만 있음 )

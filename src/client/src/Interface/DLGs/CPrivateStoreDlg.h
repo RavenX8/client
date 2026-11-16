@@ -3,7 +3,7 @@
 #include "tgamectrl/TDialog.h"
 #include "../../GameCommon/IObserver.h"
 #include "../../GameData/CPrivateStore.h"
-#include "subclass/CSlot.h"
+#include "SubClass/CSlot.h"
 
 const int c_iMaxSlotCount = 30;
 class CDragItem;

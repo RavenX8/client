@@ -1,5 +1,5 @@
 #if defined( _VFSTOOL )
-#include "stdAFX.h"
+#include "stdafx.h"
 #endif
 #ifdef  __BORLANDC__
 	#include <VCL.h>

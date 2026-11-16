@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./jcombobox.h"
+#include "stdafx.h"
+#include "./JComboBox.h"
 #include "TButton.h"
 #include "TImage.h"
 #include "JListBox.h"

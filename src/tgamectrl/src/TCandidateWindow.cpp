@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tcandidatewindow.h"
+#include "stdafx.h"
+#include "./TCandidateWindow.h"
 
 CTCandidateWindow::CTCandidateWindow(void) {}
 

@@ -3,8 +3,8 @@
 #ifndef	__SERVER
 #include "../Util/CGameSTB.h"
 #else
-	#include "..\util\classSTB.h"
-#include "..\GameProc\UseItemDelay.h"
+	#include "../Util/classSTB.h"
+#include "../GameProc/UseItemDelay.h"
 #endif
 
 CSkillLIST g_SkillList;

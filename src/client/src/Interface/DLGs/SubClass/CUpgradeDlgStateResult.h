@@ -1,7 +1,7 @@
 #ifndef _CUpgradeDlgStateResult_
 #define _CUpgradeDlgStateResult_
 
-#include "cupgradedlgstate.h"
+#include "CUpgradeDlgState.h"
 
 class CGuage;
 class CUpgradeDlg;

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tobject.h"
+#include "stdafx.h"
+#include "./TObject.h"
 
 CTObject::CTObject(void) : m_strString( "TObject" ) {}
 

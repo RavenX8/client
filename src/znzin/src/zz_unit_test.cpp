@@ -31,7 +31,7 @@
 #ifdef ZZ_USE_UNITTEST
 
 #include "zz_tier0.h"
-#include ".\zz_unit_test.h"
+#include "./zz_unit_test.h"
 #include <exception>
 #include <iostream>
 #include <math.h>

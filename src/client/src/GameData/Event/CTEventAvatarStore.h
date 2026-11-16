@@ -1,6 +1,6 @@
 #ifndef _CTEventAvatarStore_
 #define _CTEventAvatarStore_
-#include "ctevent.h"
+#include "CTEvent.h"
 
 class CTEventAvatarStore : public CTEvent {
 public:

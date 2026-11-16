@@ -1,7 +1,7 @@
 #ifndef	__CPROCESS_H
 #define	__CPROCESS_H
 #include <psapi.h>
-#include <Tlhelp32.h>
+#include <tlhelp32.h>
 //-------------------------------------------------------------------------------------------------
 
 typedef bool (__stdcall *CALLBACK_FINDPROCESS)(DWORD dwPID, char* szFileName);

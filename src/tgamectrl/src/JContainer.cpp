@@ -1,6 +1,6 @@
-#include "StdAfx.h"
-#include "./jcontainer.h"
-#include "WinCtrl.h"
+#include "stdafx.h"
+#include "./JContainer.h"
+#include "winctrl.h"
 #include <algorithm>
 #include <functional>
 

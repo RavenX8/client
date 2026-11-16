@@ -1,19 +1,18 @@
 set(VORBIS_INSTALL_DIR ${CMAKE_THIRD_PARTY_DIR})
 
-set(_byproducts
-  ${VORBIS_INSTALL_DIR}/lib/vorbis.lib
-  ${VORBIS_INSTALL_DIR}/lib/vorbisenc.lib
-  ${VORBIS_INSTALL_DIR}/lib/vorbisfile.lib
-  ${VORBIS_INSTALL_DIR}/lib/libvorbis.a
-)
+set(_vorbis_libs)
+foreach(_l vorbis vorbisenc vorbisfile)
+  list(APPEND _vorbis_libs "${VORBIS_INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}${_l}${CMAKE_STATIC_LIBRARY_SUFFIX}")
+endforeach()
+set(_byproducts ${_vorbis_libs})
 
 #if(WIN32 OR MINGW)
 ExternalProject_Add(
-  vorbis DEPENDS utils::ogg
+  vorbis DEPENDS ogg
   GIT_REPOSITORY https://github.com/xiph/vorbis
   GIT_TAG 1b75110b5a2754ba1931d82dd83cb822b266a21d
   GIT_SHALLOW true
-  CMAKE_ARGS -G ${CMAKE_GENERATOR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${VORBIS_INSTALL_DIR} -DOGG_LIBRARY=${OGG_LIBRARY} -DOGG_INCLUDE_DIR=${OGG_INCLUDE_DIR}
+  CMAKE_ARGS -G ${CMAKE_GENERATOR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${VORBIS_INSTALL_DIR} -DOGG_LIBRARY=${OGG_LIBRARY} -DOGG_INCLUDE_DIR=${OGG_INCLUDE_DIR} ${_ep_toolchain_args}
   BUILD_BYPRODUCTS ${_byproducts}
   INSTALL_DIR ${VORBIS_INSTALL_DIR}
 )
@@ -27,15 +26,10 @@ ExternalProject_Get_Property(
 )
 
 set(VORBIS_INCLUDE_DIR "${install_dir}/include")
-if(NOT MINGW AND WIN32)
-  set(VORBIS_LIBRARY_DIR "${install_dir}")
-  set(VORBIS_LIBRARY "${install_dir}/lib/vorbis.lib")
-  set(VORBIS_LIBRARIES "${install_dir}/lib/vorbis.lib" "${install_dir}/lib/vorbisenc.lib" "${install_dir}/lib/vorbisfile.lib" "${VORBIS_LIBRARIES}")
-else()
-  set(VORBIS_LIBRARY_DIR "${install_dir}")
-  set(VORBIS_LIBRARY "${install_dir}/lib/libvorbis.a")
-  set(VORBIS_LIBRARIES "${install_dir}/lib/libvorbis.a" "${VORBIS_LIBRARIES}")
-endif()
+set(VORBIS_LIBRARY_DIR "${install_dir}/lib")
+list(GET _vorbis_libs 0 VORBIS_LIBRARY)
+# vorbisfile and vorbisenc depend on vorbis, which depends on ogg: keep that order for static linking
+set(VORBIS_LIBRARIES "${install_dir}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}vorbisfile${CMAKE_STATIC_LIBRARY_SUFFIX}" "${install_dir}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}vorbisenc${CMAKE_STATIC_LIBRARY_SUFFIX}" "${VORBIS_LIBRARY}" ${OGG_LIBRARIES})
 if(NOT TARGET utils::vorbis)
   add_library(utils::vorbis INTERFACE IMPORTED)
   add_dependencies(utils::vorbis vorbis)

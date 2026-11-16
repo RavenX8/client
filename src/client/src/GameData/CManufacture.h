@@ -1,9 +1,9 @@
 #ifndef _CManufacture_
 #define _CManufacture_
 #include "CRequireMaterial.h"
-#include "../gamecommon/cobservable.h"
-#include "../gamecommon/iobserver.h"
-#include "../common/citem.h"
+#include "../GameCommon/CObservable.h"
+#include "../GameCommon/IObserver.h"
+#include "../Common/CItem.h"
 
 #include <utility>
 #include <string>

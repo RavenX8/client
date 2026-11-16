@@ -1,6 +1,6 @@
 #ifndef	__CAI_FILE_H
 #define	__CAI_FILE_H
-#include "CAI_LIB.h"
+#include "CAI_LIB.H"
 
 #pragma pack()		// default
 

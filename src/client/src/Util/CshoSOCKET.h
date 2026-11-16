@@ -3,7 +3,7 @@
 */
 #ifndef	__CSHO_SOCK_H
 #define	__CSHO_SOCK_H
-#include "CClientSOCKET.h"
+#include "CClientSocket.h"
 #include "Net_Prototype.h"
 
 //-------------------------------------------------------------------------------------------------

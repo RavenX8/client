@@ -1,7 +1,7 @@
 #ifndef _CTEvent_
 #define _CTEvent_
 
-#include "tgamectrl/tobject.h"
+#include "tgamectrl/TObject.h"
 
 /**
 * Observable과 Observer간의 메세지 전달에 사용되는 CTEvent의 Base Class

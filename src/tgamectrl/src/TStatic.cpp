@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tstatic.h"
+#include "stdafx.h"
+#include "./TStatic.h"
 #include "TControlMgr.h"
 #include "TImage.h"
 

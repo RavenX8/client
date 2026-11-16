@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include <windows.h>
 #include "PacketHEADER.h"
-#include "classSTR.h"
+#include "classstr.h"
 
 struct t_PACKET;
 

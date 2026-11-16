@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tcontainer.h"
+#include "stdafx.h"
+#include "./TContainer.h"
 #include <crtdbg.h>
 
 CTContainer::CTContainer(void) {

@@ -253,7 +253,7 @@ bool zz_vfs_pkg_system::open_filesystem(const char* filesystem_name_in) {
   assert(fsystem_);
 
   if ( !fsystem_ ) {
-    ZZ_LOG( "vfs_pkg_system: open_filesystem(%s) failed. cannot open.\n", filesystem_name );
+    ZZ_LOG( "vfs_pkg_system: open_filesystem(%s) failed. cannot open.\n", filesystem_name.get() );
     return false;
   }
   return true;
@@ -380,7 +380,7 @@ bool zz_vfs_pkg::exist(const char* filename_in) const {
 
   zz_slash_converter filename( filename_in );
   if ( !pkg_system_ ) {
-    ZZ_LOG( "vfs_pkg: exist(%s) failed. invalid pkg_system_.\n", filename );
+    ZZ_LOG( "vfs_pkg: exist(%s) failed. invalid pkg_system_.\n", filename.get() );
     ret = false;
   }
 
@@ -421,7 +421,7 @@ uint32 zz_vfs_pkg::get_size(const char* filename_in) const {
 
   assert(pkg_system_);
   if ( !pkg_system_ ) {
-    ZZ_LOG( "vfs_pkg: get_size(%s) failed. invalid pkg_system_.\n", filename );
+    ZZ_LOG( "vfs_pkg: get_size(%s) failed. invalid pkg_system_.\n", filename.get() );
     return 0;
   }
 
@@ -432,7 +432,7 @@ uint32 zz_vfs_pkg::get_size(const char* filename_in) const {
   assert(read_size < MAX_FILESIZE);
   if ( read_size >= MAX_FILESIZE ) {
     ZZ_LOG( "vfs_pkg: get_size(%s) failed. read_size = %d.\n",
-            filename, read_size );
+            filename.get(), read_size );
     read_size = 0;
   }
 

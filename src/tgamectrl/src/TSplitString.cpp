@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tsplitstring.h"
+#include "stdafx.h"
+#include "./TSplitString.h"
 #include "ITFont.h"
 #include "TControlMgr.h"
 

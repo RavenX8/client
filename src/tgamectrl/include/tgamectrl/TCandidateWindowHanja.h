@@ -1,7 +1,7 @@
 #ifndef _CTCandidateWindowHanja_
 #define _CTCandidateWindowHanja_
 
-#include "tcandidatewindow.h"
+#include "TCandidateWindow.h"
 #include <string>
 #include <vector>
 

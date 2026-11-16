@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tabbedpane.h"
+#include "stdafx.h"
+#include "./TabbedPane.h"
 #include "JContainer.h"
 #include "TRadioButton.h"
 #include "TRadioBox.h"

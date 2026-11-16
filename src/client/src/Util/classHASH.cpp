@@ -1,5 +1,5 @@
 // #include <VCL.h>
-#include "stdAFX.h"
+#include "StdAfx.h"
 
 #include <ctype.h>
 #include <string.h>

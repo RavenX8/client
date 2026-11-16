@@ -1,6 +1,6 @@
 #ifndef _CGAMESTATETITLE_
 #define _CGAMESTATETITLE_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * 클라이언트 실행후 로그인 상태 이전, 타이틀을 보여주며 데이타를 로딩하는 State Class

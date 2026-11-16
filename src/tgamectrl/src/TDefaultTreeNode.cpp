@@ -1,5 +1,5 @@
-#include "StdAfx.h"
-#include "./tdefaulttreenode.h"
+#include "stdafx.h"
+#include "./TDefaultTreeNode.h"
 
 CTDefaultTreeNode::CTDefaultTreeNode(void) {
   reset();

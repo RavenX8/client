@@ -11,7 +11,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
-#include <dxdiag.h>
+#include <DxDiag.h>
 #include <string>
 
 #include "zz_dx_version.h"

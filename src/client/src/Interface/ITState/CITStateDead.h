@@ -1,6 +1,6 @@
 #ifndef _CITStateDead_
 #define _CITStateDead_
-#include "citstate.h"
+#include "CITState.h"
 
 /**
 * 죽었을때의 인터페이스(IT_MGR) 상태

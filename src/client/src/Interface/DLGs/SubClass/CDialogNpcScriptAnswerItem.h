@@ -3,7 +3,7 @@
 
 #include "tgamectrl/JStringParser.h"
 
-#include "tgamectrl/WinCtrl.h"
+#include "tgamectrl/winctrl.h"
 #include "tgamectrl/TSplitString.h"
 
 /**

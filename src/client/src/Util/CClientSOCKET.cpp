@@ -3,7 +3,7 @@
   Icarus $
 */
 #include "StdAfx.h"
-#include "CClientSOCKET.h"
+#include "CClientSocket.h"
 #include "classLOG.h"
 #include <crtdbg.h>
 #include <process.h>

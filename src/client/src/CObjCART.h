@@ -1,7 +1,7 @@
 #ifndef _COBJCART_
 #define _COBJCART_
 
-#include "cobjchar.h"
+#include "CObjCHAR.h"
 
 enum enumCART_ANI {
   CART_ANI_STOP1 = 0,

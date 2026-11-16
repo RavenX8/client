@@ -4,7 +4,7 @@
 #include <map>
 #include <list>
 #include "../GameCommon/CObservable.h"
-#include "event/CTEventServerList.h"
+#include "Event/CTEventServerList.h"
 
 /**
 * 로그인서버에서 받은 월드 서버및 채널서버 Data Class

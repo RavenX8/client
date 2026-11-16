@@ -1,6 +1,6 @@
 #ifndef _CGameStateLoginVirtual_
 #define _CGameStateLoginVirtual_
-#include "cgamestate.h"
+#include "CGameState.h"
 
 /**
 * CGameStateSelectAvatar에서 CGameStateSelectSvr로 이동하기 위한 중간 State Class

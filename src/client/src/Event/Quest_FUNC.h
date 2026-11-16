@@ -3,8 +3,8 @@
 */
 #ifndef	__QUEST_FUNC_H
 #define	__QUEST_FUNC_H
-#include "..\Common\CQuest.h"
-#include "..\LUA_Func.h"
+#include "../Common/CQuest.h"
+#include "../LUA_Func.h"
 //-------------------------------------------------------------------------------------------------
 
 #define	QF_SCRIPT
